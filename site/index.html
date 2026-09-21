@@ -138,7 +138,7 @@ function 주소읽기(){
   const [cd, v, q] = decodeURIComponent(location.hash.slice(1)).split(',');
   return {
     cd: 곳맵[cd] ? cd : (곳맵['2600000'] ? '2600000' : INDEX.곳[0].cd),
-    판: ['결산', '예산', '진행중'].includes(v) ? v : '결산',
+    판: ['결산', '예산', '진행중', '계약'].includes(v) ? v : '결산',
     찾기: q || '',
   };
 }
@@ -409,8 +409,8 @@ async function renderOngoing(cd, d){
       <p>⚠️ 집행률이 낮다고 게으른 것이 아니다. 하반기에 몰아 쓰는 사업, 준공 뒤 한꺼번에 주는 공사비가 많다.
          20% 밑을 붉게 적어 둔 것은 <b>눈여겨보라</b>는 뜻이지 잘못이라는 뜻이 아니다.</p>
       <p>⚠️ 재원(국비·시도비·시군구비)은 <b>편성</b> 기준이다. 나간 돈을 재원별로 가르는 자료는 따로 없다.</p>
-      <p>계약 상대(누가 받아 갔나)는 계약현황(<code>WCEGCF</code>)에 있는데, 사업과 이어 주는 열쇠가 없어
-         아직 붙이지 못했다. 계약명 글자를 맞춰 보는 수밖에 없다.</p>
+      <p>계약 상대는 <b>「누가 받아 갔나」 판</b>에 따로 세웠다. 다만 <b>사업과 계약을 잇는 열쇠가 없어</b>
+         「이 사업을 누가 받아 갔나」까지는 못 간다 — 계약명 글자를 맞춰 보는 수밖에 없다.</p>
           <p class="join"><button data-join="의견">이 숫자에 의견 남기기</button>
              <button data-join="제보">제보하기</button>
              <span class="dim"></span></p>
@@ -435,11 +435,122 @@ async function renderOngoing(cd, d){
   진행칠하기(o);
 }
 
+/* ───── ⑥ 누가 받아 갔나 (계약현황 WCEGCF, 3년치를 우리가 센 것) ───── */
+
+const 계약캐시 = {};
+let 계약해 = '2025';          // 온전한 마지막 해. 2026은 아홉 달치뿐이다
+
+async function 계약데이터(cd){
+  if (!(cd in 계약캐시)) {
+    try {
+      const r = await fetch(`data/contracts/${cd}.json`);
+      계약캐시[cd] = r.ok ? await r.json() : null;
+    } catch (e) { 계약캐시[cd] = null; }
+  }
+  return 계약캐시[cd];
+}
+
+function 계약표(y){
+  const 총 = y.금액 || 0;
+  const 줄 = y.업체.map(([이름, 금액, 건수, 수의], i) => {
+    const 몫 = 총 ? 금액 / 총 * 100 : 0;
+    const 수의율 = 금액 ? 수의 / 금액 * 100 : 0;
+    return `<tr>
+      <td class="yr">${i + 1}</td>
+      <td>${이름}</td>
+      <td>${돈(금액)}<span class="raw">${n0(금액)}</span></td>
+      <td>${n1(몫)}%</td>
+      <td>${n0(건수)}</td>
+      <td>${돈(Math.round(금액 / Math.max(1, 건수)))}</td>
+      <td class="${수의율 >= 80 ? 'mark' : ''}">${n1(수의율)}%</td>
+    </tr>`;
+  });
+  return table(['', '업체', '받아 간 금액', '몫', '건수', '건당 평균', '수의계약 몫'], 줄);
+}
+
+async function renderContracts(cd){
+  const app = document.getElementById('app');
+  const 쪽지 = 곳맵[cd] || {이름: cd};
+  app.innerHTML = `<h1>${이름of(쪽지)} <span class="cd">${cd}</span></h1>
+    <p class="note">계약 자료를 받아 오는 중…</p>`;
+  맞추기();
+
+  const c = await 계약데이터(cd);
+  if (판 !== '계약' || cd !== 지금곳) return;
+  if (!c) {
+    app.innerHTML = `<h1>${이름of(쪽지)} <span class="cd">${cd}</span></h1>
+      <p class="basis">이 자치단체의 계약 자료가 없다. <code>data/contracts/${cd}.json</code> 이 없다.</p>`;
+    return;
+  }
+
+  const 해들 = Object.keys(c.해).sort();
+  if (!c.해[계약해]) 계약해 = 해들[해들.length - 1];
+  const y = c.해[계약해];
+  const 수의금액률 = y.금액 ? y.수의금액 / y.금액 * 100 : 0;
+  const 수의건수율 = y.건수 ? y.수의건수 / y.건수 * 100 : 0;
+  const 상위5 = y.업체.slice(0, 5).reduce((a, u) => a + u[1], 0);
+  const 끝 = c.범위.끝날;
+  const 반쪽 = 계약해 === 끝.slice(0, 4);
+
+  app.innerHTML = `
+    <h1>${이름of(쪽지)} <span class="cd">${cd}</span></h1>
+    <p class="meta">
+      <span>계약 <b>${n0(y.건수)}</b>건</span>
+      <span>모두 <b>${돈(y.금액)}</b></span>
+      <span>수의계약 <b>${n1(수의금액률)}%</b></span>
+      <span>거래 업체 <b>${n0(y.업체수)}</b>곳</span>
+      <span>기준 <b>${계약해}년</b>${반쪽 ? ` (${Number(끝.slice(4, 6))}월 ${Number(끝.slice(6, 8))}일까지)` : ''}</span>
+    </p>
+    <p class="srch grp" id="cyear">${해들.map(h =>
+      `<button data-y="${h}" aria-selected="${h === 계약해}">${h}년${h === 끝.slice(0, 4) ? ' (아홉 달)' : ''}</button>`).join('')}</p>
+    <p class="basis"><b>누가 받아 갔나</b> — 이 자치단체가 맺은 계약을 <b>상대 업체별로 묶은 것</b>이다.
+      지방재정365 계약현황(<code>WCEGCF</code>) 원본 ${n0(c.범위.파일)}일치를 우리가 직접 셌다.
+      ${반쪽 ? '<b>올해 것은 아직 아홉 달치</b>라 지난해와 나란히 놓지 말 것.' : ''}</p>
+
+    <h2>① 얼마나, 어떻게 맺었나<small>경쟁이 있었나 없었나</small></h2>
+    ${table(['갈래', '건수', '금액', '비중'], [
+      `<tr><td>모든 계약</td><td>${n0(y.건수)}</td><td>${돈(y.금액)}<span class="raw">${n0(y.금액)}</span></td><td>100%</td></tr>`,
+      `<tr><td><b>수의계약</b></td><td>${n0(y.수의건수)} (${n1(수의건수율)}%)</td>
+        <td>${돈(y.수의금액)}<span class="raw">${n0(y.수의금액)}</span></td>
+        <td class="${수의금액률 >= 50 ? 'mark' : ''}">${n1(수의금액률)}%</td></tr>`,
+      ...Object.entries(y.종류).map(([k, v]) =>
+        `<tr><td>${k}</td><td class="dim">—</td><td>${돈(v)}<span class="raw">${n0(v)}</span></td>
+          <td>${n1(y.금액 ? v / y.금액 * 100 : 0)}%</td></tr>`),
+    ])}
+
+    <h2>② 많이 받아 간 곳<small>금액 차례로 ${y.업체.length}곳. 상위 5곳이 ${n1(y.금액 ? 상위5 / y.금액 * 100 : 0)}%를 가져갔다</small></h2>
+    ${계약표(y)}
+
+    <footer>
+      <p>자료 — 지방재정365 계약현황 <code>WCEGCF</code>, ${c.범위.첫날}~${c.범위.끝날} 하루치씩 받아 쌓은 것.
+         업체 이름이 같으면 한 곳으로 묶었다 — <b>같은 이름의 다른 업체는 갈라내지 못한다.</b></p>
+      <p>⚠️ <b>수의계약이 많다고 잘못이 아니다.</b> 소액이거나 한 곳밖에 없는 물품은 법이 수의를 허용한다.
+         그래도 <b>한 업체가 큰 금액을 수의로만 받아 가면</b> 들여다볼 자리다 — 수의 몫 80% 위를 붉게 적었다.</p>
+      <p>⚠️ 원본에 <b>자릿수 오류</b>가 있다. 한 건이 1조원을 넘는 세 줄(임실군 708조 등)은 빼고 셌다.
+         금액 칸이 비어 0으로 들어온 계약도 ${n0(c.범위.금액없음)}건 있다(3년치 전국).</p>
+      <p>⚠️ <b>계약과 사업을 잇는 열쇠가 없다.</b> 계약명만 있고 세부사업코드가 없어서,
+         「이 계약이 어느 사업 것인가」는 이름을 맞춰 보는 수밖에 없다 — 여수시 109건으로 재 보니
+         제대로 걸리는 것이 2%뿐이라 <b>자동으로 잇지 않기로 했다.</b></p>
+      <p>굽는 법 — <code>python scripts/build_contracts_summary.py</code></p>
+      <p class="join"><button data-join="의견">이 숫자에 의견 남기기</button>
+         <button data-join="제보">제보하기</button>
+         <span class="dim"></span></p>
+      <p class="call">숫자가 틀렸거나 물어볼 것이 있으면 — <b>함께하는 시민행동</b>
+         <a href="tel:0229214709">02-921-4709</a> ·
+         <a href="mailto:action@action.or.kr">action@action.or.kr</a></p>
+    </footer>`;
+
+  document.getElementById('cyear').addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    계약해 = b.dataset.y; renderContracts(cd);
+  });
+}
+
 function 맞추기(){
   const 진행만 = !!곳맵[지금곳]?.진행만;
   document.querySelectorAll('#view button').forEach(b => {
     b.setAttribute('aria-selected', String(b.dataset.v === 판));
-    b.disabled = 진행만 && b.dataset.v !== '진행중';
+    b.disabled = 진행만 && !['진행중', '계약'].includes(b.dataset.v);
   });
 }
 
@@ -455,6 +566,8 @@ async function render(){
   const cd = 지금곳;
   const app = document.getElementById('app');
   맞추기();
+  // 계약 판은 지표 파일 없이도 선다(곳별 계약 파일만 있으면 된다)
+  if (판 === '계약') return renderContracts(cd);
   // 2026년에 새로 생긴 구역은 지표(2024 결산·2026 예산)가 아직 없다 — 진행 판만 연다
   const 쪽지 = 곳맵[cd];
   if (쪽지?.진행만) {
@@ -544,8 +657,9 @@ addEventListener('hashchange', () => {
 });
 
 const view = document.getElementById('view');
-view.innerHTML = ['결산', '예산', '진행중'].map(v =>
-  `<button data-v="${v}" aria-selected="${v === 판}">${v === '진행중' ? '진행 중인 사업' : v + ' 기준'}</button>`).join('');
+const 판이름 = {'진행중': '진행 중인 사업', '계약': '누가 받아 갔나'};
+view.innerHTML = ['결산', '예산', '진행중', '계약'].map(v =>
+  `<button data-v="${v}" aria-selected="${v === 판}">${판이름[v] || v + ' 기준'}</button>`).join('');
 view.addEventListener('click', e => {
   const b = e.target.closest('button'); if (!b) return;
   판 = b.dataset.v; 주소쓰기(); render();

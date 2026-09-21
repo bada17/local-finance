@@ -37,6 +37,8 @@ except AttributeError:
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 IN = os.path.join(ROOT, 'data', 'contracts')
 OUT = os.path.join(ROOT, 'data', 'contracts_summary.json')
+곳별 = os.path.join(ROOT, 'site', 'data', 'contracts')      # 자치단체 화면 ⑥번 칸이 받아 간다
+상위N = 30
 한도 = 1_000_000_000_000        # 1조원. 이보다 큰 단일 계약은 자릿수 오류로 본다
 
 
@@ -48,7 +50,7 @@ def main():
     셈 = collections.defaultdict(lambda: {
         '건수': 0, '금액': 0, '수의건수': 0, '수의금액': 0,
         '종류': collections.Counter(),        # 공사·용역·물품 금액
-        '업체': collections.Counter(),        # 업체 → 금액
+        '업체': {},                           # 업체 → [금액, 건수, 수의금액]
     })
     이름 = {}
     첫날 = 끝날 = ''
@@ -93,15 +95,23 @@ def main():
                 s['수의건수'] += 1
                 s['수의금액'] += 금액
             s['종류'][r.get('ctrt_knd_nm') or '그밖'] += 금액
-            s['업체'][업체] += 금액
+            칸 = s['업체'].get(업체)
+            if 칸 is None:
+                칸 = s['업체'][업체] = [0, 0, 0]
+            칸[0] += 금액
+            칸[1] += 1
+            if 방법.startswith('수의'):
+                칸[2] += 금액
             이름.setdefault(cd, r.get('laf_hg_nm') or '')
         if i % 100 == 0:
             print(f'   {i}/{len(files)}  ({len(셈)}칸)')
 
     곳 = collections.defaultdict(dict)
+    자세히 = collections.defaultdict(dict)
     for (cd, 해), s in 셈.items():
         업체 = s['업체']
-        상위 = 업체.most_common(5)
+        차례 = sorted(업체.items(), key=lambda kv: -kv[1][0])
+        상위 = [(k, v[0]) for k, v in 차례[:5]]
         곳[cd][해] = {
             '건수': s['건수'],
             '금액': s['금액'],
@@ -114,6 +124,14 @@ def main():
             '상위5': [{'이름': k, '금액': v} for k, v in 상위],
             '종류': dict(s['종류'].most_common()),
         }
+        # 자치단체 화면에 세울 것 — 상위 업체를 금액·건수·수의금액까지
+        자세히[cd][해] = {
+            '건수': s['건수'], '금액': s['금액'],
+            '수의건수': s['수의건수'], '수의금액': s['수의금액'],
+            '업체수': len(업체),
+            '종류': dict(s['종류'].most_common()),
+            '업체': [[k, v[0], v[1], v[2]] for k, v in 차례[:상위N]],
+        }
 
     out = {
         '만든날': __import__('datetime').date.today().isoformat(),
@@ -125,6 +143,15 @@ def main():
     }
     with open(OUT, 'w', encoding='utf-8') as f:
         json.dump(out, f, ensure_ascii=False, separators=(',', ':'))
+
+    # 곳마다 한 파일씩 — 화면은 고른 곳 것만 받아 간다
+    os.makedirs(곳별, exist_ok=True)
+    for cd, 해별 in 자세히.items():
+        with open(os.path.join(곳별, f'{cd}.json'), 'w', encoding='utf-8') as f:
+            json.dump({'laf_cd': cd, '이름': 이름.get(cd, ''),
+                       '범위': out['범위'], '칸': ['업체', '금액', '건수', '수의금액'],
+                       '해': 해별}, f, ensure_ascii=False, separators=(',', ':'))
+    print(f'   곳별 파일 {len(자세히)}개 → site/data/contracts/')
 
     총건 = sum(v['건수'] for c in 곳.values() for v in c.values())
     총액 = sum(v['금액'] for c in 곳.values() for v in c.values())

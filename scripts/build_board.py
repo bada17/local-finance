@@ -64,6 +64,53 @@ def 계약칸(곳, 지표목록, 자리):
     return 붙은곳
 
 
+# 진행 중인 사업(QWGJK)은 **그달 누계**다 — 연 단위 지표와 기준이 또 다르다.
+# ⚠️ 2026년에 구역이 바뀌어 광주본청·전남본청·인천중구·인천동구는 진행 자료가 없다.
+#    없는 곳은 칸을 비워 둔다. **0 으로 채우지 말 것.**
+진행지표 = [
+    ('예산현액(진행 중인 사업)', '원', False, '예산현액'),
+    ('집행률', '%', False, '집행률'),
+    ('국비 비중', '%', False, '국비비중'),
+]
+
+
+def 진행칸(곳, 지표목록, 자리):
+    """진행 중인 사업 파일에서 총액·집행률만 꺼내 시황판에 붙인다."""
+    files = sorted(glob.glob(os.path.join(ROOT, 'site', 'data', 'ongoing', '*.json.gz')))
+    if not files:
+        print('   (진행 자료가 없어 진행 칸은 건너뛴다)')
+        return 0, ''
+    표 = {}
+    기준 = ''
+    for f in files:
+        d = json.load(gzip.open(f, 'rt', encoding='utf-8'))
+        기준 = 기준 or str(d.get('기준') or '')
+        예산 = d.get('예산현액') or 0
+        표[d['laf_cd']] = {
+            '예산현액': 예산,
+            '집행률': round((d.get('지출') or 0) / 예산 * 100, 1) if 예산 else None,
+            '국비비중': round((d.get('국비') or 0) / 예산 * 100, 1) if 예산 else None,
+        }
+    달 = f'{기준[:4]}.{기준[4:6]}' if len(기준) >= 6 else 기준
+    시작 = len(지표목록)
+    for 이름, 단위, 나쁨, _ in 진행지표:
+        자리[이름] = len(지표목록)
+        지표목록.append({'이름': 이름, '축': f'진행 중인 사업({달} 누계)', '단위': 단위,
+                       '기준': '진행', '연도': 달, '높을수록나쁨': 나쁨})
+    붙은곳 = 0
+    for r in 곳:
+        d = 표.get(r['cd'])
+        if not d:
+            continue
+        붙은곳 += 1
+        for k, (이름, 단위, 나쁨, 칸) in enumerate(진행지표):
+            v = d.get(칸)
+            if v is None:
+                continue
+            r['값'][시작 + k] = [v, None] if 단위 == '%' else [None, v]
+    return 붙은곳, 달
+
+
 def main():
     files = sorted(glob.glob(os.path.join(LOC, '*.json')))
     files = [f for f in files if not f.endswith('index.json')]
@@ -86,6 +133,7 @@ def main():
                   '갈래': d['갈래'], '인구': d['인구'], '값': 값})
 
     붙임 = 계약칸(곳, 지표목록, 자리)
+    진행붙임, 기준달 = 진행칸(곳, 지표목록, 자리)
 
     out = {'만든날': __import__('time').strftime('%Y-%m-%d'),
            '결산연도': d['결산연도'], '예산연도': d['예산연도'],
@@ -94,7 +142,8 @@ def main():
     with gzip.open(OUT, 'wt', encoding='utf-8', compresslevel=9) as fp:
         json.dump(out, fp, ensure_ascii=False, separators=(',', ':'))
     print(f'구움: site/data/board.json.gz ({os.path.getsize(OUT)/1024:,.0f} KB) · '
-          f'{len(곳)}곳 × 지표 {len(지표목록)}종 (계약 칸 {붙임}곳에 붙음)')
+          f'{len(곳)}곳 × 지표 {len(지표목록)}종 '
+          f'(계약 칸 {붙임}곳 · 진행 칸 {진행붙임}곳 [{기준달}])')
 
 
 if __name__ == '__main__':
