@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="ko">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>공시 점검 — 재정공시, 시민이 볼 수 있나</title>
+<style>
+  :root{
+    --ground:#FFFFFF; --sunk:#F4F6F8; --line:#C9D2DA; --line-soft:#E3E8ED;
+    --ink:#11181F; --muted:#5A6672; --faint:#8A97A3;
+    --accent:#1F4E79; --alert:#B03A22; --ok:#2E6B4F; --warn:#8A6A12;
+    --mono:ui-monospace,SFMono-Regular,'Cascadia Mono','DejaVu Sans Mono',monospace;
+    --body:system-ui,-apple-system,'Malgun Gothic',sans-serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ground:#12171C; --sunk:#1A2127; --line:#333C45; --line-soft:#242C34;
+      --ink:#E6EBF0; --muted:#98A5B1; --faint:#72808C;
+      --accent:#7FB3DC; --alert:#E0755C; --ok:#79C09B; --warn:#D9B24C;
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--ground); color:var(--ink); font:14px/1.5 var(--body)}
+  .wrap{max-width:1100px; margin:0 auto; padding-inline:16px}
+  .topbar{position:sticky; top:0; z-index:20; background:var(--ground); border-bottom:1px solid var(--line)}
+  .topbar .wrap{display:flex; align-items:center; gap:10px; min-height:46px; flex-wrap:wrap; padding-block:6px}
+  .topbar .t{font-weight:600; font-size:13px; margin-right:auto}
+  a{color:var(--accent)}
+  h1{font-size:20px; margin:22px 0 4px}
+  h2{font-size:15px; margin:28px 0 6px}
+  .basis{margin:12px 0 0; padding:10px 12px; background:var(--sunk); border:1px solid var(--line);
+    font-size:12.5px; color:var(--muted)}
+  .basis b{color:var(--ink)}
+  .warnbox{margin:12px 0; padding:10px 12px; border:1px solid var(--alert); font-size:12.5px; color:var(--muted)}
+  .warnbox b{color:var(--ink)}
+  .note{color:var(--faint); font-size:12px; margin:8px 0}
+  .layers{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:10px; margin:14px 0 0}
+  .layer{border:1px solid var(--line); padding:10px 12px; background:var(--sunk)}
+  .layer .k{font-size:11.5px; color:var(--faint); letter-spacing:.02em}
+  .layer .h{font-weight:600; margin:2px 0 4px}
+  .layer p{margin:0; font-size:12.5px; color:var(--muted)}
+  .funnel{margin:10px 0 0; border:1px solid var(--line)}
+  .step{display:flex; align-items:flex-start; gap:10px; padding:8px 12px; border-bottom:1px solid var(--line-soft)}
+  .step:last-child{border-bottom:0}
+  .step .n{font-family:var(--mono); font-size:15px; font-weight:600; min-width:46px; text-align:right}
+  .step .bar{height:12px; margin-top:4px; background:var(--accent); opacity:.7; flex:0 0 auto; min-width:2px}
+  .step .lb{font-size:12.5px; color:var(--muted)}
+  .step .lb b{color:var(--ink); font-weight:600}
+  .step.drop .n{color:var(--alert)}
+  .step.drop .bar{background:var(--alert)}
+  .bar2{margin:12px 0 6px; display:flex; gap:6px; flex-wrap:wrap; align-items:center}
+  input[type=search]{font:15px var(--body); color:var(--ink); background:var(--sunk);
+    border:1px solid var(--line); padding:8px 11px; width:min(240px,100%)}
+  button{font:13px var(--body); color:var(--muted); background:var(--sunk);
+    border:1px solid var(--line); padding:5px 10px; cursor:pointer; white-space:nowrap}
+  button[aria-selected="true"]{background:var(--accent); border-color:var(--accent); color:#fff}
+  /* ⚠️ overflow 를 걸면 그 칸이 sticky 의 기준이 되어 표 머리줄이 화면에 안 붙는다.
+     243줄짜리 표라 머리줄이 따라와야 하므로, 좁을 때만 가로로 밀 수 있게 한다. */
+  .scroll{border:1px solid var(--line)}
+  @media (max-width:1000px){ .scroll{overflow-x:auto} }
+  table{border-collapse:collapse; width:100%; font-size:13px}
+  th,td{padding:6px 10px; border-bottom:1px solid var(--line-soft); white-space:nowrap; text-align:left}
+  thead th{background:var(--sunk); font-size:11.5px; color:var(--muted); font-weight:600; position:sticky; top:46px}
+  td.nm{white-space:normal; min-width:140px; font-weight:500}
+  td.num{font-family:var(--mono); text-align:right}
+  tbody tr.row{cursor:pointer}
+  tbody tr.row:hover{background:var(--sunk)}
+  tr.det td{white-space:normal; background:var(--sunk); font-size:12.5px; color:var(--muted)}
+  .mark{font-family:var(--mono)}
+  .ok{color:var(--ok)} .bad{color:var(--alert)} .dim{color:var(--faint)}
+  .tag{font-size:11px; color:var(--muted); background:var(--sunk); border:1px solid var(--line-soft); padding:1px 6px}
+  .files{margin:6px 0 0; padding-left:18px}
+  .files li{margin:1px 0; font-family:var(--mono); font-size:11.5px; word-break:break-all}
+  .items{display:flex; flex-wrap:wrap; gap:4px; margin:6px 0 0}
+  .items span{font-size:11px; border:1px solid var(--line-soft); padding:1px 6px}
+  .items span.on{border-color:var(--ok); color:var(--ok)}
+  .lawlist{border:1px solid var(--line)}
+  .lawrow{display:flex; align-items:center; gap:10px; padding:4px 12px; border-bottom:1px solid var(--line-soft)}
+  .lawrow:last-child{border-bottom:0}
+  .lawrow .n{font-family:var(--mono); font-size:12px; min-width:74px; text-align:right; color:var(--muted)}
+  .lawrow .bar{height:10px; background:var(--accent); opacity:.6; min-width:1px}
+  .lawrow .lb{font-size:12.5px}
+  footer{margin:30px 0 40px; padding-top:14px; border-top:1px solid var(--line); color:var(--muted); font-size:12px}
+  footer p{margin:0 0 6px}
+</style>
+
+<div class="topbar"><div class="wrap">
+  <span class="t">공시 점검</span>
+  <a href="./">자치단체별 →</a>
+  <a href="board.html">243곳 한 판에 →</a>
+  <a href="catalog.html">무슨 자료가 있나 →</a>
+</div></div>
+
+<main class="wrap">
+  <h1>재정공시, 시민이 볼 수 있게 냈나</h1>
+  <p class="basis">잣대는 <b>지방재정법 제60조 제1항</b>이다 — 예산·결산이 확정되면 두 달 안에
+    <b>16가지를 주민에게 공시</b>하라고 법이 하나하나 열거한다. 그런데 「올리긴 올렸다」로 끝나면
+    공시가 아니다. 그래서 <b>세 켜</b>로 나눠 본다.</p>
+
+  <div class="layers">
+    <div class="layer"><div class="k">첫째 켜</div><div class="h">① 있나</div>
+      <p>재정공시 주소를 냈나. 법이 시키는 16가지가 그 페이지에 보이나.</p></div>
+    <div class="layer"><div class="k">둘째 켜</div><div class="h">② 닿을 수 있나</div>
+      <p>낸 주소를 눌렀을 때 실제로 열리나. 죽은 링크는 안 낸 것과 다르지 않다.</p></div>
+    <div class="layer"><div class="k">셋째 켜</div><div class="h">③ 쓸 수 있나</div>
+      <p><b>여기가 핵심이다.</b> 파일 이름이 뜻을 갖나, 엑셀·CSV 인가 그림 문서뿐인가.</p></div>
+  </div>
+
+  <h2>243곳을 실제로 눌러 봤다 — 켜마다 몇 곳이 남나</h2>
+  <div class="funnel" id="funnel"></div>
+  <div class="warnbox" id="caveat"></div>
+
+  <h2>법 제60조가 시키는 16가지, 파일 이름으로 확인되는 비율</h2>
+  <p class="note" id="lawnote"></p>
+  <div class="lawlist" id="lawlist"></div>
+  <p class="note">⚠️ 낮다고 <b>「안 올렸다」가 아니다</b> — 한 파일에 여러 항목을 묶어 넣은 곳이 많고,
+    파일 이름을 읽을 수 있는 곳 자체가 적다. 이 막대가 재는 것은 「홈페이지에서 곧바로 확인되는가」다.</p>
+
+  <h2>곳마다</h2>
+  <p class="bar2">
+    <input id="q" type="search" placeholder="자치단체 이름" autocomplete="off">
+    <span class="grp" id="filt">
+      <button data-f="전부" aria-selected="true">전부</button>
+      <button data-f="안열림" aria-selected="false">안 열리는 곳</button>
+      <button data-f="엑셀" aria-selected="false">엑셀로 낸 곳</button>
+      <button data-f="문서뿐" aria-selected="false">문서뿐인 곳</button>
+      <button data-f="못봄" aria-selected="false">자동으로 못 본 곳</button>
+      <button data-f="API" aria-selected="false">API에 빠진 곳</button>
+    </span>
+  </p>
+  <p class="note" id="say"></p>
+  <div id="list"></div>
+
+  <footer>
+    <p><b>어떻게 쟀나</b> — 재정공시 주소는 지방재정365 <span class="mark">FINLK</span>가 자치단체별로 준다.
+      그 주소를 243곳 전부 눌러 보고, 열린 페이지에 붙은 <b>첨부파일 이름</b>을 긁었다(<span id="asof"></span> 기준).
+      「기계가 읽나」 칸은 지방재정365 OpenAPI 146종 가운데 <b>거의 모든 곳이 내는 자료</b>
+      (기초 <span id="std1"></span>종 · 광역 <span id="std2"></span>종)에서 그 곳이 빠졌는지로 본다.</p>
+    <p><b>⚠️ 이 화면이 재는 것은 「공시했는가」가 아니라 「자동 점검이 볼 수 있었는가」다.</b>
+      파일 이름이 해시(<span class="mark">67c141f1….pdf</span>)인 곳, 목록을 자바스크립트로 그려
+      긁히지 않는 곳이 많다. <b>못 봤다를 없다로 읽지 말 것.</b></p>
+    <p>링크가 안 열린 곳도 갈라 봐야 한다. <b>404·400</b>은 주소가 죽은 것이지만,
+      <b>SSL 오류·시간초과</b>는 자동 점검 쪽 문제일 수 있다 — 시민 브라우저에서는 열릴 수 있다.</p>
+    <p>곳수가 적다고 미제출이 아니다. 광역만 내는 자료, 그해 해당이 없는 자료가 섞여 있어
+      <b>「내야 하는 곳」을 먼저 가린 뒤</b>에야 빠짐을 셀 수 있다.</p>
+  </footer>
+</main>
+
+<script>
+const ROWS = __ROWS__, SUM = __SUM__, ITEMS = __ITEMS__;
+let 찾기 = '', 거르개 = '전부', 펼친 = null;
+
+/* ── 깔때기 : 켜를 하나 내려갈 때마다 몇 곳이 떨어지나
+      ⚠️ 칸을 늘릴 때 **분모를 맞출 것.** 「파일 이름을 읽을 수 있나」는 형식과 다른 축이라
+         깔때기에 끼우면 엑셀 곳수가 41곳 기준인 양 보인다 — 그래서 아래 따로 적는다. */
+const 칸들 = [
+  ['주소냄',   '재정공시 주소를 냈다', '지방재정365에 주소가 올라와 있다', false],
+  ['열림',     '눌렀더니 열렸다', '', true],
+  ['파일잡힘', '붙은 파일이 잡혔다', '떨어진 곳은 목록을 자바스크립트로 그려 자동으로는 안 보인다', true],
+  ['엑셀',     '엑셀·CSV 가 하나라도 있다', '떨어진 곳은 PDF·한글 문서뿐이다 — 숫자를 옮겨 담을 수 없다', true],
+];
+document.getElementById('funnel').innerHTML = 칸들.map(([k, lb, sub, drop], i) => {
+  const n = SUM[k], 앞 = i ? SUM[칸들[i - 1][0]] : SUM['모두'];
+  const 준 = 앞 - n;
+  return `<div class="step${drop && 준 ? ' drop' : ''}">
+    <span class="n">${n}</span>
+    <span class="bar" style="width:${(n / SUM['모두'] * 300).toFixed(0)}px"></span>
+    <span class="lb"><b>${lb}</b>${준 ? ` — 여기서 ${준}곳이 떨어진다` : ''}${sub ? `<br>${sub}` : ''}</span>
+  </div>`;
+}).join('');
+
+// 이름이 뜻을 갖나는 형식과 다른 축이다 — 깔때기 밖에 붙인다
+document.getElementById('funnel').insertAdjacentHTML('beforeend',
+  `<div class="step">
+    <span class="n">${SUM['이름읽힘']}</span>
+    <span class="bar" style="width:${(SUM['이름읽힘'] / SUM['모두'] * 300).toFixed(0)}px"></span>
+    <span class="lb"><b>파일 이름이 뜻을 갖는다</b> — 위와는 다른 축이다<br>
+      파일이 잡힌 ${SUM['파일잡힘']}곳 가운데 ${SUM['해시']}곳은 이름이 해시라
+      무슨 문서인지 눌러 봐야 안다</span>
+  </div>`);
+
+const 까닭줄 = Object.entries(SUM['까닭']).sort((a, b) => b[1] - a[1])
+  .map(([k, v]) => `${k} ${v}곳`).join(' · ');
+document.getElementById('caveat').innerHTML =
+  `<b>떨어진 곳을 「안 냈다」로 읽으면 안 된다.</b> 링크가 안 열린 ${SUM['모두'] - SUM['열림']}곳의 까닭은
+   ${까닭줄} 이다. 파일이 안 잡힌 ${SUM['파일못봄']}곳과 이름이 해시인 ${SUM['해시']}곳은
+   <b>자동 점검의 한계이지 그 곳의 잘못이 아니다.</b> 반면
+   <b>엑셀·CSV 가 하나도 없는 ${SUM['문서뿐']}곳</b>은 눈으로 확인된 사실이다 —
+   숫자를 그림으로 내면 시민은 그것을 다시 두드려 넣어야 한다.`;
+
+/* ── 법 제60조 16항목 ── */
+const 읽힌곳 = ROWS.filter(r => r.읽힌수);
+document.getElementById('lawnote').textContent =
+  `파일 이름을 읽을 수 있는 ${읽힌곳.length}곳만 세었다 (243곳 가운데).`;
+document.getElementById('lawlist').innerHTML = ITEMS.map((nm, i) => {
+  const n = 읽힌곳.filter(r => r.항목.includes(i)).length;
+  const p = n / Math.max(1, 읽힌곳.length);
+  return `<div class="lawrow"><span class="n">${n}곳 ${(p * 100).toFixed(0)}%</span>
+    <span class="bar" style="width:${(p * 240).toFixed(0)}px"></span>
+    <span class="lb">${i + 1}. ${nm}</span></div>`;
+}).join('');
+
+/* ── 곳마다 표 ── */
+const 거르개들 = {
+  '전부': () => true,
+  '안열림': r => r.링크 !== '열림',
+  '엑셀': r => r.형식 === '엑셀 있음',
+  '문서뿐': r => r.형식 === '문서뿐',
+  '못봄': r => r.링크 === '열림' && (!r.파일수 || !r.읽힌수),
+  'API': r => r.API빠짐수 > 0,
+};
+
+// 마크는 셋뿐이다 — ○ 됐다 · ✕ 안 됐다 · ? 자동으로는 못 봤다(안 됐다가 아니다)
+function 마크(꼴, 글){
+  const c = 꼴 === 'ok' ? 'ok' : 꼴 === 'bad' ? 'bad' : 'dim';
+  const s = 꼴 === 'ok' ? '○' : 꼴 === 'bad' ? '✕' : '?';
+  return `<span class="mark ${c}">${s}</span> <span class="${c}">${글}</span>`;
+}
+
+function 그리기(){
+  const q = 찾기.trim();
+  const 걸린 = ROWS.filter(r =>
+    (!q || r.이름.includes(q) || r.시도.includes(q)) && 거르개들[거르개](r));
+  document.getElementById('say').textContent = q || 거르개 !== '전부'
+    ? `${걸린.length}곳이 걸렸다 (모두 ${ROWS.length}곳)`
+    : `모두 ${ROWS.length}곳 — 줄을 누르면 붙은 파일이 펼쳐진다`;
+
+  const 줄 = [];
+  for (const r of 걸린) {
+    const 열림 = r.링크 === '열림';
+    const 죽음 = r.까닭 === '주소가 죽었다';
+    줄.push(`<tr class="row" data-cd="${r.cd}">
+      <td class="nm">${r.이름}${r.갈래 === '광역' ? ' <span class="tag">광역</span>' : ''}</td>
+      <td>${열림 ? 마크('ok', '열린다') : 마크(죽음 ? 'bad' : 'dim', r.까닭)}</td>
+      <td>${!열림 ? '<span class="dim">—</span>'
+             : r.파일수 ? 마크('ok', `파일 ${r.파일수}`) : 마크('dim', '안 잡힘')}</td>
+      <td>${!r.파일수 ? '<span class="dim">—</span>'
+             : r.읽힌수 ? 마크('ok', `이름 ${r.읽힌수}`) : 마크('dim', '해시 이름')}</td>
+      <td>${r.형식 === '엑셀 있음' ? 마크('ok', '엑셀 있음')
+             : r.형식 === '문서뿐' ? 마크('bad', '문서뿐') : 마크('dim', '못 봄')}</td>
+      <td>${r.API빠짐수 ? 마크('bad', `${r.API빠짐수}종 빠짐`) : 마크('ok', '다 있음')}</td>
+      <td class="num">${r.읽힌수 ? r.항목.length + '/16' : '<span class="dim">—</span>'}</td>
+    </tr>`);
+    if (펼친 === r.cd) {
+      줄.push(`<tr class="det"><td colspan="7">
+        <div><b>${r.이름}</b> — <a href="${r.주소}" target="_blank" rel="noopener">재정공시 페이지 열기 ↗</a>
+          ${r.제목 ? `<br><span class="dim">페이지 제목: ${r.제목}</span>` : ''}</div>
+        ${r.파일.length
+          ? `<div style="margin-top:6px">붙은 파일 ${r.파일수}개${r.더 ? ` (앞 ${r.파일.length}개만)` : ''}</div>
+             <ul class="files">${r.파일.map(f => `<li>${f}</li>`).join('')}</ul>`
+          : `<div style="margin-top:6px" class="dim">첨부파일이 자동으로 잡히지 않았다.
+             목록을 자바스크립트로 그리는 곳일 수 있으니 눌러서 직접 볼 것.</div>`}
+        ${r.읽힌수
+          ? `<div style="margin-top:6px">파일 이름으로 확인되는 법 제60조 항목 ${r.항목.length}가지</div>
+             <div class="items">${ITEMS.map((nm, i) =>
+               `<span class="${r.항목.includes(i) ? 'on' : 'dim'}">${i + 1}. ${nm}</span>`).join('')}</div>`
+          : ''}
+        ${r.API빠짐수
+          ? `<div style="margin-top:6px">지방재정365에서 <b>${r.API빠짐수}종</b>이 빠져 있다 —
+             <span class="dim">${r.API빠짐.join(' · ')}${r.API빠짐수 > r.API빠짐.length ? ' 외' : ''}</span></div>`
+          : ''}
+      </td></tr>`);
+    }
+  }
+  document.getElementById('list').innerHTML = 걸린.length
+    ? `<div class="scroll"><table>
+        <thead><tr><th>자치단체</th><th>② 링크</th><th>붙은 파일</th><th>③ 이름</th>
+          <th>③ 형식</th><th>③ 기계가 읽나</th><th>① 60조</th></tr></thead>
+        <tbody>${줄.join('')}</tbody></table></div>`
+    : '<p class="note">걸린 곳이 없다.</p>';
+}
+
+document.getElementById('asof').textContent = SUM['만든날'];
+document.getElementById('std1').textContent = SUM['API잣대기초'];
+document.getElementById('std2').textContent = SUM['API잣대광역'];
+const q = document.getElementById('q');
+q.addEventListener('input', () => { 찾기 = q.value; 그리기(); });
+document.getElementById('filt').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  거르개 = b.dataset.f; 펼친 = null;
+  document.querySelectorAll('#filt button').forEach(x =>
+    x.setAttribute('aria-selected', String(x === b)));
+  그리기();
+});
+document.getElementById('list').addEventListener('click', e => {
+  const tr = e.target.closest('tr.row'); if (!tr) return;
+  펼친 = 펼친 === tr.dataset.cd ? null : tr.dataset.cd;
+  그리기();
+});
+그리기();
+</script>
