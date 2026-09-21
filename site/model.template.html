@@ -61,6 +61,12 @@
   .note code{font-family:var(--mono); font-size:11.5px; background:var(--sunk); padding:1px 5px; margin-right:3px}
   .note button{font-size:12px; padding:3px 9px; margin-left:4px}
 
+  select{
+    font:13px var(--body); color:var(--ink); background:var(--sunk);
+    border:1px solid var(--line); padding:5px 8px; max-width:210px;
+  }
+  select:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+
   .srch{margin:10px 0 4px}
   .srch input{
     font:14px var(--body); color:var(--ink); background:var(--sunk);
@@ -102,8 +108,38 @@
 <main class="wrap" id="app"></main>
 
 <script>
-const DATA = __DATA__;
-let 판 = '결산';
+/* 243곳의 목록만 화면에 박혀 있고, 고른 곳의 데이터는 그때 받아 온다.
+   243곳을 다 담으면 2.3MB 라 페이지가 무거워진다. */
+const INDEX = __INDEX__;
+const 곳맵 = Object.fromEntries(INDEX.곳.map(x => [x.cd, x]));
+const 곳캐시 = {};
+async function 곳데이터(cd){
+  if (!(cd in 곳캐시)) {
+    try {
+      const r = await fetch(`data/loc/${cd}.json`);
+      곳캐시[cd] = r.ok ? await r.json() : null;
+    } catch (e) { 곳캐시[cd] = null; }
+  }
+  return 곳캐시[cd];
+}
+/* 주소는 #자치단체코드,판,찾을글자 꼴이다 — 보기: #4612000,진행중,박람회
+   한 사례를 그대로 건네줄 수 있어야 해서 찾을 글자까지 넣는다 */
+function 주소읽기(){
+  const [cd, v, q] = decodeURIComponent(location.hash.slice(1)).split(',');
+  return {
+    cd: 곳맵[cd] ? cd : (곳맵['2600000'] ? '2600000' : INDEX.곳[0].cd),
+    판: ['결산', '예산', '진행중'].includes(v) ? v : '결산',
+    찾기: q || '',
+  };
+}
+function 주소쓰기(){
+  const 뒤 = 판 === '진행중' && 찾기.trim() ? `,진행중,${encodeURIComponent(찾기.trim())}`
+           : 판 === '결산' ? '' : `,${판}`;
+  history.replaceState(null, '', '#' + 지금곳 + 뒤);
+}
+const 첫판 = 주소읽기();
+let 지금곳 = 첫판.cd;
+let 판 = 첫판.판;
 
 const 정식 = {서울:'서울특별시', 부산:'부산광역시', 대구:'대구광역시', 인천:'인천광역시',
   광주:'광주광역시', 대전:'대전광역시', 울산:'울산광역시', 세종:'세종특별자치시',
@@ -171,14 +207,42 @@ const 판설명 = {
 /* ───── 진행 중인 사업 (QWGJK 세부사업별 세출, 일별 누계) ───── */
 
 const 진행캐시 = {};
-let 찾기 = '';
+let 찾기 = 첫판.찾기;
 let 보일개수 = 100;
+let 재원거르개 = '전부';
+let 사업정렬 = '예산';
 
+/* 재원으로 거르기 — 「뭐가 보조금이냐」를 이 칸으로 가른다 */
+const 거르개들 = {
+  '전부':   () => true,
+  '국비':   x => x[국비칸] > 0,
+  '시도비': x => x[시도칸] > 0,
+  '자체':   x => x[국비칸] === 0 && x[시도칸] === 0,
+};
+const 정렬들 = {
+  '예산': (a, b) => b[예산칸] - a[예산칸],
+  '지출': (a, b) => b[지출칸] - a[지출칸],
+  '집행률낮은': (a, b) => (집행률(a[지출칸], a[예산칸]) ?? 999) - (집행률(b[지출칸], b[예산칸]) ?? 999),
+};
+const 정렬이름 = {'예산': '예산현액순', '지출': '지출순', '집행률낮은': '집행률 낮은 순'};
+
+/* 진행 중인 사업은 눌러서(gzip) 담아 두고 화면이 받아서 푼다 —
+   243곳이면 36MB 가 11MB 로 준다. 서버가 이미 풀어 준 경우도 있어 앞 두 글자를 보고 가른다 */
 async function 진행데이터(cd){
   if (!(cd in 진행캐시)) {
     try {
-      const r = await fetch(`data/ongoing/${cd}.json`);
-      진행캐시[cd] = r.ok ? await r.json() : null;
+      const r = await fetch(`data/ongoing/${cd}.json.gz`);
+      if (!r.ok) throw new Error(r.status);
+      const buf = await r.arrayBuffer();
+      const u8 = new Uint8Array(buf);
+      let text;
+      if (u8[0] === 0x1f && u8[1] === 0x8b) {
+        const s = new Blob([buf]).stream().pipeThrough(new DecompressionStream('gzip'));
+        text = await new Response(s).text();
+      } else {
+        text = new TextDecoder().decode(buf);
+      }
+      진행캐시[cd] = JSON.parse(text);
     } catch (e) { 진행캐시[cd] = null; }
   }
   return 진행캐시[cd];
@@ -186,33 +250,47 @@ async function 진행데이터(cd){
 
 const 집행률 = (ep, bdg) => bdg ? ep / bdg * 100 : null;
 
-function 사업행(x){
-  const rt = 집행률(x.ep, x.bdg);
+/* 한 사업은 칸 이름 없이 줄줄이 들어 있다 — 차례는 o.열차례 와 같다.
+   [이름, 분야, 부문, 회계, 예산현액, 지출, 국비, 시도비, 시군구비, 기타]
+   분야·부문·회계는 o.이름표 의 몇 번째인지만 적혀 있다. 243곳이라 이렇게 줄여야 한다. */
+const 이름칸 = 0, 분야칸 = 1, 부문칸 = 2, 회계칸 = 3,
+      예산칸 = 4, 지출칸 = 5, 국비칸 = 6, 시도칸 = 7, 시군구칸 = 8, 기타칸 = 9;
+
+function 사업행(x, 표){
+  const rt = 집행률(x[지출칸], x[예산칸]);
+  const 부문 = 표.부문[x[부문칸]];
+  const 돈칸 = i => x[i] ? 돈(x[i]) : '<span class="dim">—</span>';
   return `<tr>
-    <td class="nm">${x.nm}</td>
-    <td class="dim">${x.fld}${x.part ? ' · ' + x.part : ''}</td>
-    <td class="dim">${x.acnt}</td>
-    <td>${돈(x.bdg)}<span class="raw">${n0(x.bdg)}</span></td>
-    <td>${돈(x.ep)}<span class="raw">${n0(x.ep)}</span></td>
+    <td class="nm">${x[이름칸]}</td>
+    <td class="dim">${표.분야[x[분야칸]]}${부문 ? ' · ' + 부문 : ''}</td>
+    <td class="dim">${표.회계[x[회계칸]]}</td>
+    <td>${돈(x[예산칸])}<span class="raw">${n0(x[예산칸])}</span></td>
+    <td>${돈(x[지출칸])}<span class="raw">${n0(x[지출칸])}</span></td>
     <td${rt != null && rt < 20 ? ' class="mark"' : ''}>${rt == null ? '—' : n1(rt) + '%'}</td>
-    <td>${x.gb ? 돈(x.gb) : '<span class="dim">—</span>'}</td>
-    <td>${x.sd ? 돈(x.sd) : '<span class="dim">—</span>'}</td>
-    <td>${x.sgg ? 돈(x.sgg) : '<span class="dim">—</span>'}</td>
-    <td>${x.etc ? 돈(x.etc) : '<span class="dim">—</span>'}</td>
+    <td>${돈칸(국비칸)}</td>
+    <td>${돈칸(시도칸)}</td>
+    <td>${돈칸(시군구칸)}</td>
+    <td>${돈칸(기타칸)}</td>
   </tr>`;
 }
 
 function 진행표(o){
   const q = 찾기.trim();
-  const 걸린 = q ? o.사업.filter(x => x.nm.includes(q)) : o.사업;
-  const 합 = k => 걸린.reduce((s, x) => s + x[k], 0);
+  const 거르기 = 거르개들[재원거르개];
+  let 걸린 = o.사업.filter(x => (!q || x[이름칸].includes(q)) && 거르기(x));
+  if (사업정렬 !== '예산') 걸린 = [...걸린].sort(정렬들[사업정렬]);
+  const 합 = i => 걸린.reduce((s, x) => s + x[i], 0);
   const [bdg, ep, gb, sd, sgg, etc] =
-    ['bdg', 'ep', 'gb', 'sd', 'sgg', 'etc'].map(합);
+    [예산칸, 지출칸, 국비칸, 시도칸, 시군구칸, 기타칸].map(합);
   const rt = 집행률(ep, bdg);
 
+  const 꾸밈 = [q ? `「${q}」` : '', 재원거르개 === '전부' ? '' :
+    ({'국비': '국비가 든 것', '시도비': '시도비가 든 것', '자체': '국비·시도비 없이 제 돈으로만'}[재원거르개])]
+    .filter(Boolean).join(' · ');
+
   const 요약 = `<p class="basis">
-    ${q ? `<b>「${q}」</b>로 걸린 사업 <b>${n0(걸린.length)}</b>개`
-        : `<b>${o.연도}년 사업 전부</b> <b>${n0(걸린.length)}</b>개`}
+    ${꾸밈 ? `<b>${꾸밈}</b> — 걸린 사업 <b>${n0(걸린.length)}</b>개`
+           : `<b>${o.연도}년 사업 전부</b> <b>${n0(걸린.length)}</b>개`}
     — 예산현액 <b>${돈(bdg)}</b> · 지출 <b>${돈(ep)}</b>${rt == null ? '' : ` (${n1(rt)}%)`}<br>
     재원 — 국비 <b>${돈(gb)}</b> · 시도비 <b>${돈(sd)}</b> · 시군구비 <b>${돈(sgg)}</b> · 기타 <b>${돈(etc)}</b>
     <span class="dim">(재원은 편성 기준이다. 지출액에는 재원 구분이 붙어 오지 않는다)</span>
@@ -220,15 +298,41 @@ function 진행표(o){
 
   if (!걸린.length) return 요약 + '<p class="note">걸린 사업이 없다. 글자를 줄여 보라.</p>';
 
+  /* 분야별로 묶어 한 눈에 — 찾는 글자가 없을 때만. 「지금 어디에 쓰고 있나」다 */
+  let 분야칸들 = '';
+  if (!q && 걸린.length > 30) {
+    const 묶 = {};
+    걸린.forEach(x => {
+      const k = x[분야칸];
+      (묶[k] ||= {n: 0, bdg: 0, ep: 0, gb: 0});
+      묶[k].n++; 묶[k].bdg += x[예산칸]; 묶[k].ep += x[지출칸]; 묶[k].gb += x[국비칸];
+    });
+    const 줄 = Object.entries(묶).sort((a, b) => b[1].bdg - a[1].bdg).map(([k, v]) => {
+      const rt = 집행률(v.ep, v.bdg);
+      return `<tr>
+        <td>${o.이름표.분야[k] || '—'}</td>
+        <td>${n0(v.n)}</td>
+        <td>${돈(v.bdg)}</td>
+        <td>${돈(v.ep)}</td>
+        <td${rt != null && rt < 20 ? ' class="mark"' : ''}>${rt == null ? '—' : n1(rt) + '%'}</td>
+        <td>${n1(v.bdg / bdg * 100)}%</td>
+        <td>${v.gb ? 돈(v.gb) : '<span class="dim">—</span>'}</td>
+      </tr>`;
+    });
+    분야칸들 = `<h2>분야별<small>지금 어디에 쓰고 있나. 아래 사업들을 분야로 묶은 것이다</small></h2>`
+      + table(['분야', '사업수', '예산현액', '지출(누계)', '집행률', '몫', '국비'], 줄);
+  }
+
   const 보임 = 걸린.slice(0, 보일개수);
   const 더 = 걸린.length > 보임.length
-    ? `<p class="note">큰 것부터 ${n0(보임.length)}개만 보인다.
+    ? `<p class="note">${정렬이름[사업정렬]}으로 ${n0(보임.length)}개만 보인다.
        <button id="more" aria-selected="false">${n0(Math.min(500, 걸린.length - 보임.length))}개 더 보기</button></p>`
     : '';
 
-  return 요약 + table(
-    ['세부사업', '분야 · 부문', '회계', '예산현액', '지출(누계)', '집행률', '국비', '시도비', '시군구비', '기타'],
-    보임.map(사업행)) + 더;
+  return 요약 + 분야칸들
+    + (분야칸들 ? `<h2>사업별<small>큰 것부터</small></h2>` : '')
+    + table(['세부사업', '분야 · 부문', '회계', '예산현액', '지출(누계)', '집행률', '국비', '시도비', '시군구비', '기타'],
+            보임.map(x => 사업행(x, o.이름표))) + 더;
 }
 
 function 진행칠하기(o){
@@ -268,6 +372,12 @@ async function renderOngoing(cd, d){
     <p class="note">사업 이름으로 찾아보라. 보기 — <code>박람회</code> <code>축제</code> <code>도로</code> <code>보조</code></p>
     <p class="srch"><input id="q" type="search" value="${찾기.replace(/"/g, '&quot;')}"
        placeholder="세부사업 이름에 든 글자" autocomplete="off"></p>
+    <p class="srch grp" id="filt">${Object.keys(거르개들).map(k =>
+      `<button data-f="${k}" aria-selected="${k === 재원거르개}">${
+        ({'전부': '재원 안 가림', '국비': '국비 든 것', '시도비': '시도비 든 것', '자체': '제 돈만'})[k]
+      }</button>`).join('')}</p>
+    <p class="srch grp" id="sortby">${Object.keys(정렬들).map(k =>
+      `<button data-s="${k}" aria-selected="${k === 사업정렬}">${정렬이름[k]}</button>`).join('')}</p>
     <div id="ongoing"></div>
     <footer>
       <p>자료 — 지방재정365 <code>QWGJK</code> 세부사업별 세출현황. ${o.받은날} 에 받았다.</p>
@@ -279,7 +389,18 @@ async function renderOngoing(cd, d){
     </footer>`;
 
   const q = document.getElementById('q');
-  q.addEventListener('input', () => { 찾기 = q.value; 보일개수 = 100; 진행칠하기(o); });
+  q.addEventListener('input', () => { 찾기 = q.value; 보일개수 = 100; 주소쓰기(); 진행칠하기(o); });
+
+  const 단추칸 = (id, key, 넣기) => document.getElementById(id).addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    넣기(b.dataset[key]); 보일개수 = 100;
+    document.querySelectorAll(`#${id} button`).forEach(x =>
+      x.setAttribute('aria-selected', String(x === b)));
+    진행칠하기(o);
+  });
+  단추칸('filt', 'f', v => 재원거르개 = v);
+  단추칸('sortby', 's', v => 사업정렬 = v);
+
   진행칠하기(o);
 }
 
@@ -288,10 +409,17 @@ function 맞추기(){
     b.setAttribute('aria-selected', String(b.dataset.v === 판)));
 }
 
-function render(){
-  const cd = document.querySelector('#loc button[aria-selected="true"]')?.dataset.cd
-           || Object.keys(DATA)[0];
-  const d = DATA[cd];
+async function render(){
+  const cd = 지금곳;
+  const app = document.getElementById('app');
+  맞추기();
+  const d = await 곳데이터(cd);
+  if (cd !== 지금곳) return;               // 그 사이 다른 곳을 골랐으면 그만둔다
+  if (!d) {
+    app.innerHTML = `<h1>${곳맵[cd]?.이름 || cd}</h1>
+      <p class="basis">이 자치단체의 데이터를 못 읽었다. <code>data/loc/${cd}.json</code> 이 없다.</p>`;
+    return;
+  }
   if (판 === '진행중') return renderOngoing(cd, d);
   const 지표 = d.지표.filter(m => 판of(m) === 판);
 
@@ -333,13 +461,29 @@ function render(){
     b.setAttribute('aria-selected', String(b.dataset.v === 판)));
 }
 
+/* 고르개 — 243곳을 시도로 묶는다. 광역 17곳이 맨 위 */
 const loc = document.getElementById('loc');
-loc.innerHTML = Object.values(DATA).map((d, i) =>
-  `<button data-cd="${d.laf_cd}" aria-selected="${i === 0}">${이름of(d)}</button>`).join('');
-loc.addEventListener('click', e => {
-  const b = e.target.closest('button'); if (!b) return;
-  loc.querySelectorAll('button').forEach(x => x.setAttribute('aria-selected', String(x === b)));
+const 시도차례 = [...new Set(INDEX.곳.filter(x => x.갈래 === '기초').map(x => x.시도))];
+const 묶음 = [['광역자치단체 17곳', INDEX.곳.filter(x => x.갈래 === '광역')]]
+  .concat(시도차례.map(sd => [정식[sd] || sd, INDEX.곳.filter(x => x.갈래 === '기초' && x.시도 === sd)]));
+loc.innerHTML = `<select id="pick" aria-label="자치단체 고르기">${
+  묶음.map(([label, xs]) => `<optgroup label="${label}">${
+    xs.map(x => `<option value="${x.cd}">${이름of(x)}</option>`).join('')
+  }</optgroup>`).join('')}</select>`;
+
+const pick = document.getElementById('pick');
+pick.value = 지금곳;
+pick.addEventListener('change', () => {
+  지금곳 = pick.value;
+  찾기 = ''; 보일개수 = 100;
+  주소쓰기();
   render();
+});
+addEventListener('hashchange', () => {
+  const h = 주소읽기();
+  if (h.cd !== 지금곳 || h.판 !== 판 || h.찾기 !== 찾기) {
+    지금곳 = h.cd; 판 = h.판; 찾기 = h.찾기; pick.value = h.cd; render();
+  }
 });
 
 const view = document.getElementById('view');
@@ -347,7 +491,7 @@ view.innerHTML = ['결산', '예산', '진행중'].map(v =>
   `<button data-v="${v}" aria-selected="${v === 판}">${v === '진행중' ? '진행 중인 사업' : v + ' 기준'}</button>`).join('');
 view.addEventListener('click', e => {
   const b = e.target.closest('button'); if (!b) return;
-  판 = b.dataset.v; render();
+  판 = b.dataset.v; 주소쓰기(); render();
 });
 
 render();

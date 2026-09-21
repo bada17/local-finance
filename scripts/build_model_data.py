@@ -1,12 +1,14 @@
-# 모델 화면에 넣을 데이터를 뽑는다. 자치단체 몇 곳만.
+# 화면에 넣을 자치단체별 데이터를 뽑는다.
 #
-#   python scripts/build_model_data.py 2600000 4373000
+#   python scripts/build_model_data.py --all           243곳 전부
+#   python scripts/build_model_data.py 2600000 4612000 몇 곳만
 #
 # 지표마다 금액·분모·비율을 다 담고, 견줄 무리 안에서의 순위와 중앙값·최소·최대를 붙인다.
 # 광역은 광역끼리(17곳), 기초는 기초끼리(226곳) 견준다 — 섞으면 순위가 뜻을 잃는다.
-# 시계열(세출·세입 16년치)도 같이 담는다.
+# 시계열(세출·세입 16년치)도 같이 담는다(화면에서는 아직 안 쓴다).
 #
-# 결과: data/model/<자치단체코드>.json
+# 결과: site/data/loc/<자치단체코드>.json · site/data/loc/index.json(고르개에 쓸 243곳 목록)
+# 화면이 고른 곳의 파일만 그때그때 읽는다. 243곳을 페이지에 다 담으면 3MB 가 넘는다.
 
 import json
 import os
@@ -34,10 +36,14 @@ HIGH_IS_BAD = {'수의계약비율', '업무추진비비율', '행사축제경�
 
 
 def main():
-    codes = sys.argv[1:] or ['2600000', '4373000']
+    args = list(sys.argv[1:])
+    모두 = '--all' in args
+    if 모두:
+        args.remove('--all')
     d = json.load(open(os.path.join(ROOT, 'data', 'indicators', f'{INDICATORS}.json'), encoding='utf-8'))
     locs = {x['laf_cd']: x for x in d['자치단체']}
     meta = {m['이름']: m for m in d['지표목록']}
+    codes = sorted(locs) if 모두 else (args or ['2600000', '4373000'])
 
     series_path = os.path.join(ROOT, 'data', 'series.json')
     series = json.load(open(series_path, encoding='utf-8')) if os.path.exists(series_path) else None
@@ -49,7 +55,10 @@ def main():
         for r in rows:
             links.setdefault(r['laf_cd'], {})[label] = r.get('lnk_url_nm')
 
-    os.makedirs(os.path.join(ROOT, 'data', 'model'), exist_ok=True)
+    OUT = os.path.join(ROOT, 'site', 'data', 'loc')
+    os.makedirs(OUT, exist_ok=True)
+    목록 = []
+    총크기 = 0
     for cd in codes:
         me = locs[cd]
         wide = cd.endswith('00000')
@@ -93,12 +102,29 @@ def main():
                 row = series['값'][cd][year]
                 out['시계열'].append({'연도': year, '세출': row.get('세출'), '세입': row.get('세입')})
 
-        path = os.path.join(ROOT, 'data', 'model', f'{cd}.json')
+        path = os.path.join(OUT, f'{cd}.json')
         with open(path, 'w', encoding='utf-8') as f:
-            json.dump(out, f, ensure_ascii=False, indent=1)
-        print(f"{out['이름']} ({out['갈래']}) · 지표 {len(out['지표'])} · "
-              f"시계열 {len(out['시계열'])}년 · 원문 {len(out['원문'])} · "
-              f"{os.path.getsize(path)/1024:,.0f}KB")
+            json.dump(out, f, ensure_ascii=False, separators=(',', ':'))
+        총크기 += os.path.getsize(path)
+        목록.append({'cd': cd, '이름': out['이름'], '시도': out['시도'],
+                    '갈래': out['갈래'], '인구': out['인구']})
+        if len(codes) <= 5:
+            print(f"{out['이름']} ({out['갈래']}) · 지표 {len(out['지표'])} · "
+                  f"시계열 {len(out['시계열'])}년 · 원문 {len(out['원문'])} · "
+                  f"{os.path.getsize(path)/1024:,.0f}KB")
+
+    # 고르개에 쓸 목록. 이것만 화면에 통째로 박힌다
+    idx_path = os.path.join(OUT, 'index.json')
+    if len(목록) < 243 and os.path.exists(idx_path):
+        # 몇 곳만 다시 구운 것이면 있던 목록을 그대로 둔다
+        print(f'{len(목록)}곳 구움 (목록은 그대로 둔다) · {총크기/1024:,.0f}KB')
+        return
+    with open(idx_path, 'w', encoding='utf-8') as f:
+        json.dump({'결산연도': d['결산연도'], '예산연도': d['예산연도'],
+                   '곳': sorted(목록, key=lambda x: (x['갈래'] != '광역', x['시도'], x['이름']))},
+                  f, ensure_ascii=False, separators=(',', ':'))
+    print(f"{len(목록)}곳 구움 · {총크기/1024/1024:,.1f}MB · "
+          f"목록 {os.path.getsize(idx_path)/1024:,.0f}KB → site/data/loc/")
 
 
 if __name__ == '__main__':
