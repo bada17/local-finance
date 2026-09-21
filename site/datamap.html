@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="ko">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>데이터 지도 — 무엇을 말할 수 있고 무엇이 비었나</title>
+<style>
+  :root{
+    --ground:#FFFFFF; --sunk:#F4F6F8; --line:#C9D2DA; --line-soft:#E3E8ED;
+    --ink:#11181F; --muted:#5A6672; --faint:#8A97A3;
+    --accent:#1F4E79; --alert:#B03A22; --ok:#2E6B4F; --half:#8A6A12;
+    --mono:ui-monospace,SFMono-Regular,'Cascadia Mono','DejaVu Sans Mono',monospace;
+    --body:system-ui,-apple-system,'Malgun Gothic',sans-serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ground:#12171C; --sunk:#1A2127; --line:#333C45; --line-soft:#242C34;
+      --ink:#E6EBF0; --muted:#98A5B1; --faint:#72808C;
+      --accent:#7FB3DC; --alert:#E0755C; --ok:#79C09B; --half:#D9B24C;
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--ground); color:var(--ink); font:14px/1.5 var(--body)}
+  .wrap{max-width:1100px; margin:0 auto; padding-inline:16px}
+  .topbar{position:sticky; top:0; z-index:20; background:var(--ground); border-bottom:1px solid var(--line)}
+  .topbar .wrap{display:flex; align-items:center; gap:10px; min-height:46px; flex-wrap:wrap; padding-block:6px}
+  .topbar .t{font-weight:600; font-size:13px; margin-right:auto}
+  a{color:var(--accent)}
+  h1{font-size:20px; margin:22px 0 4px}
+  h2{font-size:15px; margin:30px 0 8px}
+  h3{font-size:13px; margin:18px 0 6px; color:var(--muted); letter-spacing:.02em}
+  .basis{margin:12px 0 0; padding:10px 12px; background:var(--sunk); border:1px solid var(--line);
+    font-size:12.5px; color:var(--muted)}
+  .basis b{color:var(--ink)}
+  .note{color:var(--faint); font-size:12px; margin:8px 0}
+  .tally{display:flex; gap:8px; flex-wrap:wrap; margin:12px 0 0}
+  .tally div{border:1px solid var(--line); padding:8px 14px; background:var(--sunk); min-width:120px}
+  .tally .n{font-family:var(--mono); font-size:20px; font-weight:600}
+  .tally .k{font-size:12px; color:var(--muted)}
+  .tally .됨 .n{color:var(--ok)} .tally .반쪽 .n{color:var(--half)} .tally .못함 .n{color:var(--alert)}
+  .q{border:1px solid var(--line); margin:8px 0; background:var(--ground)}
+  .q>summary{padding:9px 12px; cursor:pointer; display:flex; gap:10px; align-items:baseline; flex-wrap:wrap}
+  .q>summary::-webkit-details-marker{display:none}
+  .q .mk{font-family:var(--mono); font-weight:600; width:1.2em}
+  .q.됨 .mk{color:var(--ok)} .q.반쪽 .mk{color:var(--half)} .q.못함 .mk{color:var(--alert)}
+  .q .물음{font-weight:500; flex:1 1 320px}
+  .q .요약{font-size:12px; color:var(--faint); text-align:right}
+  .q .body{padding:2px 12px 12px 34px; border-top:1px solid var(--line-soft)}
+  .q .body p{margin:8px 0 2px; font-size:12.5px}
+  .q .body ul{margin:4px 0; padding-left:18px}
+  .q .body li{font-size:12.5px; color:var(--muted); margin:3px 0}
+  .q .body li b{color:var(--ink)}
+  .need{border-left:3px solid var(--alert); padding:6px 10px; margin:8px 0; background:var(--sunk)}
+  .need .nm{font-weight:600}
+  .need .where{font-size:12.5px; color:var(--muted)}
+  .need .why{font-size:12.5px; color:var(--alert)}
+  code{font-family:var(--mono); font-size:11.5px; background:var(--sunk); padding:1px 5px;
+    border:1px solid var(--line-soft); display:inline-block; margin:1px 0}
+  .tag{font-size:11px; color:var(--muted); background:var(--sunk); border:1px solid var(--line-soft); padding:1px 6px}
+  table{border-collapse:collapse; width:100%; font-size:13px; border:1px solid var(--line)}
+  th,td{padding:6px 10px; border-bottom:1px solid var(--line-soft); text-align:left; vertical-align:top}
+  thead th{background:var(--sunk); font-size:11.5px; color:var(--muted); font-weight:600}
+  .scroll{overflow-x:auto}
+  footer{margin:30px 0 40px; padding-top:14px; border-top:1px solid var(--line); color:var(--muted); font-size:12px}
+  footer p{margin:0 0 6px}
+</style>
+
+<div class="topbar"><div class="wrap">
+  <span class="t">데이터 지도</span>
+  <a href="./">자치단체별 →</a>
+  <a href="board.html">243곳 한 판에 →</a>
+  <a href="catalog.html">무슨 자료가 있나 →</a>
+  <a href="transparency.html">공시 점검 →</a>
+</div></div>
+
+<main class="wrap">
+  <h1>무엇을 말할 수 있고, 무엇이 비었나</h1>
+  <p class="basis"><b>질문을 먼저 늘어놓고</b> 지금 답할 수 있는지를 매긴 지도다.
+    자료 목록이 아니라 <b>「우리가 무슨 말을 할 수 있나」</b>의 지도다.<br>
+    ● 된다 · ◐ 반쪽(되지만 구멍이 있다) · ○ 못 한다.
+    ○ 마다 <b>어떤 자료가 있어야 풀리는지</b>를 적어 뒀다.<br>
+    ⚠️ 이 화면은 <b>우리 작업용</b>이다 — 파일 이름과 명령을 그대로 적는다.
+    상태는 손으로 적은 것이 아니라 <b>저장소를 훑어서 매긴다</b>(<span id="asof"></span> 기준).
+    자료를 받아 오고 다시 구우면 ○ 가 저절로 ● 가 된다.</p>
+
+  <div class="tally" id="tally"></div>
+
+  <h2>질문마다</h2>
+  <div id="qs"></div>
+
+  <h2>지금 가진 자료</h2>
+  <div class="scroll"><table id="have"></table></div>
+
+  <h2>없는 자료 — 이게 들어오면 무엇이 풀리나</h2>
+  <div class="scroll"><table id="missing"></table></div>
+
+  <footer>
+    <p>굽는 법 — <code>python scripts/build_datamap.py</code>.
+      질문 목록과 「반쪽인 까닭」은 그 스크립트 안에 글로 적혀 있다. 고치려면 거기를 고친다.</p>
+    <p>⚠️ 기준이 서로 다르다 — 결산(확정)·예산(계획)·계약(체결)·진행(그날까지 누계)·공시(우리가 잰 것).
+      한 화면에 놓고 빼지 말 것.</p>
+  </footer>
+</main>
+
+<script>
+const GROUPS = [{"축":"살림의 크기","질문":[{"물음":"얼마나 큰 살림인가 — 세출·세입 총액, 1인당","상태":"됨","쓰는자료":[{"열쇠":"지표","이름":"재정지표 28종","언제":"결산 2024 · 예산 2026"}],"빠진자료":[],"흠":[]},{"물음":"10년 동안 어떻게 변했나","상태":"반쪽","쓰는자료":[{"열쇠":"시계열","이름":"16년 시계열","언제":"2009~2024"}],"빠진자료":[],"흠":["자료는 받아 뒀는데 **화면에 아직 안 올렸다**(5년치만 올리기로 했다)."]},{"물음":"중앙정부·다른 나라와 견주면","상태":"반쪽","쓰는자료":[{"열쇠":"열린재정","이름":"열린재정 198종(코드만)","언제":"2026-09-18"}],"빠진자료":[],"흠":["열린재정은 **중앙정부 총량**이라 자치단체로 안 쪼개진다. 107종은 `ERROR-310`."]}]},{"축":"돈의 출처와 쓰임","질문":[{"물음":"제 돈인가 받은 돈인가 — 자립도·자주도","상태":"됨","쓰는자료":[{"열쇠":"지표","이름":"재정지표 28종","언제":"결산 2024 · 예산 2026"}],"빠진자료":[],"흠":[]},{"물음":"무엇에 쓰나 — 분야별 비중과 금액","상태":"됨","쓰는자료":[{"열쇠":"지표","이름":"재정지표 28종","언제":"결산 2024 · 예산 2026"}],"빠진자료":[],"흠":[]},{"물음":"올해 무슨 사업이 돌아가고 있나","상태":"반쪽","쓰는자료":[{"열쇠":"진행","이름":"진행 중인 사업","언제":"2026년 9월 누계"}],"빠진자료":[],"흠":["지출은 **그날까지 누계**이고 출납폐쇄 전이라 나중에 달라진다.","2026년 구역 개편으로 **네 곳은 아예 없다**(빈칸이지 0이 아니다)."]}]},{"축":"제대로 쓰나","질문":[{"물음":"수의계약이 얼마나 되나","상태":"반쪽","쓰는자료":[{"열쇠":"지표","이름":"재정지표 28종","언제":"결산 2024 · 예산 2026"},{"열쇠":"계약","이름":"계약 원본","언제":"20240101~20260920"}],"빠진자료":[],"흠":["계약 자료의 **4.6%가 상대방이 조달청**이다 — 진짜 업체가 아니다.","다년계약이 **총액 줄과 연차 줄로 두 번** 들어온다(2.4%).","같은 계약원부번호가 여러 줄로 오는 것 1.1% — 변경계약인지 모른다."]},{"물음":"업무추진비·행사축제비를 얼마나 쓰나","상태":"됨","쓰는자료":[{"열쇠":"지표","이름":"재정지표 28종","언제":"결산 2024 · 예산 2026"}],"빠진자료":[],"흠":[]},{"물음":"끝난 행사의 실제 원가는","상태":"반쪽","쓰는자료":[{"열쇠":"지표","이름":"재정지표 28종","언제":"결산 2024 · 예산 2026"}],"빠진자료":[],"흠":["행사축제원가회계(`EVFTCT`)가 **2024년까지**다 — 올해 행사는 2028년쯤에야 잡힌다."]}]},{"축":"누가 받아 갔나","질문":[{"물음":"어느 업체가 얼마를 받아 갔나","상태":"반쪽","쓰는자료":[{"열쇠":"계약","이름":"계약 원본","언제":"20240101~20260920"}],"빠진자료":[],"흠":["⚠️ **사업자등록번호가 없다.** 「(주)○○」와 「주식회사 ○○」를 완전히는 못 묶는다(12,096쌍이 갈린 채).","조달청을 거친 4.6%는 **진짜 업체가 이 자료에 없다**."]},{"물음":"그 업체가 어떤 회사인가 — 대표·주소·다른 계약","상태":"못함","쓰는자료":[],"빠진자료":[{"열쇠":"나라장터","이름":"나라장터 계약정보","어디있나":"data.go.kr 조달청 계약정보 API (사업자등록번호가 여기 있다)","막힘":"⚠️ `.env` 의 `DATA_GO_KR_KEY` 가 비어 있다 (키가 들어오면 바로 된다)"}],"흠":[]},{"물음":"어느 단체가 보조금을 받아 갔나","상태":"못함","쓰는자료":[],"빠진자료":[{"열쇠":"보탬e","이름":"보탬e 지방보조금","어디있나":"보탬e 포털(lofin 보조금). 지방재정365에는 편성현황만 있다","막힘":"아직 안 받았다 — 받는 길부터 확인해야 한다"}],"흠":[]},{"물음":"이 사업을 누가 받아 갔나 — 사업과 계약을 잇기","상태":"반쪽","쓰는자료":[{"열쇠":"계약","이름":"계약 원본","언제":"20240101~20260920"},{"열쇠":"진행","이름":"진행 중인 사업","언제":"2026년 9월 누계"}],"빠진자료":[],"흠":["⛔ **잇는 열쇠가 없다.** 계약명 글자 맞추기는 여수시 109건 중 2%만 걸려 접었다."]}]},{"축":"공개를 제대로 하나","질문":[{"물음":"법이 시킨 재정공시를 올렸나","상태":"반쪽","쓰는자료":[{"열쇠":"공시","이름":"재정공시 점검","언제":"2026-09-21 · 크롬 2026-09-21"}],"빠진자료":[],"흠":["**파일 이름으로** 센다 — 이름을 읽을 수 있는 곳이 151곳뿐이다.","2026년에 생긴 **새 구역 넷은 아예 목록에 없다**(FINLK 가 안 준다)."]},{"물음":"시민이 그 공시를 쓸 수 있나 — 엑셀인가 그림인가","상태":"됨","쓰는자료":[{"열쇠":"공시","이름":"재정공시 점검","언제":"2026-09-21 · 크롬 2026-09-21"}],"빠진자료":[],"흠":[]},{"물음":"지난번보다 나아졌나","상태":"반쪽","쓰는자료":[{"열쇠":"공시","이름":"재정공시 점검","언제":"2026-09-21 · 크롬 2026-09-21"}],"빠진자료":[],"흠":["회차가 **아직 한 번**이다. 다음 점검 때부터 견줄 수 있다."]},{"물음":"자치단체 홈페이지에서 몇 번 눌러야 닿나","상태":"반쪽","쓰는자료":[{"열쇠":"공시","이름":"재정공시 점검","언제":"2026-09-21 · 크롬 2026-09-21"}],"빠진자료":[],"흠":["⛔ **아직 안 쟀다.** 지금은 지방재정365가 준 **직통 주소**로만 재고 있어 실제보다 후하다."]},{"물음":"언제 올렸나 — 법정 기한(2개월)을 지켰나","상태":"반쪽","쓰는자료":[{"열쇠":"공시","이름":"재정공시 점검","언제":"2026-09-21 · 크롬 2026-09-21"}],"빠진자료":[],"흠":["페이지에 날짜가 적힌 곳이 **82곳**뿐이다. 나머지는 올린 날을 모른다."]},{"물음":"공기업·출자출연기관은 어떻게 운영되나","상태":"못함","쓰는자료":[],"빠진자료":[{"열쇠":"클린아이","이름":"클린아이 지방공기업 경영정보","어디있나":"클린아이(cleaneye.go.kr). 기관별 알맹이가 여기 있다","막힘":"아직 안 봤다"}],"흠":[]},{"물음":"투자심사를 어떻게 했나","상태":"못함","쓰는자료":[],"빠진자료":[{"열쇠":"투자심사","이름":"투자심사 결과","어디있나":"지방재정365에 없다. 자치단체 공시·행안부 쪽을 봐야 한다","막힘":"법 제37조의4 가 공개하라는 것인데 API 로는 안 나온다"}],"흠":[]},{"물음":"주민참여예산이 실제로 어떻게 돌아갔나","상태":"못함","쓰는자료":[],"빠진자료":[{"열쇠":"주민참여예산","이름":"주민참여예산 운영현황","어디있나":"주민e참여에 전국 통합본이 없다. 자치단체마다 따로","막힘":"모으는 길이 없다 — 손으로 훑어야 한다"}],"흠":[]}]},{"축":"감시의 뒷받침","질문":[{"물음":"의회가 무엇을 지적했나","상태":"못함","쓰는자료":[],"빠진자료":[{"열쇠":"CLIK","이름":"지방의정포털 회의록","어디있나":"지방의정포털 CLIK","막힘":"⛔ 사용자가 GPT 와 정하기로 했다 — 건드리지 않는다"}],"흠":[]},{"물음":"그 자료가 지방재정365에 있기는 한가","상태":"됨","쓰는자료":[{"열쇠":"자료지도","이름":"지방재정365 자료 지도","언제":"2026-09-21"}],"빠진자료":[],"흠":[]}]}], HAVE = [{"이름":"재정지표 28종","있다":true,"출처":"지방재정365 OpenAPI (HCDIB 등)","언제":"결산 2024 · 예산 2026","얼마나":"28종 × 243곳","어디":["data/indicators/2024-2026.json","site/data/loc/*.json"],"다시":"python scripts/fetch_indicators.py && python scripts/build_model_data.py --all"},{"이름":"16년 시계열","있다":true,"출처":"지방재정365","언제":"2009~2024","얼마나":"220KB","어디":["data/series.json"],"다시":"python scripts/fetch_series.py"},{"이름":"진행 중인 사업","있다":true,"출처":"지방재정365 QWGJK","언제":"2026년 9월 누계","얼마나":"243곳 · 11MB","어디":["site/data/ongoing/<코드>.json.gz"],"다시":"python scripts/build_ongoing.py --all"},{"이름":"계약 원본","있다":true,"출처":"지방재정365 WCEGCF","언제":"20240101~20260920","얼마나":"3,219,209건 · 154MB(994일)","어디":["data/contracts/<날짜>.json.gz","data/contracts_summary.json","site/data/contracts/<코드>.json"],"다시":"python scripts/build_contracts_summary.py --해 <연도>"},{"이름":"재정공시 점검","있다":true,"출처":"지방재정365 FINLK + 243곳 홈페이지 실측","언제":"2026-09-21 · 크롬 2026-09-21","얼마나":"243곳 · 점검 1회차","어디":["data/disclosure.json","data/disclosure_dom.json","data/disclosure_history.json"],"다시":"python scripts/check_disclosure.py && node scripts/recheck_disclosure.js"},{"이름":"지방재정365 자료 지도","있다":true,"출처":"지방재정365 목록·명세","언제":"2026-09-21","얼마나":"146종 · 눌러 본 것 146종","어디":["data/lofin365_146.json","data/coverage.json"],"다시":"python scripts/build_coverage.py"},{"이름":"열린재정 198종(코드만)","있다":true,"출처":"열린재정 OpenAPI","언제":"2026-09-18","얼마나":"198종 · 호출 확인 87종","어디":["data/openfiscal_198.json"],"다시":""}], MISSING = [{"이름":"보탬e 지방보조금","있다":false,"어디있나":"보탬e 포털(lofin 보조금). 지방재정365에는 편성현황만 있다","막힘":"아직 안 받았다 — 받는 길부터 확인해야 한다","열쇠":"보탬e","풀리는질문":["어느 단체가 보조금을 받아 갔나"]},{"이름":"나라장터 계약정보","있다":false,"어디있나":"data.go.kr 조달청 계약정보 API (사업자등록번호가 여기 있다)","막힘":"⚠️ `.env` 의 `DATA_GO_KR_KEY` 가 비어 있다 (키가 들어오면 바로 된다)","열쇠":"나라장터","풀리는질문":["그 업체가 어떤 회사인가 — 대표·주소·다른 계약"]},{"이름":"클린아이 지방공기업 경영정보","있다":false,"어디있나":"클린아이(cleaneye.go.kr). 기관별 알맹이가 여기 있다","막힘":"아직 안 봤다","열쇠":"클린아이","풀리는질문":["공기업·출자출연기관은 어떻게 운영되나"]},{"이름":"지방의정포털 회의록","있다":false,"어디있나":"지방의정포털 CLIK","막힘":"⛔ 사용자가 GPT 와 정하기로 했다 — 건드리지 않는다","열쇠":"CLIK","풀리는질문":["의회가 무엇을 지적했나"]},{"이름":"투자심사 결과","있다":false,"어디있나":"지방재정365에 없다. 자치단체 공시·행안부 쪽을 봐야 한다","막힘":"법 제37조의4 가 공개하라는 것인데 API 로는 안 나온다","열쇠":"투자심사","풀리는질문":["투자심사를 어떻게 했나"]},{"이름":"주민참여예산 운영현황","있다":false,"어디있나":"주민e참여에 전국 통합본이 없다. 자치단체마다 따로","막힘":"모으는 길이 없다 — 손으로 훑어야 한다","열쇠":"주민참여예산","풀리는질문":["주민참여예산이 실제로 어떻게 돌아갔나"]}], TALLY = {"됨": 6, "반쪽": 11, "못함": 6};
+document.getElementById('asof').textContent = '2026-09-21';
+
+const 표시 = {'됨': '●', '반쪽': '◐', '못함': '○'};
+const 말 = {'됨': '된다', '반쪽': '반쪽', '못함': '못 한다'};
+
+document.getElementById('tally').innerHTML = ['됨', '반쪽', '못함'].map(k =>
+  `<div class="${k}"><div class="n">${TALLY[k]}</div><div class="k">${말[k]}</div></div>`).join('')
+  + `<div><div class="n">${HAVE.length}</div><div class="k">가진 자료 덩이</div></div>`
+  + `<div><div class="n">${MISSING.filter(m => m.풀리는질문.length).length}</div><div class="k">막고 있는 자료</div></div>`;
+
+document.getElementById('qs').innerHTML = GROUPS.map(g => `
+  <h3>${g.축}</h3>
+  ${g.질문.map(q => `
+    <details class="q ${q.상태}"${q.상태 === '못함' ? ' open' : ''}>
+      <summary>
+        <span class="mk">${표시[q.상태]}</span>
+        <span class="물음">${q.물음}</span>
+        <span class="요약">${q.상태 === '못함'
+          ? q.빠진자료.map(m => m.이름).join(' · ') + ' 이 없다'
+          : q.쓰는자료.map(s => s.이름).join(' · ')}</span>
+      </summary>
+      <div class="body">
+        ${q.쓰는자료.length ? `<p><b>무엇으로 답하나</b></p><ul>${q.쓰는자료.map(s =>
+          `<li>${s.이름} <span class="tag">${s.언제}</span></li>`).join('')}</ul>` : ''}
+        ${q.흠.length ? `<p><b>${q.상태 === '못함' ? '그밖에' : '되지만 이런 구멍이 있다'}</b></p>
+          <ul>${q.흠.map(x => `<li>${x}</li>`).join('')}</ul>` : ''}
+        ${q.빠진자료.map(m => `<div class="need">
+          <div class="nm">필요한 자료 — ${m.이름}</div>
+          ${m.어디있나 ? `<div class="where">어디 있나 — ${m.어디있나}</div>` : ''}
+          ${m.막힘 ? `<div class="why">막힌 까닭 — ${m.막힘}</div>` : ''}
+        </div>`).join('')}
+      </div>
+    </details>`).join('')}`).join('');
+
+document.getElementById('have').innerHTML =
+  `<thead><tr><th>자료</th><th>어디서</th><th>언제 것</th><th>얼마나</th><th>파일 · 다시 받기</th></tr></thead>
+   <tbody>${HAVE.map(d => `<tr>
+     <td><b>${d.이름}</b></td>
+     <td>${d.출처}</td>
+     <td>${d.언제}</td>
+     <td>${d.얼마나}</td>
+     <td>${d.어디.map(f => `<code>${f}</code>`).join(' ')}
+         ${d.다시 ? `<br><code>${d.다시}</code>` : ''}</td></tr>`).join('')}</tbody>`;
+
+document.getElementById('missing').innerHTML =
+  `<thead><tr><th style="width:20%">자료</th><th style="width:28%">어디 있나</th>
+   <th style="width:26%">막힌 까닭</th><th>이게 있으면 풀리는 질문</th></tr></thead>
+   <tbody>${MISSING.map(m => `<tr>
+     <td><b>${m.이름}</b></td>
+     <td>${m.어디있나 || ''}</td>
+     <td>${m.막힘 || ''}</td>
+     <td>${m.풀리는질문.length
+       ? '<ul style="margin:0;padding-left:16px">' + m.풀리는질문.map(q => `<li>${q}</li>`).join('') + '</ul>'
+       : '<span class="tag">지금 걸린 질문 없음</span>'}</td></tr>`).join('')}</tbody>`;
+</script>
