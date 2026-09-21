@@ -13,6 +13,7 @@
 #
 # 결과: data/disclosure.json
 
+import datetime
 import json
 import os
 import re
@@ -74,10 +75,21 @@ def main():
         i = sys.argv.index('--files')
         파일까지 = int(sys.argv[i + 1]) if len(sys.argv) > i + 1 else 243
 
+    # ⚠️ 해를 박아 두지 않는다. 공시는 해마다 새로 올라오므로 **새 해부터 거슬러** 찾는다.
+    #    `python scripts/check_disclosure.py --해 2026` 으로 못박을 수도 있다.
     key = load_key()
-    rows, _ = fetch('FINLK', {'fyr': '2025'}, key)
+    해목록 = ([sys.argv[sys.argv.index('--해') + 1]] if '--해' in sys.argv
+             else [str(datetime.date.today().year - n) for n in range(0, 3)])
+    rows, 쓴해 = [], ''
+    for 해 in 해목록:
+        rows, _ = fetch('FINLK', {'fyr': 해}, key)
+        if rows:
+            쓴해 = 해
+            break
+    if not rows:
+        raise SystemExit(f'FINLK 에서 공시 링크를 못 받았다 (해본 해: {해목록})')
     링크 = [(r['laf_cd'], r.get('laf_hg_nm', ''), r.get('lnk_url_nm') or '') for r in rows]
-    print(f'재정공시 링크 {len(링크)}곳 (지방재정365 FINLK 2025)')
+    print(f'재정공시 링크 {len(링크)}곳 (지방재정365 FINLK {쓴해})')
 
     볼것 = 링크[:파일까지] if 파일까지 else 링크
     결과 = []

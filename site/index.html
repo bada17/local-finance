@@ -438,7 +438,9 @@ async function renderOngoing(cd, d){
 /* ───── ⑥ 누가 받아 갔나 (계약현황 WCEGCF, 3년치를 우리가 센 것) ───── */
 
 const 계약캐시 = {};
-let 계약해 = '2025';          // 온전한 마지막 해. 2026은 아홉 달치뿐이다
+/* 처음 열 때 보여줄 해 — 박아 두지 않는다. 받아 둔 마지막 날이 12월 31일이 아니면
+   그 해는 반쪽이므로 한 해 앞을 보여준다(자료가 쌓이면 저절로 다음 해로 넘어간다). */
+let 계약해 = null;
 
 async function 계약데이터(cd){
   if (!(cd in 계약캐시)) {
@@ -484,14 +486,18 @@ async function renderContracts(cd){
   }
 
   const 해들 = Object.keys(c.해).sort();
-  if (!c.해[계약해]) 계약해 = 해들[해들.length - 1];
+  const 끝날 = c.범위.끝날;
+  const 다찼나 = 끝날.slice(4, 8) === '1231';
+  const 기본해 = (다찼나 ? 해들[해들.length - 1]
+    : [...해들].reverse().find(h => h < 끝날.slice(0, 4))) || 해들[해들.length - 1];
+  if (!계약해 || !c.해[계약해]) 계약해 = 기본해;
   const y = c.해[계약해];
   const 수의금액률 = y.금액 ? y.수의금액 / y.금액 * 100 : 0;
   const 수의건수율 = y.건수 ? y.수의건수 / y.건수 * 100 : 0;
   const 상위5 = y.업체.slice(0, 5).reduce((a, u) => a + u[1], 0);
   const 다년몫 = y.금액 ? (y.다년금액 || 0) / y.금액 * 100 : 0;
-  const 끝 = c.범위.끝날;
-  const 반쪽 = 계약해 === 끝.slice(0, 4);
+  const 끝 = 끝날;
+  const 반쪽 = !다찼나 && 계약해 === 끝.slice(0, 4);
 
   app.innerHTML = `
     <h1>${이름of(쪽지)} <span class="cd">${cd}</span></h1>
@@ -503,7 +509,8 @@ async function renderContracts(cd){
       <span>기준 <b>${계약해}년</b>${반쪽 ? ` (${Number(끝.slice(4, 6))}월 ${Number(끝.slice(6, 8))}일까지)` : ''}</span>
     </p>
     <p class="srch grp" id="cyear">${해들.map(h =>
-      `<button data-y="${h}" aria-selected="${h === 계약해}">${h}년${h === 끝.slice(0, 4) ? ' (아홉 달)' : ''}</button>`).join('')}</p>
+      `<button data-y="${h}" aria-selected="${h === 계약해}">${h}년${
+        !다찼나 && h === 끝.slice(0, 4) ? ` (${Number(끝.slice(4, 6))}월까지)` : ''}</button>`).join('')}</p>
     <p class="basis"><b>누가 받아 갔나</b> — 이 자치단체가 <b>그 해에 맺은 계약</b>을 상대 업체별로 묶은 것이다.
       지방재정365 계약현황(<code>WCEGCF</code>) 원본 ${n0(c.범위.파일)}일치를 우리가 직접 셌다.
       ⚠️ <b>그 해에 나간 돈이 아니라 그 해에 맺은 계약의 총액</b>이다 — 여러 해짜리 계약은 첫 해에 통째로 잡힌다.

@@ -12,6 +12,7 @@
 
 import json
 import os
+import re
 import statistics
 import sys
 
@@ -24,7 +25,28 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from fetch_lofin import fetch, load_key  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-INDICATORS = '2024-2026'      # data/indicators/<이것>.json
+
+
+def 최신지표():
+    """data/indicators/ 에서 **가장 새 것**을 고른다.
+
+    ⚠️ 여기에 파일 이름을 박아 두면, 새 지표를 받아도 옛 파일을 계속 읽어
+       화면에 **옛 숫자가 조용히 남는다**(2026-09-21 에 걷어냄).
+       `python scripts/build_model_data.py --지표 2025-2027` 로 골라 쓸 수도 있다.
+    """
+    if '--지표' in sys.argv:
+        i = sys.argv.index('--지표')
+        이름 = sys.argv[i + 1]
+        del sys.argv[i:i + 2]
+        return 이름
+    자리 = os.path.join(ROOT, 'data', 'indicators')
+    # 이름이 「결산-예산」(2024-2026)인 것만 본다. 옛 이름(2024.json)이 섞여 있어서다.
+    것들 = sorted(f[:-5] for f in os.listdir(자리)
+                 if re.fullmatch(r'\d{4}-\d{4}\.json', f))
+    if not 것들:
+        raise SystemExit('data/indicators/ 에 「결산-예산」 꼴 파일이 없다 — '
+                         'fetch_indicators.py 를 먼저 돌릴 것')
+    return 것들[-1]          # 글자 차례가 곧 새것 차례다(2024-2026 < 2025-2027)
 
 # 값이 높을수록 눈여겨볼 지표
 HIGH_IS_BAD = {'수의계약비율', '업무추진비비율', '행사축제경비비율', '지방의회경비비율',
@@ -40,7 +62,9 @@ def main():
     모두 = '--all' in args
     if 모두:
         args.remove('--all')
-    d = json.load(open(os.path.join(ROOT, 'data', 'indicators', f'{INDICATORS}.json'), encoding='utf-8'))
+    지표이름 = 최신지표()
+    d = json.load(open(os.path.join(ROOT, 'data', 'indicators', f'{지표이름}.json'), encoding='utf-8'))
+    print(f'지표 파일 — {지표이름}.json (결산 {d["결산연도"]} · 예산 {d["예산연도"]})')
     locs = {x['laf_cd']: x for x in d['자치단체']}
     meta = {m['이름']: m for m in d['지표목록']}
     codes = sorted(locs) if 모두 else (args or ['2600000', '4373000'])
@@ -51,7 +75,10 @@ def main():
     key = load_key()
     links = {}
     for code, label in (('BUDLK', '예산서'), ('SETLK', '결산서'), ('FINLK', '재정공시')):
-        rows, _ = fetch(code, {'fyr': d['결산연도'] if code == 'SETLK' else '2025'}, key)
+        # 결산서는 결산연도, 예산서·재정공시는 그 해 것이 올라온다.
+        # ⚠️ 해를 박아 두지 말 것 — 지표 파일이 말하는 해를 따라간다.
+        해 = d['결산연도'] if code == 'SETLK' else str(int(d['예산연도']) - 1)
+        rows, _ = fetch(code, {'fyr': 해}, key)
         for r in rows:
             links.setdefault(r['laf_cd'], {})[label] = r.get('lnk_url_nm')
 

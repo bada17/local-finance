@@ -115,8 +115,11 @@ def pull(code, slots, year, key, back=3):
 
 
 def main():
-    결산연도 = sys.argv[1] if len(sys.argv) > 1 else '2024'
-    예산연도 = sys.argv[2] if len(sys.argv) > 2 else '2026'
+    # 기본값도 박아 두지 않는다 — 결산은 재작년, 예산은 올해가 최신이다
+    # (2026년에 2024 결산이 최신. 자세한 것은 README 「기준을 섞지 말 것」).
+    올해 = __import__('datetime').date.today().year
+    결산연도 = sys.argv[1] if len(sys.argv) > 1 else str(올해 - 2)
+    예산연도 = sys.argv[2] if len(sys.argv) > 2 else str(올해)
     key = load_key()
     if not key:
         raise SystemExit('LOFIN_KEY 가 없다')

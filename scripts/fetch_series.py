@@ -29,7 +29,7 @@ SERIES = [
 
 def main():
     lo = int(sys.argv[1]) if len(sys.argv) > 1 else 2009
-    hi = int(sys.argv[2]) if len(sys.argv) > 2 else 2024
+    hi = int(sys.argv[2]) if len(sys.argv) > 2 else __import__('datetime').date.today().year - 2
     key = load_key()
     if not key:
         raise SystemExit('LOFIN_KEY 가 없다')

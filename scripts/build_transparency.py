@@ -16,6 +16,11 @@
 #      해시 이름 뒤에 숨은 **글자 이름**과 JS 로 그리는 목록이 여기서 잡힌다.
 # 그밖 — `data/coverage.json`(146종 API 조사) · `site/data/loc/index.json`(이름·시도·갈래)
 # 결과 — site/transparency.html
+#
+# ⭐ **점검할 때마다 `data/disclosure_history.json` 에 한 회차씩 쌓는다.**
+#    공시는 연 2회(결산·예산) 나오므로 **다음 점검과 견주는 것**이 이 지표의 값어치다.
+#    「지난번에 안 열리던 곳이 열렸나 / 엑셀로 바꿨나」가 우리가 할 말이다.
+#    ⚠️ 원문 HTML 만 본 회차와 크롬까지 본 회차는 **잣대가 다르다** — 회차마다 `크롬날` 을 적어 둔다.
 
 import collections
 import json
@@ -30,6 +35,7 @@ except AttributeError:
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = os.path.join(ROOT, 'site')
+발자취 = os.path.join(ROOT, 'data', 'disclosure_history.json')
 
 # 지방재정법 제60조 제1항이 시키는 것 ↔ 파일 이름에 나올 만한 말
 항목 = [
@@ -85,6 +91,55 @@ def 확장들(글들):
         for m in 확장자찾기.finditer(g or ''):
             out.add('.' + m.group(1).lower())
     return out
+
+
+def 발자취쌓기(곳, 요약):
+    """이번 회차를 쌓고, 지난 회차와 견준 것을 돌려준다."""
+    기록 = []
+    if os.path.exists(발자취):
+        기록 = json.load(open(발자취, encoding='utf-8'))['회차']
+
+    # 곳마다 네 가지만 남긴다 — [링크 열림, 파일수, 이름 읽힌 수, 형식]
+    꼴 = {'엑셀 있음': 2, '문서뿐': 1, '못 봄': 0}
+    이번 = {
+        '잰날': 요약['만든날'],
+        '크롬날': 요약.get('크롬날', ''),
+        '요약': {k: 요약[k] for k in
+                ('모두', '열림', '파일잡힘', '이름읽힘', '엑셀', '문서뿐', '올린날앎')},
+        '곳': {x['cd']: [1 if x['링크'] == '열림' else 0, x['파일수'], x['읽힌수'], 꼴[x['형식']]]
+              for x in 곳},
+    }
+    기록 = [r for r in 기록 if r['잰날'] != 이번['잰날']] + [이번]
+    기록.sort(key=lambda r: r['잰날'])
+    with open(발자취, 'w', encoding='utf-8') as f:
+        json.dump({'회차': 기록}, f, ensure_ascii=False, separators=(',', ':'))
+
+    앞 = [r for r in 기록 if r['잰날'] < 이번['잰날']]
+    if not 앞:
+        print(f'   발자취 {len(기록)}회차 (아직 견줄 지난 회차가 없다)')
+        return None, None
+    지난 = 앞[-1]
+    # ⚠️ 잣대가 다르면(원문만 vs 크롬까지) 나아진 것처럼 보인다 — 화면에서 그렇게 말하게 한다
+    바뀜 = {'잰날': 지난['잰날'], '같은잣대': bool(지난.get('크롬날')) == bool(이번['크롬날']),
+           '요약': {k: 이번['요약'][k] - 지난['요약'].get(k, 0) for k in 이번['요약']},
+           '나아짐': [], '나빠짐': []}
+    이름 = {x['cd']: x['이름'] for x in 곳}
+    for cd, 값 in 이번['곳'].items():
+        옛 = 지난['곳'].get(cd)
+        if not 옛:
+            continue
+        if 값[0] and not 옛[0]:
+            바뀜['나아짐'].append([이름.get(cd, cd), '링크가 살아났다'])
+        elif 옛[0] and not 값[0]:
+            바뀜['나빠짐'].append([이름.get(cd, cd), '링크가 죽었다'])
+        if 값[3] == 2 and 옛[3] < 2:
+            바뀜['나아짐'].append([이름.get(cd, cd), '엑셀·CSV 로 냈다'])
+        elif 옛[3] == 2 and 값[3] < 2:
+            바뀜['나빠짐'].append([이름.get(cd, cd), '엑셀이 사라졌다'])
+    print(f'   발자취 {len(기록)}회차 · 지난 회차({지난["잰날"]})와 견줌 — '
+          f'나아짐 {len(바뀜["나아짐"])} · 나빠짐 {len(바뀜["나빠짐"])}'
+          f'{"" if 바뀜["같은잣대"] else " ⚠️ 잣대가 다르다"}')
+    return 지난['잰날'], 바뀜
 
 
 def main():
@@ -205,6 +260,10 @@ def main():
         '만든날': dis.get('만든날', ''),
         '크롬날': dom날,
     }
+
+    지난번, 바뀜 = 발자취쌓기(곳, 요약)
+    요약['지난번'] = 지난번
+    요약['바뀜'] = 바뀜
 
     tpl = open(os.path.join(SITE, 'transparency.template.html'), encoding='utf-8').read()
     out = (tpl

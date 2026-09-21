@@ -119,6 +119,9 @@
   <div class="funnel" id="funnel"></div>
   <div class="warnbox" id="caveat"></div>
 
+  <h2>지난 점검과 견주기</h2>
+  <div id="diff"></div>
+
   <h2>법 제60조가 시키는 16가지, 파일 이름으로 확인되는 비율</h2>
   <p class="note" id="lawnote"></p>
   <div class="lawlist" id="lawlist"></div>
@@ -205,6 +208,32 @@ document.getElementById('caveat').innerHTML =
    ${SUM['크롬만열림']}곳은 <b>파이썬이 튕겼을 뿐 크롬에서는 열린다</b>. 반면
    <b>엑셀·CSV 가 하나도 없는 ${SUM['문서뿐']}곳</b>은 눈으로 확인된 사실이다 —
    숫자를 그림으로 내면 시민은 그것을 다시 두드려 넣어야 한다.`;
+
+/* ── 지난 점검과 견주기 ──
+   공시는 연 2회(결산·예산) 나온다. **바뀌었나**가 이 지표의 값어치라
+   점검할 때마다 한 회차씩 쌓아 두고 지난 회차와 견준다. */
+const 바뀜 = SUM['바뀜'];
+const 견줄칸 = [['열림', '링크가 열린다'], ['파일잡힘', '붙은 파일이 잡힌다'],
+  ['이름읽힘', '파일 이름이 뜻을 갖는다'], ['엑셀', '엑셀·CSV 가 있다'],
+  ['올린날앎', '올린 날짜를 안다']];
+document.getElementById('diff').innerHTML = !바뀜
+  ? `<p class="basis"><b>이번이 첫 점검이다</b>(${SUM['만든날']}). 견줄 지난 회차가 아직 없다.<br>
+     공시는 <b>결산·예산에 맞춰 1년에 두 번</b> 나온다. 다음 점검 때부터 이 자리에
+     <b>「안 열리던 곳이 열렸나 · 엑셀로 바꿨나」</b>가 뜬다.
+     회차는 <span class="mark">data/disclosure_history.json</span> 에 쌓인다.</p>`
+  : `<p class="basis">지난 점검 <b>${바뀜.잰날}</b> 과 견준 것이다.
+      ${바뀜.같은잣대 ? '' : '⚠️ <b>잣대가 다르다</b> — 한쪽은 크롬까지 보고 한쪽은 원문 HTML 만 봤다. 늘어난 것이 실제로 나아진 것이 아닐 수 있다.'}</p>
+     <div class="funnel">${견줄칸.map(([k, lb]) => {
+       const v = 바뀜.요약[k] ?? 0;
+       return `<div class="step${v < 0 ? ' drop' : ''}">
+         <span class="n">${v > 0 ? '+' : ''}${v}</span>
+         <span class="lb"><b>${lb}</b> — 지금 ${SUM[k]}곳</span></div>`;
+     }).join('')}</div>
+     ${['나아짐', '나빠짐'].map(쪽 => 바뀜[쪽].length
+        ? `<p class="note"><b>${쪽 === '나아짐' ? '나아진 곳' : '나빠진 곳'} ${바뀜[쪽].length}</b> —
+           ${바뀜[쪽].slice(0, 30).map(([nm, 무엇]) => `${nm}(${무엇})`).join(' · ')}${
+           바뀜[쪽].length > 30 ? ' 외' : ''}</p>`
+        : `<p class="note">${쪽 === '나아짐' ? '나아진' : '나빠진'} 곳은 없다.</p>`).join('')}`;
 
 /* ── 법 제60조 16항목 ── */
 const 읽힌곳 = ROWS.filter(r => r.읽힌수);

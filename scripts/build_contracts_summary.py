@@ -1,6 +1,11 @@
 # 계약 원본을 자치단체별로 묶는다 — data/contracts/*.json.gz → data/contracts_summary.json
 #
-#   python scripts/build_contracts_summary.py
+#   python scripts/build_contracts_summary.py              다 다시 센다 (5분쯤)
+#   python scripts/build_contracts_summary.py --해 2026     그 해 것만 다시 센다
+#
+# ⚠️ **해가 쌓이면 전수 재집계가 무거워진다.** 하루치가 계속 들어오므로,
+#    평소에는 `--해` 로 올해치만 다시 세고 지난해 것은 그대로 둔다.
+#    (합쳐 둔 결과를 읽어 그 해 칸만 갈아끼운다. 지난해 자료가 뒤늦게 고쳐지면 전수로 한 번 돌릴 것.)
 #
 # 원본은 날짜별 파일 994개(165MB, 320만 건)다. **대화창에 쏟지 말 것** — 여기서 세어서
 # 자치단체 × 연도로만 남긴다. 결과는 1MB 안쪽이다.
@@ -52,8 +57,18 @@ OUT = os.path.join(ROOT, 'data', 'contracts_summary.json')
 
 
 def main():
+    골라낸해 = None
+    if '--해' in sys.argv:
+        골라낸해 = sys.argv[sys.argv.index('--해') + 1]
+
     files = sorted(glob.glob(os.path.join(IN, '*.json.gz')))
-    print(f'파일 {len(files)}개를 센다')
+    모든파일 = len(files)          # 화면 꼬리말이 「원본 며칠치」를 여기서 읽는다
+    if 골라낸해:
+        # 파일 이름이 날짜(20260921.json.gz)라 이름만 보고 고른다
+        files = [f for f in files if os.path.basename(f).startswith(골라낸해)]
+        print(f'{골라낸해}년치 파일 {len(files)}개만 다시 센다')
+    else:
+        print(f'파일 {len(files)}개를 센다')
 
     # (laf_cd, 연도) → 셈
     셈 = collections.defaultdict(lambda: {
@@ -149,11 +164,29 @@ def main():
             '업체': [[k, v[0], v[1], v[2]] for k, v in 차례[:상위N]],
         }
 
+    범위 = {'첫날': 첫날, '끝날': 끝날, '파일': 모든파일, '버린것': 버린것,
+            '한도': 한도, '금액없음': 금액없음}
+    수상 = sorted(수상한줄, key=lambda x: -x['금액'])
+
+    # 한 해만 다시 셌으면 **앞서 해 둔 다른 해는 그대로 둔다**
+    if 골라낸해 and os.path.exists(OUT):
+        옛 = json.load(open(OUT, encoding='utf-8'))
+        for cd, 해별 in 옛['곳'].items():
+            for 해, v in 해별.items():
+                if 해 != 골라낸해:
+                    곳[cd].setdefault(해, v)
+                    자세히[cd].setdefault(해, None)      # 아래에서 옛 파일로 채운다
+        이름 = {**옛.get('곳이름', {}), **이름}
+        수상 = sorted([x for x in 옛.get('수상한줄', []) if x['날'][:4] != 골라낸해] + 수상,
+                     key=lambda x: -x['금액'])
+        범위['첫날'] = min(첫날, 옛['범위']['첫날']) if 첫날 else 옛['범위']['첫날']
+        범위['끝날'] = max(끝날, 옛['범위']['끝날'])
+        범위['한해만'] = 골라낸해
+
     out = {
         '만든날': __import__('datetime').date.today().isoformat(),
-        '범위': {'첫날': 첫날, '끝날': 끝날, '파일': len(files), '버린것': 버린것,
-                 '한도': 한도, '금액없음': 금액없음},
-        '수상한줄': sorted(수상한줄, key=lambda x: -x['금액']),
+        '범위': 범위,
+        '수상한줄': 수상,
         '곳이름': 이름,
         '곳': 곳,
     }
@@ -163,6 +196,11 @@ def main():
     # 곳마다 한 파일씩 — 화면은 고른 곳 것만 받아 간다
     os.makedirs(곳별, exist_ok=True)
     for cd, 해별 in 자세히.items():
+        if 골라낸해:
+            # 이 곳의 옛 파일에서 다른 해는 그대로 가져온다
+            옛길 = os.path.join(곳별, f'{cd}.json')
+            옛해 = json.load(open(옛길, encoding='utf-8'))['해'] if os.path.exists(옛길) else {}
+            해별 = {**옛해, **{k: v for k, v in 해별.items() if v is not None}}
         with open(os.path.join(곳별, f'{cd}.json'), 'w', encoding='utf-8') as f:
             json.dump({'laf_cd': cd, '이름': 이름.get(cd, ''),
                        '범위': out['범위'], '칸': ['업체', '금액', '건수', '수의금액'],
@@ -172,7 +210,8 @@ def main():
     총건 = sum(v['건수'] for c in 곳.values() for v in c.values())
     총액 = sum(v['금액'] for c in 곳.values() for v in c.values())
     print(f'\n적음: data/contracts_summary.json ({os.path.getsize(OUT)/1024/1024:.1f} MB)')
-    print(f'   {첫날}~{끝날} · 자치단체 {len(곳)}곳 · {총건:,}건 · {총액/1e12:.1f}조원 · 버린 줄 {버린것}')
+    print(f'   {범위["첫날"]}~{범위["끝날"]} · 자치단체 {len(곳)}곳 · {총건:,}건 · '
+          f'{총액/1e12:.1f}조원 · 버린 줄 {버린것}')
     print(f'   금액 0 인 줄 {금액없음:,}개')
     다년 = sum(v['다년금액'] for c in 곳.values() for v in c.values())
     print(f'   계약명에 기간이 적힌 줄 {다년/1e12:.2f}조 ({다년/max(1,총액)*100:.2f}%) '

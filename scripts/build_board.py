@@ -25,8 +25,8 @@ OUT = os.path.join(ROOT, 'site', 'data', 'board.json.gz')
 
 
 # 계약은 **다른 자료·다른 기준**이다 — 지방재정365 지표와 섞이지 않게 축을 따로 둔다.
-# ⚠️ 연도는 계약일 기준이고, 2026년은 아홉 달치뿐이라 **온전한 마지막 해인 2025년**만 올린다.
-계약해 = '2025'
+# ⚠️ 연도는 계약일 기준이라 **받아 둔 마지막 날이 12월 31일이 아니면 그 해는 반쪽**이다.
+#    해를 박아 두지 않는다 — 자료가 쌓이면 스스로 다음 해로 넘어가야 한다.
 계약지표 = [
     # (이름, 단위, 높을수록나쁨, 여기서 꺼낼 칸, 비율인가)
     ('계약 총액', '원', False, '금액', False),
@@ -37,14 +37,28 @@ OUT = os.path.join(ROOT, 'site', 'data', 'board.json.gz')
 ]
 
 
+def 온전한해(끝날, 있는해):
+    """반쪽짜리 해는 시황판에 올리지 않는다 — 12월 31일까지 받은 마지막 해를 고른다."""
+    해들 = sorted(있는해)
+    if not 해들:
+        return None
+    올 = 끝날[:4]
+    다찼나 = 끝날[4:8] == '1231'
+    return 올 if (다찼나 and 올 in 해들) else (max([h for h in 해들 if h < 올], default=해들[-1]))
+
+
 def 계약칸(곳, 지표목록, 자리):
     """계약 원자료에서 센 칸을 시황판에 붙인다. 파일이 없으면 그냥 건너뛴다."""
     p = os.path.join(ROOT, 'data', 'contracts_summary.json')
     if not os.path.exists(p):
         print('   (계약 요약이 없어 계약 칸은 건너뛴다)')
-        return 0
+        return 0, ''
     cs = json.load(open(p, encoding='utf-8'))
     표 = cs['곳']
+    계약해 = 온전한해(cs['범위']['끝날'], {y for c in 표.values() for y in c})
+    if not 계약해:
+        print('   (계약 요약에 온전한 해가 없다)')
+        return 0, ''
     시작 = len(지표목록)
     for 이름, 단위, 나쁨, 칸, 비율인가 in 계약지표:
         자리[이름] = len(지표목록)
@@ -61,7 +75,7 @@ def 계약칸(곳, 지표목록, 자리):
             if v is None:
                 continue
             r['값'][시작 + k] = [v, None] if 비율인가 else [None, v]
-    return 붙은곳
+    return 붙은곳, 계약해
 
 
 # 진행 중인 사업(QWGJK)은 **그달 누계**다 — 연 단위 지표와 기준이 또 다르다.
@@ -132,7 +146,7 @@ def main():
         곳.append({'cd': d['laf_cd'], '이름': d['이름'], '시도': d['시도'],
                   '갈래': d['갈래'], '인구': d['인구'], '값': 값})
 
-    붙임 = 계약칸(곳, 지표목록, 자리)
+    붙임, 계약해 = 계약칸(곳, 지표목록, 자리)
     진행붙임, 기준달 = 진행칸(곳, 지표목록, 자리)
 
     out = {'만든날': __import__('time').strftime('%Y-%m-%d'),
@@ -143,7 +157,7 @@ def main():
         json.dump(out, fp, ensure_ascii=False, separators=(',', ':'))
     print(f'구움: site/data/board.json.gz ({os.path.getsize(OUT)/1024:,.0f} KB) · '
           f'{len(곳)}곳 × 지표 {len(지표목록)}종 '
-          f'(계약 칸 {붙임}곳 · 진행 칸 {진행붙임}곳 [{기준달}])')
+          f'(계약 칸 {붙임}곳 [{계약해}] · 진행 칸 {진행붙임}곳 [{기준달}])')
 
 
 if __name__ == '__main__':
