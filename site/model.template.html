@@ -101,6 +101,9 @@
   footer code{font-family:var(--mono); font-size:11px; background:var(--sunk); padding:1px 4px}
   footer .call{margin-top:10px; padding-top:9px; border-top:1px solid var(--line-soft); color:var(--ink)}
   footer .call a{color:var(--accent)}
+  footer .join{margin-top:12px; display:flex; gap:6px; flex-wrap:wrap; align-items:center}
+  footer .join button, footer .join span{font-size:12px}
+  footer .join a{color:var(--accent)}
 </style>
 
 <div class="topbar"><div class="wrap">
@@ -408,6 +411,9 @@ async function renderOngoing(cd, d){
       <p>⚠️ 재원(국비·시도비·시군구비)은 <b>편성</b> 기준이다. 나간 돈을 재원별로 가르는 자료는 따로 없다.</p>
       <p>계약 상대(누가 받아 갔나)는 계약현황(<code>WCEGCF</code>)에 있는데, 사업과 이어 주는 열쇠가 없어
          아직 붙이지 못했다. 계약명 글자를 맞춰 보는 수밖에 없다.</p>
+          <p class="join"><button data-join="의견">이 숫자에 의견 남기기</button>
+             <button data-join="제보">제보하기</button>
+             <span class="dim"></span></p>
           <p class="call">숫자가 틀렸거나 물어볼 것이 있으면 — <b>함께하는 시민행동</b>
          <a href="tel:0229214709">02-921-4709</a> ·
          <a href="mailto:action@action.or.kr">action@action.or.kr</a></p>
@@ -499,6 +505,9 @@ async function render(){
       <p>지금은 <b>${d.결산연도}년 결산</b>과 <b>${d.예산연도}년 예산</b> 두 판만 본다.
          16년치 시계열은 받아 뒀지만(<code>data/series.json</code>) 화면에서는 뺐다 — 나중에 볼 일이다.</p>
       <p>이 화면은 설계를 위한 데이터 나열이다. 꾸미지 않았다.</p>
+      <p class="join"><button data-join="의견">이 숫자에 의견 남기기</button>
+         <button data-join="제보">제보하기</button>
+         <span class="dim"></span></p>
       <p class="call">숫자가 틀렸거나 물어볼 것이 있으면 — <b>함께하는 시민행동</b>
          <a href="tel:0229214709">02-921-4709</a> ·
          <a href="mailto:action@action.or.kr">action@action.or.kr</a></p>
@@ -539,6 +548,19 @@ view.innerHTML = ['결산', '예산', '진행중'].map(v =>
 view.addEventListener('click', e => {
   const b = e.target.closest('button'); if (!b) return;
   판 = b.dataset.v; 주소쓰기(); render();
+});
+
+/* 참여 단추 — 어디에 받아 적을지는 아직 정하지 않았다(2026-09-21).
+   자리만 잡아 두고 지금은 메일로 보낸다. 정해지면 이 대목만 갈아끼우면 된다. */
+document.addEventListener('click', e => {
+  const b = e.target.closest('button[data-join]');
+  if (!b) return;
+  const 무엇 = b.dataset.join;
+  const 곳 = b.closest('p').querySelector('span');
+  const 어디 = `${이름of(곳맵[지금곳] || {이름: 지금곳})} (${지금곳})`;
+  const 제목 = encodeURIComponent(`[지방재정] ${무엇} · ${어디}`);
+  곳.innerHTML = '아직 여기서 바로 남기는 칸을 안 만들었다. 지금은 메일로 받는다 — '
+    + `<a href="mailto:action@action.or.kr?subject=${제목}">action@action.or.kr 로 ${무엇} 보내기</a>`;
 });
 
 render();
