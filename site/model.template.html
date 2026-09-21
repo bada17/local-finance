@@ -21,47 +21,48 @@
   }
 
   *{box-sizing:border-box}
-  body{
-    margin:0; background:var(--ground); color:var(--ink);
-    font:14px/1.5 var(--body);
-  }
-  .wrap{max-width:1040px; margin:0 auto; padding-inline:16px}
+  body{margin:0; background:var(--ground); color:var(--ink); font:14px/1.5 var(--body)}
+  .wrap{max-width:1100px; margin:0 auto; padding-inline:16px}
 
   .topbar{
     position:sticky; top:env(safe-area-inset-top,0px); z-index:10;
     background:var(--ground); border-bottom:1px solid var(--line);
   }
-  .topbar .wrap{display:flex; align-items:center; gap:10px; min-height:46px; flex-wrap:wrap}
+  .topbar .wrap{display:flex; align-items:center; gap:8px; min-height:46px; flex-wrap:wrap; padding-block:6px}
   .topbar .t{font-weight:600; margin-right:auto; font-size:13px}
-  .topbar button{
+  .grp{display:flex; gap:4px}
+  .grp+.grp{margin-left:10px; padding-left:10px; border-left:1px solid var(--line)}
+  button{
     font:13px var(--body); color:var(--muted); background:var(--sunk);
     border:1px solid var(--line); padding:5px 11px; cursor:pointer;
   }
-  .topbar button[aria-selected="true"]{background:var(--accent); border-color:var(--accent); color:#fff}
-  .topbar button:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+  button[aria-selected="true"]{background:var(--accent); border-color:var(--accent); color:#fff}
+  button:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
 
-  h1{font-size:20px; margin:24px 0 2px; font-weight:700}
-  .meta{color:var(--muted); font-size:13px; margin:0 0 4px}
+  h1{font-size:20px; margin:22px 0 2px; font-weight:700}
+  h1 .cd{color:var(--faint); font-family:var(--mono); font-size:14px; font-weight:400}
+  .meta{color:var(--muted); font-size:13px; margin:0}
   .meta span{margin-right:14px}
   .meta b{font-family:var(--mono); color:var(--ink); font-weight:600}
 
-  h2{
-    font-size:14px; margin:30px 0 2px; font-weight:700;
-    padding-bottom:5px; border-bottom:2px solid var(--ink);
+  .basis{
+    margin:14px 0 0; padding:10px 12px; background:var(--sunk);
+    border:1px solid var(--line); font-size:12.5px; color:var(--muted);
   }
+  .basis b{color:var(--ink)}
+
+  h2{font-size:14px; margin:26px 0 2px; font-weight:700; padding-bottom:5px; border-bottom:2px solid var(--ink)}
   h2 small{font-weight:400; color:var(--muted); font-size:12px; margin-left:8px}
   .note{color:var(--faint); font-size:12px; margin:6px 0 8px}
 
   .scroll{overflow-x:auto; border:1px solid var(--line)}
   table{border-collapse:collapse; width:100%; font-size:13px}
   th,td{padding:6px 10px; border-bottom:1px solid var(--line-soft); white-space:nowrap}
-  thead th{
-    background:var(--sunk); text-align:right; font-weight:600; font-size:11.5px;
-    color:var(--muted); border-bottom:1px solid var(--line); position:sticky; top:0;
-  }
+  thead th{background:var(--sunk); text-align:right; font-weight:600; font-size:11.5px; color:var(--muted); border-bottom:1px solid var(--line)}
   thead th:first-child{text-align:left}
   tbody td{font-family:var(--mono); text-align:right; font-variant-numeric:tabular-nums}
   tbody td:first-child{font-family:var(--body); text-align:left}
+  tbody td.yr{font-size:11.5px; color:var(--faint); text-align:center}
   tbody tr:hover{background:var(--sunk)}
   tbody tr:last-child td{border-bottom:0}
   td.mark{color:var(--alert); font-weight:600}
@@ -79,14 +80,16 @@
 </style>
 
 <div class="topbar"><div class="wrap">
-  <span class="t">지방재정 데이터 나열 · 2024 결산</span>
-  <span id="switch"></span>
+  <span class="t">지방재정 데이터 나열</span>
+  <span class="grp" id="loc"></span>
+  <span class="grp" id="view"></span>
 </div></div>
 
 <main class="wrap" id="app"></main>
 
 <script>
 const DATA = __DATA__;
+let 판 = '결산';
 
 const 정식 = {서울:'서울특별시', 부산:'부산광역시', 대구:'대구광역시', 인천:'인천광역시',
   광주:'광주광역시', 대전:'대전광역시', 울산:'울산광역시', 세종:'세종특별자치시',
@@ -97,8 +100,6 @@ const 이름of = d => d.갈래 === '광역' ? (정식[d.시도] || d.이름)
 
 const n0 = v => v == null ? '' : Math.round(v).toLocaleString('ko-KR');
 const n1 = v => v == null ? '' : v.toLocaleString('ko-KR', {minimumFractionDigits:1, maximumFractionDigits:1});
-
-/* 원 단위는 자릿수가 커서 그대로는 못 읽는다. 조·억으로 줄이되 원값도 같이 적는다. */
 function 돈(v){
   if (v == null) return '';
   const a = Math.abs(v);
@@ -106,6 +107,9 @@ function 돈(v){
   if (a >= 1e8)  return (v/1e8 ).toLocaleString('ko-KR',{maximumFractionDigits:0}) + '억';
   return n0(v);
 }
+
+/* 판 가르기 — 결산·실적은 결산 판, 예산 계열은 예산 판 */
+const 판of = m => (m.기준 === '결산' || m.기준 === '실적') ? '결산' : '예산';
 
 function table(cols, rows){
   return `<div class="scroll"><table>
@@ -115,12 +119,14 @@ function table(cols, rows){
 
 function 지표행(m){
   const 눈여겨 = m.높을수록나쁨 && m.순위 <= Math.max(2, Math.round(m.전체 * 0.1));
-  const 비율칸 = m.비율 == null ? '<td class="dim">—</td>'
-    : `<td${눈여겨 ? ' class="mark"' : ''}>${n1(m.비율)}${m.단위 === '천원' ? '' : m.단위}</td>`;
+  const 천원 = m.단위 === '천원';
   return `<tr>
     <td>${m.이름}</td>
-    ${비율칸}
-    <td>${m.단위 === '천원' ? n0(m.금액) + ' 천원' : 돈(m.금액)}<span class="raw">${n0(m.금액)}</span></td>
+    <td class="yr">${m.기준.replace('예산','')|| '—'}</td>
+    <td class="yr">${m.연도}</td>
+    ${m.비율 == null ? '<td class="dim">—</td>'
+      : `<td${눈여겨 ? ' class="mark"' : ''}>${n1(m.비율)}${천원 ? '' : m.단위}</td>`}
+    <td>${천원 ? n0(m.금액) + ' 천원' : 돈(m.금액)}<span class="raw">${n0(m.금액)}</span></td>
     <td>${m.분모 == null ? '<span class="dim">—</span>' : 돈(m.분모) + `<span class="raw">${n0(m.분모)}</span>`}</td>
     <td${눈여겨 ? ' class="mark"' : ''}>${m.순위} / ${m.전체}</td>
     <td class="dim">${m.비율 == null ? 돈(m.중앙값) : n1(m.중앙값)}</td>
@@ -137,66 +143,91 @@ const 축설명 = {
   '빚':         '감당할 수 있나.'
 };
 
-function render(cd){
-  const d = DATA[cd];
-  const byAxis = {};
-  d.지표.forEach(m => (byAxis[m.축] ||= []).push(m));
+const 판설명 = {
+  '결산': d => `<b>결산</b> — 이미 쓰고 나서 확정된 실적이다. 숫자가 다시 바뀌지 않는다.
+    ${d.결산연도}년이 최신이고 ${Number(d.결산연도)+1}년 결산은 아직 안 올라왔다.
+    수의계약비율만 계약 <b>실적</b> 기준이다.`,
+  '예산': d => `<b>예산</b> — 아직 쓰기 전의 계획이다. <b>당초</b>는 그 해 처음 짠 것,
+    <b>최종</b>은 추경까지 반영된 것. 당초는 ${d.예산연도}년까지 있고 최종은 추경이 끝나야
+    나오므로 한 해 늦다. ⚠️ 지방재정365는 <b>1차·2차 추경을 구분해 주지 않는다</b> —
+    「최종」 하나뿐이라 몇 차 추경인지는 알 수 없다. 당초/최종 표시가 없는 지표는
+    API 가 시점을 밝히지 않은 것이다.`
+};
 
-  const 축들 = Object.keys(byAxis).map((axis, i) => {
-    const rows = byAxis[axis].map(지표행);
-    return `<h2>${'①②③④⑤⑥⑦'[i] || ''} ${axis}<small>${축설명[axis] || ''}</small></h2>
-      ${table(['지표','비율','금액(분자)','분모','순위','중앙값','최소','최대'], rows)}`;
-  }).join('');
+function render(){
+  const cd = document.querySelector('#loc button[aria-selected="true"]')?.dataset.cd
+           || Object.keys(DATA)[0];
+  const d = DATA[cd];
+  const 지표 = d.지표.filter(m => 판of(m) === 판);
+
+  const byAxis = {};
+  지표.forEach(m => (byAxis[m.축] ||= []).push(m));
+  const 축들 = Object.keys(byAxis).map((axis, i) => `
+    <h2>${'①②③④⑤⑥'[i] || ''} ${axis}<small>${축설명[axis] || ''}</small></h2>
+    ${table(['지표','구분','연도','비율','금액(분자)','분모','순위','중앙값','최소','최대'],
+            byAxis[axis].map(지표행))}`).join('');
 
   const s = d.시계열;
   const base = s.find(r => r.세출)?.세출;
-  const 시계열 = s.map((r, i) => {
-    const prev = i ? s[i-1].세출 : null;
-    const 증감 = (prev && r.세출) ? (r.세출 - prev) / prev * 100 : null;
-    return `<tr>
-      <td>${r.연도}</td>
-      <td>${돈(r.세출)}<span class="raw">${n0(r.세출)}</span></td>
-      <td>${돈(r.세입)}<span class="raw">${n0(r.세입)}</span></td>
-      <td${증감 != null && 증감 < 0 ? ' class="mark"' : ''}>${증감 == null ? '' : (증감 > 0 ? '+' : '') + n1(증감) + '%'}</td>
-      <td class="dim">${base && r.세출 ? n1(r.세출 / base * 100) : ''}</td>
-    </tr>`;
-  });
+  const 시계열표 = 판 !== '결산' ? '' : `
+    <h2>⑥ 시계열<small>세출·세입 결산 총액 ${s[0]?.연도}~${s[s.length-1]?.연도}</small></h2>
+    <p class="note">지수는 ${s[0]?.연도}년을 100 으로 놓은 값이다. 증감은 전년 대비.</p>
+    ${table(['연도','세출결산','세입결산','세출 증감','지수'], s.map((r, i) => {
+      const prev = i ? s[i-1].세출 : null;
+      const 증감 = (prev && r.세출) ? (r.세출 - prev) / prev * 100 : null;
+      return `<tr><td>${r.연도}</td>
+        <td>${돈(r.세출)}<span class="raw">${n0(r.세출)}</span></td>
+        <td>${돈(r.세입)}<span class="raw">${n0(r.세입)}</span></td>
+        <td${증감 != null && 증감 < 0 ? ' class="mark"' : ''}>${증감 == null ? '' : (증감 > 0 ? '+' : '') + n1(증감) + '%'}</td>
+        <td class="dim">${base && r.세출 ? n1(r.세출 / base * 100) : ''}</td></tr>`;
+    }))}`;
 
   const docs = Object.entries(d.원문).map(([k, u]) =>
     `<li><b>${k}</b> <a href="${u}" target="_blank" rel="noopener">${u}</a></li>`).join('');
 
   document.getElementById('app').innerHTML = `
-    <h1>${이름of(d)} <span style="color:var(--faint);font-family:var(--mono);font-size:14px;font-weight:400">${d.laf_cd}</span></h1>
+    <h1>${이름of(d)} <span class="cd">${d.laf_cd}</span></h1>
     <p class="meta">
       <span>${d.갈래}자치단체</span>
       <span>인구 <b>${n0(d.인구)}</b>명</span>
       <span>견줄 곳 <b>${d.견줄곳수}</b>곳</span>
-      <span>기준 <b>${d.연도}</b>년 결산</span>
-      <span>지표 <b>${d.지표.length}</b>종</span>
+      <span>이 판의 지표 <b>${지표.length}</b>종</span>
     </p>
+    <p class="basis">${판설명[판](d)}</p>
     <p class="note">순위는 늘 값이 큰 쪽이 1위다. 같은 갈래끼리만 매겼다. 중앙값·최소·최대는 견줄 곳 ${d.견줄곳수}곳의 값이다.</p>
     ${축들}
-    <h2>⑥ 시계열<small>세출·세입 결산 총액 ${s[0]?.연도}~${s[s.length-1]?.연도}</small></h2>
-    <p class="note">지수는 ${s[0]?.연도}년을 100 으로 놓은 값이다. 증감은 전년 대비.</p>
-    ${table(['연도','세출결산','세입결산','세출 증감','지수'], 시계열)}
+    ${시계열표}
     <h2>원문<small>지방재정365 가 자치단체별 주소를 API 로 준다</small></h2>
     <ul class="docs">${docs}</ul>
     <footer>
-      <p>자료 — 지방재정365 OpenAPI. 지표 ${d.지표.length}종은 ${d.연도}년 결산 기준, 시계열은 ${s.length}년치. 243개 자치단체 전수.</p>
+      <p>자료 — 지방재정365 OpenAPI. 결산 ${d.결산연도}년, 예산 ${d.예산연도}년 기준. 243개 자치단체 전수.</p>
       <p>금액은 조·억으로 줄여 적고 아래에 원 단위를 그대로 붙였다. 1인당 지표만 천원 단위다.</p>
       <p>비율 지표는 분자·분모 금액이 같은 응답에 들어 있다. 비율만 보면 그것이 몇 억인지 알 수 없다.</p>
-      <p>갱신 — 결산이 확정되는 해마다 한 번. <code>python scripts/fetch_indicators.py ${d.연도}</code></p>
+      <p>갱신 — 결산 시즌에 한 번, 예산 확정 뒤에 한 번.
+         <code>python scripts/fetch_indicators.py ${d.결산연도} ${d.예산연도}</code></p>
       <p>이 화면은 설계를 위한 데이터 나열이다. 꾸미지 않았다.</p>
     </footer>`;
 
-  document.querySelectorAll('#switch button').forEach(b =>
-    b.setAttribute('aria-selected', String(b.dataset.cd === cd)));
+  document.querySelectorAll('#view button').forEach(b =>
+    b.setAttribute('aria-selected', String(b.dataset.v === 판)));
 }
 
-const sw = document.getElementById('switch');
-sw.innerHTML = Object.values(DATA).map(d =>
-  `<button data-cd="${d.laf_cd}" aria-selected="false">${이름of(d)}</button>`).join(' ');
-sw.addEventListener('click', e => { const b = e.target.closest('button'); if (b) render(b.dataset.cd); });
+const loc = document.getElementById('loc');
+loc.innerHTML = Object.values(DATA).map((d, i) =>
+  `<button data-cd="${d.laf_cd}" aria-selected="${i === 0}">${이름of(d)}</button>`).join('');
+loc.addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  loc.querySelectorAll('button').forEach(x => x.setAttribute('aria-selected', String(x === b)));
+  render();
+});
 
-render(Object.keys(DATA)[0]);
+const view = document.getElementById('view');
+view.innerHTML = ['결산', '예산'].map(v =>
+  `<button data-v="${v}" aria-selected="${v === 판}">${v} 기준</button>`).join('');
+view.addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  판 = b.dataset.v; render();
+});
+
+render();
 </script>

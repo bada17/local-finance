@@ -22,7 +22,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from fetch_lofin import fetch, load_key  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-YEAR = '2024'
+INDICATORS = '2024-2026'      # data/indicators/<이것>.json
 
 # 값이 높을수록 눈여겨볼 지표
 HIGH_IS_BAD = {'수의계약비율', '업무추진비비율', '행사축제경비비율', '지방의회경비비율',
@@ -35,7 +35,7 @@ HIGH_IS_BAD = {'수의계약비율', '업무추진비비율', '행사축제경�
 
 def main():
     codes = sys.argv[1:] or ['2600000', '4373000']
-    d = json.load(open(os.path.join(ROOT, 'data', 'indicators', f'{YEAR}.json'), encoding='utf-8'))
+    d = json.load(open(os.path.join(ROOT, 'data', 'indicators', f'{INDICATORS}.json'), encoding='utf-8'))
     locs = {x['laf_cd']: x for x in d['자치단체']}
     meta = {m['이름']: m for m in d['지표목록']}
 
@@ -45,7 +45,7 @@ def main():
     key = load_key()
     links = {}
     for code, label in (('BUDLK', '예산서'), ('SETLK', '결산서'), ('FINLK', '재정공시')):
-        rows, _ = fetch(code, {'fyr': '2024' if code == 'SETLK' else '2025'}, key)
+        rows, _ = fetch(code, {'fyr': d['결산연도'] if code == 'SETLK' else '2025'}, key)
         for r in rows:
             links.setdefault(r['laf_cd'], {})[label] = r.get('lnk_url_nm')
 
@@ -56,7 +56,7 @@ def main():
         peers = [x for x in locs.values() if x['laf_cd'].endswith('00000') == wide]
 
         out = {
-            '연도': YEAR, 'laf_cd': cd, '이름': me['laf_hg_nm'], '시도': me['wa_laf_hg_nm'],
+            '결산연도': d['결산연도'], '예산연도': d['예산연도'], 'laf_cd': cd, '이름': me['laf_hg_nm'], '시도': me['wa_laf_hg_nm'],
             '갈래': '광역' if wide else '기초', '인구': me['인구'],
             '견줄곳수': len(peers), '원문': links.get(cd, {}),
             '지표': [], '시계열': [],
@@ -75,9 +75,10 @@ def main():
                     if name in x['지표'] and x['지표'][name].get(key_slot) is not None]
             out['지표'].append({
                 '이름': name, '축': m['축'], '단위': m['단위'],
+                '기준': m['기준'], '연도': m['연도'],
                 '비율': cell.get('비율'), '금액': cell.get('금액'),
                 '분모': cell.get('분모'), '일반회계': cell.get('일반회계'),
-                '기준': key_slot,
+                '순위기준': key_slot,
                 # 순위는 늘 "1위 = 값이 가장 큰 곳". 같은 값이 여럿이면 공동 순위
                 '순위': sum(1 for x in vals if x > v) + 1,
                 '전체': len(vals),
