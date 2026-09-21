@@ -41,6 +41,7 @@
     border:1px solid var(--line); padding:5px 11px; cursor:pointer;
   }
   button[aria-selected="true"]{background:var(--accent); border-color:var(--accent); color:#fff}
+  button:disabled{opacity:.4; cursor:not-allowed}
   button:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
 
   h1{font-size:20px; margin:22px 0 2px; font-weight:700}
@@ -145,7 +146,15 @@ const 정식 = {서울:'서울특별시', 부산:'부산광역시', 대구:'대�
   광주:'광주광역시', 대전:'대전광역시', 울산:'울산광역시', 세종:'세종특별자치시',
   경기:'경기도', 강원:'강원특별자치도', 충북:'충청북도', 충남:'충청남도',
   전북:'전북특별자치도', 전남:'전라남도', 경북:'경상북도', 경남:'경상남도', 제주:'제주특별자치도'};
-const 이름of = d => d.갈래 === '광역' ? (정식[d.시도] || d.이름)
+/* 「…으로/…로」 — 받침을 보고 고른다 */
+const 로of = s => {
+  const c = s.charCodeAt(s.length - 1) - 0xAC00;
+  if (c < 0 || c > 11171) return '로';
+  const j = c % 28;
+  return (j === 0 || j === 8) ? '로' : '으로';
+};
+const 이름of = d => d.진행만 ? d.이름            // 2026년에 바뀐 구역은 온 이름 그대로
+  : d.갈래 === '광역' ? (정식[d.시도] || d.이름)
   : (d.이름.startsWith(d.시도) ? d.이름.slice(d.시도.length) : d.이름);
 
 const n0 = v => v == null ? '' : Math.round(v).toLocaleString('ko-KR');
@@ -350,9 +359,17 @@ async function renderOngoing(cd, d){
   const o = await 진행데이터(cd);
   if (판 !== '진행중') return;            // 그 사이 다른 판으로 옮겼으면 그만둔다
   if (!o) {
+    const 뒤 = (바뀜[cd] || []).map(c =>
+      `<button data-go="${c}">${곳맵[c]?.이름 || c}${로of(곳맵[c]?.이름 || c)} 가기</button>`).join(' ');
     app.innerHTML = `<h1>${이름of(d)} <span class="cd">${d.laf_cd}</span></h1>
-      <p class="basis">이 자치단체의 <b>진행 중인 사업</b> 자료가 아직 없다.
-      지방재정365는 단체마다 올리는 시점이 다르다 — 2026년 일별 자료가 없는 곳이 있다.</p>`;
+      <p class="basis">${뒤
+        ? `이 자치단체는 <b>2026년에 구역이 바뀌었다.</b> 결산·예산 지표는 옛 구역 기준으로 남아 있지만,
+           진행 중인 사업은 <b>새 이름으로</b> 올라온다.<br>${뒤}`
+        : `이 자치단체의 <b>진행 중인 사업</b> 자료가 아직 없다.
+           지방재정365는 단체마다 올리는 시점이 다르다.`}</p>`;
+    app.querySelectorAll('button[data-go]').forEach(b => b.onclick = () => {
+      지금곳 = b.dataset.go; pick.value = 지금곳; 주소쓰기(); render();
+    });
     return;
   }
 
@@ -366,6 +383,8 @@ async function renderOngoing(cd, d){
       <span>지출 <b>${돈(o.지출)}</b> (${n1(집행률(o.지출, o.예산현액))}%)</span>
       <span>기준 <b>${기준}</b></span>
     </p>
+    ${d.새로생김 ? `<p class="basis">⚠️ <b>2026년에 새로 생긴 구역이다.</b>
+      결산(2024)·예산(2026) 지표는 옛 구역 기준이라 이 이름으로는 없다. 진행 중인 사업만 볼 수 있다.</p>` : ''}
     <p class="basis"><b>진행 중</b> — 올해 짜 놓은 세부사업과, ${기준}까지 <b>실제로 나간 돈</b>이다.
       결산이 아니라 <b>지금 집행 중인 숫자</b>라 날마다 바뀐다.
       지출액은 그날까지의 <b>누계</b>이며, 출납폐쇄 전이라 뒤에 정리되면서 달라질 수 있다.</p>
@@ -405,14 +424,33 @@ async function renderOngoing(cd, d){
 }
 
 function 맞추기(){
-  document.querySelectorAll('#view button').forEach(b =>
-    b.setAttribute('aria-selected', String(b.dataset.v === 판)));
+  const 진행만 = !!곳맵[지금곳]?.진행만;
+  document.querySelectorAll('#view button').forEach(b => {
+    b.setAttribute('aria-selected', String(b.dataset.v === 판));
+    b.disabled = 진행만 && b.dataset.v !== '진행중';
+  });
 }
+
+/* 2026년에 구역이 바뀐 곳 — 옛 이름으로는 진행 중인 사업이 안 올라온다 */
+const 바뀜 = {
+  '2900000': ['6100000'],            // 광주본청 → 전남광주본청
+  '4600000': ['6100000'],            // 전남본청 → 전남광주본청
+  '2811000': ['2811500', '2812500'], // 인천중구 → 영종구·제물포구
+  '2812000': ['2812500'],            // 인천동구 → 제물포구
+};
 
 async function render(){
   const cd = 지금곳;
   const app = document.getElementById('app');
   맞추기();
+  // 2026년에 새로 생긴 구역은 지표(2024 결산·2026 예산)가 아직 없다 — 진행 판만 연다
+  const 쪽지 = 곳맵[cd];
+  if (쪽지?.진행만) {
+    판 = '진행중'; 맞추기();
+    return renderOngoing(cd, {laf_cd: cd, 이름: 쪽지.이름, 시도: 쪽지.시도,
+                             갈래: 쪽지.갈래, 진행만: 1, 새로생김: true});
+  }
+
   const d = await 곳데이터(cd);
   if (cd !== 지금곳) return;               // 그 사이 다른 곳을 골랐으면 그만둔다
   if (!d) {
@@ -468,7 +506,7 @@ const 묶음 = [['광역자치단체 17곳', INDEX.곳.filter(x => x.갈래 === 
   .concat(시도차례.map(sd => [정식[sd] || sd, INDEX.곳.filter(x => x.갈래 === '기초' && x.시도 === sd)]));
 loc.innerHTML = `<select id="pick" aria-label="자치단체 고르기">${
   묶음.map(([label, xs]) => `<optgroup label="${label}">${
-    xs.map(x => `<option value="${x.cd}">${이름of(x)}</option>`).join('')
+    xs.map(x => `<option value="${x.cd}">${이름of(x)}${x.진행만 ? ' — 진행 중인 사업만' : ''}</option>`).join('')
   }</optgroup>`).join('')}</select>`;
 
 const pick = document.getElementById('pick');
