@@ -135,6 +135,7 @@
       <button data-f="문서뿐" aria-selected="false">문서뿐인 곳</button>
       <button data-f="못봄" aria-selected="false">자동으로 못 본 곳</button>
       <button data-f="API" aria-selected="false">API에 빠진 곳</button>
+      <button data-f="크롬" aria-selected="false">크롬으로만 보이는 곳</button>
     </span>
   </p>
   <p class="note" id="say"></p>
@@ -142,12 +143,15 @@
 
   <footer>
     <p><b>어떻게 쟀나</b> — 재정공시 주소는 지방재정365 <span class="mark">FINLK</span>가 자치단체별로 준다.
-      그 주소를 243곳 전부 눌러 보고, 열린 페이지에 붙은 <b>첨부파일 이름</b>을 긁었다(<span id="asof"></span> 기준).
+      그 주소를 243곳 전부 <b>두 번</b> 눌러 봤다 — 원문 HTML 로 한 번(<span id="asof"></span>),
+      <b>크롬으로 한 번</b>(<span id="asof2"></span>). 목록을 자바스크립트로 그리는 곳과
+      이름이 해시인 곳은 크롬으로 열어야 파일 이름이 나온다.
       「기계가 읽나」 칸은 지방재정365 OpenAPI 146종 가운데 <b>거의 모든 곳이 내는 자료</b>
       (기초 <span id="std1"></span>종 · 광역 <span id="std2"></span>종)에서 그 곳이 빠졌는지로 본다.</p>
     <p><b>⚠️ 이 화면이 재는 것은 「공시했는가」가 아니라 「자동 점검이 볼 수 있었는가」다.</b>
-      파일 이름이 해시(<span class="mark">67c141f1….pdf</span>)인 곳, 목록을 자바스크립트로 그려
-      긁히지 않는 곳이 많다. <b>못 봤다를 없다로 읽지 말 것.</b></p>
+      두 번째로 크롬까지 돌렸지만 <b>여전히 못 본 곳이 남는다</b> — 로그인·검색을 거쳐야 하는 곳,
+      이름이 「첨부파일」뿐인 곳. <b>못 봤다를 없다로 읽지 말 것.</b>
+      「② 올린 날」도 페이지에 <b>적혀 있는 곳만</b> 읽었다(<span id="asof3"></span>곳).</p>
     <p>링크가 안 열린 곳도 갈라 봐야 한다. <b>404·400</b>은 주소가 죽은 것이지만,
       <b>SSL 오류·시간초과</b>는 자동 점검 쪽 문제일 수 있다 — 시민 브라우저에서는 열릴 수 있다.</p>
     <p>곳수가 적다고 미제출이 아니다. 광역만 내는 자료, 그해 해당이 없는 자료가 섞여 있어
@@ -165,8 +169,10 @@ let 찾기 = '', 거르개 = '전부', 펼친 = null;
 const 칸들 = [
   ['주소냄',   '재정공시 주소를 냈다', '지방재정365에 주소가 올라와 있다', false],
   ['열림',     '눌렀더니 열렸다', '', true],
-  ['파일잡힘', '붙은 파일이 잡혔다', '떨어진 곳은 목록을 자바스크립트로 그려 자동으로는 안 보인다', true],
-  ['엑셀',     '엑셀·CSV 가 하나라도 있다', '떨어진 곳은 PDF·한글 문서뿐이다 — 숫자를 옮겨 담을 수 없다', true],
+  ['파일잡힘', '붙은 파일이 잡혔다', '원문 HTML 로 한 번, 크롬으로 한 번 — 둘을 합친 수다', true],
+  ['엑셀',     '엑셀·CSV 가 하나라도 있다',
+    `그 가운데 ${SUM['문서뿐']}곳은 PDF·한글 문서뿐이고 — 숫자를 옮겨 담을 수 없다 —` +
+    ` 나머지는 파일 이름에 확장자가 없어 무슨 꼴인지 모른다`, true],
 ];
 document.getElementById('funnel').innerHTML = 칸들.map(([k, lb, sub, drop], i) => {
   const n = SUM[k], 앞 = i ? SUM[칸들[i - 1][0]] : SUM['모두'];
@@ -183,8 +189,8 @@ document.getElementById('funnel').insertAdjacentHTML('beforeend',
   `<div class="step">
     <span class="n">${SUM['이름읽힘']}</span>
     <span class="lb"><b>파일 이름이 뜻을 갖는다</b> — 위와는 다른 축이다<br>
-      파일이 잡힌 ${SUM['파일잡힘']}곳 가운데 ${SUM['해시']}곳은 이름이 해시라
-      무슨 문서인지 눌러 봐야 안다</span>
+      파일이 잡힌 ${SUM['파일잡힘']}곳 가운데 ${SUM['해시']}곳은 아직도 이름이 해시거나
+      「첨부파일」 같은 단추 글자뿐이다</span>
     <span class="track"><span class="bar"
       style="width:${(SUM['이름읽힘'] / SUM['모두'] * 100).toFixed(1)}%"></span></span>
   </div>`);
@@ -193,8 +199,10 @@ const 까닭줄 = Object.entries(SUM['까닭']).sort((a, b) => b[1] - a[1])
   .map(([k, v]) => `${k} ${v}곳`).join(' · ');
 document.getElementById('caveat').innerHTML =
   `<b>떨어진 곳을 「안 냈다」로 읽으면 안 된다.</b> 링크가 안 열린 ${SUM['모두'] - SUM['열림']}곳의 까닭은
-   ${까닭줄} 이다. 파일이 안 잡힌 ${SUM['파일못봄']}곳과 이름이 해시인 ${SUM['해시']}곳은
-   <b>자동 점검의 한계이지 그 곳의 잘못이 아니다.</b> 반면
+   ${까닭줄} 이다. 파일이 안 잡힌 ${SUM['파일못봄']}곳과 이름을 못 읽은 ${SUM['해시']}곳은
+   <b>점검 쪽 한계이지 그 곳의 잘못이 아니다.</b>
+   실제로 <b>크롬으로 다시 보니 ${SUM['크롬이살림']}곳</b>에서 원문 HTML 로는 안 보이던 파일 이름이 나왔고,
+   ${SUM['크롬만열림']}곳은 <b>파이썬이 튕겼을 뿐 크롬에서는 열린다</b>. 반면
    <b>엑셀·CSV 가 하나도 없는 ${SUM['문서뿐']}곳</b>은 눈으로 확인된 사실이다 —
    숫자를 그림으로 내면 시민은 그것을 다시 두드려 넣어야 한다.`;
 
@@ -218,6 +226,7 @@ const 거르개들 = {
   '문서뿐': r => r.형식 === '문서뿐',
   '못봄': r => r.링크 === '열림' && (!r.파일수 || !r.읽힌수),
   'API': r => r.API빠짐수 > 0,
+  '크롬': r => r.본법 === '크롬' || r.크롬만,
 };
 
 // 마크는 셋뿐이다 — ○ 됐다 · ✕ 안 됐다 · ? 자동으로는 못 봤다(안 됐다가 아니다)
@@ -249,12 +258,16 @@ function 그리기(){
       <td>${r.형식 === '엑셀 있음' ? 마크('ok', '엑셀 있음')
              : r.형식 === '문서뿐' ? 마크('bad', '문서뿐') : 마크('dim', '못 봄')}</td>
       <td>${r.API빠짐수 ? 마크('bad', `${r.API빠짐수}종 빠짐`) : 마크('ok', '다 있음')}</td>
+      <td class="num">${r.올린날 || '<span class="dim">—</span>'}</td>
       <td class="num">${r.읽힌수 ? r.항목.length + '/16' : '<span class="dim">—</span>'}</td>
     </tr>`);
     if (펼친 === r.cd) {
-      줄.push(`<tr class="det"><td colspan="7">
+      줄.push(`<tr class="det"><td colspan="8">
         <div><b>${r.이름}</b> — <a href="${r.주소}" target="_blank" rel="noopener">재정공시 페이지 열기 ↗</a>
-          ${r.제목 ? `<br><span class="dim">페이지 제목: ${r.제목}</span>` : ''}</div>
+          ${r.제목 ? `<br><span class="dim">페이지 제목: ${r.제목}</span>` : ''}
+          ${r.본법 === '크롬' ? `<br><span class="dim">※ 원문 HTML 에는 안 보이고 <b>크롬으로 열어야</b> 파일 이름이 나온다</span>` : ''}
+          ${r.크롬만 ? `<br><span class="dim">※ 파이썬은 튕겼지만 크롬에서는 열린다(인증서 문제로 보인다)</span>` : ''}
+          ${r.올린날 ? `<br><span class="dim">페이지에 적힌 날짜: ${r.올린날}</span>` : ''}</div>
         ${r.파일.length
           ? `<div style="margin-top:6px">붙은 파일 ${r.파일수}개${r.더 ? ` (앞 ${r.파일.length}개만)` : ''}</div>
              <ul class="files">${r.파일.map(f => `<li>${f}</li>`).join('')}</ul>`
@@ -275,12 +288,14 @@ function 그리기(){
   document.getElementById('list').innerHTML = 걸린.length
     ? `<div class="scroll"><table>
         <thead><tr><th>자치단체</th><th>② 링크</th><th>붙은 파일</th><th>③ 이름</th>
-          <th>③ 형식</th><th>③ 기계가 읽나</th><th>① 60조</th></tr></thead>
+          <th>③ 형식</th><th>③ 기계가 읽나</th><th>② 올린 날</th><th>① 60조</th></tr></thead>
         <tbody>${줄.join('')}</tbody></table></div>`
     : '<p class="note">걸린 곳이 없다.</p>';
 }
 
 document.getElementById('asof').textContent = SUM['만든날'];
+document.getElementById('asof2').textContent = SUM['크롬날'] || '아직';
+document.getElementById('asof3').textContent = SUM['올린날앎'];
 document.getElementById('std1').textContent = SUM['API잣대기초'];
 document.getElementById('std2').textContent = SUM['API잣대광역'];
 const q = document.getElementById('q');

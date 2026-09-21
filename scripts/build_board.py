@@ -3,6 +3,7 @@
 #   python scripts/build_board.py
 #
 # site/data/loc/*.json (자치단체별 지표)을 모아 **한 파일**로 눌러 담는다.
+# 여기에 **계약 3년치를 우리가 직접 센 칸**(data/contracts_summary.json)을 덧붙인다.
 # 화면에서 「어느 지표를 칸으로 세울지」 고를 수 있어야 하므로 값만 촘촘히 담는다.
 #
 # 결과: site/data/board.json.gz
@@ -21,6 +22,46 @@ except AttributeError:
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LOC = os.path.join(ROOT, 'site', 'data', 'loc')
 OUT = os.path.join(ROOT, 'site', 'data', 'board.json.gz')
+
+
+# 계약은 **다른 자료·다른 기준**이다 — 지방재정365 지표와 섞이지 않게 축을 따로 둔다.
+# ⚠️ 연도는 계약일 기준이고, 2026년은 아홉 달치뿐이라 **온전한 마지막 해인 2025년**만 올린다.
+계약해 = '2025'
+계약지표 = [
+    # (이름, 단위, 높을수록나쁨, 여기서 꺼낼 칸, 비율인가)
+    ('계약 총액', '원', False, '금액', False),
+    ('수의계약 금액 비중', '%', True, '수의금액률', True),
+    ('수의계약 건수 비중', '%', True, '수의건수율', True),
+    ('상위 5개 업체 몫', '%', True, '상위5몫', True),
+    ('거래 업체 수', '곳', False, '업체수', False),
+]
+
+
+def 계약칸(곳, 지표목록, 자리):
+    """계약 원자료에서 센 칸을 시황판에 붙인다. 파일이 없으면 그냥 건너뛴다."""
+    p = os.path.join(ROOT, 'data', 'contracts_summary.json')
+    if not os.path.exists(p):
+        print('   (계약 요약이 없어 계약 칸은 건너뛴다)')
+        return 0
+    cs = json.load(open(p, encoding='utf-8'))
+    표 = cs['곳']
+    시작 = len(지표목록)
+    for 이름, 단위, 나쁨, 칸, 비율인가 in 계약지표:
+        자리[이름] = len(지표목록)
+        지표목록.append({'이름': 이름, '축': '계약 3년치(우리가 센 것)', '단위': 단위,
+                       '기준': '계약', '연도': 계약해, '높을수록나쁨': 나쁨})
+    붙은곳 = 0
+    for r in 곳:
+        d = 표.get(r['cd'], {}).get(계약해)
+        if not d:
+            continue
+        붙은곳 += 1
+        for k, (이름, 단위, 나쁨, 칸, 비율인가) in enumerate(계약지표):
+            v = d.get(칸)
+            if v is None:
+                continue
+            r['값'][시작 + k] = [v, None] if 비율인가 else [None, v]
+    return 붙은곳
 
 
 def main():
@@ -44,6 +85,8 @@ def main():
         곳.append({'cd': d['laf_cd'], '이름': d['이름'], '시도': d['시도'],
                   '갈래': d['갈래'], '인구': d['인구'], '값': 값})
 
+    붙임 = 계약칸(곳, 지표목록, 자리)
+
     out = {'만든날': __import__('time').strftime('%Y-%m-%d'),
            '결산연도': d['결산연도'], '예산연도': d['예산연도'],
            '지표': 지표목록, '곳': 곳}
@@ -51,7 +94,7 @@ def main():
     with gzip.open(OUT, 'wt', encoding='utf-8', compresslevel=9) as fp:
         json.dump(out, fp, ensure_ascii=False, separators=(',', ':'))
     print(f'구움: site/data/board.json.gz ({os.path.getsize(OUT)/1024:,.0f} KB) · '
-          f'{len(곳)}곳 × 지표 {len(지표목록)}종')
+          f'{len(곳)}곳 × 지표 {len(지표목록)}종 (계약 칸 {붙임}곳에 붙음)')
 
 
 if __name__ == '__main__':

@@ -8,12 +8,14 @@
 #   ② 닿을 수 있나 : 그 주소가 눌러서 열리나
 #   ③ 쓸 수 있나   : 파일 이름이 뜻을 갖나 · 엑셀/CSV 로 냈나 · 기계가 읽을 수 있나(API 등재)
 #
-# ⚠️ **이 화면은 「공시했는가」가 아니라 「자동 점검이 볼 수 있었는가」다.**
-#    해시 이름·자바스크립트 목록·SSL 때문에 못 본 곳이 많다. 「없다」고 단정하지 말 것.
+# ⚠️ **이 화면은 「공시했는가」가 아니라 「우리가 볼 수 있었는가」다.** 못 본 것을 없다고 적지 말 것.
 #
-# 쓰는 것 — data/disclosure.json(243곳 링크 실측) + data/coverage.json(146종 API 조사)
-#          + site/data/loc/index.json(이름·시도·갈래·인구)
-# 결과   — site/transparency.html
+# 두 번 봤고 **둘을 합친다** —
+#   ① `data/disclosure.json`     urllib 로 원문 HTML (check_disclosure.py)
+#   ② `data/disclosure_dom.json` 크롬으로 그려진 화면 (recheck_disclosure.js) ← **이쪽이 우선**
+#      해시 이름 뒤에 숨은 **글자 이름**과 JS 로 그리는 목록이 여기서 잡힌다.
+# 그밖 — `data/coverage.json`(146종 API 조사) · `site/data/loc/index.json`(이름·시도·갈래)
+# 결과 — site/transparency.html
 
 import collections
 import json
@@ -50,7 +52,11 @@ SITE = os.path.join(ROOT, 'site')
 ]
 해시이름 = re.compile(r'^[0-9a-f]{8,}[._]', re.I)
 엑셀 = {'.xlsx', '.xls', '.csv'}
-문서 = {'.pdf', '.hwp', '.hwpx', '.doc', '.docx', '.zip'}
+문서 = {'.pdf', '.hwp', '.hwpx', '.doc', '.docx', '.zip', '.ppt', '.pptx'}
+확장자찾기 = re.compile(r'\.(hwpx?|xlsx?|csv|pdf|docx?|pptx?|zip)(?=$|[?&#"\'\s])', re.I)
+# 「첨부파일」·「바로보기」 같은 단추 글자는 이름이 아니다 — 뜻을 갖는 이름만 센다
+껍데기 = re.compile(r'^(첨부|첨부파일|파일첨부|다운로드|내려받기|바로보기|미리보기|보기|열기|'
+                    r'pdf파일첨부|한글파일첨부|붙임|다운|download|file)\s*\d*$', re.I)
 
 
 def 까닭갈래(c):
@@ -58,10 +64,27 @@ def 까닭갈래(c):
     if 'HTTP Error' in c:
         return '주소가 죽었다'
     if 'SSL' in c or 'CERTIFICATE' in c.upper():
-        return '자동 점검이 못 붙었다'
+        return '인증서가 이상하다'
     if 'timed out' in c:
         return '너무 느리다'
     return '그밖'
+
+
+def 뜻있는이름(s):
+    """무슨 문서인지 이름만 보고 알 수 있나."""
+    s = (s or '').strip()
+    if not s or 해시이름.match(s) or 껍데기.match(s):
+        return False
+    한글 = len(re.findall(r'[가-힣]', s))
+    return 한글 >= 3
+
+
+def 확장들(글들):
+    out = set()
+    for g in 글들:
+        for m in 확장자찾기.finditer(g or ''):
+            out.add('.' + m.group(1).lower())
+    return out
 
 
 def main():
@@ -69,6 +92,14 @@ def main():
     cov = json.load(open(os.path.join(ROOT, 'data', 'coverage.json'), encoding='utf-8'))
     idx = json.load(open(os.path.join(SITE, 'data', 'loc', 'index.json'), encoding='utf-8'))
     메타 = {r['cd']: r for r in idx['곳']}
+
+    dom = {}
+    dom날 = ''
+    p = os.path.join(ROOT, 'data', 'disclosure_dom.json')
+    if os.path.exists(p):
+        d = json.load(open(p, encoding='utf-8'))
+        dom날 = d.get('만든날', '')
+        dom = {r['laf_cd']: r for r in d['곳']}
 
     # ── ③의 기계 쪽 : 「모두가 내는 자료」에서 빠진 곳
     # ⚠️ 곳수가 적다고 미제출이 아니다. 광역만 내는 자료·그해 해당 없는 자료가 섞여 있으므로
@@ -82,21 +113,38 @@ def main():
         이름 = v.get('이름', code)[:40]
         if len(낸곳 & 기초) >= 220:
             기초잣대 += 1
-            for p in 기초 - 낸곳:
-                빠진자료[p].append(이름)
+            for q in 기초 - 낸곳:
+                빠진자료[q].append(이름)
         if len(낸곳 & 광역) >= 16:
             광역잣대 += 1
-            for p in 광역 - 낸곳:
-                빠진자료[p].append(이름)
+            for q in 광역 - 낸곳:
+                빠진자료[q].append(이름)
 
     곳 = []
     for r in dis['곳']:
         cd = r['laf_cd']
         m = 메타.get(cd, {})
-        파일 = r.get('파일', []) or []
-        읽힌 = [f for f in 파일 if not 해시이름.match(f) and re.search(r'[가-힣]', f)]
-        확장 = {os.path.splitext(f)[1].lower() for f in 파일}
-        열림 = r['상태'] == '열림'
+        d = dom.get(cd, {})
+
+        옛파일 = r.get('파일', []) or []                       # urllib 이 본 것(해시 이름이 많다)
+        새파일 = [f.get('이름', '') for f in d.get('파일', [])]  # 크롬이 본 것(글자 이름)
+        새주소 = [f.get('주소', '') for f in d.get('파일', [])]
+
+        옛열림 = r['상태'] == '열림'
+        새열림 = bool(d.get('코드')) and d['코드'] < 400 and (d.get('글자수') or 0) > 120
+        열림 = 옛열림 or 새열림
+
+        # 어느 쪽이 보여 줬나 — 화면에 그대로 적는다
+        if 새파일 and not [f for f in 옛파일 if 뜻있는이름(f)]:
+            본법 = '크롬'
+        elif 옛파일:
+            본법 = '원문'
+        else:
+            본법 = ''
+
+        이름들 = [f for f in 새파일 + 옛파일 if f]
+        읽힌 = [f for f in 이름들 if 뜻있는이름(f)]
+        확장 = 확장들(이름들 + 새주소) | {os.path.splitext(f)[1].lower() for f in 옛파일}
 
         if not 열림:
             형식 = '못 봄'
@@ -112,42 +160,50 @@ def main():
             글 = ' '.join(읽힌)
             걸린항목 = [i for i, (_, 말들) in enumerate(항목) if any(w in 글 for w in 말들)]
 
+        보일것 = (읽힌 or 이름들)[:12]
         곳.append({
             'cd': cd,
             '이름': r['이름'],
             '시도': m.get('시도', ''),
             '갈래': m.get('갈래', '광역' if cd in 광역 else '기초'),
-            '인구': m.get('인구'),
             '주소': r['주소'],
             '링크': '열림' if 열림 else '안 열림',
             '까닭': '' if 열림 else 까닭갈래(r.get('까닭')),
-            '제목': (r.get('제목') or '').replace('&lt;', '<').replace('&gt;', '>')[:60],
-            '파일수': len(파일),
+            '크롬만': bool(새열림 and not 옛열림),     # 파이썬은 튕겼는데 크롬은 열린 곳
+            '제목': ((d.get('제목') or r.get('제목') or '')
+                   .replace('&lt;', '<').replace('&gt;', '>')[:60]),
+            '파일수': len(이름들),
             '읽힌수': len(읽힌),
+            '본법': 본법,
+            '올린날': d.get('날짜', ''),
             '형식': 형식,
             '항목': 걸린항목,
-            '파일': [f[:48] for f in (읽힌 or 파일)[:12]],
-            '더': max(0, len(파일) - 12),
+            '파일': [f[:48] for f in 보일것],
+            '더': max(0, len(이름들) - len(보일것)),
             'API빠짐': 빠진자료.get(cd, [])[:6],
             'API빠짐수': len(빠진자료.get(cd, [])),
         })
-    곳.sort(key=lambda r: (r['갈래'] != '광역', r['시도'], r['이름']))
+    곳.sort(key=lambda x: (x['갈래'] != '광역', x['시도'], x['이름']))
 
     요약 = {
         '모두': len(곳),
-        '주소냄': sum(1 for r in 곳 if r['주소']),
-        '열림': sum(1 for r in 곳 if r['링크'] == '열림'),
-        '파일잡힘': sum(1 for r in 곳 if r['파일수']),
-        '이름읽힘': sum(1 for r in 곳 if r['읽힌수']),
-        '엑셀': sum(1 for r in 곳 if r['형식'] == '엑셀 있음'),
-        '문서뿐': sum(1 for r in 곳 if r['형식'] == '문서뿐'),
-        '파일못봄': sum(1 for r in 곳 if r['링크'] == '열림' and not r['파일수']),
-        '해시': sum(1 for r in 곳 if r['파일수'] and not r['읽힌수']),
-        '까닭': dict(collections.Counter(r['까닭'] for r in 곳 if r['까닭'])),
-        'API빠진곳': sum(1 for r in 곳 if r['API빠짐수']),
+        '주소냄': sum(1 for x in 곳 if x['주소']),
+        '열림': sum(1 for x in 곳 if x['링크'] == '열림'),
+        '파일잡힘': sum(1 for x in 곳 if x['파일수']),
+        '이름읽힘': sum(1 for x in 곳 if x['읽힌수']),
+        '엑셀': sum(1 for x in 곳 if x['형식'] == '엑셀 있음'),
+        '문서뿐': sum(1 for x in 곳 if x['형식'] == '문서뿐'),
+        '파일못봄': sum(1 for x in 곳 if x['링크'] == '열림' and not x['파일수']),
+        '해시': sum(1 for x in 곳 if x['파일수'] and not x['읽힌수']),
+        '크롬이살림': sum(1 for x in 곳 if x['본법'] == '크롬'),
+        '크롬만열림': sum(1 for x in 곳 if x['크롬만']),
+        '올린날앎': sum(1 for x in 곳 if x['올린날']),
+        '까닭': dict(collections.Counter(x['까닭'] for x in 곳 if x['까닭'])),
+        'API빠진곳': sum(1 for x in 곳 if x['API빠짐수']),
         'API잣대기초': 기초잣대,
         'API잣대광역': 광역잣대,
         '만든날': dis.get('만든날', ''),
+        '크롬날': dom날,
     }
 
     tpl = open(os.path.join(SITE, 'transparency.template.html'), encoding='utf-8').read()
