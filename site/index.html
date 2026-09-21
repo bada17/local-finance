@@ -33,7 +33,8 @@
     background:var(--ground); border-bottom:1px solid var(--line);
   }
   .topbar .wrap{display:flex; align-items:center; gap:8px; min-height:46px; flex-wrap:wrap; padding-block:6px}
-  .topbar .t{font-weight:600; margin-right:auto; font-size:13px}
+  .topbar .t{font-weight:600; font-size:13px}
+  .topbar .tolist{margin-right:auto; font-size:12px; color:var(--accent)}
   .grp{display:flex; gap:4px}
   .grp+.grp{margin-left:10px; padding-left:10px; border-left:1px solid var(--line)}
   button{
@@ -108,6 +109,7 @@
 
 <div class="topbar"><div class="wrap">
   <span class="t">지방재정 데이터 나열</span>
+  <a class="tolist" href="catalog.html">무슨 자료가 있나 →</a>
   <span class="grp" id="loc"></span>
   <span class="grp" id="view"></span>
 </div></div>
@@ -182,21 +184,18 @@ function table(cols, rows){
     <tbody>${rows.join('')}</tbody></table></div>`;
 }
 
+/* 순위·중앙값·최소·최대는 화면에서 뺐다(2026-09-21 사용자 지시) —
+   "이런 것은 아직 전혀 필요없어. 지금 해야 하는 건 어떤 것들이 있나".
+   데이터에는 그대로 있으니 필요해지면 되살리면 된다. */
 function 지표행(m){
-  const 눈여겨 = m.높을수록나쁨 && m.순위 <= Math.max(2, Math.round(m.전체 * 0.1));
   const 천원 = m.단위 === '천원';
   return `<tr>
     <td>${m.이름}</td>
     <td class="yr">${m.기준.replace('예산','')|| '—'}</td>
     <td class="yr">${m.연도}</td>
     ${m.비율 == null ? '<td class="dim">—</td>'
-      : `<td${눈여겨 ? ' class="mark"' : ''}>${n1(m.비율)}${천원 ? '' : m.단위}</td>`}
+      : `<td>${n1(m.비율)}${천원 ? '' : m.단위}</td>`}
     <td>${천원 ? n0(m.금액) + ' 천원' : 돈(m.금액)}<span class="raw">${n0(m.금액)}</span></td>
-    <td>${m.분모 == null ? '<span class="dim">—</span>' : 돈(m.분모) + `<span class="raw">${n0(m.분모)}</span>`}</td>
-    <td${눈여겨 ? ' class="mark"' : ''}>${m.순위} / ${m.전체}</td>
-    <td class="dim">${m.비율 == null ? 돈(m.중앙값) : n1(m.중앙값)}</td>
-    <td class="dim">${m.비율 == null ? 돈(m.최소) : n1(m.최소)}</td>
-    <td class="dim">${m.비율 == null ? 돈(m.최대) : n1(m.최대)}</td>
   </tr>`;
 }
 
@@ -477,7 +476,7 @@ async function render(){
   지표.forEach(m => (byAxis[m.축] ||= []).push(m));
   const 축들 = Object.keys(byAxis).map((axis, i) => `
     <h2>${'①②③④⑤⑥'[i] || ''} ${axis}<small>${축설명[axis] || ''}</small></h2>
-    ${table(['지표','구분','연도','비율','금액(분자)','분모','순위','중앙값','최소','최대'],
+    ${table(['지표','구분','연도','비율','금액'],
             byAxis[axis].map(지표행))}`).join('');
 
   const docs = Object.entries(d.원문).map(([k, u]) =>
@@ -488,11 +487,11 @@ async function render(){
     <p class="meta">
       <span>${d.갈래}자치단체</span>
       <span>인구 <b>${n0(d.인구)}</b>명</span>
-      <span>견줄 곳 <b>${d.견줄곳수}</b>곳</span>
       <span>이 판의 지표 <b>${지표.length}</b>종</span>
     </p>
     <p class="basis">${판설명[판](d)}</p>
-    <p class="note">순위는 늘 값이 큰 쪽이 1위다. 같은 갈래끼리만 매겼다. 중앙값·최소·최대는 견줄 곳 ${d.견줄곳수}곳의 값이다.</p>
+    <p class="note">순위·중앙값 같은 견줌은 화면에서 뺐다. 지금은 <b>무엇이 있는지</b>부터 본다 —
+      <a href="catalog.html">무슨 자료가 있나</a></p>
     ${축들}
     <h2>원문<small>지방재정365 가 자치단체별 주소를 API 로 준다</small></h2>
     <ul class="docs">${docs}</ul>

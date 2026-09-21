@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ko">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>무슨 자료가 있나 — 지방재정365 146종</title>
+<style>
+  :root{
+    --ground:#FFFFFF; --sunk:#F4F6F8; --line:#C9D2DA; --line-soft:#E3E8ED;
+    --ink:#11181F; --muted:#5A6672; --faint:#8A97A3;
+    --accent:#1F4E79; --alert:#B03A22;
+    --mono:ui-monospace,SFMono-Regular,'Cascadia Mono','DejaVu Sans Mono',monospace;
+    --body:system-ui,-apple-system,'Malgun Gothic',sans-serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ground:#12171C; --sunk:#1A2127; --line:#333C45; --line-soft:#242C34;
+      --ink:#E6EBF0; --muted:#98A5B1; --faint:#72808C;
+      --accent:#7FB3DC; --alert:#E0755C;
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--ground); color:var(--ink); font:14px/1.5 var(--body)}
+  .wrap{max-width:1100px; margin:0 auto; padding-inline:16px}
+  .topbar{position:sticky; top:0; z-index:10; background:var(--ground); border-bottom:1px solid var(--line)}
+  .topbar .wrap{display:flex; align-items:center; gap:10px; min-height:46px; flex-wrap:wrap; padding-block:6px}
+  .topbar .t{font-weight:600; font-size:13px; margin-right:auto}
+  a{color:var(--accent)}
+  h1{font-size:20px; margin:22px 0 4px}
+  .basis{margin:12px 0 0; padding:10px 12px; background:var(--sunk); border:1px solid var(--line);
+    font-size:12.5px; color:var(--muted)}
+  .basis b{color:var(--ink)}
+  .note{color:var(--faint); font-size:12px; margin:8px 0}
+  .srch{margin:12px 0 6px; display:flex; gap:6px; flex-wrap:wrap; align-items:center}
+  .srch input{font:15px var(--body); color:var(--ink); background:var(--sunk);
+    border:1px solid var(--line); padding:8px 11px; width:min(340px,100%)}
+  button{font:13px var(--body); color:var(--muted); background:var(--sunk);
+    border:1px solid var(--line); padding:5px 10px; cursor:pointer; white-space:nowrap}
+  button[aria-selected="true"]{background:var(--accent); border-color:var(--accent); color:#fff}
+  .scroll{overflow-x:auto; border:1px solid var(--line)}
+  table{border-collapse:collapse; width:100%; font-size:13px}
+  th,td{padding:6px 10px; border-bottom:1px solid var(--line-soft); white-space:nowrap; text-align:left}
+  thead th{background:var(--sunk); font-size:11.5px; color:var(--muted); font-weight:600; position:sticky; top:52px}
+  td.nm{white-space:normal; min-width:300px; max-width:520px; font-weight:500}
+  td.desc{white-space:normal; max-width:420px; color:var(--faint); font-size:12px}
+  td.num{font-family:var(--mono); text-align:right}
+  tbody tr:hover{background:var(--sunk)}
+  .tag{font-size:11px; color:var(--muted); background:var(--sunk); border:1px solid var(--line-soft); padding:1px 6px}
+  .old{color:var(--alert); font-weight:600}
+  .stop{color:var(--alert)}
+  footer{margin:30px 0 40px; padding-top:14px; border-top:1px solid var(--line); color:var(--muted); font-size:12px}
+  footer p{margin:0 0 5px}
+</style>
+
+<div class="topbar"><div class="wrap">
+  <span class="t">무슨 자료가 있나</span>
+  <a href="./">← 자치단체별 화면</a>
+</div></div>
+
+<main class="wrap">
+  <h1>지방재정365가 주는 자료 <span id="cnt"></span></h1>
+  <p class="basis">여기 있는 것이 <b>우리가 쓸 수 있는 재료 전부</b>다. 이름으로 찾아보라 —
+    <b>자립도 · 부채 · 보조금 · 업무추진비 · 계약 · 축제</b> 같은 말을 넣으면 된다.<br>
+    ⚠️ 같은 자료가 <b>연도 구간으로 쪼개져 있다</b>(「…(2020년 이후)」). 그래서 146이라는 수는 부풀려져 있다.</p>
+  <p class="srch">
+    <input id="q" type="search" placeholder="자료 이름·설명에 든 글자" autocomplete="off">
+    <span class="grp" id="filt">
+      <button data-f="전부" aria-selected="true">전부</button>
+      <button data-f="살아있는" aria-selected="false">2024년 이후만</button>
+      <button data-f="멈춘" aria-selected="false">멈춘 것</button>
+      <button data-f="막힌" aria-selected="false">아직 못 받는 것</button>
+    </span>
+  </p>
+  <p class="note" id="say"></p>
+  <div id="list"></div>
+  <footer>
+    <p>자료 — 지방재정365 OpenAPI 146종. 「최신」은 실제로 눌러서 받아 본 해다(2026-09-21 기준).</p>
+    <p>「곳수」는 그 해에 이름이 올라온 자치단체 수다. <b>243보다 적다고 안 낸 것이 아니다</b> —
+       광역만 내는 자료, 그해 해당이 없는 자료가 섞여 있다.</p>
+    <p>「아직 못 받는 것」은 날짜를 하루하루 넣어야 하거나 한 번에 2만 행이 넘는 자료다. 못 쓰는 것이 아니라 따로 받아야 한다.</p>
+  </footer>
+</main>
+
+<script>
+const ROWS = __ROWS__;
+let 찾기 = '', 거르개 = '전부';
+
+const 최신 = r => parseInt(r.최신 || '0', 10);
+const 거르개들 = {
+  '전부': () => true,
+  '살아있는': r => 최신(r) >= 2024,
+  '멈춘': r => 최신(r) > 0 && 최신(r) < 2024,
+  '막힌': r => !!r.막힘,
+};
+
+function 그리기(){
+  const q = 찾기.trim();
+  const 걸린 = ROWS.filter(r =>
+    (!q || (r.이름 + ' ' + r.갈래).includes(q)) && 거르개들[거르개](r));
+
+  document.getElementById('say').textContent =
+    q || 거르개 !== '전부' ? `${걸린.length}종이 걸렸다 (모두 ${ROWS.length}종)` : `모두 ${ROWS.length}종`;
+
+  let 지난갈래 = '';
+  const 줄 = [];
+  for (const r of 걸린) {
+    if (r.갈래 !== 지난갈래) {
+      지난갈래 = r.갈래;
+      줄.push(`<tr><td colspan="5" style="background:var(--sunk);font-weight:600">${r.갈래}</td></tr>`);
+    }
+    const 멈 = 최신(r) > 0 && 최신(r) < 2024;
+    줄.push(`<tr>
+      <td class="nm">${r.이름}</td>
+      <td class="num">${r.해}</td>
+      <td class="num${멈 ? ' old' : ''}">${r.최신 || (r.막힘 ? '<span class="stop">못 받음</span>' : '—')}</td>
+      <td class="num">${r.곳수 == null ? '' : r.곳수.toLocaleString('ko-KR')}</td>
+      <td>${r.막힘 ? `<span class="tag">${r.막힘}</span>`
+                 : r.단위 ? `<span class="tag">${r.단위}</span>` : ''}
+          ${r.필수 ? `<span class="tag">필수 ${r.필수}</span>` : ''}</td>
+    </tr>`);
+  }
+  document.getElementById('list').innerHTML = 걸린.length
+    ? `<div class="scroll"><table>
+        <thead><tr><th>자료 — 이름과 설명</th><th>있는 해</th><th>최신</th><th>곳수</th><th></th></tr></thead>
+        <tbody>${줄.join('')}</tbody></table></div>`
+    : '<p class="note">걸린 자료가 없다. 글자를 줄여 보라.</p>';
+}
+
+document.getElementById('cnt').textContent = `${ROWS.length}종`;
+const q = document.getElementById('q');
+q.addEventListener('input', () => { 찾기 = q.value; 그리기(); });
+document.getElementById('filt').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  거르개 = b.dataset.f;
+  document.querySelectorAll('#filt button').forEach(x =>
+    x.setAttribute('aria-selected', String(x === b)));
+  그리기();
+});
+그리기();
+</script>
