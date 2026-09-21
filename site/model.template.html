@@ -1,3 +1,7 @@
+<!doctype html>
+<html lang="ko">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>지방재정 데이터 나열</title>
 <style>
   :root{
@@ -54,6 +58,15 @@
   h2{font-size:14px; margin:26px 0 2px; font-weight:700; padding-bottom:5px; border-bottom:2px solid var(--ink)}
   h2 small{font-weight:400; color:var(--muted); font-size:12px; margin-left:8px}
   .note{color:var(--faint); font-size:12px; margin:6px 0 8px}
+  .note code{font-family:var(--mono); font-size:11.5px; background:var(--sunk); padding:1px 5px; margin-right:3px}
+  .note button{font-size:12px; padding:3px 9px; margin-left:4px}
+
+  .srch{margin:10px 0 4px}
+  .srch input{
+    font:14px var(--body); color:var(--ink); background:var(--sunk);
+    border:1px solid var(--line); padding:7px 10px; width:min(360px,100%);
+  }
+  .srch input:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
 
   .scroll{overflow-x:auto; border:1px solid var(--line)}
   table{border-collapse:collapse; width:100%; font-size:13px}
@@ -65,6 +78,7 @@
   tbody td.yr{font-size:11.5px; color:var(--faint); text-align:center}
   tbody tr:hover{background:var(--sunk)}
   tbody tr:last-child td{border-bottom:0}
+  tbody td.nm{white-space:normal; max-width:340px; min-width:210px}
   td.mark{color:var(--alert); font-weight:600}
   td.dim{color:var(--faint)}
   .raw{font-size:11px; color:var(--faint); display:block}
@@ -154,10 +168,131 @@ const 판설명 = {
     API 가 시점을 밝히지 않은 것이다.`
 };
 
+/* ───── 진행 중인 사업 (QWGJK 세부사업별 세출, 일별 누계) ───── */
+
+const 진행캐시 = {};
+let 찾기 = '';
+let 보일개수 = 100;
+
+async function 진행데이터(cd){
+  if (!(cd in 진행캐시)) {
+    try {
+      const r = await fetch(`data/ongoing/${cd}.json`);
+      진행캐시[cd] = r.ok ? await r.json() : null;
+    } catch (e) { 진행캐시[cd] = null; }
+  }
+  return 진행캐시[cd];
+}
+
+const 집행률 = (ep, bdg) => bdg ? ep / bdg * 100 : null;
+
+function 사업행(x){
+  const rt = 집행률(x.ep, x.bdg);
+  return `<tr>
+    <td class="nm">${x.nm}</td>
+    <td class="dim">${x.fld}${x.part ? ' · ' + x.part : ''}</td>
+    <td class="dim">${x.acnt}</td>
+    <td>${돈(x.bdg)}<span class="raw">${n0(x.bdg)}</span></td>
+    <td>${돈(x.ep)}<span class="raw">${n0(x.ep)}</span></td>
+    <td${rt != null && rt < 20 ? ' class="mark"' : ''}>${rt == null ? '—' : n1(rt) + '%'}</td>
+    <td>${x.gb ? 돈(x.gb) : '<span class="dim">—</span>'}</td>
+    <td>${x.sd ? 돈(x.sd) : '<span class="dim">—</span>'}</td>
+    <td>${x.sgg ? 돈(x.sgg) : '<span class="dim">—</span>'}</td>
+    <td>${x.etc ? 돈(x.etc) : '<span class="dim">—</span>'}</td>
+  </tr>`;
+}
+
+function 진행표(o){
+  const q = 찾기.trim();
+  const 걸린 = q ? o.사업.filter(x => x.nm.includes(q)) : o.사업;
+  const 합 = k => 걸린.reduce((s, x) => s + x[k], 0);
+  const [bdg, ep, gb, sd, sgg, etc] =
+    ['bdg', 'ep', 'gb', 'sd', 'sgg', 'etc'].map(합);
+  const rt = 집행률(ep, bdg);
+
+  const 요약 = `<p class="basis">
+    ${q ? `<b>「${q}」</b>로 걸린 사업 <b>${n0(걸린.length)}</b>개`
+        : `<b>${o.연도}년 사업 전부</b> <b>${n0(걸린.length)}</b>개`}
+    — 예산현액 <b>${돈(bdg)}</b> · 지출 <b>${돈(ep)}</b>${rt == null ? '' : ` (${n1(rt)}%)`}<br>
+    재원 — 국비 <b>${돈(gb)}</b> · 시도비 <b>${돈(sd)}</b> · 시군구비 <b>${돈(sgg)}</b> · 기타 <b>${돈(etc)}</b>
+    <span class="dim">(재원은 편성 기준이다. 지출액에는 재원 구분이 붙어 오지 않는다)</span>
+  </p>`;
+
+  if (!걸린.length) return 요약 + '<p class="note">걸린 사업이 없다. 글자를 줄여 보라.</p>';
+
+  const 보임 = 걸린.slice(0, 보일개수);
+  const 더 = 걸린.length > 보임.length
+    ? `<p class="note">큰 것부터 ${n0(보임.length)}개만 보인다.
+       <button id="more" aria-selected="false">${n0(Math.min(500, 걸린.length - 보임.length))}개 더 보기</button></p>`
+    : '';
+
+  return 요약 + table(
+    ['세부사업', '분야 · 부문', '회계', '예산현액', '지출(누계)', '집행률', '국비', '시도비', '시군구비', '기타'],
+    보임.map(사업행)) + 더;
+}
+
+function 진행칠하기(o){
+  document.getElementById('ongoing').innerHTML = 진행표(o);
+  const more = document.getElementById('more');
+  if (more) more.onclick = () => { 보일개수 += 500; 진행칠하기(o); };
+}
+
+async function renderOngoing(cd, d){
+  const app = document.getElementById('app');
+  app.innerHTML = `<h1>${이름of(d)} <span class="cd">${d.laf_cd}</span></h1>
+    <p class="note">진행 중인 사업을 받아 오는 중…</p>`;
+  맞추기();
+
+  const o = await 진행데이터(cd);
+  if (판 !== '진행중') return;            // 그 사이 다른 판으로 옮겼으면 그만둔다
+  if (!o) {
+    app.innerHTML = `<h1>${이름of(d)} <span class="cd">${d.laf_cd}</span></h1>
+      <p class="basis">이 자치단체의 <b>진행 중인 사업</b> 자료가 아직 없다.
+      지방재정365는 단체마다 올리는 시점이 다르다 — 2026년 일별 자료가 없는 곳이 있다.</p>`;
+    return;
+  }
+
+  const 기준 = `${o.기준.slice(0, 4)}년 ${Number(o.기준.slice(4, 6))}월`;
+  app.innerHTML = `
+    <h1>${이름of(d)} <span class="cd">${d.laf_cd}</span></h1>
+    <p class="meta">
+      <span>${d.갈래}자치단체</span>
+      <span>사업 <b>${n0(o.사업수)}</b>개</span>
+      <span>예산현액 <b>${돈(o.예산현액)}</b></span>
+      <span>지출 <b>${돈(o.지출)}</b> (${n1(집행률(o.지출, o.예산현액))}%)</span>
+      <span>기준 <b>${기준}</b></span>
+    </p>
+    <p class="basis"><b>진행 중</b> — 올해 짜 놓은 세부사업과, ${기준}까지 <b>실제로 나간 돈</b>이다.
+      결산이 아니라 <b>지금 집행 중인 숫자</b>라 날마다 바뀐다.
+      지출액은 그날까지의 <b>누계</b>이며, 출납폐쇄 전이라 뒤에 정리되면서 달라질 수 있다.</p>
+    <p class="note">사업 이름으로 찾아보라. 보기 — <code>박람회</code> <code>축제</code> <code>도로</code> <code>보조</code></p>
+    <p class="srch"><input id="q" type="search" value="${찾기.replace(/"/g, '&quot;')}"
+       placeholder="세부사업 이름에 든 글자" autocomplete="off"></p>
+    <div id="ongoing"></div>
+    <footer>
+      <p>자료 — 지방재정365 <code>QWGJK</code> 세부사업별 세출현황. ${o.받은날} 에 받았다.</p>
+      <p>⚠️ 집행률이 낮다고 게으른 것이 아니다. 하반기에 몰아 쓰는 사업, 준공 뒤 한꺼번에 주는 공사비가 많다.
+         20% 밑을 붉게 적어 둔 것은 <b>눈여겨보라</b>는 뜻이지 잘못이라는 뜻이 아니다.</p>
+      <p>⚠️ 재원(국비·시도비·시군구비)은 <b>편성</b> 기준이다. 나간 돈을 재원별로 가르는 자료는 따로 없다.</p>
+      <p>계약 상대(누가 받아 갔나)는 계약현황(<code>WCEGCF</code>)에 있는데, 사업과 이어 주는 열쇠가 없어
+         아직 붙이지 못했다. 계약명 글자를 맞춰 보는 수밖에 없다.</p>
+    </footer>`;
+
+  const q = document.getElementById('q');
+  q.addEventListener('input', () => { 찾기 = q.value; 보일개수 = 100; 진행칠하기(o); });
+  진행칠하기(o);
+}
+
+function 맞추기(){
+  document.querySelectorAll('#view button').forEach(b =>
+    b.setAttribute('aria-selected', String(b.dataset.v === 판)));
+}
+
 function render(){
   const cd = document.querySelector('#loc button[aria-selected="true"]')?.dataset.cd
            || Object.keys(DATA)[0];
   const d = DATA[cd];
+  if (판 === '진행중') return renderOngoing(cd, d);
   const 지표 = d.지표.filter(m => 판of(m) === 판);
 
   const byAxis = {};
@@ -208,8 +343,8 @@ loc.addEventListener('click', e => {
 });
 
 const view = document.getElementById('view');
-view.innerHTML = ['결산', '예산'].map(v =>
-  `<button data-v="${v}" aria-selected="${v === 판}">${v} 기준</button>`).join('');
+view.innerHTML = ['결산', '예산', '진행중'].map(v =>
+  `<button data-v="${v}" aria-selected="${v === 판}">${v === '진행중' ? '진행 중인 사업' : v + ' 기준'}</button>`).join('');
 view.addEventListener('click', e => {
   const b = e.target.closest('button'); if (!b) return;
   판 = b.dataset.v; render();
