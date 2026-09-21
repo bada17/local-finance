@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="ko">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>243곳 한 판에 — 지방재정 시황판</title>
+<style>
+  :root{
+    --ground:#FFFFFF; --sunk:#F4F6F8; --line:#C9D2DA; --line-soft:#E3E8ED;
+    --ink:#11181F; --muted:#5A6672; --faint:#8A97A3;
+    --accent:#1F4E79; --alert:#B03A22;
+    --mono:ui-monospace,SFMono-Regular,'Cascadia Mono','DejaVu Sans Mono',monospace;
+    --body:system-ui,-apple-system,'Malgun Gothic',sans-serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ground:#12171C; --sunk:#1A2127; --line:#333C45; --line-soft:#242C34;
+      --ink:#E6EBF0; --muted:#98A5B1; --faint:#72808C;
+      --accent:#7FB3DC; --alert:#E0755C;
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--ground); color:var(--ink); font:14px/1.5 var(--body)}
+  .wrap{max-width:1240px; margin:0 auto; padding-inline:16px}
+  .topbar{position:sticky; top:0; z-index:20; background:var(--ground); border-bottom:1px solid var(--line)}
+  .topbar .wrap{display:flex; align-items:center; gap:10px; min-height:46px; flex-wrap:wrap; padding-block:6px}
+  .topbar .t{font-weight:600; font-size:13px; margin-right:auto}
+  a{color:var(--accent)}
+  h1{font-size:20px; margin:20px 0 4px}
+  .basis{margin:12px 0 0; padding:10px 12px; background:var(--sunk); border:1px solid var(--line);
+    font-size:12.5px; color:var(--muted)}
+  .basis b{color:var(--ink)}
+  .note{color:var(--faint); font-size:12px; margin:8px 0}
+  .bar{margin:12px 0 6px; display:flex; gap:6px; flex-wrap:wrap; align-items:center}
+  input[type=search]{font:15px var(--body); color:var(--ink); background:var(--sunk);
+    border:1px solid var(--line); padding:7px 10px; width:min(240px,100%)}
+  button{font:13px var(--body); color:var(--muted); background:var(--sunk);
+    border:1px solid var(--line); padding:5px 10px; cursor:pointer; white-space:nowrap}
+  button[aria-selected="true"]{background:var(--accent); border-color:var(--accent); color:#fff}
+  .picker{border:1px solid var(--line); padding:10px 12px; margin:6px 0 10px; background:var(--sunk)}
+  .picker h3{margin:0 0 6px; font-size:12px; color:var(--muted); font-weight:600}
+  .picker .axis{margin-bottom:8px}
+  .picker label{display:inline-flex; align-items:center; gap:4px; font-size:12.5px;
+    margin:0 10px 5px 0; cursor:pointer}
+  .scroll{overflow-x:auto; border:1px solid var(--line); max-height:78vh; overflow-y:auto}
+  table{border-collapse:collapse; width:100%; font-size:13px}
+  th,td{padding:5px 9px; border-bottom:1px solid var(--line-soft); white-space:nowrap}
+  thead th{background:var(--sunk); font-size:11.5px; color:var(--muted); font-weight:600;
+    position:sticky; top:0; z-index:5; cursor:pointer; text-align:right}
+  thead th:first-child, thead th:nth-child(2){text-align:left}
+  thead th[aria-sort]{color:var(--ink)}
+  tbody td{font-family:var(--mono); text-align:right; font-variant-numeric:tabular-nums}
+  tbody td:first-child{font-family:var(--body); text-align:left; font-weight:500}
+  tbody td:nth-child(2){font-family:var(--body); text-align:left; color:var(--faint); font-size:12px}
+  tbody tr:hover{background:var(--sunk)}
+  .mark{color:var(--alert); font-weight:600}
+  footer{margin:26px 0 40px; padding-top:14px; border-top:1px solid var(--line); color:var(--muted); font-size:12px}
+  footer p{margin:0 0 5px}
+</style>
+
+<div class="topbar"><div class="wrap">
+  <span class="t">243곳 한 판에</span>
+  <a href="./">자치단체별 →</a>
+  <a href="catalog.html">무슨 자료가 있나 →</a>
+</div></div>
+
+<main class="wrap">
+  <h1>기초단체까지 243곳, 한 표에</h1>
+  <p class="basis">이런 판이 지금 어디에도 없다. <b>칸을 골라서</b> 보라 —
+    무엇을 세워 놓고 보느냐에 따라 다른 곳이 눈에 띈다.
+    <b>칸 이름을 누르면</b> 그 값으로 줄을 세운다.</p>
+
+  <p class="bar">
+    <input id="q" type="search" placeholder="자치단체 이름" autocomplete="off">
+    <span id="scope">
+      <button data-s="기초" aria-selected="true">기초 226곳</button>
+      <button data-s="광역" aria-selected="false">광역 17곳</button>
+    </span>
+    <button id="toggle">칸 고르기</button>
+    <span class="note" id="say"></span>
+  </p>
+
+  <div class="picker" id="picker" hidden></div>
+  <div id="list"></div>
+
+  <footer>
+    <p>자료 — 지방재정365. 결산은 <b id="sy"></b>년, 예산은 <b id="by"></b>년 기준.
+       비율 지표는 비율을, 규모 지표는 금액을 적었다.</p>
+    <p>⚠️ 광역과 기초는 <b>섞어서 줄 세우지 않는다</b>. 살림 크기가 아예 다르다.</p>
+    <p>⚠️ 붉은 값은 「값이 큰 쪽이 눈여겨볼 만한」 지표에서 위쪽 10%에 든 곳이다.
+       <b>잘못했다는 뜻이 아니다</b> — 왜 그런지 들여다볼 자리라는 표시다.</p>
+  </footer>
+</main>
+
+<script>
+let DATA = null, 지표 = [], 곳 = [];
+let 고른칸 = [], 찾기 = '', 갈래 = '기초', 줄세움 = null, 거꾸로 = false;
+
+const n0 = v => v == null ? '' : Math.round(v).toLocaleString('ko-KR');
+const n1 = v => v == null ? '' : v.toLocaleString('ko-KR', {minimumFractionDigits:1, maximumFractionDigits:1});
+function 돈(v){
+  if (v == null) return '';
+  const a = Math.abs(v);
+  if (a >= 1e12) return (v/1e12).toLocaleString('ko-KR',{maximumFractionDigits:2}) + '조';
+  if (a >= 1e8)  return (v/1e8 ).toLocaleString('ko-KR',{maximumFractionDigits:0}) + '억';
+  return n0(v);
+}
+const 정식 = {서울:'서울특별시', 부산:'부산광역시', 대구:'대구광역시', 인천:'인천광역시',
+  광주:'광주광역시', 대전:'대전광역시', 울산:'울산광역시', 세종:'세종특별자치시',
+  경기:'경기도', 강원:'강원특별자치도', 충북:'충청북도', 충남:'충청남도',
+  전북:'전북특별자치도', 전남:'전라남도', 경북:'경상북도', 경남:'경상남도', 제주:'제주특별자치도'};
+const 이름of = d => d.갈래 === '광역' ? (정식[d.시도] || d.이름)
+  : (d.이름.startsWith(d.시도) ? d.이름.slice(d.시도.length) : d.이름);
+
+/* 한 칸의 값 — 비율이 있으면 비율, 없으면 금액 */
+function 값(r, i){
+  const v = r.값[i];
+  if (!v) return null;
+  return v[0] != null ? v[0] : v[1];
+}
+function 글(r, i){
+  const v = r.값[i];
+  if (!v) return '<span style="color:var(--faint)">—</span>';
+  const m = 지표[i];
+  if (v[0] != null) return n1(v[0]) + (m.단위 === '%' ? '%' : '');
+  if (m.단위 === '천원') return n0(v[1]);
+  return 돈(v[1]);
+}
+
+function 칸고르개(){
+  const 축들 = [...new Set(지표.map(m => m.축))];
+  return 축들.map(ax => `<div class="axis"><h3>${ax}</h3>` +
+    지표.map((m, i) => m.축 !== ax ? '' :
+      `<label><input type="checkbox" data-i="${i}" ${고른칸.includes(i) ? 'checked' : ''}>
+        ${m.이름}<span style="color:var(--faint)">·${m.연도}</span></label>`).join('') +
+    '</div>').join('');
+}
+
+function 그리기(){
+  const q = 찾기.trim();
+  let 줄 = 곳.filter(r => r.갈래 === 갈래 && (!q || r.이름.includes(q)));
+
+  if (줄세움 != null) {
+    const 뽑기 = 줄세움 === '인구' ? (r => r.인구) : (r => 값(r, 줄세움));
+    줄 = [...줄].sort((a, b) => {
+      const x = 뽑기(a), y = 뽑기(b);
+      if (x == null) return 1;
+      if (y == null) return -1;
+      return 거꾸로 ? x - y : y - x;
+    });
+  }
+
+  // 「값이 클수록 눈여겨볼」 지표는 위쪽 10%를 붉게
+  const 빨강 = {};
+  고른칸.forEach(i => {
+    if (!지표[i].높을수록나쁨) return;
+    const vs = 줄.map(r => 값(r, i)).filter(v => v != null).sort((a, b) => b - a);
+    빨강[i] = vs.length ? vs[Math.max(0, Math.round(vs.length * 0.1) - 1)] : null;
+  });
+
+  document.getElementById('say').textContent =
+    `${줄.length}곳` + (고른칸.length ? ` · 칸 ${고른칸.length}개` : ' · 칸을 골라 보라');
+
+  const 머리 = ['자치단체', '시도', '인구']
+    .concat(고른칸.map(i => 지표[i].이름))
+    .map((t, k) => {
+      const key = k === 2 ? '인구' : (k > 2 ? 고른칸[k - 3] : null);
+      const 표 = 줄세움 === key ? ` aria-sort="${거꾸로 ? 'ascending' : 'descending'}"` : '';
+      return `<th${표} data-key="${key === null ? '' : key}">${t}${줄세움 === key ? (거꾸로 ? ' ▲' : ' ▼') : ''}</th>`;
+    }).join('');
+
+  const 몸 = 줄.map(r => `<tr>
+      <td><a href="./#${r.cd}">${이름of(r)}</a></td>
+      <td>${r.갈래 === '광역' ? '광역' : r.시도}</td>
+      <td>${n0(r.인구)}</td>
+      ${고른칸.map(i => {
+        const v = 값(r, i);
+        const 붉 = 빨강[i] != null && v != null && v >= 빨강[i];
+        return `<td${붉 ? ' class="mark"' : ''}>${글(r, i)}</td>`;
+      }).join('')}
+    </tr>`).join('');
+
+  document.getElementById('list').innerHTML =
+    `<div class="scroll"><table><thead><tr>${머리}</tr></thead><tbody>${몸}</tbody></table></div>`;
+
+  document.querySelectorAll('thead th').forEach(th => th.onclick = () => {
+    const k = th.dataset.key;
+    if (k === '') return;
+    const key = k === '인구' ? '인구' : Number(k);
+    if (줄세움 === key) 거꾸로 = !거꾸로; else { 줄세움 = key; 거꾸로 = false; }
+    그리기();
+  });
+}
+
+async function 받기(){
+  const r = await fetch('data/board.json.gz');
+  const buf = await r.arrayBuffer();
+  const u8 = new Uint8Array(buf);
+  let text;
+  if (u8[0] === 0x1f && u8[1] === 0x8b) {
+    const s = new Blob([buf]).stream().pipeThrough(new DecompressionStream('gzip'));
+    text = await new Response(s).text();
+  } else {
+    text = new TextDecoder().decode(buf);
+  }
+  DATA = JSON.parse(text);
+  지표 = DATA.지표; 곳 = DATA.곳;
+  document.getElementById('sy').textContent = DATA.결산연도;
+  document.getElementById('by').textContent = DATA.예산연도;
+
+  // 처음에 세워 둘 칸 — 규모 하나와 「어디서 오나」 둘
+  const 처음 = ['세출결산 총액', '재정자립도[당초]', '재정자주도[당초]', '수의계약비율'];
+  고른칸 = 처음.map(n => 지표.findIndex(m => m.이름 === n)).filter(i => i >= 0);
+  document.getElementById('picker').innerHTML = 칸고르개();
+  그리기();
+}
+
+document.getElementById('q').addEventListener('input', e => { 찾기 = e.target.value; 그리기(); });
+document.getElementById('scope').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  갈래 = b.dataset.s;
+  document.querySelectorAll('#scope button').forEach(x =>
+    x.setAttribute('aria-selected', String(x === b)));
+  그리기();
+});
+document.getElementById('toggle').addEventListener('click', () => {
+  const p = document.getElementById('picker');
+  p.hidden = !p.hidden;
+  document.getElementById('toggle').setAttribute('aria-selected', String(!p.hidden));
+});
+document.getElementById('picker').addEventListener('change', e => {
+  const i = Number(e.target.dataset.i);
+  if (e.target.checked) { if (!고른칸.includes(i)) 고른칸.push(i); }
+  else 고른칸 = 고른칸.filter(x => x !== i);
+  그리기();
+});
+받기();
+</script>
