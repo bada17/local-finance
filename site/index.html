@@ -38,7 +38,7 @@
   .grp+.grp{margin-left:10px; padding-left:10px; border-left:1px solid var(--line)}
   button{
     font:13px var(--body); color:var(--muted); background:var(--sunk);
-    border:1px solid var(--line); padding:5px 11px; cursor:pointer;
+    border:1px solid var(--line); padding:5px 11px; cursor:pointer; white-space:nowrap;
   }
   button[aria-selected="true"]{background:var(--accent); border-color:var(--accent); color:#fff}
   button:disabled{opacity:.4; cursor:not-allowed}
@@ -69,6 +69,7 @@
   select:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
 
   .srch{margin:10px 0 4px}
+  .srch.grp{flex-wrap:wrap; row-gap:5px}
   .srch input{
     font:14px var(--body); color:var(--ink); background:var(--sunk);
     border:1px solid var(--line); padding:7px 10px; width:min(360px,100%);
