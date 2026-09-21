@@ -489,6 +489,7 @@ async function renderContracts(cd){
   const 수의금액률 = y.금액 ? y.수의금액 / y.금액 * 100 : 0;
   const 수의건수율 = y.건수 ? y.수의건수 / y.건수 * 100 : 0;
   const 상위5 = y.업체.slice(0, 5).reduce((a, u) => a + u[1], 0);
+  const 다년몫 = y.금액 ? (y.다년금액 || 0) / y.금액 * 100 : 0;
   const 끝 = c.범위.끝날;
   const 반쪽 = 계약해 === 끝.slice(0, 4);
 
@@ -503,9 +504,13 @@ async function renderContracts(cd){
     </p>
     <p class="srch grp" id="cyear">${해들.map(h =>
       `<button data-y="${h}" aria-selected="${h === 계약해}">${h}년${h === 끝.slice(0, 4) ? ' (아홉 달)' : ''}</button>`).join('')}</p>
-    <p class="basis"><b>누가 받아 갔나</b> — 이 자치단체가 맺은 계약을 <b>상대 업체별로 묶은 것</b>이다.
+    <p class="basis"><b>누가 받아 갔나</b> — 이 자치단체가 <b>그 해에 맺은 계약</b>을 상대 업체별로 묶은 것이다.
       지방재정365 계약현황(<code>WCEGCF</code>) 원본 ${n0(c.범위.파일)}일치를 우리가 직접 셌다.
+      ⚠️ <b>그 해에 나간 돈이 아니라 그 해에 맺은 계약의 총액</b>이다 — 여러 해짜리 계약은 첫 해에 통째로 잡힌다.
       ${반쪽 ? '<b>올해 것은 아직 아홉 달치</b>라 지난해와 나란히 놓지 말 것.' : ''}</p>
+    ${다년몫 >= 10 ? `<p class="basis">⚠️ <b>이 곳은 여러 해짜리 계약이 ${n1(다년몫)}%</b>나 된다
+      (${돈(y.다년금액)}). 계약명에 기간이 적힌 것을 센 것이다. <b>총액 줄과 「1년차」 줄이 함께 들어오는
+      경우가 있어</b> 위 합계가 부풀 수 있다. 아래 표에서 계약 건수가 적은데 금액이 큰 업체가 그런 경우다.</p>` : ''}
 
     <h2>① 얼마나, 어떻게 맺었나<small>경쟁이 있었나 없었나</small></h2>
     ${table(['갈래', '건수', '금액', '비중'], [
@@ -513,6 +518,9 @@ async function renderContracts(cd){
       `<tr><td><b>수의계약</b></td><td>${n0(y.수의건수)} (${n1(수의건수율)}%)</td>
         <td>${돈(y.수의금액)}<span class="raw">${n0(y.수의금액)}</span></td>
         <td class="${수의금액률 >= 50 ? 'mark' : ''}">${n1(수의금액률)}%</td></tr>`,
+      `<tr><td>여러 해짜리 계약</td><td>${n0(y.다년건수 || 0)}</td>
+        <td>${돈(y.다년금액 || 0)}<span class="raw">${n0(y.다년금액 || 0)}</span></td>
+        <td class="${다년몫 >= 10 ? 'mark' : ''}">${n1(다년몫)}%</td></tr>`,
       ...Object.entries(y.종류).map(([k, v]) =>
         `<tr><td>${k}</td><td class="dim">—</td><td>${돈(v)}<span class="raw">${n0(v)}</span></td>
           <td>${n1(y.금액 ? v / y.금액 * 100 : 0)}%</td></tr>`),
@@ -531,6 +539,10 @@ async function renderContracts(cd){
       <p>⚠️ <b>계약과 사업을 잇는 열쇠가 없다.</b> 계약명만 있고 세부사업코드가 없어서,
          「이 계약이 어느 사업 것인가」는 이름을 맞춰 보는 수밖에 없다 — 여수시 109건으로 재 보니
          제대로 걸리는 것이 2%뿐이라 <b>자동으로 잇지 않기로 했다.</b></p>
+      <p>⚠️ <b>결산 판의 「수의계약비율」과 숫자가 다르다.</b> 그쪽은 지방재정365가 주는 실적 지표고,
+         이쪽은 우리가 계약 원본을 <b>체결 기준</b>으로 센 것이다. 243곳 가운데 237곳은 10%p 안에서 맞지만,
+         여러 해짜리 계약이 많은 곳은 크게 벌어진다 — 인천미추홀구가 46.6% 대 70.9%다.
+         <b>둘 중 하나가 틀린 것이 아니라 세는 기준이 다르다.</b></p>
       <p>굽는 법 — <code>python scripts/build_contracts_summary.py</code></p>
       <p class="join"><button data-join="의견">이 숫자에 의견 남기기</button>
          <button data-join="제보">제보하기</button>
