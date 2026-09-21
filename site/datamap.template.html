@@ -49,6 +49,11 @@
   .q .body ul{margin:4px 0; padding-left:18px}
   .q .body li{font-size:12.5px; color:var(--muted); margin:3px 0}
   .q .body li b{color:var(--ink)}
+  .cols{display:flex; flex-wrap:wrap; gap:5px; margin:5px 0 2px}
+  .col{border:1px solid var(--line); background:var(--sunk); padding:2px 8px; font-size:12px}
+  .col b{font-weight:600}
+  .col span{color:var(--faint)}
+  .peek{font-size:12px; color:var(--faint); flex:1 1 100%; margin:0}
   .need{border-left:3px solid var(--alert); padding:6px 10px; margin:8px 0; background:var(--sunk)}
   .need .nm{font-weight:600}
   .need .where{font-size:12.5px; color:var(--muted)}
@@ -78,6 +83,7 @@
     자료 목록이 아니라 <b>「우리가 무슨 말을 할 수 있나」</b>의 지도다.<br>
     ● 된다 · ◐ 반쪽(되지만 구멍이 있다) · ○ 못 한다.
     ○ 마다 <b>어떤 자료가 있어야 풀리는지</b>를 적어 뒀다.<br>
+    질문마다 <b>화면에 실제로 뜨는 칸 이름</b>(재정자립도·수의계약비율 같은)과 한 줄 뜻풀이를 붙였다.<br>
     ⚠️ 이 화면은 <b>우리 작업용</b>이다 — 파일 이름과 명령을 그대로 적는다.
     상태는 손으로 적은 것이 아니라 <b>저장소를 훑어서 매긴다</b>(<span id="asof"></span> 기준).
     자료를 받아 오고 다시 구우면 ○ 가 저절로 ● 가 된다.</p>
@@ -102,8 +108,13 @@
 </main>
 
 <script>
-const GROUPS = __GROUPS__, HAVE = __HAVE__, MISSING = __MISSING__, TALLY = __TALLY__;
+const GROUPS = __GROUPS__, HAVE = __HAVE__, MISSING = __MISSING__, TALLY = __TALLY__, WORDS = __WORDS__;
 document.getElementById('asof').textContent = '__ASOF__';
+
+/* 뜻풀이와 「구멍」에 **굵게**·`코드` 를 쓴다 — 글로 적기 편하라고. 여기서 태그로 바꾼다. */
+const 꾸밈 = t => String(t == null ? '' : t)
+  .replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')
+  .replace(/`(.+?)`/g, '<code>$1</code>');
 
 const 표시 = {'됨': '●', '반쪽': '◐', '못함': '○'};
 const 말 = {'됨': '된다', '반쪽': '반쪽', '못함': '못 한다'};
@@ -122,25 +133,35 @@ document.getElementById('qs').innerHTML = GROUPS.map(g => `
         <span class="물음">${q.물음}</span>
         <span class="요약">${q.상태 === '못함'
           ? q.빠진자료.map(m => m.이름).join(' · ') + ' 이 없다'
-          : q.쓰는자료.map(s => s.이름).join(' · ')}</span>
+          : (q.칸.length
+              ? q.칸.slice(0, 3).map(c => c.이름).join(' · ') + (q.칸.length > 3 ? ` 외 ${q.칸.length - 3}` : '')
+              : q.쓰는자료.map(s => s.이름).join(' · '))}</span>
       </summary>
       <div class="body">
-        ${q.쓰는자료.length ? `<p><b>무엇으로 답하나</b></p><ul>${q.쓰는자료.map(s =>
+        ${q.칸.length ? `<p><b>화면에 뜨는 칸</b></p>
+          <div class="cols">${q.칸.map(c =>
+            `<span class="col"><b>${c.이름}</b>${c.뜻 ? ` <span>— ${꾸밈(c.뜻)}</span>` : ''}</span>`).join('')}</div>` : ''}
+        ${q.쓰는자료.length ? `<p><b>어느 자료에서</b></p><ul>${q.쓰는자료.map(s =>
           `<li>${s.이름} <span class="tag">${s.언제}</span></li>`).join('')}</ul>` : ''}
         ${q.흠.length ? `<p><b>${q.상태 === '못함' ? '그밖에' : '되지만 이런 구멍이 있다'}</b></p>
-          <ul>${q.흠.map(x => `<li>${x}</li>`).join('')}</ul>` : ''}
+          <ul>${q.흠.map(x => `<li>${꾸밈(x)}</li>`).join('')}</ul>` : ''}
         ${q.빠진자료.map(m => `<div class="need">
           <div class="nm">필요한 자료 — ${m.이름}</div>
-          ${m.어디있나 ? `<div class="where">어디 있나 — ${m.어디있나}</div>` : ''}
-          ${m.막힘 ? `<div class="why">막힌 까닭 — ${m.막힘}</div>` : ''}
+          ${m.생기는칸 && m.생기는칸.length ? `<div class="cols">${m.생기는칸.map(c =>
+            `<span class="col"><b>${c}</b></span>`).join('')}</div>` : ''}
+          ${m.어디있나 ? `<div class="where">어디 있나 — ${꾸밈(m.어디있나)}</div>` : ''}
+          ${m.막힘 ? `<div class="why">막힌 까닭 — ${꾸밈(m.막힘)}</div>` : ''}
         </div>`).join('')}
       </div>
     </details>`).join('')}`).join('');
 
 document.getElementById('have').innerHTML =
-  `<thead><tr><th>자료</th><th>어디서</th><th>언제 것</th><th>얼마나</th><th>파일 · 다시 받기</th></tr></thead>
+  `<thead><tr><th style="width:34%">자료 — 그 안에 든 칸</th><th>어디서</th><th>언제 것</th>
+     <th>얼마나</th><th>파일 · 다시 받기</th></tr></thead>
    <tbody>${HAVE.map(d => `<tr>
-     <td><b>${d.이름}</b></td>
+     <td><b>${d.이름}</b>${d.칸 && d.칸.length
+       ? `<div class="cols" style="margin-top:4px">${d.칸.map(c =>
+           `<span class="col">${c}</span>`).join('')}</div>` : ''}</td>
      <td>${d.출처}</td>
      <td>${d.언제}</td>
      <td>${d.얼마나}</td>
@@ -152,8 +173,10 @@ document.getElementById('missing').innerHTML =
    <th style="width:26%">막힌 까닭</th><th>이게 있으면 풀리는 질문</th></tr></thead>
    <tbody>${MISSING.map(m => `<tr>
      <td><b>${m.이름}</b></td>
-     <td>${m.어디있나 || ''}</td>
-     <td>${m.막힘 || ''}</td>
+     <td>${꾸밈(m.어디있나)}${m.있으면생기는칸 && m.있으면생기는칸.length
+       ? `<div class="cols" style="margin-top:4px">${m.있으면생기는칸.map(c =>
+           `<span class="col">${c}</span>`).join('')}</div>` : ''}</td>
+     <td>${꾸밈(m.막힘)}</td>
      <td>${m.풀리는질문.length
        ? '<ul style="margin:0;padding-left:16px">' + m.풀리는질문.map(q => `<li>${q}</li>`).join('') + '</ul>'
        : '<span class="tag">지금 걸린 질문 없음</span>'}</td></tr>`).join('')}</tbody>`;
