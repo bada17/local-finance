@@ -99,6 +99,8 @@
   footer{margin:34px 0 40px; padding-top:14px; border-top:1px solid var(--line); color:var(--muted); font-size:12px}
   footer p{margin:0 0 5px}
   footer code{font-family:var(--mono); font-size:11px; background:var(--sunk); padding:1px 4px}
+  footer .call{margin-top:10px; padding-top:9px; border-top:1px solid var(--line-soft); color:var(--ink)}
+  footer .call a{color:var(--accent)}
 </style>
 
 <div class="topbar"><div class="wrap">
@@ -406,7 +408,10 @@ async function renderOngoing(cd, d){
       <p>⚠️ 재원(국비·시도비·시군구비)은 <b>편성</b> 기준이다. 나간 돈을 재원별로 가르는 자료는 따로 없다.</p>
       <p>계약 상대(누가 받아 갔나)는 계약현황(<code>WCEGCF</code>)에 있는데, 사업과 이어 주는 열쇠가 없어
          아직 붙이지 못했다. 계약명 글자를 맞춰 보는 수밖에 없다.</p>
-    </footer>`;
+          <p class="call">숫자가 틀렸거나 물어볼 것이 있으면 — <b>함께하는 시민행동</b>
+         <a href="tel:0229214709">02-921-4709</a> ·
+         <a href="mailto:action@action.or.kr">action@action.or.kr</a></p>
+</footer>`;
 
   const q = document.getElementById('q');
   q.addEventListener('input', () => { 찾기 = q.value; 보일개수 = 100; 주소쓰기(); 진행칠하기(o); });
@@ -494,6 +499,9 @@ async function render(){
       <p>지금은 <b>${d.결산연도}년 결산</b>과 <b>${d.예산연도}년 예산</b> 두 판만 본다.
          16년치 시계열은 받아 뒀지만(<code>data/series.json</code>) 화면에서는 뺐다 — 나중에 볼 일이다.</p>
       <p>이 화면은 설계를 위한 데이터 나열이다. 꾸미지 않았다.</p>
+      <p class="call">숫자가 틀렸거나 물어볼 것이 있으면 — <b>함께하는 시민행동</b>
+         <a href="tel:0229214709">02-921-4709</a> ·
+         <a href="mailto:action@action.or.kr">action@action.or.kr</a></p>
     </footer>`;
 
   document.querySelectorAll('#view button').forEach(b =>
