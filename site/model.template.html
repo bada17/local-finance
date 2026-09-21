@@ -1,308 +1,201 @@
-<title>우리 동네 재정 성적표</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@500;700;900&family=IBM+Plex+Sans+KR:wght@400;500;600&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<title>지방재정 데이터 나열</title>
 <style>
   :root{
-    --ground:#EDF0F3; --surface:#FFFFFF; --sunk:#F5F7F9;
-    --line:#D5DCE3; --line-soft:#E5EAEF;
-    --ink:#0F1720; --muted:#5C6A78; --faint:#8695A3;
-    --accent:#2C5F8A; --alert:#C4452C; --ok:#2E8B6F;
-    --mark:#98A6B4;
-    --display:'Gothic A1',system-ui,sans-serif;
-    --body:'IBM Plex Sans KR',system-ui,sans-serif;
-    --mono:'IBM Plex Mono','IBM Plex Sans KR',monospace;
+    --ground:#FFFFFF; --sunk:#F4F6F8; --line:#C9D2DA; --line-soft:#E3E8ED;
+    --ink:#11181F; --muted:#5A6672; --faint:#8A97A3;
+    --accent:#1F4E79; --alert:#B03A22;
+    --mono:ui-monospace,SFMono-Regular,'Cascadia Mono','DejaVu Sans Mono',monospace;
+    --body:system-ui,-apple-system,'Malgun Gothic',sans-serif;
   }
   @media (prefers-color-scheme:dark){
     :root:not([data-theme="light"]){
-      --ground:#10151A; --surface:#171D24; --sunk:#1D242C;
-      --line:#2B343E; --line-soft:#222A32;
-      --ink:#E9EEF3; --muted:#9AA7B4; --faint:#75838F;
-      --accent:#7FB3DC; --alert:#E0674A; --ok:#45B08F;
-      --mark:#4A5865;
+      --ground:#12171C; --sunk:#1A2127; --line:#333C45; --line-soft:#242C34;
+      --ink:#E6EBF0; --muted:#98A5B1; --faint:#72808C;
+      --accent:#7FB3DC; --alert:#E0755C;
     }
   }
   :root[data-theme="dark"]{
-    --ground:#10151A; --surface:#171D24; --sunk:#1D242C;
-    --line:#2B343E; --line-soft:#222A32;
-    --ink:#E9EEF3; --muted:#9AA7B4; --faint:#75838F;
-    --accent:#7FB3DC; --alert:#E0674A; --ok:#45B08F;
-    --mark:#4A5865;
+    --ground:#12171C; --sunk:#1A2127; --line:#333C45; --line-soft:#242C34;
+    --ink:#E6EBF0; --muted:#98A5B1; --faint:#72808C;
+    --accent:#7FB3DC; --alert:#E0755C;
   }
 
   *{box-sizing:border-box}
   body{
     margin:0; background:var(--ground); color:var(--ink);
-    font-family:var(--body); font-size:15px; line-height:1.65;
-    -webkit-font-smoothing:antialiased;
+    font:14px/1.5 var(--body);
   }
-  .wrap{max-width:860px; margin:0 auto; padding:0 16px}
+  .wrap{max-width:1040px; margin:0 auto; padding-inline:16px}
 
-  /* ── 머리 ───────────────────────────── */
   .topbar{
-    position:sticky; top:env(safe-area-inset-top,0px); z-index:20;
-    background:color-mix(in srgb,var(--ground) 88%,transparent);
-    backdrop-filter:blur(8px);
-    border-bottom:1px solid var(--line-soft);
+    position:sticky; top:env(safe-area-inset-top,0px); z-index:10;
+    background:var(--ground); border-bottom:1px solid var(--line);
   }
-  .topbar .wrap{display:flex; align-items:center; gap:12px; min-height:52px; flex-wrap:wrap}
-  .brand{
-    font-family:var(--display); font-weight:900; font-size:14px;
-    letter-spacing:-.01em; margin-right:auto;
+  .topbar .wrap{display:flex; align-items:center; gap:10px; min-height:46px; flex-wrap:wrap}
+  .topbar .t{font-weight:600; margin-right:auto; font-size:13px}
+  .topbar button{
+    font:13px var(--body); color:var(--muted); background:var(--sunk);
+    border:1px solid var(--line); padding:5px 11px; cursor:pointer;
   }
-  .brand em{font-style:normal; color:var(--accent)}
-  .switch{display:flex; gap:2px; background:var(--sunk); padding:3px; border-radius:2px; border:1px solid var(--line-soft)}
-  .switch button{
-    font:600 12.5px/1 var(--body); color:var(--muted);
-    background:none; border:0; padding:7px 12px; cursor:pointer; border-radius:1px;
-  }
-  .switch button[aria-selected="true"]{background:var(--surface); color:var(--ink); box-shadow:0 1px 2px rgba(0,0,0,.09)}
-  .switch button:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+  .topbar button[aria-selected="true"]{background:var(--accent); border-color:var(--accent); color:#fff}
+  .topbar button:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
 
-  /* ── 표지 ───────────────────────────── */
-  header.hero{padding-block:40px 28px}
-  .eyebrow{
-    font:600 11.5px/1 var(--body); letter-spacing:.14em; color:var(--faint);
-    text-transform:uppercase; margin-bottom:14px;
-  }
-  h1{
-    font-family:var(--display); font-weight:900; font-size:clamp(30px,7vw,46px);
-    line-height:1.12; letter-spacing:-.025em; margin:0 0 6px; text-wrap:balance;
-  }
-  .sub{color:var(--muted); font-size:14px; margin:0}
-  .sub b{color:var(--ink); font-weight:600; font-family:var(--mono); font-variant-numeric:tabular-nums}
+  h1{font-size:20px; margin:24px 0 2px; font-weight:700}
+  .meta{color:var(--muted); font-size:13px; margin:0 0 4px}
+  .meta span{margin-right:14px}
+  .meta b{font-family:var(--mono); color:var(--ink); font-weight:600}
 
-  .headline{
-    margin-top:26px; padding:20px 22px;
-    background:var(--surface); border:1px solid var(--line);
-    border-left:3px solid var(--accent);
+  h2{
+    font-size:14px; margin:30px 0 2px; font-weight:700;
+    padding-bottom:5px; border-bottom:2px solid var(--ink);
   }
-  .headline p{margin:0; font-size:15.5px; line-height:1.7}
-  .headline .big{
-    font-family:var(--mono); font-weight:600; font-size:26px;
-    color:var(--accent); font-variant-numeric:tabular-nums;
-  }
+  h2 small{font-weight:400; color:var(--muted); font-size:12px; margin-left:8px}
+  .note{color:var(--faint); font-size:12px; margin:6px 0 8px}
 
-  /* ── 축 ─────────────────────────────── */
-  section.axis{margin-top:38px}
-  .axis-head{display:flex; align-items:baseline; gap:10px; margin-bottom:4px; flex-wrap:wrap}
-  .axis-head h2{
-    font-family:var(--display); font-weight:700; font-size:19px;
-    letter-spacing:-.015em; margin:0;
+  .scroll{overflow-x:auto; border:1px solid var(--line)}
+  table{border-collapse:collapse; width:100%; font-size:13px}
+  th,td{padding:6px 10px; border-bottom:1px solid var(--line-soft); white-space:nowrap}
+  thead th{
+    background:var(--sunk); text-align:right; font-weight:600; font-size:11.5px;
+    color:var(--muted); border-bottom:1px solid var(--line); position:sticky; top:0;
   }
-  .axis-head .q{font-size:13px; color:var(--muted)}
-  .axis-note{font-size:12.5px; color:var(--faint); margin:0 0 14px}
+  thead th:first-child{text-align:left}
+  tbody td{font-family:var(--mono); text-align:right; font-variant-numeric:tabular-nums}
+  tbody td:first-child{font-family:var(--body); text-align:left}
+  tbody tr:hover{background:var(--sunk)}
+  tbody tr:last-child td{border-bottom:0}
+  td.mark{color:var(--alert); font-weight:600}
+  td.dim{color:var(--faint)}
+  .raw{font-size:11px; color:var(--faint); display:block}
 
-  .rows{background:var(--surface); border:1px solid var(--line)}
-  .row{
-    display:grid; grid-template-columns:132px 78px 1fr 86px;
-    align-items:center; gap:14px;
-    padding:13px 18px; border-top:1px solid var(--line-soft);
-  }
-  .row:first-child{border-top:0}
-  .row .name{font-size:13.5px; font-weight:500}
-  .row .val{
-    font-family:var(--mono); font-weight:600; font-size:15px; text-align:right;
-    font-variant-numeric:tabular-nums;
-  }
-  .row .val small{font-weight:400; font-size:11px; color:var(--faint); margin-left:2px}
-  .rank{
-    justify-self:end; text-align:right;
-    font-family:var(--mono); font-size:11.5px; font-variant-numeric:tabular-nums;
-    color:var(--muted); line-height:1.35;
-  }
-  .rank b{display:block; font-size:13.5px; font-weight:600; color:var(--ink)}
-  .row[data-flag="alert"] .rank b{color:var(--alert)}
-  .row[data-flag="ok"] .rank b{color:var(--ok)}
+  .docs{list-style:none; padding:0; margin:8px 0 0}
+  .docs li{padding:5px 0; border-bottom:1px solid var(--line-soft); font-size:13px}
+  .docs a{color:var(--accent); font-family:var(--mono); font-size:12px; word-break:break-all}
+  .docs b{display:inline-block; min-width:74px; font-weight:600}
 
-  .strip{position:relative; height:30px; width:100%}
-  .strip .axisline{position:absolute; left:0; right:0; top:50%; height:1px; background:var(--line)}
-  .strip i{position:absolute; display:block}
-  .strip .tick{top:9px; width:1px; height:12px; background:var(--mark); opacity:.4}
-  .strip .med{top:4px; width:1px; height:22px; background:var(--faint); opacity:.65}
-  .strip .me{
-    top:50%; width:11px; height:11px; margin:-5.5px 0 0 -5.5px; border-radius:50%;
-    background:var(--accent); box-shadow:0 0 0 2px var(--surface);
-  }
-  .row[data-flag="alert"] .me{background:var(--alert)}
-  .row[data-flag="ok"] .me{background:var(--ok)}
-
-  /* ── 원문 ───────────────────────────── */
-  .docs{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
-  .docs a{
-    flex:1 1 200px; display:block; padding:14px 16px;
-    background:var(--surface); border:1px solid var(--line);
-    color:var(--ink); text-decoration:none;
-  }
-  .docs a:hover{border-color:var(--accent)}
-  .docs a:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
-  .docs .t{font-weight:600; font-size:14px; display:block}
-  .docs .u{font-size:11px; color:var(--faint); font-family:var(--mono); word-break:break-all; display:block; margin-top:3px}
-
-  /* ── 꼬리 ───────────────────────────── */
-  footer{margin-top:46px; padding-block:22px 44px; border-top:1px solid var(--line); font-size:12.5px; color:var(--muted)}
-  footer p{margin:0 0 7px}
-  footer code{font-family:var(--mono); font-size:11.5px; background:var(--sunk); padding:1px 5px; border:1px solid var(--line-soft)}
-  .stamp{
-    display:inline-block; font:600 10.5px/1 var(--body); letter-spacing:.08em;
-    color:var(--faint); border:1px solid var(--line); padding:5px 9px; margin-bottom:14px;
-  }
-
-  #tip{
-    position:fixed; z-index:40; pointer-events:none; opacity:0; transition:opacity .12s;
-    background:var(--ink); color:var(--ground);
-    font:500 11.5px/1.5 var(--body); padding:7px 10px; max-width:240px;
-    box-shadow:0 4px 14px rgba(0,0,0,.22);
-  }
-  #tip b{font-family:var(--mono); font-variant-numeric:tabular-nums}
-  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
-
-  @media (max-width:640px){
-    .row{grid-template-columns:1fr 72px; gap:6px 12px; padding:14px 15px}
-    .row .name{grid-column:1}
-    .row .val{grid-column:2}
-    .row .strip-cell{grid-column:1/-1; order:3}
-    .rank{grid-column:1/-1; order:4; justify-self:start; text-align:left; display:flex; gap:7px; align-items:baseline}
-    .rank b{display:inline}
-  }
+  footer{margin:34px 0 40px; padding-top:14px; border-top:1px solid var(--line); color:var(--muted); font-size:12px}
+  footer p{margin:0 0 5px}
+  footer code{font-family:var(--mono); font-size:11px; background:var(--sunk); padding:1px 4px}
 </style>
 
-<div class="topbar">
-  <div class="wrap">
-    <div class="brand">나랏돈 <em>우리 동네</em></div>
-    <div class="switch" role="tablist" aria-label="자치단체 고르기" id="switch"></div>
-  </div>
-</div>
+<div class="topbar"><div class="wrap">
+  <span class="t">지방재정 데이터 나열 · 2024 결산</span>
+  <span id="switch"></span>
+</div></div>
 
 <main class="wrap" id="app"></main>
 
-<div id="tip" role="status" aria-live="polite"></div>
-
 <script>
 const DATA = __DATA__;
-
-const AXES = [
-  ['새는 곳',    '제대로 쓰고 있나',   '행안부가 해마다 계산해 두지만 한자리에 모아 순위를 매긴 곳은 없다. 값이 높을수록 눈여겨볼 곳이다.'],
-  ['어디에 쓰나', '무엇을 골랐나',     '예산을 어디에 얼마나 배정했는지. 높고 낮음보다 선택의 방향을 본다.'],
-  ['빚',         '감당할 수 있나',    ''],
-  ['자립',       '제 힘으로 사나',    ''],
-  ['규모',       '얼마나 큰 살림인가', '']
-];
 
 const 정식 = {서울:'서울특별시', 부산:'부산광역시', 대구:'대구광역시', 인천:'인천광역시',
   광주:'광주광역시', 대전:'대전광역시', 울산:'울산광역시', 세종:'세종특별자치시',
   경기:'경기도', 강원:'강원특별자치도', 충북:'충청북도', 충남:'충청남도',
   전북:'전북특별자치도', 전남:'전라남도', 경북:'경상북도', 경남:'경상남도', 제주:'제주특별자치도'};
-/* 자료의 이름은 "부산본청"·"충북옥천군" 꼴이다. 광역은 정식 명칭으로, 기초는 시도 접두어만 뗀다. */
-const 이름of = d => d.갈래 === '광역'
-  ? (정식[d.시도] || d.이름)
+const 이름of = d => d.갈래 === '광역' ? (정식[d.시도] || d.이름)
   : (d.이름.startsWith(d.시도) ? d.이름.slice(d.시도.length) : d.이름);
 
-const UNIT = n => n.includes('1인당') ? '천원' : '%';
-const fmt = (v, n) => n.includes('1인당')
-  ? v.toLocaleString('ko-KR')
-  : (Math.round(v * 10) / 10).toLocaleString('ko-KR', {minimumFractionDigits:1, maximumFractionDigits:1});
+const n0 = v => v == null ? '' : Math.round(v).toLocaleString('ko-KR');
+const n1 = v => v == null ? '' : v.toLocaleString('ko-KR', {minimumFractionDigits:1, maximumFractionDigits:1});
 
-/* 순위가 위·아래 10% 안이면 깃발을 단다. 색만으로 말하지 않고 순위 숫자를 늘 같이 적는다. */
-const FLAGGED = new Set(['새는 곳', '빚']);
-function flagOf(m){
-  if (!FLAGGED.has(m.축)) return '';
-  const edge = Math.max(2, Math.round(m.전체 * 0.1));
-  if (m.순위 <= edge) return m.높을수록나쁨 ? 'alert' : 'ok';
-  if (m.순위 > m.전체 - edge) return m.높을수록나쁨 ? 'ok' : 'alert';
-  return '';
+/* 원 단위는 자릿수가 커서 그대로는 못 읽는다. 조·억으로 줄이되 원값도 같이 적는다. */
+function 돈(v){
+  if (v == null) return '';
+  const a = Math.abs(v);
+  if (a >= 1e12) return (v/1e12).toLocaleString('ko-KR',{maximumFractionDigits:2}) + '조';
+  if (a >= 1e8)  return (v/1e8 ).toLocaleString('ko-KR',{maximumFractionDigits:0}) + '억';
+  return n0(v);
 }
 
-function strip(m){
-  const lo = m.최소, hi = m.최대, span = (hi - lo) || 1;
-  const pct = v => (3 + (v - lo) / span * 94).toFixed(2);
-  const ticks = m.분포.map(v => `<i class="tick" style="left:${pct(v)}%"></i>`).join('');
-  return `<div class="strip-cell"><div class="strip" role="img"
-     aria-label="${m.전체}곳 가운데 ${m.순위}위. 값 ${fmt(m.값,m.이름)}${UNIT(m.이름)}, 중앙값 ${fmt(m.중앙값,m.이름)}${UNIT(m.이름)}">
-    <span class="axisline"></span>${ticks}<i class="med" style="left:${pct(m.중앙값)}%"></i><i class="me" style="left:${pct(m.값)}%"></i>
-  </div></div>`;
+function table(cols, rows){
+  return `<div class="scroll"><table>
+    <thead><tr>${cols.map(c => `<th>${c}</th>`).join('')}</tr></thead>
+    <tbody>${rows.join('')}</tbody></table></div>`;
 }
+
+function 지표행(m){
+  const 눈여겨 = m.높을수록나쁨 && m.순위 <= Math.max(2, Math.round(m.전체 * 0.1));
+  const 비율칸 = m.비율 == null ? '<td class="dim">—</td>'
+    : `<td${눈여겨 ? ' class="mark"' : ''}>${n1(m.비율)}${m.단위 === '천원' ? '' : m.단위}</td>`;
+  return `<tr>
+    <td>${m.이름}</td>
+    ${비율칸}
+    <td>${m.단위 === '천원' ? n0(m.금액) + ' 천원' : 돈(m.금액)}<span class="raw">${n0(m.금액)}</span></td>
+    <td>${m.분모 == null ? '<span class="dim">—</span>' : 돈(m.분모) + `<span class="raw">${n0(m.분모)}</span>`}</td>
+    <td${눈여겨 ? ' class="mark"' : ''}>${m.순위} / ${m.전체}</td>
+    <td class="dim">${m.비율 == null ? 돈(m.중앙값) : n1(m.중앙값)}</td>
+    <td class="dim">${m.비율 == null ? 돈(m.최소) : n1(m.최소)}</td>
+    <td class="dim">${m.비율 == null ? 돈(m.최대) : n1(m.최대)}</td>
+  </tr>`;
+}
+
+const 축설명 = {
+  '규모':       '얼마나 큰 살림인가. 아래 모든 비율의 분모가 되는 수다.',
+  '어디서 오나': '제 돈인가 받은 돈인가.',
+  '어디에 쓰나': '무엇을 골랐나. 높고 낮음보다 방향을 본다.',
+  '새는 곳':     '제대로 쓰나. 값이 큰 쪽 10% 안에 들면 비율과 순위를 붉게 적었다.',
+  '빚':         '감당할 수 있나.'
+};
 
 function render(cd){
   const d = DATA[cd];
   const byAxis = {};
   d.지표.forEach(m => (byAxis[m.축] ||= []).push(m));
 
-  const perCapita = d.지표.find(m => m.이름 === '1인당세출예산액');
-  const lead = perCapita
-    ? `주민 한 사람 앞으로 <span class="big">${perCapita.값.toLocaleString('ko-KR')}천원</span>을 쓴다.
-       ${d.갈래} ${d.견줄곳수}곳 가운데 <b>${perCapita.순위}위</b>, 중앙값은 ${fmt(perCapita.중앙값,'1인당')}천원이다.`
-    : '';
-
-  const sections = AXES.map(([axis, q, note]) => {
-    const list = byAxis[axis]; if (!list) return '';
-    const rows = list.map(m => {
-      const f = flagOf(m);
-      return `<div class="row" data-flag="${f}" data-m='${JSON.stringify({n:m.이름,v:fmt(m.값,m.이름),u:UNIT(m.이름),r:m.순위,t:m.전체,md:fmt(m.중앙값,m.이름)}).replace(/'/g,"&apos;")}'>
-        <div class="name">${m.이름}</div>
-        <div class="val">${fmt(m.값, m.이름)}<small>${UNIT(m.이름)}</small></div>
-        ${strip(m)}
-        <div class="rank"><b>${m.순위}위</b><span>${m.전체}곳 중</span></div>
-      </div>`;
-    }).join('');
-    return `<section class="axis">
-      <div class="axis-head"><h2>${axis}</h2><span class="q">${q}</span></div>
-      ${note ? `<p class="axis-note">${note}</p>` : ''}
-      <div class="rows">${rows}</div>
-    </section>`;
+  const 축들 = Object.keys(byAxis).map((axis, i) => {
+    const rows = byAxis[axis].map(지표행);
+    return `<h2>${'①②③④⑤⑥⑦'[i] || ''} ${axis}<small>${축설명[axis] || ''}</small></h2>
+      ${table(['지표','비율','금액(분자)','분모','순위','중앙값','최소','최대'], rows)}`;
   }).join('');
 
+  const s = d.시계열;
+  const base = s.find(r => r.세출)?.세출;
+  const 시계열 = s.map((r, i) => {
+    const prev = i ? s[i-1].세출 : null;
+    const 증감 = (prev && r.세출) ? (r.세출 - prev) / prev * 100 : null;
+    return `<tr>
+      <td>${r.연도}</td>
+      <td>${돈(r.세출)}<span class="raw">${n0(r.세출)}</span></td>
+      <td>${돈(r.세입)}<span class="raw">${n0(r.세입)}</span></td>
+      <td${증감 != null && 증감 < 0 ? ' class="mark"' : ''}>${증감 == null ? '' : (증감 > 0 ? '+' : '') + n1(증감) + '%'}</td>
+      <td class="dim">${base && r.세출 ? n1(r.세출 / base * 100) : ''}</td>
+    </tr>`;
+  });
+
   const docs = Object.entries(d.원문).map(([k, u]) =>
-    `<a href="${u}" target="_blank" rel="noopener"><span class="t">${k} 원문 →</span><span class="u">${u.replace(/^https?:\/\//,'')}</span></a>`
-  ).join('');
+    `<li><b>${k}</b> <a href="${u}" target="_blank" rel="noopener">${u}</a></li>`).join('');
 
   document.getElementById('app').innerHTML = `
-    <header class="hero">
-      <div class="eyebrow">${d.연도}년 결산 기준 · ${d.시도}</div>
-      <h1>${이름of(d)}</h1>
-      <p class="sub">인구 <b>${d.인구.toLocaleString('ko-KR')}</b>명 · ${d.갈래}자치단체 · 같은 갈래 <b>${d.견줄곳수}</b>곳과 견줌</p>
-      <div class="headline"><p>${lead}</p></div>
-    </header>
-    ${sections}
-    <section class="axis">
-      <div class="axis-head"><h2>원문 보기</h2><span class="q">숫자의 출처</span></div>
-      <p class="axis-note">지방재정365가 자치단체별 원문 주소를 API로 준다. 주소가 바뀌면 따라간다 — 손으로 모은 목록이 아니다.</p>
-      <div class="docs">${docs}</div>
-    </section>
+    <h1>${이름of(d)} <span style="color:var(--faint);font-family:var(--mono);font-size:14px;font-weight:400">${d.laf_cd}</span></h1>
+    <p class="meta">
+      <span>${d.갈래}자치단체</span>
+      <span>인구 <b>${n0(d.인구)}</b>명</span>
+      <span>견줄 곳 <b>${d.견줄곳수}</b>곳</span>
+      <span>기준 <b>${d.연도}</b>년 결산</span>
+      <span>지표 <b>${d.지표.length}</b>종</span>
+    </p>
+    <p class="note">순위는 늘 값이 큰 쪽이 1위다. 같은 갈래끼리만 매겼다. 중앙값·최소·최대는 견줄 곳 ${d.견줄곳수}곳의 값이다.</p>
+    ${축들}
+    <h2>⑥ 시계열<small>세출·세입 결산 총액 ${s[0]?.연도}~${s[s.length-1]?.연도}</small></h2>
+    <p class="note">지수는 ${s[0]?.연도}년을 100 으로 놓은 값이다. 증감은 전년 대비.</p>
+    ${table(['연도','세출결산','세입결산','세출 증감','지수'], 시계열)}
+    <h2>원문<small>지방재정365 가 자치단체별 주소를 API 로 준다</small></h2>
+    <ul class="docs">${docs}</ul>
     <footer>
-      <span class="stamp">모델 · 시안</span>
-      <p>자료 — 지방재정365 재정지표 20종, ${d.연도}년 결산 기준. 243개 자치단체 전수.</p>
-      <p>순위는 같은 갈래끼리만 매겼다. 광역 17곳, 기초 226곳을 섞으면 순위가 뜻을 잃는다.</p>
-      <p>가운데 굵은 선이 중앙값, 잔금은 견줄 곳 ${d.견줄곳수}곳의 값이다. 동그라미가 ${이름of(d)}.</p>
-      <p>순위는 늘 값이 큰 쪽이 1위다. 그것이 좋은 일인지 나쁜 일인지는 순위가 아니라 지표가 말한다 — 색을 칠한 축은 「새는 곳」과 「빚」 둘뿐이다.</p>
+      <p>자료 — 지방재정365 OpenAPI. 지표 ${d.지표.length}종은 ${d.연도}년 결산 기준, 시계열은 ${s.length}년치. 243개 자치단체 전수.</p>
+      <p>금액은 조·억으로 줄여 적고 아래에 원 단위를 그대로 붙였다. 1인당 지표만 천원 단위다.</p>
+      <p>비율 지표는 분자·분모 금액이 같은 응답에 들어 있다. 비율만 보면 그것이 몇 억인지 알 수 없다.</p>
       <p>갱신 — 결산이 확정되는 해마다 한 번. <code>python scripts/fetch_indicators.py ${d.연도}</code></p>
+      <p>이 화면은 설계를 위한 데이터 나열이다. 꾸미지 않았다.</p>
     </footer>`;
 
   document.querySelectorAll('#switch button').forEach(b =>
     b.setAttribute('aria-selected', String(b.dataset.cd === cd)));
 }
 
-/* 값 하나하나에 붙는 설명 */
-const tip = document.getElementById('tip');
-document.addEventListener('pointerover', e => {
-  const row = e.target.closest('.row'); if (!row) return;
-  const m = JSON.parse(row.dataset.m);
-  tip.innerHTML = `${m.n}<br><b>${m.v}${m.u}</b> · ${m.t}곳 중 <b>${m.r}위</b><br>중앙값 ${m.md}${m.u}`;
-  tip.style.opacity = '1';
-});
-document.addEventListener('pointermove', e => {
-  if (tip.style.opacity !== '1') return;
-  const pad = 14;
-  tip.style.left = Math.min(e.clientX + pad, innerWidth - tip.offsetWidth - 8) + 'px';
-  tip.style.top  = Math.max(8, e.clientY - tip.offsetHeight - pad) + 'px';
-});
-document.addEventListener('pointerout', e => {
-  if (!e.relatedTarget || !e.relatedTarget.closest?.('.row')) tip.style.opacity = '0';
-});
-
 const sw = document.getElementById('switch');
 sw.innerHTML = Object.values(DATA).map(d =>
-  `<button role="tab" data-cd="${d.laf_cd}" aria-selected="false">${이름of(d)}</button>`).join('');
+  `<button data-cd="${d.laf_cd}" aria-selected="false">${이름of(d)}</button>`).join(' ');
 sw.addEventListener('click', e => { const b = e.target.closest('button'); if (b) render(b.dataset.cd); });
 
 render(Object.keys(DATA)[0]);
