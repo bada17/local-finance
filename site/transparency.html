@@ -39,10 +39,13 @@
   .layer .h{font-weight:600; margin:2px 0 4px}
   .layer p{margin:0; font-size:12.5px; color:var(--muted)}
   .funnel{margin:10px 0 0; border:1px solid var(--line)}
-  .step{display:flex; align-items:flex-start; gap:10px; padding:8px 12px; border-bottom:1px solid var(--line-soft)}
+  /* ⚠️ 막대 너비를 px 로 주면 손전화에서 글자 칸이 한 글자로 눌린다 — 반드시 % 로 줄 것 */
+  .step{display:grid; grid-template-columns:46px minmax(0,1fr); gap:4px 10px;
+    padding:8px 12px; border-bottom:1px solid var(--line-soft)}
   .step:last-child{border-bottom:0}
-  .step .n{font-family:var(--mono); font-size:15px; font-weight:600; min-width:46px; text-align:right}
-  .step .bar{height:12px; margin-top:4px; background:var(--accent); opacity:.7; flex:0 0 auto; min-width:2px}
+  .step .n{font-family:var(--mono); font-size:15px; font-weight:600; text-align:right}
+  .step .track{grid-column:2; height:12px; background:var(--line-soft)}
+  .step .bar{display:block; height:100%; background:var(--accent); opacity:.75; min-width:2px}
   .step .lb{font-size:12.5px; color:var(--muted)}
   .step .lb b{color:var(--ink); font-weight:600}
   .step.drop .n{color:var(--alert)}
@@ -74,11 +77,18 @@
   .items span{font-size:11px; border:1px solid var(--line-soft); padding:1px 6px}
   .items span.on{border-color:var(--ok); color:var(--ok)}
   .lawlist{border:1px solid var(--line)}
-  .lawrow{display:flex; align-items:center; gap:10px; padding:4px 12px; border-bottom:1px solid var(--line-soft)}
+  .lawrow{display:grid; grid-template-columns:74px minmax(60px,180px) minmax(0,1fr);
+    align-items:center; gap:10px; padding:4px 12px; border-bottom:1px solid var(--line-soft)}
   .lawrow:last-child{border-bottom:0}
-  .lawrow .n{font-family:var(--mono); font-size:12px; min-width:74px; text-align:right; color:var(--muted)}
-  .lawrow .bar{height:10px; background:var(--accent); opacity:.6; min-width:1px}
+  .lawrow .n{font-family:var(--mono); font-size:12px; text-align:right; color:var(--muted)}
+  .lawrow .track{height:10px; background:var(--line-soft)}
+  .lawrow .bar{display:block; height:100%; background:var(--accent); opacity:.65}
   .lawrow .lb{font-size:12.5px}
+  /* 좁으면 막대를 접는다 — 곳수와 %가 이미 왼쪽에 적혀 있다 */
+  @media (max-width:620px){
+    .lawrow{grid-template-columns:74px minmax(0,1fr)}
+    .lawrow .track{display:none}
+  }
   footer{margin:30px 0 40px; padding-top:14px; border-top:1px solid var(--line); color:var(--muted); font-size:12px}
   footer p{margin:0 0 6px}
 </style>
@@ -163,8 +173,8 @@ document.getElementById('funnel').innerHTML = 칸들.map(([k, lb, sub, drop], i)
   const 준 = 앞 - n;
   return `<div class="step${drop && 준 ? ' drop' : ''}">
     <span class="n">${n}</span>
-    <span class="bar" style="width:${(n / SUM['모두'] * 300).toFixed(0)}px"></span>
     <span class="lb"><b>${lb}</b>${준 ? ` — 여기서 ${준}곳이 떨어진다` : ''}${sub ? `<br>${sub}` : ''}</span>
+    <span class="track"><span class="bar" style="width:${(n / SUM['모두'] * 100).toFixed(1)}%"></span></span>
   </div>`;
 }).join('');
 
@@ -172,10 +182,11 @@ document.getElementById('funnel').innerHTML = 칸들.map(([k, lb, sub, drop], i)
 document.getElementById('funnel').insertAdjacentHTML('beforeend',
   `<div class="step">
     <span class="n">${SUM['이름읽힘']}</span>
-    <span class="bar" style="width:${(SUM['이름읽힘'] / SUM['모두'] * 300).toFixed(0)}px"></span>
     <span class="lb"><b>파일 이름이 뜻을 갖는다</b> — 위와는 다른 축이다<br>
       파일이 잡힌 ${SUM['파일잡힘']}곳 가운데 ${SUM['해시']}곳은 이름이 해시라
       무슨 문서인지 눌러 봐야 안다</span>
+    <span class="track"><span class="bar"
+      style="width:${(SUM['이름읽힘'] / SUM['모두'] * 100).toFixed(1)}%"></span></span>
   </div>`);
 
 const 까닭줄 = Object.entries(SUM['까닭']).sort((a, b) => b[1] - a[1])
@@ -195,7 +206,7 @@ document.getElementById('lawlist').innerHTML = ITEMS.map((nm, i) => {
   const n = 읽힌곳.filter(r => r.항목.includes(i)).length;
   const p = n / Math.max(1, 읽힌곳.length);
   return `<div class="lawrow"><span class="n">${n}곳 ${(p * 100).toFixed(0)}%</span>
-    <span class="bar" style="width:${(p * 240).toFixed(0)}px"></span>
+    <span class="track"><span class="bar" style="width:${(p * 100).toFixed(1)}%"></span></span>
     <span class="lb">${i + 1}. ${nm}</span></div>`;
 }).join('');
 
