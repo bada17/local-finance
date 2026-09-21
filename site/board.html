@@ -164,8 +164,9 @@ function 그리기(){
     .concat(고른칸.map(i => 지표[i].이름))
     .map((t, k) => {
       const key = k === 2 ? '인구' : (k > 2 ? 고른칸[k - 3] : null);
-      const 표 = 줄세움 === key ? ` aria-sort="${거꾸로 ? 'ascending' : 'descending'}"` : '';
-      return `<th${표} data-key="${key === null ? '' : key}">${t}${줄세움 === key ? (거꾸로 ? ' ▲' : ' ▼') : ''}</th>`;
+      const 이칸 = key !== null && 줄세움 === key;      // 이름·시도 칸은 줄세우기가 없다
+      const 표 = 이칸 ? ` aria-sort="${거꾸로 ? 'ascending' : 'descending'}"` : '';
+      return `<th${표} data-key="${key === null ? '' : key}">${t}${이칸 ? (거꾸로 ? ' ▲' : ' ▼') : ''}</th>`;
     }).join('');
 
   const 몸 = 줄.map(r => `<tr>
