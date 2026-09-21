@@ -65,6 +65,21 @@
   th,td{padding:6px 10px; border-bottom:1px solid var(--line-soft); text-align:left; vertical-align:top}
   thead th{background:var(--sunk); font-size:11.5px; color:var(--muted); font-weight:600}
   .scroll{overflow-x:auto}
+  .bar2{margin:10px 0 6px; display:flex; gap:6px; flex-wrap:wrap; align-items:center}
+  input[type=search]{font:14px var(--body); color:var(--ink); background:var(--sunk);
+    border:1px solid var(--line); padding:7px 10px; width:min(260px,100%)}
+  button{font:13px var(--body); color:var(--muted); background:var(--sunk);
+    border:1px solid var(--line); padding:5px 10px; cursor:pointer; white-space:nowrap}
+  button[aria-selected="true"]{background:var(--accent); border-color:var(--accent); color:#fff}
+  #all thead th{position:sticky; top:0; z-index:5}
+  #all td{white-space:nowrap}
+  #all td.nm{white-space:normal; min-width:280px}
+  .st{font-family:var(--mono); font-size:11.5px; padding:1px 6px; border:1px solid var(--line)}
+  .st.쓴다{color:var(--ok); border-color:var(--ok)}
+  .st.멈춘자료{color:var(--alert); border-color:var(--alert)}
+  .st.못받는다{color:var(--alert); border-color:var(--alert)}
+  .st.따로받아야{color:var(--half); border-color:var(--half)}
+  .st.아직안씀{color:var(--faint)}
   footer{margin:30px 0 40px; padding-top:14px; border-top:1px solid var(--line); color:var(--muted); font-size:12px}
   footer p{margin:0 0 6px}
 </style>
@@ -81,6 +96,7 @@
   <h1>무엇을 말할 수 있고, 무엇이 비었나</h1>
   <p class="basis"><b>질문을 먼저 늘어놓고</b> 지금 답할 수 있는지를 매긴 지도다.
     자료 목록이 아니라 <b>「우리가 무슨 말을 할 수 있나」</b>의 지도다.<br>
+    아래에 <b>자료 전수 350줄</b>(지방재정365 146 · 열린재정 198 · 그밖 6)도 함께 폈다.<br>
     ● 된다 · ◐ 반쪽(되지만 구멍이 있다) · ○ 못 한다.
     ○ 마다 <b>어떤 자료가 있어야 풀리는지</b>를 적어 뒀다.<br>
     질문마다 <b>화면에 실제로 뜨는 칸 이름</b>(재정자립도·수의계약비율 같은)과 한 줄 뜻풀이를 붙였다.<br>
@@ -93,7 +109,18 @@
   <h2>질문마다</h2>
   <div id="qs"></div>
 
-  <h2>지금 가진 자료</h2>
+  <h2>자료 전수 — 어디까지 들어왔나</h2>
+  <p class="note">지방재정365 146종 · 열린재정 198종 · 그밖 소스를 <b>한 줄도 빼지 않고</b> 올렸다.
+    줄마다 우리 쪽 상태를 붙였다 — <b>쓴다 / 아직 안 씀 / 멈춘 자료 / 따로 받아야 / 못 받는다</b>.</p>
+  <div class="tally" id="tally2"></div>
+  <p class="bar2">
+    <input id="q2" type="search" placeholder="자료 이름·코드·갈래" autocomplete="off">
+    <span class="grp" id="filt2"></span>
+  </p>
+  <p class="note" id="say2"></p>
+  <div class="scroll" style="max-height:70vh; overflow-y:auto"><table id="all"></table></div>
+
+  <h2>지금 가진 자료 — 자세히</h2>
   <div class="scroll"><table id="have"></table></div>
 
   <h2>없는 자료 — 이게 들어오면 무엇이 풀리나</h2>
@@ -108,7 +135,8 @@
 </main>
 
 <script>
-const GROUPS = __GROUPS__, HAVE = __HAVE__, MISSING = __MISSING__, TALLY = __TALLY__, WORDS = __WORDS__;
+const GROUPS = __GROUPS__, HAVE = __HAVE__, MISSING = __MISSING__, TALLY = __TALLY__,
+      WORDS = __WORDS__, ALL = __ALL__;
 document.getElementById('asof').textContent = '__ASOF__';
 
 /* 뜻풀이와 「구멍」에 **굵게**·`코드` 를 쓴다 — 글로 적기 편하라고. 여기서 태그로 바꾼다. */
@@ -154,6 +182,50 @@ document.getElementById('qs').innerHTML = GROUPS.map(g => `
         </div>`).join('')}
       </div>
     </details>`).join('')}`).join('');
+
+/* ── 자료 전수 ── */
+const 상태차례 = ['쓴다', '따로 받아야', '멈춘 자료', '아직 안 씀', '못 받는다'];
+const 셈2 = {};
+ALL.forEach(r => { 셈2[r.상태] = (셈2[r.상태] || 0) + 1; });
+document.getElementById('tally2').innerHTML = 상태차례.filter(k => 셈2[k]).map(k =>
+  `<div><div class="n">${셈2[k]}</div><div class="k">${k}</div></div>`).join('')
+  + `<div><div class="n">${ALL.length}</div><div class="k">모두</div></div>`;
+
+let 찾기2 = '', 거르개2 = '전부';
+document.getElementById('filt2').innerHTML =
+  ['전부', ...상태차례.filter(k => 셈2[k])].map(k =>
+    `<button data-f="${k}" aria-selected="${k === '전부'}">${k}${k === '전부' ? '' : ` ${셈2[k]}`}</button>`).join('');
+
+function 전수그리기(){
+  const q = 찾기2.trim();
+  const 걸린 = ALL.filter(r =>
+    (거르개2 === '전부' || r.상태 === 거르개2) &&
+    (!q || (r.이름 + ' ' + r.코드 + ' ' + r.갈래 + ' ' + r.곳).includes(q)));
+  document.getElementById('say2').textContent =
+    q || 거르개2 !== '전부' ? `${걸린.length}줄이 걸렸다 (모두 ${ALL.length}줄)` : `모두 ${ALL.length}줄`;
+  document.getElementById('all').innerHTML =
+    `<thead><tr><th>상태</th><th>어디</th><th>코드</th><th>자료</th><th>갈래</th>
+      <th>있는 해</th><th>최신</th><th>곳수</th><th>무엇에 쓰나 · 왜 안 쓰나</th></tr></thead>
+     <tbody>${걸린.map(r => `<tr>
+       <td><span class="st ${r.상태.replace(/\s/g, '')}">${r.상태}</span></td>
+       <td>${r.곳}</td>
+       <td><code>${r.코드 || ''}</code></td>
+       <td class="nm">${r.이름}</td>
+       <td>${r.갈래 || ''}</td>
+       <td>${r.해 || ''}</td>
+       <td>${r.최신 || ''}</td>
+       <td style="text-align:right">${r.곳수 == null ? '' : r.곳수.toLocaleString('ko-KR')}</td>
+       <td class="nm">${꾸밈(r.까닭)}</td></tr>`).join('')}</tbody>`;
+}
+document.getElementById('q2').addEventListener('input', e => { 찾기2 = e.target.value; 전수그리기(); });
+document.getElementById('filt2').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  거르개2 = b.dataset.f;
+  document.querySelectorAll('#filt2 button').forEach(x =>
+    x.setAttribute('aria-selected', String(x === b)));
+  전수그리기();
+});
+전수그리기();
 
 document.getElementById('have').innerHTML =
   `<thead><tr><th style="width:34%">자료 — 그 안에 든 칸</th><th>어디서</th><th>언제 것</th>

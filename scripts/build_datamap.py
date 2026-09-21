@@ -13,8 +13,14 @@
 # ⭐ **상태도 손으로 적지 않는다.** 자료가 실제로 저장소에 있는지 훑어서 판정한다.
 #    보탬e 를 받아 오면 다시 굽는 것만으로 ○ 가 ● 로 바뀐다.
 #
+# ⭐ **자료를 전부 올린다**(2026-09-21 사용자 지적 — "이게 API 전부 아니잖아").
+#    우리가 쓰는 것만 보이면 무엇을 안 쓰고 있는지가 안 보인다.
+#    지방재정365 146종 · 열린재정 198종 · 그밖 소스를 **한 줄도 빼지 않고** 올리고,
+#    줄마다 **들어왔나 / 받아만 봤나 / 못 받나**를 붙인다.
+#
 # 이 화면은 **우리 작업 관리용**이다(2026-09-21 결정). 파일 이름과 명령을 그대로 적는다.
 
+import collections
 import glob
 import gzip
 import json
@@ -238,6 +244,89 @@ def 자료훑기():
 
 
 # ─────────────────────────────────────────────────────────────────
+# 1-2. 자료 전수 — 146종·198종을 한 줄도 빼지 않고, 줄마다 「들어왔나」
+# ─────────────────────────────────────────────────────────────────
+# 코드마다 무엇에 쓰는지(쓰는 것만 적는다. 나머지는 자동으로 「아직 안 씀」)
+쓰임 = {
+    'QWGJK': '진행 중인 사업', 'WCEGCF': '계약 · 누가 받아 갔나',
+    'FINLK': '공시 점검 · 원문 링크', 'BUDLK': '원문 링크(예산서)', 'SETLK': '원문 링크(결산서)',
+}
+
+
+def 전수():
+    """지방재정365 146종 + 열린재정 198종 + 그밖 소스를 한 표로."""
+    cat = js('data/lofin365_146.json') if 있나('data/lofin365_146.json') else []
+    cov = js('data/coverage.json')['서비스'] if 있나('data/coverage.json') else {}
+
+    # 우리가 실제로 부르는 코드 — 지표 파일과 스크립트에서 꺼낸다(손으로 안 적는다)
+    쓰는코드 = set(쓰임)
+    p = os.path.join(ROOT, 'data', 'indicators')
+    이름들 = sorted(f for f in os.listdir(p) if f.endswith('.json') and '-' in f) if os.path.isdir(p) else []
+    지표이름 = {}
+    if 이름들:
+        for m in js(f'data/indicators/{이름들[-1]}')['지표목록']:
+            for c in str(m.get('코드', '')).split('↔'):      # 「DCFCE↔JFIED」처럼 둘을 쓰는 지표가 있다
+                c = c.strip()
+                if c:
+                    쓰는코드.add(c)
+                    지표이름.setdefault(c, []).append(m['이름'])
+
+    줄 = []
+    for it in cat:
+        코드 = it['code']
+        c = cov.get(코드, {})
+        해 = c.get('연도', '')
+        막힘 = c.get('건너뜀', '')
+        if 코드 in 쓰는코드:
+            상태, 까닭 = '쓴다', (쓰임.get(코드) or ' · '.join(지표이름.get(코드, []))[:60])
+        elif 막힘:
+            상태, 까닭 = '따로 받아야', 막힘
+        elif 해 and int(해) < __import__('datetime').date.today().year - 2:
+            상태, 까닭 = '멈춘 자료', f'{해}년에서 끊겼다'
+        else:
+            상태, 까닭 = '아직 안 씀', ''
+        줄.append({'곳': '지방재정365', '코드': 코드, '이름': it['name'][:90], '갈래': it['cat'],
+                  '해': it.get('years', ''), '최신': 해, '곳수': c.get('곳수'),
+                  '상태': 상태, '까닭': 까닭})
+
+    if 있나('data/openfiscal_198.json'):
+        for it in js('data/openfiscal_198.json'):
+            코드 = it.get('code') or it.get('코드') or ''
+            줄.append({'곳': '열린재정', '코드': 코드,
+                      '이름': (it.get('name') or it.get('이름') or '')[:90],
+                      '갈래': it.get('cat') or it.get('갈래') or '중앙정부',
+                      '해': '', '최신': '', '곳수': None,
+                      '상태': '아직 안 씀',
+                      '까닭': '중앙정부 총량이라 자치단체로 안 쪼개진다'})
+
+    for k, v in 밖의소스.items():
+        줄.append({'곳': v['곳'], '코드': '', '이름': v['이름'], '갈래': v.get('갈래', ''),
+                  '해': '', '최신': '', '곳수': None,
+                  '상태': '못 받는다', '까닭': v['막힘']})
+
+    # 쓰는 것과 막힌 것을 위로 — 파일 차례대로 두면 「쓴다」가 289줄 밑에 묻힌다
+    차례 = {'쓴다': 0, '못 받는다': 1, '따로 받아야': 2, '멈춘 자료': 3, '아직 안 씀': 4}
+    줄.sort(key=lambda r: (차례.get(r['상태'], 9), r['곳'] != '지방재정365', r['갈래'], r['이름']))
+    return 줄
+
+
+밖의소스 = {
+    '나라장터': {'곳': '나라장터', '이름': '조달청 계약정보 (사업자등록번호)', '갈래': '계약',
+              '막힘': '⚠️ `.env` 의 `DATA_GO_KR_KEY` 가 비어 있다'},
+    '보탬e': {'곳': '보탬e', '이름': '지방보조금 교부·성과평가', '갈래': '보조금',
+            '막힘': '아직 안 받았다 — 받는 길부터 확인해야 한다'},
+    '클린아이': {'곳': '클린아이', '이름': '지방공기업·출자출연기관 경영정보', '갈래': '공기업',
+              '막힘': '아직 안 봤다'},
+    'CLIK': {'곳': '지방의정포털', '이름': '기초의회 회의록', '갈래': '의회',
+             '막힘': '⛔ 사용자가 GPT 와 정하기로 했다'},
+    '투자심사': {'곳': '행안부·자치단체', '이름': '투자심사 결과', '갈래': '법정공시',
+              '막힘': 'API 가 없다 — 법 제37조의4 가 공개하라는 것인데'},
+    '주민참여예산': {'곳': '주민e참여', '이름': '주민참여예산 운영현황', '갈래': '법정공시',
+                '막힘': '전국 통합본이 없다'},
+}
+
+
+# ─────────────────────────────────────────────────────────────────
 # 2. 질문 — 사람이 적는다.
 #    필요  : 있어야 하는 자료 열쇠
 #    축    : 그 자료의 어느 축 칸으로 답하나 (이름은 파일에서 꺼낸다)
@@ -357,21 +446,27 @@ def main():
                 풀리는.setdefault(m['열쇠'], []).append(q['물음'])
     빈자료 = [{**v, '열쇠': k, '풀리는질문': 풀리는.get(k, [])} for k, v in 없는것.items()]
 
+    모든자료 = 전수()
+
     tpl = open(os.path.join(SITE, 'datamap.template.html'), encoding='utf-8').read()
     out = (tpl
            .replace('__GROUPS__', json.dumps(묶음, ensure_ascii=False, separators=(',', ':')))
            .replace('__HAVE__', json.dumps(list(자료.values()), ensure_ascii=False, separators=(',', ':')))
            .replace('__MISSING__', json.dumps(빈자료, ensure_ascii=False, separators=(',', ':')))
            .replace('__WORDS__', json.dumps({**뜻, **자료칸뜻}, ensure_ascii=False, separators=(',', ':')))
+           .replace('__ALL__', json.dumps(모든자료, ensure_ascii=False, separators=(',', ':')))
            .replace('__TALLY__', json.dumps(셈, ensure_ascii=False))
            .replace('__ASOF__', __import__('datetime').date.today().isoformat()))
     p = os.path.join(SITE, 'datamap.html')
     with open(p, 'w', encoding='utf-8') as f:
         f.write(out)
+    셈2 = collections.Counter(x['상태'] for x in 모든자료)
     칸수 = sum(len(q['칸']) for g in 묶음 for q in g['질문'])
     print(f'구움: site/datamap.html ({os.path.getsize(p)/1024:,.0f} KB)')
     print(f'   질문 {sum(셈.values())}개 — 된다 {셈["됨"]} · 반쪽 {셈["반쪽"]} · 못 한다 {셈["못함"]}')
     print(f'   질문에 붙은 칸 {칸수}개 · 뜻풀이 있는 말 {len({**뜻, **자료칸뜻})}개')
+    print(f'   자료 전수 {len(모든자료)}줄 — ' +
+          ' · '.join(f'{k} {v}' for k, v in 셈2.most_common()))
     없는뜻 = sorted({c['이름'] for g in 묶음 for q in g['질문'] for c in q['칸'] if not c['뜻']})
     if 없는뜻:
         print(f'   ⚠️ 뜻풀이가 없는 칸 {len(없는뜻)}개 — {" · ".join(없는뜻[:8])}')
