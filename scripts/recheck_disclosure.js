@@ -1,7 +1,8 @@
 // 재정공시 페이지를 **브라우저로** 다시 본다 — urllib 이 못 본 것을 잡으러.
 //
-//   node scripts/recheck_disclosure.js            243곳 전부
-//   node scripts/recheck_disclosure.js --only 30  앞 30곳만 (시험)
+//   node scripts/recheck_disclosure.js             243곳 전부
+//   node scripts/recheck_disclosure.js --only 30   앞 30곳만 (시험)
+//   node scripts/recheck_disclosure.js --약한곳    이름을 못 건진 곳만 다시 (결과를 합친다)
 //
 // 왜 브라우저인가 —
 //   ① 목록을 자바스크립트로 그리는 곳(86곳)은 원문 HTML 에 파일이 아예 없다.
@@ -11,6 +12,11 @@
 // ⚠️ 노드 22+ 가 필요하다(WebSocket 내장). 크롬은 --remote-debugging-port 로 띄운다.
 // ⚠️ **「자동으로 못 봤다」를 「없다」로 쓰지 않기 위한 작업이다.** 여기서 잡힌 것만
 //    확실해지는 것이고, 여전히 못 본 곳은 못 본 채로 둔다.
+//
+// ⭐ **두 가지를 더 판다(2026-09-21 밤).**
+//   ① 링크 주소의 `fileName=` 같은 칸에 **글자 이름이 들어 있는** 곳이 많다 — 거기서 꺼낸다.
+//   ② 공시 주소가 글이 아니라 **게시판 목록**을 가리키는 곳이 있다 — 목록에서 재정공시 글로
+//      한 번 더 들어가 본다. 들어갔으면 `들어간주소` 에 적는다(무엇을 본 것인지 남기려고).
 //
 // 결과: data/disclosure_dom.json   (build_transparency.py 가 이것을 먼저 본다)
 
@@ -26,6 +32,15 @@ const 한번에 = 4;            // 탭 넷이면 243곳에 5분쯤
 const 기다림 = 14000;        // 한 곳에 최대 14초
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 ' +
   '(KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36';
+
+// 「첨부파일」·「바로보기」 같은 단추 글자는 이름이 아니다(build_transparency.py 와 같은 잣대)
+const 껍데기 = /^(첨부|첨부파일|파일첨부|다운로드|내려받기|바로보기|미리보기|보기|열기|pdf파일첨부|한글파일첨부|붙임|다운|download|file)\s*\d*$/i;
+const 해시이름 = /^[0-9a-f]{8,}[._]/i;
+const 뜻있나 = n => {
+  n = (n || '').trim();
+  if (!n || 껍데기.test(n) || 해시이름.test(n)) return false;
+  return (n.match(/[가-힣]/g) || []).length >= 3;
+};
 
 const 크롬자리 = [
   'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
@@ -59,6 +74,29 @@ const 긁개 = String.raw`(() => {
   const 글 = (document.body ? document.body.innerText : '') || '';
   for (const m of 글.matchAll(/[^\s\/\\:*?"<>|]{2,70}\.(hwpx?|xlsx?|csv|pdf|docx?|pptx?|zip)/gi)) 담기(m[0], '');
 
+  // 주소에 파일 이름이 실려 오는 곳이 많다 — ?fileName=2026년+재정공시.pdf
+  const 이름칸 = /(?:file_?nm|file_?name|orgi?n?a?l?file_?nm|atch_?file_?nm|fn|nm|downFileNm)=([^&#]+)/i;
+  for (const a of document.querySelectorAll('a,button')) {
+    const h = (a.getAttribute('href') || '') + '&' + (a.getAttribute('onclick') || '');
+    const m = h.match(이름칸);
+    if (!m) continue;
+    let v = m[1];
+    try { v = decodeURIComponent(v.replace(/\+/g, ' ')); } catch (e) { /* 그대로 쓴다 */ }
+    if (/[가-힣]{2,}/.test(v)) 담기(v, h);
+  }
+
+  // 공시 글이 아니라 목록을 가리키는 곳이 있다 — 들어갈 만한 링크를 골라 둔다
+  const 후보 = [];
+  for (const a of document.querySelectorAll('a')) {
+    const t = (a.textContent || '').replace(/\s+/g, ' ').trim();
+    const h = a.href || '';
+    if (t.length < 6 || t.length > 80) continue;
+    if (!/재정\s?공시|재정운용상황|재정운영상황|세입세출|예산기준|결산기준/.test(t)) continue;
+    if (!/^https?:/.test(h) || h === location.href) continue;
+    후보.push({ 글: t.slice(0, 60), 주소: h.slice(0, 200) });
+    if (후보.length >= 4) break;
+  }
+
   let 날짜 = '';
   const d = 글.match(/(등록일|작성일|게시일|공시일|수정일|등록\s*일자)\s*[:：]?\s*(20\d{2}[-.\/]\s?\d{1,2}[-.\/]\s?\d{1,2})/);
   if (d) 날짜 = d[2].replace(/\s/g, '');
@@ -66,6 +104,7 @@ const 긁개 = String.raw`(() => {
     제목: (document.title || '').replace(/\s+/g, ' ').trim().slice(0, 80),
     주소: location.href.slice(0, 200),
     파일: 파일.slice(0, 40),
+    후보,
     날짜,
     글자수: 글.length,
   });
@@ -160,8 +199,36 @@ async function 한곳(탭, 곳) {
   const 코드 = 상태.코드, 실패 = 상태.실패;
 
   const r = await 보내기('Runtime.evaluate', { expression: 긁개, returnByValue: true, timeout: 8000 });
-  const 값 = r.result && r.result.value ? JSON.parse(r.result.value) : null;
+  let 값 = r.result && r.result.value ? JSON.parse(r.result.value) : null;
+
+  // ② 뜻 있는 이름을 하나도 못 건졌는데 들어갈 만한 링크가 있으면 **한 번만** 더 들어간다.
+  //    ⚠️ 두 번 이상 들어가지 않는다 — 어디를 본 것인지 알 수 없게 된다.
+  let 들어간주소 = '';
+  if (값 && !값.파일.some(f => 뜻있나(f.이름)) && 값.후보 && 값.후보.length) {
+    const 갈곳 = 값.후보[0];
+    await 보내기('Page.navigate', { url: 갈곳.주소 });
+    const 끝2 = Date.now() + 기다림;
+    while (Date.now() < 끝2) {
+      const q = await 보내기('Runtime.evaluate', {
+        expression: 'document.readyState + "|" + (document.body ? document.body.innerText.length : 0)',
+        returnByValue: true,
+      });
+      const [상태글, 길이] = String((q.result && q.result.value) || '').split('|');
+      if (상태글 === 'complete' && Number(길이) > 120) break;
+      await new Promise(x => setTimeout(x, 400));
+    }
+    await new Promise(x => setTimeout(x, 1000));
+    const r2 = await 보내기('Runtime.evaluate', { expression: 긁개, returnByValue: true, timeout: 8000 });
+    const 값2 = r2.result && r2.result.value ? JSON.parse(r2.result.value) : null;
+    // 더 잘 건진 쪽만 쓴다
+    if (값2 && 값2.파일.filter(f => 뜻있나(f.이름)).length > 0) {
+      값 = 값2;
+      들어간주소 = 갈곳.주소;
+    }
+  }
+
   return {
+    들어간주소,
     laf_cd: 곳.laf_cd, 이름: 곳.이름,
     코드, 실패: 실패 || '',
     제목: 값 ? 값.제목 : '',
@@ -180,11 +247,23 @@ async function main() {
   const i = process.argv.indexOf('--only');
   if (i > 0) 곳들 = 곳들.slice(0, parseInt(process.argv[i + 1], 10));
 
+  // 이름을 못 건진 곳만 다시 — 앞서 받아 둔 것은 그대로 두고 **합친다**
+  const 약한곳만 = process.argv.includes('--약한곳');
+  let 앞선것 = [];
+  if (약한곳만) {
+    앞선것 = JSON.parse(fs.readFileSync(OUT, 'utf-8'))['곳'];
+    const 약함 = new Set(앞선것
+      .filter(r => !(r.파일 || []).some(f => 뜻있나(f.이름)))
+      .map(r => r.laf_cd));
+    곳들 = 곳들.filter(r => 약함.has(r.laf_cd));
+    console.log(`이름을 못 건진 ${곳들.length}곳만 다시 본다`);
+  }
+
   const 프로필 = fs.mkdtempSync(path.join(os.tmpdir(), 'lf-chrome-'));
   const 크롬 = 크롬띄우기(프로필);
   await 붙을때까지();
 
-  const 결과 = [];
+  let 결과 = [];
   let 다음 = 0, 끝난 = 0;
   const 일꾼 = async () => {
     const 탭 = await 탭열기();
@@ -204,6 +283,20 @@ async function main() {
   };
   await Promise.all(Array.from({ length: 한번에 }, 일꾼));
 
+  if (약한곳만) {
+    // 이번에 **더 잘 건진 것만** 갈아끼운다. 못 건졌으면 앞의 것을 그대로 둔다.
+    const 새것 = new Map(결과.map(r => [r.laf_cd, r]));
+    let 나아진 = 0;
+    결과 = 앞선것.map(옛 => {
+      const 새 = 새것.get(옛.laf_cd);
+      if (!새) return 옛;
+      const a = (옛.파일 || []).filter(f => 뜻있나(f.이름)).length;
+      const b = (새.파일 || []).filter(f => 뜻있나(f.이름)).length;
+      if (b > a) { 나아진++; return 새; }
+      return (새.파일 || []).length > (옛.파일 || []).length ? 새 : 옛;
+    });
+    console.log(`   이름을 새로 건진 곳 ${나아진}`);
+  }
   결과.sort((a, b) => a.laf_cd.localeCompare(b.laf_cd));
   fs.writeFileSync(OUT, JSON.stringify({ 만든날: new Date().toISOString().slice(0, 10), 곳: 결과 }, null, 0));
 

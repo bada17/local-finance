@@ -32,6 +32,13 @@
 #    68조 → 978조로 부풀었다. 그래서 **1조원을 넘는 줄은 빼고 따로 적는다** —
 #    실제로 제일 큰 진짜 계약은 인천대로 도로개량 8,211억이다.
 #    **지우는 게 아니라 「수상한줄」로 남긴다.** 이것 자체가 공시 품질에 대한 할 말이다.
+#
+# ⚠️⚠️ **같은 계약원부관리번호가 여러 줄로 들어온다(2026-09-21 에 잡음).**
+#    같은 `ctrt_ldgr_mng_no` 가 날짜와 금액을 달리해 두 번 이상 온다 —
+#    서울 중랑천 보행교량은 8.5억(1/1)과 30억(1/21)으로 두 줄이다. 변경계약으로 보이지만
+#    명세서에 설명이 없어 **어느 쪽이 맞는지 알 수 없다.**
+#    → 합계는 그대로 두되(빼면 진짜 계약이 사라질 수 있다) **`겹친금액` 으로 세어 화면이 알리게 한다.**
+#    전국 1.0% 지만 울릉군 19.2%, 단양군 10.0% 처럼 작은 곳에서는 크다.
 
 import collections
 import glob
@@ -56,6 +63,24 @@ OUT = os.path.join(ROOT, 'data', 'contracts_summary.json')
 다년표기 = re.compile(r'20\d\d\s*년?\s*[~∼-]\s*20\d\d|\d\s*년\s*차')
 
 
+def 겹셈(원부, 셈, 해):
+    """같은 계약원부관리번호가 여러 줄로 온 것을 센다.
+
+    ⚠️ **빼지 않는다.** 제일 큰 줄 하나만 진짜라고 보면 나머지가 얼마인지만 적어 둔다.
+       변경계약인지 차수계약인지 명세서에 없어서 함부로 고르면 진짜 계약이 사라진다.
+    """
+    if not 해:
+        return
+    for (cd, y, _), 값들 in 원부.items():
+        if len(값들) < 2:
+            continue
+        s = 셈.get((cd, y))
+        if s is None:
+            continue
+        s['겹친건수'] += len(값들) - 1
+        s['겹친금액'] += sum(sorted(값들)[:-1])      # 제일 큰 것 하나만 남기고 나머지
+
+
 def main():
     골라낸해 = None
     if '--해' in sys.argv:
@@ -73,10 +98,14 @@ def main():
     # (laf_cd, 연도) → 셈
     셈 = collections.defaultdict(lambda: {
         '건수': 0, '금액': 0, '수의건수': 0, '수의금액': 0, '다년건수': 0, '다년금액': 0,
+        '겹친건수': 0, '겹친금액': 0,
         '종류': collections.Counter(),        # 공사·용역·물품 금액
         '업체': {},                           # 업체 → [금액, 건수, 수의금액]
     })
     이름 = {}
+    # 한 해치만 들고 있는다 — 파일이 날짜 차례라 해가 바뀌면 비운다(3년치를 통째로 들면 무겁다)
+    원부 = {}
+    보던해 = None
     첫날 = 끝날 = ''
     버린것 = 0
     수상한줄 = []
@@ -89,6 +118,10 @@ def main():
             버린것 += 1
             print(f'   건너뜀 {os.path.basename(f)} — {e}')
             continue
+        올해 = os.path.basename(f)[:4]
+        if 올해 != 보던해:
+            겹셈(원부, 셈, 보던해)
+            원부, 보던해 = {}, 올해
         for r in rows:
             cd = str(r.get('laf_cd') or '')
             날 = str(r.get('smz_ctrt_ymd') or '')
@@ -121,6 +154,9 @@ def main():
             if 다년표기.search(r.get('ctrt_trgt_nm') or ''):
                 s['다년건수'] += 1
                 s['다년금액'] += 금액
+            원부키 = (cd, 해, str(r.get('ctrt_ldgr_mng_no') or ''))
+            if 원부키[2]:
+                원부.setdefault(원부키, []).append(금액)
             s['종류'][r.get('ctrt_knd_nm') or '그밖'] += 금액
             칸 = s['업체'].get(업체)
             if 칸 is None:
@@ -132,6 +168,8 @@ def main():
             이름.setdefault(cd, r.get('laf_hg_nm') or '')
         if i % 100 == 0:
             print(f'   {i}/{len(files)}  ({len(셈)}칸)')
+
+    겹셈(원부, 셈, 보던해)
 
     곳 = collections.defaultdict(dict)
     자세히 = collections.defaultdict(dict)
@@ -150,6 +188,9 @@ def main():
             '다년건수': s['다년건수'],
             '다년금액': s['다년금액'],
             '다년몫': round(s['다년금액'] / s['금액'] * 100, 1) if s['금액'] else None,
+            '겹친건수': s['겹친건수'],
+            '겹친금액': s['겹친금액'],
+            '겹친몫': round(s['겹친금액'] / s['금액'] * 100, 1) if s['금액'] else None,
             '상위5몫': round(sum(v for _, v in 상위) / s['금액'] * 100, 1) if s['금액'] else None,
             '상위5': [{'이름': k, '금액': v} for k, v in 상위],
             '종류': dict(s['종류'].most_common()),
@@ -159,6 +200,7 @@ def main():
             '건수': s['건수'], '금액': s['금액'],
             '수의건수': s['수의건수'], '수의금액': s['수의금액'],
             '다년건수': s['다년건수'], '다년금액': s['다년금액'],
+            '겹친건수': s['겹친건수'], '겹친금액': s['겹친금액'],
             '업체수': len(업체),
             '종류': dict(s['종류'].most_common()),
             '업체': [[k, v[0], v[1], v[2]] for k, v in 차례[:상위N]],
@@ -216,6 +258,9 @@ def main():
     다년 = sum(v['다년금액'] for c in 곳.values() for v in c.values())
     print(f'   계약명에 기간이 적힌 줄 {다년/1e12:.2f}조 ({다년/max(1,총액)*100:.2f}%) '
           f'— 총액 줄과 연차 줄이 겹쳐 들어온다')
+    겹 = sum(v['겹친금액'] for c in 곳.values() for v in c.values())
+    겹건 = sum(v['겹친건수'] for c in 곳.values() for v in c.values())
+    print(f'   같은 계약원부번호가 여러 줄 {겹건:,}건 · {겹/1e8:,.0f}억 ({겹/max(1,총액)*100:.2f}%)')
     if 수상한줄:
         print(f'   ⚠️ 1조원 넘는 줄 {len(수상한줄)}개는 빼고 셌다 (자릿수 오류로 보인다)')
         for x in 수상한줄[:6]:

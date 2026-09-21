@@ -159,6 +159,10 @@
       <b>SSL 오류·시간초과</b>는 자동 점검 쪽 문제일 수 있다 — 시민 브라우저에서는 열릴 수 있다.</p>
     <p>곳수가 적다고 미제출이 아니다. 광역만 내는 자료, 그해 해당이 없는 자료가 섞여 있어
       <b>「내야 하는 곳」을 먼저 가린 뒤</b>에야 빠짐을 셀 수 있다.</p>
+    <p>⚠️ <b>여기 없는 곳이 넷 있다</b> — 2026년 7월에 새로 생긴 인천 영종구·제물포구·검단구와
+      전남광주본청이다. 계약·진행 중인 사업 자료에는 이미 새 이름으로 올라오는데,
+      <b>지방재정365가 주는 재정공시 주소 목록은 2026년치도 옛 구역 243곳뿐</b>이다(2026-09-21 확인).
+      새 구역 주민은 지방재정365를 통해서는 제 동네 재정공시로 갈 길이 없다.</p>
   </footer>
 </main>
 
@@ -237,8 +241,11 @@ document.getElementById('diff').innerHTML = !바뀜
 
 /* ── 법 제60조 16항목 ── */
 const 읽힌곳 = ROWS.filter(r => r.읽힌수);
-document.getElementById('lawnote').textContent =
-  `파일 이름을 읽을 수 있는 ${읽힌곳.length}곳만 세었다 (243곳 가운데).`;
+document.getElementById('lawnote').innerHTML =
+  `파일 이름을 읽을 수 있는 <b>${읽힌곳.length}곳</b>만 세었다 (243곳 가운데).
+   ⚠️ 옛 문서가 같은 페이지에 남아 있는 곳이 많아 <b>이름에 ${SUM['기준해']}년보다 앞선 회계연도가
+   적힌 파일은 빼고</b> 셌다 — 그런 파일이 있는 곳이 ${SUM['옛것있는곳']}곳이다
+   (인천옹진군은 2015·2016·2017년 기금성과분석만 붙어 있다).`;
 document.getElementById('lawlist').innerHTML = ITEMS.map((nm, i) => {
   const n = 읽힌곳.filter(r => r.항목.includes(i)).length;
   const p = n / Math.max(1, 읽힌곳.length);

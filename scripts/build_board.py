@@ -12,6 +12,7 @@ import glob
 import gzip
 import json
 import os
+import shutil
 import sys
 
 try:
@@ -155,9 +156,16 @@ def main():
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with gzip.open(OUT, 'wt', encoding='utf-8', compresslevel=9) as fp:
         json.dump(out, fp, ensure_ascii=False, separators=(',', ':'))
+    # ⚠️ board.html 을 손으로 복사하던 자리다(2026-09-21 에 없앰).
+    #    템플릿만 고치고 복사를 잊으면 **조용히 어긋난다.** 여기서 같이 한다.
+    tpl = os.path.join(ROOT, 'site', 'board.template.html')
+    html = os.path.join(ROOT, 'site', 'board.html')
+    shutil.copyfile(tpl, html)
+
     print(f'구움: site/data/board.json.gz ({os.path.getsize(OUT)/1024:,.0f} KB) · '
           f'{len(곳)}곳 × 지표 {len(지표목록)}종 '
           f'(계약 칸 {붙임}곳 [{계약해}] · 진행 칸 {진행붙임}곳 [{기준달}])')
+    print('구움: site/board.html (템플릿을 그대로 옮긴 것)')
 
 
 if __name__ == '__main__':

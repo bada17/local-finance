@@ -67,7 +67,7 @@
     <input id="q" type="search" placeholder="자료 이름·설명에 든 글자" autocomplete="off">
     <span class="grp" id="filt">
       <button data-f="전부" aria-selected="true">전부</button>
-      <button data-f="살아있는" aria-selected="false">2024년 이후만</button>
+      <button data-f="살아있는" aria-selected="false" id="b-live"></button>
       <button data-f="멈춘" aria-selected="false">멈춘 것</button>
       <button data-f="막힌" aria-selected="false">아직 못 받는 것</button>
     </span>
@@ -75,7 +75,8 @@
   <p class="note" id="say"></p>
   <div id="list"></div>
   <footer>
-    <p>자료 — 지방재정365 OpenAPI 146종. 「최신」은 실제로 눌러서 받아 본 해다(2026-09-21 기준).</p>
+    <p>자료 — 지방재정365 OpenAPI <span id="cnt2"></span>종.
+       「최신」은 실제로 눌러서 받아 본 해다(<span id="asof"></span> 기준).</p>
     <p>「곳수」는 그 해에 이름이 올라온 자치단체 수다. <b>243보다 적다고 안 낸 것이 아니다</b> —
        광역만 내는 자료, 그해 해당이 없는 자료가 섞여 있다.</p>
     <p>「아직 못 받는 것」은 날짜를 하루하루 넣어야 하거나 한 번에 2만 행이 넘는 자료다. 못 쓰는 것이 아니라 따로 받아야 한다.</p>
@@ -83,14 +84,17 @@
 </main>
 
 <script>
-const ROWS = __ROWS__;
+const ROWS = __ROWS__, 잰날 = '__ASOF__';
+/* 「살아 있는 자료」의 잣대도 박아 두지 않는다 — 잰 해에서 두 해를 뺀다.
+   (결산 계열은 두 해 늦게 나오므로 2026년에 2024가 최신이다.) */
+const 살아있는해 = (parseInt(잰날.slice(0, 4), 10) || new Date().getFullYear()) - 2;
 let 찾기 = '', 거르개 = '전부';
 
 const 최신 = r => parseInt(r.최신 || '0', 10);
 const 거르개들 = {
   '전부': () => true,
-  '살아있는': r => 최신(r) >= 2024,
-  '멈춘': r => 최신(r) > 0 && 최신(r) < 2024,
+  '살아있는': r => 최신(r) >= 살아있는해,
+  '멈춘': r => 최신(r) > 0 && 최신(r) < 살아있는해,
   '막힌': r => !!r.막힘,
 };
 
@@ -109,7 +113,7 @@ function 그리기(){
       지난갈래 = r.갈래;
       줄.push(`<tr><td colspan="5" style="background:var(--sunk);font-weight:600">${r.갈래}</td></tr>`);
     }
-    const 멈 = 최신(r) > 0 && 최신(r) < 2024;
+    const 멈 = 최신(r) > 0 && 최신(r) < 살아있는해;
     줄.push(`<tr>
       <td class="nm">${r.이름}</td>
       <td class="num">${r.해}</td>
@@ -128,6 +132,9 @@ function 그리기(){
 }
 
 document.getElementById('cnt').textContent = `${ROWS.length}종`;
+document.getElementById('cnt2').textContent = ROWS.length;
+document.getElementById('asof').textContent = 잰날;
+document.getElementById('b-live').textContent = `${살아있는해}년 이후만`;
 const q = document.getElementById('q');
 q.addEventListener('input', () => { 찾기 = q.value; 그리기(); });
 document.getElementById('filt').addEventListener('click', e => {

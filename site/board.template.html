@@ -65,7 +65,7 @@
 </div></div>
 
 <main class="wrap">
-  <h1>기초단체까지 243곳, 한 표에</h1>
+  <h1 id="h1">기초단체까지, 한 표에</h1>
   <p class="basis">이런 판이 지금 어디에도 없다. <b>칸을 골라서</b> 보라 —
     무엇을 세워 놓고 보느냐에 따라 다른 곳이 눈에 띈다.
     <b>칸 이름을 누르면</b> 그 값으로 줄을 세운다.</p>
@@ -213,6 +213,8 @@ async function 받기(){
   지표 = DATA.지표; 곳 = DATA.곳;
   document.getElementById('sy').textContent = DATA.결산연도;
   document.getElementById('by').textContent = DATA.예산연도;
+  // 곳수를 화면에 박지 않는다 — 구역이 바뀌면 243 이 아니게 된다
+  document.getElementById('h1').textContent = `기초단체까지 ${곳.length}곳, 한 표에`;
 
   // 처음에 세워 둘 칸 — 규모 하나와 「어디서 오나」 둘
   const 처음 = ['세출결산 총액', '재정자립도[당초]', '재정자주도[당초]', '수의계약비율'];

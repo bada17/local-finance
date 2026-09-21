@@ -22,10 +22,11 @@ SITE = os.path.join(ROOT, 'site')
 
 def main():
     cat = json.load(open(os.path.join(ROOT, 'data', 'lofin365_146.json'), encoding='utf-8'))
-    cov = {}
+    cov, 잰날 = {}, ''
     p = os.path.join(ROOT, 'data', 'coverage.json')
     if os.path.exists(p):
-        cov = json.load(open(p, encoding='utf-8'))['서비스']
+        c = json.load(open(p, encoding='utf-8'))
+        cov, 잰날 = c['서비스'], c.get('만든날', '')
 
     rows = []
     for it in cat:
@@ -43,7 +44,9 @@ def main():
     rows.sort(key=lambda r: (r['갈래'], r['이름']))
 
     tpl = open(os.path.join(SITE, 'catalog.template.html'), encoding='utf-8').read()
-    out = tpl.replace('__ROWS__', json.dumps(rows, ensure_ascii=False, separators=(',', ':')))
+    # ⚠️ 날짜·해를 화면에 박지 말 것 — 자료에서 꺼내 넣는다
+    out = (tpl.replace('__ROWS__', json.dumps(rows, ensure_ascii=False, separators=(',', ':')))
+              .replace('__ASOF__', 잰날))
     path = os.path.join(SITE, 'catalog.html')
     with open(path, 'w', encoding='utf-8') as f:
         f.write(out)

@@ -182,7 +182,10 @@ def main():
     path = os.path.join(ROOT, 'data', 'indicators', f'{결산연도}-{예산연도}.json')
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, 'w', encoding='utf-8') as f:
-        json.dump({'결산연도': 결산연도, '예산연도': 예산연도, '지표목록': meta,
+        # ⚠️ 만든날을 꼭 적는다 — 없으면 이 숫자가 언제 것인지 나중에 알 길이 없다
+        json.dump({'결산연도': 결산연도, '예산연도': 예산연도,
+                   '만든날': __import__('datetime').date.today().isoformat(),
+                   '지표목록': meta,
                    '자치단체': sorted(out.values(), key=lambda x: x['laf_cd'])},
                   f, ensure_ascii=False, indent=1)
     print(f'\n저장 data/indicators/{결산연도}-{예산연도}.json '
