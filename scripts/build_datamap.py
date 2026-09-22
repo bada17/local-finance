@@ -20,6 +20,7 @@
 #
 # 이 화면은 **우리 작업 관리용**이다(2026-09-21 결정). 파일 이름과 명령을 그대로 적는다.
 
+import ast
 import collections
 import glob
 import gzip
@@ -28,6 +29,7 @@ import json
 import os
 import re
 import sys
+from functools import lru_cache
 from datetime import datetime, timedelta, timezone
 
 try:
@@ -79,6 +81,36 @@ def json자료있나(p):
         return isinstance(d, (dict, list)) and bool(d)
     except (OSError, ValueError, EOFError):
         return False
+
+
+def 조각읽기(patterns):
+    """보조 상태 파일과 자료 줄을 구분한다. 깨진 조각은 빌드를 중단한다."""
+    for p in 파일들(patterns):
+        with gzip.open(p, 'rt', encoding='utf-8') as f:
+            rows = json.load(f)
+        if not isinstance(rows, list):
+            raise ValueError(f'자료 조각은 줄 목록이어야 합니다: {p}')
+        yield p, rows
+
+
+@lru_cache(maxsize=1)
+def 의정현황():
+    state = js('data/clik/상태.json') if 있나('data/clik/상태.json') else {}
+    result = []
+    for name in ('회의록', '의안', '의원', '정책정보'):
+        count, fields = 0, set()
+        for _, rows in 조각읽기([f'data/clik/{name}_*.json.gz']):
+            count += len(rows)
+            for row in rows:
+                fields.update(row)
+        s = state.get('갈래', {}).get(name, {})
+        reason = s.get('멈춘까닭', '')
+        complete = bool(count and reason in ('끝까지 받음', '기간 시작에 닿음'))
+        status = '목록 수집 완료' if complete else '일일 한도 대기' if ('ERROR09' in reason or reason == '예산 다 씀') else '수집 중' if count else '미수집'
+        result.append({'이름': name, '건수': count, '칸': sorted(fields), '완료': complete,
+                       '상태': status, '까닭': reason, '마지막수집': s.get('마지막수집', ''),
+                       '기간': '기간 제한 없음' if name == '의원' else s.get('기간', '아직 수집 기록 없음')})
+    return result
 
 
 # ─────────────────────────────────────────────────────────────────
@@ -161,6 +193,14 @@ def json자료있나(p):
     '필수 인자': '부를 때 반드시 넣어야 하는 값(연도·날짜 같은)',
     '해마다의 세출·세입': '2009년부터 해마다의 총액',
     '중앙정부 총량': '나라 전체 합계 — 자치단체로는 안 쪼개진다',
+    'DOCID': 'CLIK 자료 식별자. 상세 내용을 다시 받을 때 쓰는 열쇠',
+    'RASMBLY_ID': '지방의회 코드', 'RASMBLY_NM': '지방의회 이름',
+    'RASMBLY_NUMPR': '의회 대수. 의회마다 세는 기준이 다르므로 날짜 대신 쓰지 않는다',
+    'ASEMBY_NM': '의원 이름', 'PPRTY_NM': '정당 이름. 중복된 이름이 올 수 있다',
+    'PHOTO_FILE_URL': '의원 사진 주소. 빈 값이 많다',
+    'BI_SJ': '의안 제목', 'BI_NO': '의안 번호', 'BI_KND_NM': '조례안·건의안 등 의안 종류',
+    'CL_STD_NM': '의안 처리 상태. 빈 값은 처리되지 않았다는 뜻이 아니다',
+    'ITNC_DE': '의안을 제안한 날짜', 'PROPSR': '의안 제안자',
 }
 
 
@@ -263,10 +303,10 @@ def 자료훑기():
                   '어디있나': '클린아이(cleaneye.go.kr)',
                   '있으면생기는칸': ['기관별 부채', '당기순이익', '임직원 수', '경영평가 등급'],
                   '막힘': '아직 안 봤다'},
-        'CLIK': {'이름': '지방의정포털 회의록', '있다': False,
+        'CLIK': {'이름': '지방의정포털 목록 4종', '있다': False,
                  '어디있나': '지방의정포털 CLIK',
                  '있으면생기는칸': ['의원 발언', '예산 심의에서 깎인 사업'],
-                 '막힘': 'API 공개·키 승인 대기. 현재 수집 보류.'},
+                 '막힘': '목록 조각 미수집 · 상태.json과 의회목록.json은 수집 자료로 세지 않는다.'},
         # ⭐ 2026-09-22 — 포털 목록을 통째로 받아 다시 보니 **있었다.** 「없다」가 아니라
         #    「API 가 아니라 파일이라 못 찾고 있었다」였다.
         '투자심사': {'이름': '투자심사 결과', '있다': False,
@@ -300,6 +340,16 @@ def 자료훑기():
                       '어디': [os.path.relpath(p, ROOT).replace(os.sep, '/') for p in 받은파일],
                       '칸': v['있으면생기는칸'], '다시': ''}
             del 없는것[k]
+    clik = 의정현황()
+    if any(r['건수'] for r in clik):
+        표['CLIK'] = {'이름': '지방의정포털 목록 4종', '있다': True, '출처': '지방의정포털 CLIK',
+                       '언제': ' · '.join(f"{r['이름']} {r['마지막수집'] or '미수집'}" for r in clik),
+                       '얼마나': ' · '.join(f"{r['이름']} {r['건수']:,}건" for r in clik),
+                       '어디': ['data/clik/*_*.json.gz', 'data/clik/상태.json'],
+                       '칸': sorted({c for r in clik for c in r['칸']}),
+                       '다시': 'python scripts/fetch_clik.py --limit 900',
+                       '진행': clik}
+        없는것.pop('CLIK', None)
     return 표, 없는것
 
 
@@ -331,20 +381,34 @@ def 전수(자료=None, 없는것=None):
                     쓰는코드.add(c)
                     지표이름.setdefault(c, []).append(m['이름'])
 
+    세입코드 = {os.path.basename(p).removesuffix('.json.gz') for p in 파일들(['data/revenue/*.json.gz'])}
+    세입연결 = set()
+    if 있나('scripts/build_revenue.py') and 파일들(['site/data/revenue/*.json']):
+        with open(os.path.join(ROOT, 'scripts/build_revenue.py'), encoding='utf-8') as f:
+            tree = ast.parse(f.read())
+        세입연결 = {n.args[0].value for n in ast.walk(tree) if isinstance(n, ast.Call)
+                    and isinstance(n.func, ast.Name) and n.func.id == '읽기' and n.args
+                    and isinstance(n.args[0], ast.Constant)} & 세입코드
     줄 = []
     for it in cat:
         코드 = it['code']
         c = cov.get(코드, {})
         해 = c.get('연도', '')
-        막힘 = c.get('건너뜀', '')
+        측정제외 = c.get('건너뜀', '')
         if 코드 in 쓰는코드:
             상태, 까닭 = '쓴다', (쓰임.get(코드) or ' · '.join(지표이름.get(코드, []))[:60])
-        elif 막힘:
-            상태, 까닭 = '따로 받아야', 막힘
-        elif 해 and int(해) < __import__('datetime').date.today().year - 2:
-            상태, 까닭 = '멈춘 자료', f'{해}년에서 끊겼다'
+        elif 코드 in 세입연결:
+            상태, 까닭 = '쓴다', '세입 판 · 받은 원본을 화면에 연결'
+        elif 코드 in 세입코드:
+            상태, 까닭 = '받아 둠', '세입 원본 수집 · 화면 미반영'
         else:
             상태, 까닭 = '아직 안 씀', ''
+        if 측정제외:
+            까닭 += (' · ' if 까닭 else '') + '범위 측정에서 제외됨(수집 불가 아님): ' + 측정제외
+        elif 해 and int(해) < __import__('datetime').date.today().year - 2:
+            까닭 += (' · ' if 까닭 else '') + f'마지막 조사에서 {해}년 확인 · 서비스 중단 여부는 판정하지 않음'
+        if 코드 == 'CONLK':
+            까닭 += ' · 2026-09-22 재호출 기록: 2025·2024 정상, 2026 미공개(README)'
         줄.append({'id': 'lofin:' + 코드, '곳': '지방재정365', '코드': 코드, '이름': it['name'], '갈래': it['cat'],
                   '설명': '',
                   '해': it.get('years', ''), '최신': 해, '곳수': c.get('곳수'),
@@ -370,12 +434,13 @@ def 전수(자료=None, 없는것=None):
         줄.append({'id': 'external:' + k, '곳': v['곳'], '코드': '', '이름': v['이름'], '갈래': v.get('갈래', ''),
                   '설명': '',
                   '해': '', '최신': '', '곳수': None,
-                  '상태': ('쓴다' if 냄 else '받아 둠') if 받음 else '못 받는다',
-                  '까닭': ('화면용 파일 있음' if 냄 else '수집 파일 있음 · 화면 미반영') if 받음
+                  '상태': ('쓴다' if 냄 else '받아 둠') if 받음 else '미수집',
+                  '까닭': (('화면용 파일 있음' if 냄 else '수집 파일 있음 · 화면 미반영') +
+                           (' · ' + 자료[k]['얼마나'] if k == 'CLIK' else '')) if 받음
                           else 없는것.get(k, {}).get('막힘', v['막힘'])})
 
     # 쓰는 것과 막힌 것을 위로 — 파일 차례대로 두면 「쓴다」가 289줄 밑에 묻힌다
-    차례 = {'쓴다': 0, '받아 둠': 1, '못 받는다': 2, '따로 받아야': 3, '멈춘 자료': 4, '아직 안 씀': 5}
+    차례 = {'쓴다': 0, '받아 둠': 1, '미수집': 2, '아직 안 씀': 5}
     줄.sort(key=lambda r: (차례.get(r['상태'], 9), r['곳'] != '지방재정365', r['갈래'], r['이름']))
     return 줄
 
@@ -387,8 +452,8 @@ def 전수(자료=None, 없는것=None):
             '막힘': '2025년치를 받았다 — 다른 해가 남았다'},
     '클린아이': {'곳': '클린아이', '이름': '지방공기업·출자출연기관 경영정보', '갈래': '공기업',
               '막힘': '2015~2025년을 받았다 — 임직원 수·경영평가 등급은 API 에 없다'},
-    'CLIK': {'곳': '지방의정포털', '이름': '기초의회 회의록', '갈래': '의회',
-             '막힘': '⛔ 사용자가 GPT 와 정하기로 했다'},
+    'CLIK': {'곳': '지방의정포털', '이름': '회의록·의안·의원·정책정보 목록', '갈래': '의회',
+             '막힘': '목록 수집 필요 · 하루 1,000회 한도 · 발언 전문은 별도 수집'},
     '투자심사': {'곳': '행정안전부', '이름': '투자심사 결과', '갈래': '법정공시',
               '막힘': '길은 있다 — 파일로 나온다(15051377). 아직 안 받았다'},
     '사업설명서': {'곳': '자치단체 예산서', '이름': '세부사업 설명서 (사업명세서)', '갈래': '세출',
@@ -432,7 +497,7 @@ def 전수(자료=None, 없는것=None):
     '보탬e': ['site/data/grants*.json', 'site/data/grants/*.json'],
     '나라장터': ['site/data/bizno*.json'],
     '클린아이': ['site/data/cleaneye*.json'],
-    'CLIK': ['site/data/clik*.json'],
+    'CLIK': ['site/data/clik*.json', 'site/data/clik/*.json.gz'],
     '투자심사': ['site/data/review*.json'],
     '주민참여예산': ['site/data/pb*.json'],
     '사업설명서': ['site/data/bizdesc*.json'],
@@ -443,7 +508,7 @@ def 전수(자료=None, 없는것=None):
     '보탬e': ['data/grants*.json', 'data/grants/*.json', 'data/grants/*.json.gz'],
     '나라장터': ['data/bizno*.json', 'data/bizno/*.json', 'data/bizno/*.json.gz'],
     '클린아이': ['data/cleaneye*.json', 'data/cleaneye/*.json', 'data/cleaneye/*.json.gz'],
-    'CLIK': ['data/clik*.json', 'data/clik/*.json', 'data/clik/*.json.gz'],
+    'CLIK': ['data/clik/*_*.json.gz'],
     '투자심사': ['data/review*.json', 'data/review/*.json', 'data/review/*.json.gz'],
     '주민참여예산': ['data/pb*.json', 'data/pb/*.json', 'data/pb/*.json.gz'],
     '사업설명서': ['data/bizdesc*.json', 'data/bizdesc/*.json', 'data/bizdesc/*.json.gz'],
@@ -522,6 +587,8 @@ def 켜재기(q, 자료, 없는것):
         낸 = bool(파일들(낼자리.get(k, [])))
         켜.append({'열쇠': k, '있나': 있, '받았나': 받았, '올렸나': 낸,
                    '목록뿐': k in ('열린재정', '자료지도'),
+                   '일부': k == 'CLIK' and not all(r['완료'] for r in 의정현황()),
+                   '진행': 의정현황() if k == 'CLIK' else [],
                    '수집위치': 받을자리.get(k, []), '화면위치': 낼자리.get(k, [])})
     return 켜
 
@@ -583,10 +650,15 @@ def 현재기록(묶음, 자료, 모든자료):
     # glob의 **는 recursive=True가 필요하므로 루트 아래도 명시적으로 훑는다.
     for base, _, names in os.walk(os.path.join(ROOT, 'data')):
         for name in names:
+            # 교육재정은 별도 페이지의 자료다. 지도 합계와 변경 이력에도 섞지 않는다.
+            if base == os.path.join(ROOT, 'data', 'edu') or name == 'eduinfo_catalog.json':
+                continue
             if name.endswith(('.json', '.json.gz')):
                 p = os.path.join(base, name)
                 if os.path.getsize(p):
                     전체.add(p)
+    전체 = {p for p in 전체 if os.path.relpath(p, ROOT).replace(os.sep, '/') != 'data/eduinfo_catalog.json'
+            and not os.path.relpath(p, ROOT).replace(os.sep, '/').startswith('data/edu/')}
     나머지 = sorted(전체 - 확인한파일)
     소스['미분류 자료'] = {'이름': '갈래에 아직 연결하지 않은 자료', '수집파일': 서명(나머지)}
     목록 = {r['id']: {k: r.get(k, '') for k in ('이름', '곳', '코드', '상태', '최신', '곳수', '해', '갈래', '까닭')}
@@ -616,7 +688,7 @@ def 기록쌓기(현재, 이전HTML, 시각=None):
     생성물 충돌 때 origin/main의 datamap.html을 먼저 복원한 뒤 다시 굽는다.
     판정 기준을 바꾸면 버전을 올려 서로 다른 기준의 증감을 섞지 않는다.
     """
-    버전 = 1
+    버전 = 2  # CLIK 실제 조각·진행 상태 / 측정 제외와 활용 상태 분리 / 교육청 별도
     시각 = 시각 or datetime.now(timezone(timedelta(hours=9))).isoformat(timespec='seconds')
     match = re.search(r'<script id="datamap-history" type="application/json">(.*?)</script>', 이전HTML, re.S)
     if 'id="datamap-history"' in 이전HTML and not match:
@@ -654,6 +726,9 @@ def main():
         for q in 목록:
             빠진 = [k for k in q['필요'] if k not in 자료]
             흠 = list(q['흠'])
+            if 'CLIK' in q['필요']:
+                흠 += [' · '.join(f"{r['이름']} {r['건수']:,}건 ({r['상태']})" for r in 의정현황()),
+                       '현재 수집기는 목록만 받는다. **의원 발언 전문과 예산 심의 내용은 별도 상세 수집이 필요하다.**']
             if q['이름'] == '지난번보다 나아졌나':
                 회차 = len(js('data/disclosure_history.json')['회차']) if 있나('data/disclosure_history.json') else 0
                 흠 = [f'공시 점검이 **{회차}회차**다. 두 회차부터 비교할 수 있다.'] if 회차 < 2 else []
