@@ -2,7 +2,7 @@
 #
 #   python scripts/build_datamap.py
 #
-# **질문을 뼈대로 삼는다.** 우리가 답하려는 질문을 늘어놓고, 지금 답할 수 있나를 매긴다.
+# **자료의 알갱이 크기를 뼈대로 삼는다.** 사용자가 정한 3층과 층 밖 공개 상태를 유지한다.
 #   ● 된다 · ◐ 반쪽 · ○ 못 한다.  빈칸마다 **어떤 자료가 있어야 풀리는지**를 적는다.
 #
 # ⭐ **질문마다 「무슨 칸으로 답하나」를 실제 이름으로 보여준다**(2026-09-21 사용자 지적).
@@ -23,9 +23,12 @@
 import collections
 import glob
 import gzip
+import hashlib
 import json
 import os
+import re
 import sys
+from datetime import datetime, timedelta, timezone
 
 try:
     sys.stdout.reconfigure(encoding='utf-8', errors='replace')
@@ -60,6 +63,22 @@ def 보기좋게(b):
 def js(p):
     with open(os.path.join(ROOT, p), encoding='utf-8') as f:
         return json.load(f)
+
+
+def 파일들(길들):
+    """지정된 자료 위치만 읽는다. 디렉터리·빈 파일은 자료로 세지 않는다."""
+    return sorted({p for g in 길들 for p in glob.glob(os.path.join(ROOT, g))
+                   if os.path.isfile(p) and os.path.getsize(p) > 0})
+
+
+def json자료있나(p):
+    try:
+        읽기 = gzip.open if p.endswith('.gz') else open
+        with 읽기(p, 'rt', encoding='utf-8-sig') as f:
+            d = json.load(f)
+        return isinstance(d, (dict, list)) and bool(d)
+    except (OSError, ValueError, EOFError):
+        return False
 
 
 # ─────────────────────────────────────────────────────────────────
@@ -144,7 +163,7 @@ def 자료훑기():
         축별 = {}
         for m in d['지표목록']:
             축별.setdefault(m['축'], []).append(m['이름'])
-        표['지표'] = {'이름': '재정지표 28종', '있다': True,
+        표['지표'] = {'이름': f"재정지표 {len(d['지표목록'])}종", '있다': True,
                     '출처': '지방재정365 OpenAPI (HCDIB 등)',
                     '언제': f"결산 {d['결산연도']} · 예산 {d['예산연도']}",
                     '얼마나': f"{len(d['지표목록'])}종 × {len(d['자치단체'])}곳",
@@ -154,8 +173,8 @@ def 자료훑기():
                     '다시': 'python scripts/fetch_indicators.py && python scripts/build_model_data.py --all'}
 
     if 있나('data/series.json'):
-        표['시계열'] = {'이름': '16년 시계열', '있다': True, '출처': '지방재정365',
-                     '언제': '2009~2024', '얼마나': 보기좋게(크기('data/series.json')[0]),
+        표['시계열'] = {'이름': '연도별 시계열', '있다': True, '출처': '지방재정365',
+                     '언제': js('data/series.json').get('기간', '자료 확인 필요'), '얼마나': 보기좋게(크기('data/series.json')[0]),
                      '어디': ['data/series.json'], '칸': ['해마다의 세출·세입'],
                      '다시': 'python scripts/fetch_series.py'}
 
@@ -210,8 +229,9 @@ def 자료훑기():
                       '다시': 'python scripts/build_coverage.py'}
 
     if 있나('data/openfiscal_198.json'):
-        표['열린재정'] = {'이름': '열린재정 198종(코드만)', '있다': True, '출처': '열린재정 OpenAPI',
-                      '언제': '2026-09-18', '얼마나': '198종 · 호출 확인 87종',
+        목록 = js('data/openfiscal_198.json')
+        표['열린재정'] = {'이름': f'열린재정 {len(목록)}종(목록·명세)', '있다': True, '출처': '열린재정 OpenAPI',
+                      '언제': '목록 조사 자료 · 실적 연도는 개별 확인', '얼마나': f'{len(목록)}종 · 실제 수치 전수 수집 아님',
                       '어디': ['data/openfiscal_198.json'], '칸': ['중앙정부 총량'], '다시': ''}
 
     없는것 = {
@@ -222,7 +242,7 @@ def 자료훑기():
         '나라장터': {'이름': '나라장터 계약정보', '있다': False,
                   '어디있나': 'data.go.kr 조달청 계약정보 API',
                   '있으면생기는칸': ['사업자등록번호', '대표자', '업체 주소', '조달청을 거친 계약의 실제 업체'],
-                  '막힘': '⚠️ `.env` 의 `DATA_GO_KR_KEY` 가 비어 있다 (키가 들어오면 바로 된다)'},
+                  '막힘': '인증키(`DATA_GO_KR_KEY`)·활용승인 확인이 필요하다. 아직 실제 자료를 받지 않았다.'},
         '클린아이': {'이름': '클린아이 지방공기업 경영정보', '있다': False,
                   '어디있나': '클린아이(cleaneye.go.kr)',
                   '있으면생기는칸': ['기관별 부채', '당기순이익', '임직원 수', '경영평가 등급'],
@@ -230,7 +250,7 @@ def 자료훑기():
         'CLIK': {'이름': '지방의정포털 회의록', '있다': False,
                  '어디있나': '지방의정포털 CLIK',
                  '있으면생기는칸': ['의원 발언', '예산 심의에서 깎인 사업'],
-                 '막힘': '⛔ 사용자가 GPT 와 정하기로 했다 — 건드리지 않는다'},
+                 '막힘': 'API 공개·키 승인 대기. 현재 수집 보류.'},
         '투자심사': {'이름': '투자심사 결과', '있다': False,
                   '어디있나': '지방재정365에 없다. 자치단체 공시·행안부 쪽',
                   '있으면생기는칸': ['심사 대상 사업', '조건부 통과·재검토', '총사업비'],
@@ -240,6 +260,17 @@ def 자료훑기():
                     '있으면생기는칸': ['주민이 낸 제안 수', '채택된 사업', '주민참여예산 규모'],
                     '막힘': '모으는 길이 없다 — 손으로 훑어야 한다'},
     }
+    # 새 수집기의 파일도 등록된 위치에 들어오면 자동으로 수집 상태가 바뀐다.
+    # 키 유무를 자료 확보로 세지 않으며 인증키 값은 읽거나 출력하지 않는다.
+    for k, v in list(없는것.items()):
+        받은파일 = [p for p in 파일들(받을자리[k] + 낼자리[k]) if json자료있나(p)]
+        if 받은파일:
+            표[k] = {'이름': v['이름'], '있다': True, '출처': v['어디있나'],
+                      '언제': '수집 파일 확인 · 자료 기준일은 원본 확인',
+                      '얼마나': f'{len(받은파일)}개 파일 · 내용 범위는 원본 확인',
+                      '어디': [os.path.relpath(p, ROOT).replace(os.sep, '/') for p in 받은파일],
+                      '칸': v['있으면생기는칸'], '다시': ''}
+            del 없는것[k]
     return 표, 없는것
 
 
@@ -253,7 +284,7 @@ def 자료훑기():
 }
 
 
-def 전수():
+def 전수(자료=None, 없는것=None):
     """지방재정365 146종 + 열린재정 198종 + 그밖 소스를 한 표로."""
     cat = js('data/lofin365_146.json') if 있나('data/lofin365_146.json') else []
     cov = js('data/coverage.json')['서비스'] if 있나('data/coverage.json') else {}
@@ -285,27 +316,37 @@ def 전수():
             상태, 까닭 = '멈춘 자료', f'{해}년에서 끊겼다'
         else:
             상태, 까닭 = '아직 안 씀', ''
-        줄.append({'곳': '지방재정365', '코드': 코드, '이름': it['name'][:90], '갈래': it['cat'],
+        줄.append({'id': 'lofin:' + 코드, '곳': '지방재정365', '코드': 코드, '이름': it['name'], '갈래': it['cat'],
+                  '설명': '',
                   '해': it.get('years', ''), '최신': 해, '곳수': c.get('곳수'),
                   '상태': 상태, '까닭': 까닭})
 
     if 있나('data/openfiscal_198.json'):
         for it in js('data/openfiscal_198.json'):
             코드 = it.get('code') or it.get('코드') or ''
-            줄.append({'곳': '열린재정', '코드': 코드,
-                      '이름': (it.get('name') or it.get('이름') or '')[:90],
-                      '갈래': it.get('cat') or it.get('갈래') or '중앙정부',
+            줄.append({'id': 'openfiscal:' + str(it.get('odtId') or it.get('dsId') or 코드),
+                      '곳': '열린재정', '코드': 코드,
+                      '이름': it.get('odtNm') or it.get('name') or it.get('이름') or 코드,
+                      '갈래': it.get('cls') or it.get('cat') or it.get('갈래') or '중앙정부',
+                      '설명': it.get('epl', ''),
                       '해': '', '최신': '', '곳수': None,
                       '상태': '아직 안 씀',
                       '까닭': '중앙정부 총량이라 자치단체로 안 쪼개진다'})
 
+    if 자료 is None:
+        자료, 없는것 = 자료훑기()
     for k, v in 밖의소스.items():
-        줄.append({'곳': v['곳'], '코드': '', '이름': v['이름'], '갈래': v.get('갈래', ''),
+        받음 = k in 자료
+        냄 = bool(파일들(낼자리.get(k, [])))
+        줄.append({'id': 'external:' + k, '곳': v['곳'], '코드': '', '이름': v['이름'], '갈래': v.get('갈래', ''),
+                  '설명': '',
                   '해': '', '최신': '', '곳수': None,
-                  '상태': '못 받는다', '까닭': v['막힘']})
+                  '상태': ('쓴다' if 냄 else '받아 둠') if 받음 else '못 받는다',
+                  '까닭': ('화면용 파일 있음' if 냄 else '수집 파일 있음 · 화면 미반영') if 받음
+                          else 없는것.get(k, {}).get('막힘', v['막힘'])})
 
     # 쓰는 것과 막힌 것을 위로 — 파일 차례대로 두면 「쓴다」가 289줄 밑에 묻힌다
-    차례 = {'쓴다': 0, '못 받는다': 1, '따로 받아야': 2, '멈춘 자료': 3, '아직 안 씀': 4}
+    차례 = {'쓴다': 0, '받아 둠': 1, '못 받는다': 2, '따로 받아야': 3, '멈춘 자료': 4, '아직 안 씀': 5}
     줄.sort(key=lambda r: (차례.get(r['상태'], 9), r['곳'] != '지방재정365', r['갈래'], r['이름']))
     return 줄
 
@@ -363,6 +404,16 @@ def 전수():
     'CLIK': ['site/data/clik*.json'],
     '투자심사': ['site/data/review*.json'],
     '주민참여예산': ['site/data/pb*.json'],
+}
+
+# 자료 위치는 사람이 정하고, 수집 여부는 파일에서 판정한다.
+받을자리 = {
+    '보탬e': ['data/grants*.json', 'data/grants/*.json', 'data/grants/*.json.gz'],
+    '나라장터': ['data/bizno*.json', 'data/bizno/*.json', 'data/bizno/*.json.gz'],
+    '클린아이': ['data/cleaneye*.json', 'data/cleaneye/*.json', 'data/cleaneye/*.json.gz'],
+    'CLIK': ['data/clik*.json', 'data/clik/*.json', 'data/clik/*.json.gz'],
+    '투자심사': ['data/review*.json', 'data/review/*.json', 'data/review/*.json.gz'],
+    '주민참여예산': ['data/pb*.json', 'data/pb/*.json', 'data/pb/*.json.gz'],
 }
 
 층위들 = [
@@ -435,8 +486,10 @@ def 켜재기(q, 자료, 없는것):
     for k in q['필요']:
         받았 = k in 자료
         있 = 받았 or bool(없는것.get(k, {}).get('어디있나'))
-        낸 = any(glob.glob(os.path.join(ROOT, p)) for p in 낼자리.get(k, []))
-        켜.append({'열쇠': k, '있나': 있, '받았나': 받았, '올렸나': 낸})
+        낸 = bool(파일들(낼자리.get(k, [])))
+        켜.append({'열쇠': k, '있나': 있, '받았나': 받았, '올렸나': 낸,
+                   '목록뿐': k in ('열린재정', '자료지도'),
+                   '수집위치': 받을자리.get(k, []), '화면위치': 낼자리.get(k, [])})
     return 켜
 
 
@@ -447,6 +500,9 @@ def 칸뽑기(q, 자료):
         열쇠, 축 = q['축']
         이름들 += 자료.get(열쇠, {}).get('축별', {}).get(축, [])
     이름들 += q.get('칸', [])
+    if '칸' not in q and '축' not in q:
+        for k in q['필요']:
+            이름들 += 자료.get(k, {}).get('칸', [])
     이름들 = [n for n in 이름들 if n not in q.get('빼기', [])]
     본 = set()
     나온 = []
@@ -457,6 +513,105 @@ def 칸뽑기(q, 자료):
     return 나온
 
 
+def 서명(경로들, 내용=True):
+    """mtime 대신 내용으로 비교한다. 클론/재빌드만으로 변경이 되지 않는다."""
+    h = hashlib.sha256()
+    바이트 = 0
+    for p in 경로들:
+        h.update(os.path.relpath(p, ROOT).replace(os.sep, '/').encode('utf-8'))
+        if 내용:
+            with open(p, 'rb') as f:
+                for chunk in iter(lambda: f.read(1024 * 1024), b''):
+                    h.update(chunk)
+                    바이트 += len(chunk)
+    return {'서명': h.hexdigest(), '파일수': len(경로들), '바이트': 바이트}
+
+
+def 현재기록(묶음, 자료, 모든자료):
+    갈래 = {q['id']: {'이름': q['물음'], '층': g['축'], '상태': q['상태'],
+                        '켜': [{k: c[k] for k in ('열쇠', '있나', '받았나', '올렸나')} for c in q['켜']],
+                        '칸': [c['이름'] for c in q['칸']], '제약': q['흠']}
+            for g in 묶음 for q in g['질문']}
+    소스, 확인한파일 = {}, set()
+    for k in 낼자리:
+        d = 자료.get(k, {})
+        위치 = 받을자리.get(k, []) + [re.sub(r'<[^>]+>', '*', p) for p in d.get('어디', [])
+                                     if p.startswith('data/')]
+        받은 = 파일들(위치)
+        화면 = 파일들(낼자리[k])
+        확인한파일.update(받은 + 화면)
+        # HTML의 모양만 바꾼 것은 데이터가 늘어난 것으로 세지 않는다.
+        화면자료 = [p for p in 화면 if not p.endswith('.html')]
+        소스[k] = {'이름': d.get('이름', k), '수집파일': 서명(받은),
+                   '화면자료': 서명(화면자료), '화면파일': 서명(화면, 내용=False),
+                   '범위': d.get('언제', ''), '규모': d.get('얼마나', '')}
+    # 아직 갈래에 연결하지 않은 새 자료도 추가되었다는 사실을 놓치지 않는다.
+    전체 = set(파일들(['data/**/*.json', 'data/**/*.json.gz']))
+    # glob의 **는 recursive=True가 필요하므로 루트 아래도 명시적으로 훑는다.
+    for base, _, names in os.walk(os.path.join(ROOT, 'data')):
+        for name in names:
+            if name.endswith(('.json', '.json.gz')):
+                p = os.path.join(base, name)
+                if os.path.getsize(p):
+                    전체.add(p)
+    나머지 = sorted(전체 - 확인한파일)
+    소스['미분류 자료'] = {'이름': '갈래에 아직 연결하지 않은 자료', '수집파일': 서명(나머지)}
+    목록 = {r['id']: {k: r.get(k, '') for k in ('이름', '곳', '코드', '상태', '최신', '곳수', '해', '갈래', '까닭')}
+            for r in 모든자료}
+    if len(목록) != len(모든자료):
+        raise ValueError('자료 목록의 식별자가 중복됩니다. 전수 기록을 보존하려면 원본 식별자를 확인하세요.')
+    return {'갈래': 갈래, '자료': 소스, '목록': 목록}
+
+
+def 바뀐것(전, 후):
+    결과 = []
+    for 종류 in ('갈래', '자료', '목록'):
+        a, b = 전.get(종류, {}), 후.get(종류, {})
+        for k in sorted(a.keys() | b.keys()):
+            old, new = a.get(k), b.get(k)
+            if old == new:
+                continue
+            결과.append({'종류': 종류, 'id': k, '이름': (new or old)['이름'],
+                         '변경': '추가' if old is None else '삭제' if new is None else '변경',
+                         '이전': old, '현재': new})
+    return 결과
+
+
+def 기록쌓기(현재, 이전HTML, 시각=None):
+    """별도 파일 없이 기존 생성물 안의 기록을 이어 쓴다. 같은 상태는 중복 저장하지 않는다.
+
+    생성물 충돌 때 origin/main의 datamap.html을 먼저 복원한 뒤 다시 굽는다.
+    판정 기준을 바꾸면 버전을 올려 서로 다른 기준의 증감을 섞지 않는다.
+    """
+    버전 = 1
+    시각 = 시각 or datetime.now(timezone(timedelta(hours=9))).isoformat(timespec='seconds')
+    match = re.search(r'<script id="datamap-history" type="application/json">(.*?)</script>', 이전HTML, re.S)
+    if 'id="datamap-history"' in 이전HTML and not match:
+        raise ValueError('기존 데이터 지도 이력 형식이 깨졌습니다. 기록을 복원한 뒤 다시 구워 주세요.')
+    if match:
+        기록 = json.loads(match.group(1))
+        if not isinstance(기록.get('기록'), list) or not isinstance(기록.get('현재'), dict):
+            raise ValueError('기존 데이터 지도 이력을 읽을 수 없습니다. 덮어쓰지 않았습니다.')
+    else:
+        기록 = {'버전': 버전, '시작': 시각, '마지막변경': 시각, '현재': 현재, '기록': []}
+    if 기록.get('버전') != 버전:
+        기록['기록'].append({'시각': 시각, '기준': 기록['마지막변경'], '기준변경': True, '변화': []})
+        기록.update({'버전': 버전, '현재': 현재, '마지막변경': 시각})
+    else:
+        변화 = 바뀐것(기록['현재'], 현재)
+        if 변화:
+            기록['기록'].append({'시각': 시각, '기준': 기록['마지막변경'], '변화': 변화})
+            기록.update({'현재': 현재, '마지막변경': 시각})
+    return 기록
+
+
+def 안전JSON(d):
+    # 원본 자료의 <, &, </script> 등이 HTML/스크립트로 해석되지 않게 한다.
+    return (json.dumps(d, ensure_ascii=False, separators=(',', ':'))
+            .replace('&', '\\u0026').replace('<', '\\u003c').replace('>', '\\u003e')
+            .replace('\u2028', '\\u2028').replace('\u2029', '\\u2029'))
+
+
 def main():
     자료, 없는것 = 자료훑기()
 
@@ -465,9 +620,18 @@ def main():
         줄 = []
         for q in 목록:
             빠진 = [k for k in q['필요'] if k not in 자료]
-            상태 = '못함' if 빠진 else ('반쪽' if q['흠'] else '됨')
+            흠 = list(q['흠'])
+            if q['이름'] == '지난번보다 나아졌나':
+                회차 = len(js('data/disclosure_history.json')['회차']) if 있나('data/disclosure_history.json') else 0
+                흠 = [f'공시 점검이 **{회차}회차**다. 두 회차부터 비교할 수 있다.'] if 회차 < 2 else []
+            if q['이름'] == '해마다의 변화' and 파일들(낼자리['시계열']):
+                흠 = []
+            if q['이름'] == '끝난 행사의 실제 원가':
+                흠 = ['현재 연결한 것은 **행사축제경비비율**이다. 행사 한 건별 실제 원가는 아직 수집·연결하지 않았다.'] + 흠
+            상태 = '못함' if 빠진 else ('반쪽' if 흠 else '됨')
             셈[상태] += 1
             줄.append({
+                'id': 'branch-' + hashlib.sha256(q['이름'].encode('utf-8')).hexdigest()[:12],
                 '물음': q['이름'], '상태': 상태, '켜': 켜재기(q, 자료, 없는것),
                 '칸': 칸뽑기(q, 자료),
                 '쓰는자료': [{'이름': 자료[k]['이름'], '언제': 자료[k]['언제']}
@@ -475,7 +639,7 @@ def main():
                 '빠진자료': [{'열쇠': k, **{x: 없는것.get(k, {}).get(x, '')
                                      for x in ('이름', '어디있나', '막힘')},
                           '생기는칸': 없는것.get(k, {}).get('있으면생기는칸', [])} for k in 빠진],
-                '흠': q['흠'],
+                '흠': 흠,
             })
         묶음.append({'축': 층, '뜻': 뜻말, '질문': 줄})
 
@@ -486,16 +650,20 @@ def main():
                 풀리는.setdefault(m['열쇠'], []).append(q['물음'])
     빈자료 = [{**v, '열쇠': k, '풀리는질문': 풀리는.get(k, [])} for k, v in 없는것.items()]
 
-    모든자료 = 전수()
+    모든자료 = 전수(자료, 없는것)
+    p = os.path.join(SITE, 'datamap.html')
+    이전HTML = open(p, encoding='utf-8').read() if os.path.exists(p) else ''
+    기록 = 기록쌓기(현재기록(묶음, 자료, 모든자료), 이전HTML)
 
     tpl = open(os.path.join(SITE, 'datamap.template.html'), encoding='utf-8').read()
     out = (tpl
-           .replace('__GROUPS__', json.dumps(묶음, ensure_ascii=False, separators=(',', ':')))
-           .replace('__HAVE__', json.dumps(list(자료.values()), ensure_ascii=False, separators=(',', ':')))
-           .replace('__MISSING__', json.dumps(빈자료, ensure_ascii=False, separators=(',', ':')))
-           .replace('__WORDS__', json.dumps({**뜻, **자료칸뜻}, ensure_ascii=False, separators=(',', ':')))
-           .replace('__ALL__', json.dumps(모든자료, ensure_ascii=False, separators=(',', ':')))
-           .replace('__TALLY__', json.dumps(셈, ensure_ascii=False))
+           .replace('__GROUPS__', 안전JSON(묶음))
+           .replace('__HAVE__', 안전JSON([{'열쇠': k, **v} for k, v in 자료.items()]))
+           .replace('__MISSING__', 안전JSON(빈자료))
+           .replace('__WORDS__', 안전JSON({**뜻, **자료칸뜻}))
+           .replace('__ALL__', 안전JSON(모든자료))
+           .replace('__HISTORY__', 안전JSON(기록))
+           .replace('__TALLY__', 안전JSON(셈))
            .replace('__ASOF__', __import__('datetime').date.today().isoformat()))
     p = os.path.join(SITE, 'datamap.html')
     with open(p, 'w', encoding='utf-8') as f:
@@ -503,6 +671,7 @@ def main():
     셈2 = collections.Counter(x['상태'] for x in 모든자료)
     칸수 = sum(len(q['칸']) for g in 묶음 for q in g['질문'])
     print(f'구움: site/datamap.html ({os.path.getsize(p)/1024:,.0f} KB)')
+    print(f'   변경 이력 {len(기록["기록"])}회 · 같은 자료로 다시 구우면 기록 유지')
     print(f'   분류 {sum(셈.values())}갈래 · {len(묶음)}층 — '
           f'찼다 {셈["됨"]} · 반쪽 {셈["반쪽"]} · 비었다 {셈["못함"]}')
     켜셈 = {'있나': 0, '받았나': 0, '올렸나': 0}

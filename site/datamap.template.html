@@ -1,275 +1,101 @@
 <!doctype html>
 <html lang="ko">
+<head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>데이터 지도 — 무엇을 말할 수 있고 무엇이 비었나</title>
+<meta name="theme-color" content="#183e3a">
+<title>데이터 지도 — 어떤 자료가 있고, 어디까지 쓸 수 있나</title>
 <style>
-  :root{
-    --ground:#FFFFFF; --sunk:#F4F6F8; --line:#C9D2DA; --line-soft:#E3E8ED;
-    --ink:#11181F; --muted:#5A6672; --faint:#8A97A3;
-    --accent:#1F4E79; --alert:#B03A22; --ok:#2E6B4F; --half:#8A6A12;
-    --mono:ui-monospace,SFMono-Regular,'Cascadia Mono','DejaVu Sans Mono',monospace;
-    --body:system-ui,-apple-system,'Malgun Gothic',sans-serif;
-  }
-  @media (prefers-color-scheme:dark){
-    :root:not([data-theme="light"]){
-      --ground:#12171C; --sunk:#1A2127; --line:#333C45; --line-soft:#242C34;
-      --ink:#E6EBF0; --muted:#98A5B1; --faint:#72808C;
-      --accent:#7FB3DC; --alert:#E0755C; --ok:#79C09B; --half:#D9B24C;
-    }
-  }
-  *{box-sizing:border-box}
-  body{margin:0; background:var(--ground); color:var(--ink); font:14px/1.5 var(--body)}
-  .wrap{max-width:1100px; margin:0 auto; padding-inline:16px}
-  .topbar{position:sticky; top:0; z-index:20; background:var(--ground); border-bottom:1px solid var(--line)}
-  .topbar .wrap{display:flex; align-items:center; gap:10px; min-height:46px; flex-wrap:wrap; padding-block:6px}
-  .topbar .t{font-weight:600; font-size:13px; margin-right:auto}
-  a{color:var(--accent)}
-  h1{font-size:20px; margin:22px 0 4px}
-  h2{font-size:15px; margin:30px 0 8px}
-  h3{font-size:13px; margin:18px 0 6px; color:var(--muted); letter-spacing:.02em}
-  .basis{margin:12px 0 0; padding:10px 12px; background:var(--sunk); border:1px solid var(--line);
-    font-size:12.5px; color:var(--muted)}
-  .basis b{color:var(--ink)}
-  .note{color:var(--faint); font-size:12px; margin:8px 0}
-  .tally{display:flex; gap:8px; flex-wrap:wrap; margin:12px 0 0}
-  .tally div{border:1px solid var(--line); padding:8px 14px; background:var(--sunk); min-width:120px}
-  .tally .n{font-family:var(--mono); font-size:20px; font-weight:600}
-  .tally .k{font-size:12px; color:var(--muted)}
-  .tally .됨 .n{color:var(--ok)} .tally .반쪽 .n{color:var(--half)} .tally .못함 .n{color:var(--alert)}
-  .q{border:1px solid var(--line); margin:8px 0; background:var(--ground)}
-  .q>summary{padding:9px 12px; cursor:pointer; display:flex; gap:10px; align-items:baseline; flex-wrap:wrap}
-  .q>summary::-webkit-details-marker{display:none}
-  .q .mk{font-family:var(--mono); font-weight:600; width:1.2em}
-  .q.됨 .mk{color:var(--ok)} .q.반쪽 .mk{color:var(--half)} .q.못함 .mk{color:var(--alert)}
-  .q .물음{font-weight:500; flex:1 1 320px}
-  .층뜻{margin:-6px 0 12px; color:#5b6470; font-size:.92rem; line-height:1.6}
-  .켜{display:flex; flex-wrap:wrap; gap:6px; margin:2px 0 10px}
-  .켜 .ㄱ{display:inline-flex; align-items:center; gap:5px; border:1px solid #dfe3e8;
-         border-radius:999px; padding:2px 9px; font-size:.82rem; color:#5b6470; background:#fff}
-  .켜 .ㄱ.on{border-color:#1f7a4d; color:#1f7a4d; background:#f1f9f4}
-  .켜 .ㄱ.off{border-color:#c9ccd1; color:#9aa0a8}
-  .켜 .ㅋ{font-weight:700}
-  .q .요약{font-size:12px; color:var(--faint); text-align:right}
-  .q .body{padding:2px 12px 12px 34px; border-top:1px solid var(--line-soft)}
-  .q .body p{margin:8px 0 2px; font-size:12.5px}
-  .q .body ul{margin:4px 0; padding-left:18px}
-  .q .body li{font-size:12.5px; color:var(--muted); margin:3px 0}
-  .q .body li b{color:var(--ink)}
-  .cols{display:flex; flex-wrap:wrap; gap:5px; margin:5px 0 2px}
-  .col{border:1px solid var(--line); background:var(--sunk); padding:2px 8px; font-size:12px}
-  .col b{font-weight:600}
-  .col span{color:var(--faint)}
-  .peek{font-size:12px; color:var(--faint); flex:1 1 100%; margin:0}
-  .need{border-left:3px solid var(--alert); padding:6px 10px; margin:8px 0; background:var(--sunk)}
-  .need .nm{font-weight:600}
-  .need .where{font-size:12.5px; color:var(--muted)}
-  .need .why{font-size:12.5px; color:var(--alert)}
-  code{font-family:var(--mono); font-size:11.5px; background:var(--sunk); padding:1px 5px;
-    border:1px solid var(--line-soft); display:inline-block; margin:1px 0}
-  .tag{font-size:11px; color:var(--muted); background:var(--sunk); border:1px solid var(--line-soft); padding:1px 6px}
-  table{border-collapse:collapse; width:100%; font-size:13px; border:1px solid var(--line)}
-  th,td{padding:6px 10px; border-bottom:1px solid var(--line-soft); text-align:left; vertical-align:top}
-  thead th{background:var(--sunk); font-size:11.5px; color:var(--muted); font-weight:600}
-  .scroll{overflow-x:auto}
-  .bar2{margin:10px 0 6px; display:flex; gap:6px; flex-wrap:wrap; align-items:center}
-  input[type=search]{font:14px var(--body); color:var(--ink); background:var(--sunk);
-    border:1px solid var(--line); padding:7px 10px; width:min(260px,100%)}
-  button{font:13px var(--body); color:var(--muted); background:var(--sunk);
-    border:1px solid var(--line); padding:5px 10px; cursor:pointer; white-space:nowrap}
-  button[aria-selected="true"]{background:var(--accent); border-color:var(--accent); color:#fff}
-  #all thead th{position:sticky; top:0; z-index:5}
-  #all td{white-space:nowrap}
-  #all td.nm{white-space:normal; min-width:280px}
-  .st{font-family:var(--mono); font-size:11.5px; padding:1px 6px; border:1px solid var(--line)}
-  .st.쓴다{color:var(--ok); border-color:var(--ok)}
-  .st.멈춘자료{color:var(--alert); border-color:var(--alert)}
-  .st.못받는다{color:var(--alert); border-color:var(--alert)}
-  .st.따로받아야{color:var(--half); border-color:var(--half)}
-  .st.아직안씀{color:var(--faint)}
-  footer{margin:30px 0 40px; padding-top:14px; border-top:1px solid var(--line); color:var(--muted); font-size:12px}
-  footer p{margin:0 0 6px}
+:root{--bg:#f5f6f3;--paper:#fff;--ink:#1c302e;--muted:#5c6c68;--line:#d8e1dc;--soft:#eef2ee;--green:#17684f;--green-bg:#e9f4ed;--amber:#805514;--amber-bg:#faf1db;--red:#a34738;--red-bg:#faefeb;--body:system-ui,-apple-system,'Malgun Gothic',sans-serif;--mono:ui-monospace,'Cascadia Mono',monospace}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:80px}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.65 var(--body);word-break:keep-all}a{color:var(--green);text-underline-offset:3px}button,input,select{font:inherit}button,summary,select{cursor:pointer}button,input,select{border:1px solid var(--line);border-radius:7px;background:var(--paper);color:var(--ink);padding:8px 12px}button:hover,select:hover{border-color:var(--green)}button[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:white}:focus-visible{outline:3px solid #d49931;outline-offset:3px}.wrap{width:min(1360px,100% - 64px);margin:auto}
+.topbar{background:var(--paper);border-bottom:1px solid var(--line)}.topbar .wrap{display:flex;align-items:center;justify-content:space-between;min-height:58px;gap:20px}.brand{font-weight:750;color:var(--ink);text-decoration:none}.brand small{font-weight:400;color:var(--muted);margin-left:12px}.site-nav{display:flex;gap:22px;font-size:13px}.site-nav a{color:var(--muted);text-decoration:none}.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;padding:34px 0 26px}.eyebrow{font-size:12px;font-weight:750;letter-spacing:.1em;color:var(--green);margin:0 0 9px}h1{font-size:36px;letter-spacing:-.055em;line-height:1.3;margin:0 0 12px}h2{font-size:23px;line-height:1.4;letter-spacing:-.035em;margin:0}h3{font-size:20px;letter-spacing:-.03em;margin:0}p{margin:8px 0}.intro{color:var(--muted);margin:0}.stamp{font-size:12px;color:var(--muted);text-align:right;min-width:200px}.stamp strong{display:block;font-size:14px;color:var(--ink)}
+.summary-band{display:grid;grid-template-columns:1.25fr 1fr 1fr 1fr;background:var(--paper);border:1px solid var(--line);border-radius:12px;margin-bottom:26px;overflow:hidden}.stat{padding:18px 24px;border-right:1px solid var(--line)}.stat:last-child{border-right:0}.stat strong{font-size:32px;line-height:1.2;letter-spacing:-.04em}.stat .unit{font-size:14px;font-weight:500;margin-left:5px}.stat .label{font-size:13px;font-weight:700}.stat .desc{font-size:12px;color:var(--muted);margin-top:3px}.good{color:var(--green)}.partial{color:var(--amber)}.empty{color:var(--red)}
+.section-nav{position:sticky;top:0;z-index:15;background:rgba(245,246,243,.97);border-bottom:1px solid var(--line);margin-bottom:26px}.section-nav .inner{display:flex;gap:28px;align-items:center;min-height:54px;flex-wrap:wrap}.section-nav a{font-size:14px;font-weight:650;text-decoration:none;color:var(--muted);padding:13px 0}.section-nav a:first-child{color:var(--ink)}.section-nav .count{margin-left:5px;color:var(--green);font-variant-numeric:tabular-nums}.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin:0 0 16px}.section-head p{font-size:13px;color:var(--muted);margin:5px 0 0}.section-no{font:12px var(--mono);color:var(--green);display:block;margin-bottom:5px}.legend{font-size:12px;color:var(--muted);display:flex;gap:14px;flex-wrap:wrap}.map-layout{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:24px;align-items:start}
+.layer{border:1px solid var(--line);border-radius:12px;background:var(--paper);overflow:hidden;margin-bottom:18px}.layer-head{padding:18px 22px;background:#eaf0eb;border-bottom:1px solid var(--line);display:flex;gap:14px;align-items:flex-start}.layer-number{font:600 31px/1.2 var(--mono);color:#80948a;min-width:33px}.layer-head p{font-size:13px;color:var(--muted);margin:3px 0 0}.layer-head h3 small{font:500 12px var(--body);color:var(--muted);margin-left:8px}.layer-2 .layer-head{background:#eaf0f4}.layer-2 .layer-number{color:#8099ad}.layer-3 .layer-head{background:#f0eeea}.layer-3 .layer-number{color:#a1917c}.side-layer{border-top:3px solid #7b8192}.side-layer .layer-head{background:#eeedf3}.side-layer .layer-number{font-size:15px;background:#dedee8;color:#505b76;border-radius:6px;padding:5px;min-width:34px;text-align:center}.column-guide{display:flex;justify-content:space-between;gap:15px;padding:9px 20px;background:#fafbf9;color:var(--muted);font-size:11px;border-bottom:1px solid var(--line)}.column-guide span:last-child{word-spacing:9px}
+.branch{border-bottom:1px solid var(--line);scroll-margin-top:75px}.branch:last-child{border-bottom:0}.branch>summary{list-style:none;padding:14px 20px;display:grid;grid-template-columns:minmax(0,1fr) 146px 10px;gap:14px;align-items:center}.branch>summary::-webkit-details-marker{display:none}.branch>summary:hover{background:#f8faf7}.branch[open]>summary{background:#f5f8f3}.chevron{font-size:19px;color:#74817b;transition:transform .15s}.branch[open] .chevron{transform:rotate(90deg)}.branch-title{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap;line-height:1.5}.branch-title strong{font-size:14px;letter-spacing:-.025em}.badge{font-size:10px;padding:1px 6px;border-radius:4px;white-space:nowrap;font-weight:650}.badge.됨{color:var(--green);background:var(--green-bg)}.badge.반쪽{color:var(--amber);background:var(--amber-bg)}.badge.못함{color:var(--red);background:var(--red-bg)}.terms{display:block;color:var(--muted);font-size:12px;line-height:1.65;margin-top:4px}.blocker{display:block;color:var(--red);font-size:11px;margin-top:4px}.short-limit{display:block;font-size:11px;color:var(--amber);margin-top:4px}.stages{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;text-align:center;font-size:10px;align-self:start;margin-top:2px}.stage{padding:4px 1px;border-radius:5px;background:#f0f2ef;color:#68756c}.stage b{display:block;font-size:12px;font-weight:650}.stage.on{color:var(--green);background:var(--green-bg)}.stage.limited{color:var(--amber);background:var(--amber-bg)}
+.detail-body{padding:0 20px 18px;border-top:1px dashed var(--line);font-size:13px}.detail-body h4{font-size:12px;margin:16px 0 7px;color:var(--muted)}.detail-body ul{padding-left:18px;margin:5px 0}.detail-body li{margin:5px 0}.definitions{display:grid;grid-template-columns:minmax(115px,.6fr) 1.4fr;margin:0}.definitions dt,.definitions dd{padding:7px 0;border-bottom:1px solid var(--soft);margin:0}.definitions dt{font-weight:650;padding-right:12px}.definitions dd{color:var(--muted)}.source-line{display:flex;gap:9px;align-items:center;flex-wrap:wrap;padding:7px 0}.source-line strong{margin-right:auto}.stage-text{font-size:11px;color:var(--muted)}.need{padding:10px 12px;border-left:3px solid #cc9a79;background:#fcf5ee;margin-top:10px}.need p{margin:3px 0}.need .where{font-size:12px;color:var(--muted)}.boundary{display:flex;align-items:center;gap:12px;margin:3px 0 20px;color:var(--red);font-size:12px;text-align:center}.boundary::before,.boundary::after{content:'';flex:1;border-top:2px dashed #c9a297}.boundary b{display:block;font-size:13px}.map-note{font-size:12px;color:var(--muted);margin:14px 0 30px}.rules{border:1px solid var(--line);border-radius:8px;background:var(--paper);padding:12px 16px;margin-top:12px}.rules summary{font-weight:600}.rules p{margin:8px 0;font-size:12px;color:var(--muted)}
+.content-section{margin:42px 0}.catalog-panel{background:var(--paper);border:1px solid var(--line);border-radius:12px;overflow:hidden}.catalog-controls{padding:20px;border-bottom:1px solid var(--line)}.search-line{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}.search-box{flex:1;min-width:220px}.search-box input{width:100%;padding:11px 14px;background:#f8faf7}select{max-width:100%;font-size:13px;padding:11px 12px}.filters{display:flex;gap:6px;flex-wrap:wrap}.filters button{font-size:12px;padding:6px 11px}.catalog-meta{padding:11px 20px;display:flex;justify-content:space-between;gap:12px;font-size:12px;color:var(--muted);background:#fafbf9}.catalog-meta strong{color:var(--ink)}.scroll{overflow:auto;overscroll-behavior:contain}.catalog-scroll{max-height:760px}table{border-collapse:collapse;width:100%;font-size:13px;text-align:left}th{background:#eef2ed;color:var(--muted);font-size:12px;font-weight:600}th,td{padding:13px 16px;border-bottom:1px solid var(--line);vertical-align:top}#all{min-width:850px}#all thead th{position:sticky;top:0;z-index:1}#all td:first-child{width:38%}#all tbody tr:hover{background:#fafcf9}#all td:nth-child(2){width:14%}#all td:nth-child(3){width:13%}#all td:nth-child(4){width:12%}.dataset-title{font-weight:650;line-height:1.6}.dataset-category{font-size:11px;color:var(--muted);margin-top:5px}.dataset-description{font-size:12px;color:var(--muted);margin-top:7px}.dataset-description summary{color:var(--green);font-size:11px}.dataset-description p{max-width:540px}.st{font-size:11px;display:inline-block;white-space:nowrap;border:1px solid var(--line);padding:2px 7px;border-radius:4px;background:#f5f7f4;color:var(--muted)}.st.쓴다,.st.받아둠{color:var(--green);background:var(--green-bg);border-color:#c2ddcc}.st.못받는다,.st.멈춘자료{color:var(--red);background:var(--red-bg);border-color:#ebd1c9}.st.따로받아야{color:var(--amber);background:var(--amber-bg);border-color:#e3d1a8}code{font:11px/1.6 var(--mono);background:#edf1ed;color:#52645c;padding:2px 5px;border-radius:3px;overflow-wrap:anywhere;word-break:break-word}td code{display:inline-block;margin-top:4px}.subtext{font-size:11px;color:var(--muted);display:block;margin-top:4px}.empty-result{text-align:center;padding:34px;color:var(--muted)}
+.history-panel{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:24px}.history-empty{display:flex;gap:18px;align-items:flex-start}.history-icon{background:var(--soft);border:1px solid var(--line);border-radius:50%;width:42px;height:42px;display:grid;place-items:center;flex-shrink:0;color:var(--green);font-size:22px}.history-empty h3{font-size:17px}.history-panel p{font-size:13px;color:var(--muted)}.history-select{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}.change-list{list-style:none;padding:0;margin:0}.change-list li{padding:14px 0;border-bottom:1px solid var(--line)}.change-list li:last-child{border:0}.change-list .kind{font-size:11px;color:var(--muted);margin-right:8px}.change-list .change-name{font-size:14px;font-weight:650}.change-list p{margin:5px 0 0}.technical{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:20px;margin-top:14px}.technical>summary{font-size:16px;font-weight:650;display:list-item}.technical .scroll{margin-top:14px}.technical table{min-width:800px;font-size:12px}.technical td{overflow-wrap:anywhere;word-break:normal}.technical td:first-child{width:23%}.technical td:last-child{width:34%}.glossary{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 30px;margin-top:14px}.glossary-item{padding:10px 0;border-bottom:1px solid var(--line);font-size:13px}.glossary-item p{font-size:12px;color:var(--muted);margin:2px 0}footer{border-top:1px solid var(--line);padding:24px 0 36px;margin-top:40px;color:var(--muted);font-size:12px}.footer-line{display:flex;justify-content:space-between;gap:20px}footer p{margin:5px 0}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(min-width:1200px){.side-layer .branch>summary{grid-template-columns:minmax(0,1fr) 128px 9px;gap:10px;padding:13px 17px}.side-layer .branch-title strong{font-size:13px}.side-layer .terms{font-size:11px}}
+@media(max-width:1050px){.wrap{width:calc(100% - 36px)}.map-layout{grid-template-columns:1fr}.site-nav{gap:12px}.summary-band .stat{padding:16px}.hero{align-items:flex-start}h1{font-size:30px}.section-head{align-items:flex-start;flex-direction:column;gap:10px}}
+@media(max-width:600px){.wrap{width:calc(100% - 28px)}.topbar .wrap{align-items:flex-start;flex-direction:column;gap:5px;padding-block:12px}.brand small{font-size:11px}.site-nav{font-size:11px;gap:14px}.hero{padding:24px 0 20px;flex-direction:column;gap:12px}h1{font-size:29px}.intro{font-size:13px}.stamp{text-align:left;min-width:0}.stamp strong{display:inline;font-size:12px}.summary-band{grid-template-columns:1fr 1fr;margin-bottom:16px}.stat:nth-child(2){border-right:0}.stat:nth-child(-n+2){border-bottom:1px solid var(--line)}.stat strong{font-size:27px}.stat .desc{font-size:11px}.section-nav .inner{gap:16px}.section-nav a{font-size:12px}.section-nav .count{display:none}.section-head h2{font-size:22px}.layer-head{padding:15px}.branch>summary{grid-template-columns:minmax(0,1fr) 10px;gap:9px;padding:14px}.stages{grid-column:1;grid-row:2;width:180px;display:flex}.stage{flex:1;padding:2px 4px}.stage b{display:inline;margin-left:4px;font-size:11px}.chevron{grid-column:2;grid-row:1/3}.layer-head p{font-size:12px}.column-guide{display:none}.detail-body{padding-inline:14px}.definitions{grid-template-columns:1fr}.definitions dt{border-bottom:0;padding-bottom:0}.definitions dd{padding-top:0}.history-panel{padding:18px}.catalog-controls{padding:14px}.search-line select{flex:1;min-width:0}.catalog-meta{padding:10px 14px;flex-direction:column;gap:2px}.content-section{margin:32px 0}.glossary{grid-template-columns:1fr}.footer-line{flex-direction:column;gap:6px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.chevron{transition:none}}
+@media print{.topbar,.section-nav,.catalog-controls{position:static}.wrap{width:100%}.map-layout{display:block}.catalog-scroll{max-height:none;overflow:visible}.branch{break-inside:avoid}.layer{overflow:visible}.technical{break-inside:avoid}body{background:white;font-size:11px}h1{font-size:26px}.hero{padding-top:0}}
+.hero{padding:28px 0 24px}h1{font-size:32px}.summary-band{grid-template-columns:repeat(4,minmax(0,1fr))}.overview{text-decoration:none;color:var(--ink);border-top:3px solid #589274;padding:16px 18px}.overview:hover{background:#f8faf7}.overview.blue{border-top-color:#7796af}.overview.partial{border-top-color:#b0966c}.overview.purple{border-top-color:#8c829f}.overview .label{display:flex;justify-content:space-between;gap:8px;font-size:15px}.overview .label span{font-size:11px;font-weight:400;color:var(--muted)}.overview-desc{font-size:12px;color:var(--muted);margin:6px 0 10px}.overview-counts{display:flex;gap:8px;flex-wrap:wrap;font-size:11px;color:var(--muted)}
+@media(max-width:600px){h1{font-size:29px}.summary-band{grid-template-columns:1fr 1fr}.overview .label{font-size:13px;flex-direction:column;gap:0}.overview-desc{font-size:11px}.overview-counts{font-size:10px;gap:4px}.hero{padding:24px 0 20px}}
 </style>
-
-<div class="topbar"><div class="wrap">
-  <span class="t">데이터 지도</span>
-  <a href="./">자치단체별 →</a>
-  <a href="board.html">243곳 한 판에 →</a>
-  <a href="catalog.html">무슨 자료가 있나 →</a>
-  <a href="transparency.html">공시 점검 →</a>
-</div></div>
-
+</head>
+<body>
+<a class="sr-only" href="#map">데이터 지도로 바로 가기</a>
+<header class="topbar"><div class="wrap"><a class="brand" href="./">지방재정 <small>함께하는 시민행동 · 작업용 데이터 지도</small></a><nav class="site-nav" aria-label="다른 화면"><a href="./">자치단체별</a><a href="board.html">243곳 한 판에</a><a href="transparency.html">공시 점검 ↗</a></nav></div></header>
 <main class="wrap">
-  <h1>무엇을 말할 수 있고, 무엇이 비었나</h1>
-  <p class="basis"><b>자료의 알갱이 크기로 층을 나눈</b> 지도다.
-    <b>1층 큰 틀</b>(243곳을 한 줄씩) · <b>2층 사업별</b> · <b>3층 낱줄</b>(거래 한 건씩),
-    그리고 층 밖의 <b>공개 상태</b>.<br>
-    질문으로 짜지 않는다 — 질문 문장은 짓는 사람 마음이라 부정확하다.
-    층은 <b>자료가 실제로 그 알갱이로 오기 때문에</b> 지어낼 여지가 없다.<br>
-    아래에 <b>자료 전수 350줄</b>(지방재정365 146 · 열린재정 198 · 그밖 6)도 함께 폈다.<br>
-    ● 찼다 · ◐ 반쪽(되지만 구멍이 있다) · ○ 비었다.
-    ○ 마다 <b>어떤 자료가 있어야 풀리는지</b>를 적어 뒀다.<br>
-    갈래마다 <b>켜 셋</b>을 매긴다 — <b>① 세상에 있나 · ② 우리가 받아 뒀나 · ③ 화면에 올렸나</b>.
-    ③ 은 <code>site/</code> 밑에 낼 자리를 정해 두고 거기 파일이 있나로만 본다.<br>
-    갈래마다 <b>화면에 실제로 뜨는 칸 이름</b>(재정자립도·수의계약비율 같은)과 한 줄 뜻풀이를 붙였다.<br>
-    ⚠️ 이 화면은 <b>우리 작업용</b>이다 — 파일 이름과 명령을 그대로 적는다.
-    상태는 손으로 적은 것이 아니라 <b>저장소를 훑어서 매긴다</b>(<span id="asof"></span> 기준).
-    자료를 받아 오고 다시 구우면 ○ 가 저절로 ● 가 된다.<br>
-    ⛔ <b>2층과 3층은 안 이어진다</b> — 사업과 계약을 잇는 열쇠가 자료에 없다.</p>
-
-  <div class="tally" id="tally"></div>
-
-  <h2>층마다 — 자료의 알갱이 크기</h2>
-  <div id="qs"></div>
-
-  <h2>자료 전수 — 어디까지 들어왔나</h2>
-  <p class="note">지방재정365 146종 · 열린재정 198종 · 그밖 소스를 <b>한 줄도 빼지 않고</b> 올렸다.
-    줄마다 우리 쪽 상태를 붙였다 — <b>쓴다 / 아직 안 씀 / 멈춘 자료 / 따로 받아야 / 못 받는다</b>.</p>
-  <div class="tally" id="tally2"></div>
-  <p class="bar2">
-    <input id="q2" type="search" placeholder="자료 이름·코드·갈래" autocomplete="off">
-    <span class="grp" id="filt2"></span>
-  </p>
-  <p class="note" id="say2"></p>
-  <div class="scroll" style="max-height:70vh; overflow-y:auto"><table id="all"></table></div>
-
-  <h2>지금 가진 자료 — 자세히</h2>
-  <div class="scroll"><table id="have"></table></div>
-
-  <h2>없는 자료 — 이게 들어오면 무엇이 풀리나</h2>
-  <div class="scroll"><table id="missing"></table></div>
-
-  <footer>
-    <p>굽는 법 — <code>python scripts/build_datamap.py</code>.
-      층 나누기와 「반쪽인 까닭」은 그 스크립트 안에 글로 적혀 있다. 고치려면 거기를 고친다.</p>
-    <p>⚠️ 기준이 서로 다르다 — 결산(확정)·예산(계획)·계약(체결)·진행(그날까지 누계)·공시(우리가 잰 것).
-      한 화면에 놓고 빼지 말 것.</p>
-  </footer>
+<div class="hero"><div><p class="eyebrow">지방재정 데이터 지도</p><h1>어떤 자료가 있고, 어디까지 쓸 수 있나</h1><p class="intro">자료의 내용과 빈 곳을 함께 보고, 다음에 활용할 자료를 고릅니다.</p></div><div class="stamp"><strong>__ASOF__ 기준</strong><span>저장소의 자료와 화면 파일을 확인했습니다.</span><br><a href="#changes" id="history-stamp">변경 기록 보기 ↓</a></div></div>
+<div class="summary-band" id="tally"></div>
+<nav class="section-nav" aria-label="이 페이지 목차"><div class="inner"><a href="#map">전체 구조 <span class="count" id="branch-count"></span></a><a href="#catalog">자료 전체 <span class="count" id="catalog-count"></span></a><a href="#changes">추가·변경 기록</a><a href="#details">출처·용어·작업 정보</a></div></nav>
+<section id="map" aria-labelledby="map-title"><div class="section-head"><div><span class="section-no">01 / 전체 구조</span><h2 id="map-title">크게 보고, 사업을 보고, 한 건씩 봅니다</h2><p>갈래를 누르면 자료의 뜻과 출처, 남은 제약을 자세히 볼 수 있습니다.</p></div><div class="legend"><span><b class="good" id="legend-have">● 확보</b></span><span><b class="partial" id="legend-half">◐ 제약 있음</b></span><span><b class="empty" id="legend-empty">○ 미수집</b></span></div></div>
+<div class="map-layout"><div id="layers"></div><aside id="side" aria-label="층 밖의 공개 상태"></aside></div>
+<div class="map-note"><b>세 칸을 읽는 법</b> &nbsp; 제공처: 자료가 있는 출처를 알고 있음 · 수집: 우리 저장소에 자료가 있음 · 화면: 보여줄 자리의 파일이 있음.<details class="rules"><summary>숫자와 상태의 판정 기준</summary><p>갈래의 ‘확보’는 필요한 자료가 있고 적어 둔 제약이 없다는 뜻입니다. ‘제약 있음’은 범위·연결·활용에 한계가 남았다는 뜻입니다. 모든 항목을 검증했다는 의미는 아닙니다.</p><p>‘제공처 확인’만으로 자료 전체의 공개 여부를 판단할 수 없습니다. 열린재정은 목록·명세를 받은 상태이며, 실제 수치 전수를 확보한 것으로 세지 않습니다.</p><p>‘화면 있음’은 지정된 화면용 파일이 있다는 뜻입니다. 그 갈래의 모든 칸이 구현되었거나 사업·계약이 서로 연결됐다는 뜻은 아닙니다. 화면 반영 기준과 파일 위치는 각 갈래 안에서 확인할 수 있습니다.</p><p id="stage-count"></p></details></div></section>
+<section id="catalog" class="content-section" aria-labelledby="catalog-title"><div class="section-head"><div><span class="section-no">02 / 자료 전체</span><h2 id="catalog-title">쓸 자료를 찾아봅니다 <span id="total-title"></span></h2><p id="catalog-sources"></p></div><a href="catalog.html" style="font-size:12px">지방재정365 상세 목록 ↗</a></div>
+<div class="catalog-panel"><div class="catalog-controls"><div class="search-line"><label class="search-box"><span class="sr-only">자료 이름·내용·코드 검색</span><input id="q2" type="search" placeholder="자료 이름이나 내용을 찾아보세요. 예: 보조금, 행사, 채무" autocomplete="off"></label><label><span class="sr-only">제공처</span><select id="source-filter" aria-label="제공처"><option value="">모든 제공처</option></select></label><button id="reset-filter" type="button">초기화</button></div><div class="filters" id="filt2" aria-label="활용 상태"></div></div><div class="catalog-meta"><span id="say2" role="status" aria-live="polite"></span><span>‘아직 안 씀’도 모두 포함 · 사용 여부를 고를 후보 자료입니다.</span></div><div class="scroll catalog-scroll" tabindex="0" role="region" aria-label="자료 전체 표"><table id="all"></table></div></div><p class="map-note">활용 상태는 현재 프로젝트 기준입니다. ‘미수집’은 세상에 자료가 없다는 뜻이 아닙니다. ‘최신 확인’은 마지막 조사에서 확인한 연도이며, 제공처의 현재 상태와 다를 수 있습니다. API는 자료를 자동으로 받는 통로입니다.</p></section>
+<section id="changes" class="content-section" aria-labelledby="changes-title"><div class="section-head"><div><span class="section-no">03 / 추가·변경 기록</span><h2 id="changes-title">지난 기록에서 무엇이 달라졌나</h2><p>자료 추가·삭제, 내용 갱신, 수집·화면 상태 변화를 구분해 기록합니다.</p></div></div><div class="history-panel" id="history"></div></section>
+<section id="details" class="content-section" aria-labelledby="details-title"><div class="section-head"><div><span class="section-no">04 / 근거와 작업 정보</span><h2 id="details-title">출처와 용어를 확인합니다</h2><p>검토에 필요한 원본 위치, 다시 받는 명령, 뜻풀이를 모았습니다.</p></div></div>
+<details class="technical"><summary id="have-title">지금 가진 자료 · 출처와 수집 범위</summary><div class="scroll"><table id="have"></table></div></details>
+<details class="technical"><summary id="missing-title">아직 받지 않은 자료 · 어디서 막혔나</summary><div class="scroll"><table id="missing"></table></div></details>
+<details class="technical"><summary id="words-title">용어 뜻풀이</summary><div class="glossary" id="words"></div></details>
+<details class="technical"><summary>자료가 추가됐을 때 갱신하는 방법</summary><p>자료 수집 후 <code>python scripts/build_datamap.py</code>를 실행합니다. 자료 위치를 훑어 상태를 다시 매기고, 기존 데이터 지도의 기록과 비교합니다. 브라우저 새로고침만으로 원본을 수집하지는 않습니다.</p><p>별도 이력 파일 없이 <code>site/datamap.html</code> 안에 마지막 상태와 변경 기록을 보존합니다. 동일한 자료로 다시 만들면 기록이 늘어나지 않습니다. 생성물이 충돌하면 공유 저장소의 최신 데이터 지도를 복원한 뒤 다시 만듭니다.</p><p>새 소스의 저장 위치는 <code>scripts/build_datamap.py</code>의 <code>받을자리</code>·<code>낼자리</code>에 등록합니다. 등록하지 않은 새 자료도 ‘갈래에 아직 연결하지 않은 자료’의 파일 변화로 잡힙니다.</p></details></section>
+<footer><div class="footer-line"><strong>함께하는 시민행동 · 지방재정 데이터 지도</strong><span>전체 자료를 남기고, 확보한 범위와 한계를 함께 표시합니다.</span></div><p>결산은 확정 실적 · 예산은 계획 · 계약은 체결 금액 · 진행 중인 사업은 그날까지 누계 · 공시는 자동 점검 결과입니다. 기준이 다른 숫자를 그대로 합치거나 빼지 않습니다.</p></footer>
 </main>
-
+<noscript><p class="wrap">데이터 지도를 보려면 브라우저에서 JavaScript를 켜 주세요.</p></noscript>
+<script id="datamap-history" type="application/json">__HISTORY__</script>
 <script>
-const GROUPS = __GROUPS__, HAVE = __HAVE__, MISSING = __MISSING__, TALLY = __TALLY__,
-      WORDS = __WORDS__, ALL = __ALL__;
-document.getElementById('asof').textContent = '__ASOF__';
+'use strict';
+const GROUPS=__GROUPS__, HAVE=__HAVE__, MISSING=__MISSING__, TALLY=__TALLY__, WORDS=__WORDS__, ALL=__ALL__;
+const HISTORY=JSON.parse(document.getElementById('datamap-history').textContent);
+const $=id=>document.getElementById(id);
+const esc=t=>String(t??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const rich=t=>esc(t).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/`(.+?)`/g,'<code>$1</code>');
+const plain=t=>String(t??'').replace(/\*\*|`|⚠️|⛔/g,'').trim();
+const names={'됨':'확보','반쪽':'제약 있음','못함':'미수집'}, symbols={'됨':'●','반쪽':'◐','못함':'○'};
+const stateLabel=s=>s==='못 받는다'?'미수집':s;
+const badge=q=>`<span class="badge ${esc(q.상태)}">${symbols[q.상태]} ${names[q.상태]}</span>`;
+const date=s=>s?String(s).replace('T',' ').replace(/\+09:00$/,' KST'):'';
+const total=GROUPS.reduce((s,g)=>s+g.질문.length,0);
+$('legend-have').textContent=`● 확보 ${TALLY.됨}`;$('legend-half').textContent=`◐ 제약 있음 ${TALLY.반쪽}`;$('legend-empty').textContent=`○ 미수집 ${TALLY.못함}`;
+$('branch-count').textContent=`${total}갈래`;$('catalog-count').textContent=`${ALL.length}개`;
+const overview=[['1층 · 큰 틀','총액·비율로 자치단체를 비교','good'],['2층 · 사업별','세부사업의 예산과 집행','blue'],['3층 · 낱줄','계약 한 건 · 보조금 한 건','partial'],['층 밖 · 공개 상태','공개 여부와 자료의 이용 가능성','purple']];
+$('tally').innerHTML=GROUPS.map((g,i)=>{const [title,desc,color]=overview[i];const counts={};g.질문.forEach(q=>counts[q.상태]=(counts[q.상태]||0)+1);return `<a class="stat overview ${color}" href="#layer-${i+1}"><div class="label">${title}<span>${g.질문.length}갈래 ↘</span></div><div class="overview-desc">${desc}</div><div class="overview-counts">${['됨','반쪽','못함'].filter(k=>counts[k]).map(k=>`<span>${symbols[k]} ${names[k]} ${counts[k]}</span>`).join('')}</div></a>`}).join('');
 
-/* 뜻풀이와 「구멍」에 **굵게**·`코드` 를 쓴다 — 글로 적기 편하라고. 여기서 태그로 바꾼다. */
-const 꾸밈 = t => String(t == null ? '' : t)
-  .replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')
-  .replace(/`(.+?)`/g, '<code>$1</code>');
-
-const 표시 = {'됨': '●', '반쪽': '◐', '못함': '○'};
-const 말 = {'됨': '찼다', '반쪽': '반쪽', '못함': '비었다'};
-const 켜이름 = [['있나', '① 세상에 있다'], ['받았나', '② 받아 뒀다'], ['올렸나', '③ 화면에 올렸다']];
-
-document.getElementById('tally').innerHTML = ['됨', '반쪽', '못함'].map(k =>
-  `<div class="${k}"><div class="n">${TALLY[k]}</div><div class="k">${말[k]}</div></div>`).join('')
-  + `<div><div class="n">${HAVE.length}</div><div class="k">가진 자료 덩이</div></div>`
-  + `<div><div class="n">${MISSING.filter(m => m.풀리는질문.length).length}</div><div class="k">막고 있는 자료</div></div>`;
-
-document.getElementById('qs').innerHTML = GROUPS.map(g => `
-  <h3>${g.축}</h3>
-  ${g.뜻 ? `<p class="층뜻">${꾸밈(g.뜻)}</p>` : ''}
-  ${g.질문.map(q => `
-    <details class="q ${q.상태}"${q.상태 === '못함' ? ' open' : ''}>
-      <summary>
-        <span class="mk">${표시[q.상태]}</span>
-        <span class="물음">${q.물음}</span>
-        <span class="요약">${q.상태 === '못함'
-          ? q.빠진자료.map(m => m.이름).join(' · ') + ' 이 없다'
-          : (q.칸.length
-              ? q.칸.slice(0, 3).map(c => c.이름).join(' · ') + (q.칸.length > 3 ? ` 외 ${q.칸.length - 3}` : '')
-              : q.쓰는자료.map(s => s.이름).join(' · '))}</span>
-      </summary>
-      <div class="body">
-        ${(q.켜 || []).map(c => `<div class="켜">
-          <span class="ㄱ ㅋ">${c.열쇠}</span>
-          ${켜이름.map(([k, nm]) =>
-            `<span class="ㄱ ${c[k] ? 'on' : 'off'}">${c[k] ? '○' : '✕'} ${nm}</span>`).join('')}
-        </div>`).join('')}
-        ${q.칸.length ? `<p><b>화면에 뜨는 칸</b></p>
-          <div class="cols">${q.칸.map(c =>
-            `<span class="col"><b>${c.이름}</b>${c.뜻 ? ` <span>— ${꾸밈(c.뜻)}</span>` : ''}</span>`).join('')}</div>` : ''}
-        ${q.쓰는자료.length ? `<p><b>어느 자료에서</b></p><ul>${q.쓰는자료.map(s =>
-          `<li>${s.이름} <span class="tag">${s.언제}</span></li>`).join('')}</ul>` : ''}
-        ${q.흠.length ? `<p><b>${q.상태 === '못함' ? '그밖에' : '되지만 이런 구멍이 있다'}</b></p>
-          <ul>${q.흠.map(x => `<li>${꾸밈(x)}</li>`).join('')}</ul>` : ''}
-        ${q.빠진자료.map(m => `<div class="need">
-          <div class="nm">필요한 자료 — ${m.이름}</div>
-          ${m.생기는칸 && m.생기는칸.length ? `<div class="cols">${m.생기는칸.map(c =>
-            `<span class="col"><b>${c}</b></span>`).join('')}</div>` : ''}
-          ${m.어디있나 ? `<div class="where">어디 있나 — ${꾸밈(m.어디있나)}</div>` : ''}
-          ${m.막힘 ? `<div class="why">막힌 까닭 — ${꾸밈(m.막힘)}</div>` : ''}
-        </div>`).join('')}
-      </div>
-    </details>`).join('')}`).join('');
-
-/* ── 자료 전수 ── */
-const 상태차례 = ['쓴다', '따로 받아야', '멈춘 자료', '아직 안 씀', '못 받는다'];
-const 셈2 = {};
-ALL.forEach(r => { 셈2[r.상태] = (셈2[r.상태] || 0) + 1; });
-document.getElementById('tally2').innerHTML = 상태차례.filter(k => 셈2[k]).map(k =>
-  `<div><div class="n">${셈2[k]}</div><div class="k">${k}</div></div>`).join('')
-  + `<div><div class="n">${ALL.length}</div><div class="k">모두</div></div>`;
-
-let 찾기2 = '', 거르개2 = '전부';
-document.getElementById('filt2').innerHTML =
-  ['전부', ...상태차례.filter(k => 셈2[k])].map(k =>
-    `<button data-f="${k}" aria-selected="${k === '전부'}">${k}${k === '전부' ? '' : ` ${셈2[k]}`}</button>`).join('');
-
-function 전수그리기(){
-  const q = 찾기2.trim();
-  const 걸린 = ALL.filter(r =>
-    (거르개2 === '전부' || r.상태 === 거르개2) &&
-    (!q || (r.이름 + ' ' + r.코드 + ' ' + r.갈래 + ' ' + r.곳).includes(q)));
-  document.getElementById('say2').textContent =
-    q || 거르개2 !== '전부' ? `${걸린.length}줄이 걸렸다 (모두 ${ALL.length}줄)` : `모두 ${ALL.length}줄`;
-  document.getElementById('all').innerHTML =
-    `<thead><tr><th>상태</th><th>어디</th><th>코드</th><th>자료</th><th>갈래</th>
-      <th>있는 해</th><th>최신</th><th>곳수</th><th>무엇에 쓰나 · 왜 안 쓰나</th></tr></thead>
-     <tbody>${걸린.map(r => `<tr>
-       <td><span class="st ${r.상태.replace(/\s/g, '')}">${r.상태}</span></td>
-       <td>${r.곳}</td>
-       <td><code>${r.코드 || ''}</code></td>
-       <td class="nm">${r.이름}</td>
-       <td>${r.갈래 || ''}</td>
-       <td>${r.해 || ''}</td>
-       <td>${r.최신 || ''}</td>
-       <td style="text-align:right">${r.곳수 == null ? '' : r.곳수.toLocaleString('ko-KR')}</td>
-       <td class="nm">${꾸밈(r.까닭)}</td></tr>`).join('')}</tbody>`;
-}
-document.getElementById('q2').addEventListener('input', e => { 찾기2 = e.target.value; 전수그리기(); });
-document.getElementById('filt2').addEventListener('click', e => {
-  const b = e.target.closest('button'); if (!b) return;
-  거르개2 = b.dataset.f;
-  document.querySelectorAll('#filt2 button').forEach(x =>
-    x.setAttribute('aria-selected', String(x === b)));
-  전수그리기();
-});
-전수그리기();
-
-document.getElementById('have').innerHTML =
-  `<thead><tr><th style="width:34%">자료 — 그 안에 든 칸</th><th>어디서</th><th>언제 것</th>
-     <th>얼마나</th><th>파일 · 다시 받기</th></tr></thead>
-   <tbody>${HAVE.map(d => `<tr>
-     <td><b>${d.이름}</b>${d.칸 && d.칸.length
-       ? `<div class="cols" style="margin-top:4px">${d.칸.map(c =>
-           `<span class="col">${c}</span>`).join('')}</div>` : ''}</td>
-     <td>${d.출처}</td>
-     <td>${d.언제}</td>
-     <td>${d.얼마나}</td>
-     <td>${d.어디.map(f => `<code>${f}</code>`).join(' ')}
-         ${d.다시 ? `<br><code>${d.다시}</code>` : ''}</td></tr>`).join('')}</tbody>`;
-
-document.getElementById('missing').innerHTML =
-  `<thead><tr><th style="width:20%">자료</th><th style="width:28%">어디 있나</th>
-   <th style="width:26%">막힌 까닭</th><th>이게 있으면 풀리는 갈래</th></tr></thead>
-   <tbody>${MISSING.map(m => `<tr>
-     <td><b>${m.이름}</b></td>
-     <td>${꾸밈(m.어디있나)}${m.있으면생기는칸 && m.있으면생기는칸.length
-       ? `<div class="cols" style="margin-top:4px">${m.있으면생기는칸.map(c =>
-           `<span class="col">${c}</span>`).join('')}</div>` : ''}</td>
-     <td>${꾸밈(m.막힘)}</td>
-     <td>${m.풀리는질문.length
-       ? '<ul style="margin:0;padding-left:16px">' + m.풀리는질문.map(q => `<li>${q}</li>`).join('') + '</ul>'
-       : '<span class="tag">지금 걸린 갈래 없음</span>'}</td></tr>`).join('')}</tbody>`;
+function stages(q){return `<span class="stages">${[['있나','제공처','확인','미확인'],['받았나','수집','있음','아직'],['올렸나','화면','있음','아직']].map(([k,n,yes,no])=>{const count=q.켜.filter(c=>c[k]).length, all=count===q.켜.length, listOnly=k==='받았나'&&q.켜.some(c=>c.목록뿐);return `<span class="stage ${all?(listOnly?'limited':'on'):count?'limited':''}">${n}<b>${listOnly&&all?'목록':all?yes:count?`${count}/${q.켜.length}`:no}</b></span>`}).join('')}</span>`}
+function row(q){
+const cols=q.칸.length?q.칸.map(c=>c.이름):q.빠진자료.flatMap(m=>m.생기는칸||[]),missing=q.빠진자료.map(m=>m.이름).join(' · '),limits=q.흠.map(plain);
+return `<details class="branch" id="${esc(q.id)}"><summary><span><span class="branch-title"><strong>${esc(q.물음)}</strong>${badge(q)}</span><span class="terms">${esc(cols.join(' · ')||'아직 측정하지 않은 항목')}</span>${missing?`<span class="blocker">필요: ${esc(missing)}</span>`:''}${limits.length?`<span class="short-limit">${esc(limits[0])}${limits.length>1?` (제약 ${limits.length}가지)`:''}</span>`:''}</span>${stages(q)}<span class="chevron" aria-hidden="true">›</span></summary><div class="detail-body">
+<h4>자료의 확보와 화면 반영</h4>${q.켜.map(c=>`<div class="source-line"><strong>${esc(c.열쇠)}</strong><span class="stage-text">제공처 ${c.있나?'확인':'미확인'} · ${c.받았나?(c.목록뿐?'목록·명세 확보':'수집 파일 있음'):'미수집'} · ${c.올렸나?'화면용 파일 있음':'화면용 파일 없음'}</span></div>`).join('')}
+${q.칸.length?`<h4>이 자료로 보는 항목 · 뜻풀이</h4><dl class="definitions">${q.칸.map(c=>`<dt>${esc(c.이름)}</dt><dd>${c.뜻?rich(c.뜻):'뜻풀이 미등록 · 원본 정의 확인 필요'}</dd>`).join('')}</dl>`:''}
+${q.쓰는자료.length?`<h4>실제 자료의 출처와 기준</h4><ul>${q.쓰는자료.map(s=>`<li>${esc(s.이름)} <span class="subtext">${esc(s.언제)}</span></li>`).join('')}</ul>`:''}
+${q.흠.length?`<h4>사용할 때 남는 제약</h4><ul>${q.흠.map(t=>`<li>${rich(t)}</li>`).join('')}</ul>`:''}
+${q.빠진자료.map(m=>`<div class="need"><strong>${esc(m.이름)}</strong><p>${esc((m.생기는칸||[]).join(' · '))}</p><p class="where">자료 위치: ${rich(m.어디있나)}</p><p>${rich(m.막힘)}</p></div>`).join('')}
+<details class="rules"><summary>파일 위치와 자동 판정 근거</summary>${q.켜.map(c=>`<p><b>${esc(c.열쇠)}</b><br>${c.수집위치.length?`수집할 위치: ${c.수집위치.map(p=>`<code>${esc(p)}</code>`).join(' ')}<br>`:''}화면 반영 위치: ${c.화면위치.map(p=>`<code>${esc(p)}</code>`).join(' ')}</p>`).join('')}<p>파일 존재 기준입니다. 화면의 각 기능이 완성됐는지는 위의 제약도 함께 확인하세요.</p></details></div></details>`}
+const headings=[['01','1층 · 큰 틀','자치단체 한 곳을 한 줄로 요약합니다. 총액·비율로 243곳을 비교합니다.'],['02','2층 · 사업별','세부사업 하나씩, 예산과 집행을 봅니다.'],['03','3층 · 낱줄','계약 한 건·보조금 한 건을 봅니다. 돈을 받은 쪽을 확인합니다.'],['옆','공개 상태','자료를 얼마나 공개했고, 시민이 쓸 수 있는지 봅니다. 자료에 대한 자료이므로 층 밖에 둡니다.']];
+GROUPS.forEach((g,i)=>{const [num,title,description]=headings[i];const html=`<section id="layer-${i+1}" class="layer layer-${i+1} ${i===3?'side-layer':''}" aria-label="${title}"><div class="layer-head"><span class="layer-number">${num}</span><div><h3>${title}<small>${g.질문.length}갈래</small></h3><p>${description}</p></div></div><div class="column-guide"><span>자료의 내용과 활용 범위</span><span>제공처 수집 화면</span></div>${g.질문.map(row).join('')}</section>`;if(i===3)$('side').innerHTML=html;else $('layers').insertAdjacentHTML('beforeend',(i===2?'<div class="boundary"><span><b>2층과 3층은 아직 연결되지 않습니다</b>사업과 계약을 잇는 공통 열쇠가 없습니다.</span></div>':'')+html)});
+const stageCounts=['있나','받았나','올렸나'].map(k=>GROUPS.flatMap(g=>g.질문).flatMap(q=>q.켜).filter(c=>c[k]).length);
+$('stage-count').textContent=`기존 켜 합계: 제공처 확인 ${stageCounts[0]} · 수집 ${stageCounts[1]} · 화면 ${stageCounts[2]}. 같은 자료를 여러 갈래에서 쓰면 중복해서 센 값이므로, 서로 다른 자료의 개수와는 다릅니다.`;
+const order=['쓴다','받아 둠','따로 받아야','멈춘 자료','아직 안 씀','못 받는다'],totals={},sources={};ALL.forEach(r=>{totals[r.상태]=(totals[r.상태]||0)+1;sources[r.곳]=(sources[r.곳]||0)+1});
+$('total-title').textContent=`· ${ALL.length}개`;$('catalog-sources').textContent=Object.entries(sources).map(([s,n])=>`${s} ${n}개`).join(' · ');
+$('source-filter').insertAdjacentHTML('beforeend',Object.keys(sources).map(s=>`<option value="${esc(s)}">${esc(s)} (${sources[s]})</option>`).join(''));
+let filter='전부';$('filt2').innerHTML=['전부',...order.filter(k=>totals[k])].map(k=>`<button type="button" data-state="${esc(k)}" aria-pressed="${k==='전부'}">${esc(stateLabel(k))} <span>${k==='전부'?ALL.length:totals[k]}</span></button>`).join('');
+function renderAll(){const words=$('q2').value.trim().toLocaleLowerCase('ko-KR').split(/\s+/).filter(Boolean),source=$('source-filter').value;const rows=ALL.filter(r=>(filter==='전부'||r.상태===filter)&&(!source||r.곳===source)&&words.every(w=>[r.이름,r.설명,r.코드,r.갈래,r.곳,r.까닭].join(' ').toLocaleLowerCase('ko-KR').includes(w)));
+$('say2').innerHTML=`전체 <strong>${ALL.length}개</strong> 중 <strong>${rows.length}개</strong> 표시${filter==='전부'&&!source&&!words.length?' · 모든 자료를 펼쳤습니다':''}`;
+$('all').innerHTML=`<caption class="sr-only">전체 자료의 내용, 제공처, 범위와 활용 상태</caption><thead><tr><th scope="col">자료 이름 · 내용</th><th scope="col">제공처</th><th scope="col">확인한 범위</th><th scope="col">활용 상태</th><th scope="col">어디에 쓰나 · 남은 일</th></tr></thead><tbody>${rows.length?rows.map(r=>`<tr data-id="${esc(r.id)}"><td><div class="dataset-title">${esc(r.이름)}</div><div class="dataset-category">${esc(r.갈래)}</div>${r.설명?`<details class="dataset-description"><summary>자료 설명</summary><p>${esc(r.설명)}</p></details>`:''}</td><td>${esc(r.곳)}${r.코드?`<span class="subtext">자료 코드 <code>${esc(r.코드)}</code></span>`:''}</td><td>${esc(r.해||'연도 미확인')}${r.최신?`<span class="subtext">최신 확인 ${esc(r.최신)}년</span>`:''}${r.곳수!=null?`<span class="subtext">${Number(r.곳수).toLocaleString('ko-KR')}곳</span>`:''}</td><td><span class="st ${esc(r.상태.replace(/\s/g,''))}">${esc(stateLabel(r.상태))}</span></td><td>${rich(r.까닭)||'<span class="subtext">활용 여부를 검토할 자료</span>'}</td></tr>`).join(''):'<tr><td colspan="5" class="empty-result">찾은 자료가 없습니다. 검색어를 바꾸거나 ‘초기화’를 눌러 전체 자료를 확인하세요.</td></tr>'}</tbody>`;document.querySelectorAll('#filt2 button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.state===filter)))}
+$('q2').addEventListener('input',renderAll);$('source-filter').addEventListener('change',renderAll);$('filt2').addEventListener('click',e=>{const b=e.target.closest('button');if(b){filter=b.dataset.state;renderAll()}});$('reset-filter').addEventListener('click',()=>{filter='전부';$('q2').value='';$('source-filter').value='';renderAll()});renderAll();
+function changeText(c){const a=c.이전,b=c.현재;if(!a)return '이번 기록에 새로 들어왔습니다.';if(!b)return '지난 기록에 있던 항목이 현재 자료에서 빠졌습니다.';const lines=[];
+if(c.종류==='자료'){[['수집파일','수집 파일'],['화면자료','화면 자료'],['화면파일','화면 파일']].forEach(([k,n])=>{if(JSON.stringify(a[k])!==JSON.stringify(b[k]))lines.push(`${n} ${a[k]?.파일수??0} → ${b[k]?.파일수??0}개${a[k]?.파일수===b[k]?.파일수?' · 내용 변경':''}`)});['범위','규모'].forEach(k=>{if(a[k]!==b[k])lines.push(`${k}: ${a[k]||'없음'} → ${b[k]||'없음'}`)})}
+else{['상태','최신','곳수','해','층','갈래','까닭'].forEach(k=>{if(JSON.stringify(a[k])!==JSON.stringify(b[k]))lines.push(`${k==='상태'?'활용 상태':k}: ${names[a[k]]||stateLabel(a[k])||'없음'} → ${names[b[k]]||stateLabel(b[k])||'없음'}`)});if(c.종류==='갈래'){const old=Object.fromEntries((a.켜||[]).map(v=>[v.열쇠,v]));(b.켜||[]).forEach(v=>[['받았나','수집'],['올렸나','화면'],['있나','제공처']].forEach(([k,n])=>{if(old[v.열쇠]?.[k]!==v[k])lines.push(`${v.열쇠} ${n}: ${old[v.열쇠]?.[k]?'있음':'없음'} → ${v[k]?'있음':'없음'}`)}));if(JSON.stringify(a.칸)!==JSON.stringify(b.칸))lines.push(`항목: ${(a.칸||[]).join(' · ')} → ${(b.칸||[]).join(' · ')}`);if(JSON.stringify(a.제약)!==JSON.stringify(b.제약))lines.push(`제약: ${(a.제약||[]).map(plain).join(' / ')||'없음'} → ${(b.제약||[]).map(plain).join(' / ')||'없음'}`)}if(a.이름!==b.이름)lines.push(`자료명: ${a.이름} → ${b.이름}`)}return lines.join(' / ')||'기록된 내용이 바뀌었습니다.'}
+const events=HISTORY.기록;$('history-stamp').textContent=events.length?`변경 기록 ${events.length}회 · 확인하기 ↓`:'첫 기준 기록 저장 · 다음 변화부터 비교 ↓';
+if(!events.length){$('history').innerHTML=`<div class="history-empty"><span class="history-icon" aria-hidden="true">↻</span><div><h3>오늘 상태를 첫 비교 기준으로 저장했습니다.</h3><p>기준 기록: <b>${esc(date(HISTORY.시작))}</b><br>비교할 이전 기록이 아직 없습니다. 다음에 자료를 추가하거나 갱신한 뒤 이 화면을 다시 만들면, 바뀐 자료 이름과 이전·현재 상태가 여기에 나타납니다.</p><p>같은 자료로 다시 만들면 중복 기록을 쌓지 않습니다. 화면 디자인만 바뀐 경우도 자료 추가로 표시하지 않습니다.</p></div></div>`}
+else{$('history').innerHTML=`<div class="history-select"><label for="history-select">변경 기록</label><select id="history-select">${events.map((e,i)=>`<option value="${i}" ${i===events.length-1?'selected':''}>${i+1}회 · ${esc(date(e.시각))} · ${e.변화.length}항목</option>`).reverse().join('')}</select></div><div id="history-content"></div>`;const renderHistory=()=>{const e=events[Number($('history-select').value)];$('history-content').innerHTML=`<p>${esc(date(e.기준))}의 상태와 비교 · 자료 파일의 변화는 내용이 바뀌었다는 뜻이며, 자료의 품질이 나아졌다는 판정은 아닙니다.</p>${e.기준변경?'<p><b>판정 기준이 달라져 새 비교 기준을 저장했습니다.</b> 이전 기준과의 증감을 계산하지 않습니다.</p>':`<ul class="change-list">${e.변화.map(c=>`<li><span class="kind">${esc(c.종류)} · ${esc(c.변경)}</span><span class="change-name">${esc(c.이름)}</span><p>${esc(changeText(c))}</p>${c.종류==='갈래'&&document.getElementById(c.id)?`<a href="#${esc(c.id)}" style="font-size:12px">해당 갈래 확인 ↑</a>`:''}</li>`).join('')}</ul>`}`};$('history-select').addEventListener('change',renderHistory);renderHistory()}
+$('have-title').textContent=`지금 가진 자료 ${HAVE.length}묶음 · 출처와 수집 범위`;$('have').innerHTML=`<thead><tr><th scope="col">자료와 항목</th><th scope="col">출처</th><th scope="col">언제 · 얼마나</th><th scope="col">원본 위치 · 다시 받기</th></tr></thead><tbody>${HAVE.map(d=>`<tr><td><b>${esc(d.이름)}</b><span class="subtext">${esc((d.칸||[]).join(' · '))}</span></td><td>${esc(d.출처)}</td><td>${esc(d.언제)}<span class="subtext">${esc(d.얼마나)}</span></td><td>${d.어디.map(p=>`<code>${esc(p)}</code>`).join('<br>')}${d.다시?`<p><code>${esc(d.다시)}</code></p>`:''}</td></tr>`).join('')}</tbody>`;
+$('missing-title').textContent=`아직 받지 않은 자료 ${MISSING.length}묶음 · 어디서 막혔나`;$('missing').innerHTML=`<thead><tr><th scope="col">필요한 자료</th><th scope="col">자료 위치</th><th scope="col">막힌 까닭</th><th scope="col">추가되면 보는 항목 · 연결할 갈래</th></tr></thead><tbody>${MISSING.map(m=>`<tr><td><b>${esc(m.이름)}</b></td><td>${rich(m.어디있나)}</td><td>${rich(m.막힘)}</td><td>${esc((m.있으면생기는칸||[]).join(' · '))}<span class="subtext">${esc(m.풀리는질문.join(' · '))}</span></td></tr>`).join('')}</tbody>`;
+$('words-title').textContent=`용어 뜻풀이 ${Object.keys(WORDS).length}개`;$('words').innerHTML=Object.entries(WORDS).map(([k,v])=>`<div class="glossary-item"><b>${esc(k)}</b><p>${rich(v)}</p></div>`).join('');
 </script>
+</body>
+</html>
