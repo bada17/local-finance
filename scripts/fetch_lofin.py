@@ -16,6 +16,8 @@ import time
 import urllib.parse
 import urllib.request
 
+import keys
+
 try:
     sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 except AttributeError:
@@ -28,17 +30,8 @@ UA = ('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
 
 
 def load_key():
-    # 깃허브 액션에서는 Secrets 가 환경변수로 들어온다. 내 PC 에서는 .env 를 읽는다
-    if os.environ.get('LOFIN_KEY'):
-        return os.environ['LOFIN_KEY'].strip()
-    path = os.path.join(ROOT, '.env')
-    if not os.path.exists(path):
-        return ''
-    for line in open(path, encoding='utf-8'):
-        line = line.strip()
-        if line.startswith('LOFIN_KEY='):
-            return line.split('=', 1)[1].strip()
-    return ''
+    # 환경변수 먼저, 그다음 .env. ⚠️ 이름을 바꾸지 말 것 — 다섯 군데가 이걸 가져다 쓴다
+    return keys.키읽기('LOFIN_KEY', 필수=False)
 
 
 def call(code, params, tries=3):

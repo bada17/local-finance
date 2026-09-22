@@ -19,6 +19,8 @@ import sys
 import urllib.parse
 import urllib.request
 
+import keys
+
 try:
     sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 except AttributeError:
@@ -38,17 +40,7 @@ UA = ('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
 
 
 def 키읽기():
-    경로 = os.path.join(ROOT, '.env')
-    if os.path.exists(경로):
-        for 줄 in open(경로, encoding='utf-8'):
-            if 줄.startswith('CLIK_KEY='):
-                값 = 줄.split('=', 1)[1].strip()
-                if 값:
-                    return 값
-    값 = os.environ.get('CLIK_KEY', '').strip()
-    if 값:
-        return 값
-    raise SystemExit('.env 에 CLIK_KEY 가 비어 있다')
+    return keys.키읽기('CLIK_KEY')
 
 
 def 부르기(끝점, 인자):

@@ -43,6 +43,8 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
+import keys
+
 try:
     sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 except AttributeError:
@@ -93,17 +95,8 @@ def 날짜성한가(값):
 
 
 def 키읽기():
-    경로 = os.path.join(ROOT, '.env')
-    if os.path.exists(경로):
-        for 줄 in open(경로, encoding='utf-8'):
-            if 줄.startswith('CLIK_KEY='):
-                값 = 줄.split('=', 1)[1].strip()
-                if 값:
-                    return 값
-    값 = os.environ.get('CLIK_KEY', '').strip()
-    if 값:
-        return 값
-    raise SystemExit('.env 에 CLIK_KEY 가 비어 있다 (깃허브 Secrets 에도 같은 이름으로 넣을 것)')
+    # 환경변수 먼저, 그다음 .env — 깃허브 액션에서는 Secrets 가 환경변수로 온다
+    return keys.키읽기('CLIK_KEY')
 
 
 def 상태읽기():

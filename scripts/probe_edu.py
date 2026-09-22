@@ -21,6 +21,8 @@ import sys
 import urllib.parse
 import urllib.request
 
+import keys
+
 try:
     sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 except AttributeError:
@@ -33,13 +35,8 @@ UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like 
 
 
 def 키읽기():
-    p = os.path.join(ROOT, '.env')
-    for 줄 in open(p, encoding='utf-8'):
-        if 줄.startswith('EDU_ALIMI_KEY='):
-            값 = 줄.split('=', 1)[1].strip()
-            if 값:
-                return 값
-    raise SystemExit('.env 에 EDU_ALIMI_KEY 가 비어 있다')
+    # 환경변수 먼저, 그다음 .env — 깃허브 액션에서는 Secrets 가 환경변수로 온다
+    return keys.키읽기('EDU_ALIMI_KEY')
 
 
 def 부르기(키, 해='', 교육청='', 쪽=1, 개수=100):

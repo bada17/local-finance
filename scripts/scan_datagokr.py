@@ -21,6 +21,8 @@ import time
 import urllib.parse
 import urllib.request
 
+import keys
+
 try:
     sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 except AttributeError:
@@ -86,12 +88,8 @@ def main():
     if os.path.exists(길이름) and not 다시:
         raise SystemExit('이미 있다: data/datagokr_scan.json (다시 만들려면 --다시)')
 
-    키 = ''
-    for 줄 in open(os.path.join(ROOT, '.env'), encoding='utf-8'):
-        if 줄.startswith('DATA_GO_KR_KEY='):
-            키 = 줄.split('=', 1)[1].strip()
-    if not 키:
-        raise SystemExit('.env 에 DATA_GO_KR_KEY 가 비어 있다')
+    # 환경변수 먼저, 그다음 .env — 깃허브 액션에서는 Secrets 가 환경변수로 온다
+    키 = keys.키읽기('DATA_GO_KR_KEY')
 
     모음 = {}
     셈 = []

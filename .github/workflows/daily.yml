@@ -30,6 +30,19 @@ jobs:
         with:
           python-version: '3.12'
 
+      # 어떤 키가 Secrets 에 들어와 있나를 로그에 남긴다. 키 값은 안 찍는다(길이만).
+      # ⚠️ 봇은 .env 를 못 본다 — Secrets 에 없으면 그 수집은 그냥 안 돈다.
+      #    "왜 자료가 안 쌓이지" 를 여기서 바로 알 수 있게 해 둔다.
+      - name: 키 점검
+        env:
+          LOFIN_KEY: ${{ secrets.LOFIN_KEY }}
+          DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}
+          EDU_ALIMI_KEY: ${{ secrets.EDU_ALIMI_KEY }}
+          CLIK_KEY: ${{ secrets.CLIK_KEY }}
+          OPENFISCAL_KEY: ${{ secrets.OPENFISCAL_KEY }}
+        continue-on-error: true
+        run: python scripts/check_keys.py
+
       - name: 받기
         env:
           LOFIN_KEY: ${{ secrets.LOFIN_KEY }}

@@ -18,6 +18,8 @@ import time
 import urllib.parse
 import urllib.request
 
+import keys
+
 try:
     sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 except AttributeError:
@@ -30,12 +32,8 @@ UA = ('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
 
 
 def 키읽기():
-    for 줄 in open(os.path.join(ROOT, '.env'), encoding='utf-8'):
-        if 줄.startswith('DATA_GO_KR_KEY='):
-            값 = 줄.split('=', 1)[1].strip()
-            if 값:
-                return 값
-    raise SystemExit('.env 에 DATA_GO_KR_KEY 가 비어 있다')
+    # 환경변수 먼저, 그다음 .env — 깃허브 액션에서는 Secrets 가 환경변수로 온다
+    return keys.키읽기('DATA_GO_KR_KEY')
 
 
 def 부르기(길, q, 되풀이=4):
