@@ -31,16 +31,16 @@ UA = ('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
 
 # 키 · 무엇에 쓰나 · 이 키로 도는 수집기
 쓰임 = {
-    'LOFIN_KEY': ('지방재정365 146종 — 지표·세출·세입·계약',
+    'LOFIN_KEY': ('[지방재정365 키] 146종 — 지표·세출·세입·계약',
                   'fetch_indicators · fetch_series · fetch_revenue · collect_daily · '
                   'backfill_contracts · build_ongoing'),
-    'DATA_GO_KR_KEY': ('나라장터 계약정보(사업자번호) · 클린아이 · 목록조회',
+    'DATA_GO_KR_KEY': ('[공공데이터포털 키] 나라장터 계약정보(사업자번호) · 클린아이 · 목록조회',
                        'fetch_bizno · fetch_cleaneye · fetch_datagokr_all · scan_datagokr'),
-    'EDU_ALIMI_KEY': ('지방교육재정알리미 — 보조사업자 이름이 나오는 드문 자료',
+    'EDU_ALIMI_KEY': ('[지방교육재정알리미 키] 교육부 — 보조사업자 이름이 나오는 드문 자료',
                       'probe_edu · (수집기는 아직 없다)'),
-    'CLIK_KEY': ('지방의정포털 — 회의록·의안·의원·정책정보',
+    'CLIK_KEY': ('[지방의정포털 키] 국회도서관 — 회의록·의안·의원·정책정보',
                  'fetch_clik · probe_clik'),
-    'OPENFISCAL_KEY': ('열린재정 (기재부) — 중앙정부 총량. 후순위',
+    'OPENFISCAL_KEY': ('[열린재정 키] 기재부 — 중앙정부 총량. 후순위',
                        '(아직 안 쓴다)'),
 }
 
