@@ -1,0 +1,11257 @@
+[
+ {
+  "infId": "SD99XT1IYOFDIZMH2TZ412101476",
+  "name": "ICT 활용교육지원",
+  "service": "opclCTEduSupN",
+  "dsId": "VW_CLSG01080315",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "QMX119GCXE0OML8C13126349459",
+  "name": "ICT활용교육지원",
+  "service": "opbdICTEduSup",
+  "dsId": "VW_BUDG02030335",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "K9583UV721799XE2UGG28407348",
+  "name": "ICT활용교육지원",
+  "service": "opbdICTEduSupN",
+  "dsId": "VW_BUDG02080326",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "ZRRVK4D64Z3EK85N6KOL4381495",
+  "name": "ICT활용교육지원",
+  "service": "opclICTEduSup",
+  "dsId": "VW_CLSG01030335",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "59WFSGT038HHRO9TZK4612136147",
+  "name": "각종체육활동",
+  "service": "opclSpoAct",
+  "dsId": "VW_CLSG01080317",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "FCQLTFLFLJJDKVYD1OD98422961",
+  "name": "각종체육활동",
+  "service": "opbdSpoAct",
+  "dsId": "VW_BUDG02080328",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "77919WZ849S4804S1LX74968640",
+  "name": "감사관리",
+  "service": "opclAudMag",
+  "dsId": "VW_CLSG01031004",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "Q156CRXG7M6A8DUVC73212585841",
+  "name": "감사관리",
+  "service": "opclAudMagN",
+  "dsId": "VW_CLSG01080402",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "79M9E75JRF674V0G5CU16921617",
+  "name": "감사관리",
+  "service": "opbdAudMag",
+  "dsId": "VW_BUDG02031004",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "18M1DCNQ04YVP0VTLR2C8866539",
+  "name": "감사관리",
+  "service": "opbdAudMagN",
+  "dsId": "VW_BUDG02080904",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "GY9FIR625EE9G492D7C14616234",
+  "name": "검정고시관리",
+  "service": "opclQualMag",
+  "dsId": "VW_CLSG01030358",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "MVZ604Q9H9DF460S4SW76575479",
+  "name": "검정고시관리",
+  "service": "opbdQualMag",
+  "dsId": "VW_BUDG02030358",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "YXYLFE3D4335KOW5C32M8817318",
+  "name": "검정고시운영",
+  "service": "opbdQualOp",
+  "dsId": "VW_BUDG02080804",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "QHNQGN90245WJIAP28T812492288",
+  "name": "검정고시운영",
+  "service": "opclQualOp",
+  "dsId": "VW_CLSG01080356",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "J31S536942LT580YCI967064275",
+  "name": "결산관리",
+  "service": "opbdClsgMag",
+  "dsId": "VW_BUDG02031018",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "NELZ9OQ6TOHSD44LECLT8986403",
+  "name": "결산관리",
+  "service": "opbdClsgMagN",
+  "dsId": "VW_BUDG02080916",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "E2IAOB50W7JONRQ02LVN12687817",
+  "name": "결산관리",
+  "service": "opclClsgMagN",
+  "dsId": "VW_CLSG01080414",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "6GN383LA5256K46UZ5065108555",
+  "name": "결산관리",
+  "service": "opclClsgMag",
+  "dsId": "VW_CLSG01031018",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "PBNDCJ9TX8K5HTTR9JEZ7536728",
+  "name": "결산기준 공시보고서",
+  "service": "",
+  "dsId": "",
+  "args": [],
+  "cols": []
+ },
+ {
+  "infId": "ZCV81408876IB4D96AUU7447324",
+  "name": "결산서",
+  "service": "",
+  "dsId": "",
+  "args": [],
+  "cols": []
+ },
+ {
+  "infId": "46II3S5063GAF74URLFF5856261",
+  "name": "계약제교원인건비",
+  "service": "opbdContTeachPay",
+  "dsId": "VW_BUDG02030204",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "5NY4RL8GX29IXM3MSFO612956791",
+  "name": "계약제교원인건비",
+  "service": "opclContTeachPayN",
+  "dsId": "VW_CLSG01081010",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "N82DG1OVP2VMP2VUD2Y83896719",
+  "name": "계약제교원인건비",
+  "service": "opclContTeachPay",
+  "dsId": "VW_CLSG01030204",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "9N2UU829VH54RTKOL0QM9251842",
+  "name": "계약제교원인건비",
+  "service": "opbdContTeachPayN",
+  "dsId": "VW_BUDG02081304",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "X9XVSQHWQFMC5KVAS1939265935",
+  "name": "계약제근로자인건비",
+  "service": "opbdContWokPay",
+  "dsId": "VW_BUDG02081305",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "Z4I9HCO5YTLSG3O4TIHC12949202",
+  "name": "계약제근로자인건비",
+  "service": "opclContWokPay",
+  "dsId": "VW_CLSG01081011",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "MT1VW1ULR07F4UM8BFZ15866680",
+  "name": "계약제직원인건비",
+  "service": "opbdContPay",
+  "dsId": "VW_BUDG02030205",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "AL104U1W4N1B7845A2AM3906692",
+  "name": "계약제직원인건비",
+  "service": "opclContPay",
+  "dsId": "VW_CLSG01030205",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "0GDWMDP2RI0OYK09KDBX12709322",
+  "name": "공유재산및물품관리",
+  "service": "opclPubAssGoodsMagN",
+  "dsId": "VW_CLSG01080501",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "IU32T45090849X0P3RR47084653",
+  "name": "공유재산및물품관리",
+  "service": "opbdPubAssGoodsMag",
+  "dsId": "VW_BUDG02031020",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "GK4GFMNX6XV6D0ASX6DH9006405",
+  "name": "공유재산및물품관리",
+  "service": "opbdPubAssGoodsMagN",
+  "dsId": "VW_BUDG02080918",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "6MV31KO66RT88U8LS7E15125897",
+  "name": "공유재산및물품관리",
+  "service": "opclPubAssGoodsMag",
+  "dsId": "VW_CLSG01031020",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "A4XPJ7IA8057I56619CD6258851",
+  "name": "과학교육과정운영내실화",
+  "service": "opbdSciEduCosOpUp",
+  "dsId": "VW_BUDG02030326",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "C9187QZ5P2DU795LFS234292253",
+  "name": "과학교육과정운영내실화",
+  "service": "opclSciEduCosOpUp",
+  "dsId": "VW_CLSG01030326",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "I810BR3R9B1D85Y4RA044314355",
+  "name": "과학교육여건개선",
+  "service": "opclSciEduConUp",
+  "dsId": "VW_CLSG01030328",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "9XK74FDV0835Y2DKPYT76276709",
+  "name": "과학교육여건개선",
+  "service": "opbdSciEduConUp",
+  "dsId": "VW_BUDG02030328",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "02EH5DZ1ZQFKXW97DJCM6584415",
+  "name": "교과교실제운영지원",
+  "service": "opbdSubClassOpSup",
+  "dsId": "VW_BUDG02030359",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "0V0Q4X90GFZJN86V8LAJ4621884",
+  "name": "교과교실제운영지원",
+  "service": "opclSubClassOpSup",
+  "dsId": "VW_CLSG01030359",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "3G9590IX196DAE06ZXID6107707",
+  "name": "교과교육연구회지원",
+  "service": "opbdSubEduStyGSup",
+  "dsId": "VW_BUDG02030311",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "G01VHV085T11VF6825534149485",
+  "name": "교과교육연구회지원",
+  "service": "opclSubEduStyGSup",
+  "dsId": "VW_CLSG01030311",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "KAV6EQX0VP72K747OJYV12336212",
+  "name": "교과서지원",
+  "service": "opclTextBookSupN",
+  "dsId": "VW_CLSG01080339",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "7V4YGTO7G5R6AS6J7EIW4634554",
+  "name": "교과서지원",
+  "service": "opclTextBookSup",
+  "dsId": "VW_CLSG01030401",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "1371U42T7W84U5T58TW56596424",
+  "name": "교과서지원",
+  "service": "opbdTextBookSup",
+  "dsId": "VW_BUDG02030401",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "PTEA328ULCDJ2QVX8IDE8644826",
+  "name": "교과서지원",
+  "service": "opbdTextBookSupN",
+  "dsId": "VW_BUDG02080412",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "2N68B2L25P23UX8JW41K4067282",
+  "name": "교과자료개발보급",
+  "service": "opclSubMatDevDiff",
+  "dsId": "VW_CLSG01030303",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "68TAH452632BUFA49R736026497",
+  "name": "교과자료개발보급",
+  "service": "opbdSubMatDevDiff",
+  "dsId": "VW_BUDG02030303",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "H9RNG0S89O2BDUV711DT4607741",
+  "name": "교수학습지원센터운영",
+  "service": "opclStuSupCentOp",
+  "dsId": "VW_CLSG01030357",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "WKMOP71O9OE3K2T6VZUB8258533",
+  "name": "교수학습지원센터운영",
+  "service": "opbdStuSupCentOpN",
+  "dsId": "VW_BUDG02080311",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "8F64286A38KZY2A9354B6562915",
+  "name": "교수학습지원센터운영",
+  "service": "opbdStuSupCentOp",
+  "dsId": "VW_BUDG02030357",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "WPA2JH9H9KLHRZH6UAC511938973",
+  "name": "교수학습지원센터운영",
+  "service": "opclStuSupCentOpN",
+  "dsId": "VW_CLSG01080219",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "Q2Q8IDK7X6Y3NJ5FN33411923146",
+  "name": "교실수업개선",
+  "service": "opclClsLessUp",
+  "dsId": "VW_CLSG01080213",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "PHRM1W4WRBROQDX0POR88194808",
+  "name": "교실수업개선",
+  "service": "opbdClsLessUp",
+  "dsId": "VW_BUDG02080305",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "D6S5X2Q5RE42UEJW3AF66057000",
+  "name": "교실수업개선지원",
+  "service": "opbdClsLessUpSup",
+  "dsId": "VW_BUDG02030306",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "599KOL75XAS78H588E334094322",
+  "name": "교실수업개선지원",
+  "service": "opclClsLessUpSup",
+  "dsId": "VW_CLSG01030306",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "PWMXENK5GV867UH41AHM11829055",
+  "name": "교원연수운영",
+  "service": "opclTeachTraOpN",
+  "dsId": "VW_CLSG01080201",
+  "args": [
+   "기준년도회계연도"
+  ],
+  "cols": [
+   "기준년도회계연도",
+   "지역구분",
+   "항목구분",
+   "금액"
+  ]
+ },
+ {
+  "infId": "ROL2F39L6BT94BFIYN6710528655",
+  "name": "교원연수운영",
+  "service": "",
+  "dsId": "",
+  "args": [],
+  "cols": []
+ },
+ {
+  "infId": "V7AH94X3E2PD0912V4293922819",
+  "name": "교원연수운영",
+  "service": "opclTeachTraOp",
+  "dsId": "VW_CLSG01030207",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "IMDXR5P5J1OCU94UY81C5883388",
+  "name": "교원연수운영",
+  "service": "opbdTeachTraOp",
+  "dsId": "VW_BUDG02030207",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "9D8NMOCM2DR8VM137KZ58076156",
+  "name": "교원연수운영",
+  "service": "opbdTeachTraOpN",
+  "dsId": "VW_BUDG02080201",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "Q380F0TP8V2Y316F278Y3912645",
+  "name": "교원연수지원",
+  "service": "opclTeachTraSup",
+  "dsId": "VW_CLSG01030206",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "WC79V3IIB2356F6AFBUE5878934",
+  "name": "교원연수지원",
+  "service": "opbdTeachTraSup",
+  "dsId": "VW_BUDG02030206",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "3IOK2GEDZUC4YIECITFS12988966",
+  "name": "교원인건비",
+  "service": "opclscheLLABOCSN",
+  "dsId": "VW_CLSG01081007",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "6H073H0NU8BNHQMF3LIZ9223865",
+  "name": "교원인건비",
+  "service": "opbdscheLLABOCSN",
+  "dsId": "VW_BUDG02081301",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "00FS24DWN6FWM1ABYR9Y5822543",
+  "name": "교원인건비",
+  "service": "opbdscheLLABOCS",
+  "dsId": "VW_BUDG02030201",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "CE3G9P921H87X4639YD73864335",
+  "name": "교원인건비",
+  "service": "opclscheLLABOCS",
+  "dsId": "VW_CLSG01030201",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "7DG2M27I68P42G406P8Q3966031",
+  "name": "교원인사관리",
+  "service": "opclTeachHRMag",
+  "dsId": "VW_CLSG01030211",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "GF7EH0XMO2ED3F2WODDH10559418",
+  "name": "교원인사관리",
+  "service": "opclTeachHRMagN",
+  "dsId": "VW_CLSG01080204",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "45Y9VB7Z2903S4405RL05928326",
+  "name": "교원인사관리",
+  "service": "opbdTeachHRMag",
+  "dsId": "VW_BUDG02030211",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "SJRGFL0MK6K1MYMZ9MIT8102188",
+  "name": "교원인사관리",
+  "service": "opbdTeachHRMagN",
+  "dsId": "VW_BUDG02080204",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "CPPOJA247Z2Q173140PI5917305",
+  "name": "교원임용관리",
+  "service": "opbdTeachAppMag",
+  "dsId": "VW_BUDG02030210",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "OP1RJ757Z632O9T1K0973955502",
+  "name": "교원임용관리",
+  "service": "opclTeachAppMag",
+  "dsId": "VW_CLSG01030210",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "UQ6STOS0NMNYTJ4KL3619272487",
+  "name": "교육공무직원인건비",
+  "service": "opbdDelngFourBN",
+  "dsId": "VW_BUDG02081306",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "UCQL984MF273EJR92NGC8029627",
+  "name": "교육공무직원인건비",
+  "service": "opbdDelngFourB",
+  "dsId": "VW_BUDG02030219",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "600JZ4ED62ZSFFVJDR4H10491015",
+  "name": "교육공무직원인건비",
+  "service": "innerDelngFourB",
+  "dsId": "VW_CLSG01030219",
+  "args": [
+   "회계연도",
+   "지역구분코드"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "자료구분",
+   "단위구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분코드",
+   "항목구분코드"
+  ]
+ },
+ {
+  "infId": "RP8165SSGKU5LYP1P3GV12937593",
+  "name": "교육공무직원인건비",
+  "service": "opclDelngFourBN",
+  "dsId": "VW_CLSG01081012",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "3HWW6CGJX0S6HQ8SB8L84045242",
+  "name": "교육과정운영",
+  "service": "opclEduCosOp",
+  "dsId": "VW_CLSG01030301",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "H53VV0R31G5PQ32893696009663",
+  "name": "교육과정운영",
+  "service": "opbdEduCosOp",
+  "dsId": "VW_BUDG02030301",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "VRWQG18JWKS4J6HF6KXY11862574",
+  "name": "교육과정운영여건개선",
+  "service": "opclEduCosOpUp",
+  "dsId": "VW_CLSG01080212",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "DVPUDTUFDYNKY53SB4PW8183580",
+  "name": "교육과정운영여건개선",
+  "service": "opbdEduCosOpUp",
+  "dsId": "VW_BUDG02080304",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "LBGL2CMLF07228F7KBFP8156307",
+  "name": "교육과정운영지원",
+  "service": "opbdEduCosOpSup",
+  "dsId": "VW_BUDG02080301",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "O9FTM00EQ2VFBLXCOIG411894675",
+  "name": "교육과정운영지원",
+  "service": "opclEduCosOpSup",
+  "dsId": "VW_CLSG01080209",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "CX7W7DKE0QTSI6NSPZNK7477121",
+  "name": "교육급여지원",
+  "service": "opBudgEduPaySup",
+  "dsId": "VW_BUDG02031303",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "YCP0G8I4OU7PSLGIU25Z13017517",
+  "name": "교육급여지원",
+  "service": "",
+  "dsId": "",
+  "args": [],
+  "cols": []
+ },
+ {
+  "infId": "86EN0WYTZV0KF48KOQI712246104",
+  "name": "교육급여지원",
+  "service": "opclEduPaySupN",
+  "dsId": "VW_CLSG01080329",
+  "args": [
+   "기준년도"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액"
+  ]
+ },
+ {
+  "infId": "7CDYA7QHRV1Y1PLUNRPW8546234",
+  "name": "교육급여지원",
+  "service": "opBudgEduPaySupN",
+  "dsId": "VW_BUDG02080402",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "42Y0G1KN2J2YG89IK7Q96717663",
+  "name": "교육복지우선지원",
+  "service": "opbdEduWelPreSup",
+  "dsId": "VW_BUDG02030413",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "MH6P816TI6PY2WC26MHB4757590",
+  "name": "교육복지우선지원",
+  "service": "opclEduWelPreSup",
+  "dsId": "VW_CLSG01030413",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "NOPZLAGSKMKGRDK9S73112377901",
+  "name": "교육복지우선지원",
+  "service": "opclEduWelPreSupN",
+  "dsId": "VW_CLSG01080335",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "MUDK6UZBTOCTDOH02XPJ8604318",
+  "name": "교육복지우선지원",
+  "service": "opbdEduWelPreSupN",
+  "dsId": "VW_BUDG02080408",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "K8XXKO6O7YUW3IBH0QDK8532270",
+  "name": "교육비지원",
+  "service": "opbdeduMonSup",
+  "dsId": "VW_BUDG02080401",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "JHMLP86JDN4COUXEPRIF12251824",
+  "name": "교육비지원",
+  "service": "opcleduMonSup",
+  "dsId": "VW_CLSG01080328",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "BUNQL3M6LV7X4KB401L99153197",
+  "name": "교육비특별회계전출금",
+  "service": "opbdEduSpeFudTrn",
+  "dsId": "VW_BUDG02081104",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "7VQAH02II65D0A0R706512899044",
+  "name": "교육비특별회계전출금",
+  "service": "opclEduSpeFudTrn",
+  "dsId": "VW_CLSG01080901",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "I1ZF2QDBDXZ0AUVUEZI18247455",
+  "name": "교육연구운영지원",
+  "service": "opbdEduStyOpSupN",
+  "dsId": "VW_BUDG02080310",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "D8WAJW36NOTLI2QK32QP11948647",
+  "name": "교육연구운영지원",
+  "service": "opclEduStyOpSupN",
+  "dsId": "VW_CLSG01080218",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "KC747R9E9FU44OER14UD4598306",
+  "name": "교육연구운영지원",
+  "service": "opclEduStyOpSup",
+  "dsId": "VW_CLSG01030356",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "0F2GC5R276K4D4363XEU6554901",
+  "name": "교육연구운영지원",
+  "service": "opbdEduStyOpSup",
+  "dsId": "VW_BUDG02030356",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "GG4UFFSXPBZACLRDZN688164739",
+  "name": "교육자료개발보급",
+  "service": "eduDelopSup",
+  "dsId": "VW_BUDG02080302",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "B2U7HBTW6ZKAT5JFO0CQ11884089",
+  "name": "교육자료개발보급",
+  "service": "educlDelopSup",
+  "dsId": "VW_CLSG01080210",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "57QU3ZGHZDOTY1BDCKD412966350",
+  "name": "교육전문직원인건비",
+  "service": "opclEduProPayN",
+  "dsId": "VW_CLSG01081009",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "N21Z564FSZPW86YSF4H65844215",
+  "name": "교육전문직원인건비",
+  "service": "opbdEduProPay",
+  "dsId": "VW_BUDG02030203",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "1938HP3439624198TTM63887427",
+  "name": "교육전문직원인건비",
+  "service": "opclEduProPay",
+  "dsId": "VW_CLSG01030203",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "UC894OMASB12IG4KJU329242148",
+  "name": "교육전문직원인건비",
+  "service": "opbdEduProPayN",
+  "dsId": "VW_BUDG02081303",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "DLP4ETFVF84G0YONGGPC12566706",
+  "name": "교육정책기획관리",
+  "service": "opclEduPolicyDirMagN",
+  "dsId": "VW_CLSG01080358",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "2544I986LCCH1P65O3O46897517",
+  "name": "교육정책기획관리",
+  "service": "opbdEduPolicyDirMag",
+  "dsId": "VW_BUDG02031001",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "W2AT0U5S4O09H04502B14936679",
+  "name": "교육정책기획관리",
+  "service": "opclEduPolicyDirMag",
+  "dsId": "VW_CLSG01031001",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "C3D1W5XRDL826ETEUAJE8837188",
+  "name": "교육정책기획관리",
+  "service": "opbdEduPolicyDirMagN",
+  "dsId": "VW_BUDG02080901",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "QZY2E7C95NBIFMGVP3DW8847918",
+  "name": "교육정책홍보",
+  "service": "opbdEduPolicyPRN",
+  "dsId": "VW_BUDG02080902",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "XWUVA3P87LFCLS9P6DR312551541",
+  "name": "교육정책홍보",
+  "service": "opclEduPolicyPRN",
+  "dsId": "VW_CLSG01080359",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "YX9V0VA5SKF9L2U2C75W4954137",
+  "name": "교육정책홍보",
+  "service": "opclEduPolicyPR",
+  "dsId": "VW_CLSG01031003",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "759WZ1CDM5LG013H1G826911780",
+  "name": "교육정책홍보",
+  "service": "opbdEduPolicyPR",
+  "dsId": "VW_BUDG02031003",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "F65W6VJXP66FY9MBE1C55247372",
+  "name": "교육지원청시설관리",
+  "service": "opclLoEduOffFacMag",
+  "dsId": "VW_CLSG01031105",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "A2X10A15SSO1354LAE377209834",
+  "name": "교육지원청시설관리",
+  "service": "opbdLoEduOffFacMag",
+  "dsId": "VW_BUDG02031105",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "304F537PR2A2X34U6U155217821",
+  "name": "교육지원청운영",
+  "service": "opclLoEduOffOp",
+  "dsId": "VW_CLSG01031102",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "0131E2PZ575ZIPWE884T7172137",
+  "name": "교육지원청운영",
+  "service": "opbdLoEduOffOp",
+  "dsId": "VW_BUDG02031102",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "BR1R8GCUHGJ3M966EB8412657656",
+  "name": "교육행정기록물관리",
+  "service": "opclEduAdmRecMagN",
+  "dsId": "VW_CLSG01080411",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "A4B371V803KZE85OW6Y25056460",
+  "name": "교육행정기록물관리",
+  "service": "opclEduAdmRecMag",
+  "dsId": "VW_CLSG01031013",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "O8X9BQ47QLPJ2SR35GHP7015157",
+  "name": "교육행정기록물관리",
+  "service": "opbdEduAdmRecMag",
+  "dsId": "VW_BUDG02031013",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "WCESDU35F6X04EJWZFZ18957925",
+  "name": "교육행정기록물관리",
+  "service": "opbdEduAdmRecMagN",
+  "dsId": "VW_BUDG02080913",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "7FBH55V8K19C4A6N987G6998466",
+  "name": "교육행정정보시스템운영",
+  "service": "opbdEduAdmInfoSysOp",
+  "dsId": "VW_BUDG02031011",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "8NGZA44WJEZZTY3Z2SG612677775",
+  "name": "교육행정정보시스템운영",
+  "service": "opclEduAdmInfoSysOpN",
+  "dsId": "VW_CLSG01080409",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "3HBTGE2N6K189HSV993D5039655",
+  "name": "교육행정정보시스템운영",
+  "service": "opclEduAdmInfoSysOp",
+  "dsId": "VW_CLSG01031011",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "CQ9NJBBW96LM574O34638939597",
+  "name": "교육행정정보시스템운영",
+  "service": "opbdEduAdmInfoSysOpN",
+  "dsId": "VW_BUDG02080911",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "EGX8X0IHJ7WSLLQZQPJZ12763042",
+  "name": "교육협력관리",
+  "service": "opclEduCoopMag",
+  "dsId": "VW_CLSG01080506",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "GFIXG9M7JSOWB5ZYZ8QL9057957",
+  "name": "교육협력관리",
+  "service": "opbdEduCoopMag",
+  "dsId": "VW_BUDG02080923",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "J0LHR2IQ4YUN867VIYR49095876",
+  "name": "교직원단체관리",
+  "service": "opbdTeachOrgMagN",
+  "dsId": "VW_BUDG02080927",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "75JL4738J58UU2RVR5IM5989478",
+  "name": "교직원단체관리",
+  "service": "opbdTeachOrgMag",
+  "dsId": "VW_BUDG02030217",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "273M3XZD1X55DI5GC5234024573",
+  "name": "교직원단체관리",
+  "service": "opclTeachOrgMag",
+  "dsId": "VW_CLSG01030217",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "GT7R4PJ8032LDOMEYALB12803859",
+  "name": "교직원단체관리",
+  "service": "opclTeachOrgMagN",
+  "dsId": "VW_CLSG01080604",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "S55MSPYPXEFX3VV8SD645978187",
+  "name": "교직원복지대여",
+  "service": "opbdTeachWelRent",
+  "dsId": "VW_BUDG02030216",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "77R1KD1CONIP1BC5KLUE4012076",
+  "name": "교직원복지대여",
+  "service": "opclTeachWelRent",
+  "dsId": "VW_CLSG01030216",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "X8QQ8X77AYU457V55MC35964912",
+  "name": "교직원복지지원",
+  "service": "opbdTeacWelfareSup",
+  "dsId": "VW_BUDG02030215",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "2JGYZAO16Y414FQLHV5D11852214",
+  "name": "교직원복지지원",
+  "service": "opclTeacWelfareSupN",
+  "dsId": "VW_CLSG01080208",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "KH7P237V74367A6172RZ4007933",
+  "name": "교직원복지지원",
+  "service": "opclTeacWelfareSup",
+  "dsId": "VW_CLSG01030215",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "7YHIJ053MB9E319BKE8S5181998",
+  "name": "국제교육문화교류협력지원",
+  "service": "opclIntEduCulExcCoopSup",
+  "dsId": "VW_CLSG01031026",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "7R6KHOHEOGCA5XA3I7DC12753652",
+  "name": "국제교육문화교류협력지원",
+  "service": "opclIntEduCulExcCoopSupN",
+  "dsId": "VW_CLSG01080601",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "3Y80D9JL6Y07QKD0X35K7147261",
+  "name": "국제교육문화교류협력지원",
+  "service": "opbdIntEduCulExcCoopSup",
+  "dsId": "VW_BUDG02031026",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "JXU3K0CO5GBERDIMQR3Y9066609",
+  "name": "국제교육문화교류협력지원",
+  "service": "opbdIntEduCulExcCoopSupN",
+  "dsId": "VW_BUDG02080924",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "OBN1F1YHRV83RU2PJ8DL10548925",
+  "name": "근로자연수운영",
+  "service": "",
+  "dsId": "",
+  "args": [],
+  "cols": []
+ },
+ {
+  "infId": "4DAV33DPRNVGVNPX6KFD11815402",
+  "name": "근로자연수운영",
+  "service": "clsWorkertrnOp",
+  "dsId": "VW_CLSG01080203",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "R4RQ8VFYT6KPYMMGB4LH8097562",
+  "name": "근로자연수운영",
+  "service": "WorkertrnOp",
+  "dsId": "VW_BUDG02080203",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "I0GJY46VHKKP2521UW0H11778397",
+  "name": "근로자인사관리",
+  "service": "clsHrmVIIN",
+  "dsId": "VW_CLSG01080207",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "LVL0YMQZRVJNIEU65QZL7949863",
+  "name": "금고 지정현황",
+  "service": "opclStrbxAppt",
+  "dsId": "VW_CLSG03100101",
+  "args": [
+   "회계년도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계년도",
+   "지역구분",
+   "지역구분",
+   "은행명",
+   "금고지정방법명",
+   "약정기간",
+   "약정체결일자",
+   "수의계약사유"
+  ]
+ },
+ {
+  "infId": "7I27Q1UNI982AEW43WLW12368704",
+  "name": "급식비지원",
+  "service": "opclLunchMonSup",
+  "dsId": "VW_CLSG01080336",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "R6AE8RTNG0AOV020C7BM8615304",
+  "name": "급식비지원",
+  "service": "opbdLunchMonSup",
+  "dsId": "VW_BUDG02080409",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "NGVR4RE4UGKKUFHTV7ZE9103032",
+  "name": "기관기본운영비",
+  "service": "opbdInstBasOp",
+  "dsId": "VW_BUDG02081001",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "P7U3GRGWNQ8R9CDDAXS112812191",
+  "name": "기관기본운영비",
+  "service": "opclInstBasOp",
+  "dsId": "VW_CLSG01080701",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "CFCZV2W87XUUQN5CB1JE8889019",
+  "name": "기관및학교평가관리",
+  "service": "opbdOrgATestMan",
+  "dsId": "VW_BUDG02080906",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "EUM1E60WDX89WP3RW3B312611291",
+  "name": "기관및학교평가관리",
+  "service": "opclOrgATestMan",
+  "dsId": "VW_CLSG01080404",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "P0F502HRF8T0XVDNYBHW13008640",
+  "name": "기관시설유지관리",
+  "service": "opclInstFacMag",
+  "dsId": "VW_CLSG01080702",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "2Q7NPWT2EEKPRKASJ39K9114901",
+  "name": "기관시설유지관리",
+  "service": "opbdInstFacMag",
+  "dsId": "VW_BUDG02081002",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "8D97279Q1RWJ0A2U8GQ76933196",
+  "name": "기관평가",
+  "service": "opbdOrgTest",
+  "dsId": "VW_BUDG02031005",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "6MSWZ9P902343M7Z74ES4977719",
+  "name": "기관평가",
+  "service": "opclOrgTest",
+  "dsId": "VW_CLSG01031005",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "75H8N802O00SM0991S0Z7364633",
+  "name": "기금",
+  "service": "opbdFund",
+  "dsId": "VW_BUDG02060101",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "AOL86VXXD74IUWQAAZE87704440",
+  "name": "기금 연도별 현황",
+  "service": "opclInstStatus",
+  "dsId": "VW_CLSG01070101_003",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "구분",
+   "근거법규",
+   "설치목적",
+   "설치년도",
+   "운용관서",
+   "재원조달",
+   "현재액(원)",
+   "기금보관상황"
+  ]
+ },
+ {
+  "infId": "RIX8QKYCVP6BKW0RHFKS7694109",
+  "name": "기금 조성 세부 명세서",
+  "service": "opclFundMngYear",
+  "dsId": "VW_CLSG01070101_002",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "구분",
+   "전년도금액(A)(원)",
+   "증감액(B=C-D)(원)",
+   "조성액(C)(원)",
+   "사용액(D)(원)",
+   "현재액(A+B)(원)",
+   "일몰기간"
+  ]
+ },
+ {
+  "infId": "LUG3WZGYCLB9PYPG2AA77686089",
+  "name": "기금 조성 총괄",
+  "service": "opclCurrYearAmt",
+  "dsId": "VW_CLSG01070101_001",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "기금코드",
+   "기금명",
+   "금액(원)"
+  ]
+ },
+ {
+  "infId": "J9HG14PFY4FUVKVH9PMQ7577114",
+  "name": "기금운용계획",
+  "service": "",
+  "dsId": "",
+  "args": [],
+  "cols": []
+ },
+ {
+  "infId": "HQ8YSD9AKGV0OP64ZY209163418",
+  "name": "기금전출금",
+  "service": "opbdFudTraf",
+  "dsId": "VW_BUDG02081105",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "BZ5ZL5LUGZD07A4YI6W512884515",
+  "name": "기금전출금",
+  "service": "opclFudTraf",
+  "dsId": "VW_CLSG01081001",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "GRYVT23G2CRUGSGVGMRN13095499",
+  "name": "기금전출금 비율",
+  "service": "clsFundRate",
+  "dsId": "VW_CLSG04080101",
+  "args": [
+   "회계연도",
+   "지역구분코드"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분코드",
+   "지역구분",
+   "기금명",
+   "기금전출금 결산액",
+   "세출결산 총액",
+   "기금전출금 비율",
+   "전출 근거"
+  ]
+ },
+ {
+  "infId": "AUNO1TCQ9J8OUNW575635819236",
+  "name": "기능별·정책사업별",
+  "service": "opbdfnctByPoli",
+  "dsId": "VW_BUDG02030101",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "6Q9QP2SEOP5R7IEMS68W3855783",
+  "name": "기능별·정책사업별",
+  "service": "opclfnctByPoli",
+  "dsId": "VW_CLSG01030101",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "P29F9MA5L4YRYOXYGJ3J12292229",
+  "name": "기숙형학교운영",
+  "service": "opclDormSchOp",
+  "dsId": "VW_CLSG01080334",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "WQ6R8CML645VMP97Q6J28599651",
+  "name": "기숙형학교운영",
+  "service": "opbdDormSchOp",
+  "dsId": "VW_BUDG02080407",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "7065G9AKWR2QOG7817VS4744005",
+  "name": "기숙형학교지원",
+  "service": "opclDormSchSup",
+  "dsId": "VW_CLSG01030412",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "FC52829O9H34S3NZ1XCO6704302",
+  "name": "기숙형학교지원",
+  "service": "opbdDormSchSup",
+  "dsId": "VW_BUDG02030412",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "Q4ZG1THMDMCCAVWICQKF8661893",
+  "name": "기타교육복지지원",
+  "service": "opbdEtceduSup",
+  "dsId": "VW_BUDG02080414",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "AK7BB6HHETTSTEK1FLK712312029",
+  "name": "기타교육복지지원",
+  "service": "opclEtceduSup",
+  "dsId": "VW_CLSG01080341",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "MTITT8SU5L102O98705S4664815",
+  "name": "기타교육비지원",
+  "service": "opclEtceduMonSup",
+  "dsId": "VW_CLSG01030404",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "7OU9X3M250TD0JZ1285K6625193",
+  "name": "기타교육비지원",
+  "service": "opbdEtceduMonSup",
+  "dsId": "VW_BUDG02030404",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "NATAZ0K6QAJYCJ5A03XR7993834",
+  "name": "내부거래",
+  "service": "innerDelngTrd",
+  "dsId": "VW_BUDG02020405",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "6EKQM3M85S6LZZ0KOE5F8036357",
+  "name": "내부거래",
+  "service": "innerDelngTrdN",
+  "dsId": "VW_CLSG01020501",
+  "args": [
+   "회계연도",
+   "지역구분코드"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "자료구분",
+   "금액(원)",
+   "지역구분코드"
+  ]
+ },
+ {
+  "infId": "P28WC5TXUX7KVP3STCCB8048167",
+  "name": "내부거래",
+  "service": "clsInTrad",
+  "dsId": "VW_CLSG01040901",
+  "args": [
+   "회계연도"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "자료구분",
+   "금액(원)"
+  ]
+ },
+ {
+  "infId": "O44ST1YZR2AS9VDTTS4D8006433",
+  "name": "내부거래",
+  "service": "innerDelngTrdn",
+  "dsId": "VW_BUDG02040901",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "0SQIFYEWLN3QP6Q1W76O12909382",
+  "name": "내부유보금",
+  "service": "opClsgInRsvMnyN",
+  "dsId": "VW_CLSG01081006",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "3Q17C3C9JE84VCKX9NQ49219564",
+  "name": "내부유보금",
+  "service": "opBudgInRsvMnyN",
+  "dsId": "VW_BUDG02081203",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "M20EAS2ZCKPU79EDY7U411788576",
+  "name": "내부유보금",
+  "service": "opclRetaAmt",
+  "dsId": "VW_CLSG01031303",
+  "args": [
+   "회계년도",
+   "지역구분코드"
+  ],
+  "cols": [
+   "회계년도",
+   "지역구분",
+   "항목구분",
+   "자료구분",
+   "금액",
+   "지역구분코드"
+  ]
+ },
+ {
+  "infId": "FU04U4YOR4A6BVYTBUWD7481719",
+  "name": "내부유보금",
+  "service": "opBudgInRsvMny",
+  "dsId": "VW_BUDG02031304",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "HC9SZ02C2AXYIWK3YXJE8582393",
+  "name": "농어촌학교교육활성화",
+  "service": "opbdFarmVilSchEduVit",
+  "dsId": "VW_BUDG02080406",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "LSGNDRLETNBU41FE1AE312309574",
+  "name": "농어촌학교교육활성화",
+  "service": "opclFarmVilSchEduVit",
+  "dsId": "VW_CLSG01080333",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "6ZWIBD51VMNJCR5440W76699851",
+  "name": "농어촌학교교육활성화지원",
+  "service": "opbdFarmVilSchEduVitSup",
+  "dsId": "VW_BUDG02030411",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "VO8MR82183F71PT3N0534732545",
+  "name": "농어촌학교교육활성화지원",
+  "service": "opclFarmVilSchEduVitSup",
+  "dsId": "VW_CLSG01030411",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "880057ERD0Y983L596545518694",
+  "name": "누리과정",
+  "service": "opclNuriCos",
+  "dsId": "VW_CLSG03010101",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "6A07EPLG48G3223XKP636727255",
+  "name": "누리과정지원",
+  "service": "opbdNuriCosSup",
+  "dsId": "VW_BUDG02030414",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "EQBDUZUSTTQ301S07GQ212345619",
+  "name": "누리과정지원",
+  "service": "opclNuriCosSupN",
+  "dsId": "VW_CLSG01080338",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "8Y951AY7X0DO50TH66Q34764821",
+  "name": "누리과정지원",
+  "service": "opclNuriCosSup",
+  "dsId": "VW_CLSG01030414",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "E58XOM2HMBCCRHT8B5UL8634917",
+  "name": "누리과정지원",
+  "service": "opbgNuriCosSupN",
+  "dsId": "VW_BUDG02080411",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "MWO671RCTT4G986NTM5L13162647",
+  "name": "늘봄학교운영",
+  "service": "opbdAllScOp",
+  "dsId": "VW_BUDG02081307",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "S63KOLHXGT5DM1Z7Y8CU8656903",
+  "name": "다문화및북한이탈주민등자녀교육지원",
+  "service": "opbdCultNKEscSonEduSupN",
+  "dsId": "VW_BUDG02080413",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "6L887DJ980021C6L5RWG4455818",
+  "name": "다문화및북한이탈주민등자녀교육지원",
+  "service": "opclCultNKEscSonEduSup",
+  "dsId": "VW_CLSG01030342",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "9WIAA9Y8QG8LT83KEAEF12325517",
+  "name": "다문화및북한이탈주민등자녀교육지원",
+  "service": "opclCultNKEscSonEduSupN",
+  "dsId": "VW_CLSG01080340",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "5V55HZ899Q4U8J6415906415776",
+  "name": "다문화및북한이탈주민등자녀교육지원",
+  "service": "opbdCultNKEscSonEduSup",
+  "dsId": "VW_BUDG02030342",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "KFXFNY8HHUJHVWFP1RJD12206664",
+  "name": "대안교육운영",
+  "service": "opclAltEduOp",
+  "dsId": "VW_CLSG01080324",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "PEM8YW187I65IPNSFDH38497681",
+  "name": "대안교육운영",
+  "service": "opbdAltEduOp",
+  "dsId": "VW_BUDG02080335",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "6K4282RHMV74Z58M2Q4S4518489",
+  "name": "대안교육운영지원",
+  "service": "opclAltEduOpSup",
+  "dsId": "VW_CLSG01030348",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "96PU9I1GRQT7U0I69MZ26478902",
+  "name": "대안교육운영지원",
+  "service": "opbdAltEduOpSup",
+  "dsId": "VW_BUDG02030348",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "33C0LBXM43OUB52U851Y6908140",
+  "name": "대외교육협력관리",
+  "service": "opbdForEduCoopMag",
+  "dsId": "VW_BUDG02031002",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "J558J7A9105T5DP15RV74945386",
+  "name": "대외교육협력관리",
+  "service": "opclForEduCoopMag",
+  "dsId": "VW_CLSG01031002",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "L7LYM1D8ZOQ8RLN0PWCZ12221103",
+  "name": "대학수학능력시험",
+  "service": "opclCollStuAbTestN",
+  "dsId": "VW_CLSG01080327",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "AHT9CC05RI2991S7KP856545887",
+  "name": "대학수학능력시험",
+  "service": "opbdCollStuAbTest",
+  "dsId": "VW_BUDG02030355",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "O4X2J4GFAZVR8B4LB89W4587510",
+  "name": "대학수학능력시험",
+  "service": "opclCollStuAbTest",
+  "dsId": "VW_CLSG01030355",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "LMURKIVTTUEGBXLSU3GJ8529863",
+  "name": "대학수학능력시험",
+  "service": "opbgCollStuAbTestN",
+  "dsId": "VW_BUDG02080338",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "7341YLLNGREF6A5BH63F12536034",
+  "name": "도서관운영",
+  "service": "opclLibOp",
+  "dsId": "VW_CLSG01080357",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "7ACTXGL83SJX84H48DI68825311",
+  "name": "도서관운영",
+  "service": "opbdLibOp",
+  "dsId": "VW_BUDG02080805",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "YS2V0G3UN72VQIQL38WA4914006",
+  "name": "도서관운영지원",
+  "service": "opclLibOpSup",
+  "dsId": "VW_CLSG01030803",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "0OHPHXJFKB9V3GHC50996874155",
+  "name": "도서관운영지원",
+  "service": "opbdLibOpSup",
+  "dsId": "VW_BUDG02030806",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "8O1SZK0WEMVF48G7QINI12061244",
+  "name": "독서논술교육운영",
+  "service": "opclReadEssEduVitOp",
+  "dsId": "VW_CLSG01080309",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "GQVU2HZOMHCD1KUSXGOI8341529",
+  "name": "독서논술교육운영",
+  "service": "opbdReadEssEduVitOp",
+  "dsId": "VW_BUDG02080320",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "02RF7U1KEM06Y9PL2AE84254542",
+  "name": "독서논술교육활성화",
+  "service": "opclReadEssEduVit",
+  "dsId": "VW_CLSG01030322",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "OTLZ30956FKL1V7Y09R46216550",
+  "name": "독서논술교육활성화",
+  "service": "opbdReadEssEduVit",
+  "dsId": "VW_BUDG02030322",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "4OBWN4Z3LE5Y3IHXN0RB8573614",
+  "name": "돌봄교실운영",
+  "service": "opbdCaeClassOp",
+  "dsId": "VW_BUDG02080405",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "39PKAFOV7LLQPAPE3HWK12261996",
+  "name": "돌봄교실운영",
+  "service": "opclCaeClassOp",
+  "dsId": "VW_CLSG01080332",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "TU96BS2CT4WM8Y0402KM6305198",
+  "name": "마이스터고운영지원",
+  "service": "opbdMstHiSchOpSup",
+  "dsId": "VW_BUDG02030331",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "9W9D1637Z5E2T2765O9Q4347469",
+  "name": "마이스터고운영지원",
+  "service": "opclMstHiSchOpSup",
+  "dsId": "VW_CLSG01030331",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "1ABQ16385266013Z1H065528923",
+  "name": "무상급식",
+  "service": "opclFreeChgLunch",
+  "dsId": "VW_CLSG03020101",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "7JJ95848P8D460H0E5SG8411395",
+  "name": "문화예술교육활동",
+  "service": "opbdCulArtEduAct",
+  "dsId": "VW_BUDG02080327",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "RITL0D7TY7DZN5PJQVWI12142709",
+  "name": "문화예술교육활동",
+  "service": "opclCulArtEduAct",
+  "dsId": "VW_CLSG01080316",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "E6NNC7B2Z13932J3Q7134445499",
+  "name": "문화예술교육활성화",
+  "service": "opclCulArtEduVit",
+  "dsId": "VW_CLSG01030341",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "X1KBG9X53QNO7TMIQ1376408405",
+  "name": "문화예술교육활성화",
+  "service": "opbdCulArtEduVit",
+  "dsId": "VW_BUDG02030341",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "N8M1HVR1T192Q3L418E07301693",
+  "name": "물건비",
+  "service": "opbdThingMon",
+  "dsId": "VW_BUDG02040301",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "V15RI700U9QSBH04S3235321956",
+  "name": "물건비",
+  "service": "opclThingMon",
+  "dsId": "VW_CLSG01040301",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "K0F7FW6I1JQOR2SUOILC7817247",
+  "name": "물품",
+  "service": "opclPubGoods",
+  "dsId": "VW_CLSG03080401",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "1W73B677K2JT286DP8545469984",
+  "name": "민간투자사업(BTL)",
+  "service": "opclPriInvstBizBTL",
+  "dsId": "VW_CLSG02020301",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "신설 추진 학교수(개)",
+   "증 개축등 추진 학교수(개)",
+   "사업비(원)",
+   "상환액(원)",
+   "상환예정액(원)"
+  ]
+ },
+ {
+  "infId": "0YIG6LO7L39XEJ7IXDT512848303",
+  "name": "민간투자사업상환",
+  "service": "opclPriInvstBizRepayN",
+  "dsId": "VW_CLSG01080802",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "22HF60DDWN96SDRK878X5278124",
+  "name": "민간투자사업상환",
+  "service": "opclPriInvstBizRepay",
+  "dsId": "VW_CLSG01031202",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "VZCXLBVKL80LNRM9JLMG9133631",
+  "name": "민간투자사업상환",
+  "service": "opbdPriInvstBizRepayN",
+  "dsId": "VW_BUDG02081102",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "9I08A780977LOL5JJ4SS7232138",
+  "name": "민간투자사업상환",
+  "service": "opbdPriInvstBizRepay",
+  "dsId": "VW_BUDG02031202",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "TF3UN555X2TJ6V245T3M7024022",
+  "name": "민원관리",
+  "service": "opbdCompMag",
+  "dsId": "VW_BUDG02031014",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "023X54O30O11NJCY03MI5066406",
+  "name": "민원관리",
+  "service": "opclCompMag",
+  "dsId": "VW_CLSG01031014",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "SY6W3SE0VJEI5XBXV89O12644634",
+  "name": "민원행정서비스관리",
+  "service": "opclAdCompMag",
+  "dsId": "VW_CLSG01080412",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "XHWGMFDQFETVTFRX2J7X12273639",
+  "name": "방과후자유수강권지원",
+  "service": "opclAftSchFrClSupN",
+  "dsId": "VW_CLSG01080331",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "25D041SUQ412ZSZ804OB4676778",
+  "name": "방과후학교운영",
+  "service": "opclAftSchOp",
+  "dsId": "VW_CLSG01030405",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "644799498DECDLQN53576636316",
+  "name": "방과후학교운영",
+  "service": "opbdAftSchOp",
+  "dsId": "VW_BUDG02030405",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "NZE8PG5JN64M3XERO62Q8556544",
+  "name": "방과후학교운영",
+  "service": "opbdAftSchOpN",
+  "dsId": "VW_BUDG02080403",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "LYVPJJSZHZ7KA89V6FNE12284652",
+  "name": "방과후학교운영",
+  "service": "opclAftSchOpN",
+  "dsId": "VW_CLSG01080330",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "18BMN4G12WAJ9KR827ZI4521057",
+  "name": "방송통신중·고운영",
+  "service": "opclBroadSchOp",
+  "dsId": "VW_CLSG01030349",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "0722H9452F0E0XWVC7H86489223",
+  "name": "방송통신중·고운영",
+  "service": "opbdBroadSchOp",
+  "dsId": "VW_BUDG02030349",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "V30CC5SJYAF77VTTOR6L8809897",
+  "name": "방송통신중고운영",
+  "service": "opbdBroadSchOpN",
+  "dsId": "VW_BUDG02080803",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "SP3R1JDUSIV1ZPJJXSRM12503099",
+  "name": "방송통신중고운영",
+  "service": "opclBroadSchOpN",
+  "dsId": "VW_CLSG01080355",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "X5775V3HOKT3T8225R5F6962035",
+  "name": "법무관리",
+  "service": "opbdLawMag",
+  "dsId": "VW_BUDG02031008",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "3SVD9I1HHP30OVT5BQ5Y12575643",
+  "name": "법무관리",
+  "service": "opclLawMagN",
+  "dsId": "VW_CLSG01080403",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "88HEK2J2AP2A7VI0OMAS5009461",
+  "name": "법무관리",
+  "service": "opclLawMag",
+  "dsId": "VW_CLSG01031008",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "4S9NQBSGQIIZC8I8UX658874562",
+  "name": "법무관리",
+  "service": "opbdLawMagN",
+  "dsId": "VW_BUDG02080905",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "FP119AZ014949CNP76175498780",
+  "name": "법정이전수입 전입 현황",
+  "service": "opclLegTransIncmCond",
+  "dsId": "VW_CLSG02040201",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "합계(원)"
+  ]
+ },
+ {
+  "infId": "PZVP6ZP050AXI9OKIZL113119747",
+  "name": "보통교부금 자체노력 반영 현황",
+  "service": "nomalMon",
+  "dsId": "VW_CLSG01081015",
+  "args": [
+   "회계년도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계년도",
+   "지역구분",
+   "지역",
+   "반영항목",
+   "현재년도금액"
+  ]
+ },
+ {
+  "infId": "G9O6A9TOMPT2GWBAOGF67719858",
+  "name": "본청시설관리",
+  "service": "opclHeadOffFacMag",
+  "dsId": "VW_CLSG01031104",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "6LO5ZXS9XTT6HV427EKR7199451",
+  "name": "본청시설관리",
+  "service": "opbdHeadOffFacMag",
+  "dsId": "VW_BUDG02031104",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "28VU4Z36TB6F7EAP78225209102",
+  "name": "본청운영",
+  "service": "opclHeadOffOp",
+  "dsId": "VW_CLSG01031101",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "ZO1WD55XWRBXP2O8RE8D7165407",
+  "name": "본청운영",
+  "service": "opbdHeadOffOp",
+  "dsId": "VW_BUDG02031101",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "R6X2185M8R3F33G00T477041349",
+  "name": "비상대비계획및보안관리",
+  "service": "opbdEmgPlanSecMag",
+  "dsId": "VW_BUDG02031016",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "3AUWSR9G19WRCK2CF33I5083270",
+  "name": "비상대비계획및보안관리",
+  "service": "opclEmgPlanSecMag",
+  "dsId": "VW_CLSG01031016",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "VW5XN49LPEC8YHCM6TTE8857498",
+  "name": "비상대비계획운영",
+  "service": "opbdEmgPlanOp",
+  "dsId": "VW_BUDG02080903",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "ZB4XL3CP4H5VVTIDUXAB12546032",
+  "name": "비상대비계획운영",
+  "service": "opclEmgPlanOp",
+  "dsId": "VW_CLSG01080401",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "0KK0Z244272G841X4F255992046",
+  "name": "비정규직인사관리",
+  "service": "opbdNonRegHRMag",
+  "dsId": "VW_BUDG02030218",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "15V78G3408165723K8VY4032414",
+  "name": "비정규직인사관리",
+  "service": "opclNonRegHRMag",
+  "dsId": "VW_CLSG01030218",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "50W0TFCQ5K8L90AN6O294186301",
+  "name": "사립유치원지원",
+  "service": "opclPrivKindSup",
+  "dsId": "VW_CLSG01030315",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "WW3X1KAWYIHQ0I5JVIH511972762",
+  "name": "사립유치원지원",
+  "service": "opclPrivKindSupN",
+  "dsId": "VW_CLSG01080304",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "O5I2LW7L132P22Q7J04T6146901",
+  "name": "사립유치원지원",
+  "service": "opbdPrivKindSup",
+  "dsId": "VW_BUDG02030315",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "SCFZYUQEX31FBEWGG3128298018",
+  "name": "사립유치원지원",
+  "service": "opbdPrivKindSupN",
+  "dsId": "VW_BUDG02080315",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "8Y4FQPD3SXEJDDIC65U85599446",
+  "name": "사립학교 법인 법정부담비율",
+  "service": "opclPriSchLawBdnRate",
+  "dsId": "VW_CLSG03070101",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "5UM92NFULUH7OBPS56RQ6353313",
+  "name": "사이버가정학습운영및지원",
+  "service": "opbdCybHomeStuOpSup",
+  "dsId": "VW_BUDG02030336",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "A7EHB77MBQNWF8TFD73Q4399481",
+  "name": "사이버가정학습운영및지원",
+  "service": "opclCybHomeStuOpSup",
+  "dsId": "VW_CLSG01030336",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "YM02782UW6WQOJ2X3E635152073",
+  "name": "사학기관관리",
+  "service": "opclPriSchOrgMag",
+  "dsId": "VW_CLSG01031023",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "3IV8R9M31M4P4SSGBICM7115332",
+  "name": "사학기관관리",
+  "service": "opbdPriSchOrgMag",
+  "dsId": "VW_BUDG02031023",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "SW0ORPSFKZXF0ZI64NZ812749418",
+  "name": "사학기관지도지원",
+  "service": "opclPriSchOrgSup",
+  "dsId": "VW_CLSG01080504",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "413IVGQTFBOJV351OCWB9037962",
+  "name": "사학기관지도지원",
+  "service": "opbdPriSchOrgSup",
+  "dsId": "VW_BUDG02080921",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "JWINC9JCM80OG8ITWJ9F12385585",
+  "name": "산업안전보건관리",
+  "service": "opclIndHcareMag",
+  "dsId": "VW_CLSG01080344",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "PYEAU4CZAQYGV0X7LKM48691139",
+  "name": "산업안전보건관리",
+  "service": "opbdIndHcareMag",
+  "dsId": "VW_BUDG02080503",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "W89YRLYQ6KI7R12277X97334947",
+  "name": "상환지출",
+  "service": "opbdRepaySpend",
+  "dsId": "VW_BUDG02040801",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "SLT5Q97Z7K7MO9S8735N5359646",
+  "name": "상환지출",
+  "service": "opclRepaySpend",
+  "dsId": "VW_CLSG01040801",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "AO0Q3371PYTGJAO9FDP412621684",
+  "name": "선거관리",
+  "service": "opclElecMagN",
+  "dsId": "VW_CLSG01080408",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "24KYV63R34295O6UK6TB6984120",
+  "name": "선거관리",
+  "service": "opbdElecMag",
+  "dsId": "VW_BUDG02031010",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "OG7NDUA5M93B98TQ7T3M8925757",
+  "name": "선거관리",
+  "service": "opbdElecMagN",
+  "dsId": "VW_BUDG02080910",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "2EE6Z57M3NEPY2462E035022618",
+  "name": "선거관리",
+  "service": "opclElecMag",
+  "dsId": "VW_CLSG01031010",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "1ZF10D2RFXJOCMR0LSWZ7784998",
+  "name": "성과계획서",
+  "service": "opbdotcmplan",
+  "dsId": "VW_BUDG01030101",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "전략목표수",
+   "성과목표수",
+   "단위과제수",
+   "당해년도예산액(원)",
+   "전년도예산액(원)",
+   "증감액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "HPZSQX4R915KCTJMRRE57564293",
+  "name": "성과계획서",
+  "service": "",
+  "dsId": "",
+  "args": [],
+  "cols": []
+ },
+ {
+  "infId": "QLCB569NWRO2YW3WY0W77604275",
+  "name": "성과보고서",
+  "service": "",
+  "dsId": "",
+  "args": [],
+  "cols": []
+ },
+ {
+  "infId": "I320T6WM7NO9493NLZLQ5667193",
+  "name": "성인지 결산",
+  "service": "opclSexRecogClsg",
+  "dsId": "VW_CLSG04020101",
+  "args": [
+   "회계연도",
+   "시.도"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "사업수(개)",
+   "시.도"
+  ]
+ },
+ {
+  "infId": "H2QFIT21S5AP7FJ7WFES7596686",
+  "name": "성인지 결산서",
+  "service": "",
+  "dsId": "",
+  "args": [],
+  "cols": []
+ },
+ {
+  "infId": "Z6DZO42520LB2G568QAL5729037",
+  "name": "성인지 예산",
+  "service": "opbdSexRecogBd",
+  "dsId": "VW_BUDG01020101",
+  "args": [
+   "회계연도",
+   "시.도"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "사업수(개)",
+   "예산액(원)",
+   "시.도"
+  ]
+ },
+ {
+  "infId": "FCSZFZPBG24LVH9FYE8C7559214",
+  "name": "성인지 예산서",
+  "service": "",
+  "dsId": "",
+  "args": [],
+  "cols": []
+ },
+ {
+  "infId": "1K6MN5UAT5WF667L291S5554773",
+  "name": "성질별",
+  "service": "opclTemp",
+  "dsId": "VW_CLSG03040201",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "2N2ZY3QFIWGS6BRP6L7L12186723",
+  "name": "성폭력예방교육등",
+  "service": "ExSclhForcProvEdu",
+  "dsId": "VW_CLSG01080320",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "NUG02LI6VNCCNQBQKXVI8459137",
+  "name": "성폭력예방교육등",
+  "service": "ExSchForcProvEdu",
+  "dsId": "VW_BUDG02080331",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "27C90I51LEUYFH21SFP04129110",
+  "name": "수석교사제운영",
+  "service": "opclChiefTeachOp",
+  "dsId": "VW_CLSG01030309",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "Z22B96W58YWM52N0H0606081957",
+  "name": "수석교사제운영",
+  "service": "opbdChiefTeachOp",
+  "dsId": "VW_BUDG02030309",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "IEOOUCH446IOC57C8V9A6016088",
+  "name": "수준별교육과정운영",
+  "service": "opbdGradeEduCosOp",
+  "dsId": "VW_BUDG02030302",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "MMVLI4821H1E5Q3B1K2H4059844",
+  "name": "수준별교육과정운영",
+  "service": "opclGradeEduCosOp",
+  "dsId": "VW_CLSG01030302",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "9ZR0369ZDWY77VU894W13787585",
+  "name": "순계",
+  "service": "opclPutot",
+  "dsId": "VW_CLSG01010201",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "DZ7TT3Y4H24IL025GK035749452",
+  "name": "순계",
+  "service": "opbdPutot",
+  "dsId": "VW_BUDG02010201",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "1H8EG87YV1N9U17148765655225",
+  "name": "순자산 변동",
+  "service": "opclNetAssFlu",
+  "dsId": "VW_CLSG04010301",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "3WG77U15FX9QIL2HA7O85936089",
+  "name": "순회교사제운영",
+  "service": "opbdCirTeatcher",
+  "dsId": "VW_BUDG02030212",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "VZZQH647GMOQUSEAZEJA8119890",
+  "name": "순회교사제운영",
+  "service": "opbdCirTeatcherN",
+  "dsId": "VW_BUDG02080205",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "9065E070EUMSZUZ4W2H03979829",
+  "name": "순회교사제운영",
+  "service": "opclCirTeatcher",
+  "dsId": "VW_CLSG01030212",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "HTO1L3L3KZ3Q1IA2CJWA11763706",
+  "name": "순회교사제운영",
+  "service": "opclCirTeatcherN",
+  "dsId": "VW_CLSG01080205",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "43HME38IFO3WMY08U84F6367148",
+  "name": "스마트교육지원",
+  "service": "opbdSmtEduSup",
+  "dsId": "VW_BUDG02030337",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "T6ZU03696Q362A0Q19954407833",
+  "name": "스마트교육지원",
+  "service": "opclSmtEduSup",
+  "dsId": "VW_CLSG01030337",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "02I8Y5971O6DWY6AJR4D5178481",
+  "name": "시설사업관리",
+  "service": "opclFacBizMag",
+  "dsId": "VW_CLSG01031025",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "PZH9743URXDX8BEEL65P7133300",
+  "name": "시설사업관리",
+  "service": "opbdFacBizMag",
+  "dsId": "VW_BUDG02031025",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "9T73QS2CSNRH9KSHTIEO12784354",
+  "name": "시설사업운영",
+  "service": "opclFacBizOp",
+  "dsId": "VW_CLSG01080602",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "HJYLQ98CM6KBUAQR30WX9075220",
+  "name": "시설사업운영",
+  "service": "opbdFacBizOp",
+  "dsId": "VW_BUDG02080925",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "6XL5JLKXZUNHK4GWJ87X7758606",
+  "name": "신설예정학교 정보",
+  "service": "",
+  "dsId": "",
+  "args": [],
+  "cols": []
+ },
+ {
+  "infId": "4984C6030MMH636JH6FY6451773",
+  "name": "양성평등및성교육",
+  "service": "opbdGenEquSexEdu",
+  "dsId": "VW_BUDG02030346",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "TJ846C443FPPL2F7FE724495584",
+  "name": "양성평등및성교육",
+  "service": "opclGenEquSexEdu",
+  "dsId": "VW_CLSG01030346",
+  "args": [
+   "회계연도"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)"
+  ]
+ },
+ {
+  "infId": "1230PH4T4HXWQL4795KU5539820",
+  "name": "업무추진비",
+  "service": "opclBizOpExp",
+  "dsId": "VW_CLSG03030101",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "UD0UW0W09600TI60K5G07377519",
+  "name": "업무추진비",
+  "service": "opbdBizOpExp",
+  "dsId": "VW_BUDG02070101",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "3SD3Y5QUWX63LL4OL8914132736",
+  "name": "연구시범학교운영",
+  "service": "opclStuDemoSchOp",
+  "dsId": "VW_CLSG01030310",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "AB3OWWHNOJAT8IBTTMGF8236840",
+  "name": "연구시범학교운영",
+  "service": "opbdStuDemoSchOpN",
+  "dsId": "VW_BUDG02080309",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "TPOAFOJKOL5OWE1IQB9K11956407",
+  "name": "연구시범학교운영",
+  "service": "opclStuDemoSchOpN",
+  "dsId": "VW_CLSG01080217",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "36G707P30H33SH21TH806092846",
+  "name": "연구시범학교운영",
+  "service": "opbdStuDemoSchOp",
+  "dsId": "VW_BUDG02030310",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "Q13063VY37I76RKLQ0375483576",
+  "name": "연도별 법정이전수입",
+  "service": "opclLegTransIncm",
+  "dsId": "VW_CLSG02040101",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "0013E601G663G70PP9J65567548",
+  "name": "연도별 현황",
+  "service": "opclLoSubsdPriTrans",
+  "dsId": "VW_CLSG03050101",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "809631W1SASH856SW5GE7968492",
+  "name": "연말지출비율",
+  "service": "opclLastRate",
+  "dsId": "VW_CLSG03110101",
+  "args": [
+   "회계년도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계년도",
+   "지역구분",
+   "항목구분",
+   "자료구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "01R13I6NRFFOGQZ3JKBV8333532",
+  "name": "영재교육운영",
+  "service": "opbdGiftEduOpN",
+  "dsId": "VW_BUDG02080319",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "MM3QK795PDV7GQ4B78996191452",
+  "name": "영재교육운영",
+  "service": "opbdGiftEduOp",
+  "dsId": "VW_BUDG02030320",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "ZXXE81M483QGFJIAV2GS12042433",
+  "name": "영재교육운영",
+  "service": "opclGiftEduOpN",
+  "dsId": "VW_CLSG01080308",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "0650XSJ6LW991EW01W2E4237461",
+  "name": "영재교육운영",
+  "service": "opclGiftEduOp",
+  "dsId": "VW_CLSG01030320",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "K262S38I8C2063W3S12D6209866",
+  "name": "영재교육원운영",
+  "service": "opbdGenEduOp",
+  "dsId": "VW_BUDG02030321",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "UPCX8A04550GZIKNT9A54242020",
+  "name": "영재교육원운영",
+  "service": "opclGenEduOp",
+  "dsId": "VW_CLSG01030321",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "6751099893RR12DF8PW37256281",
+  "name": "예비비",
+  "service": "opbdReserve",
+  "dsId": "VW_BUDG02031301",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "U3ILM4JX3P0WY5QL92XL9193252",
+  "name": "예비비",
+  "service": "opbdReserveN",
+  "dsId": "VW_BUDG02081201",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "OEL1JFQVDOUSZCKO96WW12926133",
+  "name": "예비비",
+  "service": "opclReserveN",
+  "dsId": "VW_CLSG01081004",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "9787V4OK61189UT2L2085297726",
+  "name": "예비비",
+  "service": "opclReserve",
+  "dsId": "VW_CLSG01031301",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "7W45MU35223ZI1O8513J5371188",
+  "name": "예비비 및 기타",
+  "service": "opclResrvnEtc",
+  "dsId": "VW_CLSG01040701",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "DXQTLRQJZZSVWENWZLH813084075",
+  "name": "예비비 비율",
+  "service": "opclSecu",
+  "dsId": "VW_CLSG04070101",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "1J8JWCX127WTD6VU0VFR7355441",
+  "name": "예비비및기타",
+  "service": "opbdResrvnEtc",
+  "dsId": "VW_BUDG02040701",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "73N7VG2XD7ZSQP3RIADD7932210",
+  "name": "예산 조기집행비율",
+  "service": "opclBudgEarlyExecRate",
+  "dsId": "VW_CLSG03090201",
+  "args": [
+   "회계년도",
+   "지역구분코드"
+  ],
+  "cols": [
+   "회계년도",
+   "지역구분코드",
+   "지역구분",
+   "공시연도대상금액(원)",
+   "공시연도집행금액(원)",
+   "공시연도조기집행률(%)",
+   "회계연도조기집행률(%)",
+   "증감율(%)"
+  ]
+ },
+ {
+  "infId": "1CWFMVZGQJA8H7VQBD9D7929529",
+  "name": "예산 집행비율",
+  "service": "opclBudgExecRate",
+  "dsId": "VW_CLSG03090101",
+  "args": [
+   "회계년도",
+   "지역구분코드"
+  ],
+  "cols": [
+   "회계년도",
+   "지역구분코드",
+   "지역구분",
+   "세출예산현액(원)",
+   "세출결산액(원)",
+   "집행률(%)",
+   "전년도예산집행률(%)",
+   "증감률(%)"
+  ]
+ },
+ {
+  "infId": "Z0EE7WXGYSFPZVSUOAC112692694",
+  "name": "예산관리",
+  "service": "opclBudgMagN",
+  "dsId": "VW_CLSG01080413",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "C592MKNW4WLP94745NRU5097256",
+  "name": "예산관리",
+  "service": "opclBudgMag",
+  "dsId": "VW_CLSG01031017",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "EXMV163WFFQ2EZ52IKDG7052701",
+  "name": "예산관리",
+  "service": "opbdBudgMag",
+  "dsId": "VW_BUDG02031017",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "23VE9AHS1W5HI7RDW6Q58975670",
+  "name": "예산관리",
+  "service": "opbdBudgMagN",
+  "dsId": "VW_BUDG02080915",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "2DUWX3A8WAT8M7YQ2DZW7529643",
+  "name": "예산기준 공시보고서",
+  "service": "",
+  "dsId": "",
+  "args": [],
+  "cols": []
+ },
+ {
+  "infId": "320KKRT50T32H14UD7A97433675",
+  "name": "예산서",
+  "service": "",
+  "dsId": "",
+  "args": [],
+  "cols": []
+ },
+ {
+  "infId": "YDT1BWA7VO0PZPB9EEQX12864518",
+  "name": "예수금원리금상환",
+  "service": "opclDpCiRp",
+  "dsId": "VW_CLSG01081003",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "2EH7BYCWX209VRPCYJMQ9181279",
+  "name": "예수금원리금상환",
+  "service": "opbdDpCiRp",
+  "dsId": "VW_BUDG02081107",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "VAZY1DDHA2ATRV6KF44X12877881",
+  "name": "예탁금",
+  "service": "opclDep",
+  "dsId": "VW_CLSG01081002",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "BR8CN9P9E7TIVR6BRJO59175962",
+  "name": "예탁금",
+  "service": "opbdDep",
+  "dsId": "VW_BUDG02081106",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "984I844VDH9QQU47SBNM4283181",
+  "name": "외국어교육활동지원",
+  "service": "opclLanEduActSup",
+  "dsId": "VW_CLSG01030325",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "3617EO55P0034R500WC16249980",
+  "name": "외국어교육활동지원",
+  "service": "opbdLanEduActSup",
+  "dsId": "VW_BUDG02030325",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "K578Z4KMRW7Z2CQ736E96815477",
+  "name": "운영비재정결함지원",
+  "service": "opbdOpMonFiErrSup",
+  "dsId": "VW_BUDG02030603",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "5OPYTNVQEQH7D53W6BIG12455396",
+  "name": "운영비재정결함지원",
+  "service": "opclOpMonFiErrSupN",
+  "dsId": "VW_CLSG01080349",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "V2D5YAW29355035S4ZM74859611",
+  "name": "운영비재정결함지원",
+  "service": "opclOpMonFiErrSup",
+  "dsId": "VW_CLSG01030603",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "TB2FKZSC42DVGF5014078746638",
+  "name": "운영비재정결함지원",
+  "service": "opbdOpMonFiErrSupN",
+  "dsId": "VW_BUDG02080603",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "2G99842CDYS7837KB5544271309",
+  "name": "원어민교사및보조강사운영",
+  "service": "opclNatTeachSubTeachOp",
+  "dsId": "VW_CLSG01030324",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "EM45316PB8KB28HGU9466234031",
+  "name": "원어민교사및보조강사운영",
+  "service": "opbdNatTeachSubTeachOp",
+  "dsId": "VW_BUDG02030324",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "Q6GSGVKZN78REXMS6ZUV12003008",
+  "name": "유아교육운영",
+  "service": "opclnfantEduOp",
+  "dsId": "VW_CLSG01080301",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "O5HT4A92XSP55SXO2OMX8264388",
+  "name": "유아교육운영",
+  "service": "opbdInfantEduOp",
+  "dsId": "VW_BUDG02080312",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "CVZQ38592A2Q0K2Q5WH06115681",
+  "name": "유아교육지원",
+  "service": "opbdInfantEduSup",
+  "dsId": "VW_BUDG02030312",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "HA047D628467V687Y2CR4157365",
+  "name": "유아교육지원",
+  "service": "opclInfantEduSup",
+  "dsId": "VW_CLSG01030312",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "X704114V14CKAGX5ZYY34175696",
+  "name": "유치원교육여건개선",
+  "service": "opclKindEduConUp",
+  "dsId": "VW_CLSG01030314",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "R7WPITMRMTKBYBL74EVZ11989723",
+  "name": "유치원교육여건개선",
+  "service": "opclKindEduConUpN",
+  "dsId": "VW_CLSG01080303",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "M6UHU8UBO9E6K73M39686134445",
+  "name": "유치원교육여건개선",
+  "service": "opbdKindEduConUp",
+  "dsId": "VW_BUDG02030314",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "837TIPA211XG7I3LPJNF8288268",
+  "name": "유치원교육여건개선",
+  "service": "opbdKindEduConUpN",
+  "dsId": "VW_BUDG02080314",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "WVZ7TQ60MYXR1TIZ8HEW11992617",
+  "name": "유치원방과후과정운영",
+  "service": "opclKindAftSchCosOpN",
+  "dsId": "VW_CLSG01080302",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "지역구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "32Y351U2ZL6TD2G2CPEL6127086",
+  "name": "유치원방과후과정운영",
+  "service": "opbdKindAftSchCosOp",
+  "dsId": "VW_BUDG02030313",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "U29J4YATFZIMLQGY2T1M8275738",
+  "name": "유치원방과후과정운영",
+  "service": "opbdKindAftSchCosOpN",
+  "dsId": "VW_BUDG02080313",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "X93D0586LU70FRTSC0774163115",
+  "name": "유치원방과후과정운영",
+  "service": "opclKindAftSchCosOp",
+  "dsId": "VW_CLSG01030313",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "P227Z0C1825DH6YC1JUB7271701",
+  "name": "의무지출과 재량지출",
+  "service": "opmdtrDcrtnrSpend",
+  "dsId": "VW_BUDG02050101",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "576K15D50U3AM47B21SV5017231",
+  "name": "의정활동지원",
+  "service": "opclLegActSup",
+  "dsId": "VW_CLSG01031009",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "Z956EE4386SFT835VFKY6976460",
+  "name": "의정활동지원",
+  "service": "opbdLegActSup",
+  "dsId": "VW_BUDG02031009",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "7FJS5M8ULAOW1THCU1ZS8914552",
+  "name": "의회협력",
+  "service": "opbdPlCop",
+  "dsId": "VW_BUDG02080909",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "DRXJPP4V7FV5477E9M5312635713",
+  "name": "의회협력",
+  "service": "opclPlCop",
+  "dsId": "VW_CLSG01080407",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "자료구분",
+   "값에대한단위",
+   "금액",
+   "지역구분SEQ",
+   "항목구분SEQ"
+  ]
+ },
+ {
+  "infId": "DH7925682L0B34U6KCR65381607",
+  "name": "이월액 및 집행잔액",
+  "service": "opclFwardBal",
+  "dsId": "VW_CLSG01050101",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "0JHH05AQU271U485CUO45784025",
+  "name": "이전수입",
+  "service": "opbdBfIncm",
+  "dsId": "VW_BUDG02020202",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "701LQFV9EY8VC15375WE3824020",
+  "name": "이전수입",
+  "service": "opclBfIncm",
+  "dsId": "VW_CLSG01020201",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "862WYIZXMVH1X6A46B765331381",
+  "name": "이전지출",
+  "service": "opclTransSpend",
+  "dsId": "VW_CLSG01040401",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "S3B451GK7V79Z4905N0Z7311055",
+  "name": "이전지출",
+  "service": "opbdTransSpend",
+  "dsId": "VW_BUDG02040401",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "P79KU41M334VQ15C9ZVC5316923",
+  "name": "인건비",
+  "service": "opclPaySpend",
+  "dsId": "VW_CLSG01040201",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "C4E833B3N740CE357X147295760",
+  "name": "인건비",
+  "service": "opbdPaySpend",
+  "dsId": "VW_BUDG02040201",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "9FZC6MPXB66G14K48DRB4846466",
+  "name": "인건비재정결함지원",
+  "service": "opclPayFiErrSup",
+  "dsId": "VW_CLSG01030602",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "1SOPJZ85N41IJQW6I8FR8735654",
+  "name": "인건비재정결함지원",
+  "service": "opbdPayFiErrSupN",
+  "dsId": "VW_BUDG02080602",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "0Z2WMLBDKZ151CPW87026801430",
+  "name": "인건비재정결함지원",
+  "service": "opbdPayFiErrSup",
+  "dsId": "VW_BUDG02030602",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "IY33OP0CGLIPO3R351C512443341",
+  "name": "인건비재정결함지원",
+  "service": "opclPayFiErrSupN",
+  "dsId": "VW_CLSG01080348",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "8IWQONCR0JEDXJTPDIKR12835876",
+  "name": "일시차입금관리",
+  "service": "opclTempBorrMagN",
+  "dsId": "VW_CLSG01080803",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "6OY5LID18X51JP8N38O97242695",
+  "name": "일시차입금관리",
+  "service": "opbdTempBorrMag",
+  "dsId": "VW_BUDG02031203",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "E6F7D1373D192KY7A6GV5288538",
+  "name": "일시차입금관리",
+  "service": "opclTempBorrMag",
+  "dsId": "VW_CLSG01031203",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "YEVE5GO98XOJ3QZU4EIZ9142672",
+  "name": "일시차입금관리",
+  "service": "opbdTempBorrMagN",
+  "dsId": "VW_BUDG02081103",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "D067L1MO690N163XU0397325367",
+  "name": "자본지출",
+  "service": "opbdCaptSpend",
+  "dsId": "VW_BUDG02040501",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "M0OB4ZCAXPCSUU11N8995345481",
+  "name": "자본지출",
+  "service": "opclCaptSpend",
+  "dsId": "VW_CLSG01040501",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "95V716353LG4754HY6365795043",
+  "name": "자체수입",
+  "service": "opbdOwnIncm",
+  "dsId": "VW_BUDG02020303",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "KIW2D4FYWM11E9GT66TW3833152",
+  "name": "자체수입",
+  "service": "opclOwnIncm",
+  "dsId": "VW_CLSG01020301",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "V0128XCVD4N6MXRD0V985114418",
+  "name": "재무회계관리",
+  "service": "opclFinAccMag",
+  "dsId": "VW_CLSG01031019",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "RD53ZP663I80JM27248K7079286",
+  "name": "재무회계관리",
+  "service": "opbdFinAccMag",
+  "dsId": "VW_BUDG02031019",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "8344V2SGXPA1FTU8X7VT12714595",
+  "name": "재무회계관리",
+  "service": "opclFinAccMagN",
+  "dsId": "VW_CLSG01080415",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "WGEL0NIJWWAXLA7354YV8994900",
+  "name": "재무회계관리",
+  "service": "opbdFinAccMagN",
+  "dsId": "VW_BUDG02080917",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "51580740B5A54Z3HH4BU5687002",
+  "name": "재정분석",
+  "service": "opclFincAnal",
+  "dsId": "VW_CLSG04040101",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지표",
+   "항목명",
+   "구분",
+   "지역구분",
+   "지역구분",
+   "비율/증감율(%)"
+  ]
+ },
+ {
+  "infId": "E3NBZJG6OK84XZ0670285632816",
+  "name": "재정상태표",
+  "service": "opclFiStat",
+  "dsId": "VW_CLSG04010101",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "5EN7YX9X1GOY0LKIUBL85641791",
+  "name": "재정운영표",
+  "service": "opclFiOp",
+  "dsId": "VW_CLSG04010201",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "9AS4172318OV516612I87384927",
+  "name": "재정자주도",
+  "service": "opbdFiIndp",
+  "dsId": "VW_BUDG03010101",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "비율(%)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "BZI0S66JR4ONVP0RU82T5414970",
+  "name": "재정자주도",
+  "service": "opclFiIndp",
+  "dsId": "VW_CLSG02010101",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "비율(%)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "G8NME0ASLXL773YL367K4692370",
+  "name": "저소득층자녀방과후자유수강권지원",
+  "service": "opclDWScSonAftSchFrClSup",
+  "dsId": "VW_CLSG01030407",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "3M32G8OC2RV5V0Z5SM7Q6659892",
+  "name": "저소득층자녀방과후자유수강권지원",
+  "service": "opbdDWScSonAftSchFrClSup",
+  "dsId": "VW_BUDG02030407",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "HY7VMTXS6HGGALNFBH2W8564729",
+  "name": "저소득층자녀방과후자유수강권지원",
+  "service": "opbdDWScSonAftSchFrClSupN",
+  "dsId": "VW_BUDG02080404",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "8D07MXQ80MIUI09T79274642929",
+  "name": "저소득층자녀학비지원",
+  "service": "opclDWScSonMonSup",
+  "dsId": "VW_CLSG01030402",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "345X1I3C075H58R811A06606492",
+  "name": "저소득층자녀학비지원",
+  "service": "opbdDWScSonMonSup",
+  "dsId": "VW_BUDG02030402",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "YDT29CI8CUZWKR1FFEXZ12721097",
+  "name": "적정규모학교육성",
+  "service": "opclOptCapaSchPrt",
+  "dsId": "VW_CLSG01080503",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "5T73D62U2L8558IR58V05145313",
+  "name": "적정규모학교육성지원",
+  "service": "opclOptCapaSchPrtSup",
+  "dsId": "VW_CLSG01031022",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "1J7XXDLWT1AVADI12VL39021757",
+  "name": "적정규모학교육성지원",
+  "service": "opbdOptCapaSchPrtSupN",
+  "dsId": "VW_BUDG02080920",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "02Z9Y40C10UNG49EPWX47102989",
+  "name": "적정규모학교육성지원",
+  "service": "opbdOptCapaSchPrtSup",
+  "dsId": "VW_BUDG02031022",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "4YDME8I3S5NZ0Y6TL1IR5369506",
+  "name": "전출금 등",
+  "service": "opclTransMon",
+  "dsId": "VW_CLSG01040601",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "93KK341GO35E10ZFOW3B7347876",
+  "name": "전출금등",
+  "service": "opbdTransMon",
+  "dsId": "VW_BUDG02040601",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "TF75LDLJ24C5P6KB22SB8943661",
+  "name": "정보보안관리",
+  "service": "opbdInfoSecMagN",
+  "dsId": "VW_BUDG02080912",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "HZVLU97JS5OQL5Z99JE412665371",
+  "name": "정보보안관리",
+  "service": "opclInfoSecMagN",
+  "dsId": "VW_CLSG01080410",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "13XYPFG3HYYH922830277004311",
+  "name": "정보보안관리",
+  "service": "opbdInfoSecMag",
+  "dsId": "VW_BUDG02031012",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "BF1L9KTHR223U6RF34NG5044611",
+  "name": "정보보안관리",
+  "service": "opclInfoSecMag",
+  "dsId": "VW_CLSG01031012",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "HKI78TEM6U51GN0Y3RUB8625840",
+  "name": "정보화지원",
+  "service": "opbdInfoSupN",
+  "dsId": "VW_BUDG02080410",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "TPN8S82843N0VAT886WV6688802",
+  "name": "정보화지원",
+  "service": "opbdInfoSup",
+  "dsId": "VW_BUDG02030410",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "RT9T957A995XXJB9B2824722399",
+  "name": "정보화지원",
+  "service": "opclInfoSup",
+  "dsId": "VW_CLSG01030410",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "7XTCDVMYX3VHJU5SH0NY12359128",
+  "name": "정보화지원",
+  "service": "opclInfoSupN",
+  "dsId": "VW_CLSG01080337",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "5UI1LU80615W7U4XUF5B7268996",
+  "name": "제지출금 등",
+  "service": "opbdTotSpend",
+  "dsId": "VW_BUDG02031302",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "F46C3EZ2358K4PXR0I445697018",
+  "name": "제지출금 등",
+  "service": "opclTotSpend",
+  "dsId": "VW_CLSG01031302",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "5BVSZZ1ZIQ04EIL47JDB9206561",
+  "name": "제지출금등",
+  "service": "opbdTotSpendN",
+  "dsId": "VW_BUDG02081202",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "IE81JPD31AO4ZS5MHHQF12915177",
+  "name": "제지출금등",
+  "service": "opclTotSpendN",
+  "dsId": "VW_CLSG01081005",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "FM9V3H1KZ5VNC4F7MU418893724",
+  "name": "조직및성과관리",
+  "service": "opbdOrgProdMagN",
+  "dsId": "VW_BUDG02080907",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "417061382JE589PWJI316942871",
+  "name": "조직및성과관리",
+  "service": "opbdOrgProdMag",
+  "dsId": "VW_BUDG02031006",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "ZUDYG2EOUB9S04OFN0S14982915",
+  "name": "조직및성과관리",
+  "service": "opclOrgProdMag",
+  "dsId": "VW_CLSG01031006",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "D0Z4KQW3TGCOPCP1ER8W12609252",
+  "name": "조직및성과관리",
+  "service": "opclOrgProdMagN",
+  "dsId": "VW_CLSG01080405",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "EYZAKZUXCZAR9QLZM00E5603682",
+  "name": "종류별 공유재산",
+  "service": "opclKindPubAss",
+  "dsId": "VW_CLSG03080101",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "LSOPRZ8AMXMGCI679M4O4682804",
+  "name": "주5일제수업지원",
+  "service": "opclWkFivedayClSup",
+  "dsId": "VW_CLSG01030406",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "813F747719843296ZCKH6643637",
+  "name": "주5일제수업지원",
+  "service": "opbdWkFivedayClSup",
+  "dsId": "VW_BUDG02030406",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "Q15U4U5DWAZOPP38QJ595718789",
+  "name": "중기지방교육재정계획",
+  "service": "opbdMidLocEduFinc",
+  "dsId": "VW_BUDG01010101",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "구분코드",
+   "구분명",
+   "(회계년도)금액(원)",
+   "(회계년도+1)금액(원)",
+   "(회계년도+2)금액(원)",
+   "(회계년도+3)금액(원)",
+   "(회계년도+4)금액(원)",
+   "합계(원)",
+   "연평균 증감률(%)"
+  ]
+ },
+ {
+  "infId": "4FBPIQ7LS56QL7IG289W7543327",
+  "name": "중기지방교육재정계획",
+  "service": "",
+  "dsId": "",
+  "args": [],
+  "cols": []
+ },
+ {
+  "infId": "61WK5A3PB7OO7610J0BO10537065",
+  "name": "지방공무원연수운영",
+  "service": "budSupTeachActIIasaaa",
+  "dsId": "VW_CLSG01080202",
+  "args": [
+   "기준년도"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "자료구분",
+   "값에대한단위",
+   "금액",
+   "지역구분SEQ",
+   "항목구분SEQ"
+  ]
+ },
+ {
+  "infId": "J30TEQBXTA7SPGHSKGXC11837744",
+  "name": "지방공무원연수운영",
+  "service": "opclLoServTranSupN",
+  "dsId": "VW_CLSG01080202",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "4G039H4F197KEVE8VU3U3944751",
+  "name": "지방공무원연수운영",
+  "service": "opclLoServTranSup",
+  "dsId": "VW_CLSG01030209",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "POVSB8EJ4VNQQA55PZD58084339",
+  "name": "지방공무원연수운영",
+  "service": "opbdLoTeachTraOpN",
+  "dsId": "VW_BUDG02080202",
+  "args": [
+   "회계연도",
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "OAKW16Q4M1AOD871180L5902488",
+  "name": "지방공무원연수운영",
+  "service": "opbdLoTeachTraOp",
+  "dsId": "VW_BUDG02030209",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "6JTKQMYAA71PVK4RPP9J3937036",
+  "name": "지방공무원연수지원",
+  "service": "opclLoTeachTraOp",
+  "dsId": "VW_CLSG01030208",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "MDS1X682LAU2556Y4WJ25896673",
+  "name": "지방공무원연수지원",
+  "service": "opbdLoServTranSup",
+  "dsId": "VW_BUDG02030208",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "784W5YHM0PL2I1L165D83879637",
+  "name": "지방공무원인건비",
+  "service": "opclLoServPay",
+  "dsId": "VW_CLSG01030202",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "4ES0JXEYLRHEV74QQLU512973430",
+  "name": "지방공무원인건비",
+  "service": "opclLoServPayN",
+  "dsId": "VW_CLSG01081008",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "1BYAQ904J6Q5WD25UTQL5839189",
+  "name": "지방공무원인건비",
+  "service": "opbdLoServPay",
+  "dsId": "VW_BUDG02030202",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "A0UHP08HQ776E0I1QEJP9231598",
+  "name": "지방공무원인건비",
+  "service": "opbdLoServPayN",
+  "dsId": "VW_BUDG02081302",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "NNNDOQJWUYNF5CQXST9N8121010",
+  "name": "지방공무원인사관리",
+  "service": "opbdLoServHRMagN",
+  "dsId": "VW_BUDG02080206",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "31WN829I7Y5CTPM574JC3996897",
+  "name": "지방공무원인사관리",
+  "service": "opclLoServHRMag",
+  "dsId": "VW_CLSG01030214",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "S2SKW59NMPGVEYTJO43311845873",
+  "name": "지방공무원인사관리",
+  "service": "opclLoServHRMagN",
+  "dsId": "VW_CLSG01080206",
+  "args": [
+   "기준년도"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액"
+  ]
+ },
+ {
+  "infId": "E158RK6053E3YRT5P0ZY5951586",
+  "name": "지방공무원인사관리",
+  "service": "opbdLoServHRMag",
+  "dsId": "VW_BUDG02030214",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "NI7B9TYVP5P7QL3409803989378",
+  "name": "지방공무원임용관리",
+  "service": "opclLoServAppMag",
+  "dsId": "VW_CLSG01030213",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "86NYVXRM53AW962Y7HOY5944596",
+  "name": "지방공무원임용관리",
+  "service": "opbdLoServAppMag",
+  "dsId": "VW_BUDG02030213",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "YDR3Y3P15E22357590T55673493",
+  "name": "지방교육재정교부금 감액 및 인센티브",
+  "service": "opclGrtRedInc",
+  "dsId": "VW_CLSG04030101",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "증감구분",
+   "감액/증액 사유",
+   "위반지출/평가분야와 성적",
+   "금액(원)"
+  ]
+ },
+ {
+  "infId": "9IZ4P7SG05IRJ1G9MPMG5266521",
+  "name": "지방교육채상환",
+  "service": "opclLoEduDebtRepay",
+  "dsId": "VW_CLSG01031201",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "HBIK9U449AX870DRU2067224147",
+  "name": "지방교육채상환",
+  "service": "opbdLoEduDebtRepay",
+  "dsId": "VW_BUDG02031201",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "4DVT1Q5B5S784869FIB55458511",
+  "name": "지방채",
+  "service": "opclLoEduDebt",
+  "dsId": "VW_CLSG02020201",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "ACME54L9SEQ219L9K86V12856918",
+  "name": "지방채상환",
+  "service": "opclMuboRp",
+  "dsId": "VW_CLSG01080801",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "990Z623B2V2L0R87OUMY9123735",
+  "name": "지방채상환",
+  "service": "opbdMuboRp",
+  "dsId": "VW_BUDG02081101",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "5Z7TBWJ1H36F313PL4435768120",
+  "name": "지역통합재정통계",
+  "service": "opbdRegCbFinStat",
+  "dsId": "VW_BUDG02010401",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "구분명",
+   "전년도예산액(원)",
+   "당해년도예산액(원)",
+   "증감액(원)",
+   "증감률(%)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "X11UJ06H28482HIK86J03805958",
+  "name": "지역통합재정통계",
+  "service": "opclLoInfst",
+  "dsId": "VW_CLSG02010401",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "세입(A)(원)",
+   "세출(B)(원)",
+   "결산상잉여금(A-B)(원)",
+   "자산(C)(원)",
+   "부채(D)(원)",
+   "부채/자산(D/C)"
+  ]
+ },
+ {
+  "infId": "A508I7BBNU5JE3J8NIH07215263",
+  "name": "직속기관시설관리",
+  "service": "opbdDirInstFacMag",
+  "dsId": "VW_BUDG02031106",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "53H55H287JSW86REAS115259134",
+  "name": "직속기관시설관리",
+  "service": "opclDirInstFacMag",
+  "dsId": "VW_CLSG01031106",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "G99P7JY253RQ71H9M8X65228959",
+  "name": "직속기관운영",
+  "service": "opclDirInstOp",
+  "dsId": "VW_CLSG01031103",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "0216H0S1R4X31511383J7183508",
+  "name": "직속기관운영",
+  "service": "opbdDirInstOp",
+  "dsId": "VW_BUDG02031103",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "FANTTKJ41IS2YVRZBZCJ12097438",
+  "name": "직업교육운영",
+  "service": "opclJobWayEdu",
+  "dsId": "VW_CLSG01080311",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "IZ08QM7TZY1VV9SCH3V88368907",
+  "name": "직업교육운영",
+  "service": "opbdJobWayEdu",
+  "dsId": "VW_BUDG02080322",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "06MELC1OD7Y3Y6K7DUIW12073478",
+  "name": "직업교육환경개선",
+  "service": "opclJobWayEduUp",
+  "dsId": "VW_CLSG01080313",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "9QIQZX9A32P6D6LGNWYA8389950",
+  "name": "직업교육환경개선",
+  "service": "opbdJobWayEduUp",
+  "dsId": "VW_BUDG02080324",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "6AU140C3N90DML3216C64923044",
+  "name": "직업진로교육과정운영",
+  "service": "opclJobWayEduCosOp",
+  "dsId": "VW_CLSG01030901",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "Q6N67F7T5C2S2T845CCL6881006",
+  "name": "직업진로교육과정운영",
+  "service": "opbdJobWayEduCosOp",
+  "dsId": "VW_BUDG02030901",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "7238DBKKQ296506NV51O6503620",
+  "name": "진로진학교육",
+  "service": "opbdWayProEdu",
+  "dsId": "VW_BUDG02030351",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "WO8LM5B6X6LOXO5I0R244547425",
+  "name": "진로진학교육",
+  "service": "opclWayProEdu",
+  "dsId": "VW_CLSG01030351",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "01NLSQ7DRF1SFVQF8CN012211462",
+  "name": "진로진학교육운영",
+  "service": "opclWayProEduOp",
+  "dsId": "VW_CLSG01080325",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "03J1WZ5UOVB2FXDD8LUH8509565",
+  "name": "진로진학교육운영",
+  "service": "opbdWayProEduOp",
+  "dsId": "VW_BUDG02080336",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "WJZAY33WO3ZCJ8RYI1OT8514176",
+  "name": "진학시험및입학전형관리",
+  "service": "",
+  "dsId": "VW_BUDG02080337",
+  "args": [],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)"
+  ]
+ },
+ {
+  "infId": "K513163L15GP6182BP4T4577452",
+  "name": "진학시험및입학전형관리",
+  "service": "opclProtestEntTestMag",
+  "dsId": "VW_CLSG01030354",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "0MN107UW3QL6758085JO6536716",
+  "name": "진학시험및입학전형관리",
+  "service": "opbdProtestEntTestMag",
+  "dsId": "VW_BUDG02030354",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "QU7P0WLMMVD5FT4KDETT12233140",
+  "name": "진학시험및입학전형관리",
+  "service": "opclProtestEntTestMagN",
+  "dsId": "VW_CLSG01080326",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "5TUY4XAVCKM5IXS7VA6313104178",
+  "name": "집행내역",
+  "service": "opclClsgExecList",
+  "dsId": "VW_CLSG04090101",
+  "args": [
+   "회계내역",
+   "지역구분코드"
+  ],
+  "cols": [
+   "회계내역",
+   "지역구분",
+   "지역구분코드",
+   "보조사업명",
+   "보조사업자",
+   "보조금 집행액",
+   "최종정산액"
+  ]
+ },
+ {
+  "infId": "I6RSP7T5PSR0EM8SO7YF5807826",
+  "name": "차입 및 기타",
+  "service": "opbdEduDebt",
+  "dsId": "VW_BUDG02020404",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "Q14S4YTE8R128S653K3J3849633",
+  "name": "차입 및 기타",
+  "service": "opclEduDebt",
+  "dsId": "VW_CLSG01020401",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "RVQGNUG0BSO90KB43YV36035346",
+  "name": "창의인성교육운영",
+  "service": "opbdIngChaEduOp",
+  "dsId": "VW_BUDG02030304",
+  "args": [
+   "회계년도",
+   "지역구분코드"
+  ],
+  "cols": [
+   "회계년도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분코드"
+  ]
+ },
+ {
+  "infId": "P067M257ET919B5PUC324073084",
+  "name": "창의인성교육운영",
+  "service": "opclIngChaEduOp",
+  "dsId": "VW_CLSG01030304",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "COV49F9Q18824SGF8I5M5471365",
+  "name": "채권",
+  "service": "opclBond",
+  "dsId": "VW_CLSG02030601",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "G3PFKXO63RXC3KO4554E4821467",
+  "name": "체육대회지원",
+  "service": "opclSpoGameSup",
+  "dsId": "VW_CLSG01030506",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "40QSI7JCLT7L832V12566787980",
+  "name": "체육대회지원",
+  "service": "opbdSpoGameSup",
+  "dsId": "VW_BUDG02030506",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "92J2H545V9NTT15V44N76383985",
+  "name": "체육육성종목지원",
+  "service": "opbdSpoGrowItemSup",
+  "dsId": "VW_BUDG02030339",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "OEDPY001438Z6T93N1K64421379",
+  "name": "체육육성종목지원",
+  "service": "opclSpoGrowItemSup",
+  "dsId": "VW_CLSG01030339",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "단위구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "0G10Z91IIV1M5J7OMVT74301919",
+  "name": "체험중심과학환경교육지원",
+  "service": "opclExpSciEnvEduSup",
+  "dsId": "VW_CLSG01030327",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "C16X87TESK723Z37Q4YY6262918",
+  "name": "체험중심과학환경교육지원",
+  "service": "opbdExpSciEnvEduSup",
+  "dsId": "VW_BUDG02030327",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "33Y49LL594WYVA00A07B5738227",
+  "name": "총계",
+  "service": "opbdTotal",
+  "dsId": "VW_BUDG02010101",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "VF47Q24L705KRQ3096PA3773504",
+  "name": "총계",
+  "service": "opclTotal",
+  "dsId": "VW_CLSG01010101",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "4C25C7225ZS630W1SL9J5309321",
+  "name": "총괄",
+  "service": "opclSpendTot",
+  "dsId": "VW_CLSG01040101",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "7810860RJ3U4667R65317288797",
+  "name": "총괄",
+  "service": "opbdSpendTot",
+  "dsId": "VW_BUDG02040101",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "A012ENRRB59149X0R43I3812390",
+  "name": "총괄",
+  "service": "opclSummr",
+  "dsId": "VW_CLSG01020101",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "2DNQZOCC11V94F3MFM4G5448971",
+  "name": "총괄",
+  "service": "opclDebt",
+  "dsId": "VW_CLSG02020101",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "T7OT75RGTKBPLJ57O53H5772609",
+  "name": "총괄",
+  "service": "opbdSummr",
+  "dsId": "VW_BUDG02020101",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "4CVP3RK24PXAWY02XY7D12087844",
+  "name": "취업역량강화",
+  "service": "opclEmpPowUp",
+  "dsId": "VW_CLSG01080312",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "ZB8OLXESZ9YVXYGSH9Y58378982",
+  "name": "취업역량강화",
+  "service": "opbdEmpPowUp",
+  "dsId": "VW_BUDG02080323",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "GQBY7W270H99I62MPCIL6674399",
+  "name": "토·공휴일중식지원",
+  "service": "opbdWkendLunchSup",
+  "dsId": "VW_BUDG02030409",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "L0XQLY06N2DKDW7BMEY54713444",
+  "name": "토·공휴일중식지원",
+  "service": "opclWkendLunchSup",
+  "dsId": "VW_CLSG01030409",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "78PD71936S5QT9LS9Q757394229",
+  "name": "통합재정수지",
+  "service": "opbdintgPfincBalc",
+  "dsId": "VW_BUDG03010201",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "7IW46939NR8Q186BOSOK5426766",
+  "name": "통합재정수지",
+  "service": "opclintgPfincBalc",
+  "dsId": "VW_CLSG02010201",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "4MBKIJ5NI46Z4OV1VK053793178",
+  "name": "통합재정통계",
+  "service": "opclIntFiSta",
+  "dsId": "VW_CLSG01010301",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "1TS9N04Q16D29SK7109Q5753525",
+  "name": "통합재정통계",
+  "service": "opbdIntFiSta",
+  "dsId": "VW_BUDG02010301",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "2YOJE0TERUZJESY46WBP7919755",
+  "name": "투자심사 대상사업",
+  "service": "opclInvstExamTargBiz",
+  "dsId": "VW_CLSG02060101",
+  "args": [
+   "회계년도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계년도",
+   "지역구분",
+   "지역구분",
+   "총사업비(원)",
+   "집행년도-1 집행사업비(원)",
+   "집행년도사업비(원)",
+   "집행년도+1 집행사업비(원)"
+  ]
+ },
+ {
+  "infId": "90RB03791B09LARF4UM47157992",
+  "name": "특별교육재정수요지원",
+  "service": "opbdSpeEduFiNeedSup",
+  "dsId": "VW_BUDG02031027",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "EP738322SO1QULM2282E5193273",
+  "name": "특별교육재정수요지원",
+  "service": "opclSpeEduFiNeedSup",
+  "dsId": "VW_CLSG01031027",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "EZZV5OYY74I7RMB550FO9087647",
+  "name": "특별교육재정수요지원",
+  "service": "opbdSpeEduFiNeedSupN",
+  "dsId": "VW_BUDG02080926",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "WAIW5DTMD92JT45UY79V11872794",
+  "name": "특색교육과정운영",
+  "service": "opclFeatEduCosOpN",
+  "dsId": "VW_CLSG01080211",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "AWY3P7TN9XO1I709EXKY8176987",
+  "name": "특색교육과정운영",
+  "service": "opbdFeatEduCosOpN",
+  "dsId": "VW_BUDG02080303",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "X6S3E035AP1EK6UUQF2A4081903",
+  "name": "특색교육과정운영",
+  "service": "opclFeatEduCosOp",
+  "dsId": "VW_CLSG01030305",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "M45IV0X8799O5UL69QBF6042025",
+  "name": "특색교육과정운영",
+  "service": "opbdFeatEduCosOp",
+  "dsId": "VW_BUDG02030305",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "4876GJDZG5S34ZTY891Y4335017",
+  "name": "특성화고교육내실화지원",
+  "service": "opclSpeHiSchEduIntSup",
+  "dsId": "VW_CLSG01030330",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "6429O8LZ9EJX9KJ098026294912",
+  "name": "특성화고교육내실화지원",
+  "service": "opbdSpeHiSchEduIntSup",
+  "dsId": "VW_BUDG02030330",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "FIO46NB7ZWS46L591T956287901",
+  "name": "특성화고운영지원",
+  "service": "opbdSpeHiSchOpSup",
+  "dsId": "VW_BUDG02030329",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "ZT0148MK034581602L814324657",
+  "name": "특성화고운영지원",
+  "service": "opclSpeHiSchOpSup",
+  "dsId": "VW_CLSG01030329",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "O3D3759T11118VDNQWPM4658000",
+  "name": "특성화고장학금지원",
+  "service": "opclSpeHiSchSchSup",
+  "dsId": "VW_CLSG01030403",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "VU41T93WIXH0408568116619729",
+  "name": "특성화고장학금지원",
+  "service": "opbdSpeHiSchSchSup",
+  "dsId": "VW_BUDG02030403",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "381X689D7254646VBCAL4359524",
+  "name": "특성화고취업역량강화",
+  "service": "opclSpeHiSchEmpPowUp",
+  "dsId": "VW_CLSG01030332",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "M48I9QC4R66084B71RQ86315385",
+  "name": "특성화고취업역량강화",
+  "service": "opbdSpeHiSchEmpPowUp",
+  "dsId": "VW_BUDG02030332",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "JEOAH2LG00WEBS8O4GUF4206733",
+  "name": "특수교육교수학습지원",
+  "service": "opclSpeEduLessStySup",
+  "dsId": "VW_CLSG01030317",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "DCOZ0K5M982IF6UPSQRQ6167518",
+  "name": "특수교육교수학습지원",
+  "service": "opbdSpeEduLessStySup",
+  "dsId": "VW_BUDG02030317",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "BZP5W27YCLT4H1WLCOUX12028357",
+  "name": "특수교육복지",
+  "service": "opclSpeEduWel",
+  "dsId": "VW_CLSG01080306",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "ZPHFI78VDH11N78GB8HO8317059",
+  "name": "특수교육복지",
+  "service": "opbdSpeEduWel",
+  "dsId": "VW_BUDG02080317",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "TN2I9NS421R9YAK20R2H4214315",
+  "name": "특수교육복지지원",
+  "service": "opclSpeEduWelSup",
+  "dsId": "VW_CLSG01030318",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "1WO2X6F43Z9C851UE2646175294",
+  "name": "특수교육복지지원",
+  "service": "opbdSpeEduWelSup",
+  "dsId": "VW_BUDG02030318",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "D3EF40DY208HCH98ARWP8329577",
+  "name": "특수교육여건개선",
+  "service": "opbdSpeEduConUpN",
+  "dsId": "VW_BUDG02080318",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "1X7VX4PJUHL5G24YOYCI12012974",
+  "name": "특수교육여건개선",
+  "service": "opclSpeEduConUpN",
+  "dsId": "VW_CLSG01080307",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "449KGE872CC6C47FP8T16181355",
+  "name": "특수교육여건개선",
+  "service": "opbdSpeEduConUp",
+  "dsId": "VW_BUDG02030319",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "XSBJ42NQ5VJ34PAIV89O4229157",
+  "name": "특수교육여건개선",
+  "service": "opclSpeEduConUp",
+  "dsId": "VW_CLSG01030319",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "AZRKUCUBPU65NKACD56J12033332",
+  "name": "특수교육운영",
+  "service": "opclSpeEduOpN",
+  "dsId": "VW_CLSG01080305",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "0KK122Y2SNG6M39RGR326156362",
+  "name": "특수교육운영",
+  "service": "opbdSpeEduOp",
+  "dsId": "VW_BUDG02030316",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "6CT6AO9JIWTS5LP8HIH08306385",
+  "name": "특수교육운영",
+  "service": "opbdSpeEduOpN",
+  "dsId": "VW_BUDG02080316",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "0ZJ20U89SFBO6ZZ048404195743",
+  "name": "특수교육운영",
+  "service": "opclSpeEduOp",
+  "dsId": "VW_CLSG01030316",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "MYKV5XFYU1LHMQOZ57FA12522356",
+  "name": "평생교육시설및운영",
+  "service": "opclLifeEduFacOp",
+  "dsId": "VW_CLSG01080353",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "7MLXVQCKHWGVCTIT229F8789885",
+  "name": "평생교육시설및운영",
+  "service": "opbdLifeEduFacOp",
+  "dsId": "VW_BUDG02080801",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "78W49CW11DGBLI27241X4895501",
+  "name": "평생교육시설및운영지원",
+  "service": "opclLifeEduFacOpSup",
+  "dsId": "VW_CLSG01030801",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "8N88Y1935XAZGEN9J8E36858400",
+  "name": "평생교육시설및운영지원",
+  "service": "opbdLifeEduFacOpSup",
+  "dsId": "VW_BUDG02030804",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "0T2E2Q0I2A1R7MDG8W2S8794634",
+  "name": "평생학습운영",
+  "service": "opbdLifeStyOp",
+  "dsId": "VW_BUDG02080802",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "11J3FO8GBM4LJ7MMGA6312515231",
+  "name": "평생학습운영",
+  "service": "opclLifeStyOp",
+  "dsId": "VW_CLSG01080354",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "UQ6U52QMQYF974Y5DJ4G4908316",
+  "name": "평생학습운영지원",
+  "service": "opclLifeStyOpSup",
+  "dsId": "VW_CLSG01030802",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "BU8B37037A8UUPRQWLPW6861475",
+  "name": "평생학습운영지원",
+  "service": "opbdLifeStyOpSup",
+  "dsId": "VW_BUDG02030805",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "TKDCD6KTZ3DHB0Q1B7305615702",
+  "name": "폐교",
+  "service": "opclAbolSch",
+  "dsId": "VW_CLSG03080201",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "폐지학교수(E=A+B+C)(개)",
+   "처리종결(매각)(개)",
+   "처리종결(반환)(개)",
+   "처리종결(자체활용)(개)",
+   "처리종결(교환)(개)",
+   "처리종결계(A)(개)",
+   "활용(무상대부)(개)",
+   "활용(유상대부)(개)",
+   "활용(대부)계(B)(개)",
+   "계획(매각)(개)",
+   "계획(대부)(개)",
+   "계획(자체활용)(개)",
+   "계획(보존)(개)",
+   "계획계(C)(개)",
+   "관리중(활용/계획) 계(D)(개)"
+  ]
+ },
+ {
+  "infId": "ZX5EM8TMQIKPJE0AWBW67766468",
+  "name": "폐교 정보",
+  "service": "closeSchl",
+  "dsId": "",
+  "args": [],
+  "cols": []
+ },
+ {
+  "infId": "X6F7Q6BES5W6T71253X15627569",
+  "name": "폐교활용률",
+  "service": "opclClsdSchUseRate",
+  "dsId": "VW_CLSG03080301",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "비율(%)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "73HY7KKT560973242K5H5542071",
+  "name": "학교급별",
+  "service": "opclSchClassGrade",
+  "dsId": "VW_CLSG03040101",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "60O50V827832G45597S14799095",
+  "name": "학교급식관리",
+  "service": "opclSchLunchMag",
+  "dsId": "VW_CLSG01030503",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "A75ZD0I0E7L421AFVY6P6758523",
+  "name": "학교급식관리",
+  "service": "opbdSchLunchMag",
+  "dsId": "VW_BUDG02030503",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "64X38NWZNCE7X0SCMU998701483",
+  "name": "학교급식운영",
+  "service": "opbdSchLunchOpN",
+  "dsId": "VW_BUDG02080504",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "O21K367O5188J4AR24V64804020",
+  "name": "학교급식운영",
+  "service": "opclSchLunchOp",
+  "dsId": "VW_CLSG01030504",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "69ONR906S2203YPGY1X06765395",
+  "name": "학교급식운영",
+  "service": "opbdSchLunchOp",
+  "dsId": "VW_BUDG02030504",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "Y600A2ZH5AEJJIAWQUFR12428609",
+  "name": "학교급식운영",
+  "service": "opclSchLunchOpN",
+  "dsId": "VW_CLSG01080345",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "0JSVTL9QVVK5MZ1N2FAZ8715891",
+  "name": "학교급식환경개선",
+  "service": "opbdSchLunchEnvUpN",
+  "dsId": "VW_BUDG02080505",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "0SL23J80452CQ1125KK84811719",
+  "name": "학교급식환경개선",
+  "service": "opclSchLunchEnvUp",
+  "dsId": "VW_CLSG01030505",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "PAQ2YOV277O0G8VPTJPV12417537",
+  "name": "학교급식환경개선",
+  "service": "opclSchLunchEnvUpN",
+  "dsId": "VW_CLSG01080346",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "DGYH723P84VP5A5E75296777706",
+  "name": "학교급식환경개선",
+  "service": "opbdSchLunchEnvUp",
+  "dsId": "VW_BUDG02030505",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "4UEQOCK90U1HNIZTC0TG8356199",
+  "name": "학교도서관운영",
+  "service": "opbdSchLibOp",
+  "dsId": "VW_BUDG02080321",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "GMA0BBNKJMZ2O33NABQG12054387",
+  "name": "학교도서관운영",
+  "service": "opclSchLibOp",
+  "dsId": "VW_CLSG01080310",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "DKNN7486HQ4QYW22N34A6221109",
+  "name": "학교도서관운영지원",
+  "service": "opbdSchLibOpSup",
+  "dsId": "VW_BUDG02030323",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "6IBPR8B8FW1K22C6K64E4263268",
+  "name": "학교도서관운영지원",
+  "service": "opclSchLibOpSup",
+  "dsId": "VW_CLSG01030323",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "29FFQ1E9N6OM8KPQXLC012402278",
+  "name": "학교보건관리",
+  "service": "opclSchHcareMagN",
+  "dsId": "VW_CLSG01080342",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "X2B473R7H6I4Q3IWW5456733137",
+  "name": "학교보건관리",
+  "service": "opbdSchHcareMag",
+  "dsId": "VW_BUDG02030501",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "QIU3DBYJTFPF0TKTI2QT8673252",
+  "name": "학교보건관리",
+  "service": "opbdSchHcareMagN",
+  "dsId": "VW_BUDG02080501",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "1VKMWPJCWYO5V00YB1D24772292",
+  "name": "학교보건관리",
+  "service": "opclSchHcareMag",
+  "dsId": "VW_CLSG01030501",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "1M60S2013262LYZ7WR2W6839269",
+  "name": "학교시설증개축",
+  "service": "opbdSchFacEduEnvUp",
+  "dsId": "VW_BUDG02030702",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "7K128BDVA9CRYA491QUD4874922",
+  "name": "학교시설증개축",
+  "service": "opclSchFacEduEnvUp",
+  "dsId": "VW_CLSG01030701",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "U6LZ23HHAY2G7JNI66RU8766291",
+  "name": "학교시설확충",
+  "service": "opbdSchFacEduEnvEp",
+  "dsId": "VW_BUDG02080702",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "84YH7VRC8J89B6E9DGVE12484534",
+  "name": "학교시설확충",
+  "service": "opclSchFacEduEnvEx",
+  "dsId": "VW_CLSG01080351",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "3Y7J6L5VFJ39I17541GY6848091",
+  "name": "학교시설환경개선",
+  "service": "opbdSchNewExt",
+  "dsId": "VW_BUDG02030703",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "7KMH0KFBM4WOBDFWUC568779783",
+  "name": "학교시설환경개선",
+  "service": "opbdSchNewExtN",
+  "dsId": "VW_BUDG02080703",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "NX4XRUNAKBR45T8H9KWG12474587",
+  "name": "학교시설환경개선",
+  "service": "opclSchNewExtN",
+  "dsId": "VW_CLSG01080352",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "OG3OZK7XM60IPZ1E07E34883795",
+  "name": "학교시설환경개선",
+  "service": "opclSchNewExt",
+  "dsId": "VW_CLSG01030702",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "A95A9D4QE4KRYK90D29X8753510",
+  "name": "학교신증설",
+  "service": "opbdSchFacExtN",
+  "dsId": "VW_BUDG02080701",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "2A5VMI2VCYXPS428GML06825253",
+  "name": "학교신증설",
+  "service": "opbdSchFacExt",
+  "dsId": "VW_BUDG02030701",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "7R1T5D6YJ45A6DRVCZ9N4868921",
+  "name": "학교신증설",
+  "service": "opclSchFacExt",
+  "dsId": "VW_CLSG01030604",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "KWMOYOCXLU1VSSV1DS5M12461533",
+  "name": "학교신증설",
+  "service": "opclSchFacExtN",
+  "dsId": "VW_CLSG01080350",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "5C05719R23FN9QN0338X4834193",
+  "name": "학교운영비지원",
+  "service": "opclSchOpSup",
+  "dsId": "VW_CLSG01030601",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "N3XL3G7U2TXA4HBOXSCL8728529",
+  "name": "학교운영비지원",
+  "service": "opbdSchOpSupN",
+  "dsId": "VW_BUDG02080601",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "UJXN39WPVZFGQYE7PC7N12434843",
+  "name": "학교운영비지원",
+  "service": "opclSchOpSupN",
+  "dsId": "VW_CLSG01080347",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "3YN7VX052T52AF27A9SM6798441",
+  "name": "학교운영비지원",
+  "service": "opbdSchOpSup",
+  "dsId": "VW_BUDG02030601",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "RY4AY792FINLCGGD1DW37745620",
+  "name": "학교일반현황 정보",
+  "service": "",
+  "dsId": "",
+  "args": [],
+  "cols": []
+ },
+ {
+  "infId": "NFFSK9Q0BZ42CCHAP0154362662",
+  "name": "학교정보화기기보급및관리",
+  "service": "opclSchInfoDevDiffMag",
+  "dsId": "VW_CLSG01030333",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "Q09B94S0803VB7Q117WE6321993",
+  "name": "학교정보화기기보급및관리",
+  "service": "opbdSchInfoDevDiffMag",
+  "dsId": "VW_BUDG02030333",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "7264T7SSRDN8GSX9MZVC12113681",
+  "name": "학교정보화여건개선",
+  "service": "opclSchInfoUp",
+  "dsId": "VW_CLSG01080314",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "UDKNDWTCPI1N8H45CLGO8399349",
+  "name": "학교정보화여건개선",
+  "service": "opbdSchInfoUp",
+  "dsId": "VW_BUDG02080325",
+  "args": [
+   "회계연도"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "VJRK0924RWV9TSP6SP2Q6394541",
+  "name": "학교체육시설여건개선",
+  "service": "opbdSchSpoFacConUp",
+  "dsId": "VW_BUDG02030340",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "JLR6PMV535907GQ9872X4434989",
+  "name": "학교체육시설여건개선",
+  "service": "opclSchSpoFacConUp",
+  "dsId": "VW_CLSG01030340",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "19GOWK2837PCEK2Z557T4417389",
+  "name": "학교체육활성화지원",
+  "service": "opclSchSpoUpS",
+  "dsId": "VW_CLSG01030338",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "F4Y1Y7MUC74G5L547R5W6372980",
+  "name": "학교체육활성화지원",
+  "service": "opbdSchSpoUpS",
+  "dsId": "VW_BUDG02030338",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "O6902B1QP9IT9CA2EP056524855",
+  "name": "학교평가관리",
+  "service": "opbdSchTestMag",
+  "dsId": "VW_BUDG02030353",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "75380OF74CO162OB8X874562393",
+  "name": "학교평가관리",
+  "service": "opclSchTestMag",
+  "dsId": "VW_CLSG01030353",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "PCTVCAV0R18V0YTT62BX12174003",
+  "name": "학교폭력예방및교육",
+  "service": "opclSchForcProvEdu",
+  "dsId": "VW_CLSG01080321",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "K2SHZKHWTO6SJPCP95TK8463492",
+  "name": "학교폭력예방및교육",
+  "service": "opbgSchForcProvEdu",
+  "dsId": "VW_BUDG02080332",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "326E4WJ0R91384PPL3S94502203",
+  "name": "학교폭력예방지원",
+  "service": "opclSchForcProvSup",
+  "dsId": "VW_CLSG01030347",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "C4483W670SL76C36K4206464786",
+  "name": "학교폭력예방지원",
+  "service": "opbdSchForcProvSup",
+  "dsId": "VW_BUDG02030347",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "K36Z7IQO3J4ITL9Y0QQZ8683183",
+  "name": "학교환경위생관리",
+  "service": "opbdSchEnvHygMagN",
+  "dsId": "VW_BUDG02080502",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "44I0N5571WLB4DOCOVFZ6743731",
+  "name": "학교환경위생관리",
+  "service": "opbdSchEnvHygMag",
+  "dsId": "VW_BUDG02030502",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "AAM3Q19JFJPBW4TV3IB112393934",
+  "name": "학교환경위생관리",
+  "service": "opclSchEnvHygMagN",
+  "dsId": "VW_CLSG01080343",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "I3A9F79I25201R5498K84781026",
+  "name": "학교환경위생관리",
+  "service": "opclSchEnvHygMag",
+  "dsId": "VW_CLSG01030502",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "E8250Y76HDF13325R1306667800",
+  "name": "학기중급식비지원",
+  "service": "opbdTermLunchMonSup",
+  "dsId": "VW_BUDG02030408",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "0J7Z8868IE60FHJ36S054701350",
+  "name": "학기중급식비지원",
+  "service": "opclTermLunchMonSup",
+  "dsId": "VW_CLSG01030408",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "193X65F30D6886QF527V6337445",
+  "name": "학내전산망구축",
+  "service": "opbdSchNWBuild",
+  "dsId": "VW_BUDG02030334",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "DFQV4726H0310AI64M9P4375102",
+  "name": "학내전산망구축",
+  "service": "opclSchNWBuild",
+  "dsId": "VW_CLSG01030334",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "GZRY0BY77FGSZZCDWDQZ11907903",
+  "name": "학력평가관리",
+  "service": "opclAcaTestMagN",
+  "dsId": "VW_CLSG01080215",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "E57RTZFM81FO3F4KPVSC8217836",
+  "name": "학력평가관리",
+  "service": "opbdAcaTestMagN",
+  "dsId": "VW_BUDG02080307",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "546937870J7I2M4046L06513257",
+  "name": "학력평가관리",
+  "service": "opbdAcaTestMag",
+  "dsId": "VW_BUDG02030352",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "UM2U7C3DAHLIG1FY56414555861",
+  "name": "학력평가관리",
+  "service": "opclAcaTestMag",
+  "dsId": "VW_CLSG01030352",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "DJEKR9TV0EAMKXHBNGTS8206660",
+  "name": "학력향상지원",
+  "service": "opbdAcaUpSupN",
+  "dsId": "VW_BUDG02080306",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "UJPW0T6S1QJGM6A7MMM111918035",
+  "name": "학력향상지원",
+  "service": "opclAcaUpSupN",
+  "dsId": "VW_CLSG01080214",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "AN517D62X11601L1B72B4101229",
+  "name": "학력향상지원",
+  "service": "opclAcaUpSup",
+  "dsId": "VW_CLSG01030307",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "S18B6545S83REF2J9PK06061683",
+  "name": "학력향상지원",
+  "service": "opbdAcaUpSup",
+  "dsId": "VW_BUDG02030307",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "54FCXPL7202FXAZBH59M5165307",
+  "name": "학부모및주민교육참여확대",
+  "service": "opclParResEduJoinExt",
+  "dsId": "VW_CLSG01031024",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "S6K4L9D9F32LSUEH562F7128283",
+  "name": "학부모및주민교육참여확대",
+  "service": "opbdParResEduJoinExt",
+  "dsId": "VW_BUDG02031024",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "5WA3K33B4OGD1GJSPGKZ9044798",
+  "name": "학부모및주민참여확대",
+  "service": "opbdParResJoinExt",
+  "dsId": "VW_BUDG02080922",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "EWJ13A9SW0R5NHAW5KFI12771125",
+  "name": "학부모및주민참여확대",
+  "service": "opclParResJoinExt",
+  "dsId": "VW_CLSG01080505",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "G4WJVUBZ4ZCAZ2I9CEF58432271",
+  "name": "학생단체활동",
+  "service": "opbdStuGrpAct",
+  "dsId": "VW_BUDG02080329",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "8KAXAS3DRVIVWE3AGMI112121787",
+  "name": "학생단체활동",
+  "service": "opclStuGrpAct",
+  "dsId": "VW_CLSG01080318",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "78I361Q60B0W1E48RYP65132674",
+  "name": "학생배치계획관리",
+  "service": "opclStuArrPlanMag",
+  "dsId": "VW_CLSG01031021",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "BPVXI6DJAAUN074N7NIS12734344",
+  "name": "학생배치계획관리",
+  "service": "opclStuArrPlanMagN",
+  "dsId": "VW_CLSG01080502",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "RS0RT71C9178332847Q97098492",
+  "name": "학생배치계획관리",
+  "service": "opbdStuArrPlanMag",
+  "dsId": "VW_BUDG02031021",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "DZH6ZGZVQWBMO7HJBGBT9016592",
+  "name": "학생배치계획관리",
+  "service": "opbdStuArrPlanMagN",
+  "dsId": "VW_BUDG02080919",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "09477XLX9BSE0C0WNF1B4477264",
+  "name": "학생봉사활동지원",
+  "service": "opclStuServActSup",
+  "dsId": "VW_CLSG01030344",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "EAE783814X72F2K92Y5D6434233",
+  "name": "학생봉사활동지원",
+  "service": "opbdStuServActSup",
+  "dsId": "VW_BUDG02030344",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "RVQI7YTWE902I84RDUIX12162738",
+  "name": "학생상담활동",
+  "service": "opclStuAdvAct",
+  "dsId": "VW_CLSG01080322",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "LAFWR6PN17TGV5QLV48A8475468",
+  "name": "학생상담활동",
+  "service": "opbdStuAdvAct",
+  "dsId": "VW_BUDG02080333",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "63PIBVJFF8935PDD5IE56499913",
+  "name": "학생상담활동지원",
+  "service": "opbdStuAdvActSup",
+  "dsId": "VW_BUDG02030350",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "X7VBRRP44AX536K962R14535847",
+  "name": "학생상담활동지원",
+  "service": "opclStuAdvActSup",
+  "dsId": "VW_CLSG01030350",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "IS4BADXO0RGAOIQCYJBT12197433",
+  "name": "학생생활지도지원",
+  "service": "opclStuLifeInstSupN",
+  "dsId": "VW_CLSG01080319",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "VPX5P5HLHNIRC5Z5MVRF8444492",
+  "name": "학생생활지도지원",
+  "service": "opbdStuLifeInstSupN",
+  "dsId": "VW_BUDG02080330",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "NNR7DEV7390995F3OJ4U4487610",
+  "name": "학생생활지도지원",
+  "service": "opclStuLifeInstSup",
+  "dsId": "VW_CLSG01030345",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "0NR8S67U439ZI0QZ98JK6444323",
+  "name": "학생생활지도지원",
+  "service": "opbdStuLifeInstSup",
+  "dsId": "VW_BUDG02030345",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "3XJK0OZ12D64F52EV7254465189",
+  "name": "학생수련활동지원",
+  "service": "opclStuTraActSup",
+  "dsId": "VW_CLSG01030343",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "W3303U4ND5HT42O2V44C6423364",
+  "name": "학생수련활동지원",
+  "service": "opbdStuTraActSup",
+  "dsId": "VW_BUDG02030343",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "P0YVV44E59PO0AKWPJTS12153970",
+  "name": "학생안전관리",
+  "service": "stdetclsafmant",
+  "dsId": "VW_CLSG01080323",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "2P45S19N97CLFJIJ9K518487808",
+  "name": "학생안전관리",
+  "service": "stdetbgsafmant",
+  "dsId": "VW_BUDG02080334",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "ANOPZ2ERY7DUEUYOHZHS12592381",
+  "name": "행정개선활동지원",
+  "service": "opclAdmUpActSupN",
+  "dsId": "VW_CLSG01080406",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "P1IYE7HR47J28H7Y8HE76953096",
+  "name": "행정개선활동지원",
+  "service": "opbdAdmUpActSup",
+  "dsId": "VW_BUDG02031007",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "483D03H0Q7YZW1W4X32V4992736",
+  "name": "행정개선활동지원",
+  "service": "opclAdmUpActSup",
+  "dsId": "VW_CLSG01031007",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "J33MESG0VO95QPQR9LW18904168",
+  "name": "행정개선활동지원",
+  "service": "opbdAdmUpActSupN",
+  "dsId": "VW_BUDG02080908",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "S0U0FO6VU8R8978UX8KI7039269",
+  "name": "행정서비스관리",
+  "service": "opbdAdmServMag",
+  "dsId": "VW_BUDG02031015",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "7914K30W674Y803Q5Q9N5074376",
+  "name": "행정서비스관리",
+  "service": "opclAdmServMag",
+  "dsId": "VW_CLSG01031015",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "O1GB0YTOJU9M0S9A5YT48963255",
+  "name": "행정서비스관리",
+  "service": "opbdAdmServMagN",
+  "dsId": "VW_BUDG02080914",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "P9MQ0JHSC18U5QCB4SPI5433710",
+  "name": "행정운영경비비율",
+  "service": "opclAdmOpMonRate",
+  "dsId": "VW_CLSG02010301",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액 및 비율",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "U0X6J6121X504P74KT9D7407377",
+  "name": "행정운영경비비율",
+  "service": "opbdAdmOpMonRate",
+  "dsId": "VW_BUDG03010301",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "CV7NSET6EE47B94NO4BD11968332",
+  "name": "현장중심장학지원",
+  "service": "opclFieldSchActSupN",
+  "dsId": "VW_CLSG01080216",
+  "args": [
+   "기준년도",
+   "지역구분SEQ"
+  ],
+  "cols": [
+   "기준년도",
+   "지역구분",
+   "항목구분",
+   "금액",
+   "지역구분SEQ"
+  ]
+ },
+ {
+  "infId": "YDGOQR5T581AFJVU1ERO8224192",
+  "name": "현장중심장학지원",
+  "service": "opbdFieldSchActSupN",
+  "dsId": "VW_BUDG02080308",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "회계연도",
+   "지역구분",
+   "지역구분",
+   "항목구분",
+   "항목구분",
+   "금액(원)",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "I1N4T9IF34I705C85GN44111152",
+  "name": "현장중심장학활동지원",
+  "service": "opclFieldSchActSup",
+  "dsId": "VW_CLSG01030308",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ },
+ {
+  "infId": "3M8577D46F5355BUV2106078611",
+  "name": "현장중심장학활동지원",
+  "service": "opbdFieldSchActSup",
+  "dsId": "VW_BUDG02030308",
+  "args": [
+   "회계연도",
+   "지역구분"
+  ],
+  "cols": [
+   "회계연도",
+   "지역구분",
+   "항목구분",
+   "금액(원)",
+   "지역구분"
+  ]
+ }
+]
