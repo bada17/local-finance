@@ -32,6 +32,7 @@ import glob
 import gzip
 import json
 import os
+import re
 import sys
 
 try:
@@ -123,6 +124,45 @@ def main():
             이름.setdefault(cd, str(줄[0].get('laf_hg_nm') or ''))
             시도.setdefault(cd, str(줄[0].get('wa_laf_hg_nm') or ''))
 
+    # ⭐ 연감에서 뽑은 자치단체별 세목을 코드에 잇는다.
+    # 우리 이름은 「시도짧은 + 곳이름」이다(서울종로구·경기수원시). 연감은 「종로구」·「수원시」다.
+    # ⚠️ 본청은 연감이 「서울시」·「경기도」라고 적는다 — 우리 「서울본청」과 이름이 다르다.
+    연감 = {}
+    못이음 = []
+    연감짧은 = {'서울특별시': '서울', '부산광역시': '부산', '대구광역시': '대구',
+             '인천광역시': '인천', '광주광역시': '광주', '대전광역시': '대전',
+             '울산광역시': '울산', '세종특별자치시': '세종', '경기도': '경기',
+             '강원특별자치도': '강원', '충청북도': '충북', '충청남도': '충남',
+             '전북특별자치도': '전북', '전라남도': '전남', '경상북도': '경북',
+             '경상남도': '경남', '제주특별자치도': '제주'}
+    이름에서코드 = {}
+    for cd, nm in 이름.items():
+        이름에서코드[(시도.get(cd, ''), nm)] = cd
+    for p in sorted(glob.glob(os.path.join(ROOT, 'data', 'taxitem', '*.json'))):
+        with open(p, encoding='utf-8') as f:
+            t = json.load(f)
+        짧 = 연감짧은.get(t['시도'])
+        if not 짧:
+            continue
+        for 한 in t['곳']:
+            곳이름 = 한['이름']
+            if 곳이름 == '합계':
+                continue
+            후보 = [짧 + 곳이름]                 # 서울 + 종로구 → 서울종로구
+            if 곳이름 in (짧 + '시', 짧 + '도', t['시도']):
+                후보.append(짧 + '본청')         # 연감의 「서울시」는 우리 「서울본청」
+            # ⚠️ 이름이 바뀐 곳·부르는 법이 다른 곳은 손으로 맞춘다.
+            #    인천 남구는 2018년에 미추홀구가 됐는데 연감이 옛 이름을 쓴다.
+            후보 += {'미추홀구': ['인천미추홀구', '인천남구'],
+                   '제주': ['제주본청']}.get(곳이름, [])
+            for 이 in 후보:
+                cd = 이름에서코드.get((짧, 이))
+                if cd:
+                    연감[cd] = 한
+                    break
+            else:
+                못이음.append(f'{짧}·{곳이름}')
+
     곳들 = sorted(이름)
     낸것 = 0
     감액합 = 0
@@ -176,17 +216,30 @@ def main():
         if d['재원']:
             바구니['제돈몫'].append(d['재원']['제돈몫'])
 
-        # ③ 무슨 세금인가 — 세목별. ⚠️ 시·도 17곳까지만 있다
+        # ③ 무슨 세금인가 — 세목별.
+        # ⭐ 연감(hwpx)에서 뽑은 **이 자치단체의 실제 세목**이 있으면 그것을 쓴다.
+        #    없을 때만 시·도 값으로 대신하고 화면에 「이 곳의 몫이 아니다」라고 적는다.
         시도키 = 시도.get(cd) or ''
-        해묶 = 세목줄.get(시도키)
-        if 해묶:
-            최신해 = max(해묶)
-            칸 = {k: v for k, v in 해묶[최신해].items() if v}
+        내것 = 연감.get(cd)
+        if 내것:
+            칸 = {k: v for k, v in 내것['값'].items()
+                  if v and not re.search(r'(^|·)(합계|소계|총계)(\(\d+\))?$', k)}
             총 = sum(칸.values()) or 1
-            d['세목'] = {'해': 최신해, '단위': f'{시도키} 전체(시·도)',
-                       '이곳것아님': not cd.endswith('00000'),
+            d['세목'] = {'해': 2024, '단위': f'{이름.get(cd, "")} (지방세통계연감)',
+                       '이곳것아님': False, '천원단위': True,
+                       '합계': 내것['값'].get('합계'),
                        '칸': sorted(({'이름': k, '금액': v, '몫': round(v / 총 * 100, 1)}
-                                    for k, v in 칸.items()), key=lambda x: -x['금액'])[:12]}
+                                    for k, v in 칸.items()), key=lambda x: -x['금액'])[:14]}
+        else:
+            해묶 = 세목줄.get(시도키)
+            if 해묶:
+                최신해 = max(해묶)
+                칸 = {k: v for k, v in 해묶[최신해].items() if v}
+                총 = sum(칸.values()) or 1
+                d['세목'] = {'해': 최신해, '단위': f'{시도키} 전체(시·도)',
+                           '이곳것아님': not cd.endswith('00000'), '천원단위': False,
+                           '칸': sorted(({'이름': k, '금액': v, '몫': round(v / 총 * 100, 1)}
+                                        for k, v in 칸.items()), key=lambda x: -x['금액'])[:12]}
 
         # ③ 걷힌 것과 밀린 것
         d['징수'] = sorted(
@@ -264,6 +317,9 @@ def main():
         json.dump(색인, f, ensure_ascii=False, separators=(',', ':'))
 
     크기 = sum(os.path.getsize(p) for p in glob.glob(os.path.join(OUT, '*.json')))
+    if 못이음:
+        print(f'  ⚠ 연감 줄 가운데 코드를 못 이은 것 {len(못이음)}개 — {", ".join(못이음[:8])}')
+    print(f'  세목이 이 곳의 실제 값인 곳 {len(연감)}곳')
     print(f'구움: site/data/revenue/ — {낸것}곳 · {크기 / 1024:,.0f} KB')
     print(f'  교부세를 깎인 곳 {감액곳}곳 · 합계 {감액합:,}원 (2012~2026)')
     print(f'  전국 가운데값 — 제 돈 몫 {색인["가운데"].get("제돈몫")}% · '
