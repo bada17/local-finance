@@ -1,9 +1,13 @@
 # 보탬e 지방보조금 공시 수집기 — **누가 받아 갔나**가 여기 있다.
 #
+#   python scripts/fetch_grants.py                   올해 전국 (인자 없이 돌려도 된다)
 #   python scripts/fetch_grants.py 2025              그 해 전국(243곳)
 #   python scripts/fetch_grants.py 2025 6110000      그 광역과 그 밑 기초만 (시험용)
 #   python scripts/fetch_grants.py 2025 --다시       이미 받아 둔 것을 지우고 새로
 #
+# ⭐ **끝난 해·달만 건너뛴다. 아직 안 끝난 것은 늘 다시 받는다.**
+#    자료가 계속 붙는데 한 번 받고 끝내면 옛 숫자가 그대로 굳는다
+#    (2026-09-22 사용자 — "모든 API는 업데이트되는 자료를 받아오는 형식으로 디자인되어야 함").
 # 왜 — 지방재정365에는 지방보조금 **편성현황**(UCMZQA 등)만 있다. 얼마를 잡았나까지다.
 #      **누구에게 얼마가 갔나**는 보탬e 공시에만 있다.
 #
@@ -91,9 +95,10 @@ def 한곳(해, 광역코드, 곳코드):
 
 
 def main():
-    if len(sys.argv) < 2:
-        raise SystemExit('쓰는 법: fetch_grants.py <연도> [광역코드] [--다시]')
-    해 = sys.argv[1]
+    올해 = time.strftime('%Y')
+    숫자 = [a for a in sys.argv[1:] if a.isdigit() and len(a) == 4]
+    # ⭐ 인자를 안 줘도 돌아야 한다 — 날마다 도는 봇이 해를 못 준다.
+    해 = 숫자[0] if 숫자 else 올해
     다시 = '--다시' in sys.argv
     광역만 = next((a for a in sys.argv[2:] if a.isdigit()), '')
 
@@ -101,8 +106,9 @@ def main():
     os.makedirs(낼곳, exist_ok=True)
     이름 = f'{해}{"_" + 광역만 if 광역만 else ""}.json.gz'
     길 = os.path.join(낼곳, 이름)
-    if os.path.exists(길) and not 다시:
-        raise SystemExit(f'이미 있다: data/grants/{이름} (다시 받으려면 --다시)')
+    # ⭐ 끝난 해만 건너뛴다. 올해 것은 교부가 계속 붙으니 늘 다시 받는다.
+    if os.path.exists(길) and not 다시 and 해 < 올해:
+        raise SystemExit(f'이미 있다: data/grants/{이름} (끝난 해다. 다시 받으려면 --다시)')
 
     곳들 = 곳목록(해, 광역만)
     print(f'■ {해}년 · 부를 곳 {len(곳들)}곳')

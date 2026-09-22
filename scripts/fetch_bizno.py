@@ -1,9 +1,13 @@
 # 나라장터 계약에서 **「업체명 → 사업자등록번호」 사전**을 만든다.
 #
+#   python scripts/fetch_bizno.py                   받아 둔 마지막 달부터 이번 달까지
 #   python scripts/fetch_bizno.py 202609            그 달
 #   python scripts/fetch_bizno.py 202401 202609     그 달부터 그 달까지
 #   python scripts/fetch_bizno.py 202609 --다시     다시 받는다
 #
+# ⭐ **끝난 해·달만 건너뛴다. 아직 안 끝난 것은 늘 다시 받는다.**
+#    자료가 계속 붙는데 한 번 받고 끝내면 옛 숫자가 그대로 굳는다
+#    (2026-09-22 사용자 — "모든 API는 업데이트되는 자료를 받아오는 형식으로 디자인되어야 함").
 # 왜 — 지방재정365 계약현황(`WCEGCF`)에는 **업체명만** 있다. 그래서 「(주)○○」와
 #      「주식회사 ○○」가 갈라진다. 나라장터에는 사업자번호가 있으니, 거기서 이름과 번호의
 #      짝을 모아 **우리 계약 320만 건에 되붙인다.**
@@ -17,6 +21,7 @@
 
 import calendar
 import gzip
+import glob
 import json
 import os
 import sys
@@ -117,21 +122,33 @@ def 한달(키, 달):
 
 
 def main():
+    이번달 = time.strftime('%Y%m')
     달들 = [a for a in sys.argv[1:] if a.isdigit() and len(a) == 6]
-    if not 달들:
-        raise SystemExit('쓰는 법: fetch_bizno.py <YYYYMM> [끝YYYYMM] [--다시]')
     다시 = '--다시' in sys.argv
-    처음달, 끝달 = 달들[0], (달들[1] if len(달들) > 1 else 달들[0])
 
     낼곳 = os.path.join(ROOT, 'data', 'bizno')
     os.makedirs(낼곳, exist_ok=True)
+
+    if 달들:
+        처음달, 끝달 = 달들[0], (달들[1] if len(달들) > 1 else 달들[0])
+    else:
+        # ⭐ 인자를 안 줘도 돌아야 한다 — 날마다 도는 봇이 달을 못 준다.
+        #    받아 둔 마지막 달부터 이번 달까지 이어 받는다(마지막 달은 덜 찼을 수 있다).
+        있는것 = sorted(os.path.basename(x)[:6]
+                      for x in glob.glob(os.path.join(낼곳, '??????.json.gz')))
+        처음달 = 있는것[-1] if 있는것 else 이번달
+        끝달 = 이번달
+        if 처음달 > 끝달:
+            처음달 = 끝달
+        print(f'달을 안 줬다 — {처음달} 부터 {끝달} 까지 이어 받는다')
     키 = 키읽기()
 
     달 = 처음달
     while 달 <= 끝달:
         경로 = os.path.join(낼곳, f'{달}.json.gz')
-        if os.path.exists(경로) and not 다시:
-            print(f'{달} — 이미 있다')
+        # ⭐ 끝난 달만 건너뛴다. 이번 달은 계약이 계속 붙으니 늘 다시 받는다.
+        if os.path.exists(경로) and not 다시 and 달 < 이번달:
+            print(f'{달} — 이미 있다 (끝난 달이라 건너뛴다)')
         else:
             시작 = time.time()
             사전, 줄수 = 한달(키, 달)

@@ -1,9 +1,13 @@
 # 클린아이(지방공기업 경영정보) 수집기 — 공기업·공단이 어떻게 굴러가나.
 #
+#   python scripts/fetch_cleaneye.py                 작년과 올해 (인자 없이 돌려도 된다)
 #   python scripts/fetch_cleaneye.py 2024            그 해
 #   python scripts/fetch_cleaneye.py 2015 2024       그 해부터 그 해까지
 #   python scripts/fetch_cleaneye.py 2024 --다시     이미 받아 둔 것을 지우고 새로
 #
+# ⭐ **끝난 해·달만 건너뛴다. 아직 안 끝난 것은 늘 다시 받는다.**
+#    자료가 계속 붙는데 한 번 받고 끝내면 옛 숫자가 그대로 굳는다
+#    (2026-09-22 사용자 — "모든 API는 업데이트되는 자료를 받아오는 형식으로 디자인되어야 함").
 # 왜 — 자치단체 살림에서 공기업·공단은 회계가 따로라 예산·결산 자료에 잘 안 잡힌다.
 #      부채와 당기순이익이 여기 있다.
 #
@@ -92,11 +96,15 @@ def 한갈래(끝점, 길, 키, 해):
 
 
 def main():
+    올해 = time.localtime().tm_year
     해들 = [a for a in sys.argv[1:] if a.isdigit()]
     if not 해들:
-        raise SystemExit('쓰는 법: fetch_cleaneye.py <연도> [끝연도] [--다시]')
-    처음 = int(해들[0])
-    끝해 = int(해들[1]) if len(해들) > 1 else 처음
+        # ⭐ 인자를 안 줘도 돌아야 한다 — 날마다 도는 봇이 해를 못 준다.
+        #    「아직 안 끝난 해」와 그 앞 해를 잡는다(앞 해는 뒤늦게 고쳐져 올라온다).
+        처음, 끝해 = 올해 - 1, 올해
+    else:
+        처음 = int(해들[0])
+        끝해 = int(해들[1]) if len(해들) > 1 else 처음
     다시 = '--다시' in sys.argv
     키 = 키읽기()
 
@@ -105,8 +113,9 @@ def main():
 
     for 해 in range(처음, 끝해 + 1):
         길이름 = os.path.join(낼곳, f'{해}.json.gz')
-        if os.path.exists(길이름) and not 다시:
-            print(f'{해} — 이미 있다 (다시 받으려면 --다시)')
+        # ⭐ 끝난 해만 건너뛴다. 아직 안 끝난 해는 자료가 계속 느니까 늘 다시 받는다.
+        if os.path.exists(길이름) and not 다시 and 해 < 올해:
+            print(f'{해} — 이미 있다 (끝난 해라 건너뛴다)')
             continue
         담 = {}
         셈 = []
