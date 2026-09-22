@@ -43,6 +43,13 @@
   .q .mk{font-family:var(--mono); font-weight:600; width:1.2em}
   .q.됨 .mk{color:var(--ok)} .q.반쪽 .mk{color:var(--half)} .q.못함 .mk{color:var(--alert)}
   .q .물음{font-weight:500; flex:1 1 320px}
+  .층뜻{margin:-6px 0 12px; color:#5b6470; font-size:.92rem; line-height:1.6}
+  .켜{display:flex; flex-wrap:wrap; gap:6px; margin:2px 0 10px}
+  .켜 .ㄱ{display:inline-flex; align-items:center; gap:5px; border:1px solid #dfe3e8;
+         border-radius:999px; padding:2px 9px; font-size:.82rem; color:#5b6470; background:#fff}
+  .켜 .ㄱ.on{border-color:#1f7a4d; color:#1f7a4d; background:#f1f9f4}
+  .켜 .ㄱ.off{border-color:#c9ccd1; color:#9aa0a8}
+  .켜 .ㅋ{font-weight:700}
   .q .요약{font-size:12px; color:var(--faint); text-align:right}
   .q .body{padding:2px 12px 12px 34px; border-top:1px solid var(--line-soft)}
   .q .body p{margin:8px 0 2px; font-size:12.5px}
@@ -94,19 +101,25 @@
 
 <main class="wrap">
   <h1>무엇을 말할 수 있고, 무엇이 비었나</h1>
-  <p class="basis"><b>질문을 먼저 늘어놓고</b> 지금 답할 수 있는지를 매긴 지도다.
-    자료 목록이 아니라 <b>「우리가 무슨 말을 할 수 있나」</b>의 지도다.<br>
+  <p class="basis"><b>자료의 알갱이 크기로 층을 나눈</b> 지도다.
+    <b>1층 큰 틀</b>(243곳을 한 줄씩) · <b>2층 사업별</b> · <b>3층 낱줄</b>(거래 한 건씩),
+    그리고 층 밖의 <b>공개 상태</b>.<br>
+    질문으로 짜지 않는다 — 질문 문장은 짓는 사람 마음이라 부정확하다.
+    층은 <b>자료가 실제로 그 알갱이로 오기 때문에</b> 지어낼 여지가 없다.<br>
     아래에 <b>자료 전수 350줄</b>(지방재정365 146 · 열린재정 198 · 그밖 6)도 함께 폈다.<br>
-    ● 된다 · ◐ 반쪽(되지만 구멍이 있다) · ○ 못 한다.
+    ● 찼다 · ◐ 반쪽(되지만 구멍이 있다) · ○ 비었다.
     ○ 마다 <b>어떤 자료가 있어야 풀리는지</b>를 적어 뒀다.<br>
-    질문마다 <b>화면에 실제로 뜨는 칸 이름</b>(재정자립도·수의계약비율 같은)과 한 줄 뜻풀이를 붙였다.<br>
+    갈래마다 <b>켜 셋</b>을 매긴다 — <b>① 세상에 있나 · ② 우리가 받아 뒀나 · ③ 화면에 올렸나</b>.
+    ③ 은 <code>site/</code> 밑에 낼 자리를 정해 두고 거기 파일이 있나로만 본다.<br>
+    갈래마다 <b>화면에 실제로 뜨는 칸 이름</b>(재정자립도·수의계약비율 같은)과 한 줄 뜻풀이를 붙였다.<br>
     ⚠️ 이 화면은 <b>우리 작업용</b>이다 — 파일 이름과 명령을 그대로 적는다.
     상태는 손으로 적은 것이 아니라 <b>저장소를 훑어서 매긴다</b>(<span id="asof"></span> 기준).
-    자료를 받아 오고 다시 구우면 ○ 가 저절로 ● 가 된다.</p>
+    자료를 받아 오고 다시 구우면 ○ 가 저절로 ● 가 된다.<br>
+    ⛔ <b>2층과 3층은 안 이어진다</b> — 사업과 계약을 잇는 열쇠가 자료에 없다.</p>
 
   <div class="tally" id="tally"></div>
 
-  <h2>질문마다</h2>
+  <h2>층마다 — 자료의 알갱이 크기</h2>
   <div id="qs"></div>
 
   <h2>자료 전수 — 어디까지 들어왔나</h2>
@@ -128,7 +141,7 @@
 
   <footer>
     <p>굽는 법 — <code>python scripts/build_datamap.py</code>.
-      질문 목록과 「반쪽인 까닭」은 그 스크립트 안에 글로 적혀 있다. 고치려면 거기를 고친다.</p>
+      층 나누기와 「반쪽인 까닭」은 그 스크립트 안에 글로 적혀 있다. 고치려면 거기를 고친다.</p>
     <p>⚠️ 기준이 서로 다르다 — 결산(확정)·예산(계획)·계약(체결)·진행(그날까지 누계)·공시(우리가 잰 것).
       한 화면에 놓고 빼지 말 것.</p>
   </footer>
@@ -145,7 +158,8 @@ const 꾸밈 = t => String(t == null ? '' : t)
   .replace(/`(.+?)`/g, '<code>$1</code>');
 
 const 표시 = {'됨': '●', '반쪽': '◐', '못함': '○'};
-const 말 = {'됨': '된다', '반쪽': '반쪽', '못함': '못 한다'};
+const 말 = {'됨': '찼다', '반쪽': '반쪽', '못함': '비었다'};
+const 켜이름 = [['있나', '① 세상에 있다'], ['받았나', '② 받아 뒀다'], ['올렸나', '③ 화면에 올렸다']];
 
 document.getElementById('tally').innerHTML = ['됨', '반쪽', '못함'].map(k =>
   `<div class="${k}"><div class="n">${TALLY[k]}</div><div class="k">${말[k]}</div></div>`).join('')
@@ -154,6 +168,7 @@ document.getElementById('tally').innerHTML = ['됨', '반쪽', '못함'].map(k =
 
 document.getElementById('qs').innerHTML = GROUPS.map(g => `
   <h3>${g.축}</h3>
+  ${g.뜻 ? `<p class="층뜻">${꾸밈(g.뜻)}</p>` : ''}
   ${g.질문.map(q => `
     <details class="q ${q.상태}"${q.상태 === '못함' ? ' open' : ''}>
       <summary>
@@ -166,6 +181,11 @@ document.getElementById('qs').innerHTML = GROUPS.map(g => `
               : q.쓰는자료.map(s => s.이름).join(' · '))}</span>
       </summary>
       <div class="body">
+        ${(q.켜 || []).map(c => `<div class="켜">
+          <span class="ㄱ ㅋ">${c.열쇠}</span>
+          ${켜이름.map(([k, nm]) =>
+            `<span class="ㄱ ${c[k] ? 'on' : 'off'}">${c[k] ? '○' : '✕'} ${nm}</span>`).join('')}
+        </div>`).join('')}
         ${q.칸.length ? `<p><b>화면에 뜨는 칸</b></p>
           <div class="cols">${q.칸.map(c =>
             `<span class="col"><b>${c.이름}</b>${c.뜻 ? ` <span>— ${꾸밈(c.뜻)}</span>` : ''}</span>`).join('')}</div>` : ''}
@@ -242,7 +262,7 @@ document.getElementById('have').innerHTML =
 
 document.getElementById('missing').innerHTML =
   `<thead><tr><th style="width:20%">자료</th><th style="width:28%">어디 있나</th>
-   <th style="width:26%">막힌 까닭</th><th>이게 있으면 풀리는 질문</th></tr></thead>
+   <th style="width:26%">막힌 까닭</th><th>이게 있으면 풀리는 갈래</th></tr></thead>
    <tbody>${MISSING.map(m => `<tr>
      <td><b>${m.이름}</b></td>
      <td>${꾸밈(m.어디있나)}${m.있으면생기는칸 && m.있으면생기는칸.length
@@ -251,5 +271,5 @@ document.getElementById('missing').innerHTML =
      <td>${꾸밈(m.막힘)}</td>
      <td>${m.풀리는질문.length
        ? '<ul style="margin:0;padding-left:16px">' + m.풀리는질문.map(q => `<li>${q}</li>`).join('') + '</ul>'
-       : '<span class="tag">지금 걸린 질문 없음</span>'}</td></tr>`).join('')}</tbody>`;
+       : '<span class="tag">지금 걸린 갈래 없음</span>'}</td></tr>`).join('')}</tbody>`;
 </script>
