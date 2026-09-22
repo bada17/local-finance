@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="ko">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>17개 시·도교육청 — 공공데이터 나무 그대로</title>
+<style>
+  :root{
+    --ground:#FFFFFF; --sunk:#F4F6F8; --line:#C9D2DA; --line-soft:#E3E8ED;
+    --ink:#11181F; --muted:#5A6672; --faint:#8A97A3;
+    --accent:#1F4E79; --alert:#B03A22;
+    --mono:ui-monospace,SFMono-Regular,'Cascadia Mono','DejaVu Sans Mono',monospace;
+    --body:system-ui,-apple-system,'Malgun Gothic',sans-serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ground:#12171C; --sunk:#1A2127; --line:#333C45; --line-soft:#242C34;
+      --ink:#E6EBF0; --muted:#98A5B1; --faint:#72808C;
+      --accent:#7FB3DC; --alert:#E0755C;
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--ground); color:var(--ink); font:14px/1.5 var(--body)}
+  .wrap{max-width:1280px; margin:0 auto; padding-inline:16px}
+  .topbar{position:sticky; top:0; z-index:10; background:var(--ground); border-bottom:1px solid var(--line)}
+  .topbar .wrap{display:flex; align-items:center; gap:10px; min-height:46px; flex-wrap:wrap; padding-block:6px}
+  .topbar .t{font-weight:600; font-size:13px; margin-right:auto}
+  a{color:var(--accent)}
+  h1{font-size:20px; margin:22px 0 4px}
+  .basis{margin:12px 0 0; padding:10px 12px; background:var(--sunk); border:1px solid var(--line);
+    font-size:12.5px; color:var(--muted)}
+  .basis b{color:var(--ink)}
+  .warn{border-left:3px solid var(--alert)}
+  .cols{display:grid; grid-template-columns:min(360px,42%) 1fr; gap:14px; margin:14px 0 0; align-items:start}
+  @media (max-width:820px){ .cols{grid-template-columns:1fr} }
+  .pane{border:1px solid var(--line); background:var(--ground)}
+  .pane h2{margin:0; padding:8px 11px; font-size:12px; color:var(--muted);
+    background:var(--sunk); border-bottom:1px solid var(--line); font-weight:600}
+  .tree{max-height:72vh; overflow:auto; padding:6px 4px 10px}
+  .tree ul{list-style:none; margin:0; padding-left:14px}
+  .tree>ul{padding-left:4px}
+  .tree li{margin:1px 0}
+  .tree .nd{display:flex; gap:5px; align-items:baseline; cursor:pointer; padding:2px 4px; border-radius:2px}
+  .tree .nd:hover{background:var(--sunk)}
+  .tree .tw{width:11px; color:var(--faint); font-family:var(--mono); flex:none}
+  .tree .lb{font-size:13px}
+  .tree .ct{color:var(--faint); font-size:11px; font-family:var(--mono)}
+  .tree .leaf .lb{color:var(--ink)}
+  .tree .leaf.on{background:var(--accent)}
+  .tree .leaf.on .lb,.tree .leaf.on .ct{color:#fff}
+  .tree .guess{color:var(--alert); font-size:10px; border:1px solid var(--alert); padding:0 3px; border-radius:2px}
+  .srch{padding:7px 9px; border-bottom:1px solid var(--line-soft)}
+  .srch input{font:13px var(--body); color:var(--ink); background:var(--sunk);
+    border:1px solid var(--line); padding:6px 9px; width:100%}
+  .head{padding:9px 11px; border-bottom:1px solid var(--line-soft)}
+  .head .nm{font-size:15px; font-weight:600}
+  .head .meta{color:var(--faint); font-size:11.5px; font-family:var(--mono); margin-top:3px}
+  .bar{display:flex; gap:5px; flex-wrap:wrap; padding:7px 9px; border-bottom:1px solid var(--line-soft)}
+  button{font:12.5px var(--body); color:var(--muted); background:var(--sunk);
+    border:1px solid var(--line); padding:4px 9px; cursor:pointer; white-space:nowrap}
+  button[aria-selected="true"]{background:var(--accent); border-color:var(--accent); color:#fff}
+  .scroll{overflow:auto; max-height:62vh}
+  table{border-collapse:collapse; width:100%; font-size:13px}
+  th,td{padding:5px 9px; border-bottom:1px solid var(--line-soft); text-align:left; white-space:nowrap}
+  thead th{background:var(--sunk); font-size:11px; color:var(--muted); font-weight:600; position:sticky; top:0}
+  td.num{font-family:var(--mono); text-align:right}
+  td.it{white-space:normal; min-width:200px}
+  tr.d0 td{font-weight:700; background:var(--sunk)}
+  tr.d0 td.it{color:var(--ink)}
+  tbody tr:hover{background:var(--sunk)}
+  .empty{padding:26px 14px; color:var(--faint); font-size:13px}
+  footer{margin:26px 0 40px; padding-top:14px; border-top:1px solid var(--line); color:var(--muted); font-size:12px}
+  footer p{margin:0 0 5px}
+</style>
+
+<div class="topbar"><div class="wrap">
+  <span class="t">17개 시·도교육청</span>
+  <a href="./">← 자치단체별 화면</a>
+  <a href="board.html">243곳 한 판에 →</a>
+  <a href="catalog.html">무슨 자료가 있나 →</a>
+  <a href="datamap.html">데이터 지도 →</a>
+</div></div>
+
+<div class="wrap">
+  <h1>17개 시·도교육청 — 공공데이터 나무 그대로</h1>
+
+  <div class="basis">
+    지방교육재정알리미(<span style="font-family:var(--mono)">openapi.eduinfo.go.kr</span>)
+    <b>619종</b>을 받아 <b>261,523줄</b>로 담았다 · 회계연도 <b>2010~2026</b> ·
+    17개 시·도교육청 · 받은 날 <b>2026-09-22</b>
+    <br>왼쪽 나무는 <b>포털 화면의 분류 그대로</b>다 —
+    <span style="font-family:var(--mono)">dsId</span>에 들어 있는 것을 펴서 세웠다
+    (<span style="font-family:var(--mono)">VW_CLSG01020103</span> = 결산·대01·중02·소01·순03).
+  </div>
+
+  <div class="basis warn">
+    ⚠️ <b>이 축은 243개 자치단체와 다르다.</b> 17개 시·도교육청이라 같은 표에 못 섞는다.
+    <br>⚠️ <b>합계줄과 항목줄이 한 칸에 같이 온다.</b> 원본이 앞 빈칸으로만 단을 나눠서다.
+    표에서 <b>굵은 줄이 합계</b>고 그 밑이 항목이다 — <b>다 더하면 두 배가 된다.</b>
+    <br>⚠️ 나무의 <span class="guess">추정</span> 딱지는 <b>포털에서 확인 못 한 이름</b>이다.
+    API가 분류 이름을 안 줘서 자료 내용을 보고 붙였다. 자료가 하나뿐인 마디는 <b>그 자료 이름</b>을 그대로 썼다.
+  </div>
+
+  <div class="cols">
+    <div class="pane">
+      <h2>공공데이터 나무</h2>
+      <div class="srch"><input id="q" placeholder="자료 이름으로 찾기 (예: 업무추진비, 폐교)"></div>
+      <div class="tree" id="tree"></div>
+    </div>
+
+    <div class="pane">
+      <h2>고른 자료</h2>
+      <div id="head" class="head"><div class="nm">왼쪽에서 자료를 고르세요</div>
+        <div class="meta">나무를 눌러 펼친 뒤 맨 아래 칸을 고르면 숫자가 나옵니다</div></div>
+      <div class="bar" id="bar"></div>
+      <div class="scroll" id="tbl"><div class="empty">아직 고른 것이 없습니다.</div></div>
+    </div>
+  </div>
+
+  <footer>
+    <p>자료 — 교육부 지방교육재정알리미 Open API. 받은 날 2026-09-22.</p>
+    <p>이 화면은 <b>우리 작업용</b>이다. 무엇이 어떤 모양으로 오는지 보려고 만들었다.</p>
+    <p>다시 굽기 — <span style="font-family:var(--mono)">python scripts/fetch_edu.py</span> 뒤에
+       <span style="font-family:var(--mono)">python scripts/build_edu_page.py</span></p>
+  </footer>
+</div>
+
+<script>
+const 나무 = [{"이름":"결산","파일서두":"결산","자식":[{"번호":"01","이름":"재정규모","출처":"포털","자식":[{"번호":"01","이름":"통합재정","출처":"포털","자식":[{"서비스":"opclPutot","이름":"순계","줄수":759},{"서비스":"opclTotal","이름":"총계","줄수":759},{"서비스":"opclIntFiSta","이름":"통합재정통계","줄수":2530}]},{"번호":"02","이름":"세입","출처":"포털","자식":[{"서비스":"innerDelngTrdN","이름":"내부거래","줄수":493},{"서비스":"opclBfIncm","이름":"이전수입","줄수":5536},{"서비스":"opclOwnIncm","이름":"자체수입","줄수":1771},{"서비스":"opclEduDebt","이름":"차입 및 기타","줄수":1924},{"서비스":"opclSummr","이름":"총괄","줄수":1350}]},{"번호":"03","이름":"사업별 세출","출처":"포털","자식":[{"서비스":"opclICTEduSup","이름":"ICT활용교육지원","줄수":306},{"서비스":"opclAudMag","이름":"감사관리","줄수":306},{"서비스":"opclQualMag","이름":"검정고시관리","줄수":306},{"서비스":"opclClsgMag","이름":"결산관리","줄수":306},{"서비스":"opclContTeachPay","이름":"계약제교원인건비","줄수":306},{"서비스":"opclContPay","이름":"계약제직원인건비","줄수":306},{"서비스":"opclPubAssGoodsMag","이름":"공유재산및물품관리","줄수":306},{"서비스":"opclSciEduCosOpUp","이름":"과학교육과정운영내실화","줄수":306},{"서비스":"opclSciEduConUp","이름":"과학교육여건개선","줄수":306},{"서비스":"opclSubClassOpSup","이름":"교과교실제운영지원","줄수":306},{"서비스":"opclSubEduStyGSup","이름":"교과교육연구회지원","줄수":306},{"서비스":"opclTextBookSup","이름":"교과서지원","줄수":306},{"서비스":"opclSubMatDevDiff","이름":"교과자료개발보급","줄수":306},{"서비스":"opclStuSupCentOp","이름":"교수학습지원센터운영","줄수":306},{"서비스":"opclClsLessUpSup","이름":"교실수업개선지원","줄수":306},{"서비스":"opclTeachTraOp","이름":"교원연수운영","줄수":306},{"서비스":"opclTeachTraSup","이름":"교원연수지원","줄수":306},{"서비스":"opclscheLLABOCS","이름":"교원인건비","줄수":306},{"서비스":"opclTeachHRMag","이름":"교원인사관리","줄수":306},{"서비스":"opclTeachAppMag","이름":"교원임용관리","줄수":306},{"서비스":"innerDelngFourB","이름":"교육공무직원인건비","줄수":34},{"서비스":"opclEduCosOp","이름":"교육과정운영","줄수":306},{"서비스":"opclEduWelPreSup","이름":"교육복지우선지원","줄수":306},{"서비스":"opclEduStyOpSup","이름":"교육연구운영지원","줄수":306},{"서비스":"opclEduProPay","이름":"교육전문직원인건비","줄수":306},{"서비스":"opclEduPolicyDirMag","이름":"교육정책기획관리","줄수":306},{"서비스":"opclEduPolicyPR","이름":"교육정책홍보","줄수":306},{"서비스":"opclLoEduOffFacMag","이름":"교육지원청시설관리","줄수":306},{"서비스":"opclLoEduOffOp","이름":"교육지원청운영","줄수":306},{"서비스":"opclEduAdmRecMag","이름":"교육행정기록물관리","줄수":306},{"서비스":"opclEduAdmInfoSysOp","이름":"교육행정정보시스템운영","줄수":306},{"서비스":"opclTeachOrgMag","이름":"교직원단체관리","줄수":306},{"서비스":"opclTeachWelRent","이름":"교직원복지대여","줄수":306},{"서비스":"opclTeacWelfareSup","이름":"교직원복지지원","줄수":306},{"서비스":"opclIntEduCulExcCoopSup","이름":"국제교육문화교류협력지원","줄수":306},{"서비스":"opclOrgTest","이름":"기관평가","줄수":306},{"서비스":"opclfnctByPoli","이름":"기능별·정책사업별","줄수":4235},{"서비스":"opclDormSchSup","이름":"기숙형학교지원","줄수":306},{"서비스":"opclEtceduMonSup","이름":"기타교육비지원","줄수":306},{"서비스":"opclRetaAmt","이름":"내부유보금","줄수":204},{"서비스":"opclFarmVilSchEduVitSup","이름":"농어촌학교교육활성화지원","줄수":306},{"서비스":"opclNuriCosSup","이름":"누리과정지원","줄수":306},{"서비스":"opclCultNKEscSonEduSup","이름":"다문화및북한이탈주민등자녀교육지원","줄수":306},{"서비스":"opclAltEduOpSup","이름":"대안교육운영지원","줄수":306},{"서비스":"opclForEduCoopMag","이름":"대외교육협력관리","줄수":306},{"서비스":"opclCollStuAbTest","이름":"대학수학능력시험","줄수":306},{"서비스":"opclLibOpSup","이름":"도서관운영지원","줄수":306},{"서비스":"opclReadEssEduVit","이름":"독서논술교육활성화","줄수":306},{"서비스":"opclMstHiSchOpSup","이름":"마이스터고운영지원","줄수":306},{"서비스":"opclCulArtEduVit","이름":"문화예술교육활성화","줄수":306},{"서비스":"opclPriInvstBizRepay","이름":"민간투자사업상환","줄수":306},{"서비스":"opclCompMag","이름":"민원관리","줄수":306},{"서비스":"opclAftSchOp","이름":"방과후학교운영","줄수":306},{"서비스":"opclBroadSchOp","이름":"방송통신중·고운영","줄수":306},{"서비스":"opclLawMag","이름":"법무관리","줄수":306},{"서비스":"opclHeadOffFacMag","이름":"본청시설관리","줄수":306},{"서비스":"opclHeadOffOp","이름":"본청운영","줄수":306},{"서비스":"opclEmgPlanSecMag","이름":"비상대비계획및보안관리","줄수":306},{"서비스":"opclNonRegHRMag","이름":"비정규직인사관리","줄수":306},{"서비스":"opclPrivKindSup","이름":"사립유치원지원","줄수":306},{"서비스":"opclCybHomeStuOpSup","이름":"사이버가정학습운영및지원","줄수":306},{"서비스":"opclPriSchOrgMag","이름":"사학기관관리","줄수":306},{"서비스":"opclElecMag","이름":"선거관리","줄수":306},{"서비스":"opclChiefTeachOp","이름":"수석교사제운영","줄수":306},{"서비스":"opclGradeEduCosOp","이름":"수준별교육과정운영","줄수":306},{"서비스":"opclCirTeatcher","이름":"순회교사제운영","줄수":306},{"서비스":"opclSmtEduSup","이름":"스마트교육지원","줄수":306},{"서비스":"opclFacBizMag","이름":"시설사업관리","줄수":306},{"서비스":"opclGenEquSexEdu","이름":"양성평등및성교육","줄수":306},{"서비스":"opclStuDemoSchOp","이름":"연구시범학교운영","줄수":306},{"서비스":"opclGiftEduOp","이름":"영재교육운영","줄수":306},{"서비스":"opclGenEduOp","이름":"영재교육원운영","줄수":306},{"서비스":"opclReserve","이름":"예비비","줄수":306},{"서비스":"opclBudgMag","이름":"예산관리","줄수":306},{"서비스":"opclLanEduActSup","이름":"외국어교육활동지원","줄수":306},{"서비스":"opclOpMonFiErrSup","이름":"운영비재정결함지원","줄수":306},{"서비스":"opclNatTeachSubTeachOp","이름":"원어민교사및보조강사운영","줄수":306},{"서비스":"opclInfantEduSup","이름":"유아교육지원","줄수":306},{"서비스":"opclKindEduConUp","이름":"유치원교육여건개선","줄수":306},{"서비스":"opclKindAftSchCosOp","이름":"유치원방과후과정운영","줄수":306},{"서비스":"opclLegActSup","이름":"의정활동지원","줄수":306},{"서비스":"opclPayFiErrSup","이름":"인건비재정결함지원","줄수":306},{"서비스":"opclTempBorrMag","이름":"일시차입금관리","줄수":306},{"서비스":"opclFinAccMag","이름":"재무회계관리","줄수":306},{"서비스":"opclDWScSonAftSchFrClSup","이름":"저소득층자녀방과후자유수강권지원","줄수":306},{"서비스":"opclDWScSonMonSup","이름":"저소득층자녀학비지원","줄수":306},{"서비스":"opclOptCapaSchPrtSup","이름":"적정규모학교육성지원","줄수":306},{"서비스":"opclInfoSecMag","이름":"정보보안관리","줄수":306},{"서비스":"opclInfoSup","이름":"정보화지원","줄수":306},{"서비스":"opclTotSpend","이름":"제지출금 등","줄수":306},{"서비스":"opclOrgProdMag","이름":"조직및성과관리","줄수":306},{"서비스":"opclWkFivedayClSup","이름":"주5일제수업지원","줄수":306},{"서비스":"opclLoServTranSup","이름":"지방공무원연수운영","줄수":306},{"서비스":"opclLoTeachTraOp","이름":"지방공무원연수지원","줄수":306},{"서비스":"opclLoServPay","이름":"지방공무원인건비","줄수":306},{"서비스":"opclLoServHRMag","이름":"지방공무원인사관리","줄수":306},{"서비스":"opclLoServAppMag","이름":"지방공무원임용관리","줄수":306},{"서비스":"opclLoEduDebtRepay","이름":"지방교육채상환","줄수":306},{"서비스":"opclDirInstFacMag","이름":"직속기관시설관리","줄수":306},{"서비스":"opclDirInstOp","이름":"직속기관운영","줄수":306},{"서비스":"opclJobWayEduCosOp","이름":"직업진로교육과정운영","줄수":306},{"서비스":"opclWayProEdu","이름":"진로진학교육","줄수":306},{"서비스":"opclProtestEntTestMag","이름":"진학시험및입학전형관리","줄수":306},{"서비스":"opclIngChaEduOp","이름":"창의인성교육운영","줄수":306},{"서비스":"opclSpoGameSup","이름":"체육대회지원","줄수":306},{"서비스":"opclSpoGrowItemSup","이름":"체육육성종목지원","줄수":306},{"서비스":"opclExpSciEnvEduSup","이름":"체험중심과학환경교육지원","줄수":306},{"서비스":"opclWkendLunchSup","이름":"토·공휴일중식지원","줄수":306},{"서비스":"opclSpeEduFiNeedSup","이름":"특별교육재정수요지원","줄수":306},{"서비스":"opclFeatEduCosOp","이름":"특색교육과정운영","줄수":306},{"서비스":"opclSpeHiSchEduIntSup","이름":"특성화고교육내실화지원","줄수":306},{"서비스":"opclSpeHiSchOpSup","이름":"특성화고운영지원","줄수":306},{"서비스":"opclSpeHiSchSchSup","이름":"특성화고장학금지원","줄수":306},{"서비스":"opclSpeHiSchEmpPowUp","이름":"특성화고취업역량강화","줄수":306},{"서비스":"opclSpeEduLessStySup","이름":"특수교육교수학습지원","줄수":306},{"서비스":"opclSpeEduWelSup","이름":"특수교육복지지원","줄수":306},{"서비스":"opclSpeEduConUp","이름":"특수교육여건개선","줄수":306},{"서비스":"opclSpeEduOp","이름":"특수교육운영","줄수":306},{"서비스":"opclLifeEduFacOpSup","이름":"평생교육시설및운영지원","줄수":306},{"서비스":"opclLifeStyOpSup","이름":"평생학습운영지원","줄수":306},{"서비스":"opclSchLunchMag","이름":"학교급식관리","줄수":306},{"서비스":"opclSchLunchOp","이름":"학교급식운영","줄수":306},{"서비스":"opclSchLunchEnvUp","이름":"학교급식환경개선","줄수":306},{"서비스":"opclSchLibOpSup","이름":"학교도서관운영지원","줄수":306},{"서비스":"opclSchHcareMag","이름":"학교보건관리","줄수":306},{"서비스":"opclSchFacEduEnvUp","이름":"학교시설증개축","줄수":306},{"서비스":"opclSchNewExt","이름":"학교시설환경개선","줄수":306},{"서비스":"opclSchFacExt","이름":"학교신증설","줄수":306},{"서비스":"opclSchOpSup","이름":"학교운영비지원","줄수":306},{"서비스":"opclSchInfoDevDiffMag","이름":"학교정보화기기보급및관리","줄수":306},{"서비스":"opclSchSpoFacConUp","이름":"학교체육시설여건개선","줄수":306},{"서비스":"opclSchSpoUpS","이름":"학교체육활성화지원","줄수":306},{"서비스":"opclSchTestMag","이름":"학교평가관리","줄수":306},{"서비스":"opclSchForcProvSup","이름":"학교폭력예방지원","줄수":306},{"서비스":"opclSchEnvHygMag","이름":"학교환경위생관리","줄수":306},{"서비스":"opclTermLunchMonSup","이름":"학기중급식비지원","줄수":306},{"서비스":"opclSchNWBuild","이름":"학내전산망구축","줄수":306},{"서비스":"opclAcaTestMag","이름":"학력평가관리","줄수":306},{"서비스":"opclAcaUpSup","이름":"학력향상지원","줄수":306},{"서비스":"opclParResEduJoinExt","이름":"학부모및주민교육참여확대","줄수":306},{"서비스":"opclStuArrPlanMag","이름":"학생배치계획관리","줄수":306},{"서비스":"opclStuServActSup","이름":"학생봉사활동지원","줄수":306},{"서비스":"opclStuAdvActSup","이름":"학생상담활동지원","줄수":306},{"서비스":"opclStuLifeInstSup","이름":"학생생활지도지원","줄수":306},{"서비스":"opclStuTraActSup","이름":"학생수련활동지원","줄수":306},{"서비스":"opclAdmUpActSup","이름":"행정개선활동지원","줄수":306},{"서비스":"opclAdmServMag","이름":"행정서비스관리","줄수":306},{"서비스":"opclFieldSchActSup","이름":"현장중심장학활동지원","줄수":306}]},{"번호":"04","이름":"성질별 세출","출처":"추정","자식":[{"서비스":"clsInTrad","이름":"내부거래","줄수":170},{"서비스":"opclThingMon","이름":"물건비","줄수":1771},{"서비스":"opclRepaySpend","이름":"상환지출","줄수":506},{"서비스":"opclResrvnEtc","이름":"예비비 및 기타","줄수":506},{"서비스":"opclTransSpend","이름":"이전지출","줄수":1265},{"서비스":"opclPaySpend","이름":"인건비","줄수":2092},{"서비스":"opclCaptSpend","이름":"자본지출","줄수":1518},{"서비스":"opclTransMon","이름":"전출금 등","줄수":1012},{"서비스":"opclSpendTot","이름":"총괄","줄수":2109}]},{"번호":"05","이름":"이월액 및 집행잔액","출처":"추정","자식":[{"서비스":"opclFwardBal","이름":"이월액 및 집행잔액","줄수":1012}]},{"번호":"07","이름":"기금","출처":"추정","자식":[{"서비스":"opclInstStatus","이름":"기금 연도별 현황","줄수":311},{"서비스":"opclFundMngYear","이름":"기금 조성 세부 명세서","줄수":312},{"서비스":"opclCurrYearAmt","이름":"기금 조성 총괄","줄수":362}]},{"번호":"08","이름":"사업별 세출 (다른 갈래)","출처":"추정","자식":[{"서비스":"opclCTEduSupN","이름":"ICT 활용교육지원","줄수":102},{"서비스":"opclSpoAct","이름":"각종체육활동","줄수":102},{"서비스":"opclAudMagN","이름":"감사관리","줄수":102},{"서비스":"opclQualOp","이름":"검정고시운영","줄수":102},{"서비스":"opclClsgMagN","이름":"결산관리","줄수":102},{"서비스":"opclContTeachPayN","이름":"계약제교원인건비","줄수":102},{"서비스":"opclContWokPay","이름":"계약제근로자인건비","줄수":102},{"서비스":"opclPubAssGoodsMagN","이름":"공유재산및물품관리","줄수":102},{"서비스":"opclTextBookSupN","이름":"교과서지원","줄수":102},{"서비스":"opclStuSupCentOpN","이름":"교수학습지원센터운영","줄수":102},{"서비스":"opclClsLessUp","이름":"교실수업개선","줄수":102},{"서비스":"opclTeachTraOpN","이름":"교원연수운영","줄수":102},{"서비스":"opclscheLLABOCSN","이름":"교원인건비","줄수":102},{"서비스":"opclTeachHRMagN","이름":"교원인사관리","줄수":102},{"서비스":"opclDelngFourBN","이름":"교육공무직원인건비","줄수":102},{"서비스":"opclEduCosOpUp","이름":"교육과정운영여건개선","줄수":102},{"서비스":"opclEduCosOpSup","이름":"교육과정운영지원","줄수":102},{"서비스":"opclEduPaySupN","이름":"교육급여지원","줄수":102},{"서비스":"opclEduWelPreSupN","이름":"교육복지우선지원","줄수":102},{"서비스":"opcleduMonSup","이름":"교육비지원","줄수":102},{"서비스":"opclEduSpeFudTrn","이름":"교육비특별회계전출금","줄수":102},{"서비스":"opclEduStyOpSupN","이름":"교육연구운영지원","줄수":102},{"서비스":"educlDelopSup","이름":"교육자료개발보급","줄수":102},{"서비스":"opclEduProPayN","이름":"교육전문직원인건비","줄수":102},{"서비스":"opclEduPolicyDirMagN","이름":"교육정책기획관리","줄수":102},{"서비스":"opclEduPolicyPRN","이름":"교육정책홍보","줄수":102},{"서비스":"opclEduAdmRecMagN","이름":"교육행정기록물관리","줄수":102},{"서비스":"opclEduAdmInfoSysOpN","이름":"교육행정정보시스템운영","줄수":102},{"서비스":"opclEduCoopMag","이름":"교육협력관리","줄수":102},{"서비스":"opclTeachOrgMagN","이름":"교직원단체관리","줄수":102},{"서비스":"opclTeacWelfareSupN","이름":"교직원복지지원","줄수":102},{"서비스":"opclIntEduCulExcCoopSupN","이름":"국제교육문화교류협력지원","줄수":102},{"서비스":"clsWorkertrnOp","이름":"근로자연수운영","줄수":102},{"서비스":"clsHrmVIIN","이름":"근로자인사관리","줄수":102},{"서비스":"opclLunchMonSup","이름":"급식비지원","줄수":102},{"서비스":"opclInstBasOp","이름":"기관기본운영비","줄수":102},{"서비스":"opclOrgATestMan","이름":"기관및학교평가관리","줄수":102},{"서비스":"opclInstFacMag","이름":"기관시설유지관리","줄수":102},{"서비스":"opclFudTraf","이름":"기금전출금","줄수":102},{"서비스":"opclDormSchOp","이름":"기숙형학교운영","줄수":102},{"서비스":"opclEtceduSup","이름":"기타교육복지지원","줄수":102},{"서비스":"opClsgInRsvMnyN","이름":"내부유보금","줄수":102},{"서비스":"opclFarmVilSchEduVit","이름":"농어촌학교교육활성화","줄수":102},{"서비스":"opclNuriCosSupN","이름":"누리과정지원","줄수":102},{"서비스":"opclCultNKEscSonEduSupN","이름":"다문화및북한이탈주민등자녀교육지원","줄수":102},{"서비스":"opclAltEduOp","이름":"대안교육운영","줄수":102},{"서비스":"opclCollStuAbTestN","이름":"대학수학능력시험","줄수":102},{"서비스":"opclLibOp","이름":"도서관운영","줄수":102},{"서비스":"opclReadEssEduVitOp","이름":"독서논술교육운영","줄수":102},{"서비스":"opclCaeClassOp","이름":"돌봄교실운영","줄수":102},{"서비스":"opclCulArtEduAct","이름":"문화예술교육활동","줄수":102},{"서비스":"opclPriInvstBizRepayN","이름":"민간투자사업상환","줄수":102},{"서비스":"opclAdCompMag","이름":"민원행정서비스관리","줄수":102},{"서비스":"opclAftSchFrClSupN","이름":"방과후자유수강권지원","줄수":102},{"서비스":"opclAftSchOpN","이름":"방과후학교운영","줄수":102},{"서비스":"opclBroadSchOpN","이름":"방송통신중고운영","줄수":102},{"서비스":"opclLawMagN","이름":"법무관리","줄수":102},{"서비스":"nomalMon","이름":"보통교부금 자체노력 반영 현황","줄수":136},{"서비스":"opclEmgPlanOp","이름":"비상대비계획운영","줄수":102},{"서비스":"opclPrivKindSupN","이름":"사립유치원지원","줄수":102},{"서비스":"opclPriSchOrgSup","이름":"사학기관지도지원","줄수":102},{"서비스":"opclIndHcareMag","이름":"산업안전보건관리","줄수":102},{"서비스":"opclElecMagN","이름":"선거관리","줄수":102},{"서비스":"ExSclhForcProvEdu","이름":"성폭력예방교육등","줄수":102},{"서비스":"opclCirTeatcherN","이름":"순회교사제운영","줄수":102},{"서비스":"opclFacBizOp","이름":"시설사업운영","줄수":102},{"서비스":"opclStuDemoSchOpN","이름":"연구시범학교운영","줄수":102},{"서비스":"opclGiftEduOpN","이름":"영재교육운영","줄수":102},{"서비스":"opclReserveN","이름":"예비비","줄수":102},{"서비스":"opclBudgMagN","이름":"예산관리","줄수":102},{"서비스":"opclDpCiRp","이름":"예수금원리금상환","줄수":102},{"서비스":"opclDep","이름":"예탁금","줄수":102},{"서비스":"opclOpMonFiErrSupN","이름":"운영비재정결함지원","줄수":102},{"서비스":"opclnfantEduOp","이름":"유아교육운영","줄수":102},{"서비스":"opclKindEduConUpN","이름":"유치원교육여건개선","줄수":102},{"서비스":"opclKindAftSchCosOpN","이름":"유치원방과후과정운영","줄수":102},{"서비스":"opclPlCop","이름":"의회협력","줄수":102},{"서비스":"opclPayFiErrSupN","이름":"인건비재정결함지원","줄수":102},{"서비스":"opclTempBorrMagN","이름":"일시차입금관리","줄수":102},{"서비스":"opclFinAccMagN","이름":"재무회계관리","줄수":102},{"서비스":"opclOptCapaSchPrt","이름":"적정규모학교육성","줄수":102},{"서비스":"opclInfoSecMagN","이름":"정보보안관리","줄수":102},{"서비스":"opclInfoSupN","이름":"정보화지원","줄수":102},{"서비스":"opclTotSpendN","이름":"제지출금등","줄수":102},{"서비스":"opclOrgProdMagN","이름":"조직및성과관리","줄수":102},{"서비스":"opclLoServTranSupN","이름":"지방공무원연수운영","줄수":102},{"서비스":"opclLoServPayN","이름":"지방공무원인건비","줄수":102},{"서비스":"opclLoServHRMagN","이름":"지방공무원인사관리","줄수":102},{"서비스":"opclMuboRp","이름":"지방채상환","줄수":102},{"서비스":"opclJobWayEdu","이름":"직업교육운영","줄수":102},{"서비스":"opclJobWayEduUp","이름":"직업교육환경개선","줄수":102},{"서비스":"opclWayProEduOp","이름":"진로진학교육운영","줄수":102},{"서비스":"opclProtestEntTestMagN","이름":"진학시험및입학전형관리","줄수":102},{"서비스":"opclEmpPowUp","이름":"취업역량강화","줄수":102},{"서비스":"opclFeatEduCosOpN","이름":"특색교육과정운영","줄수":102},{"서비스":"opclSpeEduWel","이름":"특수교육복지","줄수":102},{"서비스":"opclSpeEduConUpN","이름":"특수교육여건개선","줄수":102},{"서비스":"opclSpeEduOpN","이름":"특수교육운영","줄수":102},{"서비스":"opclLifeEduFacOp","이름":"평생교육시설및운영","줄수":102},{"서비스":"opclLifeStyOp","이름":"평생학습운영","줄수":102},{"서비스":"opclSchLunchOpN","이름":"학교급식운영","줄수":102},{"서비스":"opclSchLunchEnvUpN","이름":"학교급식환경개선","줄수":102},{"서비스":"opclSchLibOp","이름":"학교도서관운영","줄수":102},{"서비스":"opclSchHcareMagN","이름":"학교보건관리","줄수":102},{"서비스":"opclSchFacEduEnvEx","이름":"학교시설확충","줄수":102},{"서비스":"opclSchNewExtN","이름":"학교시설환경개선","줄수":102},{"서비스":"opclSchFacExtN","이름":"학교신증설","줄수":102},{"서비스":"opclSchOpSupN","이름":"학교운영비지원","줄수":102},{"서비스":"opclSchInfoUp","이름":"학교정보화여건개선","줄수":102},{"서비스":"opclSchForcProvEdu","이름":"학교폭력예방및교육","줄수":102},{"서비스":"opclSchEnvHygMagN","이름":"학교환경위생관리","줄수":102},{"서비스":"opclAcaTestMagN","이름":"학력평가관리","줄수":102},{"서비스":"opclAcaUpSupN","이름":"학력향상지원","줄수":102},{"서비스":"opclParResJoinExt","이름":"학부모및주민참여확대","줄수":102},{"서비스":"opclStuGrpAct","이름":"학생단체활동","줄수":102},{"서비스":"opclStuArrPlanMagN","이름":"학생배치계획관리","줄수":102},{"서비스":"opclStuAdvAct","이름":"학생상담활동","줄수":102},{"서비스":"opclStuLifeInstSupN","이름":"학생생활지도지원","줄수":102},{"서비스":"stdetclsafmant","이름":"학생안전관리","줄수":102},{"서비스":"opclAdmUpActSupN","이름":"행정개선활동지원","줄수":102},{"서비스":"opclFieldSchActSupN","이름":"현장중심장학지원","줄수":102}]}]},{"번호":"02","이름":"재정운영 상황","출처":"추정","자식":[{"번호":"01","이름":"(이름 미확인)","출처":"추정","자식":[{"서비스":"opclFiIndp","이름":"재정자주도","줄수":253},{"서비스":"opclLoInfst","이름":"지역통합재정통계","줄수":784},{"서비스":"opclintgPfincBalc","이름":"통합재정수지","줄수":1265},{"서비스":"opclAdmOpMonRate","이름":"행정운영경비비율","줄수":2277}]},{"번호":"02","이름":"(이름 미확인)","출처":"추정","자식":[{"서비스":"opclPriInvstBizBTL","이름":"민간투자사업(BTL)","줄수":187},{"서비스":"opclLoEduDebt","이름":"지방채","줄수":1518},{"서비스":"opclDebt","이름":"총괄","줄수":1012}]},{"번호":"03","이름":"채권","출처":"자료에서","자식":[{"서비스":"opclBond","이름":"채권","줄수":759}]},{"번호":"04","이름":"(이름 미확인)","출처":"추정","자식":[{"서비스":"opclLegTransIncmCond","이름":"법정이전수입 전입 현황","줄수":1122},{"서비스":"opclLegTransIncm","이름":"연도별 법정이전수입","줄수":2026}]},{"번호":"06","이름":"투자심사 대상사업","출처":"자료에서","자식":[{"서비스":"opclInvstExamTargBiz","이름":"투자심사 대상사업","줄수":185}]}]},{"번호":"03","이름":"주요 사업·재산","출처":"추정","자식":[{"번호":"01","이름":"누리과정","출처":"자료에서","자식":[{"서비스":"opclNuriCos","이름":"누리과정","줄수":425}]},{"번호":"02","이름":"무상급식","출처":"자료에서","자식":[{"서비스":"opclFreeChgLunch","이름":"무상급식","줄수":819}]},{"번호":"03","이름":"업무추진비","출처":"자료에서","자식":[{"서비스":"opclBizOpExp","이름":"업무추진비","줄수":759}]},{"번호":"04","이름":"(이름 미확인)","출처":"추정","자식":[{"서비스":"opclTemp","이름":"성질별","줄수":3036},{"서비스":"opclSchClassGrade","이름":"학교급별","줄수":4048}]},{"번호":"05","이름":"연도별 현황","출처":"자료에서","자식":[{"서비스":"opclLoSubsdPriTrans","이름":"연도별 현황","줄수":759}]},{"번호":"07","이름":"사립학교 법인 법정부담비율","출처":"자료에서","자식":[{"서비스":"opclPriSchLawBdnRate","이름":"사립학교 법인 법정부담비율","줄수":759}]},{"번호":"08","이름":"(이름 미확인)","출처":"추정","자식":[{"서비스":"opclPubGoods","이름":"물품","줄수":187},{"서비스":"opclKindPubAss","이름":"종류별 공유재산","줄수":253},{"서비스":"opclAbolSch","이름":"폐교","줄수":187},{"서비스":"opclClsdSchUseRate","이름":"폐교활용률","줄수":253}]},{"번호":"09","이름":"(이름 미확인)","출처":"추정","자식":[{"서비스":"opclBudgEarlyExecRate","이름":"예산 조기집행비율","줄수":45},{"서비스":"opclBudgExecRate","이름":"예산 집행비율","줄수":136}]},{"번호":"10","이름":"금고 지정현황","출처":"자료에서","자식":[{"서비스":"opclStrbxAppt","이름":"금고 지정현황","줄수":134}]},{"번호":"11","이름":"연말지출비율","출처":"자료에서","자식":[{"서비스":"opclLastRate","이름":"연말지출비율","줄수":585}]}]},{"번호":"04","이름":"재무제표와 재정분석","출처":"추정","자식":[{"번호":"01","이름":"(이름 미확인)","출처":"추정","자식":[{"서비스":"opclNetAssFlu","이름":"순자산 변동","줄수":816},{"서비스":"opclFiStat","이름":"재정상태표","줄수":612},{"서비스":"opclFiOp","이름":"재정운영표","줄수":612}]},{"번호":"02","이름":"성인지 결산","출처":"자료에서","자식":[{"서비스":"opclSexRecogClsg","이름":"성인지 결산","줄수":340}]},{"번호":"03","이름":"지방교육재정교부금 감액 및 인센티브","출처":"자료에서","자식":[{"서비스":"opclGrtRedInc","이름":"지방교육재정교부금 감액 및 인센티브","줄수":377}]},{"번호":"04","이름":"재정분석","출처":"자료에서","자식":[{"서비스":"opclFincAnal","이름":"재정분석","줄수":7973}]},{"번호":"07","이름":"예비비 비율","출처":"자료에서","자식":[{"서비스":"opclSecu","이름":"예비비 비율","줄수":170}]},{"번호":"08","이름":"기금전출금 비율","출처":"자료에서","자식":[{"서비스":"clsFundRate","이름":"기금전출금 비율","줄수":148}]},{"번호":"09","이름":"집행내역","출처":"자료에서","자식":[{"서비스":"opclClsgExecList","이름":"집행내역","줄수":35886}]}]}]},{"이름":"예산","파일서두":"예산","자식":[{"번호":"01","이름":"계획서·성과","출처":"추정","자식":[{"번호":"01","이름":"중기지방교육재정계획","출처":"자료에서","자식":[{"서비스":"opbdMidLocEduFinc","이름":"중기지방교육재정계획","줄수":2312}]},{"번호":"03","이름":"성과계획서","출처":"자료에서","자식":[{"서비스":"opbdotcmplan","이름":"성과계획서","줄수":170}]}]},{"번호":"02","이름":"재정규모","출처":"추정","자식":[{"번호":"01","이름":"통합재정","출처":"추정","자식":[{"서비스":"opbdPutot","이름":"순계","줄수":238},{"서비스":"opbdRegCbFinStat","이름":"지역통합재정통계","줄수":850},{"서비스":"opbdTotal","이름":"총계","줄수":238},{"서비스":"opbdIntFiSta","이름":"통합재정통계","줄수":2380}]},{"번호":"02","이름":"세입","출처":"추정","자식":[{"서비스":"innerDelngTrd","이름":"내부거래","줄수":731},{"서비스":"opbdBfIncm","이름":"이전수입","줄수":5389},{"서비스":"opbdOwnIncm","이름":"자체수입","줄수":1666},{"서비스":"opbdEduDebt","이름":"차입 및 기타","줄수":1564},{"서비스":"opbdSummr","이름":"총괄","줄수":1309}]},{"번호":"03","이름":"사업별 세출","출처":"추정","자식":[{"서비스":"opbdICTEduSup","이름":"ICT활용교육지원","줄수":306},{"서비스":"opbdAudMag","이름":"감사관리","줄수":306},{"서비스":"opbdQualMag","이름":"검정고시관리","줄수":306},{"서비스":"opbdClsgMag","이름":"결산관리","줄수":306},{"서비스":"opbdContTeachPay","이름":"계약제교원인건비","줄수":306},{"서비스":"opbdContPay","이름":"계약제직원인건비","줄수":306},{"서비스":"opbdPubAssGoodsMag","이름":"공유재산및물품관리","줄수":306},{"서비스":"opbdSciEduCosOpUp","이름":"과학교육과정운영내실화","줄수":306},{"서비스":"opbdSciEduConUp","이름":"과학교육여건개선","줄수":306},{"서비스":"opbdSubClassOpSup","이름":"교과교실제운영지원","줄수":306},{"서비스":"opbdSubEduStyGSup","이름":"교과교육연구회지원","줄수":306},{"서비스":"opbdTextBookSup","이름":"교과서지원","줄수":306},{"서비스":"opbdSubMatDevDiff","이름":"교과자료개발보급","줄수":306},{"서비스":"opbdStuSupCentOp","이름":"교수학습지원센터운영","줄수":306},{"서비스":"opbdClsLessUpSup","이름":"교실수업개선지원","줄수":306},{"서비스":"opbdTeachTraOp","이름":"교원연수운영","줄수":306},{"서비스":"opbdTeachTraSup","이름":"교원연수지원","줄수":306},{"서비스":"opbdscheLLABOCS","이름":"교원인건비","줄수":306},{"서비스":"opbdTeachHRMag","이름":"교원인사관리","줄수":306},{"서비스":"opbdTeachAppMag","이름":"교원임용관리","줄수":306},{"서비스":"opbdDelngFourB","이름":"교육공무직원인건비","줄수":34},{"서비스":"opbdEduCosOp","이름":"교육과정운영","줄수":306},{"서비스":"opBudgEduPaySup","이름":"교육급여지원","줄수":340},{"서비스":"opbdEduWelPreSup","이름":"교육복지우선지원","줄수":306},{"서비스":"opbdEduStyOpSup","이름":"교육연구운영지원","줄수":306},{"서비스":"opbdEduProPay","이름":"교육전문직원인건비","줄수":306},{"서비스":"opbdEduPolicyDirMag","이름":"교육정책기획관리","줄수":306},{"서비스":"opbdEduPolicyPR","이름":"교육정책홍보","줄수":306},{"서비스":"opbdLoEduOffFacMag","이름":"교육지원청시설관리","줄수":306},{"서비스":"opbdLoEduOffOp","이름":"교육지원청운영","줄수":306},{"서비스":"opbdEduAdmRecMag","이름":"교육행정기록물관리","줄수":306},{"서비스":"opbdEduAdmInfoSysOp","이름":"교육행정정보시스템운영","줄수":306},{"서비스":"opbdTeachOrgMag","이름":"교직원단체관리","줄수":306},{"서비스":"opbdTeachWelRent","이름":"교직원복지대여","줄수":306},{"서비스":"opbdTeacWelfareSup","이름":"교직원복지지원","줄수":306},{"서비스":"opbdIntEduCulExcCoopSup","이름":"국제교육문화교류협력지원","줄수":306},{"서비스":"opbdOrgTest","이름":"기관평가","줄수":306},{"서비스":"opbdfnctByPoli","이름":"기능별·정책사업별","줄수":4080},{"서비스":"opbdDormSchSup","이름":"기숙형학교지원","줄수":306},{"서비스":"opbdEtceduMonSup","이름":"기타교육비지원","줄수":306},{"서비스":"opBudgInRsvMny","이름":"내부유보금","줄수":340},{"서비스":"opbdFarmVilSchEduVitSup","이름":"농어촌학교교육활성화지원","줄수":306},{"서비스":"opbdNuriCosSup","이름":"누리과정지원","줄수":306},{"서비스":"opbdCultNKEscSonEduSup","이름":"다문화및북한이탈주민등자녀교육지원","줄수":306},{"서비스":"opbdAltEduOpSup","이름":"대안교육운영지원","줄수":306},{"서비스":"opbdForEduCoopMag","이름":"대외교육협력관리","줄수":306},{"서비스":"opbdCollStuAbTest","이름":"대학수학능력시험","줄수":306},{"서비스":"opbdLibOpSup","이름":"도서관운영지원","줄수":306},{"서비스":"opbdReadEssEduVit","이름":"독서논술교육활성화","줄수":306},{"서비스":"opbdMstHiSchOpSup","이름":"마이스터고운영지원","줄수":306},{"서비스":"opbdCulArtEduVit","이름":"문화예술교육활성화","줄수":306},{"서비스":"opbdPriInvstBizRepay","이름":"민간투자사업상환","줄수":306},{"서비스":"opbdCompMag","이름":"민원관리","줄수":306},{"서비스":"opbdAftSchOp","이름":"방과후학교운영","줄수":306},{"서비스":"opbdBroadSchOp","이름":"방송통신중·고운영","줄수":306},{"서비스":"opbdLawMag","이름":"법무관리","줄수":306},{"서비스":"opbdHeadOffFacMag","이름":"본청시설관리","줄수":306},{"서비스":"opbdHeadOffOp","이름":"본청운영","줄수":306},{"서비스":"opbdEmgPlanSecMag","이름":"비상대비계획및보안관리","줄수":306},{"서비스":"opbdNonRegHRMag","이름":"비정규직인사관리","줄수":306},{"서비스":"opbdPrivKindSup","이름":"사립유치원지원","줄수":306},{"서비스":"opbdCybHomeStuOpSup","이름":"사이버가정학습운영및지원","줄수":306},{"서비스":"opbdPriSchOrgMag","이름":"사학기관관리","줄수":306},{"서비스":"opbdElecMag","이름":"선거관리","줄수":306},{"서비스":"opbdChiefTeachOp","이름":"수석교사제운영","줄수":306},{"서비스":"opbdGradeEduCosOp","이름":"수준별교육과정운영","줄수":306},{"서비스":"opbdCirTeatcher","이름":"순회교사제운영","줄수":306},{"서비스":"opbdSmtEduSup","이름":"스마트교육지원","줄수":306},{"서비스":"opbdFacBizMag","이름":"시설사업관리","줄수":306},{"서비스":"opbdGenEquSexEdu","이름":"양성평등및성교육","줄수":306},{"서비스":"opbdStuDemoSchOp","이름":"연구시범학교운영","줄수":306},{"서비스":"opbdGiftEduOp","이름":"영재교육운영","줄수":306},{"서비스":"opbdGenEduOp","이름":"영재교육원운영","줄수":306},{"서비스":"opbdReserve","이름":"예비비","줄수":306},{"서비스":"opbdBudgMag","이름":"예산관리","줄수":306},{"서비스":"opbdLanEduActSup","이름":"외국어교육활동지원","줄수":306},{"서비스":"opbdOpMonFiErrSup","이름":"운영비재정결함지원","줄수":306},{"서비스":"opbdNatTeachSubTeachOp","이름":"원어민교사및보조강사운영","줄수":306},{"서비스":"opbdInfantEduSup","이름":"유아교육지원","줄수":306},{"서비스":"opbdKindEduConUp","이름":"유치원교육여건개선","줄수":306},{"서비스":"opbdKindAftSchCosOp","이름":"유치원방과후과정운영","줄수":306},{"서비스":"opbdLegActSup","이름":"의정활동지원","줄수":306},{"서비스":"opbdPayFiErrSup","이름":"인건비재정결함지원","줄수":306},{"서비스":"opbdTempBorrMag","이름":"일시차입금관리","줄수":306},{"서비스":"opbdFinAccMag","이름":"재무회계관리","줄수":306},{"서비스":"opbdDWScSonAftSchFrClSup","이름":"저소득층자녀방과후자유수강권지원","줄수":306},{"서비스":"opbdDWScSonMonSup","이름":"저소득층자녀학비지원","줄수":306},{"서비스":"opbdOptCapaSchPrtSup","이름":"적정규모학교육성지원","줄수":306},{"서비스":"opbdInfoSecMag","이름":"정보보안관리","줄수":306},{"서비스":"opbdInfoSup","이름":"정보화지원","줄수":306},{"서비스":"opbdTotSpend","이름":"제지출금 등","줄수":306},{"서비스":"opbdOrgProdMag","이름":"조직및성과관리","줄수":306},{"서비스":"opbdWkFivedayClSup","이름":"주5일제수업지원","줄수":306},{"서비스":"opbdLoTeachTraOp","이름":"지방공무원연수운영","줄수":306},{"서비스":"opbdLoServTranSup","이름":"지방공무원연수지원","줄수":306},{"서비스":"opbdLoServPay","이름":"지방공무원인건비","줄수":306},{"서비스":"opbdLoServHRMag","이름":"지방공무원인사관리","줄수":306},{"서비스":"opbdLoServAppMag","이름":"지방공무원임용관리","줄수":306},{"서비스":"opbdLoEduDebtRepay","이름":"지방교육채상환","줄수":306},{"서비스":"opbdDirInstFacMag","이름":"직속기관시설관리","줄수":306},{"서비스":"opbdDirInstOp","이름":"직속기관운영","줄수":306},{"서비스":"opbdJobWayEduCosOp","이름":"직업진로교육과정운영","줄수":306},{"서비스":"opbdWayProEdu","이름":"진로진학교육","줄수":306},{"서비스":"opbdProtestEntTestMag","이름":"진학시험및입학전형관리","줄수":306},{"서비스":"opbdIngChaEduOp","이름":"창의인성교육운영","줄수":306},{"서비스":"opbdSpoGameSup","이름":"체육대회지원","줄수":306},{"서비스":"opbdSpoGrowItemSup","이름":"체육육성종목지원","줄수":306},{"서비스":"opbdExpSciEnvEduSup","이름":"체험중심과학환경교육지원","줄수":306},{"서비스":"opbdWkendLunchSup","이름":"토·공휴일중식지원","줄수":306},{"서비스":"opbdSpeEduFiNeedSup","이름":"특별교육재정수요지원","줄수":306},{"서비스":"opbdFeatEduCosOp","이름":"특색교육과정운영","줄수":306},{"서비스":"opbdSpeHiSchEduIntSup","이름":"특성화고교육내실화지원","줄수":306},{"서비스":"opbdSpeHiSchOpSup","이름":"특성화고운영지원","줄수":306},{"서비스":"opbdSpeHiSchSchSup","이름":"특성화고장학금지원","줄수":306},{"서비스":"opbdSpeHiSchEmpPowUp","이름":"특성화고취업역량강화","줄수":306},{"서비스":"opbdSpeEduLessStySup","이름":"특수교육교수학습지원","줄수":306},{"서비스":"opbdSpeEduWelSup","이름":"특수교육복지지원","줄수":306},{"서비스":"opbdSpeEduConUp","이름":"특수교육여건개선","줄수":306},{"서비스":"opbdSpeEduOp","이름":"특수교육운영","줄수":306},{"서비스":"opbdLifeEduFacOpSup","이름":"평생교육시설및운영지원","줄수":306},{"서비스":"opbdLifeStyOpSup","이름":"평생학습운영지원","줄수":306},{"서비스":"opbdSchLunchMag","이름":"학교급식관리","줄수":306},{"서비스":"opbdSchLunchOp","이름":"학교급식운영","줄수":306},{"서비스":"opbdSchLunchEnvUp","이름":"학교급식환경개선","줄수":306},{"서비스":"opbdSchLibOpSup","이름":"학교도서관운영지원","줄수":306},{"서비스":"opbdSchHcareMag","이름":"학교보건관리","줄수":306},{"서비스":"opbdSchFacEduEnvUp","이름":"학교시설증개축","줄수":306},{"서비스":"opbdSchNewExt","이름":"학교시설환경개선","줄수":306},{"서비스":"opbdSchFacExt","이름":"학교신증설","줄수":306},{"서비스":"opbdSchOpSup","이름":"학교운영비지원","줄수":306},{"서비스":"opbdSchInfoDevDiffMag","이름":"학교정보화기기보급및관리","줄수":306},{"서비스":"opbdSchSpoFacConUp","이름":"학교체육시설여건개선","줄수":306},{"서비스":"opbdSchSpoUpS","이름":"학교체육활성화지원","줄수":306},{"서비스":"opbdSchTestMag","이름":"학교평가관리","줄수":306},{"서비스":"opbdSchForcProvSup","이름":"학교폭력예방지원","줄수":306},{"서비스":"opbdSchEnvHygMag","이름":"학교환경위생관리","줄수":306},{"서비스":"opbdTermLunchMonSup","이름":"학기중급식비지원","줄수":306},{"서비스":"opbdSchNWBuild","이름":"학내전산망구축","줄수":306},{"서비스":"opbdAcaTestMag","이름":"학력평가관리","줄수":306},{"서비스":"opbdAcaUpSup","이름":"학력향상지원","줄수":306},{"서비스":"opbdParResEduJoinExt","이름":"학부모및주민교육참여확대","줄수":306},{"서비스":"opbdStuArrPlanMag","이름":"학생배치계획관리","줄수":306},{"서비스":"opbdStuServActSup","이름":"학생봉사활동지원","줄수":306},{"서비스":"opbdStuAdvActSup","이름":"학생상담활동지원","줄수":306},{"서비스":"opbdStuLifeInstSup","이름":"학생생활지도지원","줄수":306},{"서비스":"opbdStuTraActSup","이름":"학생수련활동지원","줄수":306},{"서비스":"opbdAdmUpActSup","이름":"행정개선활동지원","줄수":306},{"서비스":"opbdAdmServMag","이름":"행정서비스관리","줄수":306},{"서비스":"opbdFieldSchActSup","이름":"현장중심장학활동지원","줄수":306}]},{"번호":"04","이름":"성질별 세출","출처":"추정","자식":[{"서비스":"innerDelngTrdn","이름":"내부거래","줄수":238},{"서비스":"opbdThingMon","이름":"물건비","줄수":1666},{"서비스":"opbdRepaySpend","이름":"상환지출","줄수":476},{"서비스":"opbdResrvnEtc","이름":"예비비및기타","줄수":476},{"서비스":"opbdTransSpend","이름":"이전지출","줄수":1190},{"서비스":"opbdPaySpend","이름":"인건비","줄수":2006},{"서비스":"opbdCaptSpend","이름":"자본지출","줄수":1428},{"서비스":"opbdTransMon","이름":"전출금등","줄수":952},{"서비스":"opbdSpendTot","이름":"총괄","줄수":2023}]},{"번호":"05","이름":"의무지출과 재량지출","출처":"자료에서","자식":[{"서비스":"opmdtrDcrtnrSpend","이름":"의무지출과 재량지출","줄수":102}]},{"번호":"06","이름":"기금","출처":"자료에서","자식":[{"서비스":"opbdFund","이름":"기금","줄수":549}]},{"번호":"07","이름":"업무추진비","출처":"자료에서","자식":[{"서비스":"opbdBizOpExp","이름":"업무추진비","줄수":714}]},{"번호":"08","이름":"사업별 세출 (다른 갈래)","출처":"추정","자식":[{"서비스":"opbdICTEduSupN","이름":"ICT활용교육지원","줄수":170},{"서비스":"opbdSpoAct","이름":"각종체육활동","줄수":170},{"서비스":"opbdAudMagN","이름":"감사관리","줄수":170},{"서비스":"opbdQualOp","이름":"검정고시운영","줄수":170},{"서비스":"opbdClsgMagN","이름":"결산관리","줄수":170},{"서비스":"opbdContTeachPayN","이름":"계약제교원인건비","줄수":170},{"서비스":"opbdContWokPay","이름":"계약제근로자인건비","줄수":170},{"서비스":"opbdPubAssGoodsMagN","이름":"공유재산및물품관리","줄수":170},{"서비스":"opbdTextBookSupN","이름":"교과서지원","줄수":170},{"서비스":"opbdStuSupCentOpN","이름":"교수학습지원센터운영","줄수":170},{"서비스":"opbdClsLessUp","이름":"교실수업개선","줄수":170},{"서비스":"opbdTeachTraOpN","이름":"교원연수운영","줄수":170},{"서비스":"opbdscheLLABOCSN","이름":"교원인건비","줄수":170},{"서비스":"opbdTeachHRMagN","이름":"교원인사관리","줄수":170},{"서비스":"opbdDelngFourBN","이름":"교육공무직원인건비","줄수":170},{"서비스":"opbdEduCosOpUp","이름":"교육과정운영여건개선","줄수":170},{"서비스":"opbdEduCosOpSup","이름":"교육과정운영지원","줄수":170},{"서비스":"opBudgEduPaySupN","이름":"교육급여지원","줄수":170},{"서비스":"opbdEduWelPreSupN","이름":"교육복지우선지원","줄수":170},{"서비스":"opbdeduMonSup","이름":"교육비지원","줄수":170},{"서비스":"opbdEduSpeFudTrn","이름":"교육비특별회계전출금","줄수":170},{"서비스":"opbdEduStyOpSupN","이름":"교육연구운영지원","줄수":170},{"서비스":"eduDelopSup","이름":"교육자료개발보급","줄수":170},{"서비스":"opbdEduProPayN","이름":"교육전문직원인건비","줄수":170},{"서비스":"opbdEduPolicyDirMagN","이름":"교육정책기획관리","줄수":170},{"서비스":"opbdEduPolicyPRN","이름":"교육정책홍보","줄수":170},{"서비스":"opbdEduAdmRecMagN","이름":"교육행정기록물관리","줄수":170},{"서비스":"opbdEduAdmInfoSysOpN","이름":"교육행정정보시스템운영","줄수":170},{"서비스":"opbdEduCoopMag","이름":"교육협력관리","줄수":170},{"서비스":"opbdTeachOrgMagN","이름":"교직원단체관리","줄수":170},{"서비스":"opbdIntEduCulExcCoopSupN","이름":"국제교육문화교류협력지원","줄수":170},{"서비스":"WorkertrnOp","이름":"근로자연수운영","줄수":170},{"서비스":"opbdLunchMonSup","이름":"급식비지원","줄수":170},{"서비스":"opbdInstBasOp","이름":"기관기본운영비","줄수":170},{"서비스":"opbdOrgATestMan","이름":"기관및학교평가관리","줄수":170},{"서비스":"opbdInstFacMag","이름":"기관시설유지관리","줄수":170},{"서비스":"opbdFudTraf","이름":"기금전출금","줄수":170},{"서비스":"opbdDormSchOp","이름":"기숙형학교운영","줄수":170},{"서비스":"opbdEtceduSup","이름":"기타교육복지지원","줄수":170},{"서비스":"opBudgInRsvMnyN","이름":"내부유보금","줄수":170},{"서비스":"opbdFarmVilSchEduVit","이름":"농어촌학교교육활성화","줄수":170},{"서비스":"opbgNuriCosSupN","이름":"누리과정지원","줄수":170},{"서비스":"opbdAllScOp","이름":"늘봄학교운영","줄수":68},{"서비스":"opbdCultNKEscSonEduSupN","이름":"다문화및북한이탈주민등자녀교육지원","줄수":170},{"서비스":"opbdAltEduOp","이름":"대안교육운영","줄수":170},{"서비스":"opbgCollStuAbTestN","이름":"대학수학능력시험","줄수":170},{"서비스":"opbdLibOp","이름":"도서관운영","줄수":170},{"서비스":"opbdReadEssEduVitOp","이름":"독서논술교육운영","줄수":170},{"서비스":"opbdCaeClassOp","이름":"돌봄교실운영","줄수":170},{"서비스":"opbdCulArtEduAct","이름":"문화예술교육활동","줄수":170},{"서비스":"opbdPriInvstBizRepayN","이름":"민간투자사업상환","줄수":170},{"서비스":"opbdAftSchOpN","이름":"방과후학교운영","줄수":170},{"서비스":"opbdBroadSchOpN","이름":"방송통신중고운영","줄수":170},{"서비스":"opbdLawMagN","이름":"법무관리","줄수":170},{"서비스":"opbdEmgPlanOp","이름":"비상대비계획운영","줄수":170},{"서비스":"opbdPrivKindSupN","이름":"사립유치원지원","줄수":170},{"서비스":"opbdPriSchOrgSup","이름":"사학기관지도지원","줄수":170},{"서비스":"opbdIndHcareMag","이름":"산업안전보건관리","줄수":170},{"서비스":"opbdElecMagN","이름":"선거관리","줄수":170},{"서비스":"ExSchForcProvEdu","이름":"성폭력예방교육등","줄수":170},{"서비스":"opbdCirTeatcherN","이름":"순회교사제운영","줄수":170},{"서비스":"opbdFacBizOp","이름":"시설사업운영","줄수":170},{"서비스":"opbdStuDemoSchOpN","이름":"연구시범학교운영","줄수":170},{"서비스":"opbdGiftEduOpN","이름":"영재교육운영","줄수":170},{"서비스":"opbdReserveN","이름":"예비비","줄수":170},{"서비스":"opbdBudgMagN","이름":"예산관리","줄수":170},{"서비스":"opbdDpCiRp","이름":"예수금원리금상환","줄수":170},{"서비스":"opbdDep","이름":"예탁금","줄수":170},{"서비스":"opbdOpMonFiErrSupN","이름":"운영비재정결함지원","줄수":170},{"서비스":"opbdInfantEduOp","이름":"유아교육운영","줄수":170},{"서비스":"opbdKindEduConUpN","이름":"유치원교육여건개선","줄수":170},{"서비스":"opbdKindAftSchCosOpN","이름":"유치원방과후과정운영","줄수":170},{"서비스":"opbdPlCop","이름":"의회협력","줄수":170},{"서비스":"opbdPayFiErrSupN","이름":"인건비재정결함지원","줄수":170},{"서비스":"opbdTempBorrMagN","이름":"일시차입금관리","줄수":170},{"서비스":"opbdFinAccMagN","이름":"재무회계관리","줄수":170},{"서비스":"opbdDWScSonAftSchFrClSupN","이름":"저소득층자녀방과후자유수강권지원","줄수":170},{"서비스":"opbdOptCapaSchPrtSupN","이름":"적정규모학교육성지원","줄수":170},{"서비스":"opbdInfoSecMagN","이름":"정보보안관리","줄수":170},{"서비스":"opbdInfoSupN","이름":"정보화지원","줄수":170},{"서비스":"opbdTotSpendN","이름":"제지출금등","줄수":170},{"서비스":"opbdOrgProdMagN","이름":"조직및성과관리","줄수":170},{"서비스":"opbdLoTeachTraOpN","이름":"지방공무원연수운영","줄수":170},{"서비스":"opbdLoServPayN","이름":"지방공무원인건비","줄수":170},{"서비스":"opbdLoServHRMagN","이름":"지방공무원인사관리","줄수":170},{"서비스":"opbdMuboRp","이름":"지방채상환","줄수":170},{"서비스":"opbdJobWayEdu","이름":"직업교육운영","줄수":170},{"서비스":"opbdJobWayEduUp","이름":"직업교육환경개선","줄수":170},{"서비스":"opbdWayProEduOp","이름":"진로진학교육운영","줄수":170},{"서비스":"opbdEmpPowUp","이름":"취업역량강화","줄수":170},{"서비스":"opbdSpeEduFiNeedSupN","이름":"특별교육재정수요지원","줄수":170},{"서비스":"opbdFeatEduCosOpN","이름":"특색교육과정운영","줄수":170},{"서비스":"opbdSpeEduWel","이름":"특수교육복지","줄수":170},{"서비스":"opbdSpeEduConUpN","이름":"특수교육여건개선","줄수":170},{"서비스":"opbdSpeEduOpN","이름":"특수교육운영","줄수":170},{"서비스":"opbdLifeEduFacOp","이름":"평생교육시설및운영","줄수":170},{"서비스":"opbdLifeStyOp","이름":"평생학습운영","줄수":170},{"서비스":"opbdSchLunchOpN","이름":"학교급식운영","줄수":170},{"서비스":"opbdSchLunchEnvUpN","이름":"학교급식환경개선","줄수":170},{"서비스":"opbdSchLibOp","이름":"학교도서관운영","줄수":170},{"서비스":"opbdSchHcareMagN","이름":"학교보건관리","줄수":170},{"서비스":"opbdSchFacEduEnvEp","이름":"학교시설확충","줄수":170},{"서비스":"opbdSchNewExtN","이름":"학교시설환경개선","줄수":170},{"서비스":"opbdSchFacExtN","이름":"학교신증설","줄수":170},{"서비스":"opbdSchOpSupN","이름":"학교운영비지원","줄수":170},{"서비스":"opbdSchInfoUp","이름":"학교정보화여건개선","줄수":170},{"서비스":"opbgSchForcProvEdu","이름":"학교폭력예방및교육","줄수":170},{"서비스":"opbdSchEnvHygMagN","이름":"학교환경위생관리","줄수":170},{"서비스":"opbdAcaTestMagN","이름":"학력평가관리","줄수":170},{"서비스":"opbdAcaUpSupN","이름":"학력향상지원","줄수":170},{"서비스":"opbdParResJoinExt","이름":"학부모및주민참여확대","줄수":170},{"서비스":"opbdStuGrpAct","이름":"학생단체활동","줄수":170},{"서비스":"opbdStuArrPlanMagN","이름":"학생배치계획관리","줄수":170},{"서비스":"opbdStuAdvAct","이름":"학생상담활동","줄수":170},{"서비스":"opbdStuLifeInstSupN","이름":"학생생활지도지원","줄수":170},{"서비스":"stdetbgsafmant","이름":"학생안전관리","줄수":170},{"서비스":"opbdAdmUpActSupN","이름":"행정개선활동지원","줄수":170},{"서비스":"opbdAdmServMagN","이름":"행정서비스관리","줄수":170},{"서비스":"opbdFieldSchActSupN","이름":"현장중심장학지원","줄수":170}]}]},{"번호":"03","이름":"재정지표","출처":"추정","자식":[{"번호":"01","이름":"(이름 미확인)","출처":"추정","자식":[{"서비스":"opbdFiIndp","이름":"재정자주도","줄수":238},{"서비스":"opbdintgPfincBalc","이름":"통합재정수지","줄수":1190},{"서비스":"opbdAdmOpMonRate","이름":"행정운영경비비율","줄수":2142}]}]}]}];
+const 쪽 = {};              // 대분류 파일을 눌렀을 때만 불러온다
+
+async function 자료불러오기(파일){
+  if (쪽[파일]) return 쪽[파일];
+  const r = await fetch(`data/edu/${파일}.json.gz`);
+  if (!r.ok) throw new Error(파일 + ' 못 받음');
+  const buf = await r.arrayBuffer();
+  let 글;
+  try {
+    const s = new Blob([buf]).stream().pipeThrough(new DecompressionStream('gzip'));
+    글 = await new Response(s).text();
+  } catch (e) {                      // 서버가 이미 풀어서 준 경우
+    글 = new TextDecoder().decode(buf);
+  }
+  쪽[파일] = JSON.parse(글);
+  return 쪽[파일];
+}
+
+const 돈 = n => {
+  const v = Number(n);
+  if (!isFinite(v)) return String(n ?? '');
+  return v.toLocaleString('ko-KR');
+};
+
+let 고른것 = null, 고른해 = null;
+
+function 나무그리기(거르개){
+  const t = document.getElementById('tree');
+  const 맞나 = s => !거르개 || (s || '').toLowerCase().includes(거르개);
+  let h = '<ul>';
+  for (const 갈 of 나무){
+    const 대들 = 갈.자식.map(대 => {
+      const 중들 = 대.자식.map(중 => {
+        const 잎 = 중.자식.filter(x => 맞나(x.이름) || 맞나(중.이름) || 맞나(대.이름));
+        if (!잎.length) return '';
+        const li = 잎.map(x =>
+          `<li><div class="nd leaf" data-svc="${x.서비스}" data-file="${갈.파일서두}_${대.번호}">
+             <span class="tw"></span><span class="lb">${x.이름}</span>
+             <span class="ct">${x.줄수}줄</span></div></li>`).join('');
+        return `<li><div class="nd" data-tw><span class="tw">▸</span>
+            <span class="lb">${중.이름}</span>
+            ${중.출처 === '추정' ? '<span class="guess">추정</span>' : ''}
+            <span class="ct">${중.번호} · ${잎.length}종</span></div>
+          <ul hidden>${li}</ul></li>`;
+      }).filter(Boolean).join('');
+      if (!중들) return '';
+      return `<li><div class="nd" data-tw><span class="tw">▸</span>
+          <span class="lb">${대.이름}</span>
+          ${대.출처 === '추정' ? '<span class="guess">추정</span>' : ''}
+          <span class="ct">${대.번호}</span></div>
+        <ul hidden>${중들}</ul></li>`;
+    }).filter(Boolean).join('');
+    if (!대들) continue;
+    h += `<li><div class="nd" data-tw><span class="tw">▾</span>
+        <span class="lb"><b>${갈.이름}</b></span></div>
+      <ul>${대들}</ul></li>`;
+  }
+  t.innerHTML = h + '</ul>';
+  if (거르개) t.querySelectorAll('ul[hidden]').forEach(u => { u.hidden = false;
+    const tw = u.previousElementSibling?.querySelector('.tw'); if (tw) tw.textContent = '▾'; });
+}
+
+document.getElementById('tree').addEventListener('click', async e => {
+  const 잎 = e.target.closest('.leaf');
+  if (잎){
+    document.querySelectorAll('.leaf.on').forEach(x => x.classList.remove('on'));
+    잎.classList.add('on');
+    await 보이기(잎.dataset.file, 잎.dataset.svc);
+    return;
+  }
+  const 마디 = e.target.closest('[data-tw]');
+  if (!마디) return;
+  const ul = 마디.nextElementSibling;
+  if (!ul) return;
+  ul.hidden = !ul.hidden;
+  마디.querySelector('.tw').textContent = ul.hidden ? '▸' : '▾';
+});
+
+document.getElementById('q').addEventListener('input', e =>
+  나무그리기(e.target.value.trim().toLowerCase()));
+
+async function 보이기(파일, 서비스){
+  const 머리 = document.getElementById('head');
+  const 표 = document.getElementById('tbl');
+  표.innerHTML = '<div class="empty">받는 중…</div>';
+  let 모두;
+  try { 모두 = await 자료불러오기(파일); }
+  catch (err){ 표.innerHTML = `<div class="empty">못 받았다 — ${err.message}</div>`; return; }
+
+  const 줄들 = 모두.filter(r => r.서비스 === 서비스);
+  if (!줄들.length){ 표.innerHTML = '<div class="empty">이 자료는 빈 응답이다.</div>'; return; }
+
+  const 첫 = 줄들[0];
+  머리.innerHTML = `<div class="nm">${첫.자료이름}</div>
+    <div class="meta">${첫.갈래} · ${첫.dsId} · ${첫.서비스} · ${줄들.length.toLocaleString()}줄</div>`;
+
+  const 해들 = [...new Set(줄들.map(r => r.회계연도))].sort().reverse();
+  고른해 = 해들.includes(고른해) ? 고른해 : 해들[0];
+  고른것 = { 파일, 서비스 };
+  document.getElementById('bar').innerHTML = 해들.map(y =>
+    `<button data-y="${y}" aria-selected="${y === 고른해}">${y}</button>`).join('');
+  칸그리기(줄들);
+}
+
+document.getElementById('bar').addEventListener('click', async e => {
+  const b = e.target.closest('button'); if (!b || !고른것) return;
+  고른해 = b.dataset.y;
+  document.querySelectorAll('#bar button').forEach(x =>
+    x.setAttribute('aria-selected', x.dataset.y === 고른해));
+  const 모두 = await 자료불러오기(고른것.파일);
+  칸그리기(모두.filter(r => r.서비스 === 고른것.서비스));
+});
+
+// 공통 넉 칸(YMQ·ITEM_CD1·ITEM_CD2·AMT)으로 오는 자료
+const 흔한칸 = new Set(['IDX','YMQ','ITEM_CD1','ITEM_CD2','AMT','ITEM_CD1_SEQ']);
+
+function 칸그리기(줄들){
+  const 그해 = 줄들.filter(r => r.회계연도 === 고른해);
+  if (!그해.length){ document.getElementById('tbl').innerHTML =
+    '<div class="empty">이 해에는 줄이 없다.</div>'; return; }
+
+  // ⚠️ 622종 중 20%는 칸이 통째로 다르다(집행내역의 보조사업자 따위).
+  //    그런 자료는 지역×항목 표로 못 보여준다 — 원본 칸을 그대로 늘어놓는다.
+  const 원본칸 = Object.keys(그해[0].원본 || {});
+  const 다른모양 = 원본칸.some(k => !흔한칸.has(k));
+  if (다른모양){ 원본그대로(그해, 원본칸); return; }
+
+  const 지역들 = [...new Set(그해.map(r => r.지역))];
+  // 항목 차례는 원본 순서를 그대로 따른다 — 합계가 먼저, 그 밑이 항목이다
+  const 항목들 = [];
+  const 본것 = new Set();
+  for (const r of 그해.filter(r => r.지역 === 지역들[0])){
+    const k = r.항목원본;
+    if (!본것.has(k)){ 본것.add(k); 항목들.push({ 항목: r.항목, 깊이: r.항목깊이, 키: k }); }
+  }
+  const 값 = {};
+  for (const r of 그해) 값[r.지역 + '\u0000' + r.항목원본] = r.금액;
+
+  let h = '<table><thead><tr><th>항목</th>' +
+    지역들.map(s => `<th style="text-align:right">${s}</th>`).join('') + '</tr></thead><tbody>';
+  for (const it of 항목들){
+    h += `<tr class="d${it.깊이}"><td class="it" style="padding-left:${9 + it.깊이 * 16}px">${it.항목}</td>` +
+      지역들.map(s => `<td class="num">${돈(값[s + '\u0000' + it.키])}</td>`).join('') + '</tr>';
+  }
+  document.getElementById('tbl').innerHTML = h + '</tbody></table>';
+}
+
+// 칸 모양이 다른 자료 — 원본을 그대로 늘어놓는다. 숫자 칸만 오른쪽으로 민다.
+function 원본그대로(그해, 칸들){
+  const 숫자칸 = k => /AMT|AMOUNT|SUM|P[0-9]$|VARI|EDU_OFFC/.test(k);
+  const 많다 = 그해.length > 1500;
+  const 볼것 = 많다 ? 그해.slice(0, 1500) : 그해;
+  let h = '<table><thead><tr>' +
+    칸들.map(k => `<th${숫자칸(k) ? ' style="text-align:right"' : ''}>${k}</th>`).join('') +
+    '</tr></thead><tbody>';
+  for (const r of 볼것){
+    h += '<tr>' + 칸들.map(k => {
+      const v = (r.원본 || {})[k];
+      const 빈값 = (v === null || v === undefined || v === 'None');
+      return `<td class="${숫자칸(k) ? 'num' : 'it'}">${빈값 ? '' :
+        (숫자칸(k) ? 돈(v) : String(v))}</td>`;
+    }).join('') + '</tr>';
+  }
+  h += '</tbody></table>';
+  if (많다) h += `<div class="empty">앞 1,500줄만 보여준다 (모두 ${그해.length.toLocaleString()}줄).</div>`;
+  document.getElementById('tbl').innerHTML = h;
+}
+
+나무그리기('');
+
+// 주소 끝에 #서비스명 을 붙이면 그 자료를 바로 연다 — 링크로 주고받을 수 있다.
+// 예: edu.html#opclSummr
+async function 주소로열기(){
+  const s = decodeURIComponent(location.hash.slice(1));
+  if (!s) return;
+  const 잎 = document.querySelector(`.leaf[data-svc="${CSS.escape(s)}"]`);
+  if (!잎) return;
+  // 그 잎까지 펼친다
+  for (let p = 잎.parentElement; p; p = p.parentElement){
+    if (p.tagName === 'UL' && p.hidden){
+      p.hidden = false;
+      const tw = p.previousElementSibling?.querySelector('.tw');
+      if (tw) tw.textContent = '▾';
+    }
+  }
+  document.querySelectorAll('.leaf.on').forEach(x => x.classList.remove('on'));
+  잎.classList.add('on');
+  잎.scrollIntoView({block:'center'});
+  await 보이기(잎.dataset.file, 잎.dataset.svc);
+}
+addEventListener('hashchange', 주소로열기);
+주소로열기();
+</script>
+</html>

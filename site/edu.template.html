@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="ko">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>17개 시·도교육청 — 공공데이터 나무 그대로</title>
+<style>
+  :root{
+    --ground:#FFFFFF; --sunk:#F4F6F8; --line:#C9D2DA; --line-soft:#E3E8ED;
+    --ink:#11181F; --muted:#5A6672; --faint:#8A97A3;
+    --accent:#1F4E79; --alert:#B03A22;
+    --mono:ui-monospace,SFMono-Regular,'Cascadia Mono','DejaVu Sans Mono',monospace;
+    --body:system-ui,-apple-system,'Malgun Gothic',sans-serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ground:#12171C; --sunk:#1A2127; --line:#333C45; --line-soft:#242C34;
+      --ink:#E6EBF0; --muted:#98A5B1; --faint:#72808C;
+      --accent:#7FB3DC; --alert:#E0755C;
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--ground); color:var(--ink); font:14px/1.5 var(--body)}
+  .wrap{max-width:1280px; margin:0 auto; padding-inline:16px}
+  .topbar{position:sticky; top:0; z-index:10; background:var(--ground); border-bottom:1px solid var(--line)}
+  .topbar .wrap{display:flex; align-items:center; gap:10px; min-height:46px; flex-wrap:wrap; padding-block:6px}
+  .topbar .t{font-weight:600; font-size:13px; margin-right:auto}
+  a{color:var(--accent)}
+  h1{font-size:20px; margin:22px 0 4px}
+  .basis{margin:12px 0 0; padding:10px 12px; background:var(--sunk); border:1px solid var(--line);
+    font-size:12.5px; color:var(--muted)}
+  .basis b{color:var(--ink)}
+  .warn{border-left:3px solid var(--alert)}
+  .cols{display:grid; grid-template-columns:min(360px,42%) 1fr; gap:14px; margin:14px 0 0; align-items:start}
+  @media (max-width:820px){ .cols{grid-template-columns:1fr} }
+  .pane{border:1px solid var(--line); background:var(--ground)}
+  .pane h2{margin:0; padding:8px 11px; font-size:12px; color:var(--muted);
+    background:var(--sunk); border-bottom:1px solid var(--line); font-weight:600}
+  .tree{max-height:72vh; overflow:auto; padding:6px 4px 10px}
+  .tree ul{list-style:none; margin:0; padding-left:14px}
+  .tree>ul{padding-left:4px}
+  .tree li{margin:1px 0}
+  .tree .nd{display:flex; gap:5px; align-items:baseline; cursor:pointer; padding:2px 4px; border-radius:2px}
+  .tree .nd:hover{background:var(--sunk)}
+  .tree .tw{width:11px; color:var(--faint); font-family:var(--mono); flex:none}
+  .tree .lb{font-size:13px}
+  .tree .ct{color:var(--faint); font-size:11px; font-family:var(--mono)}
+  .tree .leaf .lb{color:var(--ink)}
+  .tree .leaf.on{background:var(--accent)}
+  .tree .leaf.on .lb,.tree .leaf.on .ct{color:#fff}
+  .tree .guess{color:var(--alert); font-size:10px; border:1px solid var(--alert); padding:0 3px; border-radius:2px}
+  .srch{padding:7px 9px; border-bottom:1px solid var(--line-soft)}
+  .srch input{font:13px var(--body); color:var(--ink); background:var(--sunk);
+    border:1px solid var(--line); padding:6px 9px; width:100%}
+  .head{padding:9px 11px; border-bottom:1px solid var(--line-soft)}
+  .head .nm{font-size:15px; font-weight:600}
+  .head .meta{color:var(--faint); font-size:11.5px; font-family:var(--mono); margin-top:3px}
+  .bar{display:flex; gap:5px; flex-wrap:wrap; padding:7px 9px; border-bottom:1px solid var(--line-soft)}
+  button{font:12.5px var(--body); color:var(--muted); background:var(--sunk);
+    border:1px solid var(--line); padding:4px 9px; cursor:pointer; white-space:nowrap}
+  button[aria-selected="true"]{background:var(--accent); border-color:var(--accent); color:#fff}
+  .scroll{overflow:auto; max-height:62vh}
+  table{border-collapse:collapse; width:100%; font-size:13px}
+  th,td{padding:5px 9px; border-bottom:1px solid var(--line-soft); text-align:left; white-space:nowrap}
+  thead th{background:var(--sunk); font-size:11px; color:var(--muted); font-weight:600; position:sticky; top:0}
+  td.num{font-family:var(--mono); text-align:right}
+  td.it{white-space:normal; min-width:200px}
+  tr.d0 td{font-weight:700; background:var(--sunk)}
+  tr.d0 td.it{color:var(--ink)}
+  tbody tr:hover{background:var(--sunk)}
+  .empty{padding:26px 14px; color:var(--faint); font-size:13px}
+  footer{margin:26px 0 40px; padding-top:14px; border-top:1px solid var(--line); color:var(--muted); font-size:12px}
+  footer p{margin:0 0 5px}
+</style>
+
+<div class="topbar"><div class="wrap">
+  <span class="t">17개 시·도교육청</span>
+  <a href="./">← 자치단체별 화면</a>
+  <a href="board.html">243곳 한 판에 →</a>
+  <a href="catalog.html">무슨 자료가 있나 →</a>
+  <a href="datamap.html">데이터 지도 →</a>
+</div></div>
+
+<div class="wrap">
+  <h1>17개 시·도교육청 — 공공데이터 나무 그대로</h1>
+
+  <div class="basis">
+    지방교육재정알리미(<span style="font-family:var(--mono)">openapi.eduinfo.go.kr</span>)
+    <b>__SVC__종</b>을 받아 <b>__ROWS__줄</b>로 담았다 · 회계연도 <b>__YEARS__</b> ·
+    17개 시·도교육청 · 받은 날 <b>__ASOF__</b>
+    <br>왼쪽 나무는 <b>포털 화면의 분류 그대로</b>다 —
+    <span style="font-family:var(--mono)">dsId</span>에 들어 있는 것을 펴서 세웠다
+    (<span style="font-family:var(--mono)">VW_CLSG01020103</span> = 결산·대01·중02·소01·순03).
+  </div>
+
+  <div class="basis warn">
+    ⚠️ <b>이 축은 243개 자치단체와 다르다.</b> 17개 시·도교육청이라 같은 표에 못 섞는다.
+    <br>⚠️ <b>합계줄과 항목줄이 한 칸에 같이 온다.</b> 원본이 앞 빈칸으로만 단을 나눠서다.
+    표에서 <b>굵은 줄이 합계</b>고 그 밑이 항목이다 — <b>다 더하면 두 배가 된다.</b>
+    <br>⚠️ 나무의 <span class="guess">추정</span> 딱지는 <b>포털에서 확인 못 한 이름</b>이다.
+    API가 분류 이름을 안 줘서 자료 내용을 보고 붙였다. 자료가 하나뿐인 마디는 <b>그 자료 이름</b>을 그대로 썼다.
+  </div>
+
+  <div class="cols">
+    <div class="pane">
+      <h2>공공데이터 나무</h2>
+      <div class="srch"><input id="q" placeholder="자료 이름으로 찾기 (예: 업무추진비, 폐교)"></div>
+      <div class="tree" id="tree"></div>
+    </div>
+
+    <div class="pane">
+      <h2>고른 자료</h2>
+      <div id="head" class="head"><div class="nm">왼쪽에서 자료를 고르세요</div>
+        <div class="meta">나무를 눌러 펼친 뒤 맨 아래 칸을 고르면 숫자가 나옵니다</div></div>
+      <div class="bar" id="bar"></div>
+      <div class="scroll" id="tbl"><div class="empty">아직 고른 것이 없습니다.</div></div>
+    </div>
+  </div>
+
+  <footer>
+    <p>자료 — 교육부 지방교육재정알리미 Open API. 받은 날 __ASOF__.</p>
+    <p>이 화면은 <b>우리 작업용</b>이다. 무엇이 어떤 모양으로 오는지 보려고 만들었다.</p>
+    <p>다시 굽기 — <span style="font-family:var(--mono)">python scripts/fetch_edu.py</span> 뒤에
+       <span style="font-family:var(--mono)">python scripts/build_edu_page.py</span></p>
+  </footer>
+</div>
+
+<script>
+const 나무 = __TREE__;
+const 쪽 = {};              // 대분류 파일을 눌렀을 때만 불러온다
+
+async function 자료불러오기(파일){
+  if (쪽[파일]) return 쪽[파일];
+  const r = await fetch(`data/edu/${파일}.json.gz`);
+  if (!r.ok) throw new Error(파일 + ' 못 받음');
+  const buf = await r.arrayBuffer();
+  let 글;
+  try {
+    const s = new Blob([buf]).stream().pipeThrough(new DecompressionStream('gzip'));
+    글 = await new Response(s).text();
+  } catch (e) {                      // 서버가 이미 풀어서 준 경우
+    글 = new TextDecoder().decode(buf);
+  }
+  쪽[파일] = JSON.parse(글);
+  return 쪽[파일];
+}
+
+const 돈 = n => {
+  const v = Number(n);
+  if (!isFinite(v)) return String(n ?? '');
+  return v.toLocaleString('ko-KR');
+};
+
+let 고른것 = null, 고른해 = null;
+
+function 나무그리기(거르개){
+  const t = document.getElementById('tree');
+  const 맞나 = s => !거르개 || (s || '').toLowerCase().includes(거르개);
+  let h = '<ul>';
+  for (const 갈 of 나무){
+    const 대들 = 갈.자식.map(대 => {
+      const 중들 = 대.자식.map(중 => {
+        const 잎 = 중.자식.filter(x => 맞나(x.이름) || 맞나(중.이름) || 맞나(대.이름));
+        if (!잎.length) return '';
+        const li = 잎.map(x =>
+          `<li><div class="nd leaf" data-svc="${x.서비스}" data-file="${갈.파일서두}_${대.번호}">
+             <span class="tw"></span><span class="lb">${x.이름}</span>
+             <span class="ct">${x.줄수}줄</span></div></li>`).join('');
+        return `<li><div class="nd" data-tw><span class="tw">▸</span>
+            <span class="lb">${중.이름}</span>
+            ${중.출처 === '추정' ? '<span class="guess">추정</span>' : ''}
+            <span class="ct">${중.번호} · ${잎.length}종</span></div>
+          <ul hidden>${li}</ul></li>`;
+      }).filter(Boolean).join('');
+      if (!중들) return '';
+      return `<li><div class="nd" data-tw><span class="tw">▸</span>
+          <span class="lb">${대.이름}</span>
+          ${대.출처 === '추정' ? '<span class="guess">추정</span>' : ''}
+          <span class="ct">${대.번호}</span></div>
+        <ul hidden>${중들}</ul></li>`;
+    }).filter(Boolean).join('');
+    if (!대들) continue;
+    h += `<li><div class="nd" data-tw><span class="tw">▾</span>
+        <span class="lb"><b>${갈.이름}</b></span></div>
+      <ul>${대들}</ul></li>`;
+  }
+  t.innerHTML = h + '</ul>';
+  if (거르개) t.querySelectorAll('ul[hidden]').forEach(u => { u.hidden = false;
+    const tw = u.previousElementSibling?.querySelector('.tw'); if (tw) tw.textContent = '▾'; });
+}
+
+document.getElementById('tree').addEventListener('click', async e => {
+  const 잎 = e.target.closest('.leaf');
+  if (잎){
+    document.querySelectorAll('.leaf.on').forEach(x => x.classList.remove('on'));
+    잎.classList.add('on');
+    await 보이기(잎.dataset.file, 잎.dataset.svc);
+    return;
+  }
+  const 마디 = e.target.closest('[data-tw]');
+  if (!마디) return;
+  const ul = 마디.nextElementSibling;
+  if (!ul) return;
+  ul.hidden = !ul.hidden;
+  마디.querySelector('.tw').textContent = ul.hidden ? '▸' : '▾';
+});
+
+document.getElementById('q').addEventListener('input', e =>
+  나무그리기(e.target.value.trim().toLowerCase()));
+
+async function 보이기(파일, 서비스){
+  const 머리 = document.getElementById('head');
+  const 표 = document.getElementById('tbl');
+  표.innerHTML = '<div class="empty">받는 중…</div>';
+  let 모두;
+  try { 모두 = await 자료불러오기(파일); }
+  catch (err){ 표.innerHTML = `<div class="empty">못 받았다 — ${err.message}</div>`; return; }
+
+  const 줄들 = 모두.filter(r => r.서비스 === 서비스);
+  if (!줄들.length){ 표.innerHTML = '<div class="empty">이 자료는 빈 응답이다.</div>'; return; }
+
+  const 첫 = 줄들[0];
+  머리.innerHTML = `<div class="nm">${첫.자료이름}</div>
+    <div class="meta">${첫.갈래} · ${첫.dsId} · ${첫.서비스} · ${줄들.length.toLocaleString()}줄</div>`;
+
+  const 해들 = [...new Set(줄들.map(r => r.회계연도))].sort().reverse();
+  고른해 = 해들.includes(고른해) ? 고른해 : 해들[0];
+  고른것 = { 파일, 서비스 };
+  document.getElementById('bar').innerHTML = 해들.map(y =>
+    `<button data-y="${y}" aria-selected="${y === 고른해}">${y}</button>`).join('');
+  칸그리기(줄들);
+}
+
+document.getElementById('bar').addEventListener('click', async e => {
+  const b = e.target.closest('button'); if (!b || !고른것) return;
+  고른해 = b.dataset.y;
+  document.querySelectorAll('#bar button').forEach(x =>
+    x.setAttribute('aria-selected', x.dataset.y === 고른해));
+  const 모두 = await 자료불러오기(고른것.파일);
+  칸그리기(모두.filter(r => r.서비스 === 고른것.서비스));
+});
+
+// 공통 넉 칸(YMQ·ITEM_CD1·ITEM_CD2·AMT)으로 오는 자료
+const 흔한칸 = new Set(['IDX','YMQ','ITEM_CD1','ITEM_CD2','AMT','ITEM_CD1_SEQ']);
+
+function 칸그리기(줄들){
+  const 그해 = 줄들.filter(r => r.회계연도 === 고른해);
+  if (!그해.length){ document.getElementById('tbl').innerHTML =
+    '<div class="empty">이 해에는 줄이 없다.</div>'; return; }
+
+  // ⚠️ 622종 중 20%는 칸이 통째로 다르다(집행내역의 보조사업자 따위).
+  //    그런 자료는 지역×항목 표로 못 보여준다 — 원본 칸을 그대로 늘어놓는다.
+  const 원본칸 = Object.keys(그해[0].원본 || {});
+  const 다른모양 = 원본칸.some(k => !흔한칸.has(k));
+  if (다른모양){ 원본그대로(그해, 원본칸); return; }
+
+  const 지역들 = [...new Set(그해.map(r => r.지역))];
+  // 항목 차례는 원본 순서를 그대로 따른다 — 합계가 먼저, 그 밑이 항목이다
+  const 항목들 = [];
+  const 본것 = new Set();
+  for (const r of 그해.filter(r => r.지역 === 지역들[0])){
+    const k = r.항목원본;
+    if (!본것.has(k)){ 본것.add(k); 항목들.push({ 항목: r.항목, 깊이: r.항목깊이, 키: k }); }
+  }
+  const 값 = {};
+  for (const r of 그해) 값[r.지역 + '\u0000' + r.항목원본] = r.금액;
+
+  let h = '<table><thead><tr><th>항목</th>' +
+    지역들.map(s => `<th style="text-align:right">${s}</th>`).join('') + '</tr></thead><tbody>';
+  for (const it of 항목들){
+    h += `<tr class="d${it.깊이}"><td class="it" style="padding-left:${9 + it.깊이 * 16}px">${it.항목}</td>` +
+      지역들.map(s => `<td class="num">${돈(값[s + '\u0000' + it.키])}</td>`).join('') + '</tr>';
+  }
+  document.getElementById('tbl').innerHTML = h + '</tbody></table>';
+}
+
+// 칸 모양이 다른 자료 — 원본을 그대로 늘어놓는다. 숫자 칸만 오른쪽으로 민다.
+function 원본그대로(그해, 칸들){
+  const 숫자칸 = k => /AMT|AMOUNT|SUM|P[0-9]$|VARI|EDU_OFFC/.test(k);
+  const 많다 = 그해.length > 1500;
+  const 볼것 = 많다 ? 그해.slice(0, 1500) : 그해;
+  let h = '<table><thead><tr>' +
+    칸들.map(k => `<th${숫자칸(k) ? ' style="text-align:right"' : ''}>${k}</th>`).join('') +
+    '</tr></thead><tbody>';
+  for (const r of 볼것){
+    h += '<tr>' + 칸들.map(k => {
+      const v = (r.원본 || {})[k];
+      const 빈값 = (v === null || v === undefined || v === 'None');
+      return `<td class="${숫자칸(k) ? 'num' : 'it'}">${빈값 ? '' :
+        (숫자칸(k) ? 돈(v) : String(v))}</td>`;
+    }).join('') + '</tr>';
+  }
+  h += '</tbody></table>';
+  if (많다) h += `<div class="empty">앞 1,500줄만 보여준다 (모두 ${그해.length.toLocaleString()}줄).</div>`;
+  document.getElementById('tbl').innerHTML = h;
+}
+
+나무그리기('');
+
+// 주소 끝에 #서비스명 을 붙이면 그 자료를 바로 연다 — 링크로 주고받을 수 있다.
+// 예: edu.html#opclSummr
+async function 주소로열기(){
+  const s = decodeURIComponent(location.hash.slice(1));
+  if (!s) return;
+  const 잎 = document.querySelector(`.leaf[data-svc="${CSS.escape(s)}"]`);
+  if (!잎) return;
+  // 그 잎까지 펼친다
+  for (let p = 잎.parentElement; p; p = p.parentElement){
+    if (p.tagName === 'UL' && p.hidden){
+      p.hidden = false;
+      const tw = p.previousElementSibling?.querySelector('.tw');
+      if (tw) tw.textContent = '▾';
+    }
+  }
+  document.querySelectorAll('.leaf.on').forEach(x => x.classList.remove('on'));
+  잎.classList.add('on');
+  잎.scrollIntoView({block:'center'});
+  await 보이기(잎.dataset.file, 잎.dataset.svc);
+}
+addEventListener('hashchange', 주소로열기);
+주소로열기();
+</script>
+</html>
