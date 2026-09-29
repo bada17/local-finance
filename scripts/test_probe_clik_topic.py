@@ -18,6 +18,11 @@ class TopicTest(unittest.TestCase):
         self.assertEqual(extract_mentions('<p>여수세계섬박람회</p>','여수세계섬박람회')[0]['발언자표기'],'미확인')
         self.assertEqual(extract_mentions('<p>다른 박람회</p>','여수세계섬박람회'),[])
 
+    def test_colon_ends_speaker_label_and_compound_role_keeps_name(self):
+        markup='<p>○ 시장 권한대행부시장 정현구 : 섬박람회 예산안입니다.</p><p>○ 송하진위원: 감액을 해서 섬박람회장으로 옮겼나요?</p><p>○ 보건소장 윤현정: 섬박람회 준비입니다.</p>'
+        self.assertEqual([m['발언자표기'] for m in extract_mentions(markup,'섬박람회')],
+                         ['시장 권한대행부시장 정현구','송하진위원','보건소장 윤현정'])
+
     def test_failed_network_attempt_still_charged(self):
         with tempfile.TemporaryDirectory() as folder:
             state=Path(folder)/'state.json';state.write_text('{"갈래":{"보존":1},"날짜별호출":{}}',encoding='utf-8')

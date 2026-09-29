@@ -99,10 +99,11 @@ def extract_mentions(markup,query):
     speaker='미확인';mentions=[]
     for i,line in enumerate(lines):
         # ○역할 이름 형식만 발언자로 인정한다. 본문에 등장한 이름을 추정하지 않는다.
-        match=re.match(r'^[○◯●◎]\s*([^\s]+(?:\s+[^\s]+)?)',line)
+        match=re.match(r'^[○◯●◎]\s*([^:：]{1,80})[:：]',line)
+        if not match:match=re.match(r'^[○◯●◎]\s*([^\s]+(?:\s+[^\s]+)?)',line)
         if match:
-            candidate=match.group(1)
-            if re.search(r'(의원|위원장|시장|군수|구청장|과장|국장|실장|부장|팀장|본부장|이사장|위원|의장|단장)',candidate):
+            candidate=match.group(1).strip()
+            if re.search(r'(의원|위원장|시장|군수|구청장|과장|국장|실장|부장|팀장|본부장|이사장|위원|의장|단장|소장|담당관|센터장)',candidate):
                 speaker=candidate
             else:
                 speaker='미확인'
