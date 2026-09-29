@@ -201,7 +201,8 @@ if (Object.keys(누른).length) document.getElementById('funnel').insertAdjacent
   `<div class="step">
     <span class="n">${누른['1'] || 0}</span>
     <span class="lb"><b>첫 화면에서 한 번 눌러 닿는다</b> — 위와는 다른 축이다<br>
-      두 번 ${누른['2'] || 0}곳 · 세 번 ${누른['3'] || 0}곳 · <b>세 번 안에 못 찾음 ${누른['못 찾음'] || 0}곳</b>.
+      두 번 ${누른['2'] || 0}곳 · 세 번 ${누른['3'] || 0}곳 · <b>세 번 안에 못 찾음 ${누른['못 찾음'] || 0}곳</b>${Object.entries(누른)
+        .filter(([k]) => !['1', '2', '3', '못 찾음'].includes(k)).map(([k, v]) => ` · ${k} ${v}곳`).join('')}.
       메뉴에 「재정공시」라는 글자가 있는지로 쟀다. 못 찾음은 「멀다」가 아니라 <b>우리가 못 따라간 것</b>일 수 있다</span>
     <span class="track"><span class="bar"
       style="width:${((누른['1'] || 0) / SUM['모두'] * 100).toFixed(1)}%"></span></span>
@@ -310,7 +311,8 @@ function 그리기(){
       <td>${r.형식 === '엑셀 있음' ? 마크('ok', '엑셀 있음')
              : r.형식 === '문서뿐' ? 마크('bad', '문서뿐') : 마크('dim', '못 봄')}</td>
       <td>${r.API빠짐수 ? 마크('bad', `${r.API빠짐수}종 빠짐`) : 마크('ok', '다 있음')}</td>
-      <td class="num">${r.번 ? r.번 + '번' : 누른['1'] !== undefined ? '<span class="dim">못 찾음</span>' : '<span class="dim">—</span>'}</td>
+      <td class="num">${r.번 ? r.번 + '번' + (r.손 ? '<span class="dim" title="손으로 확인">✋</span>' : '')
+        : 누른['1'] !== undefined ? `<span class="dim">${r.눌러까닭 && !r.눌러까닭.includes('못 찾았다') ? r.눌러까닭 : '못 찾음'}</span>` : '<span class="dim">—</span>'}</td>
       <td class="num">${r.올린날 || '<span class="dim">—</span>'}</td>
       <td class="num">${r.읽힌수 ? r.항목.length + '/16' : '<span class="dim">—</span>'}</td>
     </tr>`);
@@ -324,7 +326,8 @@ function 그리기(){
           ${r.제목 ? `<br><span class="dim">페이지 제목: ${r.제목}</span>` : ''}
           ${r.본법 === '크롬' ? `<br><span class="dim">※ 원문 HTML 에는 안 보이고 <b>크롬으로 열어야</b> 파일 이름이 나온다</span>` : ''}
           ${r.크롬만 ? `<br><span class="dim">※ 파이썬은 튕겼지만 크롬에서는 열린다(인증서 문제로 보인다)</span>` : ''}
-          ${r.올린날 ? `<br><span class="dim">페이지에 적힌 날짜: ${r.올린날}</span>` : ''}</div>
+          ${r.올린날 ? `<br><span class="dim">페이지에 적힌 날짜: ${r.올린날}</span>` : ''}
+          ${r.파일손 && r.파일손.까닭 ? `<br>✋ <b>손으로 확인 — ${r.파일손.까닭}</b> <span class="dim">(${r.파일손.근거})</span>` : ''}</div>
         ${r.파일.length
           ? `<div style="margin-top:6px">붙은 파일 ${r.파일수}개${r.더 ? ` (앞 ${r.파일.length}개만)` : ''}</div>
              <ul class="files">${r.파일.map(f => `<li>${f}</li>`).join('')}</ul>`
