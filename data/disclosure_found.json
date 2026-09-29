@@ -1,0 +1,15 @@
+{
+  "설명": "지방재정365(FINLK)가 준 재정공시 주소가 죽은 곳을 손으로 찾은 것. disclosure.json 을 고치지 않고 따로 둔다 — 「지방재정365 링크가 죽었다」는 사실이 가려지지 않게. build_transparency.py 가 읽어 줄을 펼치면 보여준다.",
+  "찾은날": "2026-09-29",
+  "곳": {
+    "1132000": {"주소": "https://www.seocho.go.kr/site/seocho/03/10304030000002015070207.jsp", "까닭": "주소 끝이 .Jsp(대문자)라 404 — 소문자 .jsp 면 열린다"},
+    "2812000": {"주소": "https://www.jemulpo.go.kr/main/information/finance/region_form.jsp", "까닭": "2026년 구역 개편으로 제물포구 누리집으로 옮겨 갔다"},
+    "4112000": {"주소": "https://www.seongnam.go.kr/pm03050101", "까닭": "누리집 개편으로 주소가 바뀌었다"},
+    "4117000": {"주소": "https://www.pyeongtaek.go.kr/pyeongtaek/contents.do?mid=0107030000", "까닭": "누리집 개편으로 주소가 바뀌었다(게시판 주소 끝 bIdx= 가 비어 400)"},
+    "4411000": {"주소": "https://www.cheonan.go.kr/bbs/BBSMSTR_000000000334/list.do", "까닭": "게시판이 예산(…0334)·결산(…0335) 둘로 갈렸다"},
+    "4474000": {"주소": "https://www.seocheon.go.kr/kor/sub02_06_03_01.do", "까닭": "누리집 개편으로 주소가 바뀌었다"},
+    "4513000": {"주소": "https://www.iksan.go.kr/index.do?menuUid=ff8080819904153301990df9a22a1d7e", "까닭": "누리집 개편으로 주소가 바뀌었다"},
+    "4576000": {"주소": "https://www.sunchang.go.kr/index.do?menuUid=ff8080819a2f0e3b019ac96864b14cdf", "까닭": "누리집 개편으로 주소가 바뀌었다"},
+    "4681000": {"주소": "https://www.muan.go.kr/www/openmuan/budget/financial", "까닭": "해마다 주소가 바뀌던 것(…/finance/2025y)이 한 주소로 묶였다"}
+  }
+}

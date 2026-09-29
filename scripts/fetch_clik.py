@@ -164,17 +164,10 @@ def 부르기(끝점, 인자, 되풀이=3):
 def 조각쓰기(갈래, 번호, 줄들):
     os.makedirs(받는곳, exist_ok=True)
     경로 = os.path.join(받는곳, f'{갈래}_{번호:05d}.json.gz')
-    with gzip.open(경로, 'wt', encoding='utf-8') as f:
-        json.dump(줄들, f, ensure_ascii=False)
+    # mtime=0 — gzip 머리에 시각이 박히면 내용이 같아도 날마다 새 파일이 되어 저장소 역사에 쌓인다
+    with gzip.GzipFile(경로, 'wb', mtime=0) as f:
+        f.write(json.dumps(줄들, ensure_ascii=False).encode('utf-8'))
     return 경로
-
-
-def 조각읽기(갈래, 번호):
-    경로 = os.path.join(받는곳, f'{갈래}_{번호:05d}.json.gz')
-    if os.path.exists(경로):
-        with gzip.open(경로, 'rt', encoding='utf-8') as f:
-            return json.load(f)
-    return []
 
 
 def 받은DOCID(갈래):
@@ -197,8 +190,13 @@ def 한갈래받기(갈래, 키, 상태, 남은예산, 시작날=기본시작, �
 
     칸 = 상태['갈래'].setdefault(갈래, {'다음시작': 0, '건수': 0, '전체': None})
     본것 = 받은DOCID(갈래)
-    번호 = len(본것) // 조각크기          # 마지막 조각은 덜 찼을 수 있다
-    담을것 = 조각읽기(갈래, 번호)
+    # ⭐ **덜 찬 마지막 조각을 다시 열지 않는다 — 늘 새 번호로 쓴다**(2026-09-29).
+    #    목록을 다 받은 뒤로는 날마다 몇십 건씩만 붙는데, 그걸 마지막 조각(수백 KB)에 붙여 덮어쓰면
+    #    옛 판이 날마다 저장소 역사에 쌓인다(갈래마다 한 해 100MB 안팎). 작은 새 파일은 거의 안 든다.
+    번호 = len(glob.glob(os.path.join(받는곳, f'{갈래}_*.json.gz')))
+    while os.path.exists(os.path.join(받는곳, f'{갈래}_{번호:05d}.json.gz')):
+        번호 += 1
+    담을것 = []
 
     셈 = {'호출': 0, '새로': 0, '버림': 0}
 
@@ -409,8 +407,10 @@ def main():
     # 한 바퀴 돌고도 예산이 남으면(끝난 갈래가 있어서) 남은 것으로 한 바퀴 더 돈다.
     while not 끝났다 and 남음 > 0:
         돈것 = 0
-        아직 = [g for g in 대상 if not str(상태['갈래'].get(g, {}).get('멈춘까닭', ''))
-                .startswith('끝까지')]
+        # 「기간 끝」도 끝난 것이다 — 빼지 않으면 앞머리 6쪽을 예산이 다할 때까지 되풀이한다
+        # (2026-09-29 봇 로그: 회의록·정책정보가 같은 6회를 수십 번 불러 900회를 다 썼다).
+        아직 = [g for g in 대상 if not (lambda m: m.startswith('끝까지') or m.endswith('기간 끝'))(
+                str(상태['갈래'].get(g, {}).get('멈춘까닭', '')))]
         if not 아직:
             break
         for i, 갈래 in enumerate(아직):

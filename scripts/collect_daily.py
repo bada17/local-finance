@@ -34,8 +34,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 def save_gz(path, obj):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     tmp = path + '.tmp'
-    with gzip.open(tmp, 'wt', encoding='utf-8') as f:
-        json.dump(obj, f, ensure_ascii=False)
+    # mtime=0 — gzip 머리에 시각이 박히면 내용이 같아도 새 파일이 되어 저장소 역사에 쌓인다
+    with gzip.GzipFile(tmp, 'wb', mtime=0) as f:
+        f.write(json.dumps(obj, ensure_ascii=False).encode('utf-8'))
     os.replace(tmp, path)          # 다 받은 뒤에만 갈아끼운다
     return os.path.getsize(path)
 

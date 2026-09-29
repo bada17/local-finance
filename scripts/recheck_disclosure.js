@@ -86,16 +86,26 @@ const 긁개 = String.raw`(() => {
   }
 
   // 공시 글이 아니라 목록을 가리키는 곳이 있다 — 들어갈 만한 링크를 골라 둔다
+  //   ⭐ 2026-09-29 — 메뉴 링크(「강원특별자치도 지방재정공시」 같은 남의 누리집)에 후보가 먼저 찼다.
+  //      **해가 적힌 글 제목 · 같은 누리집**을 앞에 세운다. 주소 없이 onclick 으로만 여는 글
+  //      (href="#", 시흥시)은 **눌러서** 연다 — 몇 번째 링크인지(번째)를 적어 둔다.
   const 후보 = [];
-  for (const a of document.querySelectorAll('a')) {
+  const 링크들 = [...document.querySelectorAll('a')];
+  링크들.forEach((a, 번째) => {
     const t = (a.textContent || '').replace(/\s+/g, ' ').trim();
+    const raw = (a.getAttribute('href') || '').trim();
     const h = a.href || '';
-    if (t.length < 6 || t.length > 80) continue;
-    if (!/재정\s?공시|재정운용상황|재정운영상황|세입세출|예산기준|결산기준/.test(t)) continue;
-    if (!/^https?:/.test(h) || h === location.href) continue;
-    후보.push({ 글: t.slice(0, 60), 주소: h.slice(0, 200) });
-    if (후보.length >= 4) break;
-  }
+    if (t.length < 6 || t.length > 80) return;
+    if (!/재정\s?공시|재정운용상황|재정운영상황|세입세출|예산기준|결산기준/.test(t)) return;
+    const 누름 = (!raw || raw === '#' || /^javascript/i.test(raw)) && !!a.getAttribute('onclick');
+    if (!누름 && (!/^https?:/.test(h) || h.split('#')[0] === location.href.split('#')[0])) return;
+    let 점수 = 0;
+    if (/20\d\d/.test(t)) 점수 += 2;
+    try { if (!누름 && new URL(h).hostname !== location.hostname) 점수 -= 3; } catch (e) { /* 그대로 */ }
+    후보.push({ 글: t.slice(0, 60), 주소: 누름 ? '' : h.slice(0, 200), 번째: 누름 ? 번째 : -1, 점수 });
+  });
+  후보.sort((a, b) => b.점수 - a.점수);
+  후보.splice(4);
 
   let 날짜 = '';
   const d = 글.match(/(등록일|작성일|게시일|공시일|수정일|등록\s*일자)\s*[:：]?\s*(20\d{2}[-.\/]\s?\d{1,2}[-.\/]\s?\d{1,2})/);
@@ -201,12 +211,20 @@ async function 한곳(탭, 곳) {
   const r = await 보내기('Runtime.evaluate', { expression: 긁개, returnByValue: true, timeout: 8000 });
   let 값 = r.result && r.result.value ? JSON.parse(r.result.value) : null;
 
-  // ② 뜻 있는 이름을 하나도 못 건졌는데 들어갈 만한 링크가 있으면 **한 번만** 더 들어간다.
-  //    ⚠️ 두 번 이상 들어가지 않는다 — 어디를 본 것인지 알 수 없게 된다.
+  // ② 뜻 있는 이름을 하나도 못 건졌는데 들어갈 만한 링크가 있으면 **한 겹만** 더 들어간다.
+  //    ⚠️ 두 겹 이상 들어가지 않는다 — 어디를 본 것인지 알 수 없게 된다.
+  //    후보는 셋까지 차례로 본다(2026-09-29 — 첫 후보가 공지 글인 곳이 있었다). 건지면 멈춘다.
   let 들어간주소 = '';
-  if (값 && !값.파일.some(f => 뜻있나(f.이름)) && 값.후보 && 값.후보.length) {
-    const 갈곳 = 값.후보[0];
-    await 보내기('Page.navigate', { url: 갈곳.주소 });
+  const 후보들 = 값 && !값.파일.some(f => 뜻있나(f.이름)) && 값.후보 ? 값.후보.slice(0, 3) : [];
+  for (const [k, 갈곳] of 후보들.entries()) {
+    if (갈곳.번째 >= 0) {
+      // 누르는 글 — 목록으로 돌아와서(두 번째 후보부터) 그 링크를 누른다
+      if (k) { await 보내기('Page.navigate', { url: 곳.주소 }); await new Promise(x => setTimeout(x, 4000)); }
+      await 보내기('Runtime.evaluate', { expression: `document.querySelectorAll('a')[${갈곳.번째}].click()` });
+      await new Promise(x => setTimeout(x, 2500));      // 앞 화면의 complete 에 속지 않게
+    } else {
+      await 보내기('Page.navigate', { url: 갈곳.주소 });
+    }
     const 끝2 = Date.now() + 기다림;
     while (Date.now() < 끝2) {
       const q = await 보내기('Runtime.evaluate', {
@@ -223,7 +241,8 @@ async function 한곳(탭, 곳) {
     // 더 잘 건진 쪽만 쓴다
     if (값2 && 값2.파일.filter(f => 뜻있나(f.이름)).length > 0) {
       값 = 값2;
-      들어간주소 = 갈곳.주소;
+      들어간주소 = 갈곳.주소 || 값2.주소;
+      break;
     }
   }
 
@@ -312,4 +331,6 @@ async function main() {
   try { fs.rmSync(프로필, { recursive: true, force: true }); } catch (_) { /* 임시 폴더라 둬도 된다 */ }
 }
 
-main().catch(e => { console.error('FAIL', e); process.exit(1); });
+// count_clicks.js 가 크롬 띄우기·탭 잡기를 빌려 쓴다
+module.exports = { 크롬자리, 크롬띄우기, 붙을때까지, 탭열기, PORT, UA };
+if (require.main === module) main().catch(e => { console.error('FAIL', e); process.exit(1); });

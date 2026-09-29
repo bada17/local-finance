@@ -156,6 +156,9 @@
       두 번째로 크롬까지 돌렸지만 <b>여전히 못 본 곳이 남는다</b> — 로그인·검색을 거쳐야 하는 곳,
       이름이 「첨부파일」뿐인 곳. <b>못 봤다를 없다로 읽지 말 것.</b>
       「② 올린 날」도 페이지에 <b>적혀 있는 곳만</b> 읽었다(<span id="asof3"></span>곳).</p>
+    <p><b>「첫 화면에서」 칸</b>은 누리집 첫 화면을 크롬으로 열고 「재정공시」 글자가 붙은 링크가 나올 때까지
+      재정·예산·정보공개 같은 메뉴를 세 번까지 따라가 본 것이다(<span id="asof4"></span>).
+      큰 메뉴에 숨어 있어 마우스를 올려야 보여도 한 번으로 셌다.</p>
     <p>링크가 안 열린 곳도 갈라 봐야 한다. <b>404·400</b>은 주소가 죽은 것이지만,
       <b>SSL 오류·시간초과</b>는 자동 점검 쪽 문제일 수 있다 — 시민 브라우저에서는 열릴 수 있다.</p>
     <p>곳수가 적다고 미제출이 아니다. 광역만 내는 자료, 그해 해당이 없는 자료가 섞여 있어
@@ -191,6 +194,18 @@ document.getElementById('funnel').innerHTML = 칸들.map(([k, lb, sub, drop], i)
     <span class="track"><span class="bar" style="width:${(n / SUM['모두'] * 100).toFixed(1)}%"></span></span>
   </div>`;
 }).join('');
+
+// 첫 화면에서 몇 번 — 직통 주소가 아니라 시민이 메뉴를 따라갈 때(count_clicks.js)
+const 누른 = SUM['누른수'] || {};
+if (Object.keys(누른).length) document.getElementById('funnel').insertAdjacentHTML('beforeend',
+  `<div class="step">
+    <span class="n">${누른['1'] || 0}</span>
+    <span class="lb"><b>첫 화면에서 한 번 눌러 닿는다</b> — 위와는 다른 축이다<br>
+      두 번 ${누른['2'] || 0}곳 · 세 번 ${누른['3'] || 0}곳 · <b>세 번 안에 못 찾음 ${누른['못 찾음'] || 0}곳</b>.
+      메뉴에 「재정공시」라는 글자가 있는지로 쟀다. 못 찾음은 「멀다」가 아니라 <b>우리가 못 따라간 것</b>일 수 있다</span>
+    <span class="track"><span class="bar"
+      style="width:${((누른['1'] || 0) / SUM['모두'] * 100).toFixed(1)}%"></span></span>
+  </div>`);
 
 // 이름이 뜻을 갖나는 형식과 다른 축이다 — 깔때기 밖에 붙인다
 document.getElementById('funnel').insertAdjacentHTML('beforeend',
@@ -287,7 +302,7 @@ function 그리기(){
     const 죽음 = r.까닭 === '주소가 죽었다';
     줄.push(`<tr class="row" data-cd="${r.cd}">
       <td class="nm">${r.이름}${r.갈래 === '광역' ? ' <span class="tag">광역</span>' : ''}</td>
-      <td>${열림 ? 마크('ok', '열린다') : 마크(죽음 ? 'bad' : 'dim', r.까닭)}</td>
+      <td>${열림 ? 마크('ok', '열린다') : 마크(죽음 ? 'bad' : 'dim', r.까닭)}${r.찾은주소 ? ' <span class="dim">· 딴 주소에 있다</span>' : ''}</td>
       <td>${!열림 ? '<span class="dim">—</span>'
              : r.파일수 ? 마크('ok', `파일 ${r.파일수}`) : 마크('dim', '안 잡힘')}</td>
       <td>${!r.파일수 ? '<span class="dim">—</span>'
@@ -295,12 +310,17 @@ function 그리기(){
       <td>${r.형식 === '엑셀 있음' ? 마크('ok', '엑셀 있음')
              : r.형식 === '문서뿐' ? 마크('bad', '문서뿐') : 마크('dim', '못 봄')}</td>
       <td>${r.API빠짐수 ? 마크('bad', `${r.API빠짐수}종 빠짐`) : 마크('ok', '다 있음')}</td>
+      <td class="num">${r.번 ? r.번 + '번' : 누른['1'] !== undefined ? '<span class="dim">못 찾음</span>' : '<span class="dim">—</span>'}</td>
       <td class="num">${r.올린날 || '<span class="dim">—</span>'}</td>
       <td class="num">${r.읽힌수 ? r.항목.length + '/16' : '<span class="dim">—</span>'}</td>
     </tr>`);
     if (펼친 === r.cd) {
-      줄.push(`<tr class="det"><td colspan="8">
+      줄.push(`<tr class="det"><td colspan="9">
         <div><b>${r.이름}</b> — <a href="${r.주소}" target="_blank" rel="noopener">재정공시 페이지 열기 ↗</a>
+          ${r.찾은주소 ? `<br>⚠️ 지방재정365가 준 주소는 죽었다. <b>손으로 찾은 곳</b> —
+            <a href="${r.찾은주소}" target="_blank" rel="noopener">실제 재정공시 페이지 ↗</a>
+            <span class="dim">(${r.찾은까닭})</span>` : ''}
+          ${r.번 ? `<br>첫 화면에서 <b>${r.번}번</b> — <span class="dim">${r.길.join(' → ')}</span>` : ''}
           ${r.제목 ? `<br><span class="dim">페이지 제목: ${r.제목}</span>` : ''}
           ${r.본법 === '크롬' ? `<br><span class="dim">※ 원문 HTML 에는 안 보이고 <b>크롬으로 열어야</b> 파일 이름이 나온다</span>` : ''}
           ${r.크롬만 ? `<br><span class="dim">※ 파이썬은 튕겼지만 크롬에서는 열린다(인증서 문제로 보인다)</span>` : ''}
@@ -325,7 +345,7 @@ function 그리기(){
   document.getElementById('list').innerHTML = 걸린.length
     ? `<div class="scroll"><table>
         <thead><tr><th>자치단체</th><th>② 링크</th><th>붙은 파일</th><th>③ 이름</th>
-          <th>③ 형식</th><th>③ 기계가 읽나</th><th>② 올린 날</th><th>① 60조</th></tr></thead>
+          <th>③ 형식</th><th>③ 기계가 읽나</th><th>② 첫 화면에서</th><th>② 올린 날</th><th>① 60조</th></tr></thead>
         <tbody>${줄.join('')}</tbody></table></div>`
     : '<p class="note">걸린 곳이 없다.</p>';
 }
@@ -333,6 +353,7 @@ function 그리기(){
 document.getElementById('asof').textContent = SUM['만든날'];
 document.getElementById('asof2').textContent = SUM['크롬날'] || '아직';
 document.getElementById('asof3').textContent = SUM['올린날앎'];
+document.getElementById('asof4').textContent = SUM['누른날'] || '아직 안 쟀다';
 document.getElementById('std1').textContent = SUM['API잣대기초'];
 document.getElementById('std2').textContent = SUM['API잣대광역'];
 const q = document.getElementById('q');

@@ -1,6 +1,6 @@
 # 나라장터 계약에서 **「업체명 → 사업자등록번호」 사전**을 만든다.
 #
-#   python scripts/fetch_bizno.py                   받아 둔 마지막 달부터 이번 달까지
+#   python scripts/fetch_bizno.py                   계약 원본 첫 달부터 지난달까지 빈 달 + 이번 달은 하루치씩(data/bizno/일/)
 #   python scripts/fetch_bizno.py 202609            그 달
 #   python scripts/fetch_bizno.py 202401 202609     그 달부터 그 달까지
 #   python scripts/fetch_bizno.py 202609 --다시     다시 받는다
@@ -92,9 +92,20 @@ def 업체들(r):
 
 
 def 한달(키, 달):
-    처음 = f'{달}010000'
     끝날 = calendar.monthrange(int(달[:4]), int(달[4:]))[1]
-    끝 = f'{달}{끝날:02d}2359'
+    return 기간받기(키, f'{달}010000', f'{달}{끝날:02d}2359')
+
+
+def 파일쓰기(경로, 사전):
+    표 = sorted(사전.values(), key=lambda r: -r['건수'])
+    os.makedirs(os.path.dirname(경로), exist_ok=True)
+    # mtime=0 — gzip 머리에 시각이 박히면 내용이 같아도 새 파일이 되어 저장소 역사에 쌓인다
+    with gzip.GzipFile(경로, 'wb', mtime=0) as f:
+        f.write(json.dumps(표, ensure_ascii=False).encode('utf-8'))
+    return 표
+
+
+def 기간받기(키, 처음, 끝):
     사전 = {}
     줄수 = 0
     for 갈래 in 길:
@@ -121,6 +132,23 @@ def 한달(키, 달):
     return 사전, 줄수
 
 
+def 이번달하루치(키, 낼곳, 이번달):
+    # ── 이번 달은 **하루치씩, 한 번만** 받는다(인자 없이 부를 때) ──
+    # ⭐ 「늘 새로 받는다」와 「저장소가 안 붓는다」를 같이 지키는 길 — 계약 원본과 같은 모양이다.
+    #    날짜 파일은 **새로 만들기만 하고 덮어쓰지 않는다.** 그날 뒤늦게 붙은 계약은
+    #    다음 달에 받는 달 파일이 메운다. build_contracts_summary.py 가 둘 다 읽는다.
+    하루 = 이번달 + '01'
+    어제 = time.strftime('%Y%m%d', time.localtime(time.time() - 86400))
+    while 하루 <= 어제 and 하루[:6] == 이번달:
+        경로 = os.path.join(낼곳, '일', f'{하루}.json.gz')
+        if not os.path.exists(경로):
+            사전, 줄수 = 기간받기(키, f'{하루}0000', f'{하루}2359')
+            파일쓰기(경로, 사전)
+            print(f'{하루} — 계약 {줄수:,}줄 · 업체 {len(사전):,}가지 (하루치)')
+        하루 = time.strftime('%Y%m%d', time.localtime(
+            time.mktime(time.strptime(하루, '%Y%m%d')) + 86400 + 3600))
+
+
 def main():
     이번달 = time.strftime('%Y%m')
     달들 = [a for a in sys.argv[1:] if a.isdigit() and len(a) == 6]
@@ -133,15 +161,24 @@ def main():
         처음달, 끝달 = 달들[0], (달들[1] if len(달들) > 1 else 달들[0])
     else:
         # ⭐ 인자를 안 줘도 돌아야 한다 — 날마다 도는 봇이 달을 못 준다.
-        #    받아 둔 마지막 달부터 이번 달까지 이어 받는다(마지막 달은 덜 찼을 수 있다).
-        있는것 = sorted(os.path.basename(x)[:6]
-                      for x in glob.glob(os.path.join(낼곳, '??????.json.gz')))
-        처음달 = 있는것[-1] if 있는것 else 이번달
-        끝달 = 이번달
+        #    **계약 원본의 첫 달부터** 이번 달까지 훑는다. 받아 둔 끝난 달은 아래에서 건너뛰므로
+        #    빈 달만 메워진다(2026-09-29 — 마지막 달부터만 이으면 가운데 빈 달이 영영 안 찼다).
+        # ⚠️ **나라장터는 하루 호출 한도가 있다** — 2026-09-29 에 여덟 갈래로 한꺼번에 받다가
+        #    한 시간 만에 전부 `429 Too Many Requests`(용역)로 막혔다. 한 갈래로 날마다 조금씩 메운다.
+        #    막히면 그 달은 저장이 안 되고 다음 날 그 달부터 다시 받는다.
+        계약들 = sorted(os.path.basename(x)[:6]
+                      for x in glob.glob(os.path.join(ROOT, 'data', 'contracts', '????????.json.gz')))
+        # ⚠️ **달 파일은 지난달까지만.** 이번 달 파일을 날마다 다시 받아 덮어쓰면 저장소 역사에
+        #    날마다 1.5MB 씩 쌓인다(한 해 500MB). 이번 달은 아래에서 **하루치 파일**로 받는다.
+        해, 월 = int(이번달[:4]), int(이번달[4:])
+        끝달 = f'{해 - 1}12' if 월 == 1 else f'{해}{월 - 1:02d}'
+        처음달 = 계약들[0] if 계약들 else 끝달
         if 처음달 > 끝달:
             처음달 = 끝달
         print(f'달을 안 줬다 — {처음달} 부터 {끝달} 까지 이어 받는다')
     키 = 키읽기()
+    if not 달들:
+        이번달하루치(키, 낼곳, 이번달)      # 싸고(하루 몇 회) 급한 것부터
 
     달 = 처음달
     while 달 <= 끝달:
@@ -152,9 +189,7 @@ def main():
         else:
             시작 = time.time()
             사전, 줄수 = 한달(키, 달)
-            표 = sorted(사전.values(), key=lambda r: -r['건수'])
-            with gzip.open(경로, 'wt', encoding='utf-8') as f:
-                json.dump(표, f, ensure_ascii=False)
+            표 = 파일쓰기(경로, 사전)
             번호있 = sum(1 for r in 표 if r['번호'])
             print(f'{달} — 계약 {줄수:,}줄 · 업체 {len(표):,}가지 '
                   f'(번호 붙은 것 {번호있:,}) · {time.time() - 시작:.0f}초')

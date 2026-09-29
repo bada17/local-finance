@@ -48,7 +48,10 @@ jobs:
           LOFIN_KEY: ${{ secrets.LOFIN_KEY }}
         run: python scripts/collect_daily.py ${{ inputs.day }}
 
+      # 앞에서 한 곳이 막혀도(2026-09-23 지방재정365 시간 초과) 뒤 단계는 돈다.
+      # 실패는 실패대로 빨갛게 남는다 — continue-on-error 로 덮지 않는다.
       - name: 못 채운 날 이어 받기
+        if: ${{ !cancelled() }}
         env:
           LOFIN_KEY: ${{ secrets.LOFIN_KEY }}
         # 지난날이 비어 있으면 하루에 30일씩만 조금씩 메운다.
@@ -61,16 +64,27 @@ jobs:
       # ⚠️ 날짜별 호출 수는 data/clik/상태.json 에 쌓인다. 손으로도 돌릴 거면
       #    **먼저 pull 할 것** — 안 그러면 봇이 쓴 몫을 모르고 한도를 넘는다.
       - name: CLIK 받기
+        if: ${{ !cancelled() }}
         env:
           CLIK_KEY: ${{ secrets.CLIK_KEY }}
         continue-on-error: true
         run: python scripts/fetch_clik.py --limit 900
 
+      # 나라장터 「업체명 → 사업자번호」 — 계약 원본 첫 달부터 지난달까지 빈 달 + 이번 달은 하루치 새 파일(덮어쓰지 않는다 — 저장소가 붓지 않게). 하루 한도가 있어 날마다 조금씩 찬다.
+      # 계약 요약(build_contracts_summary.py)이 이것으로 업체를 묶는다.
+      - name: 사업자번호 받기
+        if: ${{ !cancelled() }}
+        env:
+          DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}
+        continue-on-error: true
+        run: python scripts/fetch_bizno.py
+
       - name: 올리기
+        if: ${{ !cancelled() }}
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/contracts data/spending data/clik
+          git add data/contracts data/spending data/clik data/bizno
           if git diff --cached --quiet; then
             echo '새로 받은 것이 없다'
           else

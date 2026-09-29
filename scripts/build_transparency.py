@@ -178,6 +178,13 @@ def main():
         dom날 = d.get('만든날', '')
         dom = {r['laf_cd']: r for r in d['곳']}
 
+    # 지방재정365 주소가 죽은 곳을 손으로 찾은 것 — 링크 판정은 바꾸지 않고 옆에 적기만 한다
+    p = os.path.join(ROOT, 'data', 'disclosure_found.json')
+    찾은 = json.load(open(p, encoding='utf-8'))['곳'] if os.path.exists(p) else {}
+    # 첫 화면에서 몇 번 눌러야 닿나(count_clicks.js)
+    p = os.path.join(ROOT, 'data', 'disclosure_clicks.json')
+    눌러 = json.load(open(p, encoding='utf-8')) if os.path.exists(p) else {'곳': {}, '만든날': ''}
+
     # ── ③의 기계 쪽 : 「모두가 내는 자료」에서 빠진 곳
     # ⚠️ 곳수가 적다고 미제출이 아니다. 광역만 내는 자료·그해 해당 없는 자료가 섞여 있으므로
     #    **거의 전부가 내는 자료**(기초 220곳 이상 / 광역 16곳 이상)만 잣대로 삼는다.
@@ -253,6 +260,10 @@ def main():
             '주소': r['주소'],
             '링크': '열림' if 열림 else '안 열림',
             '까닭': '' if 열림 else 까닭갈래(r.get('까닭')),
+            '찾은주소': '' if 열림 else 찾은.get(cd, {}).get('주소', ''),
+            '찾은까닭': '' if 열림 else 찾은.get(cd, {}).get('까닭', ''),
+            '번': 눌러['곳'].get(cd, {}).get('번'),
+            '길': 눌러['곳'].get(cd, {}).get('길', []),
             '크롬만': bool(새열림 and not 옛열림),     # 파이썬은 튕겼는데 크롬은 열린 곳
             '제목': ((d.get('제목') or r.get('제목') or '')
                    .replace('&lt;', '<').replace('&gt;', '>')[:60]),
@@ -291,6 +302,8 @@ def main():
         'API잣대광역': 광역잣대,
         '만든날': dis.get('만든날', ''),
         '크롬날': dom날,
+        '누른날': 눌러['만든날'],
+        '누른수': dict(collections.Counter(str(x['번'] or '못 찾음') for x in 곳)) if 눌러['곳'] else {},
     }
 
     지난번, 바뀜 = 발자취쌓기(곳, 요약)
