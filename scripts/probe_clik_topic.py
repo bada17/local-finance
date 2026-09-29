@@ -128,9 +128,12 @@ def sample_rows(rows,count):
     strata=collections.defaultdict(list)
     for row in sorted(rows,key=lambda r:hashlib.sha256(r['DOCID'].encode()).hexdigest()):
         strata[(row.get('RASMBLY_ID'),str(row.get('MTG_DE',''))[:4])].append(row)
+    groups=sorted(strata)
+    if 0<count<len(groups):
+        groups=[groups[round(i*(len(groups)-1)/(count-1))] for i in range(count)] if count>1 else [groups[len(groups)//2]]
     chosen=[]
     while len(chosen)<count and any(strata.values()):
-        for group in sorted(strata):
+        for group in groups:
             if strata[group]:chosen.append(strata[group].pop())
             if len(chosen)>=count:break
     return chosen
@@ -168,7 +171,10 @@ def main():
     ap.add_argument('--limit',type=int,default=40);ap.add_argument('--reserve',type=int,default=20)
     ap.add_argument('--sample',type=int,default=24);ap.add_argument('--pages',type=int,default=6)
     ap.add_argument('--env-dir',help='CLIK_KEY가 든 .env의 디렉터리. 값은 출력하지 않음')
+    ap.add_argument('--council',help='명세의 지방의회 6자리 코드로 검색 범위 제한')
+    ap.add_argument('--search-type',choices=['ALL','MINTS_HTML'],default='ALL')
     args=ap.parse_args()
+    if args.council and not re.fullmatch(r'\d{6}',args.council):ap.error('의회 코드는 6자리 숫자입니다.')
     if not (1<=args.limit<=1000 and 0<=args.reserve<1000 and args.sample>0 and 1<=args.pages<=10):ap.error('호출/표본/쪽 수 범위를 확인하세요.')
     out=check_output(args.out)
     if args.env_dir:keys.ROOT=args.env_dir
@@ -177,7 +183,8 @@ def main():
     cache=out/'details';cache.mkdir(exist_ok=True)
     client=BudgetClient(key,ROOT/'data/clik/상태.json',args.limit,args.reserve)
     begin=time.monotonic();errors=[]
-    params={'displayType':'list','searchType':'ALL','searchKeyword':args.query,'listCount':100,'sort':'MTG_DE/DESC'}
+    params={'displayType':'list','searchType':args.search_type,'searchKeyword':args.query,'listCount':100,'sort':'MTG_DE/DESC'}
+    if args.council:params['rasmblyId']=args.council
     first=client.call({**params,'startCount':0})
     total=int(first.get('TOTAL_COUNT') or 0)
     pages=max(1,(total+99)//100)
@@ -192,7 +199,7 @@ def main():
         except RuntimeError as exc:
             errors.append(str(exc));break
     (out/'search-sample.json').write_text(json.dumps({'검색어':args.query,'전체':total,'쪽시작':offsets,'목록':list(rows.values())},ensure_ascii=False),encoding='utf-8')
-    report={'검색어':args.query,'날짜':client.today(),'표본':[],'측정':{}}
+    report={'검색어':args.query,'의회코드':args.council,'검색필드':args.search_type,'날짜':client.today(),'표본':[],'측정':{}}
     for row in sample_rows(list(rows.values()),args.sample):
         target=cache/(row['DOCID']+'.json')
         try:
@@ -212,7 +219,7 @@ def main():
     report['측정']={'API검색전체':total,'검색목록표본':len(rows),'전문시도':len(docs),'전문확보':readable,
                     '정확한구절검출문서':hits,'전문확보중구절검출률':round(hits/readable,3) if readable else None,
                     '추가호출':client.used,'소요초':round(time.monotonic()-begin,1),'오류':errors,
-                    '범위':'API 전 기간 검색. 양 끝과 중간 쪽에서 의회×연도 편의 표본.',
+                    '범위':f'의회 {args.council or "전체"}, 검색필드 {args.search_type}, 목록 시작점 {offsets}. 의회×연도 편의 표본; 무작위 표본 아님.',
                     '정밀도':'미산정 — 자동 구절 검출과 실제 관련성은 다름. 사람이 문맥을 분류해야 함.',
                     '재현율':'미산정 — 검색 결과 밖 누락, 표기 변형, 미수집 회의록의 모집단을 알 수 없음.'}
     write_report(out,report)

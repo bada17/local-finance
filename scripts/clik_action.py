@@ -61,18 +61,22 @@ def main():
     out = check_output(sys.argv[1])
     out.mkdir(parents=True, exist_ok=True)
     day, run_id = BudgetClient.today(), os.environ['GITHUB_RUN_ID']
+    focused = '--focused' in sys.argv[2:]
+    calls = 10 if focused else 40
     endpoint = 'repos/' + os.environ['GITHUB_REPOSITORY'] + '/contents/' + urllib.parse.quote('data/clik/상태.json')
     state, sha = read_remote(endpoint)
-    reserved = reserve(state, day, run_id)
-    write_remote(endpoint, reserved, sha, 'CLIK 내부 표본 호출 40회 예약 ' + run_id)
+    reserved = reserve(state, day, run_id, calls=calls)
+    write_remote(endpoint, reserved, sha, f'CLIK 내부 표본 호출 {calls}회 예약 ' + run_id)
     # 예약 전 값으로 시작한다. 중단돼도 원격 예약은 남아 초과 호출을 막는다.
     local = ROOT / 'data/clik/상태.json'
     local.write_text(json.dumps(state, ensure_ascii=False, indent=1), encoding='utf-8')
     try:
         with (out / 'probe.log').open('w', encoding='utf-8') as log:
+            options = ['--query','섬박람회','--council','061014','--search-type','MINTS_HTML'] if focused else []
             process = subprocess.run([sys.executable, str(ROOT/'scripts/probe_clik_topic.py'),
-                                      '--out', str(out), '--limit', '40', '--reserve', '20',
-                                      '--sample', '24', '--pages', '6'], stdout=log, stderr=log)
+                                      '--out', str(out), '--limit', str(calls), '--reserve', '20',
+                                      '--sample', '9' if focused else '24', '--pages', '1' if focused else '6',
+                                      *options], stdout=log, stderr=log)
         if process.returncode:
             raise RuntimeError('표본 실행 실패; 암호화된 내부 로그를 확인하세요.')
     finally:

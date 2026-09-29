@@ -50,5 +50,10 @@ class TopicTest(unittest.TestCase):
         sample=sample_rows(rows,6)
         self.assertEqual(len({(r['RASMBLY_ID'],r['MTG_DE'][:4]) for r in sample}),6)
 
+    def test_small_sample_does_not_take_only_low_council_codes(self):
+        rows=[{'DOCID':f'C{i}','RASMBLY_ID':f'{i:03}','MTG_DE':'20260101'} for i in range(100)]
+        sample=sample_rows(rows,3)
+        self.assertEqual([r['RASMBLY_ID'] for r in sample], ['000','050','099'])
+
 
 if __name__=='__main__':unittest.main()

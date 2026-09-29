@@ -30,7 +30,7 @@ jobs:
         env:
           CLIK_KEY: ${{ secrets.CLIK_KEY }}
           GH_TOKEN: ${{ github.token }}
-        run: python scripts/clik_action.py "$RUNNER_TEMP/clik-private"
+        run: python scripts/clik_action.py "$RUNNER_TEMP/clik-private" --focused
       - name: 내부 산출물 암호화
         if: ${{ always() }}
         shell: bash
