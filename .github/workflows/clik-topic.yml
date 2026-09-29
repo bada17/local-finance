@@ -1,0 +1,50 @@
+name: CLIK 내부 표본 분석
+
+on:
+  push:
+    branches: [codex/clik-civic-design]
+    paths: ['.github/workflows/clik-topic.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-collect
+  cancel-in-progress: false
+
+jobs:
+  sample:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: 호출 보호장치 검증
+        run: |
+          python -m unittest discover -s scripts -p test_clik_action.py -v
+          python -m unittest discover -s scripts -p test_probe_clik_topic.py -v
+      - name: 장부 예약 후 저장소 밖에 표본 수집
+        env:
+          CLIK_KEY: ${{ secrets.CLIK_KEY }}
+          GH_TOKEN: ${{ github.token }}
+        run: python scripts/clik_action.py "$RUNNER_TEMP/clik-private"
+      - name: 내부 산출물 암호화
+        if: ${{ always() }}
+        shell: bash
+        run: |
+          if [ ! -d "$RUNNER_TEMP/clik-private" ]; then exit 0; fi
+          mkdir -p "$RUNNER_TEMP/clik-encrypted"
+          openssl rand -base64 48 > "$RUNNER_TEMP/artifact-password"
+          tar -czf "$RUNNER_TEMP/clik-result.tar.gz" -C "$RUNNER_TEMP/clik-private" .
+          openssl enc -aes-256-cbc -salt -pbkdf2 -iter 200000 -in "$RUNNER_TEMP/clik-result.tar.gz" -out "$RUNNER_TEMP/clik-encrypted/result.enc" -pass "file:$RUNNER_TEMP/artifact-password"
+          openssl pkeyutl -encrypt -pubin -inkey .github/clik-review-public.pem -in "$RUNNER_TEMP/artifact-password" -out "$RUNNER_TEMP/clik-encrypted/password.enc" -pkeyopt rsa_padding_mode:oaep -pkeyopt rsa_oaep_md:sha256
+      - uses: actions/upload-artifact@v4
+        if: ${{ always() }}
+        with:
+          name: clik-private-${{ github.run_id }}
+          path: ${{ runner.temp }}/clik-encrypted/
+          retention-days: 1
+          if-no-files-found: ignore
