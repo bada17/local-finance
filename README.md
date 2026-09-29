@@ -316,6 +316,13 @@ python scripts/build_model_page.py              자치단체 화면
 **데이터 지도는 GPT**(`scripts/build_datamap.py` · `site/datamap.template.html` ·
 생성물 `site/datamap.html`). 「주로」지 「만」이 아니다.
 
+⛳ **2026-09-29 에 다시 나눴다(사용자 결정).**
+- **GPT** — ① 의정활동(CLIK) 목록을 화면에 올리기 ② 섬박람회로 회의록 전문 분석 시험(내부 도구 첫 판)
+  ③ **데이터 지도만이 아니라 화면 전체의 디자인.**
+- **Claude** — 공시 점검의 남은 곳(못 찾음 10 · 파일 안 잡힘 21 · 해시 이름 35)을 손으로 확인,
+  수집기·봇, 계약·보조금 셈. 손대는 곳은 `data/disclosure*.json` · `scripts/build_transparency.py` ·
+  수집 스크립트다. **`transparency.template.html` 을 고쳐야 하면 GPT 에게 먼저 말한다**(디자인이 GPT 몫이라).
+
 ### 겹치면 진짜로 터지는 것 셋 — 이것만 지킨다
 
 1. **구워진 HTML**(`site/*.html`) — 배포하려면 저장소에 있어야 해서 생성물도 커밋된다.
