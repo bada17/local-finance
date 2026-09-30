@@ -177,6 +177,7 @@ footer{margin:48px 0 38px;padding-top:22px;font-size:13px;line-height:1.85;borde
 .clik-list{list-style:none;margin:0;padding:0;border-top:2px solid var(--ink)}.clik-list li{display:grid;grid-template-columns:105px minmax(0,1fr);gap:22px;padding:20px 0;border-bottom:1px solid var(--line)}
 .clik-list time{font:12px/1.8 var(--mono);color:var(--muted)}.clik-list a{font-size:16px;font-weight:700;text-decoration:none}.clik-list a:hover{text-decoration:underline}
 .clik-list p{font-size:12px;color:var(--muted);margin:4px 0 0;overflow-wrap:anywhere}.clik-list p span{margin-left:9px}.clik-pages{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:18px 0;font-size:12px;color:var(--muted)}
+.clik-note{border:1px solid var(--line);padding:16px 19px;margin:20px 0}.clik-note h3{font-size:15px;margin:0 0 10px}.clik-note ul{margin:0;padding-left:0;list-style:none}.clik-note li{font-size:14px;line-height:1.8;margin:0 0 8px}.clik-note .clik-tag{white-space:nowrap}.clik-note .clik-tag.unsure{border-style:dashed;background:none}
 .clik-empty{padding:30px;background:var(--sunk);font-size:14px}.clik-tag{font-size:10px;padding:2px 5px;background:var(--sunk);border:1px solid var(--line)}
 @media(min-width:1001px){
   .scroll:not(.needs-scroll){overflow:visible;max-height:none}.scroll:not(.needs-scroll) thead th{position:sticky;top:0;z-index:3}
@@ -229,7 +230,7 @@ function 주소읽기(){
   const [cd, v, q] = decodeURIComponent(location.hash.slice(1)).split(',');
   return {
     cd: 곳맵[cd] ? cd : (곳맵['2600000'] ? '2600000' : INDEX.곳[0].cd),
-    판: ['결산', '예산', '세입', '진행중', '계약'].includes(v) ? v : '결산',
+    판: ['결산', '예산', '세입', '진행중', '계약', '의회'].includes(v) ? v : '결산',
     찾기: q || '',
   };
 }
@@ -725,7 +726,7 @@ function 맞추기(){
   const 진행만 = !!곳맵[지금곳]?.진행만;
   document.querySelectorAll('#view button').forEach(b => {
     b.setAttribute('aria-selected', String(b.dataset.v === 판));
-    b.disabled = 진행만 && !['진행중', '계약'].includes(b.dataset.v);
+    b.disabled = 진행만 && !['진행중', '계약', '의회'].includes(b.dataset.v);
   });
 }
 
@@ -997,13 +998,20 @@ async function renderFinance(){
 /* CLIK: 선택한 곳만 받는다. 검색은 목록의 글자이며 전문 검색이 아니다. */
 const clikEsc = t => String(t ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const clikCache = new Map();
+/* 전문을 사람이 원문·집행 자료와 대조한 메모. 확인 못 한 것은 '확인 안 됨'으로 싣는다. */
+const clikNotes = fetch('data/clik_notes.json').then(r=>r.ok?r.json():{}).catch(()=>({}));
+const clikNotesHtml = notes => notes.map(n=>`<div class="clik-note"><h3>의회 기록에서 따라가 볼 것 · ${clikEsc(n.제목)}</h3><ul>${
+  n.줄.map(x=>`<li><span class="clik-tag${x.상태==='확인'?'':' unsure'}">${clikEsc(x.상태)}</span> ${clikEsc(x.글)}${
+    (x.근거||[]).map(([t,u])=>` <a href="${clikEsc(u)}" target="_blank" rel="noopener noreferrer">${clikEsc(t)} ↗</a>`).join('')}</li>`).join('')
+}</ul><p class="note">${clikEsc(n.확인한날)} 기준 사람이 확인한 내용입니다. 위법·낭비를 판단한 것이 아닙니다.</p></div>`).join('');
 let clikFilter = {cd:'',kind:'회의록',year:'',query:'',result:'',page:0};
 let renderSerial = 0;
 async function render(){
   const serial = ++renderSerial;
-  await renderFinance();
-  if (serial !== renderSerial) return;
+  if (판 !== '의회') return renderFinance();
+  맞추기();
   const cd = 지금곳;
+  document.getElementById('app').innerHTML = `<h1>${이름of(곳맵[cd] || {이름: cd})} <span class="cd">${cd}</span></h1>`;
   if (clikFilter.cd !== cd) clikFilter = {cd,kind:'회의록',year:'',query:'',result:'',page:0};
   document.getElementById('clik-panel')?.remove();
   const panel = document.createElement('section');
@@ -1023,7 +1031,8 @@ async function render(){
       clikCache.set(cd,data);
     }
     if (serial !== renderSerial || !panel.isConnected) return;
-    const data = clikCache.get(cd);
+    const data = clikCache.get(cd), notes = (await clikNotes)[cd] || [];
+    if (serial !== renderSerial || !panel.isConnected) return;
     const councils = data.의회.map(c=>clikEsc(c.의회명)+(c.지금있나 === false ? ' <span class="clik-tag">옛 의회</span>' : '')).join(' · ');
     panel.innerHTML = `<div class="section-kicker">의정활동 · 국회도서관 CLIK</div>
       <h2 id="clik-title">의회에서 무엇을 논의했나</h2>
@@ -1031,6 +1040,7 @@ async function render(){
       <p class="basis">회의록·의안 <b>목록만</b> 싣습니다. 제목을 누르면 CLIK 원문으로 이동합니다.
       검색은 회의명·의안명·제안자 등 <b>목록 안에서만</b> 찾으며, 발언 전문은 검색하지 않습니다.
       목록이 비어 있어도 논의가 없었다는 뜻은 아닙니다. 옛 의회의 기록은 당시 이름으로 남깁니다.</p>
+      ${clikNotesHtml(notes)}
       <div class="clik-controls"><div class="clik-tabs" role="group" aria-label="의정활동 자료 종류">
       ${['회의록','의안'].map(k=>`<button type="button" data-clik-kind="${k}" aria-pressed="${clikFilter.kind===k}">${k} <span>${n0(data[k].length)}</span></button>`).join('')}</div>
       <label>목록에서 찾기<input id="clik-query" type="search" placeholder="회의명·의안명·제안자" value="${clikEsc(clikFilter.query)}"></label>
@@ -1112,8 +1122,8 @@ addEventListener('hashchange', () => {
 });
 
 const view = document.getElementById('view');
-const 판이름 = {'세입': '세입', '진행중': '진행 중인 사업', '계약': '누가 받아 갔나'};
-view.innerHTML = ['결산', '예산', '세입', '진행중', '계약'].map(v =>
+const 판이름 = {'세입': '세입', '진행중': '진행 중인 사업', '계약': '누가 받아 갔나', '의회': '의회에서 무엇을 논의했나'};
+view.innerHTML = ['결산', '예산', '세입', '진행중', '계약', '의회'].map(v =>
   `<button data-v="${v}" aria-selected="${v === 판}">${판이름[v] || v + ' 기준'}</button>`).join('');
 view.addEventListener('click', e => {
   const b = e.target.closest('button'); if (!b) return;

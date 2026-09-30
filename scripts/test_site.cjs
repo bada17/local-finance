@@ -6,17 +6,18 @@ const base=process.env.SITE_URL||'http://127.0.0.1:8765/';
  const browser=await chromium.launch({channel:process.env.BROWSER_CHANNEL||'msedge',headless:true});
  const page=await browser.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));
  try{
-  await page.goto(base+'#4612000,계약');await page.waitForSelector('#clik-count');
+  await page.goto(base+'#4612000,계약');await page.waitForSelector('#cyear button');
   await page.locator('#cyear button').first().click();
-  await page.waitForSelector('#clik-count',{timeout:3000});
+  assert.equal(await page.locator('#clik-panel').count(),0,'council list lives only in its own tab');
   for(const width of [1440,360]){
    await page.setViewportSize({width,height:950});
-   for(const [file,ready] of [['#4612000','#clik-count'],['board.html','#list tbody tr'],['transparency.html','#list tbody tr'],['catalog.html','#list tbody tr'],['edu.html','#tree .nd'],['datamap.html','#all tbody tr']]){
+   for(const [file,ready] of [['#4612000,의회','#clik-count'],['board.html','#list tbody tr'],['transparency.html','#list tbody tr'],['catalog.html','#list tbody tr'],['edu.html','#tree .nd'],['datamap.html','#all tbody tr']]){
     await page.goto(base+file);await page.waitForSelector(ready);
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,`${file} overflow at ${width}`);
    }
   }
-  await page.goto(base+'#4612000');await page.waitForSelector('#clik-count');
+  await page.goto(base+'#4612000,의회');await page.waitForSelector('#clik-count');
+  assert.equal(await page.locator('#clik-panel .clik-note li').count(),4);
   assert.equal(await page.locator('#clik-results li').count(),25);
   const first=await page.locator('#clik-results a').first().getAttribute('href');
   await page.locator('#clik-next').click();
@@ -33,16 +34,16 @@ const base=process.env.SITE_URL||'http://127.0.0.1:8765/';
   assert.match(await page.locator('#clik-results').innerText(),/20225110/);
   // Request failure is visibly different from a successful empty list; retry recovers.
   await page.evaluate(()=>clikCache.delete('4612000'));
-  await page.route('**/data/clik/4612000.json',r=>r.abort());await page.goto(base+'#4612000');
+  await page.route('**/data/clik/4612000.json',r=>r.abort());await page.goto(base+'#4612000,의회');
   await page.waitForSelector('#clik-retry');await page.unroute('**/data/clik/4612000.json');
   await page.locator('#clik-retry').click();await page.waitForSelector('#clik-count');
   // A slow old place must not overwrite a newly selected place or remove its council panel.
-  await page.route('**/data/ongoing/4612000.json.gz',async r=>{await new Promise(resolve=>setTimeout(resolve,500));await r.continue();});
-  await page.goto(base+'#4612000,진행중');await page.locator('#pick').selectOption('2812500');
+  await page.route('**/data/clik/4612000.json',async r=>{await new Promise(resolve=>setTimeout(resolve,500));await r.continue();});
+  await page.evaluate(()=>clikCache.delete('4612000'));await page.goto(base+'#4612000,의회');await page.locator('#pick').selectOption('2812500');
   await page.waitForSelector('#clik-count');await page.waitForTimeout(650);
   assert.match(await page.locator('#app h1').innerText(),/제물포/);
   assert.equal(await page.locator('#clik-panel').count(),1);
-  await page.unroute('**/data/ongoing/4612000.json.gz');
+  await page.unroute('**/data/clik/4612000.json');
   await page.goto(base+'board.html');await page.waitForSelector('#list tbody tr');
   assert.ok(await page.locator('.amount-under').count()>0,'percentages need amounts');
   assert.match(await page.locator('.amount-under').first().innerText(),/원/);
