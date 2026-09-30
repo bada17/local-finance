@@ -204,7 +204,7 @@ footer{margin:48px 0 38px;padding-top:22px;font-size:13px;line-height:1.85;borde
 </style>
 
 <a class="skip-link" href="#app">본문으로 바로 가기</a>
-<header class="site-header"><div class="wrap site-masthead"><a class="site-brand" href="./">살림을 보는 시민<small>함께하는 시민행동 · 지방재정 감시</small></a><nav class="site-navigation" aria-label="전체 화면"><a href="./" aria-current="page">자치단체별</a><a href="board.html">시황판</a><a href="transparency.html">공시 점검</a><a href="catalog.html">자료 목록</a><a href="edu.html">교육청</a><a href="datamap.html">데이터 지도</a></nav></div></header>
+<header class="site-header"><div class="wrap site-masthead"><a class="site-brand" href="./">살림을 보는 시민<small>함께하는 시민행동 · 지방재정 감시</small></a><nav class="site-navigation" aria-label="전체 화면"><a href="./" id="nav-finance" aria-current="page">자치단체별</a><a href="./#,의회" id="nav-council">지방의회</a><a href="board.html">시황판</a><a href="transparency.html">공시 점검</a><a href="catalog.html">자료 목록</a><a href="edu.html">교육청</a><a href="datamap.html">데이터 지도</a></nav></div></header>
 
 <div class="wrap"><header class="page-intro"><div><p class="section-kicker">지방재정을 시민의 눈으로</p><h1>살림을 이해하고,<br>쓰임을 묻습니다.</h1></div><div class="intro-guide"><p>우리 동네의 예산부터 계약과 의회 기록까지.<br><b>숫자의 규모와 맥락을 먼저 살피고,<br>그 돈이 어디로 갔는지 확인합니다.</b></p><p class="reading-order">규모 → 흐름 → 출처 → 선택 → 감시 → 이름</p></div></header><div class="selection-bar" aria-label="지역과 자료 선택"><span class="grp" id="loc"></span><span class="grp" id="view"></span></div></div>
 <main class="wrap" id="app"></main>
@@ -726,8 +726,16 @@ function 맞추기(){
   const 진행만 = !!곳맵[지금곳]?.진행만;
   document.querySelectorAll('#view button').forEach(b => {
     b.setAttribute('aria-selected', String(b.dataset.v === 판));
-    b.disabled = 진행만 && !['진행중', '계약', '의회'].includes(b.dataset.v);
+    b.disabled = 진행만 && !['진행중', '계약'].includes(b.dataset.v);
   });
+  /* 의회는 맨 위 메뉴 「지방의회」다 — 같은 화면을 쓰되 재정 판 단추를 감추고, 고른 곳은 서로 넘겨 준다 */
+  const 의회 = 판 === '의회';
+  document.getElementById('view').style.display = 의회 ? 'none' : '';
+  const [재정, 의회링크] = ['nav-finance', 'nav-council'].map(id => document.getElementById(id));
+  재정.href = '#' + 지금곳; 의회링크.href = `#${지금곳},의회`;
+  (의회 ? 재정 : 의회링크).removeAttribute('aria-current');
+  (의회 ? 의회링크 : 재정).setAttribute('aria-current', 'page');
+  document.title = `살림을 보는 시민 — ${의회 ? '지방의회' : '자치단체별 지방재정'}`;
 }
 
 /* ───── 세입 판 — 돈이 어디서 오나 (data/revenue/<코드>.json) ─────
@@ -1122,8 +1130,8 @@ addEventListener('hashchange', () => {
 });
 
 const view = document.getElementById('view');
-const 판이름 = {'세입': '세입', '진행중': '진행 중인 사업', '계약': '누가 받아 갔나', '의회': '의회에서 무엇을 논의했나'};
-view.innerHTML = ['결산', '예산', '세입', '진행중', '계약', '의회'].map(v =>
+const 판이름 = {'세입': '세입', '진행중': '진행 중인 사업', '계약': '누가 받아 갔나'};
+view.innerHTML = ['결산', '예산', '세입', '진행중', '계약'].map(v =>
   `<button data-v="${v}" aria-selected="${v === 판}">${판이름[v] || v + ' 기준'}</button>`).join('');
 view.addEventListener('click', e => {
   const b = e.target.closest('button'); if (!b) return;

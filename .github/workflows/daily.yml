@@ -70,6 +70,13 @@ jobs:
         continue-on-error: true
         run: python scripts/fetch_clik.py --limit 900
 
+      # 중앙투자심사 결과 — 한 해 4~8회 올라오는 한글 파일. 키가 없고 1분이면 끝나서 날마다 통째로 다시 읽는다.
+      - name: 투자심사 받기
+        if: ${{ !cancelled() }}
+        timeout-minutes: 10
+        continue-on-error: true
+        run: python scripts/fetch_review.py
+
       # 나라장터 「업체명 → 사업자번호」 — 계약 원본 첫 달부터 지난달까지 빈 달 + 이번 달은 하루치 새 파일(덮어쓰지 않는다 — 저장소가 붓지 않게). 하루 한도가 있어 날마다 조금씩 찬다.
       # 계약 요약(build_contracts_summary.py)이 이것으로 업체를 묶는다.
       - name: 사업자번호 받기
@@ -86,10 +93,10 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/contracts data/spending data/clik data/bizno
+          git add data/contracts data/spending data/clik data/bizno data/review.json
           if git diff --cached --quiet; then
             echo '새로 받은 것이 없다'
           else
             git commit -m "날마다 수집 $(date -u +%Y-%m-%d)"
-            git push
+            git pull --rebase -q && git push   # 봇이 도는 동안 사람이 main 에 올려도 안 깨지게
           fi
