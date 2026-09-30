@@ -472,7 +472,7 @@ python scripts/build_model_page.py
 python scripts/build_review_page.py
 ```
 
-**나머지는 저절로 돈다.** `.github/workflows/daily.yml` 이 날마다 계약·세출을 받아 저장소에
+**나머지는 저절로 돈다.** `.github/workflows/daily.yml` 이 날마다 네 갈래(계약·세출 / CLIK / 투자심사 / 사업자번호)를 따로 받아 저장소에
 쌓고, `pages.yml` 이 `site/` 를 깃허브 페이지로 올린다.
 
 **넘겨줄 것** — ① 저장소 쓰기 권한(`github.com/bada17/local-finance`)
@@ -502,7 +502,13 @@ python scripts/build_review_page.py
   ⚠️ 결과별 **사업비 합계는 뺐다** — 재상정 사업이 두 번 세어져 부풀려진다.
   ⚠️ 봇은 `data/review.json` 만 갱신한다. 화면은 `python scripts/build_review_page.py` 로 다시 구워야 새 회차가 뜬다.
 - 같은 게시판에 `대규모투자사업 진행상황('13~'20).xlsx` 도 있다(안 받음, 2020 에서 멈춤).
-- 봇 올리기 단계에 `git pull --rebase` 를 넣었다 — 봇이 도는 사이 사람이 main 에 올리면 push 가 튕겨 그날 수집이 날아갔다.
+- ⭐ **봇을 다시 짰다 — 봇과 사람은 서로 기다리지 않는다**(사용자 — "내가 뭔가를 하는데, 영향을 받으면 안되는데").
+  전에는 한 줄로 이어져 사업자번호가 5시간을 끌면 계약·CLIK 올리기도 묶였고, 봇이 도는 동안 사람이 main 에 올리면
+  봇의 push 가 튕겨 그날 수집이 날아갔다(그래서 사람이 기다려야 했다).
+  이제 `daily.yml` 은 **네 갈래(lofin·clik·review·bizno)가 나란히** 돌고, 각자 `scripts/bot_push.sh` 로 **자기 길만** 올린다 —
+  올리기 직전에 main 을 받아 그 위에 얹고, 밀리면 다섯 번까지 다시. 시험 저장소로 「사람이 먼저 올림 → 봇이 얹음」을 확인했다.
+  **규칙: 수집물(`data/contracts·spending·clik·bizno`, `data/review.json`)은 봇만 올린다.** 사람이 같은 파일을 올리면 그 갈래가 빨갛게 멈춘다.
+  사업자번호는 스스로 50분에서 멈춘다(`--분`, 받은 달은 남는다).
 
 ### 2026-09-30 — Claude: 의정활동을 새 탭으로 · 섬박람회 실내무대 확인 메모
 

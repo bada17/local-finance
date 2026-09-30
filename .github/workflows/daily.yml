@@ -3,6 +3,11 @@
 # ⚠️ 계약(WCEGCF)은 **날짜로만** 뽑힌다. 그날 안 받으면 나중에 소급이 안 되므로
 #    이 액션이 이 저장소에서 제일 중요한 자동 일감이다.
 # 인증키는 저장소 Secrets 의 LOFIN_KEY 에서 온다(2026-09-21 에 넣었다).
+#
+# ⭐ 갈래마다 따로 받고 따로 올린다(2026-09-30). 한 줄로 이어 두었더니 사업자번호가 5시간을 끌면서
+#    계약·CLIK 까지 그 뒤에 묶였고, 봇이 도는 동안 사람은 main 에 못 올렸다.
+#    이제 네 갈래가 나란히 돌고, 각자 끝나는 대로 scripts/bot_push.sh 로 자기 길만 올린다.
+#    한 갈래가 늘어지거나 죽어도 다른 갈래와 사람의 작업은 영향을 안 받는다.
 name: 날마다 수집
 
 on:
@@ -22,8 +27,10 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  collect:
+  # 지방재정365 — 계약·세출. 제일 중요한 갈래다(계약은 그날 안 받으면 소급이 안 된다).
+  lofin:
     runs-on: ubuntu-latest
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -32,7 +39,6 @@ jobs:
 
       # 어떤 키가 Secrets 에 들어와 있나를 로그에 남긴다. 키 값은 안 찍는다(길이만).
       # ⚠️ 봇은 .env 를 못 본다 — Secrets 에 없으면 그 수집은 그냥 안 돈다.
-      #    "왜 자료가 안 쌓이지" 를 여기서 바로 알 수 있게 해 둔다.
       - name: 키 점검
         env:
           LOFIN_KEY: ${{ secrets.LOFIN_KEY }}
@@ -48,55 +54,69 @@ jobs:
           LOFIN_KEY: ${{ secrets.LOFIN_KEY }}
         run: python scripts/collect_daily.py ${{ inputs.day }}
 
-      # 앞에서 한 곳이 막혀도(2026-09-23 지방재정365 시간 초과) 뒤 단계는 돈다.
-      # 실패는 실패대로 빨갛게 남는다 — continue-on-error 로 덮지 않는다.
+      # 앞에서 막혀도(2026-09-23 지방재정365 시간 초과) 이어 받기와 올리기는 돈다. 실패는 빨갛게 남는다.
+      # 지난날이 비어 있으면 하루에 30일씩만 조금씩 메운다 — 일일 트래픽 제한이 실측되지 않았다.
       - name: 못 채운 날 이어 받기
         if: ${{ !cancelled() }}
         env:
           LOFIN_KEY: ${{ secrets.LOFIN_KEY }}
-        # 지난날이 비어 있으면 하루에 30일씩만 조금씩 메운다.
-        # 한 번에 다 받으려 하지 않는다 — 일일 트래픽 제한이 실측되지 않았다.
         run: python scripts/backfill_contracts.py --limit 30
 
-      # 지방의정포털 CLIK — 제8회 지방선거 임기(2022-07-01~2026-06-30)만 받는다.
-      # 하루 1,000회 한도라 한 번에 다 못 받는다. 하루 900회씩 나흘이면 끝난다.
-      # ⚠️ Secrets 에 CLIK_KEY 가 없으면 이 단계는 그냥 건너뛴다(다른 수집을 막지 않는다).
-      # ⚠️ 날짜별 호출 수는 data/clik/상태.json 에 쌓인다. 손으로도 돌릴 거면
-      #    **먼저 pull 할 것** — 안 그러면 봇이 쓴 몫을 모르고 한도를 넘는다.
-      - name: CLIK 받기
+      - name: 올리기
         if: ${{ !cancelled() }}
+        run: sh scripts/bot_push.sh "날마다 수집 · 지방재정365 $(date -u +%Y-%m-%d)" data/contracts data/spending
+
+  # 지방의정포털 CLIK — 하루 1,000회 한도. Secrets 에 CLIK_KEY 가 없으면 그냥 건너뛴다.
+  # ⚠️ 날짜별 호출 수는 data/clik/상태.json 에 쌓인다. 손으로도 돌릴 거면 **먼저 pull 할 것**.
+  clik:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: CLIK 받기
         env:
           CLIK_KEY: ${{ secrets.CLIK_KEY }}
         continue-on-error: true
         run: python scripts/fetch_clik.py --limit 900
-
-      # 중앙투자심사 결과 — 한 해 4~8회 올라오는 한글 파일. 키가 없고 1분이면 끝나서 날마다 통째로 다시 읽는다.
-      - name: 투자심사 받기
+      - name: 올리기
         if: ${{ !cancelled() }}
-        timeout-minutes: 10
+        run: sh scripts/bot_push.sh "날마다 수집 · CLIK $(date -u +%Y-%m-%d)" data/clik
+
+  # 중앙투자심사 결과 — 한 해 4~8회 올라오는 한글 파일. 키가 없고 1분이면 끝나서 날마다 통째로 다시 읽는다.
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: 투자심사 받기
         continue-on-error: true
         run: python scripts/fetch_review.py
-
-      # 나라장터 「업체명 → 사업자번호」 — 계약 원본 첫 달부터 지난달까지 빈 달 + 이번 달은 하루치 새 파일(덮어쓰지 않는다 — 저장소가 붓지 않게). 하루 한도가 있어 날마다 조금씩 찬다.
-      # 계약 요약(build_contracts_summary.py)이 이것으로 업체를 묶는다.
-      - name: 사업자번호 받기
+      - name: 올리기
         if: ${{ !cancelled() }}
-        # 빈 달이 많으면 몇 시간씩 돈다 — 작업 제한(6시간)에 걸리면 아래 「올리기」까지 잘려 그날 수집이 통째로 날아간다(2026-09-30).
+        run: sh scripts/bot_push.sh "날마다 수집 · 투자심사 $(date -u +%Y-%m-%d)" data/review.json
+
+  # 나라장터 「업체명 → 사업자번호」 — 빈 달을 날마다 조금씩 메운다. 급하지 않은 갈래다.
+  # 스크립트가 스스로 50분에서 멈춘다(달 파일은 한 달 끝날 때마다 쓴다). 아래 70분은 뒷받침.
+  bizno:
+    runs-on: ubuntu-latest
+    timeout-minutes: 70
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: 사업자번호 받기
         timeout-minutes: 60
         env:
           DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}
         continue-on-error: true
-        run: python scripts/fetch_bizno.py   # 스스로 50분에서 멈춘다 — 위 60분은 뒷받침
-
+        run: python scripts/fetch_bizno.py
       - name: 올리기
         if: ${{ !cancelled() }}
-        run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/contracts data/spending data/clik data/bizno data/review.json
-          if git diff --cached --quiet; then
-            echo '새로 받은 것이 없다'
-          else
-            git commit -m "날마다 수집 $(date -u +%Y-%m-%d)"
-            git pull --rebase -q && git push   # 봇이 도는 동안 사람이 main 에 올려도 안 깨지게
-          fi
+        run: sh scripts/bot_push.sh "날마다 수집 · 사업자번호 $(date -u +%Y-%m-%d)" data/bizno
