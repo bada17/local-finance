@@ -89,6 +89,11 @@ BUNDLE = [
      {'비율': 'rate', '금액': 'padm_oper_exps_tott_amt', '분모': 'bfae_totl_amt'}),
     ('GHDIE', '의회비비중', '새는 곳', '%', '예산',
      {'비율': 'rate', '금액': 'asmb_bdg_amt', '분모': 'bfae_totl_amt'}),
+    # 국외여비 — API 비율은 소수 둘째 자리에서 잘려(서울 0.02%) 쓸 수 없다. 비율 칸을 비워 두면 아래에서 금액/분모로 센다
+    ('XFHHZC', '공무원 국외여비비율', '새는 곳', '%', '예산',
+     {'금액': 'smy_cntt_amt2', '분모': 'smy_cntt_amt'}),
+    ('JKAXRZ', '의회 국외여비비율', '새는 곳', '%', '결산',
+     {'금액': 'pfin_stl_amt1', '분모': 'pfin_stl_amt2'}),
 
     # ⑤ 빚
     ('HEDFC', '예산대비채무비율', '빚', '%', '예산',
@@ -151,6 +156,8 @@ def main():
                         vals[k] = sum(parts)
                 elif r.get(f) is not None:
                     vals[k] = r[f]
+            if '비율' not in slots and vals.get('분모'):
+                vals['비율'] = round(vals['금액'] / vals['분모'] * 100, 4)
             if vals:
                 cell['지표'][name] = vals
                 got += 1
