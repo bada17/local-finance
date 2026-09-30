@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="ko">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>살림을 보는 시민 — 공개 평가</title>
+<style>
+  :root{
+    --ground:#FFFFFF; --sunk:#F4F6F8; --line:#C9D2DA; --line-soft:#E3E8ED;
+    --ink:#11181F; --muted:#5A6672; --faint:#8A97A3;
+    --accent:#1F4E79; --alert:#B03A22;
+    --mono:ui-monospace,SFMono-Regular,'Cascadia Mono','DejaVu Sans Mono',monospace;
+    --body:system-ui,-apple-system,'Malgun Gothic',sans-serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ground:#12171C; --sunk:#1A2127; --line:#333C45; --line-soft:#242C34;
+      --ink:#E6EBF0; --muted:#98A5B1; --faint:#72808C;
+      --accent:#7FB3DC; --alert:#E0755C;
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--ground); color:var(--ink); font:14px/1.5 var(--body)}
+  .wrap{max-width:1100px; margin:0 auto; padding-inline:16px}
+  .topbar{position:sticky; top:0; z-index:10; background:var(--ground); border-bottom:1px solid var(--line)}
+  .topbar .wrap{display:flex; align-items:center; gap:10px; min-height:46px; flex-wrap:wrap; padding-block:6px}
+  .topbar .t{font-weight:600; font-size:13px; margin-right:auto}
+  a{color:var(--accent)}
+  h1{font-size:20px; margin:22px 0 4px}
+  .basis{margin:12px 0 0; padding:10px 12px; background:var(--sunk); border:1px solid var(--line);
+    font-size:12.5px; color:var(--muted)}
+  .basis b{color:var(--ink)}
+  .note{color:var(--faint); font-size:12px; margin:8px 0}
+  .srch{margin:12px 0 6px; display:flex; gap:6px; flex-wrap:wrap; align-items:center}
+  .srch input{font:15px var(--body); color:var(--ink); background:var(--sunk);
+    border:1px solid var(--line); padding:8px 11px; width:min(340px,100%)}
+  button{font:13px var(--body); color:var(--muted); background:var(--sunk);
+    border:1px solid var(--line); padding:5px 10px; cursor:pointer; white-space:nowrap}
+  button[aria-selected="true"]{background:var(--accent); border-color:var(--accent); color:#fff}
+  .scroll{overflow-x:auto; border:1px solid var(--line)}
+  table{border-collapse:collapse; width:100%; font-size:13px}
+  th,td{padding:6px 10px; border-bottom:1px solid var(--line-soft); white-space:nowrap; text-align:left}
+  thead th{background:var(--sunk); font-size:11.5px; color:var(--muted); font-weight:600; position:sticky; top:52px}
+  td.nm{white-space:normal; min-width:300px; max-width:520px; font-weight:500}
+  td.desc{white-space:normal; max-width:420px; color:var(--faint); font-size:12px}
+  td.num{font-family:var(--mono); text-align:right}
+  tbody tr:hover{background:var(--sunk)}
+  .tag{font-size:11px; color:var(--muted); background:var(--sunk); border:1px solid var(--line-soft); padding:1px 6px}
+  .old{color:var(--alert); font-weight:600}
+  .stop{color:var(--alert)}
+  footer{margin:30px 0 40px; padding-top:14px; border-top:1px solid var(--line); color:var(--muted); font-size:12px}
+  footer p{margin:0 0 5px}
+
+/* 시민행동의 재정 조사 화면 — 템플릿 안에서 공유하는 시각 규칙 */
+:root, :root[data-theme="light"] {
+  --ground:#f6f5ef;--paper:#fffef9;--sunk:#eeeee5;--soft:#eeeee5;
+  --ink:#202f2a;--muted:#53645b;--faint:#627168;--line:#cbd1c5;--line-soft:#e0e3d9;
+  --accent:#226447;--green:#226447;--green-bg:#e7efe5;--alert:#9c422a;
+  --red:#9c422a;--red-bg:#faede6;--amber:#80551b;--amber-bg:#f6efdb;
+  --body:'Malgun Gothic','Apple SD Gothic Neo',system-ui,sans-serif;
+  --mono:ui-monospace,'Cascadia Mono',Consolas,monospace;
+}
+body{font-family:var(--body);font-size:15px;line-height:1.75;background:var(--ground);color:var(--ink)}
+a{color:var(--accent);text-underline-offset:4px}a:hover{text-decoration-thickness:2px}
+.wrap{width:100%;max-width:1240px;margin-inline:auto;padding-inline:32px;min-width:0}
+.site-header{background:var(--paper);border-top:5px solid var(--accent);border-bottom:1px solid var(--line)}
+.site-masthead{display:flex;align-items:center;justify-content:space-between;gap:22px;min-height:87px;padding-block:17px}
+.site-brand{font-size:22px;font-weight:800;letter-spacing:-1px;color:var(--ink);text-decoration:none;line-height:1.25;white-space:nowrap}
+.site-brand small{display:block;font-size:11px;font-weight:500;letter-spacing:.02em;color:var(--muted);margin-top:7px}
+.site-navigation{display:flex;gap:20px;align-items:center;flex-wrap:wrap;font-size:13px;font-weight:600}
+.site-navigation a{padding-block:8px;text-decoration:none;color:var(--muted);white-space:nowrap}
+.site-navigation a[aria-current="page"]{color:var(--accent);box-shadow:inset 0 -2px var(--accent)}
+.site-navigation a:hover{color:var(--ink)}
+.section-kicker,.eyebrow{font-size:11px;letter-spacing:.1em;color:var(--accent);font-weight:700;margin:0 0 12px}
+.page-intro{padding-top:38px;padding-bottom:28px;border-bottom:1px solid var(--line);display:grid;grid-template-columns:1.35fr 1fr;gap:40px;align-items:end}
+.page-intro h1{font-size:44px;line-height:1.3;letter-spacing:-2px;margin:0;font-weight:800;text-wrap:balance}
+.page-intro .intro-guide{border-left:1px solid var(--line);padding-left:28px;color:var(--muted);font-size:14px;max-width:390px}
+.intro-guide b{color:var(--ink)}.intro-guide p{margin:0 0 8px}.intro-guide .reading-order{font-size:11px;color:var(--accent);letter-spacing:.03em}
+.selection-bar{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:20px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.selection-bar .grp{display:flex;gap:5px;flex-wrap:wrap;margin:0;padding:0;border:0;min-width:0}
+.selection-bar select{max-width:100%;min-width:180px;background:var(--paper);font-weight:700}
+.selection-bar #view{gap:3px}.selection-bar #view button{background:transparent;border-color:transparent}
+.selection-bar #view button[aria-selected="true"]{background:var(--accent);color:var(--paper)}
+h1{font-size:36px;line-height:1.4;letter-spacing:-1.4px;margin:38px 0 16px;font-weight:800;text-wrap:balance}
+h2{font-size:21px;letter-spacing:-.65px;line-height:1.6;margin:40px 0 14px;padding-bottom:10px;border-bottom:2px solid var(--ink)}
+h2 small{font-size:13px;font-weight:400;letter-spacing:0;display:inline-block;color:var(--muted);margin-left:12px}
+h3{font-size:16px;line-height:1.6}.meta{font-size:13px;color:var(--muted)}
+.basis{background:var(--sunk);border:0;border-left:3px solid var(--accent);padding:16px 19px;font-size:14px;line-height:1.85;margin:20px 0;color:var(--muted)}
+.basis b{color:var(--ink)}.note{font-size:13px;line-height:1.8;color:var(--muted);margin:10px 0 14px;overflow-wrap:anywhere}
+.warn,.warnbox{border-left:3px solid var(--alert);background:var(--red-bg);padding:18px 20px;line-height:1.9;color:var(--ink)}
+button,input,select{font:inherit;border-radius:3px}button{font-size:13px;min-height:38px;padding:7px 13px;transition:background .15s,color .15s;white-space:normal}
+input[type="search"],select{font-size:14px;min-height:42px;padding:9px 12px;color:var(--ink);background:var(--paper);border:1px solid var(--line);max-width:100%}
+button:hover:not(:disabled){background:var(--green-bg);color:var(--accent);border-color:var(--accent)}
+button[aria-selected="true"],button[aria-pressed="true"]{background:var(--accent);color:var(--paper);border-color:var(--accent)}
+button:disabled{opacity:.5;cursor:not-allowed}:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.scroll{border:1px solid var(--line);background:var(--paper);max-width:100%;min-width:0}
+table{font-size:14px}th,td{padding:12px 14px;border-color:var(--line-soft)}
+thead th{font-size:12px;font-weight:700;color:var(--muted);background:var(--sunk)}
+tbody td{font-variant-numeric:tabular-nums}tbody tr:hover{background:var(--green-bg)}
+.raw,.amount-under{display:block;font-size:11px;color:var(--muted);margin-top:3px;font-weight:400}
+.picker{padding:20px;background:var(--paper);border:1px solid var(--line)}
+.srch,.bar{gap:9px}.srch{display:flex;flex-wrap:wrap;align-items:center}.srch .grp{display:flex;flex-wrap:wrap;gap:6px}
+.pane{min-width:0;background:var(--paper)}.pane h2{padding:13px 16px;font-size:15px}.cols{gap:24px}.tree{padding:14px 10px}.tree .nd{padding:6px 4px}
+.layers{gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.layers .layer{border:0;border-right:1px solid var(--line);padding:22px;background:transparent;border-radius:0}.layers .layer:last-child{border-right:0}
+footer{margin:48px 0 38px;padding-top:22px;font-size:13px;line-height:1.85;border-top:1px solid var(--line);color:var(--muted)}footer p{margin:8px 0}
+.docs li{padding:13px 0}.docs a{font-size:12px;overflow-wrap:anywhere}
+.skip-link{position:absolute;left:12px;top:-100px;padding:12px;background:var(--paper);z-index:100}.skip-link:focus{top:12px}
+#clik-panel{margin:42px 0;scroll-margin-top:20px}#clik-panel h2{margin-top:0}.clik-intro{font-size:14px;color:var(--muted)}.clik-intro b{display:block;color:var(--ink);margin-top:5px}
+.clik-controls{display:flex;flex-wrap:wrap;gap:14px;align-items:end;margin:22px 0 10px}.clik-controls label{display:flex;flex-direction:column;gap:5px;font-size:12px;color:var(--muted)}
+.clik-controls label:first-of-type{flex:1;min-width:200px}.clik-tabs{display:flex;gap:4px}.clik-tabs button{min-height:42px}.clik-tabs span{font-family:var(--mono);font-size:11px;margin-left:6px}
+.clik-list{list-style:none;margin:0;padding:0;border-top:2px solid var(--ink)}.clik-list li{display:grid;grid-template-columns:105px minmax(0,1fr);gap:22px;padding:20px 0;border-bottom:1px solid var(--line)}
+.clik-list time{font:12px/1.8 var(--mono);color:var(--muted)}.clik-list a{font-size:16px;font-weight:700;text-decoration:none}.clik-list a:hover{text-decoration:underline}
+.clik-list p{font-size:12px;color:var(--muted);margin:4px 0 0;overflow-wrap:anywhere}.clik-list p span{margin-left:9px}.clik-pages{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:18px 0;font-size:12px;color:var(--muted)}
+.clik-empty{padding:30px;background:var(--sunk);font-size:14px}.clik-tag{font-size:10px;padding:2px 5px;background:var(--sunk);border:1px solid var(--line)}
+@media(min-width:1001px){
+  .scroll:not(.needs-scroll){overflow:visible;max-height:none}.scroll:not(.needs-scroll) thead th{position:sticky;top:0;z-index:3}
+  .scroll.needs-scroll{overflow:auto;max-height:78vh}.catalog-panel{overflow:visible}.catalog-scroll{max-height:none}
+}
+@media(max-width:1000px){.scroll{overflow-x:auto}.site-masthead{flex-direction:column;align-items:flex-start;gap:12px}.site-navigation{gap:19px}.page-intro{gap:24px}.page-intro h1{font-size:36px}}
+@media(max-width:600px){
+  .wrap{width:100%;padding-inline:18px}.site-masthead{padding-block:17px;gap:13px}.site-brand{font-size:21px}.site-brand small{font-size:10px}
+  .site-navigation{gap:2px 17px;font-size:12px;line-height:1.4}.site-navigation a{padding:7px 0}.page-intro{display:block;padding-top:28px;padding-bottom:23px}
+  .page-intro h1{font-size:32px;letter-spacing:-1.3px}.page-intro .intro-guide{border:0;padding:0;margin-top:19px;font-size:13px}.intro-guide .reading-order{font-size:10px}
+  .section-kicker{font-size:10px}.selection-bar{gap:13px;padding:17px 0}.selection-bar #loc{width:100%}.selection-bar select{width:100%}.selection-bar #view{gap:4px}.selection-bar button{font-size:12px;padding:7px 9px}
+  h1{font-size:28px;margin-top:27px;letter-spacing:-1px}h1 .cd{font-size:11px}h2{font-size:20px;margin-top:31px}h2 small{display:block;margin:4px 0 0;font-size:12px}
+  .basis{font-size:13px;padding:14px 15px;overflow-wrap:anywhere}.note{font-size:12px}th,td{padding:10px;font-size:12px}thead th{font-size:11px}
+  .warnbox{padding:15px}.layers{display:block}.layers .layer{border-right:0;border-bottom:1px solid var(--line);padding:18px 0}.layers .layer:last-child{border-bottom:0}
+  .clik-controls{gap:12px}.clik-tabs{width:100%}.clik-controls label:first-of-type{min-width:100%}.clik-controls label{min-width:0;flex:1}.clik-controls select{width:100%}
+  .clik-list li{grid-template-columns:1fr;gap:6px;padding:17px 0}.clik-list a{font-size:15px}.clik-pages{font-size:11px}footer{font-size:12px;overflow-wrap:anywhere}
+  .cols{grid-template-columns:minmax(0,1fr)}.pane{width:100%}.tree{max-height:45vh}
+}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--ground:#17251f;--paper:#1c2c24;--sunk:#26372e;--soft:#26372e;--ink:#edf0e6;--muted:#b4c3b6;--faint:#a3b4a6;--line:#485b4c;--line-soft:#35483c;--accent:#9ad4ae;--green:#9ad4ae;--green-bg:#2a4936;--red-bg:#443029;--alert:#f0ad91;--red:#f0ad91;--amber:#e0c18a;--amber-bg:#423a29}}
+:root[data-theme="dark"]{--ground:#17251f;--paper:#1c2c24;--sunk:#26372e;--soft:#26372e;--ink:#edf0e6;--muted:#b4c3b6;--faint:#a3b4a6;--line:#485b4c;--line-soft:#35483c;--accent:#9ad4ae;--green:#9ad4ae;--green-bg:#2a4936;--red-bg:#443029;--alert:#f0ad91;--red:#f0ad91;--amber:#e0c18a;--amber-bg:#423a29}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+@media print{.site-header,.selection-bar{position:static}.wrap{max-width:none;padding:0}.scroll{overflow:visible!important;max-height:none!important}body{background:white;color:black}.clik-controls,.clik-pages{display:none}}
+
+</style>
+
+<a class="skip-link" href="#main-content">본문으로 바로 가기</a>
+<header class="site-header"><div class="wrap site-masthead"><a class="site-brand" href="./">살림을 보는 시민<small>함께하는 시민행동 · 지방재정 감시</small></a><nav class="site-navigation" aria-label="전체 화면"><a href="dashboard.html">대시보드</a><a href="./">★우선 자치단체별</a><a href="./#,의회">지방의회</a><a href="review.html">★우선 투자심사</a><a href="board.html">시황판</a><a href="transparency.html">공시 점검</a><a href="score.html" aria-current="page">공개 평가</a><a href="catalog.html">★우선 자료 목록</a><a href="edu.html">교육청</a><a href="datamap.html">★우선 데이터 지도</a></nav></div></header>
+
+<main class="wrap" id="main-content">
+<section class="page-intro">
+  <div><p class="section-kicker">함께하는 시민행동 평가안</p>
+    <h1>예산을 얼마나<br>열어 두었나</h1></div>
+  <div class="intro-guide">
+    <p>정량 <b>14항목</b>(있나 없나)과 정성 <b>2항목</b>(1~5점). 243곳의 예산서·결산서 게시판과 재정공시를
+      크롬으로 읽어 <b>자동으로 가릴 수 있는 것부터</b> 채웠다. 나머지는 사람이 확인해 채운다.</p>
+    <p class="reading-order"><span class="chip O">○</span> 찾았다 · <span class="chip Q">?</span> 못 찾았다(없다는 뜻이 아니다) ·
+      <span class="chip X">×</span> 본 파일로는 아니다 · ✋ 사람이 확인</p>
+  </div>
+</section>
+
+<div class="selection-bar">
+  <div class="grp" id="grp" role="group" aria-label="갈래"></div>
+  <div class="grp">
+    <select id="sido" aria-label="시도"><option value="">모든 시도</option></select>
+    <input id="q" type="search" placeholder="곳 이름 — 예: 순천" autocomplete="off" aria-label="곳 찾기">
+  </div>
+</div>
+<p class="note" id="say" role="status" aria-live="polite"></p>
+
+<h2>항목별로<small>고른 곳들 가운데 몇 곳에서 찾았나 · 이름을 누르면 아래 표를 그 항목으로 줄 세운다</small></h2>
+<div id="items"></div>
+
+<h2 id="list-h">곳별로<small>줄을 누르면 항목마다 근거가 펼쳐진다</small></h2>
+<div id="list"></div>
+
+<h2>공청회·공론장을 못 찾는 까닭<small>큰 사업 전에 주민공청회를 열고 어떻게 운영했나 — 자동으로는 찾을 수 없다</small></h2>
+<ol class="why" id="why"></ol>
+<p class="note">근거 —
+  <a href="https://www.law.go.kr/법령/행정절차법/제38조" target="_blank" rel="noopener">행정절차법 제38조</a> ·
+  <a href="https://www.law.go.kr/법령/지방재정법시행령/제46조" target="_blank" rel="noopener">지방재정법 시행령 제46조</a> ·
+  <a href="https://www.ii.re.kr/storage/board/basic/2025/06/10/BASIC_ATTACH_1749533708674.pdf" target="_blank" rel="noopener">지방재정 투자심사 및 타당성조사 운영기준(2025) 53쪽</a> ·
+  <a href="review.html">이 사이트의 중앙투자심사 결과표</a> ·
+  <a href="https://www.eiass.go.kr/" target="_blank" rel="noopener">환경영향평가정보지원시스템</a></p>
+<p class="basis">찾는 길 — 사람이 한다면 ① 이 곳의 <a href="review.html">중앙투자심사</a> 사업 가운데 큰 것을 골라
+  ② 그 사업 이름으로 자치단체 누리집 <b>고시·공고</b> 게시판과 지역 신문에서 「공청회」·「주민설명회」를 찾고
+  ③ 찾은 것을 <code>data/score_hand.json</code> 에 근거와 함께 적는다.</p>
+
+<h2>잣대<small>무엇이 보이면 ○ 인가 — 이 표를 바꾸면 다시 긁지 않고 판정만 다시 한다</small></h2>
+<div id="rule"></div>
+
+<footer>
+  <p>자료 — 지방재정365 가 자치단체마다 준 예산서·결산서 주소(BUDLK·SETLK)를 크롬으로 열어 글 제목과 붙은 파일을 읽었다
+     (<code>node scripts/check_budget_docs.js</code>, <span id="crawled"></span>). 재정공시 파일은 <a href="transparency.html">공시 점검</a>에서 읽은 것이다.
+     판정은 <code>python scripts/build_score.py</code>.</p>
+  <p>⚠️ 게시판 목록에서 <b>한 겹만</b> 들어가 봤다. 올해 본예산 글·가장 새 결산 글 두세 개다. 그 밖의 글에 있는 문서는 못 봤다 — 그래서 ? 가 많다.</p>
+  <p>⚠️ 지방재정365 에 성인지 예산·중기계획 <b>숫자</b>가 올라와 있다는 것은 자치단체가 <b>문서</b>를 공개했다는 뜻이 아니다. 판정에는 쓰지 않고 곁에 적기만 했다.</p>
+  <p>⚠️ 평가안의 항목은 단체가 정한 것이고, ○ 의 잣대(이름에 무엇이 보이면 찾은 것으로 보나)는 자동 판정을 위해 임시로 정한 것이다.</p>
+  <p class="call">틀린 곳이 있으면 — <b>함께하는 시민행동</b>
+     <a href="tel:0229214709">02-921-4709</a> · <a href="mailto:action@action.or.kr">action@action.or.kr</a></p>
+</footer>
+</main>
+
+<style>
+.chip{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:4px;font:700 12px/1 var(--body);border:1px solid transparent}
+.chip.O{background:var(--c1);color:#fff}
+.chip.X{background:transparent;color:var(--c2);border-color:var(--c2)}
+.chip.Q{background:transparent;color:var(--muted);border:1px dashed var(--line)}
+.chip.H{box-shadow:0 0 0 2px var(--amber)}
+.items h3{font-size:13px;color:var(--muted);margin:18px 0 4px;letter-spacing:.02em}
+.it{display:grid;grid-template-columns:minmax(200px,300px) minmax(0,1fr) 150px;gap:14px;align-items:center;padding:6px 0;border-bottom:1px solid var(--line-soft)}
+.it .nm button{all:unset;cursor:pointer;font-weight:700;font-size:13.5px;text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:4px}
+.it .nm button:hover{color:var(--accent)}.it .nm small{display:block;color:var(--muted);font-size:11.5px}
+.it .bar{display:flex;gap:2px;height:16px}
+.it .bar span{display:block;min-width:0}.it .bar span:first-child{border-radius:4px 0 0 4px}.it .bar span:last-child{border-radius:0 4px 4px 0}
+.it .bar .O{background:var(--c1)}.it .bar .X{background:var(--c2)}.it .bar .Q{background:var(--line)}
+.it .n{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}.it .n b{color:var(--ink)}
+table.sc th{font-size:11px;padding:8px 5px;text-align:center;white-space:normal;line-height:1.3;min-width:44px;vertical-align:bottom}
+table.sc th.on{color:var(--accent);box-shadow:inset 0 -2px var(--accent)}
+table.sc td{padding:6px 5px;text-align:center}table.sc td.nm{text-align:left;padding-left:12px;white-space:nowrap;font-weight:600}
+table.sc td.nm small{display:block;font-weight:400;color:var(--muted);font-size:11px}
+table.sc tr.row{cursor:pointer}table.sc td.sum{font:700 14px var(--body)}
+table.sc tr.ev td{background:var(--paper);text-align:left;padding:14px 18px;white-space:normal}
+.ev ul{list-style:none;margin:0;padding:0;columns:2;column-gap:30px}.ev li{break-inside:avoid;margin:0 0 10px;font-size:13px;line-height:1.6;display:grid;grid-template-columns:26px 1fr;gap:8px}
+.ev li b{display:block}.ev li small{color:var(--muted);display:block;overflow-wrap:anywhere}
+.why li{margin:0 0 10px;line-height:1.8}
+@media(max-width:800px){.it{grid-template-columns:1fr;gap:4px}.ev ul{columns:1}}
+</style>
+
+<script src="charts.js"></script>
+<script>
+const D = __DATA__;
+const esc = Chart.esc;
+/* 긁어 온 주소 — http(s) 만 링크로 건다(javascript: 따위를 막는다) */
+const 주소 = u => /^https?:\/\//i.test(u || '') ? esc(u) : '';
+const 갈래들 = [['', '전체'], ['광역', '광역'], ['시', '시'], ['군', '군'], ['구', '자치구']];
+const 종류 = p => p.갈래 === '광역' ? '광역' : ({시: '시', 군: '군', 구: '구'})[p.이름.slice(-1)] || '기초';
+const 짧 = p => p.갈래 === '광역' ? p.시도 : `${p.시도} ${p.이름.startsWith(p.시도) ? p.이름.slice(p.시도.length) : p.이름}`;
+const 글값 = {O: '○', X: '×', '?': '?'};
+const 칸 = (v, 손) => `<span class="chip ${v === '?' ? 'Q' : v}${손 ? ' H' : ''}" aria-label="${{O: '찾았다', X: '아니다', '?': '못 찾았다'}[v]}">${글값[v]}</span>`;
+
+const [h갈, h시] = decodeURIComponent(location.hash.slice(1)).split(',');
+let 갈 = 갈래들.some(g => g[0] === h갈) ? h갈 : '', 시도 = h시 || '', 정렬 = '', 펼친 = null;
+document.getElementById('grp').innerHTML = 갈래들.map(([k, t]) => `<button type="button" data-g="${k}">${t}</button>`).join('');
+const sido = document.getElementById('sido'), q = document.getElementById('q');
+sido.innerHTML += [...new Set(D.곳.map(p => p.시도))].sort().map(s => `<option>${s}</option>`).join('');
+document.getElementById('crawled').textContent = `${D.긁은날}에 긁었다`;
+document.getElementById('why').innerHTML = D.공청회까닭.map(s => `<li>${s}</li>`).join('');
+const 규칙 = {
+  명세서: '예산서 게시판에서 「명세서」 또는 「예산서」·「세입세출예산서」가 이름에 보이면', 설명서: '예산서 게시판에서 「설명서」가 보이면',
+  결산서: '결산서 게시판에서 「결산서」·「세입세출결산」이 보이면', 성인지: '예산서·결산서 게시판이나 재정공시 파일에 「성인지」가 보이면',
+  중기: '예산서·결산서 게시판이나 재정공시 파일에 「중기(지방)재정계획」이 보이면', 일일: '자동 판정 안 함 — 사람이 볼 칸',
+  별도: '예산서 주소가 budget·finance 같은 따로 둔 재정 누리집이면 ○. 아니면 ?', 예산형식: '예산서 글에 붙은 파일에 엑셀·CSV 가 있으면 ○, PDF·한글·압축뿐이면 ×',
+  결산형식: '결산서 글에 붙은 파일에 엑셀·CSV 가 있으면 ○, PDF·한글·압축뿐이면 ×', 공청회: '자동 판정 안 함 — 위 「못 찾는 까닭」',
+  전체명세: '자동 판정 안 함 — 의회 제출안과 공개 예산서를 맞대 봐야 한다', 의견서: '예산서 게시판이나 재정공시 파일에 「의견서」가 보이면',
+  기후: '예산서·결산서 게시판에 「기후(대응)예산」·「온실가스감축인지」·「탄소인지」가 보이면', 공론장: '자동 판정 안 함 — 위 「못 찾는 까닭」',
+};
+document.getElementById('rule').innerHTML = `<div class="scroll"><table><thead><tr><th>갈래</th><th>항목</th><th>어떻게 가렸나</th></tr></thead><tbody>${
+  D.항목.map(x => `<tr><td>${esc(x.갈래)}</td><td><b>${esc(x.이름)}</b></td><td style="white-space:normal">${esc(규칙[x.키] || '')}</td></tr>`).join('')
+  + D.정성.map(x => `<tr><td>${esc(x.갈래)} (정성)</td><td><b>${esc(x.이름)}</b></td><td style="white-space:normal">1~5점 — 사람이 매긴다(data/score_hand.json)</td></tr>`).join('')}</tbody></table></div>`;
+
+function 들(){
+  const t = q.value.replace(/\s+/g, '');
+  return D.곳.filter(p => (!갈 || 종류(p) === 갈) && (!시도 || p.시도 === 시도) && (!t || 짧(p).replace(/\s+/g, '').includes(t)));
+}
+function 그리기(){
+  document.querySelectorAll('#grp button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.g === 갈)));
+  sido.value = 시도;
+  const ps = 들();
+  document.getElementById('say').innerHTML = `<b>${ps.length}곳</b>을 본다`;
+
+  /* 항목별 막대 — ○ × ? 를 한 띠에 */
+  const 묶 = [...new Set(D.항목.map(x => x.갈래))];
+  document.getElementById('items').innerHTML = `<div class="items">${묶.map(g => `<h3>${esc(g)}</h3>${
+    D.항목.filter(x => x.갈래 === g).map(x => {
+      const c = {O: 0, X: 0, '?': 0}; ps.forEach(p => c[p.판[x.키].값]++);
+      const 손 = ps.filter(p => p.판[x.키].손).length;
+      const 띠 = ['O', 'X', '?'].filter(v => c[v]).map(v => `<span class="${v === '?' ? 'Q' : v}" style="flex:${c[v]}" title="${글값[v]} ${c[v]}곳"></span>`).join('');
+      return `<div class="it"><div class="nm"><button type="button" data-k="${x.키}">${esc(x.이름)}</button>
+        <small>${x.자동 ? '자동으로 가림' : '사람이 볼 칸'}${손 ? ` · ✋ ${손}곳 확인` : ''}</small></div>
+        <div class="bar">${띠}</div>
+        <div class="n">○ <b>${c.O}</b> · × ${c.X} · ? ${c['?']}</div></div>`;
+    }).join('')}`).join('')}</div>`;
+
+  /* 곳별 표 */
+  let 줄 = [...ps];
+  if (정렬) 줄.sort((a, b) => ({O: 0, X: 1, '?': 2})[a.판[정렬].값] - ({O: 0, X: 1, '?': 2})[b.판[정렬].값] || b.O - a.O);
+  else 줄.sort((a, b) => b.O - a.O || a.cd.localeCompare(b.cd));
+  const 머리 = D.항목.map(x => `<th class="${x.키 === 정렬 ? 'on' : ''}" title="${esc(x.이름)}">${esc(x.이름.replace(/ 공개$| 제출$| 운영$/, '').slice(0, 9))}</th>`).join('');
+  document.getElementById('list').innerHTML = `<div class="scroll"><table class="sc"><thead><tr><th style="text-align:left">곳</th><th>○ 수</th>${머리}${D.정성.map(x => `<th title="${esc(x.이름)}">정성 · ${esc(x.이름.split(' — ')[0].slice(0, 6))}</th>`).join('')}</tr></thead><tbody>${
+    줄.map(p => `<tr class="row" data-cd="${p.cd}" tabindex="0" aria-expanded="${p.cd === 펼친}"><td class="nm">${esc(짧(p))}<small>${종류(p)}</small></td><td class="sum">${p.O}</td>${
+      D.항목.map(x => `<td>${칸(p.판[x.키].값, p.판[x.키].손)}</td>`).join('')}${D.정성.map(x => `<td>${p.정성[x.키] ?? '<span class="dim">—</span>'}</td>`).join('')}</tr>${
+      p.cd === 펼친 ? `<tr class="ev"><td colspan="${D.항목.length + D.정성.length + 2}">${근거(p)}</td></tr>` : ''}`).join('')}</tbody></table></div>`;
+  history.replaceState(null, '', '#' + [갈, 시도].join(','));
+}
+function 근거(p){
+  return `<p style="margin:0 0 10px"><b>${esc(짧(p))}</b> — 본 곳:
+    ${주소(p.예산주소) ? `<a href="${주소(p.예산주소)}" target="_blank" rel="noopener">예산서 게시판</a>` : '예산서 주소 없음'} ·
+    ${주소(p.결산주소) ? `<a href="${주소(p.결산주소)}" target="_blank" rel="noopener">결산서 게시판</a>` : '결산서 주소 없음'} ·
+    <a href="./#${p.cd}">이 곳의 살림</a></p><ul>${D.항목.map(x => { const v = p.판[x.키];
+      return `<li>${칸(v.값, v.손)}<span><b>${esc(x.이름)}${v.손 ? ' ✋' : ''}</b>${esc(v.근거)}${주소(v.주소) ? ` <small><a href="${주소(v.주소)}" target="_blank" rel="noopener">근거 주소</a></small>` : ''}${v.참고 ? `<small>참고 — ${esc(v.참고)}</small>` : ''}</span></li>`; }).join('')}</ul>`;
+}
+document.getElementById('grp').onclick = e => { const b = e.target.closest('button'); if (!b) return; 갈 = b.dataset.g; 그리기(); };
+sido.onchange = () => { 시도 = sido.value; 그리기(); };
+q.oninput = 그리기;
+document.getElementById('items').onclick = e => { const b = e.target.closest('button[data-k]'); if (!b) return;
+  정렬 = 정렬 === b.dataset.k ? '' : b.dataset.k; 그리기(); document.getElementById('list-h').scrollIntoView({behavior: 'smooth'}); };
+const 펴기 = e => { const tr = e.target.closest('tr.row'); if (!tr || e.target.closest('a')) return; 펼친 = 펼친 === tr.dataset.cd ? null : tr.dataset.cd; 그리기(); };
+document.getElementById('list').onclick = 펴기;
+document.getElementById('list').onkeydown = e => { if (e.key === 'Enter') 펴기(e); };
+그리기();
+</script>
+

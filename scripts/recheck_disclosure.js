@@ -351,6 +351,6 @@ async function main() {
   try { fs.rmSync(프로필, { recursive: true, force: true }); } catch (_) { /* 임시 폴더라 둬도 된다 */ }
 }
 
-// count_clicks.js 가 크롬 띄우기·탭 잡기를 빌려 쓴다
-module.exports = { 크롬자리, 크롬띄우기, 붙을때까지, 탭열기, PORT, UA };
+// count_clicks.js 가 크롬 띄우기·탭 잡기를, check_budget_docs.js 가 긁개까지 빌려 쓴다
+module.exports = { 크롬자리, 크롬띄우기, 붙을때까지, 탭열기, PORT, UA, 긁개, 뜻있나, 기다림 };
 if (require.main === module) main().catch(e => { console.error('FAIL', e); process.exit(1); });
