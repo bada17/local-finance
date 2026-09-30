@@ -1,4 +1,4 @@
-# 「공개 평가」 화면을 굽는다 — 함께하는 시민행동이 정한 평가안(정량 14 · 정성 2)을 243곳에 대 본다.
+# 「투명성 지표」 화면(옛 이름 공개 평가)을 굽는다 — 함께하는 시민행동이 정한 평가안(정량 14 · 정성 2)을 243곳에 대 본다.
 #
 #   node scripts/check_budget_docs.js       (예산서·결산서 게시판을 크롬으로 — 한 시간 안팎)
 #   python scripts/build_score.py           → data/score.json · site/score.html

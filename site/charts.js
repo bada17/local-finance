@@ -313,5 +313,9 @@ function 그리기(뿌리 = document){
 let 늦춤, 옛폭 = innerWidth;
 addEventListener('resize', () => { clearTimeout(늦춤); 늦춤 = setTimeout(() => { if (innerWidth !== 옛폭) { 옛폭 = innerWidth; 그리기(); } }, 150); });
 
-window.Chart = {자리, 그리기, 값글, 돈, esc};
+/* 시도 차례 — 행정구역 순서(가나다 아님). 시도를 늘어놓는 칸은 모두 이 차례를 쓴다 */
+const 시도순 = ['서울', '부산', '대구', '인천', '광주', '대전', '울산', '세종', '경기', '강원', '충북', '충남', '전북', '전남', '경북', '경남', '제주'];
+const 시도차례 = 목록 => [...new Set(목록)].sort((a, b) => (시도순.indexOf(a) + 99) % 99 - (시도순.indexOf(b) + 99) % 99 || a.localeCompare(b));
+
+window.Chart = {자리, 그리기, 값글, 돈, esc, 시도순, 시도차례};
 })();

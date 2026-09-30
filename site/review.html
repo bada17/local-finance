@@ -137,7 +137,7 @@ footer{margin:48px 0 38px;padding-top:22px;font-size:13px;line-height:1.85;borde
 </style>
 
 <a class="skip-link" href="#main-content">본문으로 바로 가기</a>
-<header class="site-header"><div class="wrap site-masthead"><a class="site-brand" href="./">살림을 보는 시민<small>함께하는 시민행동 · 지방재정 감시</small></a><nav class="site-navigation" aria-label="전체 화면"><a href="dashboard.html">대시보드</a><a href="./">★우선 자치단체별</a><a href="./#,의회">지방의회</a><a href="review.html" aria-current="page">★우선 투자심사</a><a href="board.html">시황판</a><a href="transparency.html">공시 점검</a><a href="score.html">공개 평가</a><a href="catalog.html">★우선 자료 목록</a><a href="edu.html">교육청</a><a href="datamap.html">★우선 데이터 지도</a></nav></div></header>
+<header class="site-header"><div class="wrap site-masthead"><a class="site-brand" href="./">살림을 보는 시민<small>함께하는 시민행동 · 지방재정 감시</small></a><nav class="site-navigation" aria-label="전체 화면"><a href="dashboard.html">대시보드</a><a href="./">★우선 자치단체별</a><a href="./#,의회">지방의회</a><a href="review.html" aria-current="page">★우선 투자심사</a><a href="board.html">시황판</a><a href="transparency.html">공시 점검</a><a href="score.html">★우선 투명성 지표</a><a href="catalog.html">★우선 자료 목록</a><a href="edu.html">교육청</a><a href="datamap.html">★우선 데이터 지도</a></nav></div></header>
 
 <main class="wrap" id="main-content"><p class="section-kicker" style="margin-top:30px">큰 사업의 문턱</p>
   <h1>중앙투자심사 — 통과시켰나, 돌려보냈나</h1>
@@ -182,6 +182,7 @@ td.num{font-family:var(--mono);text-align:right}td.num small{display:block;font-
 @media(max-width:600px){.tally{grid-template-columns:repeat(2,1fr)}.tally button:nth-child(2){border-right:0}.tally button:nth-child(-n+2){border-bottom:1px solid var(--line)}.tally b{font-size:22px}.srch select{flex:1}}
 </style>
 
+<script src="charts.js"></script>
 <script>
 /* 한 줄 = [올린날, 회차, 곳, 사업명, 기간, 사업량, 사업비(억·맨 앞 숫자), 사업비 원문, 결과,
            원본 파일 이름(확장자 뺀 것), PDF 있나, PDF 에서 이 사업이 나오는 쪽(0 = 못 찾음)] */
@@ -196,7 +197,7 @@ const 원문 = r => {
 };
 const q = document.getElementById('q'), sido = document.getElementById('sido'), round = document.getElementById('round');
 
-sido.innerHTML += [...new Set(ROWS.map(r => r[2].split('(')[0]))].sort().map(s => `<option>${esc(s)}</option>`).join('');
+sido.innerHTML += Chart.시도차례(ROWS.map(r => r[2].split('(')[0])).map(s => `<option>${esc(s)}</option>`).join('');
 round.innerHTML += [...new Set(ROWS.map(r => r[1]))].map(s => `<option>${esc(s)}</option>`).join('');
 document.getElementById('from').textContent = 부터;
 

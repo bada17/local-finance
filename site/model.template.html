@@ -204,7 +204,7 @@ footer{margin:48px 0 38px;padding-top:22px;font-size:13px;line-height:1.85;borde
 </style>
 
 <a class="skip-link" href="#app">본문으로 바로 가기</a>
-<header class="site-header"><div class="wrap site-masthead"><a class="site-brand" href="./">살림을 보는 시민<small>함께하는 시민행동 · 지방재정 감시</small></a><nav class="site-navigation" aria-label="전체 화면"><a href="dashboard.html">대시보드</a><a href="./" id="nav-finance" aria-current="page">★우선 자치단체별</a><a href="./#,의회" id="nav-council">지방의회</a><a href="review.html">★우선 투자심사</a><a href="board.html">시황판</a><a href="transparency.html">공시 점검</a><a href="score.html">공개 평가</a><a href="catalog.html">★우선 자료 목록</a><a href="edu.html">교육청</a><a href="datamap.html">★우선 데이터 지도</a></nav></div></header>
+<header class="site-header"><div class="wrap site-masthead"><a class="site-brand" href="./">살림을 보는 시민<small>함께하는 시민행동 · 지방재정 감시</small></a><nav class="site-navigation" aria-label="전체 화면"><a href="dashboard.html">대시보드</a><a href="./" id="nav-finance" aria-current="page">★우선 자치단체별</a><a href="./#,의회" id="nav-council">지방의회</a><a href="review.html">★우선 투자심사</a><a href="board.html">시황판</a><a href="transparency.html">공시 점검</a><a href="score.html">★우선 투명성 지표</a><a href="catalog.html">★우선 자료 목록</a><a href="edu.html">교육청</a><a href="datamap.html">★우선 데이터 지도</a></nav></div></header>
 
 <div class="wrap"><header class="page-intro"><div><p class="section-kicker">지방재정을 시민의 눈으로</p><h1>살림을 이해하고,<br>쓰임을 묻습니다.</h1></div><div class="intro-guide"><p>우리 동네의 예산부터 계약과 의회 기록까지.<br><b>숫자의 규모와 맥락을 먼저 살피고,<br>그 돈이 어디로 갔는지 확인합니다.</b></p><p class="reading-order">규모 → 흐름 → 출처 → 선택 → 감시 → 이름</p></div></header><div class="selection-bar" aria-label="지역과 자료 선택"><span class="grp" id="loc"></span><span class="grp" id="view"></span></div></div>
 <main class="wrap" id="app"></main>
@@ -470,7 +470,7 @@ async function renderOngoing(cd, d){
         : `이 자치단체의 <b>진행 중인 사업</b> 자료가 아직 없다.
            지방재정365는 단체마다 올리는 시점이 다르다.`}</p>`;
     app.querySelectorAll('button[data-go]').forEach(b => b.onclick = () => {
-      지금곳 = b.dataset.go; pick.value = 지금곳; 주소쓰기(); render();
+      지금곳 = b.dataset.go; 곳맞추기(지금곳); 주소쓰기(); render();
     });
     return;
   }
@@ -1050,7 +1050,7 @@ function 지표줄(m, 무리){
       <b class="big">${Chart.값글(내, 표.단위)}</b>
       <small>${m.기준.replace('[', ' ').replace(']', '')} ${m.연도}${금액}${위 ? ` · 큰 쪽에서 ${위}번째 / ${셈}곳` : ''}${로그 ? ' · 로그 눈금' : ''}</small></div>
     ${Chart.자리('점띠', {값: vs, 나: 무리.me.cd, 단위: 표.단위, 로그, 제목: m.이름,
-      누르면: c => { 지금곳 = c; pick.value = c; 주소쓰기(); render(); scrollTo(0, 0); }})}</div>`;
+      누르면: c => { 지금곳 = c; 곳맞추기(c); 주소쓰기(); render(); scrollTo(0, 0); }})}</div>`;
 }
 
 /* 세출·세입 결산 5년 — 16년치를 받아 뒀지만 5년만 그린다(2026-09-21 사용자 결정) */
@@ -1163,17 +1163,31 @@ function drawClik(panel,data){
 }
 
 /* 고르개 — 243곳을 시도로 묶는다. 광역 17곳이 맨 위 */
+/* 곳 고르기 — 두 칸이다(2026-09-30 사용자: "너무 많아서 찾기가 어려워").
+   ① 시도(행정구역 순서) ② 그 시도의 곳 — 본청이 맨 위, 기초는 코드 차례(행정 순서). */
 const loc = document.getElementById('loc');
-const 시도차례 = [...new Set(INDEX.곳.filter(x => x.갈래 === '기초').map(x => x.시도))];
-const 묶음 = [['광역자치단체 17곳', INDEX.곳.filter(x => x.갈래 === '광역')]]
-  .concat(시도차례.map(sd => [정식[sd] || sd, INDEX.곳.filter(x => x.갈래 === '기초' && x.시도 === sd)]));
-loc.innerHTML = `<select id="pick" aria-label="자치단체 고르기">${
-  묶음.map(([label, xs]) => `<optgroup label="${label}">${
-    xs.map(x => `<option value="${x.cd}">${이름of(x)}${x.진행만 ? ' — 진행 중인 사업만' : ''}</option>`).join('')
-  }</optgroup>`).join('')}</select>`;
-
+const 시도of = cd => (곳맵[cd] || {}).시도;
+const 시도들 = Chart.시도차례(INDEX.곳.map(x => x.시도));
+const 시도안 = sd => INDEX.곳.filter(x => x.시도 === sd)
+  .sort((a, b) => (a.갈래 !== '광역') - (b.갈래 !== '광역') || a.cd.localeCompare(b.cd));
+loc.innerHTML = `<select id="sidopick" aria-label="시도 고르기">${
+    시도들.map(sd => `<option value="${sd}">${정식[sd] || sd}</option>`).join('')}</select>
+  <select id="pick" aria-label="자치단체 고르기"></select>`;
+const sidopick = document.getElementById('sidopick');
 const pick = document.getElementById('pick');
+function 곳칸(sd){
+  sidopick.value = sd;
+  pick.innerHTML = 시도안(sd).map(x => `<option value="${x.cd}">${x.갈래 === '광역' && !x.진행만 ? (정식[x.시도] || x.이름) + ' 본청' : 이름of(x)}${x.진행만 ? ' — 진행 중인 사업만' : ''}</option>`).join('');
+}
+/* 다른 시도의 곳으로 넘어갈 때(점띠 누르기·주소 바뀜) 시도 칸도 따라간다 */
+function 곳맞추기(cd){ if (시도of(cd) && 시도of(cd) !== sidopick.value) 곳칸(시도of(cd)); pick.value = cd; }
+곳칸(시도of(지금곳) || 시도들[0]);
 pick.value = 지금곳;
+sidopick.addEventListener('change', () => {
+  곳칸(sidopick.value);
+  pick.value = pick.options[0].value;           // 시도를 바꾸면 그 시도 본청부터
+  pick.dispatchEvent(new Event('change'));
+});
 pick.addEventListener('change', () => {
   지금곳 = pick.value;
   찾기 = ''; 보일개수 = 100;
@@ -1183,7 +1197,7 @@ pick.addEventListener('change', () => {
 addEventListener('hashchange', () => {
   const h = 주소읽기();
   if (h.cd !== 지금곳 || h.판 !== 판 || h.찾기 !== 찾기) {
-    지금곳 = h.cd; 판 = h.판; 찾기 = h.찾기; pick.value = h.cd; render();
+    지금곳 = h.cd; 판 = h.판; 찾기 = h.찾기; 곳맞추기(h.cd); render();
   }
 });
 
