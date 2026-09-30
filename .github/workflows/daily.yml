@@ -74,6 +74,8 @@ jobs:
       # 계약 요약(build_contracts_summary.py)이 이것으로 업체를 묶는다.
       - name: 사업자번호 받기
         if: ${{ !cancelled() }}
+        # 빈 달이 많으면 몇 시간씩 돈다 — 작업 제한(6시간)에 걸리면 아래 「올리기」까지 잘려 그날 수집이 통째로 날아간다(2026-09-30).
+        timeout-minutes: 60
         env:
           DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}
         continue-on-error: true
