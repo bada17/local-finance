@@ -11,7 +11,7 @@ const base=process.env.SITE_URL||'http://127.0.0.1:8765/';
   assert.equal(await page.locator('#clik-panel').count(),0,'council list lives only in its own tab');
   for(const width of [1440,360]){
    await page.setViewportSize({width,height:950});
-   for(const [file,ready] of [['#4612000,의회','#clik-count'],['board.html','#list tbody tr'],['transparency.html','#list tbody tr'],['catalog.html','#list tbody tr'],['edu.html','#tree .nd'],['datamap.html','#all tbody tr']]){
+   for(const [file,ready] of [['#4612000,의회','#clik-count'],['board.html','#list tbody tr'],['transparency.html','#list tbody tr'],['catalog.html','#list tbody tr'],['edu.html','#tree .nd'],['review.html','#list tbody tr'],['datamap.html','#all tbody tr']]){
     await page.goto(base+file);await page.waitForSelector(ready);
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true,`${file} overflow at ${width}`);
    }

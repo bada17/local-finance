@@ -2,7 +2,7 @@
 <html lang="ko">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>무슨 자료가 있나 — 지방재정365 146종</title>
+<title>살림을 보는 시민 — 중앙투자심사</title>
 <style>
   :root{
     --ground:#FFFFFF; --sunk:#F4F6F8; --line:#C9D2DA; --line-soft:#E3E8ED;
@@ -137,94 +137,87 @@ footer{margin:48px 0 38px;padding-top:22px;font-size:13px;line-height:1.85;borde
 </style>
 
 <a class="skip-link" href="#main-content">본문으로 바로 가기</a>
-<header class="site-header"><div class="wrap site-masthead"><a class="site-brand" href="./">살림을 보는 시민<small>함께하는 시민행동 · 지방재정 감시</small></a><nav class="site-navigation" aria-label="전체 화면"><a href="./">자치단체별</a><a href="./#,의회">지방의회</a><a href="review.html">투자심사</a><a href="board.html">시황판</a><a href="transparency.html">공시 점검</a><a href="catalog.html" aria-current="page">자료 목록</a><a href="edu.html">교육청</a><a href="datamap.html">데이터 지도</a></nav></div></header>
+<header class="site-header"><div class="wrap site-masthead"><a class="site-brand" href="./">살림을 보는 시민<small>함께하는 시민행동 · 지방재정 감시</small></a><nav class="site-navigation" aria-label="전체 화면"><a href="./">자치단체별</a><a href="./#,의회">지방의회</a><a href="review.html" aria-current="page">투자심사</a><a href="board.html">시황판</a><a href="transparency.html">공시 점검</a><a href="catalog.html">자료 목록</a><a href="edu.html">교육청</a><a href="datamap.html">데이터 지도</a></nav></div></header>
 
-<main class="wrap" id="main-content"><p class="section-kicker" style="margin-top:30px">숫자의 출처를 찾는 곳</p>
-  <h1>지방재정365가 주는 자료 <span id="cnt"></span></h1>
-  <p class="basis">여기 있는 것이 <b>우리가 쓸 수 있는 재료 전부</b>다. 이름으로 찾아보라 —
-    <b>자립도 · 부채 · 보조금 · 업무추진비 · 계약 · 축제</b> 같은 말을 넣으면 된다.<br>
-    ⚠️ 같은 자료가 <b>연도 구간으로 쪼개져 있다</b>(「…(2020년 이후)」). 그래서 146이라는 수는 부풀려져 있다.</p>
+<main class="wrap" id="main-content"><p class="section-kicker" style="margin-top:30px">큰 사업의 문턱</p>
+  <h1>중앙투자심사 — 통과시켰나, 돌려보냈나</h1>
+  <p class="basis">규모가 큰 지방 사업은 예산에 담기 전에 <b>행정안전부 중앙투자심사</b>를 거쳐야 한다(지방재정법 제37조).
+    심사 결과는 <b>적정 · 조건부 · 재검토 · 반려</b> 넷이다. 재검토·반려를 받은 사업은 그대로는 예산을 세울 수 없다.<br>
+    한 줄이 <b>심사 한 번</b>이다. 돌려보낸 사업이 다음 회차에 다시 올라오면(「재상정」) 두 줄이 된다.</p>
+  <div class="tally" id="tally"></div>
   <p class="srch">
-    <input id="q" type="search" placeholder="자료 이름·설명에 든 글자" autocomplete="off">
-    <span class="grp" id="filt">
-      <button data-f="전부" aria-selected="true">전부</button>
-      <button data-f="살아있는" aria-selected="false" id="b-live"></button>
-      <button data-f="멈춘" aria-selected="false">멈춘 것</button>
-      <button data-f="막힌" aria-selected="false">아직 못 받는 것</button>
-    </span>
+    <input id="q" type="search" placeholder="사업명·곳 — 예: 여수시, 체육관, 케이블카" autocomplete="off">
+    <select id="sido" aria-label="시도"><option value="">모든 시도</option></select>
+    <select id="round" aria-label="심사 회차"><option value="">모든 회차</option></select>
   </p>
-  <p class="note" id="say"></p>
+  <p class="note" id="say" role="status" aria-live="polite"></p>
   <div id="list"></div>
+  <p><button id="more" type="button" hidden>더 보기</button></p>
   <footer>
-    <p>자료 — 지방재정365 OpenAPI <span id="cnt2"></span>종.
-       「최신」은 실제로 눌러서 받아 본 해다(<span id="asof"></span> 기준).</p>
-    <p>「곳수」는 그 해에 이름이 올라온 자치단체 수다. <b>243보다 적다고 안 낸 것이 아니다</b> —
-       광역만 내는 자료, 그해 해당이 없는 자료가 섞여 있다.</p>
-    <p>「아직 못 받는 것」은 날짜를 하루하루 넣어야 하거나 한 번에 2만 행이 넘는 자료다. 못 쓰는 것이 아니라 따로 받아야 한다.</p>
+    <p>자료 — 지방재정365 「통합자료실 &gt; 성과/평가 &gt; 중앙투자심사결과」에 행정안전부가 회차마다 올린 한글 파일의 표를 그대로 옮겼다.
+       <span id="from"></span> 이후 올라온 회차다. 공공데이터포털(15051377)의 링크는 끊겨 있다.</p>
+    <p>사업비는 파일에 적힌 <b>총사업비</b>(억 원)이고, 괄호 안은 원문 표기 그대로의 재원 구성이다.
+       정렬에는 맨 앞 숫자만 쓴다.</p>
+    <p>⚠️ 심사받은 사업이 실제 예산·집행의 어느 줄인지는 <b>이어 보지 않았다</b> — 사업 이름이 자료마다 달라 자동으로 잇지 못한다.
+       「반려됐는데 돈이 나갔다」는 이 판만으로는 말할 수 없다.</p>
   </footer>
 </main>
 
+<style>
+.tally{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:2px solid var(--ink);border-bottom:1px solid var(--line);margin:26px 0 10px}
+.tally button{display:flex;flex-direction:column;align-items:flex-start;gap:2px;border:0;border-right:1px solid var(--line);border-radius:0;background:transparent;padding:16px 18px;text-align:left;min-height:0}
+.tally button:last-child{border-right:0}.tally b{font:700 28px/1.2 var(--mono)}.tally span{font-size:12px;color:var(--muted)}
+.tally button[aria-pressed="true"]{background:var(--green-bg);color:var(--ink);box-shadow:inset 0 -3px var(--accent)}
+.res{font-size:12px;font-weight:700;padding:2px 8px;border:1px solid var(--line);white-space:nowrap}
+.res.반려{color:var(--red);background:var(--red-bg);border-color:var(--red)}.res.재검토{color:var(--amber);background:var(--amber-bg);border-color:var(--amber)}
+.res.적정{color:var(--green);background:var(--green-bg)}
+td.nm{white-space:normal;min-width:260px;font-weight:600}td.nm small{display:block;font-weight:400;color:var(--muted);font-size:12px;line-height:1.6;margin-top:3px}
+td.num{font-family:var(--mono);text-align:right}td.num small{display:block;font-size:11px;color:var(--muted);white-space:normal;max-width:220px;margin-left:auto}
+.srch select{min-width:140px}
+@media(max-width:600px){.tally{grid-template-columns:repeat(2,1fr)}.tally button:nth-child(2){border-right:0}.tally button:nth-child(-n+2){border-bottom:1px solid var(--line)}.tally b{font-size:22px}.srch select{flex:1}}
+</style>
+
 <script>
-const ROWS = __ROWS__, 잰날 = '__ASOF__';
-/* 「살아 있는 자료」의 잣대도 박아 두지 않는다 — 잰 해에서 두 해를 뺀다.
-   (결산 계열은 두 해 늦게 나오므로 2026년에 2024가 최신이다.) */
-const 살아있는해 = (parseInt(잰날.slice(0, 4), 10) || new Date().getFullYear()) - 2;
-let 찾기 = '', 거르개 = '전부';
+/* 한 줄 = [올린날, 회차, 곳, 사업명, 기간, 사업량, 사업비(억·맨 앞 숫자), 사업비 원문, 결과] */
+const ROWS = __ROWS__, 부터 = '__FROM__';
+const 결과들 = ['반려', '재검토', '조건부', '적정'];
+let 결과 = '', 보일 = 200;
+const esc = t => String(t ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const n0 = v => v == null ? '' : v.toLocaleString('ko-KR');
+const q = document.getElementById('q'), sido = document.getElementById('sido'), round = document.getElementById('round');
 
-const 최신 = r => parseInt(r.최신 || '0', 10);
-const 거르개들 = {
-  '전부': () => true,
-  '살아있는': r => 최신(r) >= 살아있는해,
-  '멈춘': r => 최신(r) > 0 && 최신(r) < 살아있는해,
-  '막힌': r => !!r.막힘,
-};
+sido.innerHTML += [...new Set(ROWS.map(r => r[2].split('(')[0]))].sort().map(s => `<option>${esc(s)}</option>`).join('');
+round.innerHTML += [...new Set(ROWS.map(r => r[1]))].map(s => `<option>${esc(s)}</option>`).join('');
+document.getElementById('from').textContent = 부터;
 
-function 그리기(){
-  const q = 찾기.trim();
-  const 걸린 = ROWS.filter(r =>
-    (!q || (r.이름 + ' ' + r.갈래).includes(q)) && 거르개들[거르개](r));
-
-  document.getElementById('say').textContent =
-    q || 거르개 !== '전부' ? `${걸린.length}종이 걸렸다 (모두 ${ROWS.length}종)` : `모두 ${ROWS.length}종`;
-
-  let 지난갈래 = '';
-  const 줄 = [];
-  for (const r of 걸린) {
-    if (r.갈래 !== 지난갈래) {
-      지난갈래 = r.갈래;
-      줄.push(`<tr><td colspan="5" style="background:var(--sunk);font-weight:600">${r.갈래}</td></tr>`);
-    }
-    const 멈 = 최신(r) > 0 && 최신(r) < 살아있는해;
-    줄.push(`<tr>
-      <td class="nm">${r.이름}</td>
-      <td class="num">${r.해}</td>
-      <td class="num${멈 ? ' old' : ''}">${r.최신 || (r.막힘 ? '<span class="stop">못 받음</span>' : '—')}</td>
-      <td class="num">${r.곳수 == null ? '' : r.곳수.toLocaleString('ko-KR')}</td>
-      <td>${r.막힘 ? `<span class="tag">${r.막힘}</span>`
-                 : r.단위 ? `<span class="tag">${r.단위}</span>` : ''}
-          ${r.필수 ? `<span class="tag">필수 ${r.필수}</span>` : ''}</td>
-    </tr>`);
-  }
-  document.getElementById('list').innerHTML = 걸린.length
-    ? `<div class="scroll"><table>
-        <thead><tr><th>자료 — 이름과 설명</th><th>있는 해</th><th>최신</th><th>곳수</th><th></th></tr></thead>
-        <tbody>${줄.join('')}</tbody></table></div>`
-    : '<p class="note">걸린 자료가 없다. 글자를 줄여 보라.</p>';
+function 걸린(무시결과){
+  const t = q.value.trim().replace(/\s+/g, '');
+  return ROWS.filter(r => (!t || (r[2] + r[3]).replace(/\s+/g, '').includes(t))
+    && (!sido.value || r[2].startsWith(sido.value + '(')) && (!round.value || r[1] === round.value)
+    && (무시결과 || !결과 || r[8] === 결과));
 }
-
-document.getElementById('cnt').textContent = `${ROWS.length}종`;
-document.getElementById('cnt2').textContent = ROWS.length;
-document.getElementById('asof').textContent = 잰날;
-document.getElementById('b-live').textContent = `${살아있는해}년 이후만`;
-const q = document.getElementById('q');
-q.addEventListener('input', () => { 찾기 = q.value; 그리기(); });
-document.getElementById('filt').addEventListener('click', e => {
+function 그리기(){
+  const 판 = 걸린(true), rs = 걸린(false);
+  document.getElementById('tally').innerHTML = 결과들.map(k =>
+    `<button type="button" data-r="${k}" aria-pressed="${k === 결과}"><span class="res ${k}">${k}</span><b>${n0(판.filter(r => r[8] === k).length)}</b><span>건</span></button>`).join('');
+  document.getElementById('say').textContent = `${n0(rs.length)}건 (모두 ${n0(ROWS.length)}건)` + (결과 ? ` · ${결과}만 — 위 칸을 다시 누르면 풀린다` : '');
+  document.getElementById('list').innerHTML = rs.length ? `<div class="scroll"><table>
+    <thead><tr><th>회차</th><th>곳</th><th>사업명 · 사업량</th><th>기간</th><th style="text-align:right">사업비(억 원)</th><th>결과</th></tr></thead>
+    <tbody>${rs.slice(0, 보일).map(r => `<tr><td>${esc(r[1])}<small class="raw">${esc(r[0])} 게시</small></td><td>${esc(r[2])}</td>
+      <td class="nm">${esc(r[3])}<small>${esc(r[5])}</small></td><td>${esc(r[4])}</td>
+      <td class="num">${n0(r[6])}<small>${esc(r[7].replace(/^[\d,\s]+/, ''))}</small></td><td><span class="res ${esc(r[8])}">${esc(r[8])}</span></td></tr>`).join('')}</tbody></table></div>`
+    : '<p class="note">걸린 심사가 없다. 이 곳이 심사를 안 받았거나, 이름이 다르게 적혔을 수 있다 — 글자를 줄여 보라.</p>';
+  const more = document.getElementById('more');
+  more.hidden = rs.length <= 보일; more.textContent = `더 보기 (${n0(rs.length - 보일)}건 남음)`;
+}
+document.getElementById('tally').addEventListener('click', e => {
   const b = e.target.closest('button'); if (!b) return;
-  거르개 = b.dataset.f;
-  document.querySelectorAll('#filt button').forEach(x =>
-    x.setAttribute('aria-selected', String(x === b)));
-  그리기();
+  결과 = 결과 === b.dataset.r ? '' : b.dataset.r; 보일 = 200; 그리기();
 });
+for (const el of [q, sido, round]) el.addEventListener(el === q ? 'input' : 'change', () => { 보일 = 200; 그리기(); });
+document.getElementById('more').addEventListener('click', () => { 보일 += 200; 그리기(); });
+/* 자치단체별 화면에서 review.html#전남(여수시) 로 넘어온다 */
+if (location.hash) q.value = decodeURIComponent(location.hash.slice(1));
 그리기();
 </script>
 

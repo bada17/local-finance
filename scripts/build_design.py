@@ -12,6 +12,7 @@ import build_transparency
 import build_catalog_page
 import build_edu_page
 import build_datamap
+import build_review_page
 
 
 def main():
@@ -25,7 +26,7 @@ def main():
         if Path(old_history).exists():
             shutil.copyfile(old_history, build_transparency.발자취)
         try:
-            for module in (build_model_page, build_board, build_transparency, build_catalog_page, build_edu_page, build_datamap):
+            for module in (build_model_page, build_board, build_transparency, build_catalog_page, build_edu_page, build_datamap, build_review_page):
                 module.main()
         finally:
             build_board.OUT, build_edu_page.낼곳, build_transparency.발자취 = old_board, old_edu, old_history

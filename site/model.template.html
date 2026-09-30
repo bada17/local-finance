@@ -204,7 +204,7 @@ footer{margin:48px 0 38px;padding-top:22px;font-size:13px;line-height:1.85;borde
 </style>
 
 <a class="skip-link" href="#app">본문으로 바로 가기</a>
-<header class="site-header"><div class="wrap site-masthead"><a class="site-brand" href="./">살림을 보는 시민<small>함께하는 시민행동 · 지방재정 감시</small></a><nav class="site-navigation" aria-label="전체 화면"><a href="./" id="nav-finance" aria-current="page">자치단체별</a><a href="./#,의회" id="nav-council">지방의회</a><a href="board.html">시황판</a><a href="transparency.html">공시 점검</a><a href="catalog.html">자료 목록</a><a href="edu.html">교육청</a><a href="datamap.html">데이터 지도</a></nav></div></header>
+<header class="site-header"><div class="wrap site-masthead"><a class="site-brand" href="./">살림을 보는 시민<small>함께하는 시민행동 · 지방재정 감시</small></a><nav class="site-navigation" aria-label="전체 화면"><a href="./" id="nav-finance" aria-current="page">자치단체별</a><a href="./#,의회" id="nav-council">지방의회</a><a href="review.html">투자심사</a><a href="board.html">시황판</a><a href="transparency.html">공시 점검</a><a href="catalog.html">자료 목록</a><a href="edu.html">교육청</a><a href="datamap.html">데이터 지도</a></nav></div></header>
 
 <div class="wrap"><header class="page-intro"><div><p class="section-kicker">지방재정을 시민의 눈으로</p><h1>살림을 이해하고,<br>쓰임을 묻습니다.</h1></div><div class="intro-guide"><p>우리 동네의 예산부터 계약과 의회 기록까지.<br><b>숫자의 규모와 맥락을 먼저 살피고,<br>그 돈이 어디로 갔는지 확인합니다.</b></p><p class="reading-order">규모 → 흐름 → 출처 → 선택 → 감시 → 이름</p></div></header><div class="selection-bar" aria-label="지역과 자료 선택"><span class="grp" id="loc"></span><span class="grp" id="view"></span></div></div>
 <main class="wrap" id="app"></main>
@@ -258,6 +258,8 @@ const 이름of = d => d.진행만 ? d.이름            // 2026년에 바뀐 구
   : d.갈래 === '광역' ? (정식[d.시도] || d.이름)
   : (d.이름.startsWith(d.시도) ? d.이름.slice(d.시도.length) : d.이름);
 
+/* 중앙투자심사 표의 곳 표기 — 「전남(여수시)」·「서울(본청)」 */
+const 심사키 = d => `${d.시도}(${d.갈래 === '광역' ? '본청' : 이름of(d)})`;
 const n0 = v => v == null ? '' : Math.round(v).toLocaleString('ko-KR');
 const n1 = v => v == null ? '' : v.toLocaleString('ko-KR', {minimumFractionDigits:1, maximumFractionDigits:1});
 function 돈(v){
@@ -978,7 +980,8 @@ async function renderFinance(){
     <p class="note">순위·중앙값 같은 견줌은 화면에서 뺐다. 지금은 <b>무엇이 있는지</b>부터 본다 —
       <a href="catalog.html">무슨 자료가 있나</a> ·
       <a href="transparency.html">공시 점검</a> ·
-      <a href="datamap.html">데이터 지도</a></p>
+      <a href="datamap.html">데이터 지도</a> ·
+      <a href="review.html#${encodeURIComponent(심사키(곳맵[d.laf_cd] || d))}">이 곳의 중앙투자심사</a></p>
     ${축들}
     <h2>원문<small>지방재정365 가 자치단체별 주소를 API 로 준다</small></h2>
     <ul class="docs">${docs}</ul>

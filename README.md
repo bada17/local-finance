@@ -469,6 +469,7 @@ python scripts/build_ongoing.py --all
 python scripts/fetch_grants.py && python scripts/build_grants.py
 python scripts/build_contracts_summary.py
 python scripts/build_model_page.py
+python scripts/build_review_page.py
 ```
 
 **나머지는 저절로 돈다.** `.github/workflows/daily.yml` 이 날마다 계약·세출을 받아 저장소에
@@ -494,7 +495,12 @@ python scripts/build_model_page.py
   hwpx 는 zip 속 XML 이라 파이썬만으로 읽힌다. 합친 칸은 칸 주소로 맞췄다. 표 줄 수와 뽑은 줄 수가 **전 파일에서 같다.**
 - 2022-07-01 뒤로 **24회차 · 사업 2,011줄** — 조건부 1,309 · 재검토 341 · **반려 316** · 적정 44.
 - 봇(daily.yml)에 「투자심사 받기」를 붙였다 — 1분이면 끝나 날마다 통째로 다시 읽는다. 새 회차는 저절로 붙는다.
-- 데이터 지도의 투자심사 칸이 「비었다」→「찼다」로 저절로 바뀌었다. **화면에는 아직 안 올렸다.**
+- 데이터 지도의 투자심사 칸이 「비었다」→「찼다」로 저절로 바뀌었다.
+- **화면 — 맨 위 메뉴 「투자심사」(`site/review.html`, `build_review_page.py`)** — 전국 목록 한 판(사용자 결정: 자치단체별 판이 아니라 따로).
+  곳마다 평균 8건이라 곳별 판은 비어 보이고, 힘은 「반려 316」 같은 전국 숫자에 있다. 결과 네 칸을 누르면 거르고, 시도·회차·글자로 찾는다.
+  자치단체별 화면 「이 곳의 중앙투자심사」 → `review.html#전남(여수시)`. 원문 곳 이름 오타 다섯은 `고침` 표로 맞췄다(횡성시·앙평군 등).
+  ⚠️ 결과별 **사업비 합계는 뺐다** — 재상정 사업이 두 번 세어져 부풀려진다.
+  ⚠️ 봇은 `data/review.json` 만 갱신한다. 화면은 `python scripts/build_review_page.py` 로 다시 구워야 새 회차가 뜬다.
 - 같은 게시판에 `대규모투자사업 진행상황('13~'20).xlsx` 도 있다(안 받음, 2020 에서 멈춤).
 - 봇 올리기 단계에 `git pull --rebase` 를 넣었다 — 봇이 도는 사이 사람이 main 에 올리면 push 가 튕겨 그날 수집이 날아갔다.
 
