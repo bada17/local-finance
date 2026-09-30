@@ -61,7 +61,7 @@ SITE = os.path.join(ROOT, 'site')
 문서 = {'.pdf', '.hwp', '.hwpx', '.doc', '.docx', '.zip', '.ppt', '.pptx'}
 확장자찾기 = re.compile(r'\.(hwpx?|xlsx?|csv|pdf|docx?|pptx?|zip)(?=$|[?&#"\'\s])', re.I)
 # 「첨부파일」·「바로보기」 같은 단추 글자는 이름이 아니다 — 뜻을 갖는 이름만 센다
-껍데기 = re.compile(r'^(첨부|첨부파일|파일첨부|다운로드|내려받기|바로보기|미리보기|보기|열기|'
+껍데기 = re.compile(r'^(첨부|첨부파일|파일첨부|다운로드|다운받기|내려받기|바로보기|미리보기|보기|열기|새\s*창\s*열기|새\s*창|'
                     r'pdf파일첨부|한글파일첨부|붙임|다운|download|file)\s*\d*$', re.I)
 
 
@@ -184,6 +184,12 @@ def main():
     # 첫 화면에서 몇 번 눌러야 닿나(count_clicks.js)
     p = os.path.join(ROOT, 'data', 'disclosure_clicks.json')
     눌러 = json.load(open(p, encoding='utf-8')) if os.path.exists(p) else {'곳': {}, '만든날': ''}
+    # 손으로 확인한 것(data/disclosure_hand.json) — **자동이 비었을 때만** 쓴다
+    p = os.path.join(ROOT, 'data', 'disclosure_hand.json')
+    손 = json.load(open(p, encoding='utf-8')) if os.path.exists(p) else {'눌러': {}, '파일': {}}
+    for cd, v in 손['눌러'].items():
+        if not 눌러['곳'].get(cd, {}).get('번'):
+            눌러['곳'][cd] = {**v, '손': True}
 
     # ── ③의 기계 쪽 : 「모두가 내는 자료」에서 빠진 곳
     # ⚠️ 곳수가 적다고 미제출이 아니다. 광역만 내는 자료·그해 해당 없는 자료가 섞여 있으므로
@@ -221,6 +227,10 @@ def main():
         옛열림 = r['상태'] == '열림'
         새열림 = bool(d.get('코드')) and d['코드'] < 400 and (d.get('글자수') or 0) > 120
         열림 = 옛열림 or 새열림
+        # 손으로 확인해 보니 **시민이 받은 링크로는 못 여는 곳** — 200 이 와도 열린 것이 아니다
+        손까닭 = 손['파일'].get(cd, {}).get('까닭', '')
+        if 손까닭 in ('직통 주소를 막는다', '누리집이 없어졌다'):
+            열림 = False
 
         # 어느 쪽이 보여 줬나 — 화면에 그대로 적는다
         if 새파일 and not [f for f in 옛파일 if 뜻있는이름(f)]:
@@ -259,11 +269,15 @@ def main():
             '갈래': m.get('갈래', '광역' if cd in 광역 else '기초'),
             '주소': r['주소'],
             '링크': '열림' if 열림 else '안 열림',
-            '까닭': '' if 열림 else 까닭갈래(r.get('까닭')),
+            '까닭': '' if 열림 else (손까닭 if 손까닭 in ('직통 주소를 막는다', '누리집이 없어졌다')
+                                    else 까닭갈래(r.get('까닭'))),
             '찾은주소': '' if 열림 else 찾은.get(cd, {}).get('주소', ''),
             '찾은까닭': '' if 열림 else 찾은.get(cd, {}).get('까닭', ''),
             '번': 눌러['곳'].get(cd, {}).get('번'),
             '길': 눌러['곳'].get(cd, {}).get('길', []),
+            '눌러까닭': '' if 눌러['곳'].get(cd, {}).get('번') else 눌러['곳'].get(cd, {}).get('까닭', ''),
+            '손': bool(눌러['곳'].get(cd, {}).get('손')),
+            '파일손': 손['파일'].get(cd, {}),       # 자동이 파일을 못 본 까닭을 손으로 적은 것
             '크롬만': bool(새열림 and not 옛열림),     # 파이썬은 튕겼는데 크롬은 열린 곳
             '제목': ((d.get('제목') or r.get('제목') or '')
                    .replace('&lt;', '<').replace('&gt;', '>')[:60]),
@@ -303,7 +317,9 @@ def main():
         '만든날': dis.get('만든날', ''),
         '크롬날': dom날,
         '누른날': 눌러['만든날'],
-        '누른수': dict(collections.Counter(str(x['번'] or '못 찾음') for x in 곳)) if 눌러['곳'] else {},
+        '누른수': dict(collections.Counter(
+            str(x['번'] or (x['눌러까닭'] if x['눌러까닭'] and '못 찾았다' not in x['눌러까닭'] else '못 찾음'))
+            for x in 곳)) if 눌러['곳'] else {},
     }
 
     지난번, 바뀜 = 발자취쌓기(곳, 요약)

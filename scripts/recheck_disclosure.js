@@ -34,7 +34,7 @@ const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 ' +
   '(KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36';
 
 // 「첨부파일」·「바로보기」 같은 단추 글자는 이름이 아니다(build_transparency.py 와 같은 잣대)
-const 껍데기 = /^(첨부|첨부파일|파일첨부|다운로드|내려받기|바로보기|미리보기|보기|열기|pdf파일첨부|한글파일첨부|붙임|다운|download|file)\s*\d*$/i;
+const 껍데기 = /^(첨부|첨부파일|파일첨부|다운로드|다운받기|내려받기|바로보기|미리보기|보기|열기|새\s*창\s*열기|새\s*창|pdf파일첨부|한글파일첨부|붙임|다운|download|file)\s*\d*$/i;
 const 해시이름 = /^[0-9a-f]{8,}[._]/i;
 const 뜻있나 = n => {
   n = (n || '').trim();
@@ -63,10 +63,29 @@ const 긁개 = String.raw`(() => {
     const t = a.textContent || '';
     const h = a.getAttribute('href') || '';
     const oc = (a.getAttribute('onclick') || '') + (a.getAttribute('data-href') || '');
-    if (EXT.test(t) || EXT.test(h) || ((내려받기.test(h) || 내려받기.test(oc)) && t.trim().length > 3)) {
+    // 글자 없는 내려받기 링크(그림 단추, 종로구)와 자바스크립트 내려받기(JeKongsiDown(…), 화성시)도 본다 —
+    // 이름은 아래에서 옆 글자로 찾고, 옆에도 한글 이름이 없으면 담지 않는다.
+    const 글없는내려받기 = ((내려받기.test(h) || 내려받기.test(oc) || /down\s*\(/i.test(h + oc)) && t.trim().length <= 3)
+      || /^(파일\s*)?(다운로드|다운받기|내려받기)$/.test(t.trim());      // 「다운받기」 단추(href="#", 안동·칠곡·연제)
+    if (EXT.test(t) || EXT.test(h) || ((내려받기.test(h) || 내려받기.test(oc)) && t.trim().length > 3) || 글없는내려받기) {
       // 링크 글자에 「다운로드」·「바로보기」가 덧붙는 곳이 많다 — 이름만 남긴다
       let nm = t.replace(/\s*(다운로드|내려받기|바로보기|미리보기|새창열림|down|download)\s*$/gi, '').trim();
       if (!nm && EXT.test(h)) nm = decodeURIComponent((h.split(/[?#]/)[0].split('/').pop() || ''));
+      // 링크 글자가 「다운로드」·해시뿐이면 **옆 글자**에서 이름을 찾는다(2026-09-29) —
+      // 파일 이름은 뜻이 없어도 같은 줄(표의 한 줄·목록 한 칸)에 「1. 세입·세출 운용상황」처럼 적어 둔 곳이 많다.
+      // title·aria-label 을 먼저 보고, 없으면 가장 가까운 줄(tr·li·dd)의 글자에서 단추 말을 걷어 낸다.
+      const 한글 = s => ((s || '').match(/[가-힣]/g) || []).length;
+      if (한글(nm) < 3) {
+        // 가장 가까운 줄(tr·li·dd), 없으면 부모를 세 겹까지 — 칠곡군은 div 안에 「재정공시(예산) 바로보기 다운받기」
+        const 줄들 = [a.closest('tr,li,dd')];
+        for (let p = a.parentElement, i = 0; p && i < 3; p = p.parentElement, i++) 줄들.push(p);
+        const 옆 = [a.getAttribute('title'), a.getAttribute('aria-label'), ...줄들.map(p => p && p.innerText)]
+          .map(s => (s || '').replace(/\s*(다운로드|다운받기|내려받기|바로보기|미리보기|새\s*창\s*열림|새\s*창\s*열기|download|pdf|hwpx?|파일)\s*/gi, ' ')
+            .replace(/\s+/g, ' ').trim().slice(0, 80))
+          .find(s => 한글(s) >= 3);
+        if (옆) nm = 옆;
+        else if (글없는내려받기) continue;
+      }
       담기(nm || t, h || oc);
     }
   }
@@ -97,7 +116,8 @@ const 긁개 = String.raw`(() => {
     const h = a.href || '';
     if (t.length < 6 || t.length > 80) return;
     if (!/재정\s?공시|재정운용상황|재정운영상황|세입세출|예산기준|결산기준/.test(t)) return;
-    const 누름 = (!raw || raw === '#' || /^javascript/i.test(raw)) && !!a.getAttribute('onclick');
+    const 누름 = ((!raw || raw.startsWith('#')) && !!a.getAttribute('onclick'))   // #a 도(양양군)
+      || /^javascript:\s*\w+\(/i.test(raw);                                       // javascript:goView('…')(서대문구)
     if (!누름 && (!/^https?:/.test(h) || h.split('#')[0] === location.href.split('#')[0])) return;
     let 점수 = 0;
     if (/20\d\d/.test(t)) 점수 += 2;
