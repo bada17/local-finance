@@ -139,9 +139,12 @@ def main():
         }
     print(f'결산 {결산연도} · 예산 {예산연도} · 자치단체 {len(out)}곳\n')
 
+    # ⭐ 당초는 **최종이 있는 해**로 맞춘다(2026-09-30 — "당초 및 최종 연도 일치시켜야 함").
+    #    최종은 추경이 끝나야 나와 한 해 늦다. 당초만 올해 것을 쓰면 서로 다른 해를 나란히 놓게 된다.
+    최종해, _ = pull('JFIED', None, 예산연도, key)
     meta = []
     for code, name, axis, unit, basis, slots in BUNDLE:
-        want = 결산연도 if basis in ('결산', '실적') else 예산연도
+        want = 결산연도 if basis in ('결산', '실적') else (최종해 or 예산연도) if basis == '예산[당초]' else 예산연도
         year, rows = pull(code, slots, want, key)
         got = 0
         for r in rows:
@@ -166,9 +169,20 @@ def main():
         늦음 = ' ←한 해 물러남' if year and year != want else ''
         print(f"  {code:8} {name:18} {basis:10} {year}년 {got:3}곳{늦음}")
 
-    # 추경은 같은 해의 당초와 최종을 견줘야 나온다.
-    # 당초는 2026 까지, 최종은 2025 까지 있으므로 비교는 최종이 있는 해로 맞춘다.
-    최종해 = next((m['연도'] for m in meta if m['기준'] == '예산[최종]' and m['연도']), None)
+    # 같은 해의 당초→최종 — 자립도·자주도가 추경으로 몇 %p 움직였나
+    for 이름 in ('재정자립도', '재정자주도'):
+        got = 0
+        for cell in out.values():
+            a, b = cell['지표'].get(f'{이름}[당초]', {}), cell['지표'].get(f'{이름}[최종]', {})
+            if a.get('비율') is None or b.get('비율') is None:
+                continue
+            cell['지표'][f'{이름} 추경 증감'] = {'비율': round(b['비율'] - a['비율'], 2)}
+            got += 1
+        meta.append({'코드': '당초↔최종', '이름': f'{이름} 추경 증감', '축': '어디서 오나',
+                     '단위': '%p', '기준': '예산[당초→최종]', '연도': 최종해, '값 있는 곳': got})
+        print(f"  {'당초↔최종':8} {이름 + ' 추경 증감':18} {'예산[당초→최종]':10} {최종해}년 {got:3}곳")
+
+    # 추경은 같은 해의 당초와 최종을 견줘야 나온다(당초를 위에서 최종 해로 받았으니 해가 같다).
     if 최종해:
         _, 당초rows = pull('DCFCE', None, 최종해, key, back=1)
         _, 최종rows = pull('JFIED', None, 최종해, key, back=1)
