@@ -497,7 +497,7 @@ def 전수(자료=None, 없는것=None):
     '보탬e': ['site/data/grants*.json', 'site/data/grants/*.json'],
     '나라장터': ['site/data/bizno*.json'],
     '클린아이': ['site/data/cleaneye*.json'],
-    'CLIK': ['site/data/clik*.json', 'site/data/clik/*.json.gz'],
+    'CLIK': ['site/data/clik*.json', 'site/data/clik/*.json', 'site/data/clik/*.json.gz'],
     '투자심사': ['site/data/review*.json'],
     '주민참여예산': ['site/data/pb*.json'],
     '사업설명서': ['site/data/bizdesc*.json'],

@@ -2,7 +2,7 @@
 <html lang="ko">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>지방재정 데이터 나열</title>
+<title>살림을 보는 시민 — 자치단체별 지방재정</title>
 <style>
   :root{
     --ground:#FFFFFF; --sunk:#F4F6F8; --line:#C9D2DA; --line-soft:#E3E8ED;
@@ -115,17 +115,97 @@
   footer .join{margin-top:12px; display:flex; gap:6px; flex-wrap:wrap; align-items:center}
   footer .join button, footer .join span{font-size:12px}
   footer .join a{color:var(--accent)}
+
+/* 시민행동의 재정 조사 화면 — 템플릿 안에서 공유하는 시각 규칙 */
+:root, :root[data-theme="light"] {
+  --ground:#f6f5ef;--paper:#fffef9;--sunk:#eeeee5;--soft:#eeeee5;
+  --ink:#202f2a;--muted:#53645b;--faint:#627168;--line:#cbd1c5;--line-soft:#e0e3d9;
+  --accent:#226447;--green:#226447;--green-bg:#e7efe5;--alert:#9c422a;
+  --red:#9c422a;--red-bg:#faede6;--amber:#80551b;--amber-bg:#f6efdb;
+  --body:'Malgun Gothic','Apple SD Gothic Neo',system-ui,sans-serif;
+  --mono:ui-monospace,'Cascadia Mono',Consolas,monospace;
+}
+body{font-family:var(--body);font-size:15px;line-height:1.75;background:var(--ground);color:var(--ink)}
+a{color:var(--accent);text-underline-offset:4px}a:hover{text-decoration-thickness:2px}
+.wrap{width:100%;max-width:1240px;margin-inline:auto;padding-inline:32px;min-width:0}
+.site-header{background:var(--paper);border-top:5px solid var(--accent);border-bottom:1px solid var(--line)}
+.site-masthead{display:flex;align-items:center;justify-content:space-between;gap:22px;min-height:87px;padding-block:17px}
+.site-brand{font-size:22px;font-weight:800;letter-spacing:-1px;color:var(--ink);text-decoration:none;line-height:1.25;white-space:nowrap}
+.site-brand small{display:block;font-size:11px;font-weight:500;letter-spacing:.02em;color:var(--muted);margin-top:7px}
+.site-navigation{display:flex;gap:20px;align-items:center;flex-wrap:wrap;font-size:13px;font-weight:600}
+.site-navigation a{padding-block:8px;text-decoration:none;color:var(--muted);white-space:nowrap}
+.site-navigation a[aria-current="page"]{color:var(--accent);box-shadow:inset 0 -2px var(--accent)}
+.site-navigation a:hover{color:var(--ink)}
+.section-kicker,.eyebrow{font-size:11px;letter-spacing:.1em;color:var(--accent);font-weight:700;margin:0 0 12px}
+.page-intro{padding-top:38px;padding-bottom:28px;border-bottom:1px solid var(--line);display:grid;grid-template-columns:1.35fr 1fr;gap:40px;align-items:end}
+.page-intro h1{font-size:44px;line-height:1.3;letter-spacing:-2px;margin:0;font-weight:800;text-wrap:balance}
+.page-intro .intro-guide{border-left:1px solid var(--line);padding-left:28px;color:var(--muted);font-size:14px;max-width:390px}
+.intro-guide b{color:var(--ink)}.intro-guide p{margin:0 0 8px}.intro-guide .reading-order{font-size:11px;color:var(--accent);letter-spacing:.03em}
+.selection-bar{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:20px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.selection-bar .grp{display:flex;gap:5px;flex-wrap:wrap;margin:0;padding:0;border:0;min-width:0}
+.selection-bar select{max-width:100%;min-width:180px;background:var(--paper);font-weight:700}
+.selection-bar #view{gap:3px}.selection-bar #view button{background:transparent;border-color:transparent}
+.selection-bar #view button[aria-selected="true"]{background:var(--accent);color:var(--paper)}
+h1{font-size:36px;line-height:1.4;letter-spacing:-1.4px;margin:38px 0 16px;font-weight:800;text-wrap:balance}
+h2{font-size:21px;letter-spacing:-.65px;line-height:1.6;margin:40px 0 14px;padding-bottom:10px;border-bottom:2px solid var(--ink)}
+h2 small{font-size:13px;font-weight:400;letter-spacing:0;display:inline-block;color:var(--muted);margin-left:12px}
+h3{font-size:16px;line-height:1.6}.meta{font-size:13px;color:var(--muted)}
+.basis{background:var(--sunk);border:0;border-left:3px solid var(--accent);padding:16px 19px;font-size:14px;line-height:1.85;margin:20px 0;color:var(--muted)}
+.basis b{color:var(--ink)}.note{font-size:13px;line-height:1.8;color:var(--muted);margin:10px 0 14px;overflow-wrap:anywhere}
+.warn,.warnbox{border-left:3px solid var(--alert);background:var(--red-bg);padding:18px 20px;line-height:1.9;color:var(--ink)}
+button,input,select{font:inherit;border-radius:3px}button{font-size:13px;min-height:38px;padding:7px 13px;transition:background .15s,color .15s;white-space:normal}
+input[type="search"],select{font-size:14px;min-height:42px;padding:9px 12px;color:var(--ink);background:var(--paper);border:1px solid var(--line);max-width:100%}
+button:hover:not(:disabled){background:var(--green-bg);color:var(--accent);border-color:var(--accent)}
+button[aria-selected="true"],button[aria-pressed="true"]{background:var(--accent);color:var(--paper);border-color:var(--accent)}
+button:disabled{opacity:.5;cursor:not-allowed}:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.scroll{border:1px solid var(--line);background:var(--paper);max-width:100%;min-width:0}
+table{font-size:14px}th,td{padding:12px 14px;border-color:var(--line-soft)}
+thead th{font-size:12px;font-weight:700;color:var(--muted);background:var(--sunk)}
+tbody td{font-variant-numeric:tabular-nums}tbody tr:hover{background:var(--green-bg)}
+.raw,.amount-under{display:block;font-size:11px;color:var(--muted);margin-top:3px;font-weight:400}
+.picker{padding:20px;background:var(--paper);border:1px solid var(--line)}
+.srch,.bar{gap:9px}.srch{display:flex;flex-wrap:wrap;align-items:center}.srch .grp{display:flex;flex-wrap:wrap;gap:6px}
+.pane{min-width:0;background:var(--paper)}.pane h2{padding:13px 16px;font-size:15px}.cols{gap:24px}.tree{padding:14px 10px}.tree .nd{padding:6px 4px}
+.layers{gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.layers .layer{border:0;border-right:1px solid var(--line);padding:22px;background:transparent;border-radius:0}.layers .layer:last-child{border-right:0}
+footer{margin:48px 0 38px;padding-top:22px;font-size:13px;line-height:1.85;border-top:1px solid var(--line);color:var(--muted)}footer p{margin:8px 0}
+.docs li{padding:13px 0}.docs a{font-size:12px;overflow-wrap:anywhere}
+.skip-link{position:absolute;left:12px;top:-100px;padding:12px;background:var(--paper);z-index:100}.skip-link:focus{top:12px}
+#clik-panel{margin:42px 0;scroll-margin-top:20px}#clik-panel h2{margin-top:0}.clik-intro{font-size:14px;color:var(--muted)}.clik-intro b{display:block;color:var(--ink);margin-top:5px}
+.clik-controls{display:flex;flex-wrap:wrap;gap:14px;align-items:end;margin:22px 0 10px}.clik-controls label{display:flex;flex-direction:column;gap:5px;font-size:12px;color:var(--muted)}
+.clik-controls label:first-of-type{flex:1;min-width:200px}.clik-tabs{display:flex;gap:4px}.clik-tabs button{min-height:42px}.clik-tabs span{font-family:var(--mono);font-size:11px;margin-left:6px}
+.clik-list{list-style:none;margin:0;padding:0;border-top:2px solid var(--ink)}.clik-list li{display:grid;grid-template-columns:105px minmax(0,1fr);gap:22px;padding:20px 0;border-bottom:1px solid var(--line)}
+.clik-list time{font:12px/1.8 var(--mono);color:var(--muted)}.clik-list a{font-size:16px;font-weight:700;text-decoration:none}.clik-list a:hover{text-decoration:underline}
+.clik-list p{font-size:12px;color:var(--muted);margin:4px 0 0;overflow-wrap:anywhere}.clik-list p span{margin-left:9px}.clik-pages{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:18px 0;font-size:12px;color:var(--muted)}
+.clik-empty{padding:30px;background:var(--sunk);font-size:14px}.clik-tag{font-size:10px;padding:2px 5px;background:var(--sunk);border:1px solid var(--line)}
+@media(min-width:1001px){
+  .scroll:not(.needs-scroll){overflow:visible;max-height:none}.scroll:not(.needs-scroll) thead th{position:sticky;top:0;z-index:3}
+  .scroll.needs-scroll{overflow:auto;max-height:78vh}.catalog-panel{overflow:visible}.catalog-scroll{max-height:none}
+}
+@media(max-width:1000px){.scroll{overflow-x:auto}.site-masthead{flex-direction:column;align-items:flex-start;gap:12px}.site-navigation{gap:19px}.page-intro{gap:24px}.page-intro h1{font-size:36px}}
+@media(max-width:600px){
+  .wrap{width:100%;padding-inline:18px}.site-masthead{padding-block:17px;gap:13px}.site-brand{font-size:21px}.site-brand small{font-size:10px}
+  .site-navigation{gap:2px 17px;font-size:12px;line-height:1.4}.site-navigation a{padding:7px 0}.page-intro{display:block;padding-top:28px;padding-bottom:23px}
+  .page-intro h1{font-size:32px;letter-spacing:-1.3px}.page-intro .intro-guide{border:0;padding:0;margin-top:19px;font-size:13px}.intro-guide .reading-order{font-size:10px}
+  .section-kicker{font-size:10px}.selection-bar{gap:13px;padding:17px 0}.selection-bar #loc{width:100%}.selection-bar select{width:100%}.selection-bar #view{gap:4px}.selection-bar button{font-size:12px;padding:7px 9px}
+  h1{font-size:28px;margin-top:27px;letter-spacing:-1px}h1 .cd{font-size:11px}h2{font-size:20px;margin-top:31px}h2 small{display:block;margin:4px 0 0;font-size:12px}
+  .basis{font-size:13px;padding:14px 15px;overflow-wrap:anywhere}.note{font-size:12px}th,td{padding:10px;font-size:12px}thead th{font-size:11px}
+  .warnbox{padding:15px}.layers{display:block}.layers .layer{border-right:0;border-bottom:1px solid var(--line);padding:18px 0}.layers .layer:last-child{border-bottom:0}
+  .clik-controls{gap:12px}.clik-tabs{width:100%}.clik-controls label:first-of-type{min-width:100%}.clik-controls label{min-width:0;flex:1}.clik-controls select{width:100%}
+  .clik-list li{grid-template-columns:1fr;gap:6px;padding:17px 0}.clik-list a{font-size:15px}.clik-pages{font-size:11px}footer{font-size:12px;overflow-wrap:anywhere}
+  .cols{grid-template-columns:minmax(0,1fr)}.pane{width:100%}.tree{max-height:45vh}
+}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--ground:#17251f;--paper:#1c2c24;--sunk:#26372e;--soft:#26372e;--ink:#edf0e6;--muted:#b4c3b6;--faint:#a3b4a6;--line:#485b4c;--line-soft:#35483c;--accent:#9ad4ae;--green:#9ad4ae;--green-bg:#2a4936;--red-bg:#443029;--alert:#f0ad91;--red:#f0ad91;--amber:#e0c18a;--amber-bg:#423a29}}
+:root[data-theme="dark"]{--ground:#17251f;--paper:#1c2c24;--sunk:#26372e;--soft:#26372e;--ink:#edf0e6;--muted:#b4c3b6;--faint:#a3b4a6;--line:#485b4c;--line-soft:#35483c;--accent:#9ad4ae;--green:#9ad4ae;--green-bg:#2a4936;--red-bg:#443029;--alert:#f0ad91;--red:#f0ad91;--amber:#e0c18a;--amber-bg:#423a29}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+@media print{.site-header,.selection-bar{position:static}.wrap{max-width:none;padding:0}.scroll{overflow:visible!important;max-height:none!important}body{background:white;color:black}.clik-controls,.clik-pages{display:none}}
+
 </style>
 
-<div class="topbar"><div class="wrap">
-  <span class="t">지방재정 데이터 나열</span>
-  <a class="tolist" href="catalog.html">무슨 자료가 있나 →</a>
-  <a class="tolist" href="transparency.html">공시 점검 →</a>
-  <a class="tolist" href="datamap.html">데이터 지도 →</a>
-  <span class="grp" id="loc"></span>
-  <span class="grp" id="view"></span>
-</div></div>
+<a class="skip-link" href="#app">본문으로 바로 가기</a>
+<header class="site-header"><div class="wrap site-masthead"><a class="site-brand" href="./">살림을 보는 시민<small>함께하는 시민행동 · 지방재정 감시</small></a><nav class="site-navigation" aria-label="전체 화면"><a href="./" aria-current="page">자치단체별</a><a href="board.html">시황판</a><a href="transparency.html">공시 점검</a><a href="catalog.html">자료 목록</a><a href="edu.html">교육청</a><a href="datamap.html">데이터 지도</a></nav></div></header>
 
+<div class="wrap"><header class="page-intro"><div><p class="section-kicker">지방재정을 시민의 눈으로</p><h1>살림을 이해하고,<br>쓰임을 묻습니다.</h1></div><div class="intro-guide"><p>우리 동네의 예산부터 계약과 의회 기록까지.<br><b>숫자의 규모와 맥락을 먼저 살피고,<br>그 돈이 어디로 갔는지 확인합니다.</b></p><p class="reading-order">규모 → 흐름 → 출처 → 선택 → 감시 → 이름</p></div></header><div class="selection-bar" aria-label="지역과 자료 선택"><span class="grp" id="loc"></span><span class="grp" id="view"></span></div></div>
 <main class="wrap" id="app"></main>
 
 <script>
@@ -215,7 +295,7 @@ const 축설명 = {
   '규모':       '얼마나 큰 살림인가. 아래 모든 비율의 분모가 되는 수다.',
   '어디서 오나': '제 돈인가 받은 돈인가.',
   '어디에 쓰나': '무엇을 골랐나. 높고 낮음보다 방향을 본다.',
-  '새는 곳':     '제대로 쓰나. 값이 큰 쪽 10% 안에 들면 비율과 순위를 붉게 적었다.',
+  '새는 곳':     '제대로 쓰나. 비율과 금액을 함께 보고 원자료에서 맥락을 확인한다.',
   '빚':         '감당할 수 있나.'
 };
 
@@ -374,7 +454,7 @@ async function renderOngoing(cd, d){
   맞추기();
 
   const o = await 진행데이터(cd);
-  if (판 !== '진행중') return;            // 그 사이 다른 판으로 옮겼으면 그만둔다
+  if (판 !== '진행중' || cd !== 지금곳) return; // 늦게 온 옛 지역 응답으로 현재 화면을 덮지 않는다
   if (!o) {
     const 뒤 = (바뀜[cd] || []).map(c =>
       `<button data-go="${c}">${곳맵[c]?.이름 || c}${로of(곳맵[c]?.이름 || c)} 가기</button>`).join(' ');
@@ -637,7 +717,7 @@ async function renderContracts(cd){
 
   document.getElementById('cyear').addEventListener('click', e => {
     const b = e.target.closest('button'); if (!b) return;
-    계약해 = b.dataset.y; renderContracts(cd);
+    계약해 = b.dataset.y; render();
   });
 }
 
@@ -842,7 +922,7 @@ const 바뀜 = {
   '2812000': ['2812500'],            // 인천동구 → 제물포구
 };
 
-async function render(){
+async function renderFinance(){
   const cd = 지금곳;
   const app = document.getElementById('app');
   맞추기();
@@ -901,7 +981,7 @@ async function render(){
          <code>python scripts/fetch_indicators.py ${d.결산연도} ${d.예산연도}</code></p>
       <p>지금은 <b>${d.결산연도}년 결산</b>과 <b>${d.예산연도}년 예산</b> 두 판만 본다.
          16년치 시계열은 받아 뒀지만(<code>data/series.json</code>) 화면에서는 뺐다 — 나중에 볼 일이다.</p>
-      <p>이 화면은 설계를 위한 데이터 나열이다. 꾸미지 않았다.</p>
+      <p>함께하는 시민행동은 공개된 자료를 바탕으로 지방재정의 쓰임과 공개의 빈 곳을 살핍니다.</p>
       <p class="join"><button data-join="의견">이 숫자에 의견 남기기</button>
          <button data-join="제보">제보하기</button>
          <span class="dim"></span></p>
@@ -912,6 +992,98 @@ async function render(){
 
   document.querySelectorAll('#view button').forEach(b =>
     b.setAttribute('aria-selected', String(b.dataset.v === 판)));
+}
+
+/* CLIK: 선택한 곳만 받는다. 검색은 목록의 글자이며 전문 검색이 아니다. */
+const clikEsc = t => String(t ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const clikCache = new Map();
+let clikFilter = {cd:'',kind:'회의록',year:'',query:'',result:'',page:0};
+let renderSerial = 0;
+async function render(){
+  const serial = ++renderSerial;
+  await renderFinance();
+  if (serial !== renderSerial) return;
+  const cd = 지금곳;
+  if (clikFilter.cd !== cd) clikFilter = {cd,kind:'회의록',year:'',query:'',result:'',page:0};
+  document.getElementById('clik-panel')?.remove();
+  const panel = document.createElement('section');
+  panel.id = 'clik-panel'; panel.setAttribute('aria-labelledby','clik-title');
+  panel.innerHTML = '<h2 id="clik-title">의회에서 무엇을 논의했나</h2><p role="status">이 지역의 의회 목록을 불러오는 중입니다.</p>';
+  const app = document.getElementById('app');
+  const before = [...app.querySelectorAll('h2')].find(x=>x.textContent.startsWith('원문')) || app.querySelector('footer');
+  app.insertBefore(panel,before || null);
+  try {
+    if (!clikCache.has(cd)) {
+      const response = await fetch(`data/clik/${encodeURIComponent(cd)}.json`);
+      if (!response.ok) throw Error('목록 응답 실패');
+      const data = await response.json();
+      for (const kind of ['회의록','의안']) {
+        data[kind] = data[kind].map(row=>Object.fromEntries(data.칸[kind].map((key,i)=>[key,row[i]])));
+      }
+      clikCache.set(cd,data);
+    }
+    if (serial !== renderSerial || !panel.isConnected) return;
+    const data = clikCache.get(cd);
+    const councils = data.의회.map(c=>clikEsc(c.의회명)+(c.지금있나 === false ? ' <span class="clik-tag">옛 의회</span>' : '')).join(' · ');
+    panel.innerHTML = `<div class="section-kicker">의정활동 · 국회도서관 CLIK</div>
+      <h2 id="clik-title">의회에서 무엇을 논의했나</h2>
+      <p class="clik-intro">재정의 쓰임을 의회 기록에서도 확인합니다. <b>${councils || '연결된 의회 없음'}</b></p>
+      <p class="basis">회의록·의안 <b>목록만</b> 싣습니다. 제목을 누르면 CLIK 원문으로 이동합니다.
+      검색은 회의명·의안명·제안자 등 <b>목록 안에서만</b> 찾으며, 발언 전문은 검색하지 않습니다.
+      목록이 비어 있어도 논의가 없었다는 뜻은 아닙니다. 옛 의회의 기록은 당시 이름으로 남깁니다.</p>
+      <div class="clik-controls"><div class="clik-tabs" role="group" aria-label="의정활동 자료 종류">
+      ${['회의록','의안'].map(k=>`<button type="button" data-clik-kind="${k}" aria-pressed="${clikFilter.kind===k}">${k} <span>${n0(data[k].length)}</span></button>`).join('')}</div>
+      <label>목록에서 찾기<input id="clik-query" type="search" placeholder="회의명·의안명·제안자" value="${clikEsc(clikFilter.query)}"></label>
+      <label>날짜<select id="clik-year" aria-label="의정활동 연도"></select></label>
+      <label>의안 처리결과<select id="clik-result"><option value="">모든 처리결과</option>
+      ${[...new Set(data.의안.map(r=>r.처리묶음))].sort().map(s=>`<option>${clikEsc(s)}</option>`).join('')}</select></label></div>
+      <p id="clik-count" class="note" role="status" aria-live="polite"></p><div id="clik-results"></div>
+      <div class="clik-pages"><button id="clik-prev" type="button">← 이전</button><span id="clik-page"></span><button id="clik-next" type="button">다음 →</button></div>`;
+    const draw = () => drawClik(panel,data);
+    panel.querySelectorAll('[data-clik-kind]').forEach(b=>b.addEventListener('click',()=>{
+      clikFilter.kind=b.dataset.clikKind;clikFilter.page=0;clikFilter.year='';setYears();draw();
+    }));
+    function setYears(){
+      const years=[...new Set(data[clikFilter.kind].map(r=>r.날짜.slice(0,4)).filter(Boolean))].sort().reverse();
+      panel.querySelector('#clik-year').innerHTML='<option value="">모든 날짜</option>'+years.map(y=>`<option>${y}</option>`).join('')+
+        (data[clikFilter.kind].some(r=>!r.날짜)?'<option value="unknown">날짜 미확인</option>':'');
+      panel.querySelector('#clik-year').value=clikFilter.year;
+    }
+    panel.querySelector('#clik-query').addEventListener('input',e=>{clikFilter.query=e.target.value;clikFilter.page=0;draw();});
+    panel.querySelector('#clik-year').addEventListener('change',e=>{clikFilter.year=e.target.value;clikFilter.page=0;draw();});
+    panel.querySelector('#clik-result').value=clikFilter.result;
+    panel.querySelector('#clik-result').addEventListener('change',e=>{clikFilter.result=e.target.value;clikFilter.page=0;draw();});
+    for (const [id,step] of [['clik-prev',-1],['clik-next',1]]) panel.querySelector('#'+id).addEventListener('click',()=>{clikFilter.page+=step;draw();});
+    setYears();draw();
+  } catch {
+    if (!panel.isConnected) return;
+    panel.innerHTML='<h2 id="clik-title">의회에서 무엇을 논의했나</h2><p class="basis" role="status">의회 목록을 불러오지 못했습니다. 자료가 없다는 뜻은 아닙니다. <button type="button" id="clik-retry">다시 불러오기</button></p>';
+    panel.querySelector('#clik-retry').addEventListener('click',render);
+  }
+}
+function drawClik(panel,data){
+  const {kind,year,query,result}=clikFilter, minutes=kind==='회의록';
+  const q=query.trim().replace(/\s+/g,'').toLowerCase();
+  const rows=data[kind].filter(r=>(!year || (year==='unknown'?!r.날짜:r.날짜.startsWith(year))) &&
+    (minutes || !result || r.처리묶음===result) && (!q || Object.values(r).join(' ').replace(/\s+/g,'').toLowerCase().includes(q)));
+  const pageCount=Math.ceil(rows.length/25);
+  clikFilter.page=Math.max(0,Math.min(clikFilter.page,pageCount-1));
+  panel.querySelectorAll('[data-clik-kind]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.clikKind===kind)));
+  panel.querySelector('#clik-result').disabled=minutes;
+  const state=data.수집[kind];
+  panel.querySelector('#clik-count').textContent=`${kind} ${n0(rows.length)}건 / 이 지역 수집 ${n0(data[kind].length)}건 · 수집 범위 ${state.기간} · 마지막 수집 ${state.마지막수집}`;
+  const councils=Object.fromEntries(data.의회.map(c=>[c.rasmblyId,c.의회명]));
+  panel.querySelector('#clik-results').innerHTML=rows.length?`<ol class="clik-list">${rows.slice(clikFilter.page*25,(clikFilter.page+1)*25).map(r=>{
+    const title=minutes?`${r.MTGNM || '회의명 미확인'} · 제${r.RASMBLY_SESN || '?'}회${r.MINTS_ODR && r.MINTS_ODR!=='0'?' · '+r.MINTS_ODR+'차':''}`:r.BI_SJ || '의안명 미확인';
+    const url=/^CLIKC\d+$/.test(r.DOCID)?'https://clik.nanet.go.kr/potal/search/searchView.do?DOCID='+encodeURIComponent(r.DOCID)+'&collection='+(minutes?'minutes':'bill'):'';
+    return `<li><time>${clikEsc(r.날짜 || '날짜 미확인')}</time><div>${url?`<a href="${url}" target="_blank" rel="noopener noreferrer">${clikEsc(title)} <span aria-label="새 창">↗</span></a>`:clikEsc(title)}
+      <p>${clikEsc(r.RASMBLY_NM || councils[r.RASMBLY_ID] || r.RASMBLY_ID)}${minutes?'':` · ${clikEsc(r.BI_KND_NM)} · 제안: ${clikEsc(r.PROPSR || '미확인')}`}</p>
+      ${minutes?'':`<p>처리결과: <b>${clikEsc(r.처리묶음)}</b> <span>원표기: ${clikEsc(r.CL_STD_NM || '빈 값')}</span></p>`}
+      ${r.날짜?'':`<p>날짜 원표기: ${clikEsc(r.MTG_DE || r.ITNC_DE || '빈 값')} — 유효한 날짜로 확인되지 않았습니다.</p>`}</div></li>`;
+  }).join('')}</ol>`:'<p class="clik-empty">조건에 맞는 수집 목록이 없습니다. 검색어나 날짜를 바꿔 보세요. 논의가 없었다는 뜻은 아닙니다.</p>';
+  panel.querySelector('#clik-page').textContent=pageCount?`${clikFilter.page+1} / ${pageCount}쪽 · 한 쪽 25건`:'0건';
+  panel.querySelector('#clik-prev').disabled=clikFilter.page===0;
+  panel.querySelector('#clik-next').disabled=clikFilter.page+1>=pageCount;
 }
 
 /* 고르개 — 243곳을 시도로 묶는다. 광역 17곳이 맨 위 */
@@ -962,4 +1134,8 @@ document.addEventListener('click', e => {
 });
 
 render();
+</script>
+
+<script>
+(()=>{let scheduled=false;function fit(){scheduled=false;document.querySelectorAll('.scroll').forEach(el=>{const table=el.querySelector('table');if(table)el.classList.toggle('needs-scroll',table.getBoundingClientRect().width>el.clientWidth+2);});}function queue(){if(!scheduled){scheduled=true;requestAnimationFrame(fit);}}new MutationObserver(queue).observe(document.body,{childList:true,subtree:true});addEventListener('resize',queue);queue();})();
 </script>
