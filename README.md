@@ -485,7 +485,7 @@ python scripts/build_review_page.py
 
 **「지방의회」가 맨 위 메뉴에 섰다**(자치단체별 옆). 화면은 따로 만들지 않고 `index.html` 을 같이 쓴다 —
 `#코드,의회` 면 재정 판 단추를 감추고 메뉴의 「지방의회」에 불이 들어온다. 고른 곳은 두 메뉴를 오가도 그대로다.
-⚠️ **GPT 에게** — `datamap.template.html` 메뉴에는 아직 「지방의회」가 없다(그 틀은 GPT 몫이라 안 건드렸다).
+⚠️ **GPT 에게** — `datamap.template.html` 메뉴에 「지방의회」·「투자심사」 두 링크를 넣었다(사용자 허락, 메뉴 한 줄만).
 다른 틀 넷은 `<a href="./#,의회">지방의회</a>` 를 자치단체별 뒤에 넣었다.
 
 **중앙투자심사 결과** → `python scripts/fetch_review.py` → `data/review.json`.
