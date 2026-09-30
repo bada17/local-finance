@@ -37,13 +37,20 @@ def 회차(파일, 글):
 
 def main():
     d = json.load(open(os.path.join(ROOT, 'data', 'review.json'), encoding='utf-8'))
+    # 원본 — fetch_review.py 가 site/review/ 에 둔 한글 파일과, review_pdf.py 가 뽑은 PDF·쪽 번호
+    src = os.path.join(SITE, 'review')
+    쪽표 = json.load(open(os.path.join(src, 'pages.json'), encoding='utf-8')) \
+        if os.path.exists(os.path.join(src, 'pages.json')) else {}
     rows = []
     for x in d['사업']:
         돈 = x['사업비(억원)']
         m = re.match(r'\s*([\d,]+)', 돈)
+        원본 = f"{x['dtsSnum']}_{os.path.basename(x['파일'])}"[:-5]
         rows.append([x['올린날'], 회차(x['파일'], x['글']), 고침.get(곳 := re.sub(r'\s+', '', x['광역명(시군명)']), 곳),
                      x['사업명'], x['사업기간'].replace(' ', ''), x['사업량'],
-                     int(m[1].replace(',', '')) if m else None, 돈, x['심사결과']])
+                     int(m[1].replace(',', '')) if m else None, 돈, x['심사결과'],
+                     원본, int(os.path.exists(os.path.join(src, 원본 + '.pdf'))),
+                     쪽표.get(원본, {}).get(re.sub(r'\s+', '', x['사업명']), 0)])
     rows.sort(key=lambda r: r[0], reverse=True)
 
     tpl = open(os.path.join(SITE, 'review.template.html'), encoding='utf-8').read()

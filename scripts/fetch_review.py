@@ -31,6 +31,15 @@ except AttributeError:
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BRD = 'https://www.lofin365.go.kr/lf/prtcCmct/brd/itgRfrmSvi/'
 OUT = os.path.join(ROOT, 'data', 'review.json')
+# 받은 한글 원본 — 화면이 줄마다 여기로 링크한다. 같은 이름의 .pdf 가 있으면 그것을 앞에 세운다
+# (PDF 는 한컴오피스가 있는 PC 에서 scripts/review_pdf.py 로 뽑는다. 봇은 못 뽑는다)
+SRC = os.path.join(ROOT, 'site', 'review')
+os.makedirs(SRC, exist_ok=True)
+
+
+def 원본이름(dts, 이름):
+    """「654898_2022-3차 중앙투자심사 결과.hwpx」 — zip 안 경로는 떼고, 글 번호로 겹침을 막는다."""
+    return f'{dts}_{os.path.basename(이름)}'
 
 
 def post(url, **form):
@@ -130,8 +139,12 @@ def main():
                      menuId='LF8310000', menuParaCn='RFRM')
             for 이름, h in hwpx들(파일, 몸):
                 줄 = [x for t in 표들(h) for x in 사업줄(t)]
+                if 줄:   # 원본을 사이트에 둔다 — 지방재정365 글은 POST 로만 열려 링크를 걸 수 없다
+                    with open(os.path.join(SRC, 원본이름(g['dtsSnum'], 이름)), 'wb') as f:
+                        f.write(h)
                 for x in 줄:
-                    사업.append({'글': 제목, '올린날': g['frstRgstrDd'], '파일': 이름, **x})
+                    사업.append({'글': 제목, '올린날': g['frstRgstrDd'], '파일': 이름,
+                               'dtsSnum': g['dtsSnum'], **x})
                 받은 += len(줄)
                 print(f"  {g['frstRgstrDd']} {이름} — {len(줄)}줄")
         회차.append({'글': 제목, '올린날': g['frstRgstrDd'], 'dtsSnum': g['dtsSnum'], '사업수': 받은})

@@ -156,6 +156,10 @@ footer{margin:48px 0 38px;padding-top:22px;font-size:13px;line-height:1.85;borde
   <footer>
     <p>자료 — 지방재정365 「통합자료실 &gt; 성과/평가 &gt; 중앙투자심사결과」에 행정안전부가 회차마다 올린 한글 파일의 표를 그대로 옮겼다.
        <span id="from"></span> 이후 올라온 회차다. 공공데이터포털(15051377)의 링크는 끊겨 있다.</p>
+    <p><b>원문</b> — 줄마다 받아 둔 원본을 걸었다. 「원문」은 한글 파일을 PDF 로 옮긴 것이고 그 사업이 나오는 쪽으로 바로 열린다.
+       「한글」은 행정안전부가 올린 파일 그대로다. 지방재정365 의 글은 링크로 바로 열리지 않아(주소를 막아 둠)
+       <a href="https://www.lofin365.go.kr/portal/LF8310000.do" target="_blank" rel="noopener">지방재정365 통합자료실</a>에서
+       「중앙투자심사결과」 분류를 골라 회차 제목으로 찾아야 한다.</p>
     <p>사업비는 파일에 적힌 <b>총사업비</b>(억 원)이고, 괄호 안은 원문 표기 그대로의 재원 구성이다.
        정렬에는 맨 앞 숫자만 쓴다.</p>
     <p>⚠️ 심사받은 사업이 실제 예산·집행의 어느 줄인지는 <b>이어 보지 않았다</b> — 사업 이름이 자료마다 달라 자동으로 잇지 못한다.
@@ -174,16 +178,22 @@ footer{margin:48px 0 38px;padding-top:22px;font-size:13px;line-height:1.85;borde
 td.nm{white-space:normal;min-width:260px;font-weight:600}td.nm small{display:block;font-weight:400;color:var(--muted);font-size:12px;line-height:1.6;margin-top:3px}
 td.num{font-family:var(--mono);text-align:right}td.num small{display:block;font-size:11px;color:var(--muted);white-space:normal;max-width:220px;margin-left:auto}
 .srch select{min-width:140px}
+.src{display:block;font-size:12px;white-space:nowrap;margin-top:4px}
 @media(max-width:600px){.tally{grid-template-columns:repeat(2,1fr)}.tally button:nth-child(2){border-right:0}.tally button:nth-child(-n+2){border-bottom:1px solid var(--line)}.tally b{font-size:22px}.srch select{flex:1}}
 </style>
 
 <script>
-/* 한 줄 = [올린날, 회차, 곳, 사업명, 기간, 사업량, 사업비(억·맨 앞 숫자), 사업비 원문, 결과] */
+/* 한 줄 = [올린날, 회차, 곳, 사업명, 기간, 사업량, 사업비(억·맨 앞 숫자), 사업비 원문, 결과,
+           원본 파일 이름(확장자 뺀 것), PDF 있나, PDF 에서 이 사업이 나오는 쪽(0 = 못 찾음)] */
 const ROWS = __ROWS__, 부터 = '__FROM__';
 const 결과들 = ['반려', '재검토', '조건부', '적정'];
 let 결과 = '', 보일 = 200;
 const esc = t => String(t ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const n0 = v => v == null ? '' : v.toLocaleString('ko-KR');
+const 원문 = r => {
+  const f = 'review/' + encodeURIComponent(r[9]);
+  return `<span class="src">${r[10] ? `<a href="${f}.pdf${r[11] ? '#page=' + r[11] : ''}" target="_blank" rel="noopener">원문${r[11] ? ` ${r[11]}쪽` : ''}</a> · ` : ''}<a href="${f}.hwpx" download>한글</a></span>`;
+};
 const q = document.getElementById('q'), sido = document.getElementById('sido'), round = document.getElementById('round');
 
 sido.innerHTML += [...new Set(ROWS.map(r => r[2].split('(')[0]))].sort().map(s => `<option>${esc(s)}</option>`).join('');
@@ -203,7 +213,7 @@ function 그리기(){
   document.getElementById('say').textContent = `${n0(rs.length)}건 (모두 ${n0(ROWS.length)}건)` + (결과 ? ` · ${결과}만 — 위 칸을 다시 누르면 풀린다` : '');
   document.getElementById('list').innerHTML = rs.length ? `<div class="scroll"><table>
     <thead><tr><th>회차</th><th>곳</th><th>사업명 · 사업량</th><th>기간</th><th style="text-align:right">사업비(억 원)</th><th>결과</th></tr></thead>
-    <tbody>${rs.slice(0, 보일).map(r => `<tr><td>${esc(r[1])}<small class="raw">${esc(r[0])} 게시</small></td><td>${esc(r[2])}</td>
+    <tbody>${rs.slice(0, 보일).map(r => `<tr><td>${esc(r[1])}<small class="raw">${esc(r[0])} 게시</small>${원문(r)}</td><td>${esc(r[2])}</td>
       <td class="nm">${esc(r[3])}<small>${esc(r[5])}</small></td><td>${esc(r[4])}</td>
       <td class="num">${n0(r[6])}<small>${esc(r[7].replace(/^[\d,\s]+/, ''))}</small></td><td><span class="res ${esc(r[8])}">${esc(r[8])}</span></td></tr>`).join('')}</tbody></table></div>`
     : '<p class="note">걸린 심사가 없다. 이 곳이 심사를 안 받았거나, 이름이 다르게 적혔을 수 있다 — 글자를 줄여 보라.</p>';

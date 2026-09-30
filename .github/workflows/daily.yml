@@ -99,7 +99,8 @@ jobs:
         run: python scripts/fetch_review.py
       - name: 올리기
         if: ${{ !cancelled() }}
-        run: sh scripts/bot_push.sh "날마다 수집 · 투자심사 $(date -u +%Y-%m-%d)" data/review.json
+        # site/review 는 한글 원본(새 회차만 새 파일이 된다). review.html 굽기와 PDF 뽑기는 사람 몫 — scripts/review_pdf.py
+        run: sh scripts/bot_push.sh "날마다 수집 · 투자심사 $(date -u +%Y-%m-%d)" data/review.json site/review
 
   # 나라장터 「업체명 → 사업자번호」 — 빈 달을 날마다 조금씩 메운다. 급하지 않은 갈래다.
   # 스크립트가 스스로 50분에서 멈춘다(달 파일은 한 달 끝날 때마다 쓴다). 아래 70분은 뒷받침.
