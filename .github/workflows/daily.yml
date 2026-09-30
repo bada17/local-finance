@@ -86,7 +86,7 @@ jobs:
         env:
           DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}
         continue-on-error: true
-        run: python scripts/fetch_bizno.py
+        run: python scripts/fetch_bizno.py   # 스스로 50분에서 멈춘다 — 위 60분은 뒷받침
 
       - name: 올리기
         if: ${{ !cancelled() }}

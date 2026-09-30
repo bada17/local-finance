@@ -4,6 +4,11 @@
 #   python scripts/fetch_bizno.py 202609            그 달
 #   python scripts/fetch_bizno.py 202401 202609     그 달부터 그 달까지
 #   python scripts/fetch_bizno.py 202609 --다시     다시 받는다
+#   python scripts/fetch_bizno.py --분 50            50분이 지나면 새 달을 시작하지 않는다(인자 없이 부르면 기본 50)
+#
+# ⭐ **시간 한도를 스스로 지킨다**(2026-09-30). 빈 달이 27개면 한 달 12분씩 5시간이 넘는다 —
+#    봇 작업 제한(6시간)에 걸려 뒤의 「올리기」까지 잘렸다. 달 파일은 한 달이 끝날 때마다 쓰므로
+#    한도에서 멈춰도 받은 달은 남는다. 나머지는 다음 날 봇이 잇는다.
 #
 # ⭐ **끝난 해·달만 건너뛴다. 아직 안 끝난 것은 늘 다시 받는다.**
 #    자료가 계속 붙는데 한 번 받고 끝내면 옛 숫자가 그대로 굳는다
@@ -153,6 +158,8 @@ def main():
     이번달 = time.strftime('%Y%m')
     달들 = [a for a in sys.argv[1:] if a.isdigit() and len(a) == 6]
     다시 = '--다시' in sys.argv
+    분 = float(sys.argv[sys.argv.index('--분') + 1]) if '--분' in sys.argv else (None if 달들 else 50)
+    마감 = time.time() + 분 * 60 if 분 else None
 
     낼곳 = os.path.join(ROOT, 'data', 'bizno')
     os.makedirs(낼곳, exist_ok=True)
@@ -182,6 +189,9 @@ def main():
 
     달 = 처음달
     while 달 <= 끝달:
+        if 마감 and time.time() > 마감:
+            print(f'{분:.0f}분이 지났다 — {달} 부터는 다음에 받는다')
+            break
         경로 = os.path.join(낼곳, f'{달}.json.gz')
         # ⭐ 끝난 달만 건너뛴다. 이번 달은 계약이 계속 붙으니 늘 다시 받는다.
         if os.path.exists(경로) and not 다시 and 달 < 이번달:
