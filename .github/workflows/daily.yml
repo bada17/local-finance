@@ -82,11 +82,31 @@ jobs:
         continue-on-error: true
         run: python scripts/fetch_clik.py --limit 900
       # 목록이 쓰고 남은 한도로 상세(정책정보 본문 · 의안 처리 경과)를 한 건씩 — 약 240일짜리(2026-10-01)
+      # ⭐ 상세는 저장소가 아니라 R2(버킷 local-finance-raw, clik/상세)에 쌓는다. 받은 것을 알려고 먼저 내려받는다.
+      # ⚠️ 내려받기가 실패하면 수집기를 돌리지 않는다 — 「받은 것이 없다」고 보고 처음부터 다시 받아 한도를 날린다.
+      - name: CLIK 상세 — R2 에서 받은 것 내려받기
+        id: r2down
+        env:
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: ${{ secrets.R2_BUCKET }}
+        continue-on-error: true
+        run: sh scripts/r2_sync.sh down data/clik/상세 clik/상세
       - name: CLIK 상세 받기
+        if: steps.r2down.outcome == 'success'
         env:
           CLIK_KEY: ${{ secrets.CLIK_KEY }}
         continue-on-error: true
         run: python scripts/fetch_clik_detail.py
+      - name: CLIK 상세 — R2 로 올리기
+        if: ${{ !cancelled() && steps.r2down.outcome == 'success' }}
+        env:
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: ${{ secrets.R2_BUCKET }}
+        run: sh scripts/r2_sync.sh up data/clik/상세 clik/상세
       - name: 올리기
         if: ${{ !cancelled() }}
         run: sh scripts/bot_push.sh "날마다 수집 · CLIK $(date -u +%Y-%m-%d)" data/clik

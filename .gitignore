@@ -7,3 +7,6 @@ Thumbs.db
 
 # 수집한 원자료는 스크립트로 다시 받을 수 있다. 커지면 감당이 안 된다
 data/raw/
+
+# CLIK 상세는 Cloudflare R2(local-finance-raw, clik/상세)에 쌓는다 — 봇이 내려받아 쓰고 다시 올린다(2026-10-01)
+data/clik/상세/
