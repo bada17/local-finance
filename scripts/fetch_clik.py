@@ -22,6 +22,7 @@
 #
 # ⚠️ **상세(displayType=detail)는 전수로 못 받는다.** 한 건에 한 번이라 34만 회 = 340일이다.
 #    상세는 사용자가 고른 범위만 따로 받는다(이 수집기는 목록만 받는다).
+#    → 정책정보·의안 상세는 `fetch_clik_detail.py` 가 남은 한도로 받는다(2026-10-01). 회의록 상세는 나중.
 #
 # **갈래마다 기간을 자르는 방법이 다르다.**
 # - **의안**만 서버가 걸러 준다(`itncStartDt`·`itncEndDt`). 과거순으로 훑으면 위치가 안 흔들린다.
@@ -75,8 +76,15 @@ UA = ('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
 기본시작 = '20220701'
 
 
+# ⚠️ **한국 시간으로 센다**(2026-10-01). 봇은 UTC 에서 도는데 한도는 한국 날짜로 끊긴다 —
+#    UTC 로 적으면 새벽 5시(KST) 봇이 「어제」 칸에 적어, 그날 낮에 손으로 쓴 몫과 섞인다.
+#    내부 표본 수집기(probe_clik_topic.py)도 한국 시간이다.
+def _kst(fmt):
+    return time.strftime(fmt, time.gmtime(time.time() + 9 * 3600))
+
+
 def 오늘날짜():
-    return time.strftime('%Y%m%d')
+    return _kst('%Y%m%d')
 
 
 # ⭐ **끝날은 「오늘」이다**(2026-09-22 사용자 — "9회분도 자동으로 들어오게 만들어줘").
@@ -133,7 +141,7 @@ def 상태쓰기(상태):
 
 
 def 오늘():
-    return time.strftime('%Y-%m-%d')
+    return _kst('%Y-%m-%d')
 
 
 def 부르기(끝점, 인자, 되풀이=3):

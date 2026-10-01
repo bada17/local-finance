@@ -81,6 +81,12 @@ jobs:
           CLIK_KEY: ${{ secrets.CLIK_KEY }}
         continue-on-error: true
         run: python scripts/fetch_clik.py --limit 900
+      # 목록이 쓰고 남은 한도로 상세(정책정보 본문 · 의안 처리 경과)를 한 건씩 — 약 240일짜리(2026-10-01)
+      - name: CLIK 상세 받기
+        env:
+          CLIK_KEY: ${{ secrets.CLIK_KEY }}
+        continue-on-error: true
+        run: python scripts/fetch_clik_detail.py
       - name: 올리기
         if: ${{ !cancelled() }}
         run: sh scripts/bot_push.sh "날마다 수집 · CLIK $(date -u +%Y-%m-%d)" data/clik
