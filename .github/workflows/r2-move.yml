@@ -1,0 +1,40 @@
+# 저장소에 있는 원자료를 Cloudflare R2 로 올린다 — 한 번씩 손으로(또는 이 파일을 고쳐 푸시하면) 돈다.
+# 올린 뒤 저장소에서 빼는 것은 사람이 따로 커밋한다(.gitignore + git rm --cached).
+# 2026-10-01: CLIK 상세(data/clik/상세 → clik/상세)를 처음 옮겼다.
+name: R2 로 옮기기
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/r2-move.yml']
+
+permissions:
+  contents: read
+
+jobs:
+  move:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+      R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+      R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+      R2_BUCKET: ${{ secrets.R2_BUCKET }}
+    steps:
+      - uses: actions/checkout@v4
+      # 값은 찍지 않고 모양만 본다 — 계정 ID·Access Key ID 는 16진수 32자, Secret Access Key 는 64자
+      - name: 키 모양 보기
+        run: |
+          for v in R2_ACCOUNT_ID:32 R2_ACCESS_KEY_ID:32 R2_SECRET_ACCESS_KEY:64; do
+            n=${v%%:*}; want=${v##*:}; eval "x=\${$n}"
+            len=${#x}; hex=$(printf %s "$x" | tr -d '0-9a-f' | wc -c)
+            echo "$n — 길이 $len (기대 $want) · 16진수 밖 글자 $hex 개 · 앞뒤 빈칸 $(printf %s "$x" | grep -c '^ \| $' || true)"
+          done
+          echo "R2_BUCKET = $R2_BUCKET"
+      - name: CLIK 상세 올리기
+        run: |
+          sh scripts/r2_sync.sh up data/clik/상세 clik/상세
+          # 올라갔는지 — 내려받아 견준다
+          rm -rf /tmp/back && sh scripts/r2_sync.sh down /tmp/back clik/상세
+          diff -r data/clik/상세 /tmp/back && echo '같다 — 다 올라갔다'
