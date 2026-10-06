@@ -1,0 +1,35 @@
+name: 국회 회의록 낱말 알림
+
+# 22대 본회의·위원회 회의록 PDF 에서 「미래대응기금」을 찾아 텔레그램으로(scripts/watch_assembly.py).
+# 처음 한 번은 2026년 치를 다 훑느라 몇 시간 걸린다. 스크립트가 300분에서 스스로 멈추고 다음 날 이어간다.
+on:
+  schedule:
+    - cron: '50 20 * * *'       # UTC 20:50 = 한국 시간 새벽 5시 50분
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: assembly
+  cancel-in-progress: false
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: sudo apt-get install -y -qq poppler-utils
+      - name: 회의록 훑기
+        env:
+          ASSEMBLY_KEY: ${{ secrets.ASSEMBLY_KEY }}
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python scripts/watch_assembly.py --분 300
+      - name: 올리기
+        if: ${{ !cancelled() }}
+        run: sh scripts/bot_push.sh "국회 회의록 낱말 알림 $(date -u +%Y-%m-%d)" data/assembly
