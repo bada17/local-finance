@@ -13,6 +13,7 @@
 # 텔레그램 열쇠가 없으면 찾은 것을 「안 보냄」으로 쌓아 두었다가 열쇠가 생기면 그때 보낸다.
 
 import argparse
+import html
 import json
 import os
 import re
@@ -110,9 +111,28 @@ def main():
         if i % 50 == 49:
             적기()
 
+    # 의안 — 이름에 낱말이 든 것. 새로 생기거나 처리 단계(상정·의결 날짜, 계류/처리)가 바뀌면 알린다.
+    의안 = 상태.setdefault('의안', {})
+    for 낱말 in 낱말들:
+        q = urllib.parse.urlencode({'KEY': keys.키읽기('ASSEMBLY_KEY'), 'Type': 'json', 'pIndex': 1,
+                                    'pSize': 100, 'AGE': 대수, 'BILL_NAME': 낱말})
+        d = json.loads(받기(f'https://open.assembly.go.kr/portal/openapi/TVBPMBILL11?{q}'))
+        for r in (d['TVBPMBILL11'][1]['row'] if 'TVBPMBILL11' in d else []):
+            단계 = ' · '.join(f'{이름} {r[칸]}' for 칸, 이름 in [
+                ('PROPOSE_DT', '발의'), ('CMT_PRESENT_DT', '위원회 상정'), ('CMT_PROC_DT', '위원회 의결'),
+                ('LAW_PROC_DT', '법사위'), ('PROC_DT', '본회의')] if r.get(칸))
+            단계 += f" ({r.get('PROC_RESULT_CD') or r.get('PASS_GUBUN') or ''})"
+            if 의안.get(r['BILL_ID'], {}).get('단계') != 단계:
+                print(f"  ★ 의안 {r['BILL_NAME']} — {단계}")
+                상태['찾은것'].append({'갈래': '의안', '날짜': time.strftime('%Y-%m-%d'), '번호': r['BILL_NO'],
+                                     '제목': f"[의안] {r['BILL_NAME']} ({r['PROPOSER']}, {r.get('CURR_COMMITTEE') or ''}) — {단계}",
+                                     '보기': r['LINK_URL'], '낱말': 낱말, '횟수': 1, '보냄': False})
+                의안[r['BILL_ID']] = {'이름': r['BILL_NAME'], '단계': 단계}
+
     안보냄 = [f for f in 상태['찾은것'] if not f['보냄']]
     if 안보냄 and os.environ.get('TELEGRAM_TOKEN') and os.environ.get('TELEGRAM_CHAT_ID'):
-        줄 = [f"{f['날짜']} <a href=\"{f['보기']}\">{f['제목']}</a> — {f['낱말']} {f['횟수']}번"
+        줄 = [f"{f['날짜']} <a href=\"{f['보기']}\">{html.escape(f['제목'])}</a>"
+             + ('' if f['갈래'] == '의안' else f" — {f['낱말']} {f['횟수']}번")
              for f in sorted(안보냄, key=lambda f: f['날짜'])]
         보내기(f"🏛 <b>국회 회의록 · {', '.join(낱말들)}</b> — 새로 {len(줄)}건\n" + '\n'.join(줄))
         for f in 안보냄:
