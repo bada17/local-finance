@@ -107,10 +107,21 @@ def 찾기(글, 낱말):
 
 
 def 회의록(f):
-    """회의록 전문 화면(웹에서 찾기로 낱말을 찾는다). 의안은 의안 화면."""
-    if f['갈래'] == '의안':
+    """회의록은 전문 화면(웹에서 찾기로 낱말을 찾는다). 의안·자료는 그 화면."""
+    if 'pdf' not in f:
         return f['보기']
     return f"https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id={f['번호']}&type=view"
+
+
+# 제목으로 거르는 자료 — 2026-10-08 사용자: "미래대응기금은 나올 수 있는 거 다". 이름 · 코드 · 제목 칸 · 날짜 칸 · 링크 칸.
+# 예산정책처·입법조사처는 그날 「미래대응」 0건이었다(나오면 알린다). 서면질의답변서는 제목 거르개가 없어 뺐다.
+제목자료 = [('보도자료', 'ninnagrlaelvtzfnt', 'TITLE', 'WRITE_DATE', 'CONTENT_URL'),
+          ('입법조사처', 'ALLNARSPBLM', 'MTR_TTL', 'WRT_DT', 'LINK_URL')] + [
+    (f'예산정책처 {이름}', 코드, 'SUBJECT', 'REG_DATE', 'LINK_URL') for 이름, 코드 in [
+        ('예산 분석', 'nxeytfqvawilyincp'), ('결산 분석', 'negjnychalvyrcifv'), ('비용추계', 'npsofwddayuhqhfgh'),
+        ('재정동향', 'nsjmwljyauxvdodgh'), ('재정사업 평가', 'nzjvrirbauqmffblj'), ('Focus', 'npbizvcmabezbhcez'),
+        ('경제정책', 'nlugechzaowgqlopk'), ('지방재정', 'naqdzohuagtisumcw'), ('예산춘추', 'nbxjdyrjaommhkiza')]]
+갈래차례 = ['의안', '본회의', '위원회'] + list(VCONF) + [x[0] for x in 제목자료]
 
 
 def main():
@@ -166,12 +177,33 @@ def main():
                                      '보기': r['LINK_URL'], '낱말': 낱말, '횟수': 1, '보냄': False})
                 의안[r['BILL_ID']] = {'이름': r['BILL_NAME'], '단계': 단계}
 
+    # 보도자료·보고서 — 제목에 낱말이 든 것. 링크로 한 번만.
+    자료본것 = set(상태.setdefault('자료본것', []))
+    for 이름, 코드, 제목칸, 날짜칸, 링크칸 in 제목자료:
+        for 낱말 in 낱말들:
+            try:
+                줄들 = list(쪽들(이름, 코드, {'KEY': keys.키읽기('ASSEMBLY_KEY'), 제목칸: 낱말}))
+            except Exception as e:      # noqa: BLE001
+                print(f'  {이름} 못 받음 — {e}')
+                continue
+            for r in 줄들:
+                if r.get(링크칸) and r[링크칸] not in 자료본것 and 낱말 in (r.get(제목칸) or ''):
+                    자료본것.add(r[링크칸])
+                    상태['찾은것'].append({'갈래': 이름, '날짜': str(r.get(날짜칸) or '')[:10], '번호': r[링크칸],
+                                         '제목': html.unescape(r[제목칸]), '보기': r[링크칸],
+                                         '낱말': 낱말, '횟수': 1, '보냄': False})
+                    print(f"  ★ {이름} {r[제목칸]}")
+    상태['자료본것'] = sorted(자료본것)
+
     안보냄 = [f for f in 상태['찾은것'] if not f['보냄']]
     if 안보냄 and os.environ.get('TELEGRAM_TOKEN') and os.environ.get('TELEGRAM_CHAT_ID'):
-        줄 = [f"{f['날짜']} <a href=\"{회의록(f)}\">{html.escape(f['제목'])}</a>"
-             + ('' if f['갈래'] == '의안' else f" — {f['낱말']} {f['횟수']}번")
-             for f in sorted(안보냄, key=lambda f: f['날짜'])]
-        보내기(f"🏛 <b>국회 회의록 · {', '.join(낱말들)}</b> — 새로 {len(줄)}건\n" + '\n'.join(줄))
+        글 = f"🏛 <b>국회 · {', '.join(낱말들)}</b> — 새로 {len(안보냄)}건"
+        for 갈 in sorted({f['갈래'] for f in 안보냄}, key=lambda g: 갈래차례.index(g) if g in 갈래차례 else 99):
+            묶 = sorted((f for f in 안보냄 if f['갈래'] == 갈), key=lambda f: f['날짜'], reverse=True)
+            글 += f"\n\n<b>{html.escape(갈)}</b> {len(묶)}건\n" + '\n'.join(
+                f"{f['날짜']} <a href=\"{회의록(f)}\">{html.escape(f['제목'])}</a>"
+                + (f" — {f['횟수']}번" if 'pdf' in f else '') for f in 묶)
+        보내기(글)
         for f in 안보냄:
             f['보냄'] = True
     적기()
