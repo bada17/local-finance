@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="ko">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>문 초안 — 살림을 보는 시민</title>
+<!-- ⚠️ 초안. site/ 밖이라 배포되지 않는다. 보려면 저장소 맨 위에서 python -m http.server 8000 → /drafts/
+     데이터: drafts/data.json (python scripts/build_drafts.py 가 굽는다) -->
+<style>
+  :root{
+    --ground:#FFFFFF; --sunk:#F4F6F8; --line:#C9D2DA; --line-soft:#E3E8ED;
+    --ink:#11181F; --muted:#5A6672; --faint:#8A97A3;
+    --accent:#1F4E79; --accent-soft:#C9DAEA; --alert:#B03A22;
+    --mono:ui-monospace,SFMono-Regular,'Cascadia Mono','DejaVu Sans Mono',monospace;
+    --body:system-ui,-apple-system,'Malgun Gothic',sans-serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ground:#12171C; --sunk:#1A2127; --line:#333C45; --line-soft:#242C34;
+      --ink:#E6EBF0; --muted:#98A5B1; --faint:#72808C;
+      --accent:#7FB3DC; --accent-soft:#2B4256; --alert:#E0755C;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#12171C; --sunk:#1A2127; --line:#333C45; --line-soft:#242C34;
+    --ink:#E6EBF0; --muted:#98A5B1; --faint:#72808C;
+    --accent:#7FB3DC; --accent-soft:#2B4256; --alert:#E0755C;
+  }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--ground); color:var(--ink); font:14px/1.55 var(--body)}
+  .wrap{max-width:920px; margin:0 auto; padding-inline:16px}
+  a{color:var(--accent)}
+  .topbar{position:sticky; top:0; z-index:10; background:var(--ground); border-bottom:1px solid var(--line)}
+  .topbar .wrap{display:flex; align-items:center; gap:8px; min-height:46px; flex-wrap:wrap; padding-block:6px}
+  .topbar .t{font-weight:600; font-size:13px; margin-right:auto}
+  .draft{font:600 11px var(--body); color:var(--alert); border:1px solid var(--alert); padding:1px 6px; margin-left:6px}
+  select,button{font:13px var(--body); color:var(--ink); background:var(--sunk); border:1px solid var(--line); padding:5px 8px}
+  button{cursor:pointer}
+  button:disabled{opacity:.45; cursor:not-allowed}
+  select:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+  h1{font-size:22px; margin:26px 0 4px}
+  h2{font-size:17px; margin:0 0 2px}
+  h3{font-size:13px; margin:18px 0 6px; color:var(--muted)}
+  .lead{color:var(--muted); margin:0 0 14px}
+  .note{color:var(--faint); font-size:12px; margin:6px 0}
+  .num{font-family:var(--mono)}
+  table{border-collapse:collapse; width:100%; font-size:13px}
+  th,td{text-align:left; padding:6px 8px; border-bottom:1px solid var(--line-soft); vertical-align:top}
+  th{color:var(--muted); font-weight:600; font-size:12px; border-bottom-color:var(--line)}
+  td.r,th.r{text-align:right}
+  .doors td:first-child{font-weight:600; white-space:nowrap}
+  .st{font-size:11.5px; padding:1px 6px; border:1px solid var(--line); color:var(--muted); white-space:nowrap}
+  .st.on{border-color:var(--accent); color:var(--accent)}
+  section.door{border-top:2px solid var(--ink); margin-top:40px; padding-top:14px}
+  .when{font-size:12px; color:var(--muted); margin:0 0 10px}
+  .when b{color:var(--ink)}
+  .why{background:var(--sunk); border-left:3px solid var(--accent); padding:8px 12px; margin:10px 0}
+  .tiles{display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:10px; margin:12px 0}
+  .tile{border:1px solid var(--line); padding:10px 12px}
+  .tile .k{font-size:12px; color:var(--muted)}
+  .tile .v{font:600 20px var(--mono); margin-top:2px}
+  .tile .s{font-size:12px; color:var(--faint)}
+  .bars{display:grid; grid-template-columns:minmax(90px,170px) 1fr auto; gap:5px 10px; align-items:center; font-size:13px}
+  .bars .lab{white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .bars .track{height:14px; background:var(--line-soft); border-radius:0 4px 4px 0}
+  .bars .fill{height:100%; background:var(--accent); border-radius:0 4px 4px 0; min-width:2px}
+  .bars .me .fill{background:var(--ink)}
+  .bars .me{font-weight:700}
+  .bars .val{font-family:var(--mono); font-size:12px; color:var(--muted); text-align:right}
+  .cols{display:flex; align-items:flex-end; gap:2px; height:90px; border-bottom:1px solid var(--line)}
+  .cols span{flex:1; background:var(--accent); border-radius:3px 3px 0 0; min-height:1px}
+  .colx{display:flex; gap:2px; font:10.5px var(--mono); color:var(--faint)}
+  .colx span{flex:1; text-align:center; overflow:hidden}
+  .sub{border:1px dashed var(--line); padding:12px; margin:14px 0}
+  .sub h4{margin:0 0 6px; font-size:13px}
+  .sub input[type=text],.sub input[type=tel]{font:13px var(--body); padding:5px 8px; border:1px solid var(--line); background:var(--ground); color:var(--ink); width:100%; max-width:220px}
+  .sub .row{display:flex; flex-wrap:wrap; gap:8px; align-items:center}
+  .sub .ph{font-size:12px; color:var(--alert); margin-top:6px}
+  .memo{font-size:12.5px; color:var(--muted); border-top:1px solid var(--line-soft); margin-top:14px; padding-top:8px}
+  .memo b{color:var(--ink)}
+  /* 한 장 */
+  .sheet{border:1px solid var(--line); padding:20px 22px; background:var(--ground); max-width:760px}
+  .sheet .brand{display:flex; justify-content:space-between; font-size:12px; color:var(--muted); border-bottom:1px solid var(--line); padding-bottom:6px}
+  .sheet h2{font-size:22px; margin:12px 0 0}
+  .q{display:grid; grid-template-columns:110px 1fr; gap:4px 12px; padding:8px 0; border-bottom:1px solid var(--line-soft)}
+  .q .qk{font-weight:700}
+  .q .qk small{display:block; font-weight:400; color:var(--faint); font-size:11.5px}
+  .rank{font-size:12px; color:var(--muted)}
+  .rank.hi{color:var(--alert); font-weight:600}
+  .cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:10px}
+  .card{border:1px solid var(--line); padding:12px}
+  .card label{display:flex; gap:6px; font-weight:600; cursor:pointer}
+  .card .q2{font-size:12.5px; color:var(--muted); margin-top:6px}
+  ul.feed{list-style:none; padding:0; margin:0; font-size:13px}
+  ul.feed li{padding:5px 0; border-bottom:1px solid var(--line-soft)}
+  ul.feed .d{font-family:var(--mono); color:var(--faint); font-size:12px; margin-right:8px}
+  .tag{font-size:11px; border:1px solid var(--line); padding:0 5px; margin-right:6px; color:var(--muted)}
+  @media (max-width:560px){ .q{grid-template-columns:1fr} .bars{grid-template-columns:90px 1fr auto} }
+  @media print{
+    body.printing *{visibility:hidden}
+    body.printing #sheet, body.printing #sheet *{visibility:visible}
+    body.printing #sheet{position:absolute; left:0; top:0; border:0; max-width:none; width:100%}
+  }
+</style>
+
+<div class="topbar"><div class="wrap">
+  <span class="t">살림을 보는 시민 · 문 초안<span class="draft">초안 · 로컬 전용</span></span>
+  <label class="note" for="sido" style="margin:0">우리 동네</label>
+  <select id="sido" aria-label="시도"></select>
+  <select id="place" aria-label="자치단체"></select>
+</div></div>
+
+<main class="wrap">
+  <h1>연락처가 들어오는 문 — 초안</h1>
+  <p class="lead">시민이 「이게 정말 문제구나」 하고 느끼는 자리마다 문을 하나씩 낸다. 문마다 <b>언제 여는지</b>, <b>왜 연락처를 남기는지</b>, <b>받아 보기 칸</b>을 붙였다.
+    숫자는 이미 받은 자료로만 채웠고, 비어 있는 자리는 <b>[ ]</b> 로 남겼다.</p>
+  <table class="doors" id="doors"></table>
+  <p class="note" id="stamp"></p>
+
+  <!-- ① 한 장 -->
+  <section class="door" id="one">
+    <h2>한 장짜리 우리 동네 살림</h2>
+    <p class="when"><b>언제</b> 1년 내내 · 다른 문 모두의 「첫 장」 · <b>나눔</b> 인쇄·이미지로 후원주점·모임에서 나눠 준다</p>
+    <div class="why">「우리 동네가 내년엔 나아졌는지, 같은 잣대로 다시 재서 알려 드립니다.」</div>
+    <div class="sheet" id="sheet"></div>
+    <div class="row" style="margin-top:8px; display:flex; gap:8px">
+      <button id="print">이 장만 인쇄</button>
+      <span class="note">인쇄 대화상자에서 「PDF로 저장」을 고르면 파일이 된다.</span>
+    </div>
+    <div class="memo"><b>초안 메모</b> — 네 질문(숨기나·새나·몰아주나·따지나) 순서로 한 장에 담았다. 「같은 갈래 n곳 중 높은 쪽 k번째」는 판정이 아니라 견줌이다 — 판정 문구는 사례를 확인한 뒤 사람이 쓴다.
+      「몰아주나」의 계약 쏠림(같은 업체 반복)은 계약 자료가 있지만 이 초안엔 아직 안 넣었다.</div>
+  </section>
+
+  <!-- ② 고향사랑 -->
+  <section class="door" id="home">
+    <h2>고향사랑기부 — 내 기부금, 어디에 갔나</h2>
+    <p class="when"><b>언제</b> 3월 발표(2월 말 지자체 공개 뒤) · 12월 기부철에 다시 · <b>받는 사람</b> 기부한 시민, 기부할 시민</p>
+    <div class="why">「내가 낸 기부금, <span class="pn"></span>이 어디 썼는지 공개 때 확인해서 알려 드립니다.」</div>
+    <div class="tiles" id="homeTiles"></div>
+    <h3>이 동네의 「고향사랑」 사업 <span class="note">— 사업 이름에 「고향사랑」이 든 것만, <span id="homeBase"></span></span></h3>
+    <div id="homeTable"></div>
+    <h3>얼마 받았나 — 아직 없다</h3>
+    <p id="homeRecv" style="margin:0"></p>
+    <div class="sub" data-door="고향사랑"></div>
+    <div class="memo"><b>초안 메모</b> — 「쌓기·옮기기 / 운영 / 지역사업」은 <b>이름으로만 가른 것</b>이라 섞이고 이중으로 셀 수 있다(기금 예치 → 다시 사업). 전국 합계는 내지 않았다 — 밖에 쓰지 말 것.
+      「얼마 받았나」는 누리집 게시판 2단계(글 목록)를 돌리고, 2월 말 공개글을 열어야 채워진다.</div>
+  </section>
+
+  <!-- ③ 연말 몰아 쓰기 -->
+  <section class="door" id="yearend">
+    <h2>연말 몰아 쓰기 — 석 달 남았다</h2>
+    <p class="when"><b>언제</b> 10~12월 · <b>받는 사람</b> 「남은 돈을 연말에 다 쓰나」 궁금한 시민</p>
+    <div class="why">「<span class="pn"></span>이 12월에 남은 돈을 어떻게 쓰는지 지켜보고 알려 드립니다.」</div>
+    <div class="tiles" id="yeTiles"></div>
+    <h3 id="yeH"></h3>
+    <div class="bars" id="yeBars"></div>
+    <div class="sub" data-door="연말 몰아 쓰기"></div>
+    <div class="memo"><b>초안 메모</b> — 연말지출비율은 지방재정365 지표(세출결산 중 11~12월에 쓴 몫, 2024 결산). 「남은 돈」은 진행 중인 사업 자료의 예산현액 − 지출이라 이월·예비비가 섞인다.
+      12월엔 매일 집행(이미 받는 일별 집행 자료)으로 「이번 주에 쓴 돈」을 붙일 수 있다.</div>
+  </section>
+
+  <!-- ④ 추경 -->
+  <section class="door" id="supp">
+    <h2>추경 부풀리기 — 처음 예산보다 얼마나 늘었나</h2>
+    <p class="when"><b>언제</b> 6~7월(첫 추경) · <b>받는 사람</b> 「예산을 정해 놓고 왜 또 늘리나」 궁금한 시민</p>
+    <div class="why">「<span class="pn"></span>의 올해 추경이 무엇을 늘렸는지 알려 드립니다.」</div>
+    <div class="tiles" id="spTiles"></div>
+    <h3 id="spH"></h3>
+    <div class="bars" id="spBars"></div>
+    <div class="sub" data-door="추경 부풀리기"></div>
+    <div class="memo"><b>초안 메모</b> — 추경 증가율 = (최종 예산 − 당초 예산) ÷ 당초 예산, 2025년. 받은 자료엔 <b>최종 예산 하나뿐이라 1차·2차 추경을 나눌 수 없다.</b>
+      「무엇을 늘렸나」는 의회 회의록(CLIK)의 추경 심사와 이어야 한다 — 이 초안엔 없다.</div>
+  </section>
+
+  <!-- ⑤ 독상 투표 -->
+  <section class="door" id="vote">
+    <h2>밑빠진독상 — 이번엔 끝까지, 시민이 고른다</h2>
+    <p class="when"><b>언제</b> 연말·연초 · <b>받는 사람</b> 「내가 고른 사건이 어떻게 됐는지」 알고 싶은 시민</p>
+    <div class="why">「내가 고른 사건, 시민행동이 공식 질문을 던지고 답과 그 뒤를 끝까지 알려 드립니다.」</div>
+    <p style="margin:6px 0 10px">시민행동이 자료를 확인한 후보 가운데 <b>끝까지 따라갈 사건</b>을 고른다. 낭비인지 아닌지를 투표로 정하는 게 아니다.</p>
+    <div class="cards" id="voteCards"></div>
+    <div class="sub" data-door="독상 시민 투표" data-pick="1"></div>
+    <div class="memo"><b>초안 메모</b> — 후보 셋은 자리만. 독상 후보(감시사업 등록 폼으로 들어온 것) 가운데 확인을 마친 것을 넣는다. 고른 사람 수는 참여 수이지 후원자 수가 아니다.</div>
+  </section>
+
+  <!-- ⑥ 지켜보는 사업 -->
+  <section class="door" id="watch">
+    <h2>지켜보는 사업 — 노들섬</h2>
+    <p class="when"><b>언제</b> 1년 내내 · <b>받는 사람</b> 그 사업이 걸린 동네 시민, 관심 있는 시민</p>
+    <div class="why">「서울시의회에서 노들섬 이야기가 나오면 그때마다 알려 드립니다.」</div>
+    <div class="tiles" id="wTiles"></div>
+    <h3>달마다 걸린 줄 수 <span class="note">— 최근 18달, 빈 달은 0</span></h3>
+    <div class="cols" id="wCols"></div><div class="colx" id="wX"></div>
+    <h3>최근 걸린 것</h3>
+    <ul class="feed" id="wFeed"></ul>
+    <div class="sub" data-door="지켜보는 사업"></div>
+    <div class="memo"><b>초안 메모</b> — 이미 텔레그램으로 우리끼리 받는 낱말 알림(CLIK)을 시민에게 여는 문이다. 사업을 더 붙이면(미래대응기금 등) 사업 고르는 칸이 생긴다.
+      같은 회의가 여러 줄 걸리는 건(회의록 쪽마다 하나) 시민용으로 낼 때 회의 하나로 묶는다.
+      ⚠️ <b>2026년 7월 뒤가 0인 까닭은 확인 전</b> — 새 의회(7월~)가 조용한 건지, CLIK 에 늦게 올라오는 건지, 수집 범위 탓인지 봐야 한다. 시민에게 「없음」으로 보여 주기 전에 확인할 것.</div>
+  </section>
+
+  <p class="note" style="margin:40px 0">투명성 지표(살림 통신부) 문은 이미 있다 — <a href="../site/score.html">투명성 지표 화면</a>. 여기엔 「받아 보기」 칸만 같은 틀로 붙이면 된다.</p>
+</main>
+
+<script>
+const 문들 = [
+  ['투명성 지표 (살림 통신부)', '해마다 발표 + 1년 내내', '있음', '../site/score.html'],
+  ['한 장짜리 우리 동네 살림', '1년 내내 · 모임에서 나눔', '초안', '#one'],
+  ['고향사랑기부', '3월 발표 · 12월 기부철', '초안', '#home'],
+  ['연말 몰아 쓰기', '10~12월', '초안', '#yearend'],
+  ['추경 부풀리기', '6~7월', '초안', '#supp'],
+  ['밑빠진독상 시민 투표', '연말·연초', '초안(자리만)', '#vote'],
+  ['지켜보는 사업 (노들섬 등)', '1년 내내', '초안', '#watch'],
+];
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const 돈 = v => v == null ? '—' : v === 0 ? '0원' : Math.abs(v) >= 1e12 ? (v / 1e12).toFixed(1) + '조' : Math.abs(v) >= 1e8 ? Math.round(v / 1e8).toLocaleString() + '억' : Math.round(v / 1e4).toLocaleString() + '만';
+const 퍼 = (v, d = 1) => v == null ? '—' : v.toFixed(d) + '%';
+const 갈래이름 = g => ({광역: '광역', 시: '시', 군: '군', 구: '구'}[g] || g);
+
+let D, 곳, i0 = 0;
+
+// 같은 갈래 안에서 높은 쪽부터 몇 번째인가
+function 순위(arr, i) {
+  const g = 곳[i][3], v = arr[i];
+  if (v == null) return null;
+  const 같은 = 곳.map((c, j) => j).filter(j => 곳[j][3] === g && arr[j] != null);
+  return {k: 같은.filter(j => arr[j] > v).length + 1, n: 같은.length};
+}
+const 순위글 = (r, 말 = '높은 쪽에서') => r ? `<span class="rank${r.k <= Math.ceil(r.n / 10) ? ' hi' : ''}">같은 ${갈래이름(곳[i0][3])} ${r.n}곳 중 ${말} ${r.k}번째</span>` : '';
+
+// 같은 갈래 위 10곳 + 고른 곳
+function 막대(el, arr, fmt) {
+  const g = 곳[i0][3];
+  const js = 곳.map((c, j) => j).filter(j => 곳[j][3] === g && arr[j] != null).sort((a, b) => arr[b] - arr[a]);
+  let 보일 = js.slice(0, 10);
+  if (!보일.includes(i0) && arr[i0] != null) 보일.push(i0);
+  const 큰 = Math.max(...보일.map(j => arr[j]), 1e-9);
+  el.innerHTML = 보일.map(j => {
+    const k = js.indexOf(j) + 1;
+    return `<div class="lab${j === i0 ? ' me' : ''}" title="${esc(곳[j][1])}">${k}. ${esc(곳[j][1])}</div>
+      <div class="track${j === i0 ? ' me' : ''}" title="${esc(곳[j][1])} ${fmt(arr[j])}"><div class="fill" style="width:${Math.max(0, arr[j]) / 큰 * 100}%"></div></div>
+      <div class="val">${fmt(arr[j])}</div>`;
+  }).join('');
+}
+
+const 쌓기 = /예치|적립|전출|전입|기금\s*조성|이자/;
+const 운영 = /운영|답례|홍보|모금|관리|시스템|위탁|수수료/;
+const 고향갈래 = n => 쌓기.test(n) ? '쌓기·옮기기' : 운영.test(n) ? '운영' : '지역사업';
+
+function 받아보기() {
+  document.querySelectorAll('.sub').forEach(el => {
+    const 문 = el.dataset.door;
+    el.innerHTML = `<h4>받아 보기 — ${esc(문)}</h4>
+      <div class="row">
+        <input type="text" placeholder="이름" disabled aria-label="이름">
+        <input type="tel" placeholder="휴대전화" disabled aria-label="휴대전화">
+        <input type="text" placeholder="(선택) 이메일" disabled aria-label="이메일">
+        <span class="note" style="margin:0">지역: <b>${esc(곳[i0][1])}</b></span>
+      </div>
+      <label class="note" style="display:block"><input type="checkbox" disabled> 개인정보 수집·이용 동의 [방침 링크 · 수집 항목·목적은 개인정보처리방침과 맞출 것]</label>
+      <button disabled>${el.dataset.pick ? '고르고 결과 받아 보기' : '받아 보기'}</button>
+      <div class="ph">초안 — 아직 아무것도 받지 않는다. 받는 곳(명부)·동의 문구가 정해지면 연다.</div>`;
+  });
+}
+
+function 그리기() {
+  const c = 곳[i0], 이름 = c[1], 지 = D.지표, 집 = D.집행[i0], 투 = D.투명[i0];
+  document.querySelectorAll('.pn').forEach(e => e.textContent = 이름);
+  history.replaceState(null, '', '?cd=' + c[0] + location.hash);
+
+  // ① 한 장
+  const 예산 = 지['세출예산 총액'].금액[i0], 일인 = 지['1인당 세출예산액'].비율[i0] ?? 지['1인당 세출예산액'].금액[i0];
+  const 분 = D.분야[i0], 분합 = 집 ? 집[0] : 1;
+  const 행 = (k, 단) => { const x = 지[k]; return x.비율[i0] == null ? '—' : x.비율[i0].toFixed(2) + (단 || '%'); };
+  $('sheet').innerHTML = `
+    <div class="brand"><span>함께하는 시민행동 · 살림을 보는 시민</span><span class="num">${D.예산연도}년 · 자료 ${D.만든날}</span></div>
+    <h2>${esc(이름)} 살림 한 장</h2>
+    <p class="note" style="margin:2px 0 0">${esc(c[2])} · ${갈래이름(c[3])} · 인구 <span class="num">${(c[4] || 0).toLocaleString()}</span>명</p>
+    <div class="tiles">
+      <div class="tile"><div class="k">${D.예산연도} 세출예산</div><div class="v">${돈(예산)}</div><div class="s">당초 예산</div></div>
+      <div class="tile"><div class="k">주민 1명당</div><div class="v">${일인 == null ? '—' : Math.round(일인).toLocaleString() + '천원'}</div><div class="s">세출예산 ÷ 인구</div></div>
+      <div class="tile"><div class="k">${D.진행기준.slice(4)}월 말까지 쓴 몫</div><div class="v">${집 ? 퍼(집[1] / 집[0] * 100, 0) : '—'}</div><div class="s">사업 ${집 ? 집[2].toLocaleString() : '—'}개 · 진행 중인 사업 기준</div></div>
+    </div>
+    <h3 style="margin-top:6px">어디에 쓰나 <span class="note">— 분야별, 진행 중인 사업 예산현액</span></h3>
+    <div class="bars">${분.map(([k, v]) => `<div class="lab">${esc(k)}</div><div class="track" title="${esc(k)} ${돈(v)}"><div class="fill" style="width:${v / 분[0][1] * 100}%"></div></div><div class="val">${퍼(v / 분합 * 100, 0)}</div>`).join('')}</div>
+    <h3>네 가지 질문</h3>
+    <div class="q"><div class="qk">① 숨기나<small>예산을 볼 수 있게 냈나</small></div>
+      <div>투명성 ${D.투명항목수}항목 — 됨 <b class="num">${투[0]}</b> · 안 됨 <b class="num">${투[1]}</b> · 아직 못 봄 <span class="num">${투[2]}</span></div></div>
+    <div class="q"><div class="qk">② 새나<small>쓸 데 아닌 데 쓰나</small></div>
+      <div>업무추진비 <b class="num">${행('업무추진비비율')}</b> ${순위글(순위(지['업무추진비비율'].비율, i0))}<br>
+           행사·축제 경비 <b class="num">${행('행사축제경비비율')}</b> ${순위글(순위(지['행사축제경비비율'].비율, i0))}</div></div>
+    <div class="q"><div class="qk">③ 몰아주나<small>경쟁 없이 맡기나</small></div>
+      <div>수의계약 비율 <b class="num">${행('수의계약비율')}</b> ${순위글(순위(지['수의계약비율'].비율, i0))}</div></div>
+    <div class="q"><div class="qk">④ 따지나<small>의회가 묻나</small></div>
+      <div class="note" style="margin:0">[의회 회의록·의안 자료(CLIK)는 있다 — 무엇을 셀지 정하면 채운다]</div></div>
+    <h3>올해 달력에서 볼 것</h3>
+    <div class="q"><div class="qk">12월</div><div>연말(11~12월)에 쓴 몫 <b class="num">${행('연말지출비율')}</b> <span class="note">(${지['연말지출비율'].연도} 결산)</span> ${순위글(순위(지['연말지출비율'].비율, i0))}</div></div>
+    <div class="q"><div class="qk">6~7월</div><div>추경으로 늘어난 몫 <b class="num">${행('추경 증가율')}</b> <span class="note">(${지['추경 증가율'].연도})</span> ${순위글(순위(지['추경 증가율'].비율, i0))}</div></div>
+    <div class="q"><div class="qk">3월</div><div>이름에 「고향사랑」이 든 사업 <b class="num">${D.고향[i0].length}</b>개</div></div>
+    <p class="note" style="margin-top:12px">출처 지방재정365(공공누리 1유형) · 시민행동 공시 점검 · 「같은 갈래 중 몇 번째」는 견줌이지 판정이 아니다.<br>
+      <b>다음 해에도 같은 잣대로 다시 잽니다 — 받아 보기 [주소 · QR 자리]</b></p>`;
+
+  // ② 고향사랑
+  const 고 = D.고향[i0];
+  const 묶음 = {'쌓기·옮기기': [0, 0], '운영': [0, 0], '지역사업': [0, 0]};
+  고.forEach(([n, a, s]) => { const g = 묶음[고향갈래(n)]; g[0] += a; g[1] += s; });
+  $('homeBase').textContent = `${D.진행기준.slice(0, 4)}년 ${D.진행기준.slice(4)}월 누계`;
+  $('homeTiles').innerHTML = Object.entries(묶음).map(([k, [a, s]]) =>
+    `<div class="tile"><div class="k">${k}</div><div class="v">${돈(a)}</div><div class="s">쓴 돈 ${돈(s)}${a ? ' · ' + 퍼(s / a * 100, 0) : ''}</div></div>`).join('');
+  $('homeTable').innerHTML = 고.length ? `<table><tr><th>사업</th><th>이름으로 가른 갈래</th><th class="r">예산현액</th><th class="r">쓴 돈</th><th class="r">쓴 몫</th></tr>
+    ${고.map(([n, a, s]) => `<tr><td>${esc(n)}</td><td>${고향갈래(n)}</td><td class="r num">${돈(a)}</td><td class="r num">${돈(s)}</td><td class="r num">${a ? 퍼(s / a * 100, 0) : '—'}</td></tr>`).join('')}</table>`
+    : '<p class="note">이름에 「고향사랑」이 든 사업이 없다.</p>';
+  const 찾음 = D.게시판.고향사랑.includes(c[0]);
+  $('homeRecv').innerHTML = `243곳 중 <b>${D.게시판.고향사랑.length}곳</b>의 누리집에서 고향사랑 게시판을 찾았다(${D.게시판.찾은날}). ${esc(이름)}은 ${찾음 ? '<b>찾았다</b>' : '<b>못 찾았다</b>'}.
+    「얼마 받았나 · 답례품에 얼마 · 기금을 어디에」는 그 게시판의 2월 말 공개글을 열어야 나온다 — <b>[2단계 글 목록 → 3단계 파일 열기 뒤에 채움]</b>`;
+
+  // ③ 연말
+  const 연 = 지['연말지출비율'].비율, 남 = 집 ? 집[0] - 집[1] : null;
+  $('yeTiles').innerHTML = `
+    <div class="tile"><div class="k">${D.진행기준.slice(4)}월 말까지 쓴 몫</div><div class="v">${집 ? 퍼(집[1] / 집[0] * 100, 0) : '—'}</div><div class="s">${D.예산연도}년 진행 중인 사업</div></div>
+    <div class="tile"><div class="k">석 달 남기고 남은 돈</div><div class="v">${돈(남)}</div><div class="s">예산현액 − 지출</div></div>
+    <div class="tile"><div class="k">지난번 11~12월에 쓴 몫</div><div class="v">${연[i0] == null ? '—' : 퍼(연[i0])}</div><div class="s">${지['연말지출비율'].연도} 결산 · ${순위글(순위(연, i0)).replace(/<[^>]+>/g, '')}</div></div>`;
+  $('yeH').innerHTML = `${지['연말지출비율'].연도}년 11~12월에 쓴 몫 — 같은 ${갈래이름(c[3])} 가운데 높은 10곳 <span class="note">(굵은 줄이 ${esc(이름)})</span>`;
+  막대($('yeBars'), 연, v => 퍼(v));
+
+  // ④ 추경
+  const 추 = 지['추경 증가율'], 당초 = 추.분모[i0], 늘 = 추.금액[i0];
+  $('spTiles').innerHTML = `
+    <div class="tile"><div class="k">${추.연도} 당초 예산</div><div class="v">${돈(당초)}</div><div class="s">처음 의회를 통과한 예산</div></div>
+    <div class="tile"><div class="k">추경으로 늘어난 돈</div><div class="v">${돈(늘)}</div><div class="s">최종 − 당초</div></div>
+    <div class="tile"><div class="k">늘어난 몫</div><div class="v">${추.비율[i0] == null ? '—' : 퍼(추.비율[i0])}</div><div class="s">${순위글(순위(추.비율, i0)).replace(/<[^>]+>/g, '')}</div></div>`;
+  $('spH').innerHTML = `${추.연도}년 추경 증가율 — 같은 ${갈래이름(c[3])} 가운데 높은 10곳 <span class="note">(굵은 줄이 ${esc(이름)})</span>`;
+  막대($('spBars'), 추.비율, v => 퍼(v));
+
+  받아보기();
+}
+
+function 한번() {
+  $('doors').innerHTML = `<tr><th>문</th><th>언제</th><th>상태</th></tr>` + 문들.map(([n, w, s, h]) =>
+    `<tr><td><a href="${h}">${esc(n)}</a></td><td>${esc(w)}</td><td><span class="st${s === '있음' ? ' on' : ''}">${esc(s)}</span></td></tr>`).join('');
+  $('stamp').textContent = `자료 구운 날 ${D.만든날} · 지표 ${D.결산연도} 결산/${D.예산연도} 예산 · 진행 중인 사업 ${D.진행기준.slice(0, 4)}-${D.진행기준.slice(4)} · 게시판 찾기 ${D.게시판.찾은날 || '—'}`;
+
+  // ⑤ 투표 후보 — 자리만
+  $('voteCards').innerHTML = ['A', 'B', 'C'].map(k => `<div class="card">
+    <label><input type="radio" name="v" disabled> [후보 사례 ${k}]</label>
+    <div class="q2">무엇: [지자체 · 사업 · 금액]<br>확인한 자료: [자료 이름 · 날짜]<br>끝까지 물을 것: [공식 질문 하나]</div></div>`).join('');
+
+  // ⑥ 노들섬
+  const w = D.지켜봄['노들섬'];
+  if (w) {
+    $('wTiles').innerHTML = `
+      <div class="tile"><div class="k">지금까지 걸린 것</div><div class="v">${w.건수.toLocaleString()}</div><div class="s">회의 ${w.회의수.toLocaleString()}개 · 줄로는 회의록 ${(w.갈래['회의록'] || 0).toLocaleString()} · 의안 ${(w.갈래['의안'] || 0).toLocaleString()}</div></div>
+      <div class="tile"><div class="k">가장 최근</div><div class="v" style="font-size:16px">${w.최근[0] ? w.최근[0].날짜.replace(/(\d{4})(\d\d)(\d\d)/, '$1-$2-$3') : '—'}</div><div class="s">서울시의회 · CLIK</div></div>`;
+    const 큰 = Math.max(...w.달.map(x => x[1]), 1);
+    $('wCols').innerHTML = w.달.map(([m, n]) => `<span style="height:${n / 큰 * 100}%" title="${m.slice(0, 4)}-${m.slice(4)} ${n}건"></span>`).join('');
+    $('wX').innerHTML = w.달.map(([m]) => `<span>${m.slice(4) === '01' || m === w.달[0][0] ? m.slice(2, 4) + '.' : ''}${+m.slice(4)}</span>`).join('');
+    $('wFeed').innerHTML = w.최근.map(x => `<li><span class="d">${x.날짜.replace(/(\d{4})(\d\d)(\d\d)/, '$1-$2-$3')}</span><span class="tag">${esc(x.갈래)}</span>
+      <a href="https://clik.nanet.go.kr/potal/search/searchView.do?DOCID=${encodeURIComponent(x.DOCID)}&collection=${x.갈래 === '회의록' ? 'minutes' : 'bill'}" target="_blank" rel="noopener">${esc(x.글)}</a></li>`).join('');
+  }
+
+  // 동네 고르기
+  const 시도들 = [...new Set(곳.map(c => c[2]))];
+  $('sido').innerHTML = 시도들.map(s => `<option>${esc(s)}</option>`).join('');
+  const 채우기 = s => { $('place').innerHTML = 곳.map((c, j) => c[2] === s ? `<option value="${j}">${esc(c[1])}</option>` : '').join(''); };
+  const 처음 = new URLSearchParams(location.search).get('cd');
+  i0 = 곳.findIndex(c => c[0] === 처음); if (i0 < 0) i0 = Math.max(0, 곳.findIndex(c => c[0] === '1111000'));
+  $('sido').value = 곳[i0][2]; 채우기(곳[i0][2]); $('place').value = i0;
+  $('sido').onchange = () => { 채우기($('sido').value); i0 = +$('place').value; 그리기(); };
+  $('place').onchange = () => { i0 = +$('place').value; 그리기(); };
+  $('print').onclick = () => { document.body.classList.add('printing'); print(); document.body.classList.remove('printing'); };
+}
+
+fetch('data.json').then(r => r.json()).then(d => { D = d; 곳 = d.곳; 한번(); 그리기(); })
+  .catch(e => { document.querySelector('main').insertAdjacentHTML('afterbegin', `<p style="color:var(--alert)">data.json 을 못 읽었다 — 저장소 맨 위에서 python -m http.server 8000 으로 열 것. (${esc(e)})</p>`); });
+</script>

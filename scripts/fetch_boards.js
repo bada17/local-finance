@@ -25,7 +25,7 @@ const IN = path.join(ROOT, 'data', 의회판 ? 'boards_council.json' : 'boards.j
 const OUT = path.join(ROOT, 'data', 의회판 ? 'board_posts_council.json' : 'board_posts.json');
 const 과녁차례 = 의회판 ? ['업무추진비', '국외출장']
   : ['고향사랑', '업무추진비', '수의계약', '감사결과', '투자심사', '공약', '고시공고', '공청회', '일일집행', '공론장'];
-const 한번에 = 4;
+const 한번에 = 12;
 const 후보끝 = 3;
 
 const 목록긁개 = String.raw`(() => {

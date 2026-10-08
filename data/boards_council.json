@@ -1,0 +1,7196 @@
+{
+ "만든날": "2026-10-08",
+ "곳": {
+  "1100000": {
+   "이름": "서울본청",
+   "첫화면": "https://www.smc.seoul.kr/",
+   "연화면": 7,
+   "업무추진비": [],
+   "국외출장": []
+  },
+  "1111000": {
+   "이름": "서울종로구",
+   "첫화면": "https://council.jongno.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비",
+     "주소": "https://council.jongno.go.kr/council/bbs/BBSMSTR_000000000061/list.do?menuNo=401070",
+     "길": [
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "1112000": {
+   "이름": "서울중구",
+   "첫화면": "http://council.junggu.seoul.kr/",
+   "까닭": "첫 화면이 안 열린다"
+  },
+  "1113000": {
+   "이름": "서울용산구",
+   "첫화면": "https://www.yscl.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 공개",
+     "주소": "https://www.yscl.go.kr/kr/councilcostBBS.do",
+     "길": [
+      "업무추진비 공개"
+     ]
+    },
+    {
+     "글자": "업무추진비 집행 현황",
+     "주소": "https://yscl.go.kr/kr/councilcostBBS.do",
+     "길": [
+      "업무추진비 집행 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공무국외출장 계획서 및 심사 회의록 게재 서울특별시 용산구의회 의원 공무",
+     "주소": "https://www.yscl.go.kr/kr/noticeBBSview.do?uid=B8DAEDA3603885D1CABF1D9F4B1EFD30",
+     "길": [
+      "공무국외출장 계획서 및 심사 회의록 게재 서울특별시 용산구의회 의원 공무"
+     ]
+    },
+    {
+     "글자": "공지사항 2026년도 서울특별시 용산구의회 의원 공무국외출장 계획서 사전",
+     "주소": "https://www.yscl.go.kr/kr/noticeBBSview.do?uid=C6C088477C15C7A7680BE59214B05F5F",
+     "길": [
+      "공지사항 2026년도 서울특별시 용산구의회 의원 공무국외출장 계획서 사전"
+     ]
+    }
+   ]
+  },
+  "1114000": {
+   "이름": "서울성동구",
+   "첫화면": "http://sdcouncil.sd.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비현황",
+     "주소": "https://sdcouncil.sd.go.kr/kr/news/bbs?bbs_id=expenses",
+     "길": [
+      "업무추진비현황"
+     ]
+    },
+    {
+     "글자": "업무추진비",
+     "주소": "https://sdcouncil.sd.go.kr/kr/data/bbs?bbs_id=expenses",
+     "길": [
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "1115000": {
+   "이름": "서울광진구",
+   "첫화면": "https://council.gwangjin.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비공개",
+     "주소": "https://council.gwangjin.go.kr/kr/data/bbs?bbs_id=businesswork",
+     "길": [
+      "업무추진비공개"
+     ]
+    },
+    {
+     "글자": "업무추진비 현황",
+     "주소": "http://council.gwangjin.go.kr/kr/data/bbs?bbs_id=businesswork",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "해외출장보고서",
+     "주소": "https://council.gwangjin.go.kr/kr/activity/bbs?bbs_id=report",
+     "길": [
+      "해외출장보고서"
+     ]
+    },
+    {
+     "글자": "서울특별시 광진구의회 의원 공무국외출장 규칙 전부개정규칙 공포 제295회",
+     "주소": "https://council.gwangjin.go.kr/kr/news/bbs?bbs_id=notice&reform=view&uid=5B8133126AF0E6F9B5AE99D7A083F7F5",
+     "길": [
+      "서울특별시 광진구의회 의원 공무국외출장 규칙 전부개정규칙 공포 제295회"
+     ]
+    },
+    {
+     "글자": "서울특별시 광진구의회 의원 공무국외출장 규칙 전부개정규칙안(유승연 의원 ",
+     "주소": "https://council.gwangjin.go.kr/kr/news/bbs?bbs_id=lawmaking&reform=view&uid=16000257E61BE08A29A00F536E9CB4D5",
+     "길": [
+      "서울특별시 광진구의회 의원 공무국외출장 규칙 전부개정규칙안(유승연 의원 "
+     ]
+    },
+    {
+     "글자": "서울특별시 광진구의회 의원 공무국외출장 규칙 전부개정규칙안 날짜2026.",
+     "주소": "https://council.gwangjin.go.kr/kr/bill/search?reform=view&uid=2434",
+     "길": [
+      "서울특별시 광진구의회 의원 공무국외출장 규칙 전부개정규칙안 날짜2026."
+     ]
+    }
+   ]
+  },
+  "1116000": {
+   "이름": "서울동대문구",
+   "첫화면": "http://council.ddm.go.kr/",
+   "연화면": 20,
+   "업무추진비": [
+    {
+     "글자": "업무추진비",
+     "주소": "https://council.ddm.go.kr/kr/busiexpensesBBS.do",
+     "길": [
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "1117000": {
+   "이름": "서울중랑구",
+   "첫화면": "https://council.jungnang.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비공개",
+     "주소": "https://council.jungnang.go.kr/kr/costBBS.do",
+     "길": [
+      "업무추진비공개"
+     ]
+    },
+    {
+     "글자": "업무추진비 집행 현황",
+     "주소": "http://council.jungnang.go.kr/kr/costBBS.do",
+     "길": [
+      "정보공개",
+      "업무추진비 집행 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "해외연수결과보고서",
+     "주소": "https://council.jungnang.go.kr/kr/informationBBS.do",
+     "길": [
+      "해외연수결과보고서"
+     ]
+    },
+    {
+     "글자": "국제 교류 현황(공무국외출장 등)",
+     "주소": "http://council.jungnang.go.kr/kr/informationBBS.do",
+     "길": [
+      "정보공개",
+      "국제 교류 현황(공무국외출장 등)"
+     ]
+    }
+   ]
+  },
+  "1118000": {
+   "이름": "서울성북구",
+   "첫화면": "https://www.sbc.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 공개",
+     "주소": "https://www.sbc.go.kr/kr/activity/bbsCost.do",
+     "길": [
+      "업무추진비 공개"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "09.182026 2026년 성북구의회 공무국외출장 계획서 및 의견수렴",
+     "주소": "https://www.sbc.go.kr/kr/activity/bbsNotice.do",
+     "길": [
+      "09.182026 2026년 성북구의회 공무국외출장 계획서 및 의견수렴"
+     ]
+    }
+   ]
+  },
+  "1119000": {
+   "이름": "서울강북구",
+   "첫화면": "https://council.gangbuk.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 공개",
+     "주소": "https://council.gangbuk.go.kr/kr/costBBS.do",
+     "길": [
+      "업무추진비 공개"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "2025년 강북구의회 공무국외출장 결과보고서",
+     "주소": "https://council.gangbuk.go.kr/kr/foreignBBSview.do?uid=A9D6A2E3A786FF0F8973E4F64B6BA185&schwrd=&flag=all&page=1&list_style=",
+     "길": [
+      "정보공개",
+      "2025년 강북구의회 공무국외출장 결과보고서"
+     ]
+    },
+    {
+     "글자": "2025년 강북구의회 공무국외출장 결과보고서 일본(최종).pdf",
+     "주소": "https://council.gangbuk.go.kr/kr/bbs/download.do?bbs_id=foreign&uid=13D4FC082343CFDBBCDF60DD226ABB72",
+     "길": [
+      "정보공개",
+      "2025년 강북구의회 공무국외출장 결과보고서 일본(최종).pdf"
+     ]
+    },
+    {
+     "글자": "2025년 강북구의회 공무국외출장 결과보고서 호주(최종).pdf",
+     "주소": "https://council.gangbuk.go.kr/kr/bbs/download.do?bbs_id=foreign&uid=B0D486008CEF0E56771FD898BBCB7742",
+     "길": [
+      "정보공개",
+      "2025년 강북구의회 공무국외출장 결과보고서 호주(최종).pdf"
+     ]
+    },
+    {
+     "글자": "2024년 강북구의회 공무국외출장 결과보고서(9월)",
+     "주소": "https://council.gangbuk.go.kr/kr/foreignBBSview.do?uid=9528B506E06C5563F0E134B624296BEB&schwrd=&flag=all&page=1&list_style=",
+     "길": [
+      "정보공개",
+      "2024년 강북구의회 공무국외출장 결과보고서(9월)"
+     ]
+    },
+    {
+     "글자": "2024년 강북구의회 공무국외출장 결과보고서(5월)",
+     "주소": "https://council.gangbuk.go.kr/kr/foreignBBSview.do?uid=303115C1C6689E0AFB8A194184809EAF&schwrd=&flag=all&page=1&list_style=",
+     "길": [
+      "정보공개",
+      "2024년 강북구의회 공무국외출장 결과보고서(5월)"
+     ]
+    }
+   ]
+  },
+  "1121000": {
+   "이름": "서울노원구",
+   "첫화면": "https://council.nowon.kr/",
+   "까닭": "첫 화면이 안 열린다"
+  },
+  "1122000": {
+   "이름": "서울은평구",
+   "첫화면": "https://council.ep.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "2026년 9월 의회운영업무추진비 및 의정운영공통경비 사용내역 공개",
+     "주소": "https://council.ep.go.kr/kr/costBBSview.do?uid=7298DF1C64F670C142D5DE39CF449D77&schwrd=&flag=all&page=1&list_style=",
+     "길": [
+      "정보공개",
+      "2026년 9월 의회운영업무추진비 및 의정운영공통경비 사용내역 공개"
+     ]
+    },
+    {
+     "글자": "'2026년 9월 의회 업무추진비 등 집행내역.pdf' 파일 내려받기",
+     "주소": "https://council.ep.go.kr/kr/bbs/download.do?bbs_id=cost&uid=C3694DE095BA7237D04EAB7919BAEC86",
+     "길": [
+      "정보공개",
+      "'2026년 9월 의회 업무추진비 등 집행내역.pdf' 파일 내려받기"
+     ]
+    },
+    {
+     "글자": "2026년 9월 업무추진비 내역 공개",
+     "주소": "https://council.ep.go.kr/kr/costBBSview.do?uid=2B73F007973A173823B3AF4388420517&schwrd=&flag=all&page=1&list_style=",
+     "길": [
+      "정보공개",
+      "2026년 9월 업무추진비 내역 공개"
+     ]
+    },
+    {
+     "글자": "''26. 9. 업무추진비 집행내역(최종).pdf' 파일 내려받기",
+     "주소": "https://council.ep.go.kr/kr/bbs/download.do?bbs_id=cost&uid=04B665ADAAE9F2706498BE64D7D225AD",
+     "길": [
+      "정보공개",
+      "''26. 9. 업무추진비 집행내역(최종).pdf' 파일 내려받기"
+     ]
+    },
+    {
+     "글자": "2026년 8월 의회운영업무추진비 및 의정운영공통경비 사용내역 공개",
+     "주소": "https://council.ep.go.kr/kr/costBBSview.do?uid=BE12F00E459A822C90576AA01393BA86&schwrd=&flag=all&page=1&list_style=",
+     "길": [
+      "정보공개",
+      "2026년 8월 의회운영업무추진비 및 의정운영공통경비 사용내역 공개"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공무국외연수",
+     "주소": "https://council.ep.go.kr/kr/foreignBBS.do",
+     "길": [
+      "공무국외연수"
+     ]
+    }
+   ]
+  },
+  "1123000": {
+   "이름": "서울서대문구",
+   "첫화면": "http://www.sdmcouncil.go.kr/",
+   "연화면": 18,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://www.sdmcouncil.go.kr/sdmassem/board/26",
+     "길": [
+      "의정활동정보공개",
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공무 국외출장결과",
+     "주소": "https://www.sdmcouncil.go.kr/sdmassem/board/10",
+     "길": [
+      "공무 국외출장결과"
+     ]
+    },
+    {
+     "글자": "국제교류 현황(공무국외출장,의정연수)",
+     "주소": "https://www.sdmcouncil.go.kr/sdmassem/board/27",
+     "길": [
+      "의정활동정보공개",
+      "국제교류 현황(공무국외출장,의정연수)"
+     ]
+    },
+    {
+     "글자": "공무 국외출장",
+     "주소": "https://www.sdmcouncil.go.kr/sdmassem/menu/travels",
+     "길": [
+      "공무 국외출장"
+     ]
+    },
+    {
+     "글자": "공무 국외출장계획",
+     "주소": "https://www.sdmcouncil.go.kr/sdmassem/board/9",
+     "길": [
+      "공무 국외출장계획"
+     ]
+    },
+    {
+     "글자": "서대문구의회 의원 공무국외출장심사위원회 2026-09-23",
+     "주소": "https://www.sdmcouncil.go.kr/sdmassem/board/7/read/111093",
+     "길": [
+      "서대문구의회 의원 공무국외출장심사위원회 2026-09-23"
+     ]
+    }
+   ]
+  },
+  "1124000": {
+   "이름": "서울마포구",
+   "첫화면": "https://council.mapo.seoul.kr/",
+   "까닭": "첫 화면이 안 열린다"
+  },
+  "1125000": {
+   "이름": "서울양천구",
+   "첫화면": "http://www.ycc.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "http://www.ycc.go.kr/kr/news/bbs?bbs_id=business",
+     "길": [
+      "업무추진비 현황"
+     ]
+    },
+    {
+     "글자": "업무추진비",
+     "주소": "https://www.ycc.go.kr/kr/news/bbs?bbs_id=business",
+     "길": [
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "국외연수보고서",
+     "주소": "https://www.ycc.go.kr/kr/data/bbs?bbs_id=global",
+     "길": [
+      "국외연수보고서"
+     ]
+    }
+   ]
+  },
+  "1126000": {
+   "이름": "서울강서구",
+   "첫화면": "http://gsc.gangseo.seoul.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://gsc.gangseo.seoul.kr/kr/costBBS.do",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공지사항 2026년 강서구의회 의원 공무국외출장계획 주민의견 수렴 안내 ",
+     "주소": "https://gsc.gangseo.seoul.kr/kr/noticeBBSview.do?uid=38F588A773DC77331510A88C06D17829",
+     "길": [
+      "공지사항 2026년 강서구의회 의원 공무국외출장계획 주민의견 수렴 안내 "
+     ]
+    }
+   ]
+  },
+  "1127000": {
+   "이름": "서울구로구",
+   "첫화면": "https://www.guroc.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비공개",
+     "주소": "https://www.guroc.go.kr/kr/costBBS.do",
+     "길": [
+      "업무추진비공개"
+     ]
+    },
+    {
+     "글자": "2026년 9월분 의장단(교섭단체 대표 포함) 업무추진비 사용내역 공개",
+     "주소": "https://www.guroc.go.kr/kr/costBBSview.do?uid=A583120DA6DD255895ACF922D4E2E623&schwrd=&flag=all&publish_sch=&page=1&list_style=",
+     "길": [
+      "정보공개",
+      "2026년 9월분 의장단(교섭단체 대표 포함) 업무추진비 사용내역 공개"
+     ]
+    },
+    {
+     "글자": "2026년 8월분 의장단(교섭단체 대표 포함) 업무추진비 사용내역 공개",
+     "주소": "https://www.guroc.go.kr/kr/costBBSview.do?uid=16728A17DEBE7639C404B1373B899F83&schwrd=&flag=all&publish_sch=&page=1&list_style=",
+     "길": [
+      "정보공개",
+      "2026년 8월분 의장단(교섭단체 대표 포함) 업무추진비 사용내역 공개"
+     ]
+    },
+    {
+     "글자": "2026년 7월분 의장단(교섭단체 대표 포함) 업무추진비 사용내역 공개",
+     "주소": "https://www.guroc.go.kr/kr/costBBSview.do?uid=1D87170F28527B2154BCC3792D7BAF58&schwrd=&flag=all&publish_sch=&page=1&list_style=",
+     "길": [
+      "정보공개",
+      "2026년 7월분 의장단(교섭단체 대표 포함) 업무추진비 사용내역 공개"
+     ]
+    },
+    {
+     "글자": "2026년 6월분 의장단(교섭단체 대표 포함) 업무추진비 사용내역 공개",
+     "주소": "https://www.guroc.go.kr/kr/costBBSview.do?uid=44624559759D4761A0A622393211463A&schwrd=&flag=all&publish_sch=&page=1&list_style=",
+     "길": [
+      "정보공개",
+      "2026년 6월분 의장단(교섭단체 대표 포함) 업무추진비 사용내역 공개"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공무국외연수",
+     "주소": "https://www.guroc.go.kr/kr/foreignBBS.do",
+     "길": [
+      "공무국외연수"
+     ]
+    }
+   ]
+  },
+  "1128000": {
+   "이름": "서울금천구",
+   "첫화면": "http://council.geumcheon.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.geumcheon.go.kr/council/kr/costBBS.do",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "1129000": {
+   "이름": "서울영등포구",
+   "첫화면": "https://www.ydpc.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://www.ydpc.go.kr/content/news/bbsCost.html",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "1130000": {
+   "이름": "서울동작구",
+   "첫화면": "https://assembly.dongjak.go.kr/",
+   "까닭": "첫 화면이 안 열린다"
+  },
+  "1131000": {
+   "이름": "서울관악구",
+   "첫화면": "http://www.ga21c.seoul.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비",
+     "주소": "https://www.ga21c.seoul.kr/kr/costBBS.do",
+     "길": [
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공무국외출장상황",
+     "주소": "https://www.ga21c.seoul.kr/kr/openBBS.do",
+     "길": [
+      "공무국외출장상황"
+     ]
+    }
+   ]
+  },
+  "1132000": {
+   "이름": "서울서초구",
+   "첫화면": "http://www.sdc.seoul.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비",
+     "주소": "https://www.sdc.seoul.kr/kr/news/bbsBusiness.do",
+     "길": [
+      "사이트맵",
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "1133000": {
+   "이름": "서울강남구",
+   "첫화면": "https://www.gncouncil.go.kr/",
+   "연화면": 21,
+   "업무추진비": [],
+   "국외출장": [
+    {
+     "글자": "2025년 공무국외출장 결과 보고",
+     "주소": "https://www.gncouncil.go.kr/kr/foreignBBSview.do?uid=BEC7F5FB14CF4888D41E4A9E9F965F6A&schwrd=&sess_sch=&flag=all&th_sch=&page=1&cmt_sch=&list_style=",
+     "길": [
+      "정보공개",
+      "2025년 공무국외출장 결과 보고"
+     ]
+    },
+    {
+     "글자": "2025년도 공무국외출장 결과보고",
+     "주소": "https://www.gncouncil.go.kr/kr/foreignBBSview.do?uid=EE71F643E93C26F2F1A21510A3BC7284&schwrd=&sess_sch=&flag=all&th_sch=&page=1&cmt_sch=&list_style=",
+     "길": [
+      "정보공개",
+      "2025년도 공무국외출장 결과보고"
+     ]
+    },
+    {
+     "글자": "2025공무국외출장 결과 보고(중국)",
+     "주소": "https://www.gncouncil.go.kr/kr/foreignBBSview.do?uid=761BE8BC750CF5FFC60DA1C40992A217&schwrd=&sess_sch=&flag=all&th_sch=&page=1&cmt_sch=&list_style=",
+     "길": [
+      "정보공개",
+      "2025공무국외출장 결과 보고(중국)"
+     ]
+    },
+    {
+     "글자": "2025공무국외출장 결과 보고(영국,프랑스)",
+     "주소": "https://www.gncouncil.go.kr/kr/foreignBBSview.do?uid=00F12799AFA94FC8E35A7AAB362CD7C3&schwrd=&sess_sch=&flag=all&th_sch=&page=1&cmt_sch=&list_style=",
+     "길": [
+      "정보공개",
+      "2025공무국외출장 결과 보고(영국,프랑스)"
+     ]
+    },
+    {
+     "글자": "2025년 행정안전위원회 공무국외출장 심사결과 및 회의록",
+     "주소": "https://www.gncouncil.go.kr/kr/foreignBBSview.do?uid=592AAEA354853835240EA04506F95FEC&schwrd=&sess_sch=&flag=all&th_sch=&page=1&cmt_sch=&list_style=",
+     "길": [
+      "정보공개",
+      "2025년 행정안전위원회 공무국외출장 심사결과 및 회의록"
+     ]
+    }
+   ]
+  },
+  "1134000": {
+   "이름": "서울송파구",
+   "첫화면": "https://council.songpa.go.kr/",
+   "연화면": 14,
+   "업무추진비": [
+    {
+     "글자": "업무추진비",
+     "주소": "https://council.songpa.go.kr/kr/news/bbsCost.do",
+     "길": [
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "212026.09. 공무국외심사위원회 위원 위촉식",
+     "주소": "https://council.songpa.go.kr/kr/news/bbsGallery.do?reform=view&key=07eac4ace8ba53e9fcfa7e7f411337516740329b1a2d18c2a44405bcaaa66eeea207099b637848d6",
+     "길": [
+      "212026.09. 공무국외심사위원회 위원 위촉식"
+     ]
+    },
+    {
+     "글자": "공무국외심사위원회 위원 위촉식 2026.09.21",
+     "주소": "https://council.songpa.go.kr/kr/news/bbsGallery.do?reform=view&key=07eac4ace8ba53e9fcfa7e7f411337516740329b1a2d18c2a44405bcaaa66eeea207099b637848d6&pageNum=1&flag=&keyword=",
+     "길": [
+      "의정갤러리",
+      "공무국외심사위원회 위원 위촉식 2026.09.21"
+     ]
+    }
+   ]
+  },
+  "1135000": {
+   "이름": "서울강동구",
+   "첫화면": "https://council.gangdong.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비",
+     "주소": "https://council.gangdong.go.kr/kr/news/bbsBusiness.do",
+     "길": [
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공무국외출장 결과보고서(대한민국시군자치구의회의장협의회 주관)",
+     "주소": "https://council.gangdong.go.kr/kr/news/bbsReport.do?reform=view&key=bc18b89bf0274f8444a234ced0a180adebec372ecc901e213797a26131b2550d3b990f23f2820341&pageNum=1&flag=&keyword=",
+     "길": [
+      "정보공개",
+      "공무국외출장 결과보고서(대한민국시군자치구의회의장협의회 주관)"
+     ]
+    },
+    {
+     "글자": "공무국외출장 계획서(대한민국시군자치구의회의장협의회 주관) - 심의의결결과",
+     "주소": "https://council.gangdong.go.kr/kr/news/bbsReport.do?reform=view&key=ee9b9d51feffef536c848907748921481ce35f0358c59a26ec3e03e59490db61f27df446cd6179a9&pageNum=1&flag=&keyword=",
+     "길": [
+      "정보공개",
+      "공무국외출장 계획서(대한민국시군자치구의회의장협의회 주관) - 심의의결결과"
+     ]
+    },
+    {
+     "글자": "2024년 공무국외연수 출장보고서(행정복지위원회)",
+     "주소": "https://council.gangdong.go.kr/kr/news/bbsReport.do?reform=view&key=a97517ec880e11778f9832ed4cb9358c13b6cb32c0f38740f625bb4409d1f2f1ba6aab87aedfbd4e&pageNum=1&flag=&keyword=",
+     "길": [
+      "정보공개",
+      "2024년 공무국외연수 출장보고서(행정복지위원회)"
+     ]
+    },
+    {
+     "글자": "2024년 공무국외연수 출장보고서(건설재정위원회)",
+     "주소": "https://council.gangdong.go.kr/kr/news/bbsReport.do?reform=view&key=e2d462126c8445eec708ddd58251f5d3fa745f8b554dc19282951c6ee19412194995f43270e974d5&pageNum=1&flag=&keyword=",
+     "길": [
+      "정보공개",
+      "2024년 공무국외연수 출장보고서(건설재정위원회)"
+     ]
+    },
+    {
+     "글자": "2023 공무국외연수 출장보고서(행정복지위원회)",
+     "주소": "https://council.gangdong.go.kr/kr/news/bbsReport.do?reform=view&key=55a36ef4fc5e3c90730d9daaed3575fcd604b8d4d2f49b853e09d1d28cf65e8fa401dbda2fd831b8&pageNum=1&flag=&keyword=",
+     "길": [
+      "정보공개",
+      "2023 공무국외연수 출장보고서(행정복지위원회)"
+     ]
+    }
+   ]
+  },
+  "2600000": {
+   "이름": "부산본청",
+   "첫화면": "https://council.busan.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "2026년 3분기 업무추진비 사용내역(복지환경위원회)",
+     "주소": "https://council.busan.go.kr/council/infobbs0501/65477",
+     "길": [
+      "정보공개",
+      "2026년 3분기 업무추진비 사용내역(복지환경위원회)"
+     ]
+    },
+    {
+     "글자": "2026년 2분기 업무추진비 집행 내역(의장단)",
+     "주소": "https://council.busan.go.kr/council/infobbs0501/64870",
+     "길": [
+      "정보공개",
+      "2026년 2분기 업무추진비 집행 내역(의장단)"
+     ]
+    },
+    {
+     "글자": "2026년 2분기 업무추진비 집행내역(교육위원회)",
+     "주소": "https://council.busan.go.kr/council/infobbs0501/64786",
+     "길": [
+      "정보공개",
+      "2026년 2분기 업무추진비 집행내역(교육위원회)"
+     ]
+    },
+    {
+     "글자": "2026년 2분기 업무추진비 집행내역(해양도시안전위원회)",
+     "주소": "https://council.busan.go.kr/council/infobbs0501/64769",
+     "길": [
+      "정보공개",
+      "2026년 2분기 업무추진비 집행내역(해양도시안전위원회)"
+     ]
+    },
+    {
+     "글자": "2026년 2분기 업무추진비 집행내역(건설교통위원회)",
+     "주소": "https://council.busan.go.kr/council/infobbs0501/64768",
+     "길": [
+      "정보공개",
+      "2026년 2분기 업무추진비 집행내역(건설교통위원회)"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공무국외출장",
+     "주소": "https://council.busan.go.kr/council/businessTrip",
+     "길": [
+      "공무국외출장"
+     ]
+    }
+   ]
+  },
+  "2611000": {
+   "이름": "부산중구",
+   "첫화면": "http://council.busan.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "2026년 3분기 업무추진비 사용내역(복지환경위원회)",
+     "주소": "https://council.busan.go.kr/council/infobbs0501/65477",
+     "길": [
+      "정보공개",
+      "2026년 3분기 업무추진비 사용내역(복지환경위원회)"
+     ]
+    },
+    {
+     "글자": "2026년 2분기 업무추진비 집행 내역(의장단)",
+     "주소": "https://council.busan.go.kr/council/infobbs0501/64870",
+     "길": [
+      "정보공개",
+      "2026년 2분기 업무추진비 집행 내역(의장단)"
+     ]
+    },
+    {
+     "글자": "2026년 2분기 업무추진비 집행내역(교육위원회)",
+     "주소": "https://council.busan.go.kr/council/infobbs0501/64786",
+     "길": [
+      "정보공개",
+      "2026년 2분기 업무추진비 집행내역(교육위원회)"
+     ]
+    },
+    {
+     "글자": "2026년 2분기 업무추진비 집행내역(해양도시안전위원회)",
+     "주소": "https://council.busan.go.kr/council/infobbs0501/64769",
+     "길": [
+      "정보공개",
+      "2026년 2분기 업무추진비 집행내역(해양도시안전위원회)"
+     ]
+    },
+    {
+     "글자": "2026년 2분기 업무추진비 집행내역(건설교통위원회)",
+     "주소": "https://council.busan.go.kr/council/infobbs0501/64768",
+     "길": [
+      "정보공개",
+      "2026년 2분기 업무추진비 집행내역(건설교통위원회)"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공무국외출장",
+     "주소": "https://council.busan.go.kr/council/businessTrip",
+     "길": [
+      "공무국외출장"
+     ]
+    }
+   ]
+  },
+  "2612000": {
+   "이름": "부산서구",
+   "첫화면": "http://council.busan.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "2026년 3분기 업무추진비 사용내역(복지환경위원회)",
+     "주소": "https://council.busan.go.kr/council/infobbs0501/65477",
+     "길": [
+      "정보공개",
+      "2026년 3분기 업무추진비 사용내역(복지환경위원회)"
+     ]
+    },
+    {
+     "글자": "2026년 2분기 업무추진비 집행 내역(의장단)",
+     "주소": "https://council.busan.go.kr/council/infobbs0501/64870",
+     "길": [
+      "정보공개",
+      "2026년 2분기 업무추진비 집행 내역(의장단)"
+     ]
+    },
+    {
+     "글자": "2026년 2분기 업무추진비 집행내역(교육위원회)",
+     "주소": "https://council.busan.go.kr/council/infobbs0501/64786",
+     "길": [
+      "정보공개",
+      "2026년 2분기 업무추진비 집행내역(교육위원회)"
+     ]
+    },
+    {
+     "글자": "2026년 2분기 업무추진비 집행내역(해양도시안전위원회)",
+     "주소": "https://council.busan.go.kr/council/infobbs0501/64769",
+     "길": [
+      "정보공개",
+      "2026년 2분기 업무추진비 집행내역(해양도시안전위원회)"
+     ]
+    },
+    {
+     "글자": "2026년 2분기 업무추진비 집행내역(건설교통위원회)",
+     "주소": "https://council.busan.go.kr/council/infobbs0501/64768",
+     "길": [
+      "정보공개",
+      "2026년 2분기 업무추진비 집행내역(건설교통위원회)"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공무국외출장",
+     "주소": "https://council.busan.go.kr/council/businessTrip",
+     "길": [
+      "공무국외출장"
+     ]
+    }
+   ]
+  },
+  "2613000": {
+   "이름": "부산동구",
+   "첫화면": "https://council.busan.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "2026년 3분기 업무추진비 사용내역(복지환경위원회)",
+     "주소": "https://council.busan.go.kr/council/infobbs0501/65477",
+     "길": [
+      "정보공개",
+      "2026년 3분기 업무추진비 사용내역(복지환경위원회)"
+     ]
+    },
+    {
+     "글자": "2026년 2분기 업무추진비 집행 내역(의장단)",
+     "주소": "https://council.busan.go.kr/council/infobbs0501/64870",
+     "길": [
+      "정보공개",
+      "2026년 2분기 업무추진비 집행 내역(의장단)"
+     ]
+    },
+    {
+     "글자": "2026년 2분기 업무추진비 집행내역(교육위원회)",
+     "주소": "https://council.busan.go.kr/council/infobbs0501/64786",
+     "길": [
+      "정보공개",
+      "2026년 2분기 업무추진비 집행내역(교육위원회)"
+     ]
+    },
+    {
+     "글자": "2026년 2분기 업무추진비 집행내역(해양도시안전위원회)",
+     "주소": "https://council.busan.go.kr/council/infobbs0501/64769",
+     "길": [
+      "정보공개",
+      "2026년 2분기 업무추진비 집행내역(해양도시안전위원회)"
+     ]
+    },
+    {
+     "글자": "2026년 2분기 업무추진비 집행내역(건설교통위원회)",
+     "주소": "https://council.busan.go.kr/council/infobbs0501/64768",
+     "길": [
+      "정보공개",
+      "2026년 2분기 업무추진비 집행내역(건설교통위원회)"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공무국외출장",
+     "주소": "https://council.busan.go.kr/council/businessTrip",
+     "길": [
+      "공무국외출장"
+     ]
+    }
+   ]
+  },
+  "2615000": {
+   "이름": "부산부산진구",
+   "첫화면": "http://council.busanjin.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비",
+     "주소": "https://council.busanjin.go.kr/content/information/expense.html",
+     "길": [
+      "업무추진비"
+     ]
+    },
+    {
+     "글자": "업무추진비",
+     "주소": "https://www.busanjin.go.kr/index.busanjin?menuCd=DOM_000000109001003000",
+     "길": [
+      "정보공개",
+      "의정비 심의위원회",
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "2616000": {
+   "이름": "부산동래구",
+   "첫화면": "http://council.dongnae.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.dongnae.go.kr/source/kr/news/foreign.html?info=D",
+     "길": [
+      "정보공개",
+      "업무추진비 현황"
+     ]
+    },
+    {
+     "글자": "부산광역시동래구의회 업무추진비 사용 및 공개에 관한 조례 일부개정조례안",
+     "주소": "https://council.dongnae.go.kr/MGMT/tbl_bill/BillView.php?thid=3147",
+     "길": [
+      "의원발의의안",
+      "부산광역시동래구의회 업무추진비 사용 및 공개에 관한 조례 일부개정조례안"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "부산광역시동래구의회 공무국외출장에 관한 규칙 일부개정규칙안",
+     "주소": "https://council.dongnae.go.kr/MGMT/tbl_bill/BillView.php?thid=3166",
+     "길": [
+      "부산광역시동래구의회 공무국외출장에 관한 규칙 일부개정규칙안"
+     ]
+    }
+   ]
+  },
+  "2617000": {
+   "이름": "부산남구",
+   "첫화면": "https://council.bsnamgu.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 등 공개",
+     "주소": "https://council.bsnamgu.go.kr/kr/activity/bbs?bbs_id=notice2",
+     "길": [
+      "업무추진비 등 공개"
+     ]
+    },
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.bsnamgu.go.kr/kr/data/bbs?bbs_id=notice2",
+     "길": [
+      "정보공개",
+      "업무추진비 현황"
+     ]
+    },
+    {
+     "글자": "2026년 9월 의회업무추진비 및 공통경비 집행내역",
+     "주소": "https://council.bsnamgu.go.kr/kr/data/bbs?bbs_id=notice2&reform=view&uid=1C6B603C4D545E21B25370E97E0A3AB7&list_style=&page=1&flag=&keyword=&search_code=council&filter=latest",
+     "길": [
+      "정보공개",
+      "2026년 9월 의회업무추진비 및 공통경비 집행내역"
+     ]
+    },
+    {
+     "글자": "2026년 8월 의회업무추진비 및 공통경비 집행내역",
+     "주소": "https://council.bsnamgu.go.kr/kr/data/bbs?bbs_id=notice2&reform=view&uid=8BC24DAC641AD82E643DC72277B31FD5&list_style=&page=1&flag=&keyword=&search_code=council&filter=latest",
+     "길": [
+      "정보공개",
+      "2026년 8월 의회업무추진비 및 공통경비 집행내역"
+     ]
+    },
+    {
+     "글자": "2026년 7월 의회업무추진비 및 공통경비 집행내역",
+     "주소": "https://council.bsnamgu.go.kr/kr/data/bbs?bbs_id=notice2&reform=view&uid=B4D16091E74795410CB57E8C3A9CE8EB&list_style=&page=1&flag=&keyword=&search_code=council&filter=latest",
+     "길": [
+      "정보공개",
+      "2026년 7월 의회업무추진비 및 공통경비 집행내역"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "대표예고 부산광역시 남구의회 외유성 공무국외출장 방지 조례안 2026-0",
+     "주소": "https://council.bsnamgu.go.kr/kr/activity/bbs?bbs_id=lawmaking&reform=view&uid=EB355D94CD0021F29A13DDFE42BAE964",
+     "길": [
+      "대표예고 부산광역시 남구의회 외유성 공무국외출장 방지 조례안 2026-0"
+     ]
+    }
+   ]
+  },
+  "2619000": {
+   "이름": "부산해운대구",
+   "첫화면": "https://council.haeundae.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 집행 현황",
+     "주소": "https://council.haeundae.go.kr/index.do?menuCd=DOM_000000703009001004",
+     "길": [
+      "정보공개",
+      "업무추진비 집행 현황"
+     ]
+    },
+    {
+     "글자": "업무추진비",
+     "주소": "https://www.haeundae.go.kr/index.do?menuCd=DOM_000000104004003000",
+     "길": [
+      "정보공개",
+      "의정비 심의위원회",
+      "업무추진비"
+     ]
+    },
+    {
+     "글자": "업무추진비",
+     "주소": "https://www.haeundae.go.kr/index.do?menuCd=DOM_000000101005002004",
+     "길": [
+      "정보공개",
+      "의정비 심의위원회",
+      "업무추진비"
+     ]
+    },
+    {
+     "글자": "업무추진비",
+     "주소": "https://www.haeundae.go.kr/index.do?menuCd=DOM_000000101005001003",
+     "길": [
+      "정보공개",
+      "의정비 심의위원회",
+      "업무추진비"
+     ]
+    },
+    {
+     "글자": "업무추진비",
+     "주소": "https://www.haeundae.go.kr/index.do?menuCd=DOM_000000101005006004",
+     "길": [
+      "정보공개",
+      "의정비 심의위원회",
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "2022. 공무국외출장 심사회의록",
+     "주소": "https://council.haeundae.go.kr/board/view.do?boardId=BBS_0000123&menuCd=DOM_000000706004000000&paging=ok&startPage=1&dataSid=3092566",
+     "길": [
+      "정보공개",
+      "의원 정책연구 현황",
+      "2022. 공무국외출장 심사회의록"
+     ]
+    }
+   ]
+  },
+  "2620000": {
+   "이름": "부산사하구",
+   "첫화면": "http://council.busan.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "2026년 3분기 업무추진비 사용내역(복지환경위원회)",
+     "주소": "https://council.busan.go.kr/council/infobbs0501/65477",
+     "길": [
+      "정보공개",
+      "2026년 3분기 업무추진비 사용내역(복지환경위원회)"
+     ]
+    },
+    {
+     "글자": "2026년 2분기 업무추진비 집행 내역(의장단)",
+     "주소": "https://council.busan.go.kr/council/infobbs0501/64870",
+     "길": [
+      "정보공개",
+      "2026년 2분기 업무추진비 집행 내역(의장단)"
+     ]
+    },
+    {
+     "글자": "2026년 2분기 업무추진비 집행내역(교육위원회)",
+     "주소": "https://council.busan.go.kr/council/infobbs0501/64786",
+     "길": [
+      "정보공개",
+      "2026년 2분기 업무추진비 집행내역(교육위원회)"
+     ]
+    },
+    {
+     "글자": "2026년 2분기 업무추진비 집행내역(해양도시안전위원회)",
+     "주소": "https://council.busan.go.kr/council/infobbs0501/64769",
+     "길": [
+      "정보공개",
+      "2026년 2분기 업무추진비 집행내역(해양도시안전위원회)"
+     ]
+    },
+    {
+     "글자": "2026년 2분기 업무추진비 집행내역(건설교통위원회)",
+     "주소": "https://council.busan.go.kr/council/infobbs0501/64768",
+     "길": [
+      "정보공개",
+      "2026년 2분기 업무추진비 집행내역(건설교통위원회)"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공무국외출장",
+     "주소": "https://council.busan.go.kr/council/businessTrip",
+     "길": [
+      "공무국외출장"
+     ]
+    }
+   ]
+  },
+  "2621000": {
+   "이름": "부산금정구",
+   "첫화면": "https://council.geumjeong.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비공개",
+     "주소": "https://council.geumjeong.go.kr/index.geumj?menuCd=DOM_000000718005000000",
+     "길": [
+      "업무추진비공개"
+     ]
+    },
+    {
+     "글자": "의회 업무추진비 집행내역",
+     "주소": "https://council.geumjeong.go.kr/index.geumj?menuCd=DOM_000000718005001000",
+     "길": [
+      "의회 업무추진비 집행내역"
+     ]
+    },
+    {
+     "글자": "의회사무국 업무추진비 집행내역",
+     "주소": "https://council.geumjeong.go.kr/index.geumj?menuCd=DOM_000000718005002000",
+     "길": [
+      "의회사무국 업무추진비 집행내역"
+     ]
+    },
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.geumjeong.go.kr/index.geumj?menuCd=DOM_000000724001004000",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "2622000": {
+   "이름": "부산강서구",
+   "첫화면": "http://council.busan.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "2026년 3분기 업무추진비 사용내역(복지환경위원회)",
+     "주소": "https://council.busan.go.kr/council/infobbs0501/65477",
+     "길": [
+      "정보공개",
+      "2026년 3분기 업무추진비 사용내역(복지환경위원회)"
+     ]
+    },
+    {
+     "글자": "2026년 2분기 업무추진비 집행 내역(의장단)",
+     "주소": "https://council.busan.go.kr/council/infobbs0501/64870",
+     "길": [
+      "정보공개",
+      "2026년 2분기 업무추진비 집행 내역(의장단)"
+     ]
+    },
+    {
+     "글자": "2026년 2분기 업무추진비 집행내역(교육위원회)",
+     "주소": "https://council.busan.go.kr/council/infobbs0501/64786",
+     "길": [
+      "정보공개",
+      "2026년 2분기 업무추진비 집행내역(교육위원회)"
+     ]
+    },
+    {
+     "글자": "2026년 2분기 업무추진비 집행내역(해양도시안전위원회)",
+     "주소": "https://council.busan.go.kr/council/infobbs0501/64769",
+     "길": [
+      "정보공개",
+      "2026년 2분기 업무추진비 집행내역(해양도시안전위원회)"
+     ]
+    },
+    {
+     "글자": "2026년 2분기 업무추진비 집행내역(건설교통위원회)",
+     "주소": "https://council.busan.go.kr/council/infobbs0501/64768",
+     "길": [
+      "정보공개",
+      "2026년 2분기 업무추진비 집행내역(건설교통위원회)"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공무국외출장",
+     "주소": "https://council.busan.go.kr/council/businessTrip",
+     "길": [
+      "공무국외출장"
+     ]
+    }
+   ]
+  },
+  "2623000": {
+   "이름": "부산연제구",
+   "첫화면": "https://yeonje.go.kr/",
+   "연화면": 12,
+   "업무추진비": [
+    {
+     "글자": "업무추진비",
+     "주소": "https://yeonje.go.kr/portal/contents.do?mId=0401090000",
+     "길": [
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "2624000": {
+   "이름": "부산수영구",
+   "첫화면": "https://council.busan.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "2026년 3분기 업무추진비 사용내역(복지환경위원회)",
+     "주소": "https://council.busan.go.kr/council/infobbs0501/65477",
+     "길": [
+      "정보공개",
+      "2026년 3분기 업무추진비 사용내역(복지환경위원회)"
+     ]
+    },
+    {
+     "글자": "2026년 2분기 업무추진비 집행 내역(의장단)",
+     "주소": "https://council.busan.go.kr/council/infobbs0501/64870",
+     "길": [
+      "정보공개",
+      "2026년 2분기 업무추진비 집행 내역(의장단)"
+     ]
+    },
+    {
+     "글자": "2026년 2분기 업무추진비 집행내역(교육위원회)",
+     "주소": "https://council.busan.go.kr/council/infobbs0501/64786",
+     "길": [
+      "정보공개",
+      "2026년 2분기 업무추진비 집행내역(교육위원회)"
+     ]
+    },
+    {
+     "글자": "2026년 2분기 업무추진비 집행내역(해양도시안전위원회)",
+     "주소": "https://council.busan.go.kr/council/infobbs0501/64769",
+     "길": [
+      "정보공개",
+      "2026년 2분기 업무추진비 집행내역(해양도시안전위원회)"
+     ]
+    },
+    {
+     "글자": "2026년 2분기 업무추진비 집행내역(건설교통위원회)",
+     "주소": "https://council.busan.go.kr/council/infobbs0501/64768",
+     "길": [
+      "정보공개",
+      "2026년 2분기 업무추진비 집행내역(건설교통위원회)"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공무국외출장",
+     "주소": "https://council.busan.go.kr/council/businessTrip",
+     "길": [
+      "공무국외출장"
+     ]
+    }
+   ]
+  },
+  "2625000": {
+   "이름": "부산사상구",
+   "첫화면": "https://likms.assembly.go.kr/",
+   "까닭": "첫 화면이 안 열린다"
+  },
+  "2671000": {
+   "이름": "부산기장군",
+   "첫화면": "https://council.gijang.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무 추진비 공개",
+     "주소": "https://council.gijang.go.kr/source/korean/dataroom/cost.html",
+     "길": [
+      "업무 추진비 공개"
+     ]
+    },
+    {
+     "글자": "업무추진비공개",
+     "주소": "http://council.gijang.go.kr/source/korean/dataroom/cost.html",
+     "길": [
+      "업무추진비공개"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "국제 교류 현황(공무국외출장 등)",
+     "주소": "https://council.gijang.go.kr/source/korean/dataroom/openinfoboard.html?Gubun=E",
+     "길": [
+      "정보공개",
+      "국제 교류 현황(공무국외출장 등)"
+     ]
+    }
+   ]
+  },
+  "2700000": {
+   "이름": "대구본청",
+   "첫화면": "https://www.junggucouncil.daegu.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비공개",
+     "주소": "https://www.junggucouncil.daegu.kr/council/content/data/businessExpenses.html",
+     "길": [
+      "업무추진비공개"
+     ]
+    },
+    {
+     "글자": "2026년 9월 의회운영업무추진비 등 공개",
+     "주소": "https://www.junggucouncil.daegu.kr/council/content/data/businessExpenses.html?G=VGEEEEEEIaEjGEEEEaGG",
+     "길": [
+      "업무추진비공개",
+      "2026년 9월 의회운영업무추진비 등 공개"
+     ]
+    },
+    {
+     "글자": "2026년 8월 의회운영업무추진비 등 공개",
+     "주소": "https://www.junggucouncil.daegu.kr/council/content/data/businessExpenses.html?G=VGEEEEEEbfjfGEEEEaGG",
+     "길": [
+      "업무추진비공개",
+      "2026년 8월 의회운영업무추진비 등 공개"
+     ]
+    },
+    {
+     "글자": "2026년 7월 의회운영업무추진비 등 공개",
+     "주소": "https://www.junggucouncil.daegu.kr/council/content/data/businessExpenses.html?G=VGEEEEEEbfCjGEEEEaGG",
+     "길": [
+      "업무추진비공개",
+      "2026년 7월 의회운영업무추진비 등 공개"
+     ]
+    },
+    {
+     "글자": "2026년 6월 의회운영업무추진비 등 공개",
+     "주소": "https://www.junggucouncil.daegu.kr/council/content/data/businessExpenses.html?G=VGEEEEEEbjIfGEEEEaGG",
+     "길": [
+      "업무추진비공개",
+      "2026년 6월 의회운영업무추진비 등 공개"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공무국외출장",
+     "주소": "https://www.junggucouncil.daegu.kr/council/content/data/publicService.html",
+     "길": [
+      "공무국외출장"
+     ]
+    }
+   ]
+  },
+  "2712000": {
+   "이름": "대구동구",
+   "첫화면": "https://www.donggucl.daegu.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비",
+     "주소": "https://www.donggucl.daegu.kr/content/data/business.html",
+     "길": [
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "2713000": {
+   "이름": "대구서구",
+   "첫화면": "https://www.dgscouncil.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비공개",
+     "주소": "https://www.dgscouncil.go.kr/kr/bbs?bbs_id=cost",
+     "길": [
+      "업무추진비공개"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공무국외출장",
+     "주소": "https://www.dgscouncil.go.kr/kr/bbs?bbs_id=report",
+     "길": [
+      "공무국외출장"
+     ]
+    }
+   ]
+  },
+  "2714000": {
+   "이름": "대구남구",
+   "첫화면": "https://council.nam.daegu.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.nam.daegu.kr/namgucl/asvr/cnts/bbs/boardList.html?params=Y09OOHpEY0YwK0JmL09tazJPaXJLWlN4Y1dEakFUTE1oQnlQVGtUdkxjVT0",
+     "길": [
+      "전체 메뉴",
+      "업무추진비 현황"
+     ]
+    },
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.nam.daegu.kr/namgucl/asvr/cnts/bbs/boardList.html?params=Y09OOHpEY0YwK0JmL09tazJPaXJLZFhodXN4VEh2MEpDMGVSWGlyN0xEYkFaZ2ZGWGQyYldCaWUyK1lNUmtlTQ",
+     "길": [
+      "정보공개현황",
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "2715000": {
+   "이름": "대구북구",
+   "첫화면": "http://www.bukgucouncil.daegu.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "http://www.bukgucouncil.daegu.kr/kr/costBBS.do",
+     "길": [
+      "업무추진비 현황"
+     ]
+    },
+    {
+     "글자": "업무추진비",
+     "주소": "https://www.bukgucouncil.daegu.kr/kr/costBBS.do",
+     "길": [
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공무국외출장",
+     "주소": "https://www.bukgucouncil.daegu.kr/kr/foreignBBS.do",
+     "길": [
+      "공무국외출장"
+     ]
+    },
+    {
+     "글자": "대구광역시 북구의회 의원 공무국외출장 규칙 일부개정규칙 공포 대구광역시 ",
+     "주소": "https://www.bukgucouncil.daegu.kr/kr/noticeBBSview.do?uid=8708AD5290982A4076B22D908D6EA608",
+     "길": [
+      "대구광역시 북구의회 의원 공무국외출장 규칙 일부개정규칙 공포 대구광역시 "
+     ]
+    }
+   ]
+  },
+  "2716000": {
+   "이름": "대구수성구",
+   "첫화면": "https://suseongcouncil.suseong.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://suseongcouncil.suseong.kr/ss_council/operatingExpense?me_code=b01040",
+     "길": [
+      "업무추진비 현황"
+     ]
+    },
+    {
+     "글자": "업무추진비",
+     "주소": "https://suseongcouncil.suseong.kr/ss_council/operatingExpense?me_code=6080",
+     "길": [
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공무국외출장",
+     "주소": "https://suseongcouncil.suseong.kr/ss_council/trainingReport?me_code=6070",
+     "길": [
+      "공무국외출장"
+     ]
+    }
+   ]
+  },
+  "2717000": {
+   "이름": "대구달서구",
+   "첫화면": "https://www.dalseocouncil.daegu.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비",
+     "주소": "https://www.dalseocouncil.daegu.kr/content/dataroom/operatingExpense.html",
+     "길": [
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공무국외출장",
+     "주소": "https://www.dalseocouncil.daegu.kr/content/dataroom/trainingReport.html",
+     "길": [
+      "공무국외출장"
+     ]
+    },
+    {
+     "글자": "대구광역시달서구 의회 의원 공무국외출장 규칙 전부개정규칙 공포",
+     "주소": "https://www.dalseocouncil.daegu.kr/content/activity/notice.html?gtid=notice&pg=vv&sid=1000&page=1&fidx=32281&opt=&sword=&f_code=&f_opt_1=&f_opt_2=&f_opt_3=",
+     "길": [
+      "의정활동",
+      "대구광역시달서구 의회 의원 공무국외출장 규칙 전부개정규칙 공포"
+     ]
+    }
+   ]
+  },
+  "2771000": {
+   "이름": "대구달성군",
+   "첫화면": "https://council.dalseong.go.kr/",
+   "연화면": 20,
+   "업무추진비": [
+    {
+     "글자": "업무추진비",
+     "주소": "https://council.dalseong.go.kr/content/data/operatingExpense.html",
+     "길": [
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "국외연수계획/보고서",
+     "주소": "https://council.dalseong.go.kr/content/data/opendata.html",
+     "길": [
+      "국외연수계획/보고서"
+     ]
+    }
+   ]
+  },
+  "2772000": {
+   "이름": "대구군위군",
+   "첫화면": "https://gwcouncil.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://gwcouncil.kr/content/info/expenseDisclosure.html",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "2800000": {
+   "이름": "인천본청",
+   "첫화면": "https://www.icouncil.go.kr/",
+   "연화면": 20,
+   "업무추진비": [
+    {
+     "글자": "업무추진비현황",
+     "주소": "https://www.icouncil.go.kr/main/participate/expense.jsp",
+     "길": [
+      "업무추진비현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공무국외출장보고서",
+     "주소": "https://www.icouncil.go.kr/main/activity/report.jsp",
+     "길": [
+      "공무국외출장보고서"
+     ]
+    },
+    {
+     "글자": "의원 공무국외출장",
+     "주소": "https://www.icouncil.go.kr/main/activity/trip_9th.jsp",
+     "길": [
+      "의원 공무국외출장"
+     ]
+    }
+   ]
+  },
+  "2812000": {
+   "이름": "인천동구",
+   "첫화면": "https://council.jemulpo.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "의원업무추진비 사용내역",
+     "주소": "https://council.jemulpo.go.kr/kr/costBBS.do",
+     "길": [
+      "의원업무추진비 사용내역"
+     ]
+    },
+    {
+     "글자": "업무추진비현황",
+     "주소": "https://council.icdonggu.go.kr/council/kr/costBBS.do",
+     "길": [
+      "업무추진비현황"
+     ]
+    },
+    {
+     "글자": "의원업무추진비 사용내역",
+     "주소": "https://council.jemulpo.go.kr/council/kr/costBBS.do",
+     "길": [
+      "사이트맵",
+      "의원업무추진비 사용내역"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "국외활동상황공개",
+     "주소": "https://council.jemulpo.go.kr/kr/foreignBBS.do",
+     "길": [
+      "국외활동상황공개"
+     ]
+    },
+    {
+     "글자": "국외활동상황공개",
+     "주소": "https://council.jemulpo.go.kr/council/kr/foreignBBS.do",
+     "길": [
+      "사이트맵",
+      "국외활동상황공개"
+     ]
+    }
+   ]
+  },
+  "2814000": {
+   "이름": "인천연수구",
+   "첫화면": "http://council.yeonsu.go.kr/",
+   "연화면": 18,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.yeonsu.go.kr/kr/businessBBS.do",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "2815000": {
+   "이름": "인천남동구",
+   "첫화면": "http://council.namdong.go.kr/",
+   "연화면": 20,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.namdong.go.kr/kr/data/bbsBreakdown.do",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "2816000": {
+   "이름": "인천부평구",
+   "첫화면": "https://council.icbp.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.icbp.go.kr/kr/news/bbs?bbs_id=expense",
+     "길": [
+      "업무추진비 현황"
+     ]
+    },
+    {
+     "글자": "업무추진비",
+     "주소": "https://council.icbp.go.kr/kr/data/bbs?bbs_id=expense",
+     "길": [
+      "사이트맵",
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "2817000": {
+   "이름": "인천계양구",
+   "첫화면": "https://council.gyeyang.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 집행 현황",
+     "주소": "https://council.gyeyang.go.kr/kr/costBBS.do",
+     "길": [
+      "업무추진비 집행 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "3. 국제교류 현황(공무국외출장 등)",
+     "주소": "https://council.gyeyang.go.kr/kr/foreignBBS.do",
+     "길": [
+      "정보공개",
+      "3. 국제교류 현황(공무국외출장 등)"
+     ]
+    }
+   ]
+  },
+  "2818000": {
+   "이름": "인천서구",
+   "첫화면": "https://www.seohae.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비",
+     "주소": "https://www.seohae.go.kr/open_content/main/open_info/clean/cost.jsp",
+     "길": [
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "2871000": {
+   "이름": "인천강화군",
+   "첫화면": "https://council.ganghwa.go.kr/",
+   "연화면": 19,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "http://council.ganghwa.go.kr/kr/workBBS.do",
+     "길": [
+      "업무추진비 현황"
+     ]
+    },
+    {
+     "글자": "업무추진비",
+     "주소": "https://council.ganghwa.go.kr/kr/workBBS.do",
+     "길": [
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "2872000": {
+   "이름": "인천옹진군",
+   "첫화면": "http://council.ongjin.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.ongjin.go.kr/kr/costBBS.do",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "옹진군의회 의원 공무국외출장 심사위원회 위원 모집 공고 2026.08.1",
+     "주소": "https://council.ongjin.go.kr/kr/notifyBBSview.do?uid=FD617616980BA207F65D7924B90137C1",
+     "길": [
+      "옹진군의회 의원 공무국외출장 심사위원회 위원 모집 공고 2026.08.1"
+     ]
+    }
+   ]
+  },
+  "2900000": {
+   "이름": "광주본청",
+   "첫화면": "https://council.jeonnam-gwangju.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.jeonnam-gwangju.go.kr/jngjassem/board/20",
+     "길": [
+      "의정활동 정보공개",
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "국제교류 현황(공무국외출장,의정연수)",
+     "주소": "https://council.jeonnam-gwangju.go.kr/jngjassem/board/21",
+     "길": [
+      "의정활동 정보공개",
+      "국제교류 현황(공무국외출장,의정연수)"
+     ]
+    }
+   ]
+  },
+  "2911000": {
+   "이름": "광주동구",
+   "첫화면": "http://gjdc.donggu.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://gjdc.donggu.kr/menu.es?mid=a10801040000",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "2912000": {
+   "이름": "광주서구",
+   "첫화면": "https://gyeyak.seogu.gwangju.kr/",
+   "연화면": 2,
+   "업무추진비": [],
+   "국외출장": []
+  },
+  "2913000": {
+   "이름": "광주남구",
+   "첫화면": "http://www.gjnc.or.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "302025.04 광주광역시 남구의회 업무추진비 집행내역 공개(2025년",
+     "주소": "http://www.gjnc.or.kr/main/board/45/read/4157",
+     "길": [
+      "302025.04 광주광역시 남구의회 업무추진비 집행내역 공개(2025년"
+     ]
+    },
+    {
+     "글자": "광주광역시남구의회 업무추진비 집행내역 공개(2024년 4분기)",
+     "주소": "http://www.gjnc.or.kr/main/board/45/read/3991",
+     "길": [
+      "광주광역시남구의회 업무추진비 집행내역 공개(2024년 4분기)"
+     ]
+    },
+    {
+     "글자": "광주광역시남구의회 업무추진비 집행내역 공개(2024년 3분기)",
+     "주소": "http://www.gjnc.or.kr/main/board/45/read/3903",
+     "길": [
+      "광주광역시남구의회 업무추진비 집행내역 공개(2024년 3분기)"
+     ]
+    },
+    {
+     "글자": "업무추진비 현황",
+     "주소": "http://www.gjnc.or.kr/main/board/175",
+     "길": [
+      "의정활동 정보공개",
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "2914000": {
+   "이름": "광주북구",
+   "첫화면": "https://council.bukgu.gwangju.kr/",
+   "연화면": 15,
+   "업무추진비": [],
+   "국외출장": [
+    {
+     "글자": "2026.0907 입법예고 전남광주통합특별시 북구의회 의원 공무국외출장 ",
+     "주소": "https://council.bukgu.gwangju.kr/index.do?PID=074&bbsSn=29742",
+     "길": [
+      "대표홈페이지 GO",
+      "2026.0907 입법예고 전남광주통합특별시 북구의회 의원 공무국외출장 "
+     ]
+    }
+   ]
+  },
+  "2915000": {
+   "이름": "광주광산구",
+   "첫화면": "http://gjgc.or.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://gjgc.or.kr/main/board/45",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "3000000": {
+   "이름": "대전본청",
+   "첫화면": "https://council.daejeon.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 공개",
+     "주소": "https://council.daejeon.go.kr/svc/inf/OperatingExpenseList.do",
+     "길": [
+      "업무추진비 공개"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "2026년 대전광역시의회 공무국외출장계획및결과보고 심사위원회 회의록(일본",
+     "주소": "https://council.daejeon.go.kr/svc/inf/TrainingReportView.do?bbsSn=62012&pageNo=1&schKey=&schWrd=",
+     "길": [
+      "정보공개",
+      "2026년 대전광역시의회 공무국외출장계획및결과보고 심사위원회 회의록(일본"
+     ]
+    },
+    {
+     "글자": "2026년 대전광역시의회 일본(삿포로시) 공무국외출장 계획 및 결과보고(",
+     "주소": "https://council.daejeon.go.kr/svc/inf/TrainingReportView.do?bbsSn=60422&pageNo=1&schKey=&schWrd=",
+     "길": [
+      "정보공개",
+      "2026년 대전광역시의회 일본(삿포로시) 공무국외출장 계획 및 결과보고("
+     ]
+    },
+    {
+     "글자": "2025년 대전광역시의회 일본 공무국외출장 결과보고서",
+     "주소": "https://council.daejeon.go.kr/svc/inf/TrainingReportView.do?bbsSn=59419&pageNo=1&schKey=&schWrd=",
+     "길": [
+      "정보공개",
+      "2025년 대전광역시의회 일본 공무국외출장 결과보고서"
+     ]
+    },
+    {
+     "글자": "2025년 대전광역시의회 베트남 공무국외출장 결과보고서",
+     "주소": "https://council.daejeon.go.kr/svc/inf/TrainingReportView.do?bbsSn=59418&pageNo=1&schKey=&schWrd=",
+     "길": [
+      "정보공개",
+      "2025년 대전광역시의회 베트남 공무국외출장 결과보고서"
+     ]
+    },
+    {
+     "글자": "2025년 대전광역시의회 시애틀·밴쿠버 공무국외출장 결과보고서",
+     "주소": "https://council.daejeon.go.kr/svc/inf/TrainingReportView.do?bbsSn=59417&pageNo=1&schKey=&schWrd=",
+     "길": [
+      "정보공개",
+      "2025년 대전광역시의회 시애틀·밴쿠버 공무국외출장 결과보고서"
+     ]
+    }
+   ]
+  },
+  "3011000": {
+   "이름": "대전동구",
+   "첫화면": "https://council.donggu.go.kr/",
+   "연화면": 20,
+   "업무추진비": [
+    {
+     "글자": "업무추진비집행내역",
+     "주소": "https://council.donggu.go.kr/kr/activity/bbs?bbs_id=cost",
+     "길": [
+      "업무추진비집행내역"
+     ]
+    },
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.donggu.go.kr/kr/open/bbs?bbs_id=cost",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "의정정보공개(국외연수 등)",
+     "주소": "https://council.donggu.go.kr/kr/data/bbs?bbs_id=info",
+     "길": [
+      "사이트맵",
+      "의정정보공개(국외연수 등)"
+     ]
+    },
+    {
+     "글자": "2025년 대전광역시 동구의회 의원 공무국외연수 결과보고서",
+     "주소": "https://council.donggu.go.kr/kr/data/bbs?bbs_id=info&reform=view&uid=C95BCFA42D388C8A6F0829183B4F72E9&list_style=&page=1&flag=&keyword=&search_code=council&filter=latest",
+     "길": [
+      "의정정보공개",
+      "2025년 대전광역시 동구의회 의원 공무국외연수 결과보고서"
+     ]
+    },
+    {
+     "글자": "2024년 공무국외연수 결과보고서",
+     "주소": "https://council.donggu.go.kr/kr/data/bbs?bbs_id=info&reform=view&uid=8ACDD324B8D7C489913CA58EBFB13CED&list_style=&page=1&flag=&keyword=&search_code=council&filter=latest",
+     "길": [
+      "의정정보공개",
+      "2024년 공무국외연수 결과보고서"
+     ]
+    },
+    {
+     "글자": "★최종본_공무국외출장_결과보고(2025).pdf",
+     "주소": "https://council.donggu.go.kr/kr/data/bbs_process?reform=download&bbs_id=info&uid=9301",
+     "길": [
+      "의정정보공개",
+      "2025년 대전광역시 동구의회 의원 공무국외연수 결과보고서",
+      "★최종본_공무국외출장_결과보고(2025).pdf"
+     ]
+    },
+    {
+     "글자": "2025년 공무국외출장 심사위원회 회의록",
+     "주소": "https://council.donggu.go.kr/kr/data/bbs?bbs_id=info&reform=view&uid=C4D81FB959C60A6E6EDFD454A43DB31F&list_style=&page=1&flag=&keyword=&search_code=council&filter=latest",
+     "길": [
+      "의정정보공개",
+      "2025년 공무국외출장 심사위원회 회의록"
+     ]
+    }
+   ]
+  },
+  "3012000": {
+   "이름": "대전중구",
+   "첫화면": "https://council.djjunggu.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 집행 현황",
+     "주소": "https://council.djjunggu.go.kr/kr/costBBS.do",
+     "길": [
+      "업무추진비 집행 현황"
+     ]
+    },
+    {
+     "글자": "2026.8월 중구의회 업무추진비 사용내역 공개",
+     "주소": "https://council.djjunggu.go.kr/kr/costBBSview.do?uid=AD6DBEEBE85D45868DC8D1C3B5B202DE&schwrd=&flag=all&page=1&list_style=",
+     "길": [
+      "정보공개",
+      "2026.8월 중구의회 업무추진비 사용내역 공개"
+     ]
+    },
+    {
+     "글자": "2026.7월 중구의회 업무추진비 사용내역 공개",
+     "주소": "https://council.djjunggu.go.kr/kr/costBBSview.do?uid=B0E88B864F959654AD8ED42914E8BE33&schwrd=&flag=all&page=1&list_style=",
+     "길": [
+      "정보공개",
+      "2026.7월 중구의회 업무추진비 사용내역 공개"
+     ]
+    },
+    {
+     "글자": "2026.6월 중구의회 업무추진비 사용내역 공개",
+     "주소": "https://council.djjunggu.go.kr/kr/costBBSview.do?uid=5A5A091BB30E731510DBDFD90D4E1132&schwrd=&flag=all&page=1&list_style=",
+     "길": [
+      "정보공개",
+      "2026.6월 중구의회 업무추진비 사용내역 공개"
+     ]
+    },
+    {
+     "글자": "2026.5월 중구의회 업무추진비 사용내역 공개",
+     "주소": "https://council.djjunggu.go.kr/kr/costBBSview.do?uid=8011393C86198F365234A321A74547B4&schwrd=&flag=all&page=1&list_style=",
+     "길": [
+      "정보공개",
+      "2026.5월 중구의회 업무추진비 사용내역 공개"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "3013000": {
+   "이름": "대전서구",
+   "첫화면": "https://www.seogucouncil.daejeon.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "2026년 9월 행정자치위원장 업무추진비 집행내역",
+     "주소": "https://www.seogucouncil.daejeon.kr/svc/info/CouncilManagerList.do#;",
+     "길": [
+      "의정활동 정보공개",
+      "2026년 9월 행정자치위원장 업무추진비 집행내역"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "3014000": {
+   "이름": "대전유성구",
+   "첫화면": "http://www.yuseonggucouncil.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "└ 업무추진비 현황",
+     "주소": "https://www.yuseonggucouncil.go.kr/bbs/board.php?bo_table=0603",
+     "길": [
+      "└ 업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "└ 공무국외출장 현황",
+     "주소": "https://www.yuseonggucouncil.go.kr/bbs/board.php?bo_table=08_01_03",
+     "길": [
+      "└ 공무국외출장 현황"
+     ]
+    }
+   ]
+  },
+  "3100000": {
+   "이름": "울산본청",
+   "첫화면": "https://www.council.ulsan.kr/",
+   "연화면": 10,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 집행 현황",
+     "주소": "https://www.council.ulsan.kr/cop/bbs/selectBoardList.do?bbsId=bizExpStatus",
+     "길": [
+      "업무추진비 집행 현황"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "3111000": {
+   "이름": "울산중구",
+   "첫화면": "https://council.junggu.ulsan.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.junggu.ulsan.kr/content/public/expenses.html",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "3112000": {
+   "이름": "울산남구",
+   "첫화면": "https://www.namgucouncil.ulsan.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://www.namgucouncil.ulsan.kr/content/activity/businessOperatingExpense.html",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "3113000": {
+   "이름": "울산동구",
+   "첫화면": "https://www.donggu-council.ulsan.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "http://www.donggu-council.ulsan.kr/kr/cost1BBS.do",
+     "길": [
+      "업무추진비 현황"
+     ]
+    },
+    {
+     "글자": "업무추진비",
+     "주소": "https://www.donggu-council.ulsan.kr/kr/cost1BBS.do",
+     "길": [
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "국외활동상황열람/확인",
+     "주소": "https://www.donggu-council.ulsan.kr/kr/publicBBS.do",
+     "길": [
+      "국외활동상황열람/확인"
+     ]
+    }
+   ]
+  },
+  "3114000": {
+   "이름": "울산북구",
+   "첫화면": "http://council.bukgu.ulsan.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.bukgu.ulsan.kr/content/info/expenseDisclosure.html",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "제2026-22호 울산광역시 북구의회 의원 공무국외출장 조례 일부개정조례",
+     "주소": "https://council.bukgu.ulsan.kr/content/activities/legislativeNotice.html?gtid=ipbub&page=1&pg=vv&f_key=eeeeegIaHI",
+     "길": [
+      "제2026-22호 울산광역시 북구의회 의원 공무국외출장 조례 일부개정조례"
+     ]
+    }
+   ]
+  },
+  "3171000": {
+   "이름": "울산울주군",
+   "첫화면": "https://assembly.ulju.ulsan.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 집행 현황",
+     "주소": "https://assembly.ulju.ulsan.kr/kr/bbs?bbs_id=business",
+     "길": [
+      "업무추진비 집행 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공무국외연수",
+     "주소": "https://assembly.ulju.ulsan.kr/kr/bbs?bbs_id=global",
+     "길": [
+      "공무국외연수"
+     ]
+    },
+    {
+     "글자": "울산광역시 울주군의회 의원 공무국외출장 조례 일부개정조례안",
+     "주소": "https://assembly.ulju.ulsan.kr/kr/standing/steering?reform=view&page=&flag=&keyword=&search_code=&cmt_sch=C101&uid=468E7E6220AD801CC432F40CA996798C",
+     "길": [
+      "의정활동",
+      "울산광역시 울주군의회 의원 공무국외출장 조례 일부개정조례안"
+     ]
+    }
+   ]
+  },
+  "3200000": {
+   "이름": "세종본청",
+   "첫화면": "https://council.sejong.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 집행 현황",
+     "주소": "https://council.sejong.go.kr/mnu/cap/businessExpenseList.do",
+     "길": [
+      "의정활동 정보공개",
+      "업무추진비 집행 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "국제 교류 현황(공무국외출장 등)",
+     "주소": "https://council.sejong.go.kr/mnu/cap/trainingReportList.do",
+     "길": [
+      "의정활동 정보공개",
+      "국제 교류 현황(공무국외출장 등)"
+     ]
+    }
+   ]
+  },
+  "4100000": {
+   "이름": "경기본청",
+   "첫화면": "https://www.ggc.go.kr/",
+   "연화면": 20,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 공개",
+     "주소": "https://www.ggc.go.kr/site/main/duty/list",
+     "길": [
+      "업무추진비 공개"
+     ]
+    },
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://www.ggc.go.kr/site/main/disclosureinfo/ParliaOper/duty/list",
+     "길": [
+      "의정활동 정보공개",
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4111000": {
+   "이름": "경기수원시",
+   "첫화면": "https://council.suwon.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.suwon.go.kr/kr/costBBS.do",
+     "길": [
+      "업무추진비 현황"
+     ]
+    },
+    {
+     "글자": "2026년 9월 업무추진비 사용내역",
+     "주소": "https://council.suwon.go.kr/kr/costBBSview.do?uid=FA059FADD0A2245797C391EBB5D1D12E&schwrd=&flag=all&page=1&list_style=",
+     "길": [
+      "정보공개",
+      "2026년 9월 업무추진비 사용내역"
+     ]
+    },
+    {
+     "글자": "'2026. 9월 업무추진비 집행내역(의장단).xlsx' 파일 내려받기",
+     "주소": "https://council.suwon.go.kr/kr/bbs/download.do?bbs_id=cost&uid=7C6F6BAA1F5AA3CB7542C54C64448F28",
+     "길": [
+      "정보공개",
+      "'2026. 9월 업무추진비 집행내역(의장단).xlsx' 파일 내려받기"
+     ]
+    },
+    {
+     "글자": "2026년 8월 업무추진비 사용내역",
+     "주소": "https://council.suwon.go.kr/kr/costBBSview.do?uid=1332B50719DE450C68C69B8DD73EBC01&schwrd=&flag=all&page=1&list_style=",
+     "길": [
+      "정보공개",
+      "2026년 8월 업무추진비 사용내역"
+     ]
+    },
+    {
+     "글자": "'2026. 8월 업무추진비 집행내역(의장단).xlsx' 파일 내려받기",
+     "주소": "https://council.suwon.go.kr/kr/bbs/download.do?bbs_id=cost&uid=43DF426E65ABDD90F691B9DBC5F8D003",
+     "길": [
+      "정보공개",
+      "'2026. 8월 업무추진비 집행내역(의장단).xlsx' 파일 내려받기"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4112000": {
+   "이름": "경기성남시",
+   "첫화면": "https://www.sncouncil.go.kr/",
+   "까닭": "첫 화면이 안 열린다"
+  },
+  "4113000": {
+   "이름": "경기의정부시",
+   "첫화면": "http://www.ujbcl.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://www.ujbcl.go.kr/svc/bbs/BusinessList.do?bbsMnuCd=MNU002300000650400000666",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4114000": {
+   "이름": "경기안양시",
+   "첫화면": "http://aycouncil.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 집행 현황",
+     "주소": "https://aycouncil.go.kr/kr/costBBS.do",
+     "길": [
+      "업무추진비 집행 현황"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4115000": {
+   "이름": "경기부천시",
+   "첫화면": "https://council.bucheon.go.kr/",
+   "연화면": 16,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.bucheon.go.kr/kr/intro/bbsInfo.do",
+     "길": [
+      "정보공개",
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "부천시의회 의원 공무국외출장에 관한 조례 일부개정조례안",
+     "주소": "https://council.bucheon.go.kr/assembly/bill/late.do?reform=view&key=ef7e98986f4721dc378db868fa7819a39d7a9b5aae2f72545b5ac0595ab0d7b58f42f8a00ef10484&pageNum=1&flag=&keyword=",
+     "길": [
+      "의안",
+      "부천시의회 의원 공무국외출장에 관한 조례 일부개정조례안"
+     ]
+    }
+   ]
+  },
+  "4116000": {
+   "이름": "경기광명시",
+   "첫화면": "http://council.gm.go.kr/",
+   "연화면": 15,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.gm.go.kr/kr/costBBS.do",
+     "길": [
+      "Notice 의정소식바로가기 화살표",
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "2025년 광명시의회 공무국외출장 귀국보고서",
+     "주소": "https://council.gm.go.kr/kr/foreignBBSview.do?uid=980B9D46226DE7904F95E2FE67A15C41&schwrd=&flag=all&page=1&list_style=",
+     "길": [
+      "Home 광명시의회 누리집바로가기 화살표",
+      "정보공개",
+      "2025년 광명시의회 공무국외출장 귀국보고서"
+     ]
+    },
+    {
+     "글자": "2025년 공무국외출장 보고서(홍콩).pdf",
+     "주소": "https://council.gm.go.kr/kr/bbs/download.do?bbs_id=foreign&uid=CDD6F2D0085D30238D946668C5E5F6F6",
+     "길": [
+      "Home 광명시의회 누리집바로가기 화살표",
+      "정보공개",
+      "2025년 공무국외출장 보고서(홍콩).pdf"
+     ]
+    },
+    {
+     "글자": "2025년 국외출장 결과보고서(도쿄).pdf",
+     "주소": "https://council.gm.go.kr/kr/bbs/download.do?bbs_id=foreign&uid=B2A645338E74129220B1AD6EE05C855E",
+     "길": [
+      "Home 광명시의회 누리집바로가기 화살표",
+      "정보공개",
+      "2025년 국외출장 결과보고서(도쿄).pdf"
+     ]
+    },
+    {
+     "글자": "2025년 제4차 광명시의회 의원 공무국외출장심사위원회 회의 개최 결과",
+     "주소": "https://council.gm.go.kr/kr/foreignBBSview.do?uid=E75744A1944C078E50383DBAA1436FA6&schwrd=&flag=all&page=1&list_style=",
+     "길": [
+      "Home 광명시의회 누리집바로가기 화살표",
+      "정보공개",
+      "2025년 제4차 광명시의회 의원 공무국외출장심사위원회 회의 개최 결과"
+     ]
+    },
+    {
+     "글자": "의결서(4차 공무국외출장보고서).pdf",
+     "주소": "https://council.gm.go.kr/kr/bbs/download.do?bbs_id=foreign&uid=9CCD445CABB6378E708C1938A46FECD5",
+     "길": [
+      "Home 광명시의회 누리집바로가기 화살표",
+      "정보공개",
+      "의결서(4차 공무국외출장보고서).pdf"
+     ]
+    }
+   ]
+  },
+  "4117000": {
+   "이름": "경기평택시",
+   "첫화면": "http://www.ptcouncil.go.kr/",
+   "연화면": 15,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 공개",
+     "주소": "https://www.ptcouncil.go.kr/coun/cost/reportList.do",
+     "길": [
+      "업무추진비 공개"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4118000": {
+   "이름": "경기동두천시",
+   "첫화면": "https://council.ddc.go.kr:6443/",
+   "까닭": "첫 화면이 안 열린다"
+  },
+  "4119000": {
+   "이름": "경기안산시",
+   "첫화면": "https://vod.ansan.go.kr/",
+   "연화면": 7,
+   "업무추진비": [],
+   "국외출장": []
+  },
+  "4120000": {
+   "이름": "경기고양시",
+   "첫화면": "http://www.goyangcouncil.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비",
+     "주소": "https://www.goyangcouncil.go.kr/kr/costBBS.do",
+     "길": [
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4121000": {
+   "이름": "경기과천시",
+   "첫화면": "https://www.gccouncil.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://www.gccouncil.go.kr/kr/costBBS.do",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "의원공무국외출장결과보고서(도쿄,요코하마) 2024. 11. 18. ~ 1",
+     "주소": "https://www.gccouncil.go.kr/kr/activityBBSview.do?uid=37F968B21CFA59BAA719F83273956FBA",
+     "길": [
+      "의원공무국외출장결과보고서(도쿄,요코하마) 2024. 11. 18. ~ 1"
+     ]
+    },
+    {
+     "글자": "의원 공무국외출장계획서(도쿄) 및 의원 공무국외출장 심사위원회 회의록 2",
+     "주소": "https://www.gccouncil.go.kr/kr/activityBBSview.do?uid=56224488B9EFF1861A16C64D1475828F",
+     "길": [
+      "의원 공무국외출장계획서(도쿄) 및 의원 공무국외출장 심사위원회 회의록 2"
+     ]
+    },
+    {
+     "글자": "의원 공무국외출장계획서(네덜란드,파리) 2024-10-07",
+     "주소": "https://www.gccouncil.go.kr/kr/activityBBSview.do?uid=001E8030074D59935D505331E83FE939",
+     "길": [
+      "의원 공무국외출장계획서(네덜란드,파리) 2024-10-07"
+     ]
+    },
+    {
+     "글자": "의원 공무국외출장 계획서(프랑스, 스웨덴, 네덜란드) 및 의원 공무국외출",
+     "주소": "https://www.gccouncil.go.kr/kr/activityBBSview.do?uid=3CCBE9442AB780C2EAD4A0C0713F0083",
+     "길": [
+      "의원 공무국외출장 계획서(프랑스, 스웨덴, 네덜란드) 및 의원 공무국외출"
+     ]
+    }
+   ]
+  },
+  "4122000": {
+   "이름": "경기구리시",
+   "첫화면": "http://www.gcc.or.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비",
+     "주소": "https://www.gcc.or.kr/board/news/list.do?tbname=cost",
+     "길": [
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "「구리시의회 의원 공무국외출장 규칙 일부개정규칙안」 입법예고 구리시의회 ",
+     "주소": "https://www.gcc.or.kr/board/news/view.do?tbname=prelaw&seq=902",
+     "길": [
+      "「구리시의회 의원 공무국외출장 규칙 일부개정규칙안」 입법예고 구리시의회 "
+     ]
+    },
+    {
+     "글자": "구리시의회 의원 공무국외출장 규칙 일부개정규칙안 발의일2026.04.30",
+     "주소": "https://www.gcc.or.kr/meeting/bill/billview.do?code=0090835",
+     "길": [
+      "구리시의회 의원 공무국외출장 규칙 일부개정규칙안 발의일2026.04.30"
+     ]
+    },
+    {
+     "글자": "구리시의회 의원 공무국외출장 규칙 일부개정규칙안",
+     "주소": "https://www.gcc.or.kr/meeting/bill/billview.do?code=0090835&kindz=&member=&keyword=&ntime=0&pageIndex=1",
+     "길": [
+      "의정활동",
+      "구리시의회 의원 공무국외출장 규칙 일부개정규칙안"
+     ]
+    },
+    {
+     "글자": "2026년 구리시의회 공무국외출장 계획서 및 회의록",
+     "주소": "https://www.gcc.or.kr/board/news/list.do?tbname=inter#none",
+     "길": [
+      "국내외활동상황 공개",
+      "2026년 구리시의회 공무국외출장 계획서 및 회의록"
+     ]
+    }
+   ]
+  },
+  "4124000": {
+   "이름": "경기오산시",
+   "첫화면": "https://www.osancouncil.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비공개",
+     "주소": "https://www.osancouncil.go.kr/kr/news/bbs?bbs_id=work",
+     "길": [
+      "업무추진비공개"
+     ]
+    },
+    {
+     "글자": "2026년 8월 업무추진비 공개",
+     "주소": "https://www.osancouncil.go.kr/kr/news/bbs?bbs_id=work&reform=view&uid=0496F81CCD58FB823682037D94B350B6&list_style=&page=1&flag=&keyword=&search_code=council&filter=latest",
+     "길": [
+      "업무추진비공개",
+      "2026년 8월 업무추진비 공개"
+     ]
+    },
+    {
+     "글자": "2026년 7월 업무추진비 공개",
+     "주소": "https://www.osancouncil.go.kr/kr/news/bbs?bbs_id=work&reform=view&uid=9E5590BDEABFF2F7DB84E15E283899D0&list_style=&page=1&flag=&keyword=&search_code=council&filter=latest",
+     "길": [
+      "업무추진비공개",
+      "2026년 7월 업무추진비 공개"
+     ]
+    },
+    {
+     "글자": "2026년 6월 업무추진비 공개",
+     "주소": "https://www.osancouncil.go.kr/kr/news/bbs?bbs_id=work&reform=view&uid=8CD269B5B6B7BB7A672CAC98D54683E2&list_style=&page=1&flag=&keyword=&search_code=council&filter=latest",
+     "길": [
+      "업무추진비공개",
+      "2026년 6월 업무추진비 공개"
+     ]
+    },
+    {
+     "글자": "2026년 5월 업무추진비 공개",
+     "주소": "https://www.osancouncil.go.kr/kr/news/bbs?bbs_id=work&reform=view&uid=2172B32EF73A48CDA4FC0AB24C2E6E64&list_style=&page=1&flag=&keyword=&search_code=council&filter=latest",
+     "길": [
+      "업무추진비공개",
+      "2026년 5월 업무추진비 공개"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "국외연수보고",
+     "주소": "https://www.osancouncil.go.kr/kr/data/bbs?bbs_id=foreign",
+     "길": [
+      "국외연수보고"
+     ]
+    }
+   ]
+  },
+  "4125000": {
+   "이름": "경기시흥시",
+   "첫화면": "https://www.siheungcouncil.go.kr/",
+   "연화면": 20,
+   "업무추진비": [
+    {
+     "글자": "업무추진비",
+     "주소": "https://www.siheungcouncil.go.kr/content/activity/business.html",
+     "길": [
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공무국외",
+     "주소": "https://www.siheungcouncil.go.kr/content/public/business.html",
+     "길": [
+      "공무국외"
+     ]
+    }
+   ]
+  },
+  "4126000": {
+   "이름": "경기군포시",
+   "첫화면": "https://www.gunpocouncil.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "2026년 8월 업무추진비 공개",
+     "주소": "https://www.gunpocouncil.go.kr/kr/costBBSview.do?uid=414146443ABE04A0211258F9C8ABD628&NOT_ANCMT_MGT_NO=&schwrd=&flag=all&page=1&list_style=",
+     "길": [
+      "정보공개",
+      "2026년 8월 업무추진비 공개"
+     ]
+    },
+    {
+     "글자": "2026년 7월 업무추진비 공개",
+     "주소": "https://www.gunpocouncil.go.kr/kr/costBBSview.do?uid=CDB01A88C9CFF198C8D27480C33EB7AD&NOT_ANCMT_MGT_NO=&schwrd=&flag=all&page=1&list_style=",
+     "길": [
+      "정보공개",
+      "2026년 7월 업무추진비 공개"
+     ]
+    },
+    {
+     "글자": "2026년 6월 업무추진비 공개",
+     "주소": "https://www.gunpocouncil.go.kr/kr/costBBSview.do?uid=AA195626D091A1E3F18B16C5D0E14523&NOT_ANCMT_MGT_NO=&schwrd=&flag=all&page=1&list_style=",
+     "길": [
+      "정보공개",
+      "2026년 6월 업무추진비 공개"
+     ]
+    },
+    {
+     "글자": "2026년 5월 업무추진비 공개",
+     "주소": "https://www.gunpocouncil.go.kr/kr/costBBSview.do?uid=83640F157E5A4BD87AE4016C9B1922C9&NOT_ANCMT_MGT_NO=&schwrd=&flag=all&page=1&list_style=",
+     "길": [
+      "정보공개",
+      "2026년 5월 업무추진비 공개"
+     ]
+    },
+    {
+     "글자": "2026년 4월 업무추진비 공개",
+     "주소": "https://www.gunpocouncil.go.kr/kr/costBBSview.do?uid=9CCCE303FFA1FC62D2D7F53A563556CF&NOT_ANCMT_MGT_NO=&schwrd=&flag=all&page=1&list_style=",
+     "길": [
+      "정보공개",
+      "2026년 4월 업무추진비 공개"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공무 국외출장 보고서",
+     "주소": "https://www.gunpocouncil.go.kr/kr/foreignBBS.do",
+     "길": [
+      "공무 국외출장 보고서"
+     ]
+    }
+   ]
+  },
+  "4127000": {
+   "이름": "경기의왕시",
+   "첫화면": "http://council.uiwang.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.uiwang.go.kr/kr/Information/bbsCost.do",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4128000": {
+   "이름": "경기하남시",
+   "첫화면": "http://council.hanam.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 사용 내역",
+     "주소": "https://council.hanam.go.kr/content/community/business.html",
+     "길": [
+      "업무추진비 사용 내역"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "2024년 하남시의회 공무국외출장 결과보고서",
+     "주소": "https://council.hanam.go.kr/content/activity/dataroom.html?fidx=10415&gtid=pds&pg=vv&sid=1000&page=1&opt=&sword=",
+     "길": [
+      "의정활동 자료실",
+      "2024년 하남시의회 공무국외출장 결과보고서"
+     ]
+    },
+    {
+     "글자": "2017년 국외연수 결과보고서",
+     "주소": "https://council.hanam.go.kr/content/activity/dataroom.html?fidx=5395&gtid=pds&pg=vv&sid=1000&page=1&opt=&sword=",
+     "길": [
+      "의정활동 자료실",
+      "2017년 국외연수 결과보고서"
+     ]
+    },
+    {
+     "글자": "2016년 국외연수 결과 보고서",
+     "주소": "https://council.hanam.go.kr/content/activity/dataroom.html?fidx=5281&gtid=pds&pg=vv&sid=1000&page=1&opt=&sword=",
+     "길": [
+      "의정활동 자료실",
+      "2016년 국외연수 결과 보고서"
+     ]
+    },
+    {
+     "글자": "2015년 국외연수 결과보고서",
+     "주소": "https://council.hanam.go.kr/content/activity/dataroom.html?fidx=4127&gtid=pds&pg=vv&sid=1000&page=1&opt=&sword=",
+     "길": [
+      "의정활동 자료실",
+      "2015년 국외연수 결과보고서"
+     ]
+    },
+    {
+     "글자": "2024년 하남시의회 공무국외출장 심사위원회 회의록 및 출장계획서",
+     "주소": "https://council.hanam.go.kr/content/activity/dataroom.html?fidx=10374&gtid=pds&pg=vv&sid=1000&page=1&opt=&sword=",
+     "길": [
+      "의정활동 자료실",
+      "2024년 하남시의회 공무국외출장 심사위원회 회의록 및 출장계획서"
+     ]
+    }
+   ]
+  },
+  "4129000": {
+   "이름": "경기용인시",
+   "첫화면": "https://council.yongin.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.yongin.go.kr/kr/costBBS.do",
+     "길": [
+      "사이트맵",
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4130000": {
+   "이름": "경기파주시",
+   "첫화면": "http://www.pajucouncil.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비",
+     "주소": "https://www.pajucouncil.go.kr/content/data/operatingExpense.html",
+     "길": [
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4131000": {
+   "이름": "경기이천시",
+   "첫화면": "http://council.icheon.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.icheon.go.kr/content/information/businessOperatingExpense.html",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4132000": {
+   "이름": "경기안성시",
+   "첫화면": "http://www.anseongcl.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "4. 업무추진비 현황",
+     "주소": "http://www.anseongcl.go.kr/kr/costBBS.do",
+     "길": [
+      "정보공개",
+      "4. 업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "해외연수 결과 보고서",
+     "주소": "http://www.anseongcl.go.kr/kr/foreignBBS.do",
+     "길": [
+      "정보공개",
+      "2. 의정비 심의위원회",
+      "해외연수 결과 보고서"
+     ]
+    },
+    {
+     "글자": "조례안예고『안성시의회 의원 공무국외출장에 관한 조례 일부개정조례안』예고(",
+     "주소": "http://www.anseongcl.go.kr/kr/legislationBBSview.do?uid=30541DCE603EECFC9DD2F0CC07120007",
+     "길": [
+      "조례안예고『안성시의회 의원 공무국외출장에 관한 조례 일부개정조례안』예고("
+     ]
+    },
+    {
+     "글자": "『안성시의회 의원 공무국외출장에 관한 조례 일부개정조례안』예고(기간 추가",
+     "주소": "http://www.anseongcl.go.kr/kr/legislationBBSview.do?uid=30541DCE603EECFC9DD2F0CC07120007&schwrd=&flag=all&page=1&list_style=",
+     "길": [
+      "조례안예고『안성시의회의원 의정활동비 등 지급에 관한 조례 일부개정조례안』",
+      "『안성시의회 의원 공무국외출장에 관한 조례 일부개정조례안』예고(기간 추가"
+     ]
+    }
+   ]
+  },
+  "4133000": {
+   "이름": "경기김포시",
+   "첫화면": "https://gimpocouncil.go.kr/",
+   "연화면": 18,
+   "업무추진비": [],
+   "국외출장": []
+  },
+  "4134000": {
+   "이름": "경기화성시",
+   "첫화면": "https://council.hscity.go.kr/",
+   "연화면": 21,
+   "업무추진비": [],
+   "국외출장": []
+  },
+  "4135000": {
+   "이름": "경기광주시",
+   "첫화면": "https://www.gjcouncil.go.kr/",
+   "연화면": 20,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 집행 현황",
+     "주소": "https://www.gjcouncil.go.kr/kr/costBBS.do",
+     "길": [
+      "업무추진비 집행 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "국외연수활동보고",
+     "주소": "https://www.gjcouncil.go.kr/kr/foreignBBS.do",
+     "길": [
+      "국외연수활동보고"
+     ]
+    }
+   ]
+  },
+  "4137000": {
+   "이름": "경기포천시",
+   "첫화면": "https://council.pocheon.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비",
+     "주소": "https://council.pocheon.go.kr/kr/news/bbsBusiness.do",
+     "길": [
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "국외출장보고",
+     "주소": "https://council.pocheon.go.kr/kr/news/bbsReport.do",
+     "길": [
+      "국외출장보고"
+     ]
+    }
+   ]
+  },
+  "4138000": {
+   "이름": "경기여주시",
+   "첫화면": "https://www.yeojucouncil.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://www.yeojucouncil.go.kr/kr/costBBS.do",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4175000": {
+   "이름": "경기연천군",
+   "첫화면": "https://www.yca21.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://www.yca21.go.kr/board/news/list.do?tbname=cost",
+     "길": [
+      "의정활동정보공개",
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "연천군의회 의원 공무국외출장 규칙 전부개정규칙안",
+     "주소": "https://www.yca21.go.kr/board/news/view.do?tbname=prelaw&seq=278",
+     "길": [
+      "연천군의회 의원 공무국외출장 규칙 전부개정규칙안"
+     ]
+    },
+    {
+     "글자": "연천군의회 의원 공무국외출장 규칙 전부개정규칙안_의견제출",
+     "주소": "https://www.yca21.go.kr/board/freebbs/list.do#none",
+     "길": [
+      "열린광장",
+      "연천군의회 의원 공무국외출장 규칙 전부개정규칙안_의견제출"
+     ]
+    }
+   ]
+  },
+  "4177000": {
+   "이름": "경기가평군",
+   "첫화면": "http://www.gpassem.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://www.gpassem.go.kr/kr/operations2BBS.do",
+     "길": [
+      "업무추진비 현황"
+     ]
+    },
+    {
+     "글자": "2025년도 3분기 업무추진비 사용내역",
+     "주소": "https://www.gpassem.go.kr/kr/financesBBSview.do?uid=FE1348FDA8411292D712D5B4629B50D5&schwrd=&flag=all&page=1&list_style=",
+     "길": [
+      "의정갤러리",
+      "정보공개",
+      "2025년도 3분기 업무추진비 사용내역"
+     ]
+    },
+    {
+     "글자": "'업무추진비사용내역(2025-3분기).xls.pdf' 파일 내려받기",
+     "주소": "https://www.gpassem.go.kr/kr/bbs/download.do?bbs_id=finances&uid=7E96BF9D49858F71A89A68EB81784801",
+     "길": [
+      "의정갤러리",
+      "정보공개",
+      "'업무추진비사용내역(2025-3분기).xls.pdf' 파일 내려받기"
+     ]
+    },
+    {
+     "글자": "2025년도 2분기 업무추진비 사용내역",
+     "주소": "https://www.gpassem.go.kr/kr/financesBBSview.do?uid=53265D3CA54CC1870FF94C9D6B3A3DD4&schwrd=&flag=all&page=1&list_style=",
+     "길": [
+      "의정갤러리",
+      "정보공개",
+      "2025년도 2분기 업무추진비 사용내역"
+     ]
+    },
+    {
+     "글자": "'업무추진비사용내역(2025-2분기).pdf' 파일 내려받기",
+     "주소": "https://www.gpassem.go.kr/kr/bbs/download.do?bbs_id=finances&uid=A41C9ECC95C2BF6EB563F54C62D673E5",
+     "길": [
+      "의정갤러리",
+      "정보공개",
+      "'업무추진비사용내역(2025-2분기).pdf' 파일 내려받기"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4178000": {
+   "이름": "경기양평군",
+   "첫화면": "https://www.ypcouncil.go.kr/",
+   "연화면": 15,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 공개",
+     "주소": "https://www.ypcouncil.go.kr/main/selectBbsNttList.do?bbsNo=9&key=43",
+     "길": [
+      "업무추진비 공개"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4200000": {
+   "이름": "강원본청",
+   "첫화면": "https://council.gangwon.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "http://council.gangwon.kr/kr/infoBBS.do",
+     "길": [
+      "업무추진비 현황"
+     ]
+    },
+    {
+     "글자": "예산결산특별위원회 위원장 업무추진비 집행내역(2026년 9월)",
+     "주소": "https://council.gangwon.kr/kr/infoBBSview.do?uid=22C3E2D63769628636AB8D7170AFB30A&schwrd=&flag=all&sch_use_start_date=&sch_use_end_date=&page=1&list_style=",
+     "길": [
+      "행정정보공개",
+      "예산결산특별위원회 위원장 업무추진비 집행내역(2026년 9월)"
+     ]
+    },
+    {
+     "글자": "'예산결산특별위원회 위원장 업무추진비 사용 내역(2026년 9월).pdf",
+     "주소": "https://council.gangwon.kr/kr/bbs/download.do?bbs_id=info&uid=649396CB42763C04A371541805FB5DC7",
+     "길": [
+      "행정정보공개",
+      "'예산결산특별위원회 위원장 업무추진비 사용 내역(2026년 9월).pdf"
+     ]
+    },
+    {
+     "글자": "부의장 업무추진비 집행내역(26년 9월)",
+     "주소": "https://council.gangwon.kr/kr/infoBBSview.do?uid=CBD698E9A1B73EEBD7105E72D5CC654F&schwrd=&flag=all&sch_use_start_date=&sch_use_end_date=&page=1&list_style=",
+     "길": [
+      "행정정보공개",
+      "부의장 업무추진비 집행내역(26년 9월)"
+     ]
+    },
+    {
+     "글자": "1부의장 업무추진비 집행내역(26. 9월).pdf",
+     "주소": "https://council.gangwon.kr/kr/bbs/download.do?bbs_id=info&uid=579558F4DF035CFD34F32F11B6D8EFC9",
+     "길": [
+      "행정정보공개",
+      "1부의장 업무추진비 집행내역(26. 9월).pdf"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공무국외출장",
+     "주소": "https://council.gangwon.kr/kr/foreignBBS.do",
+     "길": [
+      "공무국외출장"
+     ]
+    }
+   ]
+  },
+  "4211000": {
+   "이름": "강원춘천시",
+   "첫화면": "https://council.chuncheon.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.chuncheon.go.kr/basic/bbsctt.do?n=682&b=50",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "춘천시의회 의원 공무국외출장 규칙 전부개정규칙안(김용갑 의원 외 9인)",
+     "주소": "https://council.chuncheon.go.kr/basic/view.do?n=748&b=91&k=15225&p=1&pu=10&sortField=RGSDE&n=748",
+     "길": [
+      "의원발의",
+      "춘천시의회 의원 공무국외출장 규칙 전부개정규칙안(김용갑 의원 외 9인)"
+     ]
+    },
+    {
+     "글자": "춘천시의회 의원 공무국외출장 규칙 전부개정규칙안(김용갑 의원 외 9인)",
+     "주소": "https://council.chuncheon.go.kr/basic/view.do?n=748&b=91&k=15225&pu=10&sortField=RGSDE",
+     "길": [
+      "의원발의",
+      "춘천시의회 의원 의정활동비 등 지급에 대한 조례 일부개정조례안(박노일 의",
+      "춘천시의회 의원 공무국외출장 규칙 전부개정규칙안(김용갑 의원 외 9인)"
+     ]
+    }
+   ]
+  },
+  "4212000": {
+   "이름": "강원원주시",
+   "첫화면": "http://council.wonju.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.wonju.go.kr/content/info/releaseInformation.html",
+     "길": [
+      "업무추진비 현황"
+     ]
+    },
+    {
+     "글자": "업무추진비",
+     "주소": "https://www.wonju.go.kr/www/selectBbsNttList.do?bbsNo=103&key=2466&",
+     "길": [
+      "예산서 공개",
+      "업무추진비"
+     ]
+    },
+    {
+     "글자": "부시장 업무추진비",
+     "주소": "https://www.wonju.go.kr/www/selectBbsNttList.do?bbsNo=104&key=2814&",
+     "길": [
+      "예산서 공개",
+      "부시장 업무추진비"
+     ]
+    },
+    {
+     "글자": "국장급 업무추진비",
+     "주소": "https://www.wonju.go.kr/www/selectBbsNttList.do?bbsNo=863&key=3510&",
+     "길": [
+      "예산서 공개",
+      "국장급 업무추진비"
+     ]
+    },
+    {
+     "글자": "과장급 업무추진비",
+     "주소": "https://www.wonju.go.kr/www/selectBbsNttList.do?bbsNo=1095&key=5126&",
+     "길": [
+      "예산서 공개",
+      "과장급 업무추진비"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "국제교류(공무국외연수)현황",
+     "주소": "https://council.wonju.go.kr/content/activity/overseasReport.html",
+     "길": [
+      "국제교류(공무국외연수)현황"
+     ]
+    },
+    {
+     "글자": "공무국외출장보고서",
+     "주소": "https://www.wonju.go.kr/www/selectBbsNttList.do?bbsNo=121&key=2516&",
+     "길": [
+      "예산서 공개",
+      "공무국외출장보고서"
+     ]
+    },
+    {
+     "글자": "공무국외출장보고서",
+     "주소": "https://www.wonju.go.kr/www/selectBbsNttList.do?bbsNo=121&key=2516",
+     "길": [
+      "예산서 공개",
+      "사이트맵",
+      "공무국외출장보고서"
+     ]
+    }
+   ]
+  },
+  "4213000": {
+   "이름": "강원강릉시",
+   "첫화면": "http://www.gncl.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "http://www.gncl.go.kr/kr/bbs?bbs_id=open",
+     "길": [
+      "업무추진비 현황"
+     ]
+    },
+    {
+     "글자": "2026년 9월 업무추진비 사용내역 공개",
+     "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=449584760B4015CE05614CA8A789BF73&page=&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+     "길": [
+      "정보공개",
+      "2026년 9월 업무추진비 사용내역 공개"
+     ]
+    },
+    {
+     "글자": "2026년 8월 업무추진비 사용내역 공개",
+     "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=CA706AD4E9462FD0215194890CD73DEE&page=&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+     "길": [
+      "정보공개",
+      "2026년 8월 업무추진비 사용내역 공개"
+     ]
+    },
+    {
+     "글자": "2026년 7월 업무추진비 사용내역 공개",
+     "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=F33A0909C09F7C1BA1C63DFA1E137297&page=&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+     "길": [
+      "정보공개",
+      "2026년 7월 업무추진비 사용내역 공개"
+     ]
+    },
+    {
+     "글자": "2026년 6월 업무추진비 사용내역 공개",
+     "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=AF06B285D491BC6FCF63481FFF548216&page=&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+     "길": [
+      "정보공개",
+      "2026년 6월 업무추진비 사용내역 공개"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "2025 애틀란타 ITS 세계총회 참가 공무국외연수 결과보고서",
+     "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=4A6C188F088133D43901F643EEF30722&page=&flag=&keyword=&search_code=&bbs_id=data&list_style=",
+     "길": [
+      "의정자료실",
+      "2025 애틀란타 ITS 세계총회 참가 공무국외연수 결과보고서"
+     ]
+    },
+    {
+     "글자": "공무국외연수 심사위원회 결과 게시",
+     "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=5FC3844F8A5612330181B0C8FBBA7D16&page=&flag=&keyword=&search_code=&bbs_id=data&list_style=",
+     "길": [
+      "의정자료실",
+      "공무국외연수 심사위원회 결과 게시"
+     ]
+    },
+    {
+     "글자": "공무국외출장 계획서 및 의견 수렴 게시",
+     "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=3EB080A0C51DE8BEB1A6C92056BF5298&page=&flag=&keyword=&search_code=&bbs_id=data&list_style=",
+     "길": [
+      "의정자료실",
+      "공무국외출장 계획서 및 의견 수렴 게시"
+     ]
+    },
+    {
+     "글자": "공무국외연수 계획 및 심사 회의록 게시",
+     "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=C7496E97347F30F276A2C8DA0F2C31D1&page=&flag=&keyword=&search_code=&bbs_id=data&list_style=",
+     "길": [
+      "의정자료실",
+      "공무국외연수 계획 및 심사 회의록 게시"
+     ]
+    },
+    {
+     "글자": "공무국외출장 계획서 및 의견 수렴 게시",
+     "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=EE5D91B16951717623161C76007C0E4B&page=&flag=&keyword=&search_code=&bbs_id=data&list_style=",
+     "길": [
+      "의정자료실",
+      "공무국외출장 계획서 및 의견 수렴 게시"
+     ]
+    }
+   ]
+  },
+  "4214000": {
+   "이름": "강원동해시",
+   "첫화면": "https://www.dhcc.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비",
+     "주소": "https://www.dhcc.go.kr/content/news/operatingExpenseList.html",
+     "길": [
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4215000": {
+   "이름": "강원태백시",
+   "첫화면": "http://council.taebaek.go.kr/",
+   "연화면": 12,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.taebaek.go.kr/source/kr/news/info2.html",
+     "길": [
+      "업무추진비 현황"
+     ]
+    },
+    {
+     "글자": "2026년 7월 태백시의회 업무추진비 사용내역 2026-08-21",
+     "주소": "https://council.taebaek.go.kr/source/kr/news/info2.html?mode=view&number=115",
+     "길": [
+      "2026년 7월 태백시의회 업무추진비 사용내역 2026-08-21"
+     ]
+    },
+    {
+     "글자": "2026년 6월 태백시의회 업무추진비 사용내역 2026-07-28",
+     "주소": "https://council.taebaek.go.kr/source/kr/news/info2.html?mode=view&number=114",
+     "길": [
+      "2026년 6월 태백시의회 업무추진비 사용내역 2026-07-28"
+     ]
+    },
+    {
+     "글자": "2026년 5월 태백시의회 업무추진비 사용내역 2026-06-05",
+     "주소": "https://council.taebaek.go.kr/source/kr/news/info2.html?mode=view&number=113",
+     "길": [
+      "2026년 5월 태백시의회 업무추진비 사용내역 2026-06-05"
+     ]
+    },
+    {
+     "글자": "2026년 4월 태백시의회 업무추진비 사용내역 2026-05-06",
+     "주소": "https://council.taebaek.go.kr/source/kr/news/info2.html?mode=view&number=112",
+     "길": [
+      "2026년 4월 태백시의회 업무추진비 사용내역 2026-05-06"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4216000": {
+   "이름": "강원속초시",
+   "첫화면": "https://www.sokchocl.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "2026년 8월 속초시의회 업무추진비 집행내역 공개",
+     "주소": "https://www.sokchocl.go.kr/kr/news/bbsCost.do?reform=view&key=00605565507fafc57a235bebd705e14461e62cd5f41335a23bf8df6a6d86872c2adf0ffd28718fc0&pageNum=1&flag=&keyword=",
+     "길": [
+      "행정정보공개",
+      "2026년 8월 속초시의회 업무추진비 집행내역 공개"
+     ]
+    },
+    {
+     "글자": "2026년 7월 속초시의회 업무추진비 집행내역 공개",
+     "주소": "https://www.sokchocl.go.kr/kr/news/bbsCost.do?reform=view&key=3795ebdd397552696e32abc379f21bb0abc1568f07f3de3f7ecd39a833381fef33c48ce7df873c80&pageNum=1&flag=&keyword=",
+     "길": [
+      "행정정보공개",
+      "2026년 7월 속초시의회 업무추진비 집행내역 공개"
+     ]
+    },
+    {
+     "글자": "2026년 6월 속초시의회 업무추진비 집행내역 공개",
+     "주소": "https://www.sokchocl.go.kr/kr/news/bbsCost.do?reform=view&key=eac4d2824cc32df542d58459a58cef83c44c93b06a746e0306d568d3bae68656c31c119a9f5c63b3&pageNum=1&flag=&keyword=",
+     "길": [
+      "행정정보공개",
+      "2026년 6월 속초시의회 업무추진비 집행내역 공개"
+     ]
+    },
+    {
+     "글자": "2026년 5월 속초시의회 업무추진비 집행내역 공개",
+     "주소": "https://www.sokchocl.go.kr/kr/news/bbsCost.do?reform=view&key=a87daea2eb20ef1e74e98fc31705b341c6f90e97161a10584c0b763bc8103e1b5e41b552aea963f3&pageNum=1&flag=&keyword=",
+     "길": [
+      "행정정보공개",
+      "2026년 5월 속초시의회 업무추진비 집행내역 공개"
+     ]
+    },
+    {
+     "글자": "2026년 4월 속초시의회 업무추진비 집행내역 공개",
+     "주소": "https://www.sokchocl.go.kr/kr/news/bbsCost.do?reform=view&key=d3ee9a633df9b106d210169933615b9a21bed0eeaa562d7533aed8a142cf60b78475df5a8632f6b9&pageNum=1&flag=&keyword=",
+     "길": [
+      "행정정보공개",
+      "2026년 4월 속초시의회 업무추진비 집행내역 공개"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "09월28일 속초시의회 의원 공무국외출장 계획 공개 및 주민의견 수렴(일",
+     "주소": "https://www.sokchocl.go.kr/kr/news/bbsNotice.do?reform=view&key=4653341ab849338fcc93ced33cbbf8d31bbb0ff59d6fd80bff5873ab4e86dba244aaa982a497d3ff",
+     "길": [
+      "09월28일 속초시의회 의원 공무국외출장 계획 공개 및 주민의견 수렴(일"
+     ]
+    },
+    {
+     "글자": "09월04일 속초시의회 의원 공무국외출장 변경 계획 공개 및 주민 의견 ",
+     "주소": "https://www.sokchocl.go.kr/kr/news/bbsNotice.do?reform=view&key=8e96e5ab528f9eca679ac75423bee569f7dea197f4294e9ba35fb746757e78bab77d48449803a7d9",
+     "길": [
+      "09월04일 속초시의회 의원 공무국외출장 변경 계획 공개 및 주민 의견 "
+     ]
+    },
+    {
+     "글자": "11월17일 2025년 제3차 속초시의회 공무국외출장 결과보고서",
+     "주소": "https://www.sokchocl.go.kr/kr/news/bbsForeign.do?reform=view&key=693ce3ec7c610ea0633ebcca16128649da3de48ddc957ecd6ccd1f8aa4f876e25626c6be63766704",
+     "길": [
+      "11월17일 2025년 제3차 속초시의회 공무국외출장 결과보고서"
+     ]
+    },
+    {
+     "글자": "08월26일 2025년 제2차 속초시의회 공무국외출장 결과보고서",
+     "주소": "https://www.sokchocl.go.kr/kr/news/bbsForeign.do?reform=view&key=37e4e357f641e65980678cb52afc6e92452042eb998fc855262445869a0110eda97a99bd7042207b",
+     "길": [
+      "08월26일 2025년 제2차 속초시의회 공무국외출장 결과보고서"
+     ]
+    },
+    {
+     "글자": "2025년 제3차 속초시의회 공무국외출장 결과보고서",
+     "주소": "https://www.sokchocl.go.kr/kr/news/bbsForeign.do?reform=view&key=693ce3ec7c610ea0633ebcca16128649da3de48ddc957ecd6ccd1f8aa4f876e25626c6be63766704&pageNum=1&flag=&keyword=",
+     "길": [
+      "정보공개 더보기",
+      "2025년 제3차 속초시의회 공무국외출장 결과보고서"
+     ]
+    }
+   ]
+  },
+  "4217000": {
+   "이름": "강원삼척시",
+   "첫화면": "http://www.sccl.go.kr/",
+   "연화면": 20,
+   "업무추진비": [
+    {
+     "글자": "업무추진비",
+     "주소": "https://www.sccl.go.kr/kr/bbs?bbs_id=business",
+     "길": [
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4273000": {
+   "이름": "강원영월군",
+   "첫화면": "http://council.yw.go.kr/",
+   "연화면": 20,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.yw.go.kr/content/info/expense.html",
+     "길": [
+      "정보공개",
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공무국외출장",
+     "주소": "https://council.yw.go.kr/content/activity/report.html",
+     "길": [
+      "공무국외출장"
+     ]
+    },
+    {
+     "글자": "국제교류(일본) 방문 공무국외출장 계획(안) 주민 의견...",
+     "주소": "https://council.yw.go.kr/content/activity/report.html?pg=vv&fidx=25498",
+     "길": [
+      "국제교류(일본) 방문 공무국외출장 계획(안) 주민 의견..."
+     ]
+    },
+    {
+     "글자": "국제교류(일본) 방문 공무국외출장 계획",
+     "주소": "https://council.yw.go.kr/content/activity/report.html?pg=vv&fidx=25497",
+     "길": [
+      "국제교류(일본) 방문 공무국외출장 계획"
+     ]
+    }
+   ]
+  },
+  "4274000": {
+   "이름": "강원평창군",
+   "첫화면": "https://cl.happy700.or.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://cl.happy700.or.kr/kr/news/bbsCost.do",
+     "길": [
+      "사이트맵",
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "1. 2025년 강원특별자치도시군의회의장협의회 공무국외출장계획2. 회의록",
+     "주소": "https://cl.happy700.or.kr/kr/activity/bbsForeign.do?reform=view&key=f1704b3aa55f1ba5db739e5d0b829dc956dfd46bc7eeeeab07889e4857726b8729bf4ba5c4f687fd&pageNum=1&flag=&keyword=",
+     "길": [
+      "정보공개",
+      "1. 2025년 강원특별자치도시군의회의장협의회 공무국외출장계획2. 회의록"
+     ]
+    },
+    {
+     "글자": "1.2024년도 평창군의회 공무국외연수 계획2.2024년도 평창군의회 공",
+     "주소": "https://cl.happy700.or.kr/kr/activity/bbsForeign.do?reform=view&key=7609ed9130c018315d15cec3fb9780f79e86974b00fc77f79dfc334566e43a51ca6ab47552cba78a&pageNum=1&flag=&keyword=",
+     "길": [
+      "정보공개",
+      "1.2024년도 평창군의회 공무국외연수 계획2.2024년도 평창군의회 공"
+     ]
+    },
+    {
+     "글자": "1. 2024년 강원특별자치도시군의회의장협의회 공무국외출장 계획2. 20",
+     "주소": "https://cl.happy700.or.kr/kr/activity/bbsForeign.do?reform=view&key=4532a749cb6cc24e8c2c7ee57e2f8d86d29e5d0910e9950685a5620c8c036934b9b15f038ae9a4f2&pageNum=1&flag=&keyword=",
+     "길": [
+      "정보공개",
+      "1. 2024년 강원특별자치도시군의회의장협의회 공무국외출장 계획2. 20"
+     ]
+    },
+    {
+     "글자": "1. 2023년도 평창군의회 의원 국외연수 계획2. 국외연수 심사위원회 ",
+     "주소": "https://cl.happy700.or.kr/kr/activity/bbsForeign.do?reform=view&key=16b5d70ae119014332f5054d0cea212dd2e7ddf6d250274815113c221c7c0e615bd5daf0d64b18d6&pageNum=1&flag=&keyword=",
+     "길": [
+      "정보공개",
+      "1. 2023년도 평창군의회 의원 국외연수 계획2. 국외연수 심사위원회 "
+     ]
+    },
+    {
+     "글자": "1. 2023년 강원도시군의회의장협의회 공무국외출장(체코,오스트리아) 계",
+     "주소": "https://cl.happy700.or.kr/kr/activity/bbsForeign.do?reform=view&key=c5a859ef9b569dbf61e8a501b49cf224209f7c9676441dc45dd5c66dd3eaef2f4b79338f1ea651c5&pageNum=1&flag=&keyword=",
+     "길": [
+      "정보공개",
+      "1. 2023년 강원도시군의회의장협의회 공무국외출장(체코,오스트리아) 계"
+     ]
+    }
+   ]
+  },
+  "4275000": {
+   "이름": "강원정선군",
+   "첫화면": "http://assembly.jeongseon.go.kr/",
+   "연화면": 19,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 집행 현황",
+     "주소": "https://assembly.jeongseon.go.kr/source/kr/info/op_3.html",
+     "길": [
+      "업무추진비 집행 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "국제교류 현황(국외활동)",
+     "주소": "https://assembly.jeongseon.go.kr/source/kr/info/op_0.html",
+     "길": [
+      "국제교류 현황(국외활동)"
+     ]
+    },
+    {
+     "글자": "정선아리랑 글로벌 프로젝트 공무국외연수 결과보고서",
+     "주소": "https://assembly.jeongseon.go.kr/source/kr/activity/info1.html?mode=view&number=5CE1780515C3F383C4628A9031916560&table=board_training&page=1&flag=&key=",
+     "길": [
+      "의정활동",
+      "정보공개",
+      "정선아리랑 글로벌 프로젝트 공무국외연수 결과보고서"
+     ]
+    },
+    {
+     "글자": "자매도시 중국 주장시 방문 공무국외출장 결과보고서",
+     "주소": "https://assembly.jeongseon.go.kr/source/kr/activity/info1.html?mode=view&number=DFE5953B74F1D0F1C5350C3778242A1D&table=board_training&page=1&flag=&key=",
+     "길": [
+      "의정활동",
+      "정보공개",
+      "자매도시 중국 주장시 방문 공무국외출장 결과보고서"
+     ]
+    },
+    {
+     "글자": "정선아리랑 글로벌 프로젝트 공무국외연수 계획",
+     "주소": "https://assembly.jeongseon.go.kr/source/kr/activity/info1.html?mode=view&number=490C665DA18346B0E59CCD7A1529E514&table=board_training&page=1&flag=&key=",
+     "길": [
+      "의정활동",
+      "정보공개",
+      "정선아리랑 글로벌 프로젝트 공무국외연수 계획"
+     ]
+    },
+    {
+     "글자": "2025년 강원특별자치도시군의회의장협의회 공무국외출...",
+     "주소": "https://assembly.jeongseon.go.kr/source/kr/activity/info1.html?mode=view&number=207EE3B95CC5DF9302CC478C9949B505&table=board_training&page=1&flag=&key=",
+     "길": [
+      "의정활동",
+      "정보공개",
+      "2025년 강원특별자치도시군의회의장협의회 공무국외출..."
+     ]
+    }
+   ]
+  },
+  "4277000": {
+   "이름": "강원화천군",
+   "첫화면": "http://council.ihc.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 집행현황",
+     "주소": "https://council.ihc.go.kr/basic/bbsctt.do?n=800&b=51",
+     "길": [
+      "업무추진비 집행현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "고시공고 화천군의회 의원 공무국외출장 규칙 일부개정규칙안 입법예고 26-",
+     "주소": "https://council.ihc.go.kr/basic/view.do?n=849&b=78&k=15160",
+     "길": [
+      "고시공고 화천군의회 의원 공무국외출장 규칙 일부개정규칙안 입법예고 26-"
+     ]
+    }
+   ]
+  },
+  "4278000": {
+   "이름": "강원양구군",
+   "첫화면": "http://www.ygcl.go.kr/",
+   "연화면": 16,
+   "업무추진비": [
+    {
+     "글자": "업무추진비",
+     "주소": "http://www.ygcl.go.kr/portal/F50000/F50700/boardList",
+     "길": [
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4279000": {
+   "이름": "강원인제군",
+   "첫화면": "http://www.injecl.go.kr/",
+   "연화면": 20,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://www.injecl.go.kr/content//.html",
+     "길": [
+      "업무추진비 현황"
+     ]
+    },
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://www.injecl.go.kr/content/info/expense.html",
+     "길": [
+      "의정활동정보",
+      "업무추진비 현황"
+     ]
+    },
+    {
+     "글자": "업무추진비",
+     "주소": "https://www.injecl.go.kr/content/data/expense.html",
+     "길": [
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공무국외출장",
+     "주소": "https://www.injecl.go.kr/content/data/officialBusiness.html",
+     "길": [
+      "공무국외출장"
+     ]
+    }
+   ]
+  },
+  "4280000": {
+   "이름": "강원고성군",
+   "첫화면": "http://council.gwgs.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 집행 현황",
+     "주소": "https://council.gwgs.go.kr/Home/H30000/H30500/boardList",
+     "길": [
+      "업무추진비 집행 현황"
+     ]
+    },
+    {
+     "글자": "2026년 2분기 업무추진비 집행 내역",
+     "주소": "https://council.gwgs.go.kr/Home/H30000/H30500/boardView?board_key=10266",
+     "길": [
+      "2026년 2분기 업무추진비 집행 내역"
+     ]
+    },
+    {
+     "글자": "2026년 1분기 업무추진비 집행 내역",
+     "주소": "https://council.gwgs.go.kr/Home/H30000/H30500/boardView?board_key=10145",
+     "길": [
+      "2026년 1분기 업무추진비 집행 내역"
+     ]
+    },
+    {
+     "글자": "2025년 4분기 업무추진비 집행 내역",
+     "주소": "https://council.gwgs.go.kr/Home/H30000/H30500/boardView?board_key=9895",
+     "길": [
+      "정보공개",
+      "2025년 4분기 업무추진비 집행 내역"
+     ]
+    },
+    {
+     "글자": "2025년 3분기 업무추진비 집행 내역",
+     "주소": "https://council.gwgs.go.kr/Home/H30000/H30500/boardView?board_key=9801",
+     "길": [
+      "정보공개",
+      "2025년 3분기 업무추진비 집행 내역"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "2025년 고성군의회 공무국외출장 결과보고서",
+     "주소": "https://council.gwgs.go.kr/Home/H30000/H30500/boardView?board_key=10108",
+     "길": [
+      "정보공개",
+      "2025년 고성군의회 공무국외출장 결과보고서"
+     ]
+    }
+   ]
+  },
+  "4281000": {
+   "이름": "강원양양군",
+   "첫화면": "https://www.yangyangcouncil.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비공개",
+     "주소": "https://www.yangyangcouncil.go.kr/kr/costBBS.do",
+     "길": [
+      "업무추진비공개"
+     ]
+    },
+    {
+     "글자": "업무추진비 현황",
+     "주소": "http://www.yangyangcouncil.go.kr/kr/costBBS.do",
+     "길": [
+      "업무추진비 현황"
+     ]
+    },
+    {
+     "글자": "2026년 3/4분기 양양군의회 업무추진비 집행내역",
+     "주소": "https://www.yangyangcouncil.go.kr/kr/costBBSview.do?uid=D64F1A7AF2635724F3CEA3FF7F50A887&schwrd=&listCnt=10&flag=all&page=1&list_style=",
+     "길": [
+      "정보공개",
+      "2026년 3/4분기 양양군의회 업무추진비 집행내역"
+     ]
+    },
+    {
+     "글자": "2026년 2/4분기 양양군의회 업무추진비 집행내역",
+     "주소": "https://www.yangyangcouncil.go.kr/kr/costBBSview.do?uid=3F346607C5B9881472A1BFBD63BBE131&schwrd=&listCnt=10&flag=all&page=1&list_style=",
+     "길": [
+      "정보공개",
+      "2026년 2/4분기 양양군의회 업무추진비 집행내역"
+     ]
+    },
+    {
+     "글자": "2026년 1/4분기 양양군의회 업무추진비 집행내역",
+     "주소": "https://www.yangyangcouncil.go.kr/kr/costBBSview.do?uid=5CA860FDFE324C03475B62D83F397910&schwrd=&listCnt=10&flag=all&page=1&list_style=",
+     "길": [
+      "정보공개",
+      "2026년 1/4분기 양양군의회 업무추진비 집행내역"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4300000": {
+   "이름": "충북본청",
+   "첫화면": "http://council.chungbuk.kr/",
+   "연화면": 20,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.chungbuk.kr/kr/memberCostBBS.do",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공지사항 N 충청북도의회 복지문화위원회 공무국외출장 연수전문업체 공개모집",
+     "주소": "https://council.chungbuk.kr/kr/noticeBBSview.do?uid=1907E3A97908EC6FA3FB0A2A00F819FB",
+     "길": [
+      "공지사항 N 충청북도의회 복지문화위원회 공무국외출장 연수전문업체 공개모집"
+     ]
+    },
+    {
+     "글자": "고시공고 N 충청북도의회 복지문화위원회 공무국외출장 연수전문업체 공개모집",
+     "주소": "https://council.chungbuk.kr/kr/publicnoticeBBSview.do?uid=82B47EEE9017A55D43431EF6320522EB",
+     "길": [
+      "고시공고 N 충청북도의회 복지문화위원회 공무국외출장 연수전문업체 공개모집"
+     ]
+    },
+    {
+     "글자": "해외연수",
+     "주소": "https://council.chungbuk.kr/kr/internationalBBS.do",
+     "길": [
+      "해외연수"
+     ]
+    },
+    {
+     "글자": "공지사항 N 충청북도의회 건설농림위원회 공무국외출장 대행업체 공고 202",
+     "주소": "https://council.chungbuk.kr/kr/noticeBBSview.do?uid=80F3B67279B5A14F0DCFCAA571C84396",
+     "길": [
+      "공지사항 N 충청북도의회 건설농림위원회 공무국외출장 대행업체 공고 202"
+     ]
+    }
+   ]
+  },
+  "4312000": {
+   "이름": "충북충주시",
+   "첫화면": "http://council.chungju.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "- 업무추진비 현황",
+     "주소": "https://council.chungju.go.kr/content/news/releaseInformation.html",
+     "길": [
+      "- 업무추진비 현황"
+     ]
+    },
+    {
+     "글자": "2026년도 2분기 업무추진비 집행내역",
+     "주소": "https://council.chungju.go.kr/content/news/releaseInformation.html?gtid=info&pg=vv&sid=1000&page=1&fidx=14388&opt=&sword=",
+     "길": [
+      "- 의정소식지",
+      "정보공개",
+      "2026년도 2분기 업무추진비 집행내역"
+     ]
+    },
+    {
+     "글자": "2026년도 1분기 업무추진비 집행내역",
+     "주소": "https://council.chungju.go.kr/content/news/releaseInformation.html?gtid=info&pg=vv&sid=1000&page=1&fidx=14259&opt=&sword=",
+     "길": [
+      "- 의정소식지",
+      "정보공개",
+      "2026년도 1분기 업무추진비 집행내역"
+     ]
+    },
+    {
+     "글자": "2025년도 4분기 업무추진비 집행내역",
+     "주소": "https://council.chungju.go.kr/content/news/releaseInformation.html?gtid=info&pg=vv&sid=1000&page=1&fidx=14142&opt=&sword=",
+     "길": [
+      "- 의정소식지",
+      "정보공개",
+      "2025년도 4분기 업무추진비 집행내역"
+     ]
+    },
+    {
+     "글자": "2025년도 3분기 업무추진비 집행내역",
+     "주소": "https://council.chungju.go.kr/content/news/releaseInformation.html?gtid=info&pg=vv&sid=1000&page=1&fidx=14141&opt=&sword=",
+     "길": [
+      "- 의정소식지",
+      "정보공개",
+      "2025년도 3분기 업무추진비 집행내역"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4314000": {
+   "이름": "충북청주시",
+   "첫화면": "http://council.cheongju.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.cheongju.go.kr/content/community/operatingExpenseList.html",
+     "길": [
+      "의정활동 정보공개",
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4372000": {
+   "이름": "충북보은군",
+   "첫화면": "https://council.boeun.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "26년 2분기 업무추진비 공개",
+     "주소": "https://council.boeun.go.kr/kr/news/bbsCost.do?reform=view&key=d7581dda0f1ed8f593fb93ac2d53d519a57659de6b30a7b09563fe3bbe48f564efb53984ee01417c&pageNum=1&flag=&keyword=",
+     "길": [
+      "의정활동 정보공개",
+      "26년 2분기 업무추진비 공개"
+     ]
+    },
+    {
+     "글자": "26년 1분기 업무추진비 공개",
+     "주소": "https://council.boeun.go.kr/kr/news/bbsCost.do?reform=view&key=b1ffff7e4f38863fa64eb0a56bc69d226cb482937b0f34206c1876735e221af82dd2c15736fc611c&pageNum=1&flag=&keyword=",
+     "길": [
+      "의정활동 정보공개",
+      "26년 1분기 업무추진비 공개"
+     ]
+    },
+    {
+     "글자": "25년 4분기 업무추진비 공개",
+     "주소": "https://council.boeun.go.kr/kr/news/bbsCost.do?reform=view&key=07e48c57671b8a7b86cd91d223ffeb7d6dbbbc4bcffd2c92e4316e95dd82155e9f57e2f95cedb2d7&pageNum=1&flag=&keyword=",
+     "길": [
+      "의정활동 정보공개",
+      "25년 4분기 업무추진비 공개"
+     ]
+    },
+    {
+     "글자": "25년 3분기 업무추진비 공개",
+     "주소": "https://council.boeun.go.kr/kr/news/bbsCost.do?reform=view&key=d819c03d77f53f209b2ac7e017c7d91c30b43d5ac1de4aea0d4a4546b9664c93c6935ae65d70d544&pageNum=1&flag=&keyword=",
+     "길": [
+      "의정활동 정보공개",
+      "25년 3분기 업무추진비 공개"
+     ]
+    },
+    {
+     "글자": "25년 2분기 업무추진비 공개",
+     "주소": "https://council.boeun.go.kr/kr/news/bbsCost.do?reform=view&key=ebe1d6f34326f9c778add97f624f29e28ceb77141b04de3920a908a3ab5b809fcf61cf1a5689ea52&pageNum=1&flag=&keyword=",
+     "길": [
+      "의정활동 정보공개",
+      "25년 2분기 업무추진비 공개"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "국외활동연수자료",
+     "주소": "https://council.boeun.go.kr/kr/news/bbsForeign2.do",
+     "길": [
+      "국외활동연수자료"
+     ]
+    }
+   ]
+  },
+  "4373000": {
+   "이름": "충북옥천군",
+   "첫화면": "https://council.oc.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.oc.go.kr/kr/costBBS.do",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "2025년 공무국외출장보고서(농업인단체 국제농업출장)",
+     "주소": "https://council.oc.go.kr/kr/foreignReportBBSview.do?uid=D19AF25107C6C256F604BAD94A845364&schwrd=&flag=all&th_sch=&page=1&list_style=",
+     "길": [
+      "정보공개",
+      "2025년 공무국외출장보고서(농업인단체 국제농업출장)"
+     ]
+    },
+    {
+     "글자": "'[게시용] 공무국외출장보고서.pdf' 파일 내려받기",
+     "주소": "https://council.oc.go.kr/kr/bbs/download.do?bbs_id=foreignReport&uid=714232B7FD0E5CD20CA0AE0DDC694096",
+     "길": [
+      "정보공개",
+      "'[게시용] 공무국외출장보고서.pdf' 파일 내려받기"
+     ]
+    },
+    {
+     "글자": "2025년 공무국외출장 결과보고서(바양주르흐구 개청 60주년 기념행사)",
+     "주소": "https://council.oc.go.kr/kr/foreignReportBBSview.do?uid=8E5A5E8D3D598C0DBCFB5579277910F0&schwrd=&flag=all&th_sch=&page=1&list_style=",
+     "길": [
+      "정보공개",
+      "2025년 공무국외출장 결과보고서(바양주르흐구 개청 60주년 기념행사)"
+     ]
+    },
+    {
+     "글자": "'공무국외출장보고서(바양주르흐구 60주년)_게시용.pdf' 파일 내려받기",
+     "주소": "https://council.oc.go.kr/kr/bbs/download.do?bbs_id=foreignReport&uid=ED22ED1B2C0E2D274B715EF7198EE885",
+     "길": [
+      "정보공개",
+      "'공무국외출장보고서(바양주르흐구 60주년)_게시용.pdf' 파일 내려받기"
+     ]
+    },
+    {
+     "글자": "2024년 제25회 중국지용제 공무국외출장 보고서",
+     "주소": "https://council.oc.go.kr/kr/foreignReportBBSview.do?uid=A1179B7EFC4EA827CD1F1D90C8C0B2C3&schwrd=&flag=all&th_sch=&page=1&list_style=",
+     "길": [
+      "정보공개",
+      "2024년 제25회 중국지용제 공무국외출장 보고서"
+     ]
+    }
+   ]
+  },
+  "4374000": {
+   "이름": "충북영동군",
+   "첫화면": "https://council.yd21.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.yd21.go.kr/kr/bbs?bbs_id=open",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4375000": {
+   "이름": "충북진천군",
+   "첫화면": "http://council.jincheon.go.kr/",
+   "연화면": 20,
+   "업무추진비": [
+    {
+     "글자": "업무 추진비 공개",
+     "주소": "https://council.jincheon.go.kr/council/selectBbsNttList.do?bbsNo=67&key=114",
+     "길": [
+      "업무 추진비 공개"
+     ]
+    },
+    {
+     "글자": "업무추진비 현황",
+     "주소": "http://council.jincheon.go.kr/council/selectBbsNttList.do?bbsNo=67&key=114",
+     "길": [
+      "사이트맵",
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공무국외연수",
+     "주소": "https://council.jincheon.go.kr/council/selectBbsNttList.do?bbsNo=74&key=123",
+     "길": [
+      "공무국외연수"
+     ]
+    }
+   ]
+  },
+  "4376000": {
+   "이름": "충북괴산군",
+   "첫화면": "http://council.goesan.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "http://council.goesan.go.kr/kr/costBBS.do",
+     "길": [
+      "업무추진비 현황"
+     ]
+    },
+    {
+     "글자": "정보공개 업무추진비 2026년 8월 업무추진비 집행내역",
+     "주소": "https://council.goesan.go.kr/kr/costBBSview.do?uid=DB6E8B0DCC45864E7C24E3875A712849",
+     "길": [
+      "정보공개 업무추진비 2026년 8월 업무추진비 집행내역"
+     ]
+    },
+    {
+     "글자": "2026년 7월 업무추진비 집행내역",
+     "주소": "https://council.goesan.go.kr/mgmt/costBBSview.do?uid=5479&schwrd=&cs_cd_sch=&listCnt=10&flag=all&page=1&cmt_sch=&list_style=",
+     "길": [
+      "2026년 7월 업무추진비 집행내역"
+     ]
+    },
+    {
+     "글자": "2026년 8월 업무추진비 집행내역",
+     "주소": "https://council.goesan.go.kr/kr/costBBSview.do?uid=DB6E8B0DCC45864E7C24E3875A712849&schwrd=&listCnt=10&flag=all&page=1&cmt_sch=&list_style=",
+     "길": [
+      "정보공개",
+      "2026년 8월 업무추진비 집행내역"
+     ]
+    },
+    {
+     "글자": "2026년 7월 업무추진비 집행내역",
+     "주소": "https://council.goesan.go.kr/kr/costBBSview.do?uid=65F701A431C0947A2CE5D9963C35D6DD&schwrd=&listCnt=10&flag=all&page=1&cmt_sch=&list_style=",
+     "길": [
+      "정보공개",
+      "2026년 7월 업무추진비 집행내역"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공무국외출장",
+     "주소": "https://council.goesan.go.kr/kr/businesstripBBS.do",
+     "길": [
+      "공무국외출장"
+     ]
+    }
+   ]
+  },
+  "4377000": {
+   "이름": "충북음성군",
+   "첫화면": "https://www.escouncil.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://escouncil.go.kr/kr/news/bbsBusiness.do",
+     "길": [
+      "업무추진비 현황"
+     ]
+    },
+    {
+     "글자": "업무추진비",
+     "주소": "https://www.escouncil.go.kr/kr/news/bbsBusiness.do",
+     "길": [
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "국외활동상황공개",
+     "주소": "https://www.escouncil.go.kr/kr/news/bbsForeign2.do",
+     "길": [
+      "국외활동상황공개"
+     ]
+    },
+    {
+     "글자": "2026.07.06. 음성군의회 의원 공무국외출장 규칙 일부개정규칙안 예",
+     "주소": "https://www.escouncil.go.kr/kr/news/bbsLaw.do?reform=view&key=16777ccc2decbd965618f54891f85bd211e6a51ef892f13f828154c8bd871cb4b9c099695733f711",
+     "길": [
+      "2026.07.06. 음성군의회 의원 공무국외출장 규칙 일부개정규칙안 예"
+     ]
+    }
+   ]
+  },
+  "4378000": {
+   "이름": "충북단양군",
+   "첫화면": "https://council.danyang.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.danyang.go.kr/kr/costBBS.do",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "바로보기 공무국외출장 결과보고서(제11회 세계지질공원 총회 참석)-조성룡",
+     "주소": "https://council.danyang.go.kr/viewer/pdf.do?group=bbs&uid=15951",
+     "길": [
+      "의정자료",
+      "바로보기 공무국외출장 결과보고서(제11회 세계지질공원 총회 참석)-조성룡"
+     ]
+    },
+    {
+     "글자": "바로보기 공무국외출장 결과보고서(제11회 세계지질공원 총회 참석)-장영갑",
+     "주소": "https://council.danyang.go.kr/viewer/pdf.do?group=bbs&uid=15949",
+     "길": [
+      "의정자료",
+      "바로보기 공무국외출장 결과보고서(제11회 세계지질공원 총회 참석)-장영갑"
+     ]
+    },
+    {
+     "글자": "바로보기 단양군의회의원 공무국외출장 계획서(제11회 세계지질공원 총회 참",
+     "주소": "https://council.danyang.go.kr/viewer/pdf.do?group=bbs&uid=13822",
+     "길": [
+      "의정자료",
+      "바로보기 단양군의회의원 공무국외출장 계획서(제11회 세계지질공원 총회 참"
+     ]
+    },
+    {
+     "글자": "바로보기 단양군의회 의원 공무국외출장심사위원회 회의록",
+     "주소": "https://council.danyang.go.kr/viewer/pdf.do?group=bbs&uid=6455",
+     "길": [
+      "의정자료",
+      "바로보기 단양군의회 의원 공무국외출장심사위원회 회의록"
+     ]
+    },
+    {
+     "글자": "바로보기 단양군의회 의원 공무국외출장심사위원회 회의록",
+     "주소": "https://council.danyang.go.kr/viewer/pdf.do?group=bbs&uid=5603",
+     "길": [
+      "의정자료",
+      "바로보기 단양군의회 의원 공무국외출장심사위원회 회의록"
+     ]
+    }
+   ]
+  },
+  "4379000": {
+   "이름": "충북증평군",
+   "첫화면": "http://council.jp.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 사용내역",
+     "주소": "https://council.jp.go.kr/source/korean/news/business.html",
+     "길": [
+      "업무추진비 사용내역"
+     ]
+    },
+    {
+     "글자": "업무추진비",
+     "주소": "https://www.jp.go.kr/kor/cop/bbs/BBSMSTR_000000000023/selectBoardList.do",
+     "길": [
+      "정보공개",
+      "의정비 심의위원회",
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "해외연수",
+     "주소": "https://council.jp.go.kr/source/korean/activity/training.html",
+     "길": [
+      "해외연수"
+     ]
+    }
+   ]
+  },
+  "4400000": {
+   "이름": "충남본청",
+   "첫화면": "https://council.chungnam.go.kr/",
+   "연화면": 20,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "http://council.chungnam.go.kr/kr/costBBS.do",
+     "길": [
+      "업무추진비 현황"
+     ]
+    },
+    {
+     "글자": "'2026년 8월~9월 보건복지환경위원장 업무추진비 집행현황.hwp' 파",
+     "주소": "https://council.chungnam.go.kr/kr/bbs/download.do?bbs_id=cost&uid=A1A076F895D2C6D1FDFC24CF91D6CBC1",
+     "길": [
+      "행정정보공개",
+      "'2026년 8월~9월 보건복지환경위원장 업무추진비 집행현황.hwp' 파"
+     ]
+    },
+    {
+     "글자": "2026년 9월 충청남도의회 농수산해양위원회 위원장 업무추진비 집행현황",
+     "주소": "https://council.chungnam.go.kr/kr/costBBSview.do?uid=F78C1DCE54CF63ED044D51A1252F0485&schwrd=&flag=all&chk=&publish_sch=&page=1&list_style=&cmt_cd_sch=",
+     "길": [
+      "행정정보공개",
+      "2026년 9월 충청남도의회 농수산해양위원회 위원장 업무추진비 집행현황"
+     ]
+    },
+    {
+     "글자": "'2026년 9월 위원장 의회운영업무추진비 집행현황(공개용).xls' 파",
+     "주소": "https://council.chungnam.go.kr/kr/bbs/download.do?bbs_id=cost&uid=CCA65AC7A2BC16903D1316383A9209E0",
+     "길": [
+      "행정정보공개",
+      "'2026년 9월 위원장 의회운영업무추진비 집행현황(공개용).xls' 파"
+     ]
+    },
+    {
+     "글자": "2026년 9월 충청남도의회 의회운영전문위원실 시책추진업무추진비 집행현황",
+     "주소": "https://council.chungnam.go.kr/kr/costBBSview.do?uid=F10B0245818B692F84A79F91191D8265&schwrd=&flag=all&chk=&publish_sch=&page=1&list_style=&cmt_cd_sch=",
+     "길": [
+      "행정정보공개",
+      "2026년 9월 충청남도의회 의회운영전문위원실 시책추진업무추진비 집행현황"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4411000": {
+   "이름": "충남천안시",
+   "첫화면": "https://www.cheonancouncil.go.kr/",
+   "연화면": 20,
+   "업무추진비": [
+    {
+     "글자": "업무추진비",
+     "주소": "https://www.cheonancouncil.go.kr/svc/ctz/operatingExpenseList.do",
+     "길": [
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "천안시의회 의원 공무국외출장 심사위원회 심사위원 선정결과 발표 「천안시의",
+     "주소": "https://www.cheonancouncil.go.kr/svc/cnp/noticeView.do?schBbsSn=61245&schEnckey=5c9be193292131ed753eba9bd8c4f356b7f81bb2674365be8d87b8d821697e47612bdeed4bf37cdea68c14a4c9cca38228ca94604f3a17e2f115f972150df175",
+     "길": [
+      "천안시의회 의원 공무국외출장 심사위원회 심사위원 선정결과 발표 「천안시의"
+     ]
+    },
+    {
+     "글자": "천안시의회 의원 공무국외출장 심사위원회 심사위원 모집 공고 「천안시의회 ",
+     "주소": "https://www.cheonancouncil.go.kr/svc/cnp/noticeView.do?schBbsSn=61168&schEnckey=a4ab33f775a4f7529c815149df28b2aaa98ca7923ea94231aa1c8c299640a649c672648ca5e11cf09e4c08014b8d5978fd9f60343fdebb51845523fdc1f95b86",
+     "길": [
+      "천안시의회 의원 공무국외출장 심사위원회 심사위원 모집 공고 「천안시의회 "
+     ]
+    }
+   ]
+  },
+  "4413000": {
+   "이름": "충남보령시",
+   "첫화면": "http://www.brcouncil.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "2026년 3분기 업무추진비 집행내역",
+     "주소": "https://www.brcouncil.go.kr/kr/costBBSview.do?uid=44248A5F2B2FB010F945C7A6F22C2F8C&schwrd=&flag=all&page=1&list_style=",
+     "길": [
+      "정보공개",
+      "2026년 3분기 업무추진비 집행내역"
+     ]
+    },
+    {
+     "글자": "'2026년 3분기 업무추진비 집행현황.xlsx' 파일 내려받기",
+     "주소": "https://www.brcouncil.go.kr/kr/bbs/download.do?bbs_id=cost&uid=C493E85F9A116855393274D293C1D4B2",
+     "길": [
+      "정보공개",
+      "'2026년 3분기 업무추진비 집행현황.xlsx' 파일 내려받기"
+     ]
+    },
+    {
+     "글자": "2026년 2분기 업무추진비 집행내역",
+     "주소": "https://www.brcouncil.go.kr/kr/costBBSview.do?uid=6AFB9A9DECBCA8B10A20269C291AEFBF&schwrd=&flag=all&page=1&list_style=",
+     "길": [
+      "정보공개",
+      "2026년 2분기 업무추진비 집행내역"
+     ]
+    },
+    {
+     "글자": "'2026년 2분기 업무추진비 집행현황.xlsx' 파일 내려받기",
+     "주소": "https://www.brcouncil.go.kr/kr/bbs/download.do?bbs_id=cost&uid=64C3274AF3631160A5919D923B8AC6EE",
+     "길": [
+      "정보공개",
+      "'2026년 2분기 업무추진비 집행현황.xlsx' 파일 내려받기"
+     ]
+    },
+    {
+     "글자": "2026년 1분기 업무추진비 집행내역",
+     "주소": "https://www.brcouncil.go.kr/kr/costBBSview.do?uid=7F59D37C4F4950F1BD516CF39ABEEF2D&schwrd=&flag=all&page=1&list_style=",
+     "길": [
+      "정보공개",
+      "2026년 1분기 업무추진비 집행내역"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "국외출장",
+     "주소": "https://www.brcouncil.go.kr/kr/businessTripBBS.do",
+     "길": [
+      "국외출장"
+     ]
+    },
+    {
+     "글자": "공지사항 2025년 충청남도시군의회의장협의회 국외연수 주관사업자 모집공고",
+     "주소": "https://www.brcouncil.go.kr/kr/noticeBBSview.do?uid=A94623607834D8423B785ABECFC38E1B",
+     "길": [
+      "공지사항 2025년 충청남도시군의회의장협의회 국외연수 주관사업자 모집공고"
+     ]
+    },
+    {
+     "글자": "보도자료 보령시의회, 올해 해외연수 전면 미추진, 예산 전액 통째로 반납",
+     "주소": "https://www.brcouncil.go.kr/kr/sosicBBSview.do?uid=D18F5DDBF488593A4BBE19FF2E37EB57",
+     "길": [
+      "보도자료 보령시의회, 올해 해외연수 전면 미추진, 예산 전액 통째로 반납"
+     ]
+    },
+    {
+     "글자": "보령시의회, 올해 해외연수 전면 미추진, 예산 전액 통째로 반납",
+     "주소": "https://www.brcouncil.go.kr/kr/sosicBBSview.do?uid=D18F5DDBF488593A4BBE19FF2E37EB57&schwrd=&flag=all&page=1&list_style=",
+     "길": [
+      "보도자료 보령시의회, 예산결산특별위원회 백승만 위원장․최경운 부위원장 선",
+      "보령시의회, 올해 해외연수 전면 미추진, 예산 전액 통째로 반납"
+     ]
+    }
+   ]
+  },
+  "4414000": {
+   "이름": "충남아산시",
+   "첫화면": "https://www.asansicouncil.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비공개",
+     "주소": "https://www.asansicouncil.go.kr/ko/0407/board/budget/",
+     "길": [
+      "업무추진비공개"
+     ]
+    },
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://www.asansicouncil.go.kr/ko/080204/link/0407/",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공무국외출장",
+     "주소": "https://www.asansicouncil.go.kr/ko/0205/board/overseas_business/",
+     "길": [
+      "공무국외출장"
+     ]
+    }
+   ]
+  },
+  "4415000": {
+   "이름": "충남서산시",
+   "첫화면": "https://scc.go.kr/",
+   "연화면": 18,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 내역",
+     "주소": "https://scc.go.kr/index.php?MenuID=84",
+     "길": [
+      "전체메뉴보기",
+      "업무추진비 내역"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4416000": {
+   "이름": "충남논산시",
+   "첫화면": "http://www.nonsancl.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "2026년 3분기 논산시의회 의장단 업무추진비 공개",
+     "주소": "https://www.nonsancl.go.kr/kr/activity/bbs?bbs_id=expense&reform=view&uid=98E0DA27C1A4D2ABF320255110A2C143&list_style=&page=1&flag=&keyword=&search_code=council&filter=latest",
+     "길": [
+      "사이트맵",
+      "업무추진비공개",
+      "2026년 3분기 논산시의회 의장단 업무추진비 공개"
+     ]
+    },
+    {
+     "글자": "2026년 2분기 논산시의회 의장단 업무추진비 공개",
+     "주소": "https://www.nonsancl.go.kr/kr/activity/bbs?bbs_id=expense&reform=view&uid=7031BEC5F235A6EB40C39A4E253E5BD6&list_style=&page=1&flag=&keyword=&search_code=council&filter=latest",
+     "길": [
+      "사이트맵",
+      "업무추진비공개",
+      "2026년 2분기 논산시의회 의장단 업무추진비 공개"
+     ]
+    },
+    {
+     "글자": "2026년 1분기 논산시의회 의장단 업무추진비 공개",
+     "주소": "https://www.nonsancl.go.kr/kr/activity/bbs?bbs_id=expense&reform=view&uid=9A769B762CA40CBD161196DC3AA32FAF&list_style=&page=1&flag=&keyword=&search_code=council&filter=latest",
+     "길": [
+      "사이트맵",
+      "업무추진비공개",
+      "2026년 1분기 논산시의회 의장단 업무추진비 공개"
+     ]
+    },
+    {
+     "글자": "2025년 4분기 논산시의회 의장단 업무추진비 공개",
+     "주소": "https://www.nonsancl.go.kr/kr/activity/bbs?bbs_id=expense&reform=view&uid=2D2C3606E5843F54A424E454847A1BEF&list_style=&page=1&flag=&keyword=&search_code=council&filter=latest",
+     "길": [
+      "사이트맵",
+      "업무추진비공개",
+      "2025년 4분기 논산시의회 의장단 업무추진비 공개"
+     ]
+    },
+    {
+     "글자": "2025년 3분기 논산시의회 의장단 업무추진비 공개",
+     "주소": "https://www.nonsancl.go.kr/kr/activity/bbs?bbs_id=expense&reform=view&uid=F4B346969EED92E8BC0D68EFAB82DD9E&list_style=&page=1&flag=&keyword=&search_code=council&filter=latest",
+     "길": [
+      "사이트맵",
+      "업무추진비공개",
+      "2025년 3분기 논산시의회 의장단 업무추진비 공개"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4417000": {
+   "이름": "충남계룡시",
+   "첫화면": "https://gyeryong.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 공개",
+     "주소": "https://gyeryong.go.kr/kr/html/sub02/020204.html",
+     "길": [
+      "업무추진비 공개"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4418000": {
+   "이름": "충남당진시",
+   "첫화면": "http://council.dangjin.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "2026년 당진시의회 업무추진비 집행내역(3분기)",
+     "주소": "https://council.dangjin.go.kr/content/data/businessOperatingExpense.html?fidx=7188&pg=vv&f_code=&page=1&opt=&sword=",
+     "길": [
+      "정보공개",
+      "2026년 당진시의회 업무추진비 집행내역(3분기)"
+     ]
+    },
+    {
+     "글자": "2026년 당진시의회 업무추진비 집행내역(2분기)",
+     "주소": "https://council.dangjin.go.kr/content/data/businessOperatingExpense.html?fidx=7053&pg=vv&f_code=&page=1&opt=&sword=",
+     "길": [
+      "정보공개",
+      "2026년 당진시의회 업무추진비 집행내역(2분기)"
+     ]
+    },
+    {
+     "글자": "2026년 당진시의회 업무추진비 집행내역(1분기)",
+     "주소": "https://council.dangjin.go.kr/content/data/businessOperatingExpense.html?fidx=6985&pg=vv&f_code=&page=1&opt=&sword=",
+     "길": [
+      "정보공개",
+      "2026년 당진시의회 업무추진비 집행내역(1분기)"
+     ]
+    },
+    {
+     "글자": "2025년 당진시의회 업무추진비 집행내역(4분기)",
+     "주소": "https://council.dangjin.go.kr/content/data/businessOperatingExpense.html?fidx=6859&pg=vv&f_code=&page=1&opt=&sword=",
+     "길": [
+      "정보공개",
+      "2025년 당진시의회 업무추진비 집행내역(4분기)"
+     ]
+    },
+    {
+     "글자": "2025년 당진시의회 업무추진비 집행내역(3분기)",
+     "주소": "https://council.dangjin.go.kr/content/data/businessOperatingExpense.html?fidx=6707&pg=vv&f_code=&page=1&opt=&sword=",
+     "길": [
+      "정보공개",
+      "2025년 당진시의회 업무추진비 집행내역(3분기)"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "국외연수보고서",
+     "주소": "https://council.dangjin.go.kr/content/activity/report.html",
+     "길": [
+      "국외연수보고서"
+     ]
+    }
+   ]
+  },
+  "4471000": {
+   "이름": "충남금산군",
+   "첫화면": "https://www.geumsancouncil.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://www.geumsancouncil.go.kr/content/info/expenses.html",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "2024년 4월 공무국외출장 결과보고서",
+     "주소": "https://www.geumsancouncil.go.kr/content/news/legislativeActivity.html?fidx=3022&pg=vv&f_code=&page=1&opt=&sword=",
+     "길": [
+      "의정활동",
+      "2024년 4월 공무국외출장 결과보고서"
+     ]
+    },
+    {
+     "글자": "2023년 상반기 금산군의회 의원 공무국외출장 보고서",
+     "주소": "https://www.geumsancouncil.go.kr/content/news/legislativeActivity.html?fidx=2772&pg=vv&f_code=&page=1&opt=&sword=",
+     "길": [
+      "의정활동",
+      "2023년 상반기 금산군의회 의원 공무국외출장 보고서"
+     ]
+    },
+    {
+     "글자": "2017년도 국외연수보고서(산업건설위원회)",
+     "주소": "https://www.geumsancouncil.go.kr/content/news/legislativeActivity.html?fidx=2467&pg=vv&f_code=&page=1&opt=&sword=",
+     "길": [
+      "의정활동",
+      "2017년도 국외연수보고서(산업건설위원회)"
+     ]
+    },
+    {
+     "글자": "2017년도 국외연수보고서(총무위원회)",
+     "주소": "https://www.geumsancouncil.go.kr/content/news/legislativeActivity.html?fidx=2466&pg=vv&f_code=&page=1&opt=&sword=",
+     "길": [
+      "의정활동",
+      "2017년도 국외연수보고서(총무위원회)"
+     ]
+    },
+    {
+     "글자": "2016년 의정활동 배양 및 역량제고 국외연수 결과보고서",
+     "주소": "https://www.geumsancouncil.go.kr/content/news/legislativeActivity.html?fidx=2468&pg=vv&f_code=&page=1&opt=&sword=",
+     "길": [
+      "의정활동",
+      "2016년 의정활동 배양 및 역량제고 국외연수 결과보고서"
+     ]
+    }
+   ]
+  },
+  "4473000": {
+   "이름": "충남부여군",
+   "첫화면": "http://council.buyeo.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 집행내역",
+     "주소": "https://council.buyeo.go.kr/kr/open/bbsBusiness.do",
+     "길": [
+      "업무추진비 집행내역"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공무국외출장",
+     "주소": "https://council.buyeo.go.kr/kr/open/bbsForeign.do",
+     "길": [
+      "공무국외출장"
+     ]
+    },
+    {
+     "글자": "「부여군의회 의원 공무국외출장 규칙」 전부개정 알림(공포) 161 202",
+     "주소": "https://council.buyeo.go.kr/kr/news/bbsNotice.do?reform=view&key=f72f47af6118d428905e62033db890d83c3c4e056d30b9c9b7e8806de5a85d91c62fbdd67a6ee383",
+     "길": [
+      "「부여군의회 의원 공무국외출장 규칙」 전부개정 알림(공포) 161 202"
+     ]
+    },
+    {
+     "글자": "부여군의회 의원 공무국외출장 규칙 전부개정규칙안 입법예고",
+     "주소": "https://council.buyeo.go.kr/kr/news/bbsLaw.do?reform=view&key=1994e40e304e1209404eaa36e5bd18478dcd89318209756acf6aa97ecdc7f09fe0b4f42a61079817&pageNum=1&flag=&keyword=",
+     "길": [
+      "부여군의회 의정활동 지원을 위한 인공지능 활용 조례안 입법예고 새 글N ",
+      "부여군의회 의원 공무국외출장 규칙 전부개정규칙안 입법예고"
+     ]
+    }
+   ]
+  },
+  "4474000": {
+   "이름": "충남서천군",
+   "첫화면": "https://www.scouncil.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://www.scouncil.go.kr/kr/prog/scheduleManagement/sub04_02/SM_01/list.do",
+     "길": [
+      "업무추진비 현황"
+     ]
+    },
+    {
+     "글자": "2026년 8월 의회사무과 의회운영업무추진비, 공통경비 및 기관, 부서,",
+     "주소": "https://www.scouncil.go.kr/cop/bbs/BBSMSTR_000000000627/selectBoardArticle.do?nttId=B00000217199am8uI5th5jt2&kind=&mno=sitemap_02&pageIndex=1&searchCnd=&searchWrd=",
+     "길": [
+      "정보공개",
+      "2026년 8월 의회사무과 의회운영업무추진비, 공통경비 및 기관, 부서,"
+     ]
+    },
+    {
+     "글자": "2026년 7월 의회사무과 의회운영업무추진비, 공통경비 및 기관, 부서,",
+     "주소": "https://www.scouncil.go.kr/cop/bbs/BBSMSTR_000000000627/selectBoardArticle.do?nttId=B00000216997xm7hQ0iq6aj4&kind=&mno=sitemap_02&pageIndex=1&searchCnd=&searchWrd=",
+     "길": [
+      "정보공개",
+      "2026년 7월 의회사무과 의회운영업무추진비, 공통경비 및 기관, 부서,"
+     ]
+    },
+    {
+     "글자": "2026년 6월 의회사무과 의회운영업무추진비, 공통경비 및 기관, 부서,",
+     "주소": "https://www.scouncil.go.kr/cop/bbs/BBSMSTR_000000000627/selectBoardArticle.do?nttId=B00000216919am0qU2ip0xa3&kind=&mno=sitemap_02&pageIndex=1&searchCnd=&searchWrd=",
+     "길": [
+      "정보공개",
+      "2026년 6월 의회사무과 의회운영업무추진비, 공통경비 및 기관, 부서,"
+     ]
+    },
+    {
+     "글자": "2026년 5월 의회사무과 의회운영업무추진비, 공통경비 및 기관, 부서,",
+     "주소": "https://www.scouncil.go.kr/cop/bbs/BBSMSTR_000000000627/selectBoardArticle.do?nttId=B00000216717av5cA3vu9qy9&kind=&mno=sitemap_02&pageIndex=1&searchCnd=&searchWrd=",
+     "길": [
+      "정보공개",
+      "2026년 5월 의회사무과 의회운영업무추진비, 공통경비 및 기관, 부서,"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4475000": {
+   "이름": "충남청양군",
+   "첫화면": "https://council.cheongyang.go.kr/",
+   "연화면": 20,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 집행내역",
+     "주소": "https://council.cheongyang.go.kr/bbs/BBSMSTR_000000000036.do;jsessionid=22C3FC930DA2D40D62618501DCC298A4",
+     "길": [
+      "업무추진비 집행내역"
+     ]
+    },
+    {
+     "글자": "업무추진비 집행내역",
+     "주소": "https://council.cheongyang.go.kr/bbs/BBSMSTR_000000000036.do",
+     "길": [
+      "업무추진비 집행내역"
+     ]
+    },
+    {
+     "글자": "2026년도 03월 업무추진비 집행내역",
+     "주소": "https://council.cheongyang.go.kr/bbs/BBSMSTR_000000000036.do;jsessionid=22C3FC930DA2D40D62618501DCC298A4#view",
+     "길": [
+      "정보공개",
+      "2026년도 03월 업무추진비 집행내역"
+     ]
+    },
+    {
+     "글자": "업무추진비 집행내역",
+     "주소": "https://council.cheongyang.go.kr/kor/sitemap_01.do#enURI3",
+     "길": [
+      "정보공개",
+      "전체메뉴",
+      "업무추진비 집행내역"
+     ]
+    },
+    {
+     "글자": "2026년도 03월 업무추진비 집행내역",
+     "주소": "https://council.cheongyang.go.kr/bbs/BBSMSTR_000000000036.do#view",
+     "길": [
+      "정보공개",
+      "정보공개",
+      "2026년도 03월 업무추진비 집행내역"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "국제 교류 현황(공무국외 출장 등)",
+     "주소": "https://council.cheongyang.go.kr/bbs/BBSMSTR_000000000038/list.do",
+     "길": [
+      "국제 교류 현황(공무국외 출장 등)"
+     ]
+    },
+    {
+     "글자": "국제 교류 현황(공무국외 출장 등)",
+     "주소": "https://council.cheongyang.go.kr/kor/sitemap_01.do#enURI3",
+     "길": [
+      "정보공개",
+      "전체메뉴",
+      "국제 교류 현황(공무국외 출장 등)"
+     ]
+    },
+    {
+     "글자": "입법예고 「청양군의회 의원 공무국외출장 규칙」 일부개정규칙안 입법예고 「",
+     "주소": "https://council.cheongyang.go.kr/prog/saeolGosi/03/kor/sub06_03/view.do?notAncmtMgtNo=37671",
+     "길": [
+      "입법예고 「청양군의회 의원 공무국외출장 규칙」 일부개정규칙안 입법예고 「"
+     ]
+    },
+    {
+     "글자": "보도자료 청양군의회, 공무국외출장 취소로 민생 예산 확보에 힘 보탠다 청",
+     "주소": "https://council.cheongyang.go.kr/prog/bbsArticle/BBSMSTR_000000000035/view.do?nttId=B000000005566Ou4pI6b",
+     "길": [
+      "보도자료 청양군의회, 공무국외출장 취소로 민생 예산 확보에 힘 보탠다 청"
+     ]
+    },
+    {
+     "글자": "저작권 보호분야 청양군의회, 공무국외출장 취소로 민생 예산 확보에 힘 보",
+     "주소": "http://www.kogl.or.kr/info/licenseType1.do",
+     "길": [
+      "보도자료 청양군의회, 공무국외출장 취소로 민생 예산 확보에 힘 보탠다 청",
+      "저작권 보호분야 청양군의회, 공무국외출장 취소로 민생 예산 확보에 힘 보"
+     ]
+    }
+   ]
+  },
+  "4476000": {
+   "이름": "충남홍성군",
+   "첫화면": "http://council.hongseong.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 내역",
+     "주소": "https://council.hongseong.go.kr/kr/costBBS.do",
+     "길": [
+      "업무추진비 내역"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공지사항 홍성군의회 의원 공무국외출장 계획서 공개 및 주민의견 수렴 안내",
+     "주소": "https://council.hongseong.go.kr/kr/noticeBBSview.do?uid=111D5FC563D2CC77A6336C5B223816B6",
+     "길": [
+      "공지사항 홍성군의회 의원 공무국외출장 계획서 공개 및 주민의견 수렴 안내"
+     ]
+    },
+    {
+     "글자": "공지사항 홍성군-중국 전장시 자매결연 협정 체결에 따른 공무국외출장심사위",
+     "주소": "https://council.hongseong.go.kr/kr/noticeBBSview.do?uid=47DD661C1087A943CE6810BF96811297",
+     "길": [
+      "공지사항 홍성군-중국 전장시 자매결연 협정 체결에 따른 공무국외출장심사위"
+     ]
+    }
+   ]
+  },
+  "4477000": {
+   "이름": "충남예산군",
+   "첫화면": "https://www.councilyesan.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비",
+     "주소": "https://www.councilyesan.go.kr/council/kr/costBBS.do",
+     "길": [
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "집회공고 2026년도 충청남도시군의회사무국과장협의회 공무국외연수 주관사업",
+     "주소": "https://www.councilyesan.go.kr/council/kr/notifyBBSview.do?uid=5AB9CAD139005D91B69AD4EF84C6EA35",
+     "길": [
+      "집회공고 2026년도 충청남도시군의회사무국과장협의회 공무국외연수 주관사업"
+     ]
+    }
+   ]
+  },
+  "4478000": {
+   "이름": "충남태안군",
+   "첫화면": "https://council.taean.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 집행내역",
+     "주소": "https://council.taean.go.kr/main/index.php?m_cd=20",
+     "길": [
+      "업무추진비 집행내역"
+     ]
+    },
+    {
+     "글자": "의회운영업무추진비 집행내역(2026. 3분기)",
+     "주소": "https://council.taean.go.kr/main/index.php?m_cd=20#",
+     "길": [
+      "정보공개",
+      "의회운영업무추진비 집행내역(2026. 3분기)"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공무국외출장",
+     "주소": "https://council.taean.go.kr/main/index.php?m_cd=74",
+     "길": [
+      "공무국외출장"
+     ]
+    },
+    {
+     "글자": "공지 2026년도 태안군의회 일본 공무국외출장 계획 사전 안내 2026-",
+     "주소": "https://council.taean.go.kr/main/index.php?m_cd=15&sp=2&wr_id=20260924121185252",
+     "길": [
+      "공지 2026년도 태안군의회 일본 공무국외출장 계획 사전 안내 2026-"
+     ]
+    }
+   ]
+  },
+  "4500000": {
+   "이름": "전북본청",
+   "첫화면": "https://www.jbstatecouncil.jeonbuk.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "2026년 9월 문화안전소방전문위원 시책추진업무추진비 집행내역",
+     "주소": "https://www.jbstatecouncil.jeonbuk.kr/jbassem/board/39/1/read/69544",
+     "길": [
+      "정보공개",
+      "2026년 9월 문화안전소방전문위원 시책추진업무추진비 집행내역"
+     ]
+    },
+    {
+     "글자": "2026년 9월 경제산업건설전문위원 시책추진업무추진비 집행내역",
+     "주소": "https://www.jbstatecouncil.jeonbuk.kr/jbassem/board/39/1/read/69518",
+     "길": [
+      "정보공개",
+      "2026년 9월 경제산업건설전문위원 시책추진업무추진비 집행내역"
+     ]
+    },
+    {
+     "글자": "2026년 9월 기획행정위원회 업무추진비 집행내역",
+     "주소": "https://www.jbstatecouncil.jeonbuk.kr/jbassem/board/39/1/read/69507",
+     "길": [
+      "정보공개",
+      "2026년 9월 기획행정위원회 업무추진비 집행내역"
+     ]
+    },
+    {
+     "글자": "2026년 3분기 의회운영위원회 업무추진비 집행내역",
+     "주소": "https://www.jbstatecouncil.jeonbuk.kr/jbassem/board/39/1/read/69500",
+     "길": [
+      "정보공개",
+      "2026년 3분기 의회운영위원회 업무추진비 집행내역"
+     ]
+    },
+    {
+     "글자": "2026년 9월 교육위원회 업무추진비 집행내역",
+     "주소": "https://www.jbstatecouncil.jeonbuk.kr/jbassem/board/39/1/read/69499",
+     "길": [
+      "정보공개",
+      "2026년 9월 교육위원회 업무추진비 집행내역"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4511000": {
+   "이름": "전북전주시",
+   "첫화면": "https://council.jeonju.go.kr/",
+   "연화면": 18,
+   "업무추진비": [
+    {
+     "글자": "업무추진비",
+     "주소": "https://council.jeonju.go.kr/source/kr/news/business.html",
+     "길": [
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공지사항 『전주시의회 의원 공무국외출장 규칙 전부개정규칙』공포 701 2",
+     "주소": "https://council.jeonju.go.kr/source/kr/news/notice.html?type=view&uid=563C9F1EA97806D96DA895DC3C2E2938",
+     "길": [
+      "공지사항 『전주시의회 의원 공무국외출장 규칙 전부개정규칙』공포 701 2"
+     ]
+    }
+   ]
+  },
+  "4512000": {
+   "이름": "전북군산시",
+   "첫화면": "http://council.gunsan.go.kr/",
+   "연화면": 20,
+   "업무추진비": [
+    {
+     "글자": "군산시의회 업무추진비 사용내역 공개(2026년 9월)",
+     "주소": "https://council.gunsan.go.kr/kr/open/bbsCost.do?reform=view&key=58d113434a1522ff104e6b764874a78b8a43fae3451902616ee0d330612883ac196f266a256eba54&pageNum=1&flag=&keyword=",
+     "길": [
+      "정보공개",
+      "군산시의회 업무추진비 사용내역 공개(2026년 9월)"
+     ]
+    },
+    {
+     "글자": "군산시의회 업무추진비 사용내역 공개(2026년 8월)",
+     "주소": "https://council.gunsan.go.kr/kr/open/bbsCost.do?reform=view&key=b8b706aaf3bb248741b50436b46bd4e917f8ab2262197b7cf646cd90f2b0c73e80b5239ffd8c1c3c&pageNum=1&flag=&keyword=",
+     "길": [
+      "정보공개",
+      "군산시의회 업무추진비 사용내역 공개(2026년 8월)"
+     ]
+    },
+    {
+     "글자": "군산시의회 업무추진비 사용내역 공개(2026년 7월)",
+     "주소": "https://council.gunsan.go.kr/kr/open/bbsCost.do?reform=view&key=717d5e3ece092dec85d67a2f803e89f93e041522721570a01600dc22203049e1e8f367d56d11eedf&pageNum=1&flag=&keyword=",
+     "길": [
+      "정보공개",
+      "군산시의회 업무추진비 사용내역 공개(2026년 7월)"
+     ]
+    },
+    {
+     "글자": "군산시의회 업무추진비 사용내역 공개(2026년 6월)",
+     "주소": "https://council.gunsan.go.kr/kr/open/bbsCost.do?reform=view&key=49a9a54b40cad06e8c836bad459456e29b9c6d77be5665391fdf5c25ae7017c2dd497bc93c4ffce5&pageNum=1&flag=&keyword=",
+     "길": [
+      "정보공개",
+      "군산시의회 업무추진비 사용내역 공개(2026년 6월)"
+     ]
+    },
+    {
+     "글자": "군산시의회 업무추진비 사용내역 공개(2026년 5월)",
+     "주소": "https://council.gunsan.go.kr/kr/open/bbsCost.do?reform=view&key=0438a9bbff217823b87ab0d76ad308df4984ebb4ab5194f97b1da5fe89ea6008e4fcf34b95775da9&pageNum=1&flag=&keyword=",
+     "길": [
+      "정보공개",
+      "군산시의회 업무추진비 사용내역 공개(2026년 5월)"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "국외출장",
+     "주소": "https://council.gunsan.go.kr/kr/activity/bbsForeign.do",
+     "길": [
+      "국외출장"
+     ]
+    }
+   ]
+  },
+  "4513000": {
+   "이름": "전북익산시",
+   "첫화면": "https://council.iksan.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 공개",
+     "주소": "https://council.iksan.go.kr/index.iksan?menuCd=DOM_000000806009000000",
+     "길": [
+      "업무추진비 공개"
+     ]
+    },
+    {
+     "글자": "4. 업무추진비 집행현황",
+     "주소": "https://council.iksan.go.kr/index.iksan?menuCd=DOM_000000807001003000",
+     "길": [
+      "정보공개",
+      "4. 업무추진비 집행현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "5. 국제 교류 현황(공무국외출장 등)",
+     "주소": "https://council.iksan.go.kr/index.iksan?menuCd=DOM_000000807001004000",
+     "길": [
+      "정보공개",
+      "5. 국제 교류 현황(공무국외출장 등)"
+     ]
+    },
+    {
+     "글자": "국외활동",
+     "주소": "https://council.iksan.go.kr/index.iksan?menuCd=DOM_000000806003000000",
+     "길": [
+      "국외활동"
+     ]
+    }
+   ]
+  },
+  "4514000": {
+   "이름": "전북정읍시",
+   "첫화면": "http://www.jcc.or.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://www.jcc.or.kr/kr/costBBS.do",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "정읍시의회 올해 국외연수 예산 전액 반납 2026. 09. 08",
+     "주소": "https://www.jcc.or.kr/kr/bodoBBSview.do?uid=F98EDE4E81598BDC55AD2E361CDF4675",
+     "길": [
+      "정읍시의회 올해 국외연수 예산 전액 반납 2026. 09. 08"
+     ]
+    },
+    {
+     "글자": "정읍시의회 올해 국외연수 예산 전액 반납",
+     "주소": "https://www.jcc.or.kr/member/09020/bodoBBSview.do?uid=F98EDE4E81598BDC55AD2E361CDF4675&schwrd=&flag=all&th_sch=&page=1&list_style=&cmt_cd_sch=",
+     "길": [
+      "의원오명제",
+      "의정활동",
+      "정읍시의회 올해 국외연수 예산 전액 반납"
+     ]
+    },
+    {
+     "글자": "정읍시의회 올해 국외연수 예산 전액 반납",
+     "주소": "https://www.jcc.or.kr/member/09030/bodoBBSview.do?uid=F98EDE4E81598BDC55AD2E361CDF4675&schwrd=&flag=all&th_sch=&page=1&list_style=&cmt_cd_sch=",
+     "길": [
+      "의원오승현",
+      "의정활동",
+      "정읍시의회 올해 국외연수 예산 전액 반납"
+     ]
+    },
+    {
+     "글자": "정읍시의회 올해 국외연수 예산 전액 반납",
+     "주소": "https://www.jcc.or.kr/member/10030/bodoBBSview.do?uid=F98EDE4E81598BDC55AD2E361CDF4675&schwrd=&flag=all&th_sch=&page=1&list_style=&cmt_cd_sch=",
+     "길": [
+      "의원김경섭",
+      "의정활동",
+      "정읍시의회 올해 국외연수 예산 전액 반납"
+     ]
+    }
+   ]
+  },
+  "4516000": {
+   "이름": "전북김제시",
+   "첫화면": "https://council.gimje.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.gimje.go.kr/index.gimje?menuCd=DOM_000000118001004000",
+     "길": [
+      "정보공개",
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4571000": {
+   "이름": "전북완주군",
+   "첫화면": "https://council.wanju.go.kr/",
+   "연화면": 18,
+   "업무추진비": [
+    {
+     "글자": "업무추진비",
+     "주소": "https://council.wanju.go.kr/board?depth_1=9&depth_2=45",
+     "길": [
+      "업무추진비"
+     ]
+    },
+    {
+     "글자": "업무추진비",
+     "주소": "https://www.wanju.go.kr/index.9is?contentUid=ff8080818b024d8e018b274f4b222b58",
+     "길": [
+      "의정활동 정보공개",
+      "의정비 심의위원회",
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "국외활동사항공개",
+     "주소": "https://council.wanju.go.kr/board?depth_1=12&depth_2=20",
+     "길": [
+      "국외활동사항공개"
+     ]
+    }
+   ]
+  },
+  "4572000": {
+   "이름": "전북진안군",
+   "첫화면": "https://council.jinan.go.kr/",
+   "연화면": 20,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 공개",
+     "주소": "https://council.jinan.go.kr/kr/costBBS.do",
+     "길": [
+      "업무추진비 공개"
+     ]
+    },
+    {
+     "글자": "업무추진비 집행 현황",
+     "주소": "http://council.jinan.go.kr/kr/costBBS.do",
+     "길": [
+      "업무추진비 집행 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "국제 교류 현황(공무국외출장 등)",
+     "주소": "http://council.jinan.go.kr/kr/foreignBBS.do",
+     "길": [
+      "국제 교류 현황(공무국외출장 등)"
+     ]
+    },
+    {
+     "글자": "2023년도 진안군의회 의원 공무국외 출장결과보고서를다음과 같이 공개합니",
+     "주소": "https://council.jinan.go.kr/kr/publicBBSview.do?uid=A7B5AA9E7C580ACF450E3C0DE8C8CE55&schwrd=&flag=all&mem_sch=&th_sch=&page=1&list_style=&cmt_cd_sch=",
+     "길": [
+      "정보공개",
+      "2023년도 진안군의회 의원 공무국외 출장결과보고서를다음과 같이 공개합니"
+     ]
+    },
+    {
+     "글자": "진안군의회_의원_공무국외_출장_결과보고서_최종본.pdf [0]",
+     "주소": "https://council.jinan.go.kr/viewer/pdf.do?group=bbs&uid=5094",
+     "길": [
+      "정보공개",
+      "진안군의회_의원_공무국외_출장_결과보고서_최종본.pdf [0]"
+     ]
+    },
+    {
+     "글자": "5. 국제 교류 현황(공무국외출장 등)",
+     "주소": "https://council.jinan.go.kr/kr/foreignBBS.do",
+     "길": [
+      "의정활동 정보공개",
+      "5. 국제 교류 현황(공무국외출장 등)"
+     ]
+    }
+   ]
+  },
+  "4573000": {
+   "이름": "전북무주군",
+   "첫화면": "http://assem.muju.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 집행 현황",
+     "주소": "https://assem.muju.go.kr/content/data/expense.html",
+     "길": [
+      "업무추진비 집행 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "국제 교류 현황(공무국외출장 등)",
+     "주소": "https://assem.muju.go.kr/content/data/overseasTraining.html",
+     "길": [
+      "국제 교류 현황(공무국외출장 등)"
+     ]
+    }
+   ]
+  },
+  "4574000": {
+   "이름": "전북장수군",
+   "첫화면": "https://council.jangsu.go.kr/",
+   "연화면": 13,
+   "업무추진비": [],
+   "국외출장": []
+  },
+  "4575000": {
+   "이름": "전북임실군",
+   "첫화면": "https://council.imsil.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "2026년 8월 업무추진비 사용 내역",
+     "주소": "https://council.imsil.go.kr/main/board/8/1/read/6061?query=",
+     "길": [
+      "사전정보공개",
+      "2026년 8월 업무추진비 사용 내역"
+     ]
+    },
+    {
+     "글자": "2026년 7월 업무추진비 사용 내역",
+     "주소": "https://council.imsil.go.kr/main/board/8/1/read/5989?query=",
+     "길": [
+      "사전정보공개",
+      "2026년 7월 업무추진비 사용 내역"
+     ]
+    },
+    {
+     "글자": "2026년 6월 업무추진비 사용 내역",
+     "주소": "https://council.imsil.go.kr/main/board/8/1/read/5901?query=",
+     "길": [
+      "사전정보공개",
+      "2026년 6월 업무추진비 사용 내역"
+     ]
+    },
+    {
+     "글자": "2026년 5월 업무추진비 사용 내역",
+     "주소": "https://council.imsil.go.kr/main/board/8/1/read/5886?query=",
+     "길": [
+      "사전정보공개",
+      "2026년 5월 업무추진비 사용 내역"
+     ]
+    },
+    {
+     "글자": "2026년 4월 업무추진비 사용 내역",
+     "주소": "https://council.imsil.go.kr/main/board/8/1/read/5880?query=",
+     "길": [
+      "사전정보공개",
+      "2026년 4월 업무추진비 사용 내역"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공무국외출장",
+     "주소": "https://council.imsil.go.kr/main/board/11",
+     "길": [
+      "공무국외출장"
+     ]
+    }
+   ]
+  },
+  "4576000": {
+   "이름": "전북순창군",
+   "첫화면": "http://www.sunchangcouncil.go.kr/",
+   "연화면": 16,
+   "업무추진비": [
+    {
+     "글자": "의원업무추진비사용내역",
+     "주소": "https://www.sunchangcouncil.go.kr/main/board/45",
+     "길": [
+      "의원업무추진비사용내역"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "의원국외연수보고서",
+     "주소": "https://www.sunchangcouncil.go.kr/main/board/50",
+     "길": [
+      "의원국외연수보고서"
+     ]
+    },
+    {
+     "글자": "2024년 국외연수 결과보고서",
+     "주소": "https://www.sunchangcouncil.go.kr/main/board/50/1/read/1385",
+     "길": [
+      "의원국외연수보고서",
+      "2024년 국외연수 결과보고서"
+     ]
+    },
+    {
+     "글자": "2023년 국외연수 결과보고서",
+     "주소": "https://www.sunchangcouncil.go.kr/main/board/50/1/read/1293",
+     "길": [
+      "의원국외연수보고서",
+      "2023년 국외연수 결과보고서"
+     ]
+    },
+    {
+     "글자": "2019년도 국외연수 결과보고서",
+     "주소": "https://www.sunchangcouncil.go.kr/main/board/50/1/read/997",
+     "길": [
+      "의원국외연수보고서",
+      "2019년도 국외연수 결과보고서"
+     ]
+    },
+    {
+     "글자": "2018년도 순창군의회 국외연수보고서",
+     "주소": "https://www.sunchangcouncil.go.kr/main/board/50/1/read/994",
+     "길": [
+      "의원국외연수보고서",
+      "2018년도 순창군의회 국외연수보고서"
+     ]
+    }
+   ]
+  },
+  "4578000": {
+   "이름": "전북부안군",
+   "첫화면": "https://council.buan.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "2026년 2분기 부안군의회 업무추진비 집행내역",
+     "주소": "https://council.buan.go.kr/board/view.buan?boardId=BBS_0000011&menuCd=DOM_000000105004000000&paging=ok&startPage=1&dataSid=4276",
+     "길": [
+      "행정정보공개",
+      "2026년 2분기 부안군의회 업무추진비 집행내역"
+     ]
+    },
+    {
+     "글자": "2026년 1분기 부안군의회 업무추진비 집행내역",
+     "주소": "https://council.buan.go.kr/board/view.buan?boardId=BBS_0000011&menuCd=DOM_000000105004000000&paging=ok&startPage=1&dataSid=4180",
+     "길": [
+      "행정정보공개",
+      "2026년 1분기 부안군의회 업무추진비 집행내역"
+     ]
+    },
+    {
+     "글자": "2025년 4분기 부안군의회 업무추진비 집행내역",
+     "주소": "https://council.buan.go.kr/board/view.buan?boardId=BBS_0000011&menuCd=DOM_000000105004000000&paging=ok&startPage=1&dataSid=4110",
+     "길": [
+      "행정정보공개",
+      "2025년 4분기 부안군의회 업무추진비 집행내역"
+     ]
+    },
+    {
+     "글자": "2025년 3분기 부안군의회 업무추진비 집행내역",
+     "주소": "https://council.buan.go.kr/board/view.buan?boardId=BBS_0000011&menuCd=DOM_000000105004000000&paging=ok&startPage=1&dataSid=4003",
+     "길": [
+      "행정정보공개",
+      "2025년 3분기 부안군의회 업무추진비 집행내역"
+     ]
+    },
+    {
+     "글자": "2025년 2분기 부안군의회 업무추진비 집행내역",
+     "주소": "https://council.buan.go.kr/board/view.buan?boardId=BBS_0000011&menuCd=DOM_000000105004000000&paging=ok&startPage=1&dataSid=3877",
+     "길": [
+      "행정정보공개",
+      "2025년 2분기 부안군의회 업무추진비 집행내역"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "부안군의회 의원 공무국외출장 계획 공개 및 주민의견 수렴",
+     "주소": "https://council.buan.go.kr/board/view.buan?boardId=BBS_0000011&menuCd=DOM_000000105004000000&paging=ok&startPage=1&dataSid=4322",
+     "길": [
+      "행정정보공개",
+      "부안군의회 의원 공무국외출장 계획 공개 및 주민의견 수렴"
+     ]
+    }
+   ]
+  },
+  "4600000": {
+   "이름": "전남본청",
+   "첫화면": "https://council.jeonnam-gwangju.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.jeonnam-gwangju.go.kr/jngjassem/board/20",
+     "길": [
+      "의정활동 정보공개",
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "국제교류 현황(공무국외출장,의정연수)",
+     "주소": "https://council.jeonnam-gwangju.go.kr/jngjassem/board/21",
+     "길": [
+      "의정활동 정보공개",
+      "국제교류 현황(공무국외출장,의정연수)"
+     ]
+    }
+   ]
+  },
+  "4611000": {
+   "이름": "전남목포시",
+   "첫화면": "https://council.mokpo.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.mokpo.go.kr/kr/bbs?bbs_id=expenses",
+     "길": [
+      "업무추진비 현황"
+     ]
+    },
+    {
+     "글자": "업무추진비 공개",
+     "주소": "https://www.mokpo.go.kr/www/open_data/open_operational_cost",
+     "길": [
+      "의정비 심의위원회",
+      "업무추진비 공개"
+     ]
+    },
+    {
+     "글자": "업무추진비 공개",
+     "주소": "http://www.mokpo.go.kr/www/open_data/open_operational_cost",
+     "길": [
+      "의정비 심의위원회",
+      "사이트맵",
+      "업무추진비 공개"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공무국외여행",
+     "주소": "http://www.mokpo.go.kr/www/open_data/municipal/dataroom/foreign_travel",
+     "길": [
+      "의정비 심의위원회",
+      "사이트맵",
+      "공무국외여행"
+     ]
+    }
+   ]
+  },
+  "4612000": {
+   "이름": "전남여수시",
+   "첫화면": "http://council.yeosu.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비현황",
+     "주소": "https://council.yeosu.go.kr/source/kr/data/info.html",
+     "길": [
+      "업무추진비현황"
+     ]
+    },
+    {
+     "글자": "2026년 8월 업무추진비 및 의정공통경비 사용내역",
+     "주소": "https://council.yeosu.go.kr/source/kr/data/info.html?mode=view&page=1&number=52DCB1DF306BB4046DE5ABFACE4AB7B6&tcount=107&article_num=107&flag=&keyword=#skip-content",
+     "길": [
+      "사이트맵",
+      "정보공개",
+      "2026년 8월 업무추진비 및 의정공통경비 사용내역"
+     ]
+    },
+    {
+     "글자": "2026년 7월 업무추진비 및 의정공통경비 사용내역",
+     "주소": "https://council.yeosu.go.kr/source/kr/data/info.html?mode=view&page=1&number=E722833F9934A5168CA91451DB38DE2E&tcount=107&article_num=106&flag=&keyword=#skip-content",
+     "길": [
+      "사이트맵",
+      "정보공개",
+      "2026년 7월 업무추진비 및 의정공통경비 사용내역"
+     ]
+    },
+    {
+     "글자": "2026년 6월 업무추진비 및 의정공통경비 사용내역",
+     "주소": "https://council.yeosu.go.kr/source/kr/data/info.html?mode=view&page=1&number=697FBE297D612383983D2D5B5994DF6C&tcount=107&article_num=105&flag=&keyword=#skip-content",
+     "길": [
+      "사이트맵",
+      "정보공개",
+      "2026년 6월 업무추진비 및 의정공통경비 사용내역"
+     ]
+    },
+    {
+     "글자": "2026년 5월 업무추진비 및 의정공통경비 사용내역",
+     "주소": "https://council.yeosu.go.kr/source/kr/data/info.html?mode=view&page=1&number=BAB3251647328B0E057A84B158A21E14&tcount=107&article_num=104&flag=&keyword=#skip-content",
+     "길": [
+      "사이트맵",
+      "정보공개",
+      "2026년 5월 업무추진비 및 의정공통경비 사용내역"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "국외출장보고",
+     "주소": "https://council.yeosu.go.kr/source/kr/data/report.html",
+     "길": [
+      "사이트맵",
+      "국외출장보고"
+     ]
+    },
+    {
+     "글자": "국외출장보고",
+     "주소": "https://council.yeosu.go.kr/source/kr/data/plan.html",
+     "길": [
+      "기타정보공개",
+      "국외출장보고"
+     ]
+    }
+   ]
+  },
+  "4613000": {
+   "이름": "전남순천시",
+   "첫화면": "http://www.sccouncil.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://www.sccouncil.go.kr/kr/costBBS.do",
+     "길": [
+      "업무추진비 현황"
+     ]
+    },
+    {
+     "글자": "2025년 4분기 업무추진비 집행내역",
+     "주소": "https://www.sccouncil.go.kr/kr/costBBSview.do?uid=7819AB8A354F87FD0632FFF9B1AFC3B1&schwrd=&flag=all&th_sch=&page=1&list_style=",
+     "길": [
+      "정보공개",
+      "2025년 4분기 업무추진비 집행내역"
+     ]
+    },
+    {
+     "글자": "2025년 3분기 업무추진비 집행내역",
+     "주소": "https://www.sccouncil.go.kr/kr/costBBSview.do?uid=66E19DE1C3C9811E5D6DDB67DC2C787F&schwrd=&flag=all&th_sch=&page=1&list_style=",
+     "길": [
+      "정보공개",
+      "2025년 3분기 업무추진비 집행내역"
+     ]
+    },
+    {
+     "글자": "2025년 2분기 업무추진비 집행내역",
+     "주소": "https://www.sccouncil.go.kr/kr/costBBSview.do?uid=BB758DAF6B4896671B1508785BFCA2CD&schwrd=&flag=all&th_sch=&page=1&list_style=",
+     "길": [
+      "정보공개",
+      "2025년 2분기 업무추진비 집행내역"
+     ]
+    },
+    {
+     "글자": "2025. 2분기 시책추진업무추진비 사용 내역.pdf",
+     "주소": "https://www.sccouncil.go.kr/kr/bbs/download.do?bbs_id=cost&uid=D2C1388393133426EB2B615344A9DFA2",
+     "길": [
+      "정보공개",
+      "2025. 2분기 시책추진업무추진비 사용 내역.pdf"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4614000": {
+   "이름": "전남나주시",
+   "첫화면": "https://council.naju.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 공개",
+     "주소": "https://council.naju.go.kr/kr/costBBS.do",
+     "길": [
+      "업무추진비 공개"
+     ]
+    },
+    {
+     "글자": "2026년 2분기 의회운영업무추진비 등 사용내역",
+     "주소": "https://council.naju.go.kr/kr/costBBSview.do?uid=90B46057AA18D3CA7064831C4549E21A&schwrd=&flag=all&mem_sch=&th_sch=&page=1&list_style=&cmt_cd_sch=",
+     "길": [
+      "업무추진비 공개",
+      "2026년 2분기 의회운영업무추진비 등 사용내역"
+     ]
+    },
+    {
+     "글자": "2026년 2분기 의회운영업무추진비 사용내역.pdf",
+     "주소": "https://council.naju.go.kr/kr/bbs/download.do?bbs_id=cost&uid=6F99134560ADC85F587BE2FD341B67AF",
+     "길": [
+      "업무추진비 공개",
+      "2026년 2분기 의회운영업무추진비 사용내역.pdf"
+     ]
+    },
+    {
+     "글자": "2026년 2분기 시책추진업무추진비 사용내역(의장).pdf",
+     "주소": "https://council.naju.go.kr/kr/bbs/download.do?bbs_id=cost&uid=F84E5D6ED8C9208D1090B4EAF218E75E",
+     "길": [
+      "업무추진비 공개",
+      "2026년 2분기 시책추진업무추진비 사용내역(의장).pdf"
+     ]
+    },
+    {
+     "글자": "2026년 1분기 의회운영업무추진비 등 사용내역",
+     "주소": "https://council.naju.go.kr/kr/costBBSview.do?uid=2D1B030AE7E9CDAD13295EAA96BB9CE9&schwrd=&flag=all&mem_sch=&th_sch=&page=1&list_style=&cmt_cd_sch=",
+     "길": [
+      "업무추진비 공개",
+      "2026년 1분기 의회운영업무추진비 등 사용내역"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4615000": {
+   "이름": "전남광양시",
+   "첫화면": "https://council.gwangyang.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "2026년 2/4분기 광양시의회 업무추진비 사용내역",
+     "주소": "https://council.gwangyang.go.kr/content/data/operatingExpenses.html?fidx=21381&pg=vv&f_code=&page=1&opt=&sword=",
+     "길": [
+      "정보공개",
+      "2026년 2/4분기 광양시의회 업무추진비 사용내역"
+     ]
+    },
+    {
+     "글자": "2026년 1/4분기 광양시의회 업무추진비 사용내역",
+     "주소": "https://council.gwangyang.go.kr/content/data/operatingExpenses.html?fidx=21251&pg=vv&f_code=&page=1&opt=&sword=",
+     "길": [
+      "정보공개",
+      "2026년 1/4분기 광양시의회 업무추진비 사용내역"
+     ]
+    },
+    {
+     "글자": "2025년 4/4분기 광양시의회 업무추진비 사용내역",
+     "주소": "https://council.gwangyang.go.kr/content/data/operatingExpenses.html?fidx=20990&pg=vv&f_code=&page=1&opt=&sword=",
+     "길": [
+      "정보공개",
+      "2025년 4/4분기 광양시의회 업무추진비 사용내역"
+     ]
+    },
+    {
+     "글자": "2025년 3/4분기 광양시의회 업무추진비 사용내역",
+     "주소": "https://council.gwangyang.go.kr/content/data/operatingExpenses.html?fidx=20762&pg=vv&f_code=&page=1&opt=&sword=",
+     "길": [
+      "정보공개",
+      "2025년 3/4분기 광양시의회 업무추진비 사용내역"
+     ]
+    },
+    {
+     "글자": "2025년 2/4분기 광양시의회 업무추진비 사용내역",
+     "주소": "https://council.gwangyang.go.kr/content/data/operatingExpenses.html?fidx=20567&pg=vv&f_code=&page=1&opt=&sword=",
+     "길": [
+      "정보공개",
+      "2025년 2/4분기 광양시의회 업무추진비 사용내역"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4674000": {
+   "이름": "전남고흥군",
+   "첫화면": "https://council.goheung.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "고흥군의회 의회사무과 업무추진비 사용 내역(2026년 3분기)",
+     "주소": "https://council.goheung.go.kr/main/board/45/1/read/11855",
+     "길": [
+      "정보공개",
+      "고흥군의회 의회사무과 업무추진비 사용 내역(2026년 3분기)"
+     ]
+    },
+    {
+     "글자": "고흥군의회 의회사무과 업무추진비 사용 내역(2026년 2분기)",
+     "주소": "https://council.goheung.go.kr/main/board/45/1/read/11854",
+     "길": [
+      "정보공개",
+      "고흥군의회 의회사무과 업무추진비 사용 내역(2026년 2분기)"
+     ]
+    },
+    {
+     "글자": "고흥군의회 의장단 및 위원장 업무추진비 사용내역(2026년 9월)",
+     "주소": "https://council.goheung.go.kr/main/board/45/1/read/11853",
+     "길": [
+      "정보공개",
+      "고흥군의회 의장단 및 위원장 업무추진비 사용내역(2026년 9월)"
+     ]
+    },
+    {
+     "글자": "고흥군의회 의장단 및 위원장 업무추진비 사용내역(2026년 8월)",
+     "주소": "https://council.goheung.go.kr/main/board/45/1/read/11852",
+     "길": [
+      "정보공개",
+      "고흥군의회 의장단 및 위원장 업무추진비 사용내역(2026년 8월)"
+     ]
+    },
+    {
+     "글자": "고흥군의회 의장단 및 위원장 업무추진비 사용내역(2026년 7월)",
+     "주소": "https://council.goheung.go.kr/main/board/45/1/read/11851",
+     "길": [
+      "정보공개",
+      "고흥군의회 의장단 및 위원장 업무추진비 사용내역(2026년 7월)"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "국외출장",
+     "주소": "https://council.goheung.go.kr/main/board/45/1/category8",
+     "길": [
+      "정보공개",
+      "국외출장"
+     ]
+    }
+   ]
+  },
+  "4675000": {
+   "이름": "전남보성군",
+   "첫화면": "http://www.bscouncil.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://www.bscouncil.go.kr/boassem/board/37",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4676000": {
+   "이름": "전남화순군",
+   "첫화면": "http://council.hwasun.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 공개",
+     "주소": "https://council.hwasun.go.kr/?PID=119",
+     "길": [
+      "업무추진비 공개"
+     ]
+    },
+    {
+     "글자": "업무추진비 집행 현황",
+     "주소": "https://council.hwasun.go.kr/?PID=138",
+     "길": [
+      "업무추진비 집행 현황"
+     ]
+    },
+    {
+     "글자": "업무추진비 공개",
+     "주소": "https://council.hwasun.go.kr/?PID=118#",
+     "길": [
+      "정보공개",
+      "업무추진비 공개"
+     ]
+    },
+    {
+     "글자": "·업무추진비 집행 현황",
+     "주소": "https://council.hwasun.go.kr/?PID=132#",
+     "길": [
+      "의정활동 정보공개",
+      "·업무추진비 집행 현황"
+     ]
+    },
+    {
+     "글자": "·업무추진비 집행 현황",
+     "주소": "https://council.hwasun.go.kr/?PID=128#",
+     "길": [
+      "정보공개",
+      "·업무추진비 집행 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "국제 교류 현황(공무국외출장 등)",
+     "주소": "https://council.hwasun.go.kr/?PID=139",
+     "길": [
+      "국제 교류 현황(공무국외출장 등)"
+     ]
+    },
+    {
+     "글자": "·국제 교류 현황(공무국외출장 등)",
+     "주소": "https://council.hwasun.go.kr/?PID=132#",
+     "길": [
+      "의정활동 정보공개",
+      "·국제 교류 현황(공무국외출장 등)"
+     ]
+    },
+    {
+     "글자": "·국제 교류 현황(공무국외출장 등)",
+     "주소": "https://council.hwasun.go.kr/?PID=128#",
+     "길": [
+      "정보공개",
+      "·국제 교류 현황(공무국외출장 등)"
+     ]
+    },
+    {
+     "글자": "·국제 교류 현황(공무국외출장 등)",
+     "주소": "https://council.hwasun.go.kr/?PID=136#",
+     "길": [
+      "의정비 심의위원회",
+      "·국제 교류 현황(공무국외출장 등)"
+     ]
+    },
+    {
+     "글자": "·국제 교류 현황(공무국외출장 등)",
+     "주소": "https://council.hwasun.go.kr/?PID=151#",
+     "길": [
+      "의원별 의정보고회 개최 현황",
+      "·국제 교류 현황(공무국외출장 등)"
+     ]
+    }
+   ]
+  },
+  "4677000": {
+   "이름": "전남장흥군",
+   "첫화면": "https://www.jhc.go.kr/",
+   "연화면": 20,
+   "업무추진비": [
+    {
+     "글자": "2026년 2분기 의회운영업무추진비 집행내역 [2026-07-20]",
+     "주소": "https://www.jhc.go.kr/source/kr/info/cost.html?type=view&uid=2506",
+     "길": [
+      "2026년 2분기 의회운영업무추진비 집행내역 [2026-07-20]"
+     ]
+    },
+    {
+     "글자": "2026년 1분기 의회운영업무추진비 집행내역 [2026-07-05]",
+     "주소": "https://www.jhc.go.kr/source/kr/info/cost.html?type=view&uid=2494",
+     "길": [
+      "2026년 1분기 의회운영업무추진비 집행내역 [2026-07-05]"
+     ]
+    },
+    {
+     "글자": "2025년 4분기 의회운영업무추진비 집행내역 [2026-02-11]",
+     "주소": "https://www.jhc.go.kr/source/kr/info/cost.html?type=view&uid=2395",
+     "길": [
+      "2025년 4분기 의회운영업무추진비 집행내역 [2026-02-11]"
+     ]
+    },
+    {
+     "글자": "2025년 3분기 의회운영업무추진비 집행내역 [2025-11-26]",
+     "주소": "https://www.jhc.go.kr/source/kr/info/cost.html?type=view&uid=2356",
+     "길": [
+      "2025년 3분기 의회운영업무추진비 집행내역 [2025-11-26]"
+     ]
+    },
+    {
+     "글자": "2025년 2분기 의회운영업무추진비 집행내역 [2025-11-26]",
+     "주소": "https://www.jhc.go.kr/source/kr/info/cost.html?type=view&uid=2355",
+     "길": [
+      "2025년 2분기 의회운영업무추진비 집행내역 [2025-11-26]"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공무국외출장",
+     "주소": "https://www.jhc.go.kr/source/kr/info/report.html",
+     "길": [
+      "공무국외출장"
+     ]
+    }
+   ]
+  },
+  "4678000": {
+   "이름": "전남강진군",
+   "첫화면": "https://www.gangjincl.go.kr/",
+   "연화면": 16,
+   "업무추진비": [],
+   "국외출장": []
+  },
+  "4679000": {
+   "이름": "전남해남군",
+   "첫화면": "http://council.haenam.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.haenam.go.kr/kr/data/bbsReport2.do",
+     "길": [
+      "업무추진비 현황"
+     ]
+    },
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.haenam.go.kr/kr/data/bbsReport2.do#",
+     "길": [
+      "업무추진비 N 의정운영공통경비 사용내역(2026년 3분기) 2026.10",
+      "업무추진비 현황"
+     ]
+    },
+    {
+     "글자": "의회운영업무추진비 사용내역(2026년 9월)",
+     "주소": "https://council.haenam.go.kr/kr/data/bbsReport2.do?reform=view&key=3cc0fa0d2832af46fbc3353071d62c1ed7af287dc2c6d5251e186876918b956253c5196abb9cb899&pageNum=1&flag=&keyword=",
+     "길": [
+      "업무추진비 N 의정운영공통경비 사용내역(2026년 3분기) 2026.10",
+      "의회운영업무추진비 사용내역(2026년 9월)"
+     ]
+    },
+    {
+     "글자": "의회운영업무추진비 사용내역(2026년 8월)",
+     "주소": "https://council.haenam.go.kr/kr/data/bbsReport2.do?reform=view&key=70a552461d0fe968e091bd644059d4b20bc77da900a2a30774fb1c7cf044e164130d5c99d2740819&pageNum=1&flag=&keyword=",
+     "길": [
+      "업무추진비 N 의정운영공통경비 사용내역(2026년 3분기) 2026.10",
+      "의회운영업무추진비 사용내역(2026년 8월)"
+     ]
+    },
+    {
+     "글자": "의회운영업무추진비 사용내역(2026년 7월)",
+     "주소": "https://council.haenam.go.kr/kr/data/bbsReport2.do?reform=view&key=7356833c38ede77f5debd35dbc58ddebb84cf61869e1369e737bf7795a16575f8d22cb713cc97140&pageNum=1&flag=&keyword=",
+     "길": [
+      "업무추진비 N 의정운영공통경비 사용내역(2026년 3분기) 2026.10",
+      "의회운영업무추진비 사용내역(2026년 7월)"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4680000": {
+   "이름": "전남영암군",
+   "첫화면": "https://www.yacl.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비",
+     "주소": "https://www.yacl.go.kr/source/kr/news/cost.html",
+     "길": [
+      "업무추진비"
+     ]
+    },
+    {
+     "글자": "28 2026-09 업무추진비영암군의회 의원(의장, 부의장, 상임위원장)",
+     "주소": "https://www.yacl.go.kr/source/kr/news/cost.html?type=view&uid=7082",
+     "길": [
+      "28 2026-09 업무추진비영암군의회 의원(의장, 부의장, 상임위원장)"
+     ]
+    },
+    {
+     "글자": "업무추진비영암군의회 의원(의장, 부의장, 상임위원장) 및 의회사무과 업무",
+     "주소": "https://www.yacl.go.kr/source/kr/news/cost.html?type=view&uid=7075",
+     "길": [
+      "업무추진비영암군의회 의원(의장, 부의장, 상임위원장) 및 의회사무과 업무"
+     ]
+    },
+    {
+     "글자": "업무추진비군의회 의원(의장, 부의장, 상임위원장) 및 의회사무과 업무추진",
+     "주소": "https://www.yacl.go.kr/source/kr/news/cost.html?type=view&uid=7068",
+     "길": [
+      "업무추진비군의회 의원(의장, 부의장, 상임위원장) 및 의회사무과 업무추진"
+     ]
+    },
+    {
+     "글자": "업무추진비",
+     "주소": "https://www.yacl.go.kr/source/kr/main/main.html#board4",
+     "길": [
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4681000": {
+   "이름": "전남무안군",
+   "첫화면": "http://www.muan.or.kr/",
+   "연화면": 19,
+   "업무추진비": [
+    {
+     "글자": "업무추진비",
+     "주소": "https://www.muan.or.kr/muassem/board/32",
+     "길": [
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공무국외출장",
+     "주소": "https://www.muan.or.kr/muassem/board/31",
+     "길": [
+      "공무국외출장"
+     ]
+    }
+   ]
+  },
+  "4682000": {
+   "이름": "전남함평군",
+   "첫화면": "http://www.hpcouncil.go.kr/",
+   "연화면": 20,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://www.hpcouncil.go.kr/hpassem/board/11",
+     "길": [
+      "의정활동 정보공개",
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "국제교류 현황(공무국외출장,의정연수)",
+     "주소": "https://www.hpcouncil.go.kr/hpassem/board/12",
+     "길": [
+      "의정활동 정보공개",
+      "국제교류 현황(공무국외출장,의정연수)"
+     ]
+    },
+    {
+     "글자": "2024년 함평군의회 공무국외출장 보고서",
+     "주소": "https://www.hpcouncil.go.kr/hpassem/board/12/1/read/3545",
+     "길": [
+      "의정활동 정보공개",
+      "국제교류 현황(공무국외출장,의정연수)",
+      "2024년 함평군의회 공무국외출장 보고서"
+     ]
+    },
+    {
+     "글자": "2024년 함평군의회 의원 공무국외출장 계획서 및 심사위원회 회의록",
+     "주소": "https://www.hpcouncil.go.kr/hpassem/board/12/1/read/3544",
+     "길": [
+      "의정활동 정보공개",
+      "국제교류 현황(공무국외출장,의정연수)",
+      "2024년 함평군의회 의원 공무국외출장 계획서 및 심사위원회 회의록"
+     ]
+    },
+    {
+     "글자": "2024년 전남의장협의회 선진지 비교시찰 계획에 따른 의원 공무국외출장 ",
+     "주소": "https://www.hpcouncil.go.kr/hpassem/board/12/1/read/3543",
+     "길": [
+      "의정활동 정보공개",
+      "국제교류 현황(공무국외출장,의정연수)",
+      "2024년 전남의장협의회 선진지 비교시찰 계획에 따른 의원 공무국외출장 "
+     ]
+    }
+   ]
+  },
+  "4683000": {
+   "이름": "전남영광군",
+   "첫화면": "http://www.ygcouncil.go.kr/",
+   "까닭": "첫 화면이 안 열린다"
+  },
+  "4685000": {
+   "이름": "전남완도군",
+   "첫화면": "http://www.xn--zb0b8a5sm7tt2yppb1z6cf2a.org/",
+   "까닭": "첫 화면이 안 열린다"
+  },
+  "4687000": {
+   "이름": "전남신안군",
+   "첫화면": "https://council.shinan.go.kr/",
+   "연화면": 20,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.shinan.go.kr/content/info/expenseDisclosure.html",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "2026년 선진지 비교시찰 공무국외출장 주민의견 수렴 2026.09.16",
+     "주소": "https://council.shinan.go.kr/content/open/notice.html?gtid=notice&page=1&pg=vv&f_key=eeeeeeBeBa",
+     "길": [
+      "2026년 선진지 비교시찰 공무국외출장 주민의견 수렴 2026.09.16"
+     ]
+    },
+    {
+     "글자": "2026년 선진지 비교시찰 공무국외출장 추진계획 2026.09.11.",
+     "주소": "https://council.shinan.go.kr/content/open/notice.html?gtid=notice&page=1&pg=vv&f_key=eeeeeeBeBB",
+     "길": [
+      "2026년 선진지 비교시찰 공무국외출장 추진계획 2026.09.11."
+     ]
+    }
+   ]
+  },
+  "4700000": {
+   "이름": "경북본청",
+   "첫화면": "https://council.gb.go.kr/",
+   "연화면": 20,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.gb.go.kr/kr/bbs?bbs_id=open",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공지사항 2025-12-22 2025년 경상북도의회 의원 공무국외출장 계",
+     "주소": "https://council.gb.go.kr/kr/bbs?reform=view&uid=FCECA81D638D99597533ECA2E1B34C6C&page=1&flag=&keyword=&search_code=&bbs_id=notice",
+     "길": [
+      "공지사항 2025-12-22 2025년 경상북도의회 의원 공무국외출장 계"
+     ]
+    },
+    {
+     "글자": "공지사항 2025-07-23 2025년 경상북도의회 의원 공무국외출장 계",
+     "주소": "https://council.gb.go.kr/kr/bbs?reform=view&uid=7ACF2B469CAE2B77C5215E1719F79A7D&page=1&flag=&keyword=&search_code=&bbs_id=notice",
+     "길": [
+      "공지사항 2025-07-23 2025년 경상북도의회 의원 공무국외출장 계"
+     ]
+    }
+   ]
+  },
+  "4711000": {
+   "이름": "경북포항시",
+   "첫화면": "https://council.pohang.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.pohang.go.kr/content/data/operatingExpenseList.html",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4712000": {
+   "이름": "경북경주시",
+   "첫화면": "https://gyeongju.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비",
+     "주소": "https://www.gyeongju.go.kr/open_content/ko/page.do?mnu_uid=2870&",
+     "길": [
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4713000": {
+   "이름": "경북김천시",
+   "첫화면": "http://council.gc.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.gc.go.kr/kr/data/bbsWork.do",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "김천시의회 국외연수 예산 자진 반납 2026.09.30",
+     "주소": "https://blog.naver.com/gimcheoncouncil_054/224427042726",
+     "길": [
+      "김천시의회 국외연수 예산 자진 반납 2026.09.30"
+     ]
+    }
+   ]
+  },
+  "4714000": {
+   "이름": "경북안동시",
+   "첫화면": "http://council.andong.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.andong.go.kr/kr/costBBS.do",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "국외교류활동공무국외출장 계획서 수정본 공개(인도네시아) 2026-09-3",
+     "주소": "https://council.andong.go.kr/kr/informationBBSview.do?uid=447B74A4BEBF7DA0FD27273720D135E0",
+     "길": [
+      "국외교류활동공무국외출장 계획서 수정본 공개(인도네시아) 2026-09-3"
+     ]
+    },
+    {
+     "글자": "국외교류활동공무국외출장 계획서 (중국/우주베키스탄) 최종 자료 게시 20",
+     "주소": "https://council.andong.go.kr/kr/informationBBSview.do?uid=356B9BBD613251E4EE62897553EC0AB5",
+     "길": [
+      "국외교류활동공무국외출장 계획서 (중국/우주베키스탄) 최종 자료 게시 20"
+     ]
+    },
+    {
+     "글자": "국외교류활동공무국외출장 계획서(중국) 환율 오류정정 게시 2026-09-",
+     "주소": "https://council.andong.go.kr/kr/informationBBSview.do?uid=76BEDD806262741C7A0D4212BEB8F691",
+     "길": [
+      "국외교류활동공무국외출장 계획서(중국) 환율 오류정정 게시 2026-09-"
+     ]
+    }
+   ]
+  },
+  "4715000": {
+   "이름": "경북구미시",
+   "첫화면": "https://gumici.or.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://gumici.or.kr/content/info/expenseDisclosure.html",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "국외연수",
+     "주소": "https://gumici.or.kr/content/community/trainingPlan.html",
+     "길": [
+      "국외연수"
+     ]
+    }
+   ]
+  },
+  "4716000": {
+   "이름": "경북영주시",
+   "첫화면": "http://council.yeongju.go.kr/",
+   "연화면": 20,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 공개",
+     "주소": "https://council.yeongju.go.kr/source/korean/open/business.html",
+     "길": [
+      "업무추진비 공개"
+     ]
+    },
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.yeongju.go.kr/source/korean/open2/op_4.html",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공무국외출장",
+     "주소": "https://council.yeongju.go.kr/source/korean/open/report.html",
+     "길": [
+      "공무국외출장"
+     ]
+    }
+   ]
+  },
+  "4717000": {
+   "이름": "경북영천시",
+   "첫화면": "http://council.yc.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "2026년 4월~6월 업무추진비 집행내역",
+     "주소": "https://council.yc.go.kr/content/sub05/propelclosed.html?gtid=chujin&pg=vv&sid=1000&page=1&fidx=32878&opt=&sword=",
+     "길": [
+      "정보공개",
+      "2026년 4월~6월 업무추진비 집행내역"
+     ]
+    },
+    {
+     "글자": "2026년 1월~3월 업무추진비 집행내역",
+     "주소": "https://council.yc.go.kr/content/sub05/propelclosed.html?gtid=chujin&pg=vv&sid=1000&page=1&fidx=32782&opt=&sword=",
+     "길": [
+      "정보공개",
+      "2026년 1월~3월 업무추진비 집행내역"
+     ]
+    },
+    {
+     "글자": "2025년 10~12월 업무추진비 집행내역",
+     "주소": "https://council.yc.go.kr/content/sub05/propelclosed.html?gtid=chujin&pg=vv&sid=1000&page=1&fidx=32691&opt=&sword=",
+     "길": [
+      "정보공개",
+      "2025년 10~12월 업무추진비 집행내역"
+     ]
+    },
+    {
+     "글자": "2025년 7~9월 업무추진비 집행내역",
+     "주소": "https://council.yc.go.kr/content/sub05/propelclosed.html?gtid=chujin&pg=vv&sid=1000&page=1&fidx=32580&opt=&sword=",
+     "길": [
+      "정보공개",
+      "2025년 7~9월 업무추진비 집행내역"
+     ]
+    },
+    {
+     "글자": "2025년 4~6월 업무추진비 집행내역",
+     "주소": "https://council.yc.go.kr/content/sub05/propelclosed.html?gtid=chujin&pg=vv&sid=1000&page=1&fidx=32479&opt=&sword=",
+     "길": [
+      "정보공개",
+      "2025년 4~6월 업무추진비 집행내역"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "영천시의회 의원 공무국외출장 규칙 전부개정규칙 공포(2026. 9. 23",
+     "주소": "https://council.yc.go.kr/content/sub05/board_notice.html?pg=vv&fidx=32880",
+     "길": [
+      "영천시의회 의원 공무국외출장 규칙 전부개정규칙 공포(2026. 9. 23"
+     ]
+    }
+   ]
+  },
+  "4719000": {
+   "이름": "경북문경시",
+   "첫화면": "https://council.gbmg.go.kr/",
+   "연화면": 20,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 공개",
+     "주소": "https://council.gbmg.go.kr/kr/costBBS.do",
+     "길": [
+      "업무추진비 공개"
+     ]
+    },
+    {
+     "글자": "업무추진비 집행 현황",
+     "주소": "http://council.gbmg.go.kr/kr/costBBS.do",
+     "길": [
+      "업무추진비 집행 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "2025년 공무국외출장 결과보고서",
+     "주소": "https://council.gbmg.go.kr/kr/overseasBBSview.do?uid=86CAE6AF3D28585D615D27BBF03F6BCA&schwrd=&flag=all&page=1&list_style=",
+     "길": [
+      "정보공개",
+      "2025년 공무국외출장 결과보고서"
+     ]
+    },
+    {
+     "글자": "2025년 문경시의회 의원 및 직원 공무국외출장 결과보고서",
+     "주소": "https://council.gbmg.go.kr/kr/overseasBBSview.do?uid=C4057C2253C59643B942782D767A3F47&schwrd=&flag=all&page=1&list_style=",
+     "길": [
+      "정보공개",
+      "2025년 문경시의회 의원 및 직원 공무국외출장 결과보고서"
+     ]
+    },
+    {
+     "글자": "공무국외여행 귀국보고서.pdf",
+     "주소": "https://council.gbmg.go.kr/kr/bbs/download.do?bbs_id=overseas&uid=B51458486F470E8AC523B925A6B295DD",
+     "길": [
+      "정보공개",
+      "공무국외여행 귀국보고서.pdf"
+     ]
+    },
+    {
+     "글자": "문경시의회 의원 공무국외출장 결과보고서(24년 공무국외연수).pdf",
+     "주소": "https://council.gbmg.go.kr/viewer/pdf.do?group=bbs&uid=8119",
+     "길": [
+      "정보공개",
+      "2024년 문경시의회 국외의정연수 귀국보고서",
+      "문경시의회 의원 공무국외출장 결과보고서(24년 공무국외연수).pdf"
+     ]
+    },
+    {
+     "글자": "2025년도 문경시의회 의원 및 직원 공무국외출장 결과보고서.pdf",
+     "주소": "https://council.gbmg.go.kr/viewer/pdf.do?group=bbs&uid=13229",
+     "길": [
+      "정보공개",
+      "2025년 문경시의회 의원 및 직원 공무국외출장 결과보고서",
+      "2025년도 문경시의회 의원 및 직원 공무국외출장 결과보고서.pdf"
+     ]
+    }
+   ]
+  },
+  "4720000": {
+   "이름": "경북경산시",
+   "첫화면": "https://www.gbgsc.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://www.gbgsc.go.kr/council/kr/costBBS.do",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4772000": {
+   "이름": "경북의성군",
+   "첫화면": "http://www.cus.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "http://www.cus.go.kr/kr/cost2BBS.do",
+     "길": [
+      "의정활동 정보공개",
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공무국외출장보고서",
+     "주소": "http://www.cus.go.kr/kr/reportBBS.do",
+     "길": [
+      "공무국외출장보고서"
+     ]
+    }
+   ]
+  },
+  "4773000": {
+   "이름": "경북청송군",
+   "첫화면": "https://council.cs.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비",
+     "주소": "https://council.cs.go.kr/00007683/00007731.web",
+     "길": [
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4774000": {
+   "이름": "경북영양군",
+   "첫화면": "https://council.yyg.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 집행 현황",
+     "주소": "https://council.yyg.go.kr/council/parliamentary_operation/operation_4",
+     "길": [
+      "의정활동 정보공개",
+      "업무추진비 집행 현황"
+     ]
+    },
+    {
+     "글자": "업무추진비",
+     "주소": "https://council.yyg.go.kr/council/administration/expense",
+     "길": [
+      "업무추진비"
+     ]
+    },
+    {
+     "글자": "업무추진비",
+     "주소": "https://www.yyg.go.kr/council/administration/expense",
+     "길": [
+      "사이트맵",
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "국제 교류 현황(공무국외출장 등)",
+     "주소": "https://council.yyg.go.kr/council/parliamentary_operation/operation_5",
+     "길": [
+      "의정활동 정보공개",
+      "국제 교류 현황(공무국외출장 등)"
+     ]
+    }
+   ]
+  },
+  "4775000": {
+   "이름": "경북영덕군",
+   "첫화면": "http://council.yd.go.kr/",
+   "까닭": "첫 화면이 안 열린다"
+  },
+  "4776000": {
+   "이름": "경북청도군",
+   "첫화면": "https://www.cheongdocl.go.kr/",
+   "연화면": 18,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://www.cheongdocl.go.kr/kr/news/bbsOperations3.do",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "국외연수",
+     "주소": "https://www.cheongdocl.go.kr/kr/news/bbsCost.do",
+     "길": [
+      "국외연수"
+     ]
+    }
+   ]
+  },
+  "4777000": {
+   "이름": "경북고령군",
+   "첫화면": "http://council.goryeong.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.goryeong.go.kr/kr/data/bbsCost.do",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "2026년 고령군의회 장기근속공무원 국외연수 출장보고서",
+     "주소": "https://council.goryeong.go.kr/kr/activity/bbsNotice.do?reform=view&key=242a3b80fac6be5ace8ed8f02bef932a5b56b89262bca3c262e6ab372afd5259cdcb8f7f4d7b2d2a&pageNum=1&flag=&keyword=",
+     "길": [
+      "의정소식",
+      "2026년 고령군의회 장기근속공무원 국외연수 출장보고서"
+     ]
+    },
+    {
+     "글자": "고령군의회 공무국외출장 규칙 전부개정규칙(공포문)",
+     "주소": "https://council.goryeong.go.kr/kr/activity/bbsNotice.do?reform=view&key=acae9d0c72514c57c6c2e8532d8623e7909d8cd755f625776b8a7922cd7a7602e68d9695fed265d2&pageNum=1&flag=&keyword=",
+     "길": [
+      "의정소식",
+      "고령군의회 공무국외출장 규칙 전부개정규칙(공포문)"
+     ]
+    }
+   ]
+  },
+  "4778000": {
+   "이름": "경북성주군",
+   "첫화면": "https://sjcouncil.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비",
+     "주소": "https://sjcouncil.go.kr/content/news/price.html",
+     "길": [
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "해외연수기록",
+     "주소": "https://sjcouncil.go.kr/content/news/report.html",
+     "길": [
+      "해외연수기록"
+     ]
+    }
+   ]
+  },
+  "4779000": {
+   "이름": "경북칠곡군",
+   "첫화면": "http://council.chilgok.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비",
+     "주소": "https://council.chilgok.go.kr/content/data/businessOperatingExpense.html",
+     "길": [
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공무국외출장",
+     "주소": "https://council.chilgok.go.kr/content/news/overseasTrainingRecord.html",
+     "길": [
+      "공무국외출장"
+     ]
+    }
+   ]
+  },
+  "4780000": {
+   "이름": "경북예천군",
+   "첫화면": "https://www.ycgcl.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://www.ycgcl.kr/kr/costBBS.do",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "예천군의회 의원 공무국외출장 규칙 전부개정규칙 공포",
+     "주소": "https://www.ycgcl.kr/kr/noticeBBSview.do?uid=B4BD1CBB89EEE7E425CCE9D400B04197&schwrd=&flag=all&page=1&list_style=",
+     "길": [
+      "의정활동",
+      "예천군의회 의원 공무국외출장 규칙 전부개정규칙 공포"
+     ]
+    },
+    {
+     "글자": "'(의회규칙 제34호)예천군의회 의원 공무국외출장 규칙 전부개정규칙 공포",
+     "주소": "https://www.ycgcl.kr/kr/bbs/download.do?bbs_id=notice&uid=D458D7B7424BC761C801367035879731",
+     "길": [
+      "의정활동",
+      "'(의회규칙 제34호)예천군의회 의원 공무국외출장 규칙 전부개정규칙 공포"
+     ]
+    }
+   ]
+  },
+  "4781000": {
+   "이름": "경북봉화군",
+   "첫화면": "https://www.bonghwacouncil.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비공개",
+     "주소": "https://www.bonghwacouncil.go.kr/council/content/data/businessExpenses.html",
+     "길": [
+      "업무추진비공개"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4782000": {
+   "이름": "경북울진군",
+   "첫화면": "http://council.uljin.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "http://council.uljin.go.kr/kr/costBBS.do",
+     "길": [
+      "업무추진비 현황"
+     ]
+    },
+    {
+     "글자": "업무추진비",
+     "주소": "https://council.uljin.go.kr/kr/costBBS.do",
+     "길": [
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공무국외출장결과보고서",
+     "주소": "https://council.uljin.go.kr/kr/businessreportBBS.do",
+     "길": [
+      "공무국외출장결과보고서"
+     ]
+    },
+    {
+     "글자": "공무국외출장심사회의록",
+     "주소": "https://council.uljin.go.kr/kr/businessexaminationBBS.do",
+     "길": [
+      "공무국외출장심사회의록"
+     ]
+    }
+   ]
+  },
+  "4783000": {
+   "이름": "경북울릉군",
+   "첫화면": "http://www.namk.or.kr/",
+   "연화면": 4,
+   "업무추진비": [],
+   "국외출장": []
+  },
+  "4800000": {
+   "이름": "경남본청",
+   "첫화면": "https://council.gyeongnam.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.gyeongnam.go.kr/kr/data/bbsExpense.do",
+     "길": [
+      "업무추진비 현황"
+     ]
+    },
+    {
+     "글자": "업무추진비 공개",
+     "주소": "https://www.gyeongnam.go.kr/index.gyeong?menuCd=DOM_000000138002012000",
+     "길": [
+      "정보공개",
+      "업무추진비 공개"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공무국외출장 계획서·결과보고서",
+     "주소": "https://council.gyeongnam.go.kr/kr/activity/bbsForeign4.do",
+     "길": [
+      "공무국외출장 계획서·결과보고서"
+     ]
+    },
+    {
+     "글자": "상임위원회 공무국외출장",
+     "주소": "https://council.gyeongnam.go.kr/kr/activity/bbsForeign3.do",
+     "길": [
+      "상임위원회 공무국외출장"
+     ]
+    },
+    {
+     "글자": "국외출장연수정보시스템",
+     "주소": "https://www.gyeongnam.go.kr/index.gyeong?menuCd=DOM_000000138002010000",
+     "길": [
+      "정보공개",
+      "국외출장연수정보시스템"
+     ]
+    },
+    {
+     "글자": "2026년도 경상남도의회 해외친선의원연맹 공무국외출장 주관 여행사 모집 ",
+     "주소": "https://council.gyeongnam.go.kr/kr/open/bbsNotice.do?reform=view&key=e188d1e3e7c01c3f53cc070846c4ba1dbe72beb31bf6d70aec39257a4be2cacf146ba310f197589b&pageNum=1&flag=&keyword=",
+     "길": [
+      "열린의정",
+      "2026년도 경상남도의회 해외친선의원연맹 공무국외출장 주관 여행사 모집 "
+     ]
+    },
+    {
+     "글자": "2026년도 경상남도의회 해외친선의원연맹 공무국외출장 주관 여행사 모집 ",
+     "주소": "https://council.gyeongnam.go.kr/kr/open/bbsNotice.do?reform=view&key=aafce0bb409930054480fcf88a4a1dcb05ae9c877443bf9851aa3f638fe4f336490a0a211d31c342&pageNum=1&flag=&keyword=",
+     "길": [
+      "열린의정",
+      "2026년도 경상남도의회 해외친선의원연맹 공무국외출장 주관 여행사 모집 "
+     ]
+    }
+   ]
+  },
+  "4811000": {
+   "이름": "경남창원시",
+   "첫화면": "https://council.changwon.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비",
+     "주소": "https://council.changwon.go.kr/svc/cns/OperatingExpenseList.do",
+     "길": [
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "국외연수활동",
+     "주소": "https://council.changwon.go.kr/svc/cas/MbrTrainingList.do",
+     "길": [
+      "국외연수활동"
+     ]
+    },
+    {
+     "글자": "대만 국외출장 관련 차량임차 및 통역대행 용역",
+     "주소": "https://council.changwon.go.kr/svc/cns/ContractView.do?bbsSn=253123&totalCnt=327&pageNo=1&schKey=&schWrd=",
+     "길": [
+      "수의계약공개",
+      "대만 국외출장 관련 차량임차 및 통역대행 용역"
+     ]
+    }
+   ]
+  },
+  "4813000": {
+   "이름": "경남진주시",
+   "첫화면": "http://www.jinjucl.com/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비",
+     "주소": "https://www.jinjucl.com/kr/costBBS.do",
+     "길": [
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "국외출장보고",
+     "주소": "https://www.jinjucl.com/kr/foreignBBS.do",
+     "길": [
+      "국외출장보고"
+     ]
+    },
+    {
+     "글자": "공지사항 2026년 진주시의회 공무국외연수 주관 여행사 모집 공고 202",
+     "주소": "https://www.jinjucl.com/kr/noticeBBSview.do?uid=8752FF15168E4232A928E0EA494A2929",
+     "길": [
+      "공지사항 2026년 진주시의회 공무국외연수 주관 여행사 모집 공고 202"
+     ]
+    }
+   ]
+  },
+  "4816000": {
+   "이름": "경남사천시",
+   "첫화면": "https://council.sacheon.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.sacheon.go.kr/kr/data/bbsCost.do",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4817000": {
+   "이름": "경남김해시",
+   "첫화면": "https://council.gimhae.go.kr/",
+   "연화면": 19,
+   "업무추진비": [
+    {
+     "글자": "업무추진비",
+     "주소": "https://council.gimhae.go.kr/cnts/bbs/boardList.php?bbsCd=opn&bbsSubCd=opn0104",
+     "길": [
+      "공지사항 김해시-시의회 '공정 행정·의정 실천을 위한 공동 청럄서약식'개",
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "입법예고 김해시의회 의원 공무국외출장 규칙 일부개정규칙안 김해시의회 의원",
+     "주소": "https://council.gimhae.go.kr/cnts/bbs/boardView.php?bbsSn=19644&pageNo=1&bbsCd=cns&bbsSubCd=cns04",
+     "길": [
+      "입법예고 김해시의회 의원 공무국외출장 규칙 일부개정규칙안 김해시의회 의원"
+     ]
+    }
+   ]
+  },
+  "4818000": {
+   "이름": "경남밀양시",
+   "첫화면": "https://council.miryang.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비공개",
+     "주소": "https://council.miryang.go.kr/index.do?menuNo=12040000",
+     "길": [
+      "업무추진비공개"
+     ]
+    },
+    {
+     "글자": "업무추진비 집행 현황",
+     "주소": "https://council.miryang.go.kr/board/EgovBoardList.do?bbsId=BBSMSTR_000000000101&menuNo=12040000",
+     "길": [
+      "의정활동정보공개",
+      "업무추진비 집행 현황"
+     ]
+    },
+    {
+     "글자": "업무추진비공개",
+     "주소": "https://council.miryang.go.kr/board/EgovBoardList.do?bbsId=BBSMSTR_000000000101&menuNo=12040000&tId=007eabf4bee674fc76812eeee0f01a2e0fbb747d6cf57605b67fb50e37405a88#",
+     "길": [
+      "업무추진비공개",
+      "업무추진비공개"
+     ]
+    },
+    {
+     "글자": "2026년 2/4분기 밀양시의회 업무추진비 집행내역",
+     "주소": "https://council.miryang.go.kr/board/EgovBoardDetail.do?bbsId=BBSMSTR_000000000101&menuNo=12040000&nttId=6903&searchCnd=&searchWrd=&pageIndex=1",
+     "길": [
+      "업무추진비공개",
+      "2026년 2/4분기 밀양시의회 업무추진비 집행내역"
+     ]
+    },
+    {
+     "글자": "2026년 1/4분기 밀양시의회 업무추진비 집행내역",
+     "주소": "https://council.miryang.go.kr/board/EgovBoardDetail.do?bbsId=BBSMSTR_000000000101&menuNo=12040000&nttId=6756&searchCnd=&searchWrd=&pageIndex=1",
+     "길": [
+      "업무추진비공개",
+      "2026년 1/4분기 밀양시의회 업무추진비 집행내역"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "2025년 밀양시의회 의원 공무국외출장 보고서",
+     "주소": "https://council.miryang.go.kr/board/EgovBoardDetail.do?bbsId=BBSMSTR_000000000031&menuNo=13050000&nttId=6373&searchCnd=&searchWrd=&pageIndex=1",
+     "길": [
+      "의원연수",
+      "2025년 밀양시의회 의원 공무국외출장 보고서"
+     ]
+    },
+    {
+     "글자": "2024년 밀양시의회 의원 공무국외출장 보고서",
+     "주소": "https://council.miryang.go.kr/board/EgovBoardDetail.do?bbsId=BBSMSTR_000000000031&menuNo=13050000&nttId=5682&searchCnd=&searchWrd=&pageIndex=1",
+     "길": [
+      "의원연수",
+      "2024년 밀양시의회 의원 공무국외출장 보고서"
+     ]
+    },
+    {
+     "글자": "2023년 밀양시의회 의원 공무국외출장 보고서",
+     "주소": "https://council.miryang.go.kr/board/EgovBoardDetail.do?bbsId=BBSMSTR_000000000031&menuNo=13050000&nttId=4522&searchCnd=&searchWrd=&pageIndex=1",
+     "길": [
+      "의원연수",
+      "2023년 밀양시의회 의원 공무국외출장 보고서"
+     ]
+    },
+    {
+     "글자": "2025년(３차) 밀양시의회 공무국외출장심사 회의록",
+     "주소": "https://council.miryang.go.kr/board/EgovBoardDetail.do?bbsId=BBSMSTR_000000000031&menuNo=13050000&nttId=6421&searchCnd=&searchWrd=&pageIndex=1",
+     "길": [
+      "의원연수",
+      "2025년(３차) 밀양시의회 공무국외출장심사 회의록"
+     ]
+    },
+    {
+     "글자": "2025년(2차) 밀양시의회 공무국외출장 계획서 및 회의록",
+     "주소": "https://council.miryang.go.kr/board/EgovBoardDetail.do?bbsId=BBSMSTR_000000000031&menuNo=13050000&nttId=6342&searchCnd=&searchWrd=&pageIndex=1",
+     "길": [
+      "의원연수",
+      "2025년(2차) 밀양시의회 공무국외출장 계획서 및 회의록"
+     ]
+    }
+   ]
+  },
+  "4819000": {
+   "이름": "경남거제시",
+   "첫화면": "https://www.gjcl.go.kr/",
+   "연화면": 20,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://www.gjcl.go.kr/kr/publicBBS.do",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "국외출장",
+     "주소": "https://www.gjcl.go.kr/kr/foreignBBS.do",
+     "길": [
+      "국외출장"
+     ]
+    }
+   ]
+  },
+  "4820000": {
+   "이름": "경남양산시",
+   "첫화면": "https://www.yscouncil.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비공개",
+     "주소": "https://www.yscouncil.go.kr/kr/data/bbs?bbs_id=cost",
+     "길": [
+      "업무추진비공개"
+     ]
+    },
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://www.yscouncil.go.kr/kr/open/bbs?bbs_id=cost",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "공무국외출장",
+     "주소": "https://www.yscouncil.go.kr/kr/activity/bbs?bbs_id=study",
+     "길": [
+      "공무국외출장"
+     ]
+    }
+   ]
+  },
+  "4871000": {
+   "이름": "경남의령군",
+   "첫화면": "http://council.uiryeong.go.kr/",
+   "연화면": 3,
+   "업무추진비": [],
+   "국외출장": []
+  },
+  "4872000": {
+   "이름": "경남함안군",
+   "첫화면": "https://www.namk.or.kr/",
+   "연화면": 4,
+   "업무추진비": [],
+   "국외출장": []
+  },
+  "4873000": {
+   "이름": "경남창녕군",
+   "첫화면": "https://www.cngc.go.kr/",
+   "연화면": 17,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "http://www.cngc.go.kr/kr/bbs?bbs_id=open",
+     "길": [
+      "업무추진비 현황"
+     ]
+    },
+    {
+     "글자": "업무추진비",
+     "주소": "https://www.cngc.go.kr/kr/bbs?bbs_id=open",
+     "길": [
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4875000": {
+   "이름": "경남남해군",
+   "첫화면": "https://council.namhae.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.namhae.go.kr/source/korean/nhinfo/open.html",
+     "길": [
+      "정보공개",
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "남해군의회 의원 공무국외출장 규칙 ...",
+     "주소": "https://council.namhae.go.kr/source/korean/news/notice.html?mode=view&number=C4B004AABCE85118A1879B52ADC508F2",
+     "길": [
+      "남해군의회 의원 공무국외출장 규칙 ..."
+     ]
+    },
+    {
+     "글자": "국외출장정보시스템",
+     "주소": "http://btis.mopas.go.kr/",
+     "길": [
+      "국외출장정보시스템"
+     ]
+    }
+   ]
+  },
+  "4876000": {
+   "이름": "경남하동군",
+   "첫화면": "https://www.hdcl.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://www.hdcl.go.kr/hadassem/board/10",
+     "길": [
+      "의정활동 정보공개",
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": [
+    {
+     "글자": "국제교류 현황(공무국외출장,의정연수)",
+     "주소": "https://www.hdcl.go.kr/hadassem/board/11",
+     "길": [
+      "의정활동 정보공개",
+      "국제교류 현황(공무국외출장,의정연수)"
+     ]
+    },
+    {
+     "글자": "222026.09 하동군의회 의원 공무국외출장 규칙 일부개정규칙 하동군의",
+     "주소": "https://www.hdcl.go.kr/hadassem/board/3/read/37293",
+     "길": [
+      "222026.09 하동군의회 의원 공무국외출장 규칙 일부개정규칙 하동군의"
+     ]
+    }
+   ]
+  },
+  "4877000": {
+   "이름": "경남산청군",
+   "첫화면": "https://www.scssn.or.kr/",
+   "연화면": 2,
+   "업무추진비": [],
+   "국외출장": []
+  },
+  "4878000": {
+   "이름": "경남함양군",
+   "첫화면": "https://council.hygn.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://council.hygn.go.kr/kr/data/bbsCost.do",
+     "길": [
+      "업무추진비 현황"
+     ]
+    },
+    {
+     "글자": "업무추진비",
+     "주소": "https://council.hygn.go.kr/kr/news/bbsCost.do",
+     "길": [
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4879000": {
+   "이름": "경남거창군",
+   "첫화면": "https://www.gccl.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비 현황",
+     "주소": "https://www.gccl.go.kr/kr/data/bbsCost.do",
+     "길": [
+      "업무추진비 현황"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4880000": {
+   "이름": "경남합천군",
+   "첫화면": "https://www.hccl.go.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비",
+     "주소": "https://www.hccl.go.kr/source/korean/data/info.jsp",
+     "길": [
+      "정보공개",
+      "업무추진비"
+     ]
+    }
+   ],
+   "국외출장": []
+  },
+  "4900000": {
+   "이름": "제주본청",
+   "첫화면": "http://www.council.jeju.kr/",
+   "연화면": 21,
+   "업무추진비": [
+    {
+     "글자": "업무추진비공개",
+     "주소": "https://www.council.jeju.kr/clicknews/openpromotion.do",
+     "길": [
+      "업무추진비공개"
+     ]
+    }
+   ],
+   "국외출장": []
+  }
+ }
+}

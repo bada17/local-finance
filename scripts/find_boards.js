@@ -27,7 +27,7 @@ const ROOT = path.dirname(__dirname);
 // --의회 : 자치단체 누리집에서 찾은 의회 누리집으로 가서 의원 업무추진비·국외출장을 찾는다
 const 의회판 = process.argv.includes('--의회');
 const OUT = path.join(ROOT, 'data', 의회판 ? 'boards_council.json' : 'boards.json');
-const 한번에 = 4;
+const 한번에 = 12;
 const 깊이끝 = 2;
 const 층마다 = 10;
 const 후보수 = 5;
@@ -144,7 +144,7 @@ async function main() {
   const 셈 = Object.fromEntries(Object.keys(과녁).map(k => [k, Object.values(결과).filter(v => (v[k] || []).length).length]));
   console.log(`찾은 곳 수 ${JSON.stringify(셈)} / ${곳들.length}`);
   if (한곳만.length) console.log(JSON.stringify(결과, null, 1));
-  else { 적기(); console.log('적음: data/boards.json'); }
+  else { 적기(); console.log('적음: data/' + path.basename(OUT)); }
   await new Promise(r => setTimeout(r, 1500));
   try { fs.rmSync(프로필, { recursive: true, force: true }); } catch (_) { /* 임시 폴더다 */ }
 }
