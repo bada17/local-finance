@@ -124,25 +124,15 @@ def 회의록(f):
 갈래차례 = ['의안', '본회의', '위원회'] + list(VCONF) + [x[0] for x in 제목자료]
 
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument('--분', type=float, default=300)
-    ap.add_argument('--다시보내기', action='store_true', help='찾은 것 전부를 다시 보낸다')
-    args = ap.parse_args()
-    끝 = time.time() + args.분 * 60
+# 보도자료는 2026-10-01 부터만 — 사용자(2026-10-08).
+보도부터 = '2026-10-01'
 
-    상태 = json.load(open(상태파일, encoding='utf-8')) if os.path.exists(상태파일) else {'본것': [], '찾은것': []}
-    if 상태.get('본문') != 'html':   # PDF 로 훑던 것은 한 번 처음부터 다시 본다(이미 찾은 회의는 횟수만 고친다)
-        상태['본것'], 상태['본문'] = [], 'html'
-    본것 = set(상태['본것'])
+
+def 모으기(상태, 본것, 끝, 적기):
+    """국회 서버에서 회의록·의안·제목자료를 훑어 상태['찾은것'] 에 더한다."""
     회의 = 회의목록(keys.키읽기('ASSEMBLY_KEY'))
     남은 = sorted((n for n in 회의 if n not in 본것), key=lambda n: 회의[n]['날짜'], reverse=True)
     print(f'회의 {len(회의):,}건 · 안 본 것 {len(남은):,}건')
-
-    def 적기():
-        상태['본것'] = sorted(본것, key=int)
-        os.makedirs(os.path.dirname(상태파일), exist_ok=True)
-        json.dump(상태, open(상태파일, 'w', encoding='utf-8'), ensure_ascii=False, indent=0)
 
     for i, n in enumerate(남은):
         if time.time() > 끝:
@@ -185,9 +175,6 @@ def main():
                 의안[r['BILL_ID']] = {'이름': r['BILL_NAME'], '단계': 단계}
 
     # 보도자료·보고서 — 제목에 낱말이 든 것. 링크로 한 번만.
-    # 보도자료는 2026-10-01 부터만 — 사용자(2026-10-08). 그 전 것은 찾은것에서도 뺀다(본 것으로는 남긴다).
-    보도부터 = '2026-10-01'
-    상태['찾은것'] = [f for f in 상태['찾은것'] if not (f['갈래'] == '보도자료' and f['날짜'] < 보도부터)]
     자료본것 = set(상태.setdefault('자료본것', []))
     for 이름, 코드, 제목칸, 날짜칸, 링크칸 in 제목자료:
         for 낱말 in 낱말들:
@@ -206,9 +193,31 @@ def main():
                     print(f"  ★ {이름} {r[제목칸]}")
     상태['자료본것'] = sorted(자료본것)
 
-    if args.다시보내기:
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--분', type=float, default=300)
+    ap.add_argument('--다시보내기', action='store_true', help='찾은 것 전부를 다시 보낸다')
+    args = ap.parse_args()
+    끝 = time.time() + args.분 * 60
+
+    상태 = json.load(open(상태파일, encoding='utf-8')) if os.path.exists(상태파일) else {'본것': [], '찾은것': []}
+    if 상태.get('본문') != 'html':   # PDF 로 훑던 것은 한 번 처음부터 다시 본다(이미 찾은 회의는 횟수만 고친다)
+        상태['본것'], 상태['본문'] = [], 'html'
+    본것 = set(상태['본것'])
+
+    def 적기():
+        상태['본것'] = sorted(본것, key=int)
+        os.makedirs(os.path.dirname(상태파일), exist_ok=True)
+        json.dump(상태, open(상태파일, 'w', encoding='utf-8'), ensure_ascii=False, indent=0)
+
+    if args.다시보내기:   # 보내기만 — 국회 서버를 부르지 않는다(2026-10-08 목록 받다 시간 초과로 못 보냄)
         for f in 상태['찾은것']:
             f['보냄'] = False
+    else:
+        모으기(상태, 본것, 끝, 적기)
+    상태['찾은것'] = [f for f in 상태['찾은것'] if not (f['갈래'] == '보도자료' and f['날짜'] < 보도부터)]
     안보냄 = [f for f in 상태['찾은것'] if not f['보냄']]
     if 안보냄 and os.environ.get('TELEGRAM_TOKEN') and os.environ.get('TELEGRAM_CHAT_ID'):
         글 = f"🏛 <b>국회 · {', '.join(낱말들)}</b> — 새로 {len(안보냄)}건"
