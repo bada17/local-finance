@@ -1,13 +1,13 @@
-# 국회 회의록 낱말 알림 — 22대 본회의·위원회 회의록 PDF 본문에서 낱말을 찾아 텔레그램으로 보낸다(내부용).
+# 국회 회의록 낱말 알림 — 22대 본회의·위원회 회의록 본문에서 낱말을 찾아 텔레그램으로 보낸다(내부용).
 #
 #   python scripts/watch_assembly.py              안 본 회의를 훑는다 (기본 300분에서 멈춘다)
 #   python scripts/watch_assembly.py --분 10      10분만
 #
 # 왜 — 2026-10-06 사용자: 미래대응기금은 국회 회의록으로 봐야 한다. "22대, 올해 초부터 논의됐을 거야".
 # ⚠️ 열린국회정보 API 는 **본문 검색이 없다**(회의명·안건명·날짜로만 거른다).
-#    그래서 회의마다 PDF(1~2MB)를 받아 pdftotext 로 글자를 뽑아 찾는다. 한 회의에 몇 초.
-#    처음 한 번은 2026년 치를 다 훑느라 몇 시간 걸리고, 그 뒤로는 날마다 새 회의 몇 건뿐이다.
-# ⚠️ PDF 는 줄이 바뀌면서 낱말이 끊긴다(「위원\n장」) — 글자 사이 빈칸·줄바꿈을 허용해 찾는다.
+#    그래서 회의마다 회의록 전문 화면(HTML)을 받아 글자를 찾는다(2026-10-08 까지는 PDF — 발언을 놓쳐서 바꿈).
+#    처음 한 번은 2026년 치를 다 훑느라 오래 걸리고, 그 뒤로는 날마다 새 회의 몇 건뿐이다.
+# ⚠️ 줄이 바뀌면서 낱말이 끊길 수 있다(「위원\n장」) — 글자 사이 빈칸·줄바꿈을 허용해 찾는다.
 # ⭐ 2026-10-08 사용자: "상임위나 국정감사에서 나온 내용은 안 나오나?" → 위원회 목록(상임위·특위·소위)에
 #    **국정감사·국정조사·공청회·인사청문회 등 VCONF 목록**을 더했다(같은 PDF 번호면 한 번만 본다).
 #    알림은 한 회의 한 줄 + **회의록 전문 화면 링크**만(사용자: 발언 요약은 길어서 별로, PDF 도 필요 없음 —
@@ -21,9 +21,7 @@ import html
 import json
 import os
 import re
-import subprocess
 import sys
-import tempfile
 import time
 import urllib.parse
 import urllib.request
@@ -93,13 +91,12 @@ def 회의목록(키):
     return 회의
 
 
-def 본문(pdf주소):
-    with tempfile.TemporaryDirectory() as d:
-        경로 = os.path.join(d, 'm.pdf')
-        open(경로, 'wb').write(받기(pdf주소))
-        글 = subprocess.run(['pdftotext', '-enc', 'UTF-8', 경로, '-'],
-                           capture_output=True, check=True).stdout.decode('utf-8', 'replace')
-    return re.sub(r'\s+', ' ', 글)
+def 본문(번호):
+    """회의록 전문 화면(HTML)의 글자. ⚠️ PDF 는 쓰지 않는다 — 2026-10-08 확인: 9/14 본회의 대정부질문이
+    웹 13번인데 PDF(pdftotext) 3번, 9/7 교섭단체 대표연설은 웹 4번 · PDF 1번. PDF 가 발언을 다 담지 않는다."""
+    h = 받기(f'https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id={번호}&type=view').decode('utf-8', 'replace')
+    h = re.sub(r'(?is)<(script|style)\b.*?</\1>', ' ', h)
+    return re.sub(r'\s+', ' ', html.unescape(re.sub(r'<[^>]+>', ' ', h)))
 
 
 def 찾기(글, 낱말):
@@ -134,6 +131,8 @@ def main():
     끝 = time.time() + args.분 * 60
 
     상태 = json.load(open(상태파일, encoding='utf-8')) if os.path.exists(상태파일) else {'본것': [], '찾은것': []}
+    if 상태.get('본문') != 'html':   # PDF 로 훑던 것은 한 번 처음부터 다시 본다(이미 찾은 회의는 횟수만 고친다)
+        상태['본것'], 상태['본문'] = [], 'html'
     본것 = set(상태['본것'])
     회의 = 회의목록(keys.키읽기('ASSEMBLY_KEY'))
     남은 = sorted((n for n in 회의 if n not in 본것), key=lambda n: 회의[n]['날짜'], reverse=True)
@@ -149,7 +148,7 @@ def main():
             print(f'시간 다 됨 — {i:,}건 보고 멈춤, 다음에 이어서')
             break
         try:
-            글 = 본문(회의[n]['pdf'])
+            글 = 본문(n)
         except Exception as e:      # noqa: BLE001 — 한 건이 깨져도 나머지는 본다. 본것에 안 넣으니 다음에 다시
             print(f'  {n} 못 읽음 — {e}')
             continue
@@ -157,6 +156,10 @@ def main():
         for 낱말 in 낱말들:
             횟수 = len(찾기(글, 낱말))
             if 횟수:
+                있던 = next((f for f in 상태['찾은것'] if f.get('번호') == n and f['낱말'] == 낱말), None)
+                if 있던:
+                    있던['횟수'] = 횟수
+                    continue
                 상태['찾은것'].append({**회의[n], '번호': n, '낱말': 낱말, '횟수': 횟수, '보냄': False})
                 print(f'  ★ {회의[n]["날짜"]} {회의[n]["제목"]} — {낱말} {횟수}번')
         if i % 50 == 49:
