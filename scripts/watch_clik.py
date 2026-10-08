@@ -28,7 +28,14 @@ import fetch_clik as clik
 ]
 
 모음파일 = os.path.join(clik.받는곳, '알림_모음.json')   # {의회코드:낱말: [{갈래, 날짜, 글, DOCID}]} 새것이 위
-링크 = 'https://clik.nanet.go.kr/potal/search/searchView.do?DOCID='
+
+
+def 링크(이름, DOCID):
+    """⚠️ collection 이 없으면 CLIK 이 「알 수 없는 오류」를 낸다(2026-10-08 확인)."""
+    return (f'https://clik.nanet.go.kr/potal/search/searchView.do?DOCID={DOCID}'
+            f"&collection={'minutes' if 이름 == '회의록' else 'bill'}")
+
+
 갈래 = [  # 이름 · 끝점 · 정렬 · 날짜 칸 · 줄 → 한 줄 글
     ('회의록', 'minutes.do', 'MTG_DE/DESC', 'MTG_DE',
      lambda r: f"{r.get('MTG_DE', '')} {r.get('MTGNM', '')} 제{r.get('RASMBLY_SESN', '')}회 {r.get('MINTS_ODR', '')}차"),
@@ -88,7 +95,7 @@ def main():
                     if r.get('DOCID') and r['DOCID'] not in 본 and r.get(날짜칸, '') >= 부터:
                         본.add(r['DOCID'])
                         쌓인.append({'갈래': 이름, '날짜': r.get(날짜칸, ''), '글': 한줄(r), 'DOCID': r['DOCID']})
-                        새줄.append(f"[{이름}] <a href=\"{링크}{r['DOCID']}\">{html.escape(한줄(r))}</a>")
+                        새줄.append(f"[{이름}] <a href=\"{링크(이름, r['DOCID'])}\">{html.escape(한줄(r))}</a>")
                 쪽 += 100
                 if not 줄들 or 쪽 >= int(d.get('TOTAL_COUNT') or 0):
                     break
