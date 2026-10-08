@@ -39,10 +39,15 @@ import fetch_clik as clik
 
 def 보내기(글):
     token, chat = os.environ['TELEGRAM_TOKEN'].strip(), os.environ['TELEGRAM_CHAT_ID'].strip()
-    for i in range(0, len(글), 3900):   # 한 통 4,096자 한도
+    통들 = ['']   # 한 통 4,096자 한도 — 줄 단위로 끊는다(글자 수로 자르면 <a> 가 반으로 갈려 통째로 튕긴다)
+    for 줄 in 글.split('\n'):
+        if 통들[-1] and len(통들[-1]) + len(줄) > 3900:
+            통들.append('')
+        통들[-1] += 줄 + '\n'
+    for 통 in 통들:
         req = urllib.request.Request(
             f'https://api.telegram.org/bot{token}/sendMessage',
-            data=json.dumps({'chat_id': chat, 'text': 글[i:i + 3900], 'parse_mode': 'HTML',
+            data=json.dumps({'chat_id': chat, 'text': 통, 'parse_mode': 'HTML',
                              'disable_web_page_preview': True}).encode(),
             headers={'Content-Type': 'application/json'})
         urllib.request.urlopen(req, timeout=30).read()

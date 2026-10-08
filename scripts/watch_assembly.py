@@ -7,7 +7,11 @@
 # ⚠️ 열린국회정보 API 는 **본문 검색이 없다**(회의명·안건명·날짜로만 거른다).
 #    그래서 회의마다 PDF(1~2MB)를 받아 pdftotext 로 글자를 뽑아 찾는다. 한 회의에 몇 초.
 #    처음 한 번은 2026년 치를 다 훑느라 몇 시간 걸리고, 그 뒤로는 날마다 새 회의 몇 건뿐이다.
-# ⚠️ PDF 는 줄이 바뀌면서 낱말이 끊긴다(「위원\n장」) — 빈칸·줄바꿈을 다 지우고 찾는다.
+# ⚠️ PDF 는 줄이 바뀌면서 낱말이 끊긴다(「위원\n장」) — 글자 사이 빈칸·줄바꿈을 허용해 찾는다.
+# ⭐ 2026-10-08 사용자: "상임위나 국정감사에서 나온 내용은 안 나오나?" → 위원회 목록(상임위·특위·소위)에
+#    **국정감사·국정조사·공청회·인사청문회 등 VCONF 목록**을 더했다(같은 PDF 번호면 한 번만 본다).
+#    "어떤 맥락에서 논의됐는지" → 회의마다 **누가 무슨 말 속에서** 꺼냈는지 앞뒤 글을 셋까지 붙인다.
+#    링크는 요약 화면(가끔 안 열림)과 PDF 둘 다 준다.
 #
 # 열쇠 — ASSEMBLY_KEY(열린국회정보) · TELEGRAM_TOKEN · TELEGRAM_CHAT_ID. 공개 저장소라 값은 안 적는다.
 # 텔레그램 열쇠가 없으면 찾은 것을 「안 보냄」으로 쌓아 두었다가 열쇠가 생기면 그때 보낸다.
@@ -30,7 +34,11 @@ from watch_clik import 보내기
 낱말들 = ['미래대응기금']
 대수 = 22
 첫해 = 2026        # 사용자 — "올해 초부터"
-목록 = {'본회의': 'nzbyfwhwaoanttzje', '위원회': 'ncwgseseafwbuheph'}
+목록 = {'본회의': 'nzbyfwhwaoanttzje', '위원회': 'ncwgseseafwbuheph'}   # DAE_NUM + CONF_DATE(해)
+# 대(ERACO)로만 거르는 회의록 목록 — 코드는 github.com/hollobit/assembly-api-mcp src/api/codes.ts 에서 찾았다.
+VCONF = {'국정감사': 'VCONFAPIGCONFLIST', '국정조사': 'VCONFPIPCONFLIST', '공청회': 'VCONFPHCONFLIST',
+         '인사청문회': 'VCONFCFRMCONFLIST', '청문회': 'VCONFCHCONFLIST', '소위원회': 'VCONFSUBCCONFLIST',
+         '예결특위': 'VCONFBUDGETCONFLIST', '특별위원회': 'VCONFSPCCONFLIST', '연석회의': 'VCONFJMCONFLIST'}
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 상태파일 = os.path.join(ROOT, 'data', 'assembly', '알림.json')
@@ -42,29 +50,46 @@ def 받기(url, 초=120):
         return r.read()
 
 
+def 쪽들(갈래, 코드, 인자):
+    쪽 = 1
+    while True:
+        q = urllib.parse.urlencode({**인자, 'Type': 'json', 'pIndex': 쪽, 'pSize': 1000})
+        d = json.loads(받기(f'https://open.assembly.go.kr/portal/openapi/{코드}?{q}'))
+        if 코드 not in d:       # INFO-200 = 더 없음. 다른 코드는 오류다.
+            if d.get('RESULT', {}).get('CODE') != 'INFO-200':
+                raise RuntimeError(f'{갈래} {쪽}쪽: {d.get("RESULT")}')
+            return
+        줄들 = d[코드][1]['row']
+        yield from 줄들
+        if len(줄들) < 1000:
+            return
+        쪽 += 1
+
+
 def 회의목록(키):
-    """CONFER_NUM 하나가 회의 하나다(목록은 안건마다 한 줄이라 겹친다)."""
+    """PDF 번호(CONFER_NUM = pdf.do?id=) 하나가 회의 하나다(목록은 안건마다 한 줄이라 겹친다)."""
     회의 = {}
     for 갈래, 코드 in 목록.items():
         for 해 in range(첫해, int(time.strftime('%Y')) + 1):
-            쪽 = 1
-            while True:
-                q = urllib.parse.urlencode({'KEY': 키, 'Type': 'json', 'pIndex': 쪽, 'pSize': 1000,
-                                            'DAE_NUM': 대수, 'CONF_DATE': 해})
-                d = json.loads(받기(f'https://open.assembly.go.kr/portal/openapi/{코드}?{q}'))
-                if 코드 not in d:       # INFO-200 = 더 없음. 다른 코드는 오류다.
-                    if d.get('RESULT', {}).get('CODE') != 'INFO-200':
-                        raise RuntimeError(f'{갈래} {해} {쪽}쪽: {d.get("RESULT")}')
-                    break
-                줄들 = d[코드][1]['row']
-                for r in 줄들:
-                    if r.get('PDF_LINK_URL') and str(r.get('CONF_DATE', '')).startswith(str(해)):
-                        회의.setdefault(str(r['CONFER_NUM']), {
-                            '갈래': 갈래, '날짜': r['CONF_DATE'], '제목': r['TITLE'],
-                            'pdf': r['PDF_LINK_URL'], '보기': r.get('CONF_LINK_URL', '')})
-                if len(줄들) < 1000:
-                    break
-                쪽 += 1
+            for r in 쪽들(갈래, 코드, {'KEY': 키, 'DAE_NUM': 대수, 'CONF_DATE': 해}):
+                if r.get('PDF_LINK_URL') and str(r.get('CONF_DATE', '')).startswith(str(해)):
+                    회의.setdefault(str(r['CONFER_NUM']), {
+                        '갈래': 갈래, '날짜': r['CONF_DATE'], '제목': r['TITLE'],
+                        'pdf': r['PDF_LINK_URL'], '보기': r.get('CONF_LINK_URL', '')})
+    for 갈래, 코드 in VCONF.items():
+        try:
+            줄들 = list(쪽들(갈래, 코드, {'KEY': 키, 'ERACO': f'제{대수}대'}))
+        except Exception as e:      # noqa: BLE001 — 덧붙인 목록 하나가 깨져도 나머지는 본다
+            print(f'  {갈래} 목록 못 받음 — {e}')
+            continue
+        for r in 줄들:
+            번호 = urllib.parse.parse_qs(urllib.parse.urlparse(r.get('DOWN_URL') or '').query).get('id', [''])[0]
+            if 번호 and str(r.get('CONF_DT', '')) >= str(첫해):
+                회의.setdefault(번호, {
+                    '갈래': 갈래, '날짜': r['CONF_DT'],
+                    '제목': f"제{대수}대 {r.get('SESS', '')} {r.get('DGR', '')} {r.get('CMIT_NM', '')} ({r.get('CONF_KND', '')})",
+                    'pdf': r['DOWN_URL'],
+                    '보기': f'https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id={번호}&type=summary'})
     return 회의
 
 
@@ -74,7 +99,30 @@ def 본문(pdf주소):
         open(경로, 'wb').write(받기(pdf주소))
         글 = subprocess.run(['pdftotext', '-enc', 'UTF-8', 경로, '-'],
                            capture_output=True, check=True).stdout.decode('utf-8', 'replace')
-    return re.sub(r'\s+', '', 글)
+    return re.sub(r'\s+', ' ', 글)
+
+
+def 찾기(글, 낱말):
+    return list(re.finditer(r'\s*'.join(map(re.escape, 낱말)), 글))
+
+
+def 맥락(글, 낱말, 몇=3):
+    """발언 속에서 낱말이 나온 곳 — 말한 사람이 다른 것부터 셋까지. 맨 앞 의사일정 목록(「…(의안번호 …)」)은 뺀다."""
+    고른, 사람들 = [], set()
+    for m in 찾기(글, 낱말):
+        i = 글.rfind('◯', 0, m.start())
+        if i < 0 or '의안번호' in 글[m.end():m.end() + 60]:
+            continue
+        사람 = ' '.join(글[i + 1:i + 40].split(' ')[:2])
+        if 사람 in 사람들:
+            continue
+        사람들.add(사람)
+        다음 = 글.find('◯', m.end())   # 다음 사람 말 앞에서 끊는다
+        끝 = min(m.end() + 110, 다음 if 다음 > 0 else len(글))
+        고른.append({'누가': 사람, '글': ('…' + 글[max(i + 1 + len(사람), m.start() - 90):끝].strip() + '…')})
+        if len(고른) >= 몇:
+            break
+    return 고른
 
 
 def main():
@@ -105,9 +153,11 @@ def main():
             continue
         본것.add(n)
         for 낱말 in 낱말들:
-            if 글.count(낱말):
-                상태['찾은것'].append({**회의[n], '번호': n, '낱말': 낱말, '횟수': 글.count(낱말), '보냄': False})
-                print(f'  ★ {회의[n]["날짜"]} {회의[n]["제목"]} — {낱말} {글.count(낱말)}번')
+            횟수 = len(찾기(글, 낱말))
+            if 횟수:
+                상태['찾은것'].append({**회의[n], '번호': n, '낱말': 낱말, '횟수': 횟수,
+                                     '맥락': 맥락(글, 낱말), '보냄': False})
+                print(f'  ★ {회의[n]["날짜"]} {회의[n]["제목"]} — {낱말} {횟수}번')
         if i % 50 == 49:
             적기()
 
@@ -129,12 +179,26 @@ def main():
                                      '보기': r['LINK_URL'], '낱말': 낱말, '횟수': 1, '보냄': False})
                 의안[r['BILL_ID']] = {'이름': r['BILL_NAME'], '단계': 단계}
 
+    # 맥락 없이 쌓인 옛 것(10/6~10/7 치)은 PDF 를 다시 읽어 채우고 한 번 더 보낸다.
+    for f in 상태['찾은것']:
+        if f['갈래'] != '의안' and 'pdf' in f and '맥락' not in f:
+            try:
+                f['맥락'] = 맥락(본문(f['pdf']), f['낱말'])
+                f['보냄'] = False
+            except Exception as e:      # noqa: BLE001
+                print(f"  {f['번호']} 맥락 못 채움 — {e}")
+
+    def 묶음(f):
+        if f['갈래'] == '의안':
+            return f"{f['날짜']} <a href=\"{f['보기']}\">{html.escape(f['제목'])}</a>"
+        머리 = (f"<b>{f['날짜']} {html.escape(f['제목'])}</b> — {f['낱말']} {f['횟수']}번\n"
+              f"<a href=\"{f['보기']}\">요약 화면</a> · <a href=\"{f['pdf']}\">PDF</a>")
+        return 머리 + ''.join(f"\n  · <i>{html.escape(c['누가'])}</i>: {html.escape(c['글'])}" for c in f.get('맥락', []))
+
     안보냄 = [f for f in 상태['찾은것'] if not f['보냄']]
     if 안보냄 and os.environ.get('TELEGRAM_TOKEN') and os.environ.get('TELEGRAM_CHAT_ID'):
-        줄 = [f"{f['날짜']} <a href=\"{f['보기']}\">{html.escape(f['제목'])}</a>"
-             + ('' if f['갈래'] == '의안' else f" — {f['낱말']} {f['횟수']}번")
-             for f in sorted(안보냄, key=lambda f: f['날짜'])]
-        보내기(f"🏛 <b>국회 회의록 · {', '.join(낱말들)}</b> — 새로 {len(줄)}건\n" + '\n'.join(줄))
+        보내기(f"🏛 <b>국회 회의록 · {', '.join(낱말들)}</b> — {len(안보냄)}건\n\n"
+             + '\n\n'.join(묶음(f) for f in sorted(안보냄, key=lambda f: f['날짜'])))
         for f in 안보냄:
             f['보냄'] = True
     적기()
