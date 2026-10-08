@@ -408,7 +408,7 @@ function 그리기() {
 
 function 시작() {
   $('nav').innerHTML = Object.entries(문들).map(([k, v]) => `<a href="#${k}" data-d="${k}">${v.이름}</a>`).join('')
-    + `<a href="../site/score.html">투명성 지표</a>`;
+    + `<a href="../site/score.html">투명성 지표</a><a href="town.html?cd=${곳[i] ? 곳[i][0] : ''}" style="color:var(--accent)">시민 화면 시안</a>`;
   const 시도들 = [...new Set(곳.map(c => c[2]))];
   $('sido').innerHTML = 시도들.map(s => `<option>${esc(s)}</option>`).join('');
   const 채우기 = s => { $('place').innerHTML = 곳.map((c, j) => c[2] === s ? `<option value="${j}">${esc(이름(j).replace(/^\S+\s/, ''))}</option>` : '').join(''); };

@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="ko">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>우리 동네 살림 · 함께하는 시민행동</title>
+<!-- ⚠️ 시민용 「우리 동네 페이지」 시안. site/ 밖이라 배포되지 않는다.
+     보기: 저장소 맨 위에서 python -m http.server 8765 → /drafts/town.html?cd=4177000  (철 바꿔 보기: &m=2)
+     데이터: drafts/data.json (scripts/build_drafts.py) · drafts/shapes.json (scripts/build_shapes.py)
+     색·글꼴·모양은 시민행동 홈 개편판 DESIGN.md 값을 그대로 쓴다(바꾸지 말 것). 화면 글에는 긴 줄표를 쓰지 않는다.
+     문을 고르는 내부 검토판은 drafts/index.html 이다. -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+<style>
+  @font-face{font-family:'GmarketSans';src:url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff') format('woff');font-weight:700;font-display:swap}
+  @font-face{font-family:'GmarketSans';src:url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');font-weight:500;font-display:swap}
+  :root{
+    /* 시민행동 DESIGN.md 한 벌 */
+    --brand:#00afec; --deep:#0079a6; --tint:#e2f5fd; --band:#eef7fb; --navy:#062330;
+    --ink:#0b1e28; --soft:#4a6473; --faint:#7d95a3; --line:#d5e4eb; --paper:#f1f6f8;
+    --flag:#9a5c06; --flag-bg:#fff4e1; --flag-line:#ecd3a2;
+    --ground:#ffffff; --card:#ffffff; --on-navy:#ffffff; --on-deep:#ffffff;
+    --title:'GmarketSans',Pretendard,sans-serif;
+    --body:'Pretendard Variable',Pretendard,'Noto Sans KR',system-ui,sans-serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --brand:#2bbff2; --deep:#7fd3f5; --tint:#0f3243; --band:#0b2633; --navy:#04161f;
+      --ink:#e6f1f6; --soft:#a7bcc8; --faint:#7d95a3; --line:#1e3d4c; --paper:#0b2633;
+      --flag:#f0b35a; --flag-bg:#2b2010; --flag-line:#5a4420;
+      --ground:#071c26; --card:#0c2532; --on-navy:#e6f1f6; --on-deep:#04161f;
+    }
+  }
+  :root[data-theme="dark"]{
+    --brand:#2bbff2; --deep:#7fd3f5; --tint:#0f3243; --band:#0b2633; --navy:#04161f;
+    --ink:#e6f1f6; --soft:#a7bcc8; --faint:#7d95a3; --line:#1e3d4c; --paper:#0b2633;
+    --flag:#f0b35a; --flag-bg:#2b2010; --flag-line:#5a4420;
+    --ground:#071c26; --card:#0c2532; --on-navy:#e6f1f6; --on-deep:#04161f;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+  body{margin:0; background:var(--ground); color:var(--ink); font:16px/1.65 var(--body); word-break:keep-all; padding-bottom:84px}
+  a{color:var(--deep)}
+  .wrap{max-width:1180px; margin:0 auto; padding-inline:24px}
+  @media (max-width:640px){ .wrap{padding-inline:16px} }
+  h1,h2,h3,.t{font-family:var(--title); font-weight:700; letter-spacing:-.022em; line-height:1.35}
+  :focus-visible{outline:2px solid var(--deep); outline-offset:2px}
+  .pill{display:inline-flex; align-items:center; gap:6px; border-radius:999px; font:600 13px var(--body); padding:4px 12px; border:1px solid var(--line); color:var(--soft); background:var(--ground); white-space:nowrap}
+  .pill.now{background:var(--deep); border-color:var(--deep); color:var(--on-deep)}
+  .tbd{display:inline-flex; align-items:center; gap:4px; border-radius:999px; font:600 12px var(--body); padding:2px 10px; color:var(--flag); background:var(--flag-bg); border:1px solid var(--flag-line)}
+  .btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; border-radius:999px; font:700 15px var(--body); padding:12px 22px; border:1px solid var(--deep); background:var(--deep); color:var(--on-deep); cursor:pointer; white-space:nowrap; text-decoration:none}
+  .btn.line{background:transparent; color:var(--deep)}
+  .btn.sky{background:var(--brand); border-color:var(--brand); color:var(--navy)}
+  .btn.sm{font-size:13px; padding:7px 14px}
+  .btn:active{transform:translateY(1px)}
+  .btn[disabled]{opacity:.45; cursor:not-allowed}
+
+  /* 머리 */
+  .top{position:sticky; top:0; z-index:30; background:var(--ground); border-bottom:1px solid var(--line)}
+  .top .wrap{display:flex; align-items:center; gap:16px; height:68px}
+  .logo{display:block; width:132px; height:50px; overflow:hidden; flex:none}
+  .logo img{display:block; height:50px; width:auto; max-width:none; transform:translateX(-22px)}
+  @media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .logo img{filter:brightness(0) invert(1)} }
+  .site{font:700 15px var(--title); color:var(--ink); padding-left:16px; border-left:1px solid var(--line); white-space:nowrap}
+  .top .sp{flex:1}
+  .town-btn{display:inline-flex; align-items:center; gap:8px; border-radius:999px; border:1px solid var(--ink); background:var(--ground); color:var(--ink); font:700 14px var(--body); padding:8px 16px; cursor:pointer}
+  @media (max-width:640px){ .site{display:none} .logo{width:110px; height:42px} .logo img{height:42px; transform:translateX(-18px)} }
+
+  /* 첫 덩이: 흰 바탕 한 덩이, 밑변 2px 잉크 선 */
+  .hero{display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,1fr); gap:48px; align-items:center; padding:56px 0 40px; border-bottom:2px solid var(--ink)}
+  .crumb{font-size:14px; color:var(--soft); display:flex; gap:8px; align-items:center; flex-wrap:wrap}
+  .crumb i{color:var(--faint)}
+  .hero h1{font-size:clamp(44px,7vw,84px); line-height:1.08; margin:14px 0 18px; letter-spacing:-.04em}
+  .hero .lead{font-size:clamp(19px,2.1vw,24px); line-height:1.5; margin:0; max-width:24em; font-weight:500}
+  .hero .lead b{color:var(--deep); font-weight:800}
+  .hero .lead small{display:block; font-size:16px; color:var(--soft); font-weight:400; margin-top:10px}
+  .nums{display:flex; flex-wrap:wrap; gap:28px 40px; margin-top:34px; padding-top:22px; border-top:1px solid var(--line)}
+  .nums div{font-size:13px; color:var(--soft)}
+  .nums b{display:block; font:700 24px var(--title); color:var(--ink); letter-spacing:-.02em; margin-top:2px}
+  .map{position:relative; aspect-ratio:1/1; max-height:520px; justify-self:center; width:100%}
+  .map svg.town{width:100%; height:100%; display:block}
+  .map svg.town path{fill:var(--brand); stroke:var(--brand); stroke-width:1.2; stroke-linejoin:round}
+  .map svg.town{animation:rise .9s cubic-bezier(.16,1,.3,1) both}
+  .map .korea{position:absolute; right:0; bottom:0; width:22%; min-width:84px}
+  .map .korea path{fill:var(--line); stroke:none}
+  .map .korea circle{fill:var(--deep); stroke:var(--ground); stroke-width:6}
+  @keyframes rise{from{opacity:0; transform:scale(.94)} to{opacity:1; transform:none}}
+  @media (max-width:860px){
+    .hero{grid-template-columns:1fr; gap:8px; padding:28px 0 32px}
+    .map{order:-1; max-height:260px; aspect-ratio:auto; height:260px}
+  }
+
+  section{padding:72px 0}
+  .sec-hd{margin-bottom:28px}
+  .sec-hd h2{font-size:clamp(24px,3vw,32px); margin:0}
+  .sec-hd p{margin:6px 0 0; color:var(--soft)}
+
+  /* 지금 볼 것 */
+  .now{background:var(--band)}
+  .feat{display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,1fr); gap:48px; align-items:end}
+  @media (max-width:860px){ .feat{grid-template-columns:1fr; gap:28px} }
+  .feat .when{display:flex; gap:8px; align-items:center; margin-bottom:18px}
+  .feat h2{font-size:clamp(28px,4vw,46px); line-height:1.25; margin:0}
+  .feat h2 em{font-style:normal; color:var(--deep)}
+  .feat .why{font-size:17px; color:var(--soft); margin:18px 0 0; max-width:34em}
+  .feat .why b{color:var(--ink)}
+  .gauge{margin-top:30px; max-width:640px}
+  .gauge .bar{display:flex; height:22px; border:1px solid var(--ink)}
+  .gauge .bar span:first-child{background:var(--ink)}
+  .gauge .bar span:last-child{background:repeating-linear-gradient(135deg,var(--brand) 0 6px,transparent 6px 12px)}
+  .gauge .lab{display:flex; justify-content:space-between; font-size:14px; margin-top:8px; color:var(--soft)}
+  .gauge .lab b{color:var(--ink); font-family:var(--title)}
+  .promise{background:var(--card); border:1px solid var(--line); padding:26px}
+  .promise .k{font-size:13px; color:var(--soft); font-weight:700}
+  .promise .p{font:700 20px/1.45 var(--title); margin:6px 0 18px; letter-spacing:-.02em}
+  .promise ul{margin:0 0 20px; padding:0; list-style:none; font-size:15px; color:var(--soft)}
+  .promise li{display:flex; gap:10px; padding:6px 0}
+  .promise li i{color:var(--deep); font-size:18px; margin-top:2px}
+
+  /* 세 줄 카드 */
+  .cards{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px}
+  .card.more-card{background:var(--paper); border-style:dashed; border-color:var(--line)}
+  .card.more-card .n{margin-top:auto}
+  .gauge .note{font-size:13px; color:var(--faint); margin:6px 0 0}
+  @media (max-width:860px){ .cards{grid-template-columns:none; grid-auto-flow:column; grid-auto-columns:82%; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; padding-bottom:8px} .cards::-webkit-scrollbar{display:none} .cards > *{scroll-snap-align:start} }
+  .share{display:flex; flex-direction:column; gap:10px}
+  .card{aspect-ratio:1/1; padding:28px; display:flex; flex-direction:column; background:var(--card); border:1px solid var(--line); color:var(--ink); position:relative; overflow:hidden}
+  .card.c0{background:var(--navy); border-color:var(--navy); color:var(--on-navy)}
+  .card.c1{background:var(--tint); border-color:var(--tint)}
+  .card .who{font-size:14px; font-weight:700; opacity:.8}
+  .card .n{font:700 clamp(40px,4.6vw,58px)/1 var(--title); letter-spacing:-.04em; margin-top:auto}
+  .card.c0 .n{color:var(--brand)}
+  .card .n + .s{font:700 18px/1.45 var(--title); margin-top:14px; letter-spacing:-.02em}
+  .card .r{font-size:14px; margin-top:8px; opacity:.8}
+  .card .ft{display:flex; justify-content:space-between; align-items:center; gap:12px; white-space:nowrap; font-size:12px; margin-top:22px; padding-top:12px; border-top:1px solid currentColor; opacity:.75}
+  .card svg.ghost{position:absolute; right:-8%; top:-6%; width:58%; opacity:.12}
+  .card svg.ghost path{fill:currentColor}
+  .card.c0 svg.ghost{opacity:.18}
+  .card.c0 svg.ghost path{fill:var(--brand)}
+  .share .acts{display:flex; gap:8px}
+
+  /* 네 가지 질문 */
+  .four{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); border-top:2px solid var(--ink)}
+  @media (max-width:760px){ .four{grid-template-columns:1fr} }
+  .four > div{display:grid; grid-template-columns:52px 1fr; gap:16px; padding:26px 8px 26px 0; border-bottom:1px solid var(--line)}
+  .four > div:nth-child(odd){padding-right:32px}
+  @media (min-width:761px){ .four > div:nth-child(even){padding-left:32px; border-left:1px solid var(--line)} }
+  .four i.ph{font-size:30px; color:var(--deep); width:52px; height:52px; display:grid; place-items:center; background:var(--tint); border-radius:999px}
+  .four h3{margin:0; font-size:20px}
+  .four h3 small{font:400 14px var(--body); color:var(--soft); margin-left:6px; letter-spacing:0}
+  .four p{margin:6px 0 0; font-size:16px}
+  .four p b{font-family:var(--title)}
+  .four .more{font-size:14px; margin-top:6px; display:inline-block}
+
+  /* 철마다 여는 문 */
+  .doors{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px}
+  @media (max-width:980px){ .doors{grid-template-columns:repeat(2,minmax(0,1fr))} }
+  @media (max-width:560px){ .doors{grid-template-columns:1fr} }
+  .door{background:var(--card); border:1px solid var(--line); padding:22px; display:flex; flex-direction:column; gap:10px; min-height:250px}
+  .door:nth-child(2){background:var(--paper)}
+  .door .h{display:flex; justify-content:space-between; align-items:center}
+  .door h3{margin:0; font-size:19px}
+  .door .n{font:700 34px/1.1 var(--title); letter-spacing:-.03em; color:var(--deep); margin-top:6px}
+  .door p{margin:0; color:var(--soft); font-size:15px}
+  .door .btn{margin-top:auto; align-self:flex-start}
+
+  /* 한 해 달력 */
+  .year{display:grid; grid-template-columns:repeat(12,minmax(0,1fr)); border-top:2px solid var(--ink)}
+  .year > div{border-left:1px solid var(--line); padding:12px 10px 18px; min-height:150px; position:relative}
+  .year > div:first-child{border-left:0}
+  .year .m{font:700 15px var(--title); color:var(--faint)}
+  .year .here{background:var(--band)}
+  .year .here .m{color:var(--deep)}
+  .year .here .m::after{content:'지금'; font:600 11px var(--body); margin-left:6px; padding:1px 7px; border-radius:999px; background:var(--deep); color:var(--on-deep); vertical-align:2px}
+  .year .ev{margin-top:10px; font-size:13.5px; line-height:1.45; font-weight:600}
+  .year .ev small{display:block; font-weight:400; color:var(--soft)}
+  @media (max-width:860px){
+    .year{grid-template-columns:1fr; border-top:2px solid var(--ink)}
+    .year > div{border-left:0; border-bottom:1px solid var(--line); min-height:0; display:grid; grid-template-columns:64px 1fr; gap:8px; padding:12px 0}
+    .year > div:not(.has){display:none}
+    .year .ev{margin-top:0}
+  }
+
+  /* 후원 */
+  .give{background:var(--navy); color:var(--on-navy); padding:64px 0}
+  .give .wrap{display:grid; grid-template-columns:minmax(0,1fr) auto; gap:36px; align-items:center}
+  @media (max-width:760px){ .give .wrap{grid-template-columns:1fr} }
+  .give h2{font-size:clamp(24px,3vw,34px); margin:0}
+  .give p{margin:10px 0 0; opacity:.8; max-width:36em}
+
+  footer{padding:28px 0 40px; font-size:13px; color:var(--faint)}
+  footer p{margin:4px 0}
+
+  /* 아래 붙은 받아 보기 띠 */
+  .dock{position:fixed; left:0; right:0; bottom:0; z-index:40; background:var(--ground); border-top:1px solid var(--line); box-shadow:0 -6px 24px rgb(6 35 48 / .08)}
+  .dock .wrap{display:flex; align-items:center; gap:14px; height:72px}
+  .dock .t{font-size:16px; flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  .dock .t span{color:var(--soft); font:400 14px var(--body); margin-left:8px}
+  @media (max-width:640px){ .dock .t span{display:none} .dock .t{font-size:15px} }
+
+  dialog{border:0; padding:0; max-width:560px; width:calc(100% - 32px); background:var(--ground); color:var(--ink); box-shadow:0 30px 80px rgb(6 35 48 / .35)}
+  dialog::backdrop{background:rgb(6 35 48 / .55)}
+  .dlg{padding:28px}
+  .dlg h3{margin:0 0 4px; font-size:22px}
+  .dlg .x{float:right; border:0; background:none; font-size:24px; color:var(--soft); cursor:pointer; line-height:1}
+  .dlg .sub{color:var(--soft); margin:0 0 20px; font-size:15px}
+  .field{display:grid; gap:6px; margin-bottom:14px}
+  .field label{font-size:14px; font-weight:700}
+  .field input{font:16px var(--body); padding:12px 14px; border:1px solid var(--line); background:var(--ground); color:var(--ink); border-radius:0}
+  .wants{display:flex; flex-wrap:wrap; gap:8px; margin:0 0 18px; padding:0; border:0}
+  .wants legend{font-size:14px; font-weight:700; margin-bottom:8px; padding:0}
+  .wants label{display:inline-flex; align-items:center; gap:6px; border:1px solid var(--line); border-radius:999px; padding:6px 12px; font-size:14px; cursor:pointer}
+  .wants input{accent-color:var(--deep)}
+  .agree{display:flex; gap:8px; font-size:14px; color:var(--soft); margin:4px 0 18px}
+  .pick-list{max-height:52vh; overflow:auto; margin-top:14px}
+  .pick-list h4{font:700 14px var(--title); margin:16px 0 8px; color:var(--soft)}
+  .pick-list .g{display:flex; flex-wrap:wrap; gap:6px}
+  .pick-list button{border-radius:999px; border:1px solid var(--line); background:var(--ground); color:var(--ink); font:500 14px var(--body); padding:5px 12px; cursor:pointer}
+  .pick-list button[aria-current="true"]{background:var(--deep); border-color:var(--deep); color:var(--on-deep)}
+
+  .reveal{opacity:0; transform:translateY(16px); transition:opacity .6s cubic-bezier(.16,1,.3,1), transform .6s cubic-bezier(.16,1,.3,1)}
+  .reveal.in{opacity:1; transform:none}
+  @media (prefers-reduced-motion:reduce){ .reveal{opacity:1; transform:none; transition:none} .map svg.town{animation:none} html{scroll-behavior:auto} }
+  .loading{padding:160px 0; color:var(--soft)}
+</style>
+
+<header class="top"><div class="wrap">
+  <a class="logo" href="https://www.action.or.kr" aria-label="함께하는 시민행동"><img src="https://cdn.imweb.me/upload/S20210826b814397ca4e6d/2a859fe4ace59.png" alt="함께하는 시민행동"></a>
+  <span class="site">우리 동네 살림</span>
+  <span class="tbd" title="공개 전 시안">시안</span>
+  <span class="sp"></span>
+  <button class="town-btn" id="townBtn" aria-haspopup="dialog"><i class="ph ph-map-pin"></i><span id="townName">동네 고르기</span><i class="ph ph-caret-down"></i></button>
+</div></header>
+
+<main id="main"><div class="wrap loading">자료를 읽는 중입니다.</div></main>
+
+<div class="dock" id="dock" hidden><div class="wrap">
+  <div class="t" id="dockT"></div>
+  <button class="btn" data-sub>받아 보기</button>
+</div></div>
+
+<dialog id="pickDlg" aria-labelledby="pickH"><div class="dlg">
+  <button class="x" data-close aria-label="닫기">&times;</button>
+  <h3 id="pickH">우리 동네 고르기</h3>
+  <p class="sub">243곳 가운데 사는 곳을 고르세요.</p>
+  <div class="field"><label for="q">동네 이름</label><input id="q" type="search" placeholder="예: 가평, 종로구" autocomplete="off"></div>
+  <div class="pick-list" id="pickList"></div>
+</div></dialog>
+
+<dialog id="subDlg" aria-labelledby="subH"><div class="dlg">
+  <button class="x" data-close aria-label="닫기">&times;</button>
+  <h3 id="subH"></h3>
+  <p class="sub">때가 되면 문자로 알려 드립니다. 원하지 않으면 언제든 그만 받을 수 있습니다.</p>
+  <form onsubmit="return false">
+    <fieldset class="wants" id="wants"><legend>무엇을 받을까요</legend></fieldset>
+    <div class="field"><label for="s-n">이름</label><input id="s-n" autocomplete="name"></div>
+    <div class="field"><label for="s-p">휴대전화</label><input id="s-p" type="tel" inputmode="tel" autocomplete="tel"></div>
+    <label class="agree"><input type="checkbox"> 개인정보 수집·이용에 동의합니다 (<a href="#">개인정보처리방침</a>)</label>
+    <button class="btn" disabled style="width:100%">받아 보기</button>
+    <p style="margin:12px 0 0"><span class="tbd">시안이라 아직 받지 않습니다. 명부와 동의 문구가 정해지면 엽니다.</span></p>
+  </form>
+</div></dialog>
+
+<script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.13/dist/html-to-image.js" defer></script>
+<script>
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const 받침 = s => { const c = String(s).trim().slice(-1).charCodeAt(0); return c >= 0xAC00 && c <= 0xD7A3 && (c - 0xAC00) % 28 !== 0; };
+const 은 = s => s + (받침(s) ? '은' : '는');
+const 이 = s => s + (받침(s) ? '이' : '가');
+const 을 = s => s + (받침(s) ? '을' : '를');
+const 돈 = v => v == null ? '-' : v === 0 ? '0원' : Math.abs(v) >= 1e12 ? (v / 1e12).toFixed(1) + '조 원' : Math.abs(v) >= 1e8 ? Math.round(v / 1e8).toLocaleString() + '억 원' : Math.round(v / 1e4).toLocaleString() + '만 원';
+const 퍼 = (v, d = 1) => v == null ? '-' : (+v).toFixed(d) + '%';
+const 갈래말 = g => ({광역: '광역', 시: '시', 군: '군', 구: '구'}[g] || g);
+const 후원주소 = 'https://secure.donus.org/withaction0909/pay/step1';
+
+let D, S, 곳, i = 0;
+const 짧은이름 = j => D.이름[j].replace(/^\S+\s/, '');          // 「경기도 가평군」 → 「가평군」, 광역은 그대로
+const 시도이름 = j => D.이름[j].includes(' ') ? D.이름[j].split(' ')[0] : '';
+const 달 = (() => { const m = +new URLSearchParams(location.search).get('m'); return m >= 1 && m <= 12 ? m : new Date().getMonth() + 1; })();
+const 진행달 = () => +D.진행기준.slice(4);
+
+function 순위(arr, j) {
+  if (arr[j] == null) return null;
+  const g = 곳[j][3], 같은 = 곳.map((c, x) => x).filter(x => 곳[x][3] === g && arr[x] != null);
+  return {k: 같은.filter(x => arr[x] > arr[j]).length + 1, n: 같은.length, g};
+}
+const 순위말 = r => r ? `같은 ${갈래말(r.g)} ${r.n}곳 가운데 ${r.k}위` : '';
+
+// 그 동네가 같은 갈래 위쪽 3분의 1에 드는 것만, 앞선 차례로 셋까지
+const 날줄들 = [
+  {k: '계약', 값: j => D.계약[j] && D.계약[j][3], 주어: '경쟁 없이 맺은 계약 비중', 자리: 0, 아이콘: 'ph-handshake',
+   글: (v) => `${D.계약해}년 계약 금액의 ${퍼(v, 0)}를 경쟁 없이 맺었습니다`},
+  {k: '행사축제경비비율', 주어: '행사·축제 비중', 자리: 2, 금: true, 글: (v, 금) => `한 해 행사·축제에 ${돈(금)}을 썼습니다`},
+  {k: '업무추진비비율', 주어: '업무추진비 비중', 자리: 2, 금: true, 글: (v, 금) => `한 해 업무추진비로 ${돈(금)}을 썼습니다`},
+  {k: '지방의회경비비율', 주어: '의회 운영비 비중', 자리: 2, 금: true, 글: (v, 금) => `한 해 의회 운영에 ${돈(금)}을 썼습니다`},
+  {k: '연말지출비율', 주어: '연말 몰아 쓰기 비중', 자리: 1, 글: v => `한 해 쓴 돈의 ${퍼(v)}를 11~12월에 썼습니다`},
+  {k: '추경 증가율', 주어: '추경으로 늘린 비율', 자리: 1, 금: true, 글: (v, 금) => `처음 정한 예산을 추경으로 ${돈(금)} 늘렸습니다`},
+  {k: '예산대비채무비율', 주어: '예산 대비 빚', 자리: 1, 글: v => `빚이 예산의 ${퍼(v)}입니다`},
+];
+function 날카로운셋(j) {
+  const 다 = 날줄들.map(x => {
+    const arr = x.값 ? 곳.map((c, y) => x.값(y)) : (D.지표[x.k] || {}).비율;
+    const r = arr && 순위(arr, j);
+    return r && arr[j] > 0 && {x, v: arr[j], 금: x.금 ? D.지표[x.k].금액[j] : null, r, p: r.k / r.n};
+  }).filter(Boolean).sort((a, b) => a.p - b.p);
+  const 셋 = 다.filter(s => s.p <= 1 / 3).slice(0, 3);
+  return 셋.length ? 셋 : 다.slice(0, 1);
+}
+
+const 모양 = (cd, cls = 'town') => { const s = S.곳[cd]; return s ? `<svg class="${cls}" viewBox="-8 -8 ${s.w + 16} ${s.h + 16}" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><path d="${s.d}"/></svg>` : ''; };
+
+// ── 철마다 여는 문 ──
+function 문들() {
+  const j = i, 집 = D.집행[j], 고 = D.고향[j], 추 = D.지표['추경 증가율'], 연 = D.지표['연말지출비율'];
+  const 고합 = 고.reduce((a, r) => a + r[1], 0), 고씀 = 고.reduce((a, r) => a + r[2], 0);
+  const 노 = D.지켜봄['노들섬'];
+  return {
+    연말: {이름: '연말 몰아 쓰기', 달: [10, 11, 12], 언제: '10~12월', 아이콘: 'ph-calendar-x',
+      작은: 집 ? 퍼(집[1] / 집[0] * 100, 0) : '-', 작은말: `${진행달()}월 말까지 쓴 몫`,
+      큰제목: `석 달 남았습니다.<br>${esc(은(짧은이름(j)))} 아직 <em>${돈(집 ? 집[0] - 집[1] : null)}</em>${집 && 받침(돈(집[0] - 집[1])) ? '을' : '를'} 쓰지 않았습니다.`,
+      까닭: 연.비율[j] == null ? '' : `지난해에는 한 해 쓴 돈의 <b>${퍼(연.비율[j])}</b>를 11~12월 두 달에 썼습니다. ${순위말(순위(연.비율, j))}입니다.`,
+      게이지: 집 && [집[1], 집[0]], 약속: `12월 한 달, ${esc(이(짧은이름(j)))} 날마다 얼마를 쓰는지 공개합니다.`,
+      할일: ['마지막 주에 몰려 나간 사업에 이름을 붙여 알려 드립니다', '1월 말, 다 못 쓰고 넘긴 돈을 정리합니다'], 받기: '12월 받아 보기'},
+    고향: {이름: '고향사랑기부', 달: [1, 2, 3], 언제: '2월 공개 · 12월 기부철', 아이콘: 'ph-gift',
+      작은: 고.length ? (고합 ? 퍼(고씀 / 고합 * 100, 0) : '-') : '0개', 작은말: 고.length ? `「고향사랑」 사업에 잡은 ${돈(고합)} 가운데 ${진행달()}월까지 쓴 몫` : '올해 「고향사랑」 이름을 단 사업',
+      큰제목: `당신이 낸 고향사랑기부금,<br><em>${esc(은(짧은이름(j)))}</em> 어디에 썼을까요?`,
+      까닭: 고.length ? `올해 「고향사랑」 이름을 단 사업 ${고.length}개에 <b>${돈(고합)}</b>을 잡았고, ${진행달()}월까지 <b>${고합 ? 퍼(고씀 / 고합 * 100, 0) : '-'}</b>를 썼습니다.` : `올해 사업 목록에 「고향사랑」 이름이 붙은 사업이 <b>하나도 없습니다</b>.`,
+      게이지: 고.length && 고합 ? [고씀, 고합] : null, 약속: '2월 말, 243곳이 올린 기부금 공개글을 다 열어 봅니다.',
+      할일: ['받은 돈, 답례품, 쓴 곳을 한 표로 모읍니다', '3월, 안 올렸거나 알아보기 어렵게 올린 곳의 이름을 부릅니다'], 받기: '기부금 쓰임 받아 보기'},
+    추경: {이름: '추경 부풀리기', 달: [6, 7], 언제: '6~7월', 아이콘: 'ph-trend-up',
+      작은: 추.비율[j] == null ? '-' : '+' + 퍼(추.비율[j]), 작은말: `${추.연도}년 추경으로 늘어난 몫`,
+      큰제목: `${esc(짧은이름(j))}의 ${추.연도}년 예산,<br>처음보다 <em>${돈(추.금액[j])}</em> 늘었습니다.`,
+      까닭: `의회가 통과시킨 예산이 추경을 거치며 <b>${퍼(추.비율[j])}</b> 커졌습니다. ${순위말(순위(추.비율, j))}입니다.`,
+      게이지: null, 약속: '추경안이 나오면 늘어난 사업을 쉬운 말로 풀어 보내 드립니다.',
+      할일: ['추경 심사에서 의원들이 무엇을 물었는지 회의록으로 확인합니다', '연말에 처음 예산과 최종 예산을 나란히 놓습니다'], 받기: '추경 받아 보기'},
+    독상: {이름: '밑빠진독상 시민 투표', 달: [12, 1], 언제: '12월 · 1월', 아이콘: 'ph-hand-pointing',
+      작은: '곧 공개', 작은말: '시민행동이 확인한 올해 후보', 약속: '끝까지 따라갈 사건을 시민이 고릅니다.', 받기: '투표 알림 받기'},
+    노들섬: {이름: '지켜보는 사업 · 노들섬', 달: [], 언제: '1년 내내', 아이콘: 'ph-binoculars',
+      작은: 노 ? 노.임기회의수 + '번' : '-', 작은말: '지난 4년 서울시의회 회의에서', 약속: '노들섬 이야기가 나온 회의록을 골라 보내 드립니다.', 받기: '노들섬 받아 보기'},
+  };
+}
+const 지금문 = () => 달 >= 10 ? '연말' : 달 <= 3 ? '고향' : 달 >= 6 && 달 <= 7 ? '추경' : null;
+
+function 그리기() {
+  const c = 곳[i], cd = c[0], 지 = D.지표, 셋 = 날카로운셋(i), 첫 = 셋[0], 문 = 문들(), 지금 = 지금문();
+  const 일인 = 지['1인당 세출예산액'].비율[i], 투 = D.투명[i], 계 = D.계약[i], s = S.곳[cd];
+  $('townName').textContent = 짧은이름(i);
+  $('dockT').innerHTML = `${esc(짧은이름(i))} 소식, 때가 되면 알려 드립니다<span>1년에 몇 번만 보냅니다</span>`;
+  $('dock').hidden = false;
+  document.title = `${짧은이름(i)} 살림 · 함께하는 시민행동`;
+
+  const 점 = s && S.전국 ? `<svg class="korea" viewBox="-10 -10 ${S.전국.w + 20} ${S.전국.h + 20}" aria-hidden="true"><path d="${S.전국.d}"/><circle cx="${s.점[0]}" cy="${s.점[1]}" r="11"/></svg>` : '';
+
+  let h = `<div class="wrap"><div class="hero">
+    <div>
+      <div class="crumb"><span>우리 동네 살림</span>${시도이름(i) ? `<i class="ph ph-caret-right"></i><span>${esc(시도이름(i))}</span>` : ''}<i class="ph ph-caret-right"></i><span>${갈래말(c[3])}</span></div>
+      <h1>${esc(짧은이름(i))}</h1>
+      <p class="lead">${첫 ? `${esc(이(첫.x.주어))} 같은 ${갈래말(첫.r.g)} ${첫.r.n}곳 가운데 <b>${첫.r.k === 1 ? '가장 높습니다' : 첫.r.k + '위입니다'}</b>.` : `${esc(짧은이름(i))}의 살림을 한눈에 봅니다.`}
+        <small>함께하는 시민행동이 243곳을 같은 잣대로 해마다 다시 잽니다.</small></p>
+      <div class="nums">
+        <div>${D.예산연도}년 예산<b>${돈(지['세출예산 총액'].금액[i])}</b></div>
+        <div>주민 1명당<b>${일인 == null ? '-' : 돈(일인 * 1000)}</b></div>
+        <div>인구<b>${(c[4] || 0).toLocaleString()}명</b></div>
+      </div>
+    </div>
+    <div class="map" role="img" aria-label="${esc(D.이름[i])} 모양">${모양(cd)}${점}</div>
+  </div></div>`;
+
+  // 지금 볼 것
+  if (지금) {
+    const f = 문[지금];
+    h += `<section class="now reveal"><div class="wrap"><div class="feat">
+      <div>
+        <div class="when"><span class="pill now"><i class="ph ph-clock"></i>지금 볼 것</span><span class="pill">${f.언제}</span></div>
+        <h2>${f.큰제목}</h2>
+        ${f.까닭 ? `<p class="why">${f.까닭}</p>` : ''}
+        ${f.게이지 ? `<div class="gauge"><div class="bar"><span style="flex:${f.게이지[0]}"></span><span style="flex:${Math.max(0, f.게이지[1] - f.게이지[0])}"></span></div>
+          <div class="lab"><span>쓴 돈 <b>${돈(f.게이지[0])}</b></span><span>남은 돈 <b>${돈(f.게이지[1] - f.게이지[0])}</b></span></div>
+          <p class="note">올해 쓸 수 있는 돈 ${돈(f.게이지[1])} 기준입니다(추경과 지난해에서 넘어온 돈 포함, ${진행달()}월 말).</p></div>` : ''}
+      </div>
+      <div class="promise">
+        <div class="k">시민행동이 할 일</div>
+        <div class="p">${f.약속}</div>
+        <ul>${f.할일.map(t => `<li><i class="ph ph-check-circle"></i><span>${t}</span></li>`).join('')}</ul>
+        <button class="btn" data-sub="${지금}">${f.받기}</button>
+      </div>
+    </div></div></section>`;
+  }
+
+  // 세 줄 카드
+  if (셋.length) h += `<section class="reveal"><div class="wrap">
+    <div class="sec-hd"><h2>${esc(짧은이름(i))}, 이것만은 알고 계세요</h2><p>같은 갈래끼리 견줘 앞선 것만 골랐습니다. 친구에게 보내 주세요.</p></div>
+    <div class="cards">${셋.map((x, k) => `<div class="share">
+      <div class="card c${k}" id="card${k}">
+        ${모양(cd, 'ghost')}
+        <div class="who">${esc(D.이름[i])}</div>
+        <div class="n">${x.금 ? 돈(x.금) : 퍼(x.v, x.x.자리)}</div>
+        <div class="s">${esc(x.x.글(x.v, x.금))}.</div>
+        <div class="r">${x.x.주어} ${순위말(x.r)}${x.금 ? ` (${퍼(x.v, x.x.자리)})` : ''}</div>
+        <div class="ft"><span>함께하는 시민행동</span><span>우리 동네 살림</span></div>
+      </div>
+      <div class="acts"><button class="btn sm" data-send><i class="ph ph-paper-plane-tilt"></i>보내기</button><button class="btn sm line" data-png="card${k}"><i class="ph ph-download-simple"></i>이미지 저장</button></div>
+    </div>`).join('')}${셋.length < 3 ? `<div class="share"><div class="card more-card">
+        <i class="ph ph-magnifying-glass" style="font-size:34px"></i>
+        <div class="n" style="font-size:clamp(26px,2.6vw,34px)">친구가 사는 동네는 어떨까요?</div>
+        <div class="r">243곳 어디든 같은 잣대로 견줘 봅니다.</div>
+        <button class="btn" data-pick style="margin-top:22px;align-self:flex-start">다른 동네 보기</button>
+      </div></div>` : ''}</div>
+  </div></section>`;
+
+  // 네 가지 질문
+  h += `<section class="reveal" style="padding-top:0"><div class="wrap">
+    <div class="sec-hd"><h2>네 가지 질문으로 본 ${esc(짧은이름(i))}</h2><p>시민행동은 지방 살림을 이 네 가지로 따집니다.</p></div>
+    <div class="four">
+      <div><i class="ph ph-eye-slash"></i><div><h3>숨기나<small>예산을 볼 수 있게 냈나</small></h3>
+        <p>예산 공개 ${D.투명항목수}항목 가운데 <b>${투[0]}개</b>를 지켰${투[1] ? `고, <b>${투[1]}개</b>는 지키지 않았습니다` : '습니다'}.${투[2] ? ` ${투[2]}개는 아직 확인하는 중입니다.` : ''}</p>
+        <a class="more" href="../site/score.html">투명성 지표 보기</a></div></div>
+      <div><i class="ph ph-drop"></i><div><h3>새나<small>쓸 데 아닌 데 쓰나</small></h3>
+        <p>${D.결산연도}년 업무추진비 <b>${돈(지['업무추진비비율'].금액[i])}</b>, 행사·축제 <b>${돈(지['행사축제경비비율'].금액[i])}</b>를 썼습니다.</p></div></div>
+      <div><i class="ph ph-handshake"></i><div><h3>몰아주나<small>경쟁 없이 맡기나</small></h3>
+        <p>${계 ? `${D.계약해}년 계약 ${계[0].toLocaleString()}건 가운데 <b>${계[1].toLocaleString()}건(${퍼(계[2], 0)})</b>을 경쟁 없이 맺었습니다.${계[5][0] ? ` 가장 많이 받은 업체는 ${esc(계[5][0][0])}(${돈(계[5][0][1])})입니다.` : ''}` : '계약 자료를 아직 받지 못했습니다.'}</p></div></div>
+      <div><i class="ph ph-chats-circle"></i><div><h3>따지나<small>의회가 묻나</small></h3>
+        <p>의회가 예산을 어떻게 따졌는지 회의록으로 세는 중입니다. 지난 4년 치를 모두 모아 두었습니다.</p></div></div>
+    </div>
+  </div></section>`;
+
+  // 철마다 여는 문
+  const 나머지 = ['연말', '고향', '추경', '독상', '노들섬'].filter(k => k !== 지금).slice(0, 4);
+  h += `<section class="reveal" style="background:var(--band)"><div class="wrap">
+    <div class="sec-hd"><h2>철마다 여는 문</h2><p>예산이 정해지고, 바뀌고, 쓰이는 때에 맞춰 알려 드립니다.</p></div>
+    <div class="doors">${나머지.map(k => { const f = 문[k]; return `<div class="door">
+      <div class="h"><i class="ph ${f.아이콘}" style="font-size:26px;color:var(--deep)"></i><span class="pill">${f.언제}</span></div>
+      <h3>${f.이름}</h3>
+      <div><div class="n">${f.작은}</div><p>${f.작은말}</p></div>
+      <p>${f.약속}</p>
+      <button class="btn sm line" data-sub="${k}">${f.받기}</button>
+    </div>`; }).join('')}</div>
+  </div></section>`;
+
+  // 한 해 달력
+  const 일정 = {2: ['고향사랑 공개 확인', '243곳 기부금 공개글'], 3: ['기부금 쓰임 발표', '안 올린 곳 이름 부르기'], 6: ['추경 풀어 보기', '늘어난 사업'], 7: ['추경 심사 확인', '회의록으로'],
+    9: ['결산, 다시 재기', '243곳 같은 잣대로'], 12: ['연말 지출 날마다 공개', '독상 시민 투표'], 1: ['독상 공식 질문', '고른 사건에']};
+  h += `<section class="reveal"><div class="wrap">
+    <div class="sec-hd"><h2>시민행동의 한 해</h2><p>같은 잣대로, 같은 때에, 해마다 합니다.</p></div>
+    <div class="year">${Array.from({length: 12}, (_, k) => k + 1).map(m => `<div class="${m === 달 ? 'here ' : ''}${일정[m] ? 'has' : ''}">
+      <div class="m">${m}월</div>${일정[m] ? `<div class="ev">${일정[m][0]}<small>${일정[m][1]}</small></div>` : ''}</div>`).join('')}</div>
+  </div></section>`;
+
+  h += `<div class="give reveal"><div class="wrap">
+    <div><h2>이 일을 해마다 하려면 회원이 필요합니다</h2>
+      <p>함께하는 시민행동은 27년째 세금이 어디로 가는지 따라가고, 밑빠진독상을 주는 단체입니다. 매달 내는 회비가 내년에도 같은 잣대로 재게 합니다.</p></div>
+    <a class="btn sky" href="${후원주소}" target="_blank" rel="noopener"><i class="ph ph-heart"></i>정기후원</a>
+  </div></div>
+  <footer><div class="wrap">
+    <p>자료: 지방재정365(공공누리 1유형) 지표 ${D.결산연도} 결산·${D.예산연도} 예산, 세부사업별 세출현황 ${D.진행기준.slice(0, 4)}년 ${진행달()}월, 계약현황 ${D.계약해}년, 국회도서관 지방의회 회의록. 「몇 위」는 같은 갈래(광역·시·군·구)끼리 견준 것입니다.</p>
+    <p>지도: ${esc(S.출처)}</p>
+    <p><span class="tbd">시안</span> 아직 공개하지 않은 화면입니다.</p>
+  </div></footer>`;
+
+  $('main').innerHTML = h;
+  붙이기();
+}
+
+function 붙이기() {
+  document.querySelectorAll('[data-sub]').forEach(b => b.onclick = () => 받기열기(b.dataset.sub || 지금문()));
+  document.querySelectorAll('[data-pick]').forEach(b => b.onclick = () => $('townBtn').click());
+  document.querySelectorAll('[data-send]').forEach(b => b.onclick = async () => {
+    const url = location.href;
+    try { if (navigator.share) { await navigator.share({title: document.title, url}); return; } } catch (_) { return; }
+    navigator.clipboard?.writeText(url).then(() => { const t = b.innerHTML; b.textContent = '주소를 복사했습니다'; setTimeout(() => b.innerHTML = t, 1800); });
+  });
+  document.querySelectorAll('[data-png]').forEach(b => b.onclick = async () => {
+    const el = $(b.dataset.png);
+    try {
+      const url = await htmlToImage.toPng(el, {pixelRatio: 2, backgroundColor: getComputedStyle(el).backgroundColor, fontEmbedCSS: await 제목글꼴()});
+      const a = document.createElement('a'); a.href = url; a.download = `${짧은이름(i)}-살림.png`; a.click();
+    } catch (e) { alert('이미지를 만들지 못했습니다. 화면을 캡처해 주세요.'); }
+  });
+  // 보이는 곳에 들어오면 나타나기(움직임 줄이기 설정이면 그냥 다 보임)
+  const 보기 = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); 보기.unobserve(e.target); } }), {threshold: .12});
+  document.querySelectorAll('.reveal').forEach(el => 보기.observe(el));
+}
+
+// 카드 그림에 넣을 제목 글꼴 — 글꼴을 다 넣으면(Pretendard 조각 수십 개) 10초 넘게 걸려 GmarketSans 만 data URL 로 넣는다.
+// 작은 글씨는 기기 글꼴로 나온다.
+let 글꼴캐시;
+function 제목글꼴() {
+  const 하나 = (파일, 굵기) => fetch(`https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/${파일}`).then(r => r.blob())
+    .then(b => new Promise(res => { const f = new FileReader(); f.onload = () => res(`@font-face{font-family:'GmarketSans';src:url(${f.result}) format('woff');font-weight:${굵기}}`); f.readAsDataURL(b); }));
+  return 글꼴캐시 = 글꼴캐시 || Promise.all([하나('GmarketSansBold.woff', 700), 하나('GmarketSansMedium.woff', 500)]).then(x => x.join(' ')).catch(() => '');
+}
+
+function 받기열기(먼저) {
+  const 문 = 문들();
+  $('subH').textContent = `${짧은이름(i)} 소식 받아 보기`;
+  $('wants').innerHTML = '<legend>무엇을 받을까요</legend>' + [['한장', `${짧은이름(i)} 한 장 (9월·12월)`], ...['연말', '고향', '추경', '독상', '노들섬'].map(k => [k, 문[k].이름])]
+    .map(([k, t]) => `<label><input type="checkbox" value="${k}" ${k === 먼저 || (!먼저 && k === '한장') ? 'checked' : ''}> ${esc(t)}</label>`).join('');
+  $('subDlg').showModal();
+}
+
+function 고르기목록(q = '') {
+  const 묶음 = {};
+  곳.forEach((c, j) => { if (!q || D.이름[j].includes(q) || c[1].includes(q)) (묶음[c[2]] = 묶음[c[2]] || []).push(j); });
+  $('pickList').innerHTML = Object.entries(묶음).map(([시도, js]) => `<h4>${esc(시도)}</h4><div class="g">${js.map(j =>
+    `<button data-j="${j}" aria-current="${j === i}">${esc(곳[j][3] === '광역' ? D.이름[j] : 짧은이름(j))}</button>`).join('')}</div>`).join('') || '<p class="sub">찾는 동네가 없습니다.</p>';
+  $('pickList').querySelectorAll('button').forEach(b => b.onclick = () => {
+    i = +b.dataset.j; $('pickDlg').close();
+    history.replaceState(null, '', '?cd=' + 곳[i][0] + (new URLSearchParams(location.search).get('m') ? '&m=' + 달 : ''));
+    그리기(); scrollTo({top: 0});
+  });
+}
+
+function 시작() {
+  const cd = new URLSearchParams(location.search).get('cd');
+  i = 곳.findIndex(c => c[0] === cd); if (i < 0) i = Math.max(0, 곳.findIndex(c => c[0] === '1111000'));
+  $('townBtn').onclick = () => { $('q').value = ''; 고르기목록(); $('pickDlg').showModal(); $('q').focus(); };
+  $('q').oninput = e => 고르기목록(e.target.value.trim());
+  document.querySelectorAll('dialog').forEach(d => {
+    d.querySelector('[data-close]').onclick = () => d.close();
+    d.addEventListener('click', e => { if (e.target === d) d.close(); });
+  });
+  그리기();
+}
+
+Promise.all([fetch('data.json').then(r => r.json()), fetch('shapes.json').then(r => r.json())])
+  .then(([d, s]) => { D = d; S = s; 곳 = d.곳; 시작(); })
+  .catch(e => { $('main').innerHTML = `<div class="wrap loading">자료를 못 읽었습니다. 저장소 맨 위에서 python -m http.server 8765 로 여세요. (${esc(e)})</div>`; });
+</script>
