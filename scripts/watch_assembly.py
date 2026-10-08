@@ -215,12 +215,22 @@ def main():
     if args.다시보내기:   # 보내기만 — 국회 서버를 부르지 않는다(2026-10-08 목록 받다 시간 초과로 못 보냄)
         for f in 상태['찾은것']:
             f['보냄'] = False
-    else:
-        모으기(상태, 본것, 끝, 적기)
+    오류 = None
+    if not args.다시보내기:
+        try:
+            모으기(상태, 본것, 끝, 적기)
+        except Exception as e:      # noqa: BLE001 — 국회 서버가 안 받아도 「못 훑었다」는 알린다
+            오류 = e
+            print(f'  훑다 멈춤 — {e}')
     상태['찾은것'] = [f for f in 상태['찾은것'] if not (f['갈래'] == '보도자료' and f['날짜'] < 보도부터)]
     안보냄 = [f for f in 상태['찾은것'] if not f['보냄']]
-    if 안보냄 and os.environ.get('TELEGRAM_TOKEN') and os.environ.get('TELEGRAM_CHAT_ID'):
-        글 = f"🏛 <b>국회 · {', '.join(낱말들)}</b> — 새로 {len(안보냄)}건"
+    머리 = f"🏛 <b>국회 · {', '.join(낱말들)}</b>"
+    꼬리 = f"\n⚠️ 국회 서버가 응답하지 않아 다 못 훑었습니다 — 내일 이어서 봅니다." if 오류 else ''
+    열쇠있음 = os.environ.get('TELEGRAM_TOKEN') and os.environ.get('TELEGRAM_CHAT_ID')
+    if not 안보냄 and 열쇠있음:   # 2026-10-08 사용자: 새것이 없으면 없다고 보낸다
+        보내기(f"{머리} — 오늘 새로 걸린 것 없음{꼬리}")
+    if 안보냄 and 열쇠있음:
+        글 = f"{머리} — 새로 {len(안보냄)}건{꼬리}"
         for 갈 in sorted({f['갈래'] for f in 안보냄}, key=lambda g: 갈래차례.index(g) if g in 갈래차례 else 99):
             묶 = sorted((f for f in 안보냄 if f['갈래'] == 갈), key=lambda f: f['날짜'], reverse=True)
             글 += f"\n\n<b>{html.escape(갈)}</b> {len(묶)}건\n" + '\n'.join(
