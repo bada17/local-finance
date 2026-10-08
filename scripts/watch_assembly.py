@@ -10,8 +10,8 @@
 # ⚠️ PDF 는 줄이 바뀌면서 낱말이 끊긴다(「위원\n장」) — 글자 사이 빈칸·줄바꿈을 허용해 찾는다.
 # ⭐ 2026-10-08 사용자: "상임위나 국정감사에서 나온 내용은 안 나오나?" → 위원회 목록(상임위·특위·소위)에
 #    **국정감사·국정조사·공청회·인사청문회 등 VCONF 목록**을 더했다(같은 PDF 번호면 한 번만 본다).
-#    "어떤 맥락에서 논의됐는지" → 회의마다 **누가 무슨 말 속에서** 꺼냈는지 앞뒤 글을 셋까지 붙인다.
-#    링크는 요약 화면(가끔 안 열림)과 PDF 둘 다 준다.
+#    알림은 한 회의 한 줄 + **회의록 전문 화면 링크**만(사용자: 발언 요약은 길어서 별로, PDF 도 필요 없음 —
+#    웹에서 찾기로 보는 게 빠르다).
 #
 # 열쇠 — ASSEMBLY_KEY(열린국회정보) · TELEGRAM_TOKEN · TELEGRAM_CHAT_ID. 공개 저장소라 값은 안 적는다.
 # 텔레그램 열쇠가 없으면 찾은 것을 「안 보냄」으로 쌓아 두었다가 열쇠가 생기면 그때 보낸다.
@@ -106,23 +106,11 @@ def 찾기(글, 낱말):
     return list(re.finditer(r'\s*'.join(map(re.escape, 낱말)), 글))
 
 
-def 맥락(글, 낱말, 몇=3):
-    """발언 속에서 낱말이 나온 곳 — 말한 사람이 다른 것부터 셋까지. 맨 앞 의사일정 목록(「…(의안번호 …)」)은 뺀다."""
-    고른, 사람들 = [], set()
-    for m in 찾기(글, 낱말):
-        i = 글.rfind('◯', 0, m.start())
-        if i < 0 or '의안번호' in 글[m.end():m.end() + 60]:
-            continue
-        사람 = ' '.join(글[i + 1:i + 40].split(' ')[:2])
-        if 사람 in 사람들:
-            continue
-        사람들.add(사람)
-        다음 = 글.find('◯', m.end())   # 다음 사람 말 앞에서 끊는다
-        끝 = min(m.end() + 110, 다음 if 다음 > 0 else len(글))
-        고른.append({'누가': 사람, '글': ('…' + 글[max(i + 1 + len(사람), m.start() - 90):끝].strip() + '…')})
-        if len(고른) >= 몇:
-            break
-    return 고른
+def 회의록(f):
+    """회의록 전문 화면(웹에서 찾기로 낱말을 찾는다). 의안은 의안 화면."""
+    if f['갈래'] == '의안':
+        return f['보기']
+    return f"https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id={f['번호']}&type=view"
 
 
 def main():
@@ -155,8 +143,7 @@ def main():
         for 낱말 in 낱말들:
             횟수 = len(찾기(글, 낱말))
             if 횟수:
-                상태['찾은것'].append({**회의[n], '번호': n, '낱말': 낱말, '횟수': 횟수,
-                                     '맥락': 맥락(글, 낱말), '보냄': False})
+                상태['찾은것'].append({**회의[n], '번호': n, '낱말': 낱말, '횟수': 횟수, '보냄': False})
                 print(f'  ★ {회의[n]["날짜"]} {회의[n]["제목"]} — {낱말} {횟수}번')
         if i % 50 == 49:
             적기()
@@ -179,26 +166,12 @@ def main():
                                      '보기': r['LINK_URL'], '낱말': 낱말, '횟수': 1, '보냄': False})
                 의안[r['BILL_ID']] = {'이름': r['BILL_NAME'], '단계': 단계}
 
-    # 맥락 없이 쌓인 옛 것(10/6~10/7 치)은 PDF 를 다시 읽어 채우고 한 번 더 보낸다.
-    for f in 상태['찾은것']:
-        if f['갈래'] != '의안' and 'pdf' in f and '맥락' not in f:
-            try:
-                f['맥락'] = 맥락(본문(f['pdf']), f['낱말'])
-                f['보냄'] = False
-            except Exception as e:      # noqa: BLE001
-                print(f"  {f['번호']} 맥락 못 채움 — {e}")
-
-    def 묶음(f):
-        if f['갈래'] == '의안':
-            return f"{f['날짜']} <a href=\"{f['보기']}\">{html.escape(f['제목'])}</a>"
-        머리 = (f"<b>{f['날짜']} {html.escape(f['제목'])}</b> — {f['낱말']} {f['횟수']}번\n"
-              f"<a href=\"{f['보기']}\">요약 화면</a> · <a href=\"{f['pdf']}\">PDF</a>")
-        return 머리 + ''.join(f"\n  · <i>{html.escape(c['누가'])}</i>: {html.escape(c['글'])}" for c in f.get('맥락', []))
-
     안보냄 = [f for f in 상태['찾은것'] if not f['보냄']]
     if 안보냄 and os.environ.get('TELEGRAM_TOKEN') and os.environ.get('TELEGRAM_CHAT_ID'):
-        보내기(f"🏛 <b>국회 회의록 · {', '.join(낱말들)}</b> — {len(안보냄)}건\n\n"
-             + '\n\n'.join(묶음(f) for f in sorted(안보냄, key=lambda f: f['날짜'])))
+        줄 = [f"{f['날짜']} <a href=\"{회의록(f)}\">{html.escape(f['제목'])}</a>"
+             + ('' if f['갈래'] == '의안' else f" — {f['낱말']} {f['횟수']}번")
+             for f in sorted(안보냄, key=lambda f: f['날짜'])]
+        보내기(f"🏛 <b>국회 회의록 · {', '.join(낱말들)}</b> — 새로 {len(줄)}건\n" + '\n'.join(줄))
         for f in 안보냄:
             f['보냄'] = True
     적기()
