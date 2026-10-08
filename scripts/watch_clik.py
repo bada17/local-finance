@@ -80,7 +80,7 @@ def main():
         쌓인 = 모음.setdefault(열쇠, [])
         쌓인[:] = [x for x in 쌓인 if x['날짜'] >= 부터]
         본 = {x['DOCID'] for x in 쌓인}
-        새줄, 못받음 = [], False
+        새줄, 못받음 = [], ''
         for 이름, 끝점, 정렬, 날짜칸, 한줄 in 갈래:
             쪽 = 0
             while True:   # 끝 쪽까지
@@ -91,7 +91,7 @@ def main():
                 상태['날짜별호출'][clik.오늘()] = 상태['날짜별호출'].get(clik.오늘(), 0) + 1
                 if d is None or 오류:
                     print(f'  {낱말} {이름}: 못 받음 — {오류}')
-                    못받음 = True
+                    못받음 = '하루 호출 한도를 다 써서' if 오류 == 'ERROR09' else 'CLIK 이 응답하지 않아'
                     break
                 줄들 = [x.get('ROW', x) for x in (d.get('LIST') or [])]
                 for r in 줄들:
@@ -123,7 +123,7 @@ def main():
         elif 새줄:
             글들.append(f"{머리} — 새로 {len(새줄)}건\n" + '\n'.join(새줄))
         elif 못받음:
-            글들.append(f"{머리} — ⚠️ 오늘은 CLIK 이 응답하지 않아 못 봤습니다. 내일 다시 봅니다.")
+            글들.append(f"{머리} — ⚠️ 오늘은 {못받음} 못 봤습니다. 내일 다시 봅니다.")
         else:   # 2026-10-08 사용자: 새것이 없으면 없다고 보낸다
             글들.append(f"{머리} — 오늘 새로 걸린 것 없음")
         print(f'  {낱말}({의회코드}): 새로 {len(새줄)}건{" (처음 — 모음만 채움)" if 처음 else ""}')
