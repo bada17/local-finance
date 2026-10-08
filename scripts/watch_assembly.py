@@ -127,6 +127,7 @@ def 회의록(f):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--분', type=float, default=300)
+    ap.add_argument('--다시보내기', action='store_true', help='찾은 것 전부를 다시 보낸다')
     args = ap.parse_args()
     끝 = time.time() + args.분 * 60
 
@@ -205,6 +206,9 @@ def main():
                     print(f"  ★ {이름} {r[제목칸]}")
     상태['자료본것'] = sorted(자료본것)
 
+    if args.다시보내기:
+        for f in 상태['찾은것']:
+            f['보냄'] = False
     안보냄 = [f for f in 상태['찾은것'] if not f['보냄']]
     if 안보냄 and os.environ.get('TELEGRAM_TOKEN') and os.environ.get('TELEGRAM_CHAT_ID'):
         글 = f"🏛 <b>국회 · {', '.join(낱말들)}</b> — 새로 {len(안보냄)}건"

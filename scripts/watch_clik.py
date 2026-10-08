@@ -64,6 +64,7 @@ def 보내기(글):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--dry', action='store_true')
+    ap.add_argument('--다시보내기', action='store_true', help='텔레그램 시작일 뒤의 것을 전부 다시 보낸다')
     args = ap.parse_args()
 
     키 = clik.키읽기()
@@ -112,6 +113,12 @@ def main():
                        f"이제부터 새로 올라오는 것만 보낸다.\n"
                        + '\n'.join(f"{y}  " + ' · '.join(f'{k} {v}' for k, v in 해[y].items())
                                    for y in sorted(해, reverse=True)[:6]))
+        elif args.다시보내기:   # 텔레그램 시작일 뒤의 것 전부(없어도 「0건」 한 통)
+            줄 = [f"[{x['갈래']}] <a href=\"{링크(x['갈래'], x['DOCID'])}\">{html.escape(x['글'])}</a>"
+                 for x in 쌓인 if x['날짜'] >= 알림부터]
+            글들.append(f"{머리} — {알림부터[:4]}-{알림부터[4:6]} 이후 {len(줄)}건 "
+                       f"(모은 것 {len(쌓인)}건 중, 마지막 회의 {max((x['날짜'] for x in 쌓인), default='-')})\n"
+                       + '\n'.join(줄))
         elif 새줄:
             글들.append(f"{머리} — 새로 {len(새줄)}건\n" + '\n'.join(새줄))
         print(f'  {낱말}({의회코드}): 새로 {len(새줄)}건{" (처음 — 모음만 채움)" if 처음 else ""}')

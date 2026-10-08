@@ -6,6 +6,11 @@ on:
   schedule:
     - cron: '50 20 * * *'       # UTC 20:50 = 한국 시간 새벽 5시 50분
   workflow_dispatch:
+    inputs:
+      resend:
+        description: '찾은 것 전부 다시 보내기(국회 + 노들섬)'
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -28,7 +33,14 @@ jobs:
           ASSEMBLY_KEY: ${{ secrets.ASSEMBLY_KEY }}
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: python scripts/watch_assembly.py --분 300
+        run: python scripts/watch_assembly.py --분 300 ${{ inputs.resend && '--다시보내기' || '' }}
+      - name: 노들섬 다시 보내기(손으로 resend 켰을 때만 — 모음·호출 수는 여기서 올리지 않는다)
+        if: ${{ inputs.resend }}
+        env:
+          CLIK_KEY: ${{ secrets.CLIK_KEY }}
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python scripts/watch_clik.py --다시보내기
       - name: 올리기
         if: ${{ !cancelled() }}
         run: sh scripts/bot_push.sh "국회 회의록 낱말 알림 $(date -u +%Y-%m-%d)" data/assembly
