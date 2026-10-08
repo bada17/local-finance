@@ -22,9 +22,10 @@ import urllib.request
 
 import fetch_clik as clik
 
-# (낱말, 의회 코드, 이 날부터) — 의회 코드는 data/clik/의회목록.json 의 rasmblyId. 늘리려면 줄만 더한다.
+# (낱말, 의회 코드, 모으기 시작, 텔레그램 시작) — 의회 코드는 data/clik/의회목록.json 의 rasmblyId. 늘리려면 줄만 더한다.
 지켜볼것 = [
-    ('노들섬', '002001', '20180101'),   # 서울특별시의회 · 2026-10-08 사용자: "18년도부터"
+    # 서울특별시의회 · 2026-10-08 사용자: "18년도부터" 모으고, 텔레그램은 "올해 7월부터" 것만(전체는 정리만)
+    ('노들섬', '002001', '20180101', '20260701'),
 ]
 
 모음파일 = os.path.join(clik.받는곳, '알림_모음.json')   # {의회코드:낱말: [{갈래, 날짜, 글, DOCID}]} 새것이 위
@@ -72,7 +73,7 @@ def main():
             json.load(open(os.path.join(clik.받는곳, '의회목록.json'), encoding='utf-8'))}
     글들 = []
 
-    for 낱말, 의회코드, 부터 in 지켜볼것:
+    for 낱말, 의회코드, 부터, 알림부터 in 지켜볼것:
         열쇠 = f'{의회코드}:{낱말}'
         처음 = 열쇠 not in 모음
         쌓인 = 모음.setdefault(열쇠, [])
@@ -95,7 +96,8 @@ def main():
                     if r.get('DOCID') and r['DOCID'] not in 본 and r.get(날짜칸, '') >= 부터:
                         본.add(r['DOCID'])
                         쌓인.append({'갈래': 이름, '날짜': r.get(날짜칸, ''), '글': 한줄(r), 'DOCID': r['DOCID']})
-                        새줄.append(f"[{이름}] <a href=\"{링크(이름, r['DOCID'])}\">{html.escape(한줄(r))}</a>")
+                        if r.get(날짜칸, '') >= 알림부터:
+                            새줄.append(f"[{이름}] <a href=\"{링크(이름, r['DOCID'])}\">{html.escape(한줄(r))}</a>")
                 쪽 += 100
                 if not 줄들 or 쪽 >= int(d.get('TOTAL_COUNT') or 0):
                     break
