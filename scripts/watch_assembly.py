@@ -28,7 +28,7 @@ import urllib.parse
 import urllib.request
 
 import keys
-from watch_clik import 보내기
+from watch_clik import 보내기, 보내는날
 
 낱말들 = ['미래대응기금']
 대수 = 22
@@ -249,6 +249,10 @@ def main():
                 print('낮에 다시 본다 — 지금은 보내지 않는다')
                 return
     상태['찾은것'] = [f for f in 상태['찾은것'] if not (f['갈래'] == '보도자료' and f['날짜'] < 보도부터)]
+    if not args.다시보내기 and not 보내는날():
+        적기()   # 찾은 것은 「안 보냄」으로 남아 다음 평일에 간다
+        print('쉬는 날 — 안 보낸다(다음 평일에 몰아서)')
+        return
     안보냄 = [f for f in 상태['찾은것'] if not f['보냄']]
     머리 = f"🏛 <b>국회 · {', '.join(낱말들)}</b>"
     꼬리 = f"\n⚠️ 국회 서버가 응답하지 않아 다 못 훑었습니다 — 내일 이어서 봅니다." if 오류 else ''

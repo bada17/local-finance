@@ -29,6 +29,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - run: pip install -q holidays   # 주말·공휴일엔 알림 안 보냄(watch_clik.보내는날)
       - name: 회의록 훑기
         env:
           ASSEMBLY_KEY: ${{ secrets.ASSEMBLY_KEY }}

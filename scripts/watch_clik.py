@@ -45,6 +45,16 @@ def 링크(이름, DOCID):
 ]
 
 
+def 보내는날():
+    """알림이 나가는 날 — 아침 보고(action-daily runtime.workday)와 같게 주말·공휴일(대체공휴일 포함)은 안 보낸다
+    (2026-10-08 사용자). 그날 걸린 것은 다음 평일에 몰아서 간다.
+    ponytail: 공휴일은 `holidays` 패키지 표 — 늦게 정해진 임시공휴일은 모를 수 있다."""
+    import datetime as dt
+    import holidays
+    d = (dt.datetime.now(dt.timezone.utc) + dt.timedelta(hours=9)).date()
+    return d.weekday() < 5 and d not in holidays.KR(years=d.year)
+
+
 def 보내기(글):
     token, chat = os.environ['TELEGRAM_TOKEN'].strip(), os.environ['TELEGRAM_CHAT_ID'].strip()
     통들 = ['']   # 한 통 4,096자 한도 — 줄 단위로 끊는다(글자 수로 자르면 <a> 가 반으로 갈려 통째로 튕긴다)
@@ -138,6 +148,10 @@ def main():
     # 열쇠가 없으면 모음에 적지 않는다 — 적으면 열쇠를 넣은 뒤에도 그 사이 것이 영영 안 온다.
     if args.dry or not (os.environ.get('TELEGRAM_TOKEN') and os.environ.get('TELEGRAM_CHAT_ID')):
         print('\n\n'.join(글들) or '(보낼 것 없음)')
+        return
+    if not args.다시보내기 and not 보내는날():
+        clik.상태쓰기(상태)   # 모음은 안 적는다 — 적으면 다음 평일에 「새것」으로 안 잡힌다
+        print('쉬는 날 — 안 보낸다(다음 평일에 몰아서)')
         return
     if 하나라도못받음 and not (args.마지막시도 or args.다시보내기):
         clik.상태쓰기(상태)   # 호출 수만 적고, 모음은 안 적는다(적으면 그 사이 새것이 안 간다) — 낮에 다시

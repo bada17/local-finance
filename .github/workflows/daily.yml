@@ -81,6 +81,7 @@ jobs:
           CLIK_KEY: ${{ secrets.CLIK_KEY }}
         continue-on-error: true
         run: python scripts/fetch_clik.py --limit 900
+      - run: pip install -q holidays   # 주말·공휴일엔 알림 안 보냄(watch_clik.보내는날)
       # 낱말 알림(노들섬 · 서울시의회 등) — 낱말 하나에 2회. 상세가 남은 한도를 다 쓰므로 그보다 먼저.
       - name: CLIK 낱말 알림
         if: ${{ !cancelled() }}
