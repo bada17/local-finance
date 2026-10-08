@@ -33,7 +33,7 @@ jobs:
           ASSEMBLY_KEY: ${{ secrets.ASSEMBLY_KEY }}
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: python scripts/watch_assembly.py --분 300 ${{ inputs.resend && '--다시보내기' || '' }}
+        run: python scripts/watch_assembly.py ${{ inputs.resend && '--분 0 --다시보내기' || '--분 300' }}   # 다시 보내기 때는 훑기를 건너뛴다
       - name: 노들섬 다시 보내기(손으로 resend 켰을 때만 — 모음·호출 수는 여기서 올리지 않는다)
         if: ${{ inputs.resend }}
         env:
