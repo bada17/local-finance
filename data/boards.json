@@ -1,0 +1,949 @@
+{
+ "만든날": "2026-10-08",
+ "곳": {
+  "1100000": {
+   "이름": "서울본청",
+   "첫화면": "https://www.seoul.go.kr/",
+   "연화면": 21,
+   "고향사랑": [],
+   "업무추진비": [
+    {
+     "글자": "업무추진비",
+     "주소": "https://opengov.seoul.go.kr/expense/list",
+     "길": [
+      "정보공개",
+      "업무추진비"
+     ]
+    }
+   ],
+   "수의계약": [
+    {
+     "글자": "수의계약내역",
+     "주소": "https://www.seoul.go.kr/news/news_contract.do",
+     "길": [
+      "시민참여",
+      "수의계약내역"
+     ]
+    }
+   ],
+   "감사결과": [],
+   "투자심사": [],
+   "공약": [
+    {
+     "글자": "공약 변경 내역",
+     "주소": "https://mayor.seoul.go.kr/oh/seoul/manifesto.do#cont2",
+     "길": [
+      "공약(매니페스토)",
+      "공약 변경 내역"
+     ]
+    },
+    {
+     "글자": "공약(매니페스토)",
+     "주소": "https://mayor.seoul.go.kr/oh/seoul/manifesto.do",
+     "길": [
+      "공약(매니페스토)"
+     ]
+    },
+    {
+     "글자": "공약실천계획선택됨",
+     "주소": "https://mayor.seoul.go.kr/oh/seoul/manifesto.do#cont1",
+     "길": [
+      "공약(매니페스토)",
+      "공약실천계획선택됨"
+     ]
+    }
+   ],
+   "고시공고": [
+    {
+     "글자": "고시공고",
+     "주소": "https://www.seoul.go.kr/news/news_notice.do",
+     "길": [
+      "고시공고"
+     ]
+    },
+    {
+     "글자": "도시계획 공고·고시 제공",
+     "주소": "https://news.seoul.go.kr/citybuild/archives/category/plan-news_c1/plan_town-info_c1/plan_notice_notify",
+     "길": [
+      "2026 서울우수한옥 인증공고",
+      "도시계획 공고·고시 제공"
+     ]
+    }
+   ],
+   "공청회": [],
+   "일일집행": [],
+   "공론장": [],
+   "의회": [
+    {
+     "글자": "시의회",
+     "주소": "https://www.smc.seoul.kr/",
+     "길": [
+      "시의회"
+     ]
+    },
+    {
+     "글자": "서울시의회 정보",
+     "주소": "https://opengov.seoul.go.kr/smc/list",
+     "길": [
+      "정보공개",
+      "서울시의회 정보"
+     ]
+    },
+    {
+     "글자": "시의회",
+     "주소": "https://www.smc.seoul.kr/main/orgSit.do?menuId=001001008",
+     "길": [
+      "시민참여",
+      "시의회"
+     ]
+    },
+    {
+     "글자": "시의회변천",
+     "주소": "https://www.smc.seoul.kr/main/councilHistory.do?menuId=001001002002&period=10",
+     "길": [
+      "시민참여",
+      "시의회변천"
+     ]
+    },
+    {
+     "글자": "서울시의회 자료",
+     "주소": "https://opengov.seoul.go.kr/council/list",
+     "길": [
+      "정보공개",
+      "사이트맵",
+      "서울시의회 자료"
+     ]
+    }
+   ]
+  },
+  "1111000": {
+   "이름": "서울종로구",
+   "첫화면": "https://www.jongno.go.kr/",
+   "연화면": 21,
+   "고향사랑": [
+    {
+     "글자": "고향사랑기부제",
+     "주소": "https://www.jongno.go.kr/portalMain.do#",
+     "길": [
+      "고향사랑기부제"
+     ]
+    },
+    {
+     "글자": "고향사랑기부제 소개",
+     "주소": "https://www.jongno.go.kr/Main.do?menuId=401443&menuNo=401443",
+     "길": [
+      "고향사랑기부제 소개"
+     ]
+    },
+    {
+     "글자": "고향사랑기부제 자료실",
+     "주소": "https://www.jongno.go.kr/portal/bbs/selectBoardList.do?bbsId=BBSMSTR_000000000066&menuId=401444&menuNo=401444",
+     "길": [
+      "고향사랑기부제 자료실"
+     ]
+    },
+    {
+     "글자": "고향사랑기부제 명예의 전당",
+     "주소": "https://www.jongno.go.kr/portal/bbs/selectBoardList.do?bbsId=BBSMSTR_000000000067&menuId=401445&menuNo=401445",
+     "길": [
+      "고향사랑기부제 명예의 전당"
+     ]
+    },
+    {
+     "글자": "고향사랑기부제",
+     "주소": "https://www.jongno.go.kr/portal/siteMap.do?siteId=2&menuId=100111&menuNo=100111#",
+     "길": [
+      "사이트맵",
+      "고향사랑기부제"
+     ]
+    }
+   ],
+   "업무추진비": [
+    {
+     "글자": "업무추진비 공개",
+     "주소": "https://www.jongno.go.kr/portal/bbs/selectBoardList.do?bbsId=BBSMSTR_000000001167&menuId=110210&menuNo=110210",
+     "길": [
+      "업무추진비 공개"
+     ]
+    }
+   ],
+   "수의계약": [],
+   "감사결과": [],
+   "투자심사": [],
+   "공약": [],
+   "고시공고": [
+    {
+     "글자": "고시/공고",
+     "주소": "https://www.jongno.go.kr/portal/bbs/selectBoardList.do?bbsId=BBSMSTR_000000000271&menuId=1756&menuNo=1756",
+     "길": [
+      "고시/공고"
+     ]
+    }
+   ],
+   "공청회": [
+    {
+     "글자": "숭인동 2-2 고지대 이동약자 편의시설 설치 주민설명회 2026.10.0",
+     "주소": "https://www.jongno.go.kr/gallery/galleryDetail.do?menuNo=401606&identityNo=JP_2026_12937",
+     "길": [
+      "숭인동 2-2 고지대 이동약자 편의시설 설치 주민설명회 2026.10.0"
+     ]
+    }
+   ],
+   "일일집행": [],
+   "공론장": [],
+   "의회": [
+    {
+     "글자": "종로구의회",
+     "주소": "https://council.jongno.go.kr/council/main.do",
+     "길": [
+      "종로구의회"
+     ]
+    }
+   ]
+  },
+  "1112000": {
+   "이름": "서울중구",
+   "첫화면": "https://www.junggu.seoul.kr/",
+   "연화면": 21,
+   "고향사랑": [
+    {
+     "글자": "고향사랑기부제",
+     "주소": "https://www.junggu.seoul.kr/content.do?cmsid=16045",
+     "길": [
+      "고향사랑기부제"
+     ]
+    },
+    {
+     "글자": "고향사랑기부제",
+     "주소": "https://www.junggu.seoul.kr/main.do#",
+     "길": [
+      "고향사랑기부제"
+     ]
+    },
+    {
+     "글자": "고향사랑기부제",
+     "주소": "https://www.junggu.seoul.kr/content.do?cmsid=14363#",
+     "길": [
+      "정보공개",
+      "고향사랑기부제"
+     ]
+    },
+    {
+     "글자": "고향사랑기부제",
+     "주소": "https://www.junggu.seoul.kr/content.do?cmsid=15370#",
+     "길": [
+      "정보공개청구안내",
+      "고향사랑기부제"
+     ]
+    },
+    {
+     "글자": "고향사랑기부제",
+     "주소": "https://www.junggu.seoul.kr/content.do?cmsid=16230#",
+     "길": [
+      "정보공개수요분석",
+      "고향사랑기부제"
+     ]
+    }
+   ],
+   "업무추진비": [],
+   "수의계약": [],
+   "감사결과": [],
+   "투자심사": [],
+   "공약": [
+    {
+     "글자": "중구 공약이행평가단 모집",
+     "주소": "https://www.junggu.seoul.kr/booking/content.do?cmsid=16661&order=1&manageSeq=2326",
+     "길": [
+      "중구 공약이행평가단 모집"
+     ]
+    }
+   ],
+   "고시공고": [
+    {
+     "글자": "고시/공고",
+     "주소": "https://www.junggu.seoul.kr/content.do?cmsid=14232",
+     "길": [
+      "고시/공고"
+     ]
+    },
+    {
+     "글자": "고시공고",
+     "주소": "https://www.junggu.seoul.kr/main.do#none",
+     "길": [
+      "고시공고"
+     ]
+    }
+   ],
+   "공청회": [
+    {
+     "글자": "황학 지구단위계획구역 및 계획 결정(안) 주민설명회 개최 안내",
+     "주소": "https://www.junggu.seoul.kr/content.do?cmsid=15761&mode=view&cid=134640545",
+     "길": [
+      "도심재정비자료실",
+      "황학 지구단위계획구역 및 계획 결정(안) 주민설명회 개최 안내"
+     ]
+    },
+    {
+     "글자": "황학 지구단위계회구역 및 계획 결정(안) 주민설명회 자료",
+     "주소": "https://www.junggu.seoul.kr/content.do?cmsid=15761&mode=view&cid=1350106153",
+     "길": [
+      "도심재정비자료실",
+      "황학 지구단위계회구역 및 계획 결정(안) 주민설명회 자료"
+     ]
+    },
+    {
+     "글자": "장충동 일대 지구단위계획 주민설명회 자료",
+     "주소": "https://www.junggu.seoul.kr/content.do?cmsid=15761&mode=view&cid=1320141007",
+     "길": [
+      "도심재정비자료실",
+      "장충동 일대 지구단위계획 주민설명회 자료"
+     ]
+    },
+    {
+     "글자": "장충동 일대 지구단위계획 주민설명회 개최",
+     "주소": "https://www.junggu.seoul.kr/content.do?cmsid=15761&mode=view&cid=1318593855",
+     "길": [
+      "도심재정비자료실",
+      "장충동 일대 지구단위계획 주민설명회 개최"
+     ]
+    }
+   ],
+   "일일집행": [],
+   "공론장": [],
+   "의회": [
+    {
+     "글자": "중구의회",
+     "주소": "http://council.junggu.seoul.kr/",
+     "길": [
+      "중구의회"
+     ]
+    }
+   ]
+  },
+  "1113000": {
+   "이름": "서울용산구",
+   "첫화면": "https://www.yongsan.go.kr/",
+   "연화면": 14,
+   "고향사랑": [
+    {
+     "글자": "고향사랑기부제",
+     "주소": "https://www.yongsan.go.kr/portal/main/contents.do?menuNo=201143",
+     "길": [
+      "고향사랑기부제"
+     ]
+    },
+    {
+     "글자": "고향사랑기부제 이용안내",
+     "주소": "https://www.yongsan.go.kr/portal/main/contents.do?menuNo=201144",
+     "길": [
+      "고향사랑기부제 이용안내"
+     ]
+    },
+    {
+     "글자": "고향사랑기부제 자료실",
+     "주소": "https://www.yongsan.go.kr/portal/bbs/B0000222/list.do?menuNo=201145",
+     "길": [
+      "고향사랑기부제 자료실"
+     ]
+    }
+   ],
+   "업무추진비": [
+    {
+     "글자": "업무추진비",
+     "주소": "https://www.yongsan.go.kr/portal/bbs/B0000030/list.do?menuNo=200140",
+     "길": [
+      "업무추진비"
+     ]
+    }
+   ],
+   "수의계약": [
+    {
+     "글자": "수의계약현황",
+     "주소": "https://www.yongsan.go.kr/portal/main/contents.do?menuNo=201135",
+     "길": [
+      "수의계약현황"
+     ]
+    }
+   ],
+   "감사결과": [],
+   "투자심사": [],
+   "공약": [],
+   "고시공고": [
+    {
+     "글자": "고시/공고 자동차관리법 위반 과태료 독촉고지서 반송분 공시송달 교통행정과",
+     "주소": "https://www.yongsan.go.kr/portal/bbs/B0000095/view.do?nttId=770155&menuNo=200233",
+     "길": [
+      "고시/공고 자동차관리법 위반 과태료 독촉고지서 반송분 공시송달 교통행정과"
+     ]
+    },
+    {
+     "글자": "고시/공고 자동차관리법 위반 과태료 사전통지서 반송분 공시송달 교통행정과",
+     "주소": "https://www.yongsan.go.kr/portal/bbs/B0000095/view.do?nttId=770154&menuNo=200233",
+     "길": [
+      "고시/공고 자동차관리법 위반 과태료 사전통지서 반송분 공시송달 교통행정과"
+     ]
+    },
+    {
+     "글자": "고시/공고",
+     "주소": "https://www.yongsan.go.kr/portal/bbs/B0000095/list.do?menuNo=200233",
+     "길": [
+      "고시/공고"
+     ]
+    },
+    {
+     "글자": "고시/공고 자동차(이륜자동차 포함) 종합(정기)검사 관련 우편 반송분 공",
+     "주소": "https://www.yongsan.go.kr/portal/bbs/B0000095/view.do?nttId=770150&menuNo=200233",
+     "길": [
+      "고시/공고 자동차(이륜자동차 포함) 종합(정기)검사 관련 우편 반송분 공"
+     ]
+    },
+    {
+     "글자": "고시/공고 「서울특별시 용산구 주차장 설치 및 관리 조례」 일부개정조례안",
+     "주소": "https://www.yongsan.go.kr/portal/bbs/B0000095/view.do?nttId=770147&menuNo=200233",
+     "길": [
+      "고시/공고 「서울특별시 용산구 주차장 설치 및 관리 조례」 일부개정조례안"
+     ]
+    }
+   ],
+   "공청회": [
+    {
+     "글자": "제10대 용산구의회 의원 의정비 결정을 위한 공청회 개최 공고",
+     "주소": "https://www.yongsan.go.kr/portal/bbs/B0000168/view.do?nttId=769217&menuNo=200846&deptId=3020196&pageIndex=1",
+     "길": [
+      "기획예산담당관",
+      "공고/고시",
+      "제10대 용산구의회 의원 의정비 결정을 위한 공청회 개최 공고"
+     ]
+    }
+   ],
+   "일일집행": [],
+   "공론장": [],
+   "의회": [
+    {
+     "글자": "구의회",
+     "주소": "https://www.yscl.go.kr/",
+     "길": [
+      "구의회"
+     ]
+    }
+   ]
+  },
+  "1114000": {
+   "이름": "서울성동구",
+   "첫화면": "https://www.sd.go.kr/",
+   "연화면": 21,
+   "고향사랑": [
+    {
+     "글자": "고향사랑 기부제",
+     "주소": "https://www.sd.go.kr/main/contents.do?key=4988&",
+     "길": [
+      "고향사랑 기부제"
+     ]
+    },
+    {
+     "글자": "성동고향사랑소식",
+     "주소": "https://www.sd.go.kr/main/selectBbsNttList.do?bbsNo=629&key=5317&",
+     "길": [
+      "성동고향사랑소식"
+     ]
+    },
+    {
+     "글자": "고향사랑 기부제",
+     "주소": "https://www.sd.go.kr/main/contents.do?key=4988",
+     "길": [
+      "전체메뉴",
+      "고향사랑 기부제"
+     ]
+    },
+    {
+     "글자": "성동고향사랑소식",
+     "주소": "https://www.sd.go.kr/main/selectBbsNttList.do?bbsNo=629&key=5317",
+     "길": [
+      "전체메뉴",
+      "성동고향사랑소식"
+     ]
+    }
+   ],
+   "업무추진비": [
+    {
+     "글자": "업무추진비공개",
+     "주소": "https://www.sd.go.kr/main/selectBbsNttList.do?bbsNo=172&key=1330&",
+     "길": [
+      "업무추진비공개"
+     ]
+    },
+    {
+     "글자": "업무추진비공개",
+     "주소": "https://www.sd.go.kr/main/selectBbsNttList.do?bbsNo=172&key=1330",
+     "길": [
+      "전체메뉴",
+      "업무추진비공개"
+     ]
+    }
+   ],
+   "수의계약": [
+    {
+     "글자": "수의계약내역",
+     "주소": "https://www.sd.go.kr/main/newselectContractWebList.do?key=5041&menuIdx=5354&",
+     "길": [
+      "수의계약내역"
+     ]
+    },
+    {
+     "글자": "수의계약내역",
+     "주소": "https://www.sd.go.kr/main/newselectContractWebList.do?key=5041&menuIdx=5354",
+     "길": [
+      "전체메뉴",
+      "수의계약내역"
+     ]
+    }
+   ],
+   "감사결과": [],
+   "투자심사": [],
+   "공약": [],
+   "고시공고": [
+    {
+     "글자": "고시공고/입법예고",
+     "주소": "https://www.sd.go.kr/main/selectBbsNttList.do?bbsNo=184&key=1473&",
+     "길": [
+      "고시공고/입법예고"
+     ]
+    },
+    {
+     "글자": "고시공고 주택건설공사 감리자(건축) 예비순위 공고 주택건설공사 감리자(건",
+     "주소": "https://www.sd.go.kr/main/selectBbsNttView.do?bbsNo=184&nttNo=362052&key=1473",
+     "길": [
+      "고시공고 주택건설공사 감리자(건축) 예비순위 공고 주택건설공사 감리자(건"
+     ]
+    },
+    {
+     "글자": "고시공고 전문건설업 주력분야 추가등록 공고 전문건설업 주력분야 추가등록 ",
+     "주소": "https://www.sd.go.kr/main/selectBbsNttView.do?bbsNo=184&nttNo=362051&key=1473",
+     "길": [
+      "고시공고 전문건설업 주력분야 추가등록 공고 전문건설업 주력분야 추가등록 "
+     ]
+    },
+    {
+     "글자": "고시공고 도로점용（굴착ㆍ복구）허가내용 공고 도로점용（굴착ㆍ복구）허가내용 ",
+     "주소": "https://www.sd.go.kr/main/selectBbsNttView.do?bbsNo=184&nttNo=362044&key=1473",
+     "길": [
+      "고시공고 도로점용（굴착ㆍ복구）허가내용 공고 도로점용（굴착ㆍ복구）허가내용 "
+     ]
+    },
+    {
+     "글자": "고시공고 더보기",
+     "주소": "https://www.sd.go.kr/main/sub.do?key=1473",
+     "길": [
+      "고시공고 더보기"
+     ]
+    }
+   ],
+   "공청회": [],
+   "일일집행": [],
+   "공론장": [],
+   "의회": [
+    {
+     "글자": "구의회",
+     "주소": "http://sdcouncil.sd.go.kr/",
+     "길": [
+      "구의회"
+     ]
+    }
+   ]
+  },
+  "1115000": {
+   "이름": "서울광진구",
+   "첫화면": "https://www.gwangjin.go.kr/",
+   "연화면": 21,
+   "고향사랑": [
+    {
+     "글자": "고향사랑 기부제",
+     "주소": "https://www.gwangjin.go.kr/portal/main/contents.do?menuNo=201786",
+     "길": [
+      "고향사랑 기부제"
+     ]
+    }
+   ],
+   "업무추진비": [
+    {
+     "글자": "업무추진비 공개",
+     "주소": "https://www.gwangjin.go.kr/portal/bbs/B0000027/list.do?menuNo=201646",
+     "길": [
+      "업무추진비 공개"
+     ]
+    }
+   ],
+   "수의계약": [
+    {
+     "글자": "수의계약",
+     "주소": "https://www.gwangjin.go.kr/portal/singl/contractInfo/privateContractGuideList.do?menuNo=201813",
+     "길": [
+      "수의계약"
+     ]
+    }
+   ],
+   "감사결과": [
+    {
+     "글자": "자체감사결과",
+     "주소": "https://www.gwangjin.go.kr/portal/bbs/B0000026/list.do?menuNo=200178",
+     "길": [
+      "자체감사결과"
+     ]
+    },
+    {
+     "글자": "자체감사",
+     "주소": "https://www.gwangjin.go.kr/portal/main/contents.do?menuNo=200176",
+     "길": [
+      "자체감사"
+     ]
+    },
+    {
+     "글자": "자체감사계획",
+     "주소": "https://www.gwangjin.go.kr/portal/bbs/B0000025/list.do?menuNo=200177",
+     "길": [
+      "자체감사계획"
+     ]
+    }
+   ],
+   "투자심사": [],
+   "공약": [
+    {
+     "글자": "매니페스토(공약)",
+     "주소": "https://www.gwangjin.go.kr/mayor/main/contents.do?menuNo=500061",
+     "길": [
+      "매니페스토(공약)"
+     ]
+    }
+   ],
+   "고시공고": [
+    {
+     "글자": "고시공고/입법예고",
+     "주소": "https://www.gwangjin.go.kr/portal/bbs/B0000378/list.do?menuNo=200192",
+     "길": [
+      "고시공고/입법예고"
+     ]
+    },
+    {
+     "글자": "고시공고(2025.9.이전)",
+     "주소": "https://www.gwangjin.go.kr/portal/bbs/B0000003/list.do?menuNo=201848",
+     "길": [
+      "고시공고(2025.9.이전)"
+     ]
+    },
+    {
+     "글자": "고시/공고",
+     "주소": "https://www.gwangjin.go.kr/portal/main/main.do#n",
+     "길": [
+      "고시/공고"
+     ]
+    }
+   ],
+   "공청회": [],
+   "일일집행": [],
+   "공론장": [],
+   "의회": [
+    {
+     "글자": "구의회",
+     "주소": "https://council.gwangjin.go.kr/",
+     "길": [
+      "구의회"
+     ]
+    },
+    {
+     "글자": "의회안내",
+     "주소": "https://council.gwangjin.go.kr/kr/intro/cms?cms_id=chairman",
+     "길": [
+      "의회안내"
+     ]
+    },
+    {
+     "글자": "의회소식",
+     "주소": "https://council.gwangjin.go.kr/kr/news/bbs?bbs_id=notice",
+     "길": [
+      "의회소식"
+     ]
+    }
+   ]
+  },
+  "1116000": {
+   "이름": "서울동대문구",
+   "첫화면": "https://www.ddm.go.kr/",
+   "연화면": 11,
+   "고향사랑": [
+    {
+     "글자": "고향사랑기부제",
+     "주소": "https://www.ddm.go.kr/www/contents.do?key=3817",
+     "길": [
+      "고향사랑기부제"
+     ]
+    }
+   ],
+   "업무추진비": [
+    {
+     "글자": "업무추진비 공개",
+     "주소": "https://www.ddm.go.kr/www/selectBbsNttList.do?bbsNo=160&key=152",
+     "길": [
+      "업무추진비 공개"
+     ]
+    },
+    {
+     "글자": "업무추진비 공개",
+     "주소": "https://www.ddm.go.kr/www/selectBbsNttList.do?bbsNo=160&key=565",
+     "길": [
+      "업무추진비 공개"
+     ]
+    }
+   ],
+   "수의계약": [
+    {
+     "글자": "수의계약 발주계획(건)",
+     "주소": "https://www.ddm.go.kr/www/selectOptionalContractWebList.do?key=3242",
+     "길": [
+      "수의계약 발주계획(건)"
+     ]
+    },
+    {
+     "글자": "수의계약 발주계획(분기)",
+     "주소": "https://www.ddm.go.kr/www/selectOptionalBungiContractWebList.do?key=3691",
+     "길": [
+      "수의계약 발주계획(분기)"
+     ]
+    }
+   ],
+   "감사결과": [],
+   "투자심사": [],
+   "공약": [],
+   "고시공고": [
+    {
+     "글자": "고시공고",
+     "주소": "https://www.ddm.go.kr/www/selectEminwonWebList.do?key=3291&searchNotAncmtSeCode=01,02,04,05,06,07",
+     "길": [
+      "고시공고"
+     ]
+    },
+    {
+     "글자": "이전 고시공고(~2020.6.14)",
+     "주소": "https://www.ddm.go.kr/www/selectBbsNttList.do?bbsNo=40&key=202",
+     "길": [
+      "이전 고시공고(~2020.6.14)"
+     ]
+    }
+   ],
+   "공청회": [],
+   "일일집행": [],
+   "공론장": [],
+   "의회": [
+    {
+     "글자": "구의회",
+     "주소": "http://council.ddm.go.kr/",
+     "길": [
+      "구의회"
+     ]
+    },
+    {
+     "글자": "동대문구사회복지협의회",
+     "주소": "http://www.dcsw.or.kr/",
+     "길": [
+      "동대문구사회복지협의회"
+     ]
+    }
+   ]
+  },
+  "1118000": {
+   "이름": "서울성북구",
+   "첫화면": "https://www.sb.go.kr/",
+   "연화면": 11,
+   "고향사랑": [
+    {
+     "글자": "고향사랑 기부제",
+     "주소": "https://www.sb.go.kr/www/contents.do?key=7121",
+     "길": [
+      "고향사랑 기부제"
+     ]
+    }
+   ],
+   "업무추진비": [
+    {
+     "글자": "업무추진비공개",
+     "주소": "https://www.sb.go.kr/www/selectBbsNttList.do?bbsNo=28&key=5923",
+     "길": [
+      "업무추진비공개"
+     ]
+    }
+   ],
+   "수의계약": [
+    {
+     "글자": "수의계약내역",
+     "주소": "https://www.sb.go.kr/www/selectBbsNttList.do?bbsNo=15&key=5887",
+     "길": [
+      "수의계약내역"
+     ]
+    }
+   ],
+   "감사결과": [
+    {
+     "글자": "감사결과공개",
+     "주소": "https://www.sb.go.kr/www/selectBbsNttList.do?bbsNo=27&key=5922",
+     "길": [
+      "감사결과공개"
+     ]
+    }
+   ],
+   "투자심사": [],
+   "공약": [
+    {
+     "글자": "공약/ 매니페스토",
+     "주소": "https://www.sb.go.kr/mayor/contents.do?key=314",
+     "길": [
+      "공약/ 매니페스토"
+     ]
+    }
+   ],
+   "고시공고": [
+    {
+     "글자": "고시공고",
+     "주소": "https://www.sb.go.kr/www/selectEminwonList.do?key=6977",
+     "길": [
+      "고시공고"
+     ]
+    }
+   ],
+   "공청회": [],
+   "일일집행": [],
+   "공론장": [],
+   "의회": [
+    {
+     "글자": "성북구의회",
+     "주소": "https://www.sbc.go.kr/kr/main.do",
+     "길": [
+      "성북구의회"
+     ]
+    }
+   ]
+  },
+  "1119000": {
+   "이름": "서울강북구",
+   "첫화면": "https://www.gangbuk.go.kr/",
+   "연화면": 21,
+   "고향사랑": [
+    {
+     "글자": "고향사랑기부 답례품 및 공급업체 선정 결과 공고",
+     "주소": "https://www.gangbuk.go.kr/portal/bbs/B0000245/view.do?menuNo=200082&nttId=185515",
+     "길": [
+      "고향사랑기부 답례품 및 공급업체 선정 결과 공고"
+     ]
+    },
+    {
+     "글자": "2025년 고향사랑 기부금 접수·운용 현황",
+     "주소": "https://www.gangbuk.go.kr/portal/bbs/B0000288/view.do?menuNo=200504&nttId=183613",
+     "길": [
+      "정보공개",
+      "2025년 고향사랑 기부금 접수·운용 현황"
+     ]
+    },
+    {
+     "글자": "2025년 고향사랑 기부금 접수 운용 현황.pdf",
+     "주소": "https://www.gangbuk.go.kr/portal/cmmn/file/fileDown.do?menuNo=200504&atchFileId=a7d228160f9d4c94af144aa9fd35845c&fileSn=1&bbsId=",
+     "길": [
+      "정보공개",
+      "2025년 고향사랑 기부금 접수 운용 현황.pdf"
+     ]
+    },
+    {
+     "글자": "2024년 고향사랑 기부금 접수·운용 현황",
+     "주소": "https://www.gangbuk.go.kr/portal/bbs/B0000288/view.do?menuNo=200504&nttId=183612",
+     "길": [
+      "정보공개",
+      "2024년 고향사랑 기부금 접수·운용 현황"
+     ]
+    },
+    {
+     "글자": "2024년 고향사랑 기부금 접수 및 운용현황.pdf",
+     "주소": "https://www.gangbuk.go.kr/portal/cmmn/file/fileDown.do?menuNo=200504&atchFileId=5fc593bb21984234967f352f2a29f0df&fileSn=1&bbsId=",
+     "길": [
+      "정보공개",
+      "2024년 고향사랑 기부금 접수 및 운용현황.pdf"
+     ]
+    }
+   ],
+   "업무추진비": [
+    {
+     "글자": "부서 업무추진비공개",
+     "주소": "https://www.gangbuk.go.kr/portal/intgty/deptJobPrtnCt/list.do?menuNo=200155",
+     "길": [
+      "부서 업무추진비공개"
+     ]
+    }
+   ],
+   "수의계약": [
+    {
+     "글자": "동주민센터 수의계약현황",
+     "주소": "https://www.gangbuk.go.kr/portal/bbs/B0000214/list.do?menuNo=200547",
+     "길": [
+      "동주민센터 수의계약현황"
+     ]
+    },
+    {
+     "글자": "수의계약",
+     "주소": "https://www.gangbuk.go.kr/portal/contract/contract/contractStatusList.do?optionalYn=Y&menuNo=200413",
+     "길": [
+      "수의계약"
+     ]
+    },
+    {
+     "글자": "수의계약(서울계약마당)",
+     "주소": "https://contract.seoul.go.kr/new1/views/contractInfo.do?ps_selectForm=0&ps0_t2OfficeCd=4&ps0_setOfficeCd=3900&ps0_conMtdNm=%EC%88%98%EC%9D%981%EC%9D%B8%EA%B2%AC%EC%A0%81",
+     "길": [
+      "수의계약(서울계약마당)"
+     ]
+    }
+   ],
+   "감사결과": [
+    {
+     "글자": "자체감사 결과 공개",
+     "주소": "https://www.gangbuk.go.kr/portal/bbs/B0000030/list.do?menuNo=200154",
+     "길": [
+      "자체감사 결과 공개"
+     ]
+    },
+    {
+     "글자": "자체감사계획 예고",
+     "주소": "https://www.gangbuk.go.kr/portal/bbs/B0000029/list.do?menuNo=200153",
+     "길": [
+      "자체감사계획 예고"
+     ]
+    }
+   ],
+   "투자심사": [],
+   "공약": [],
+   "고시공고": [
+    {
+     "글자": "고시공고",
+     "주소": "https://www.gangbuk.go.kr/portal/bbs/B0000245/list.do?menuNo=200082",
+     "길": [
+      "고시공고"
+     ]
+    },
+    {
+     "글자": "고시공고",
+     "주소": "https://www.gangbuk.go.kr/portal/main/main.do#notice-panel2",
+     "길": [
+      "고시공고"
+     ]
+    }
+   ],
+   "공청회": [],
+   "일일집행": [],
+   "공론장": [],
+   "의회": [
+    {
+     "글자": "구의회",
+     "주소": "https://council.gangbuk.go.kr/index.jsp",
+     "길": [
+      "구의회"
+     ]
+    }
+   ]
+  }
+ }
+}
