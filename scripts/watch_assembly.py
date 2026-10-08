@@ -23,6 +23,7 @@ import os
 import re
 import sys
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 
@@ -43,9 +44,23 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 UA = {'User-Agent': 'Mozilla/5.0'}
 
 
-def 받기(url, 초=120):
-    with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=초) as r:
-        return r.read()
+def 받기(url, 초=120, 되풀이=4):
+    """시간 초과·끊김·5xx 는 30·60·90초 쉬고 다시(2026-10-08 목록 받다 시간 초과로 못 보낸 일). 4xx 는 바로 낸다."""
+    for n in range(되풀이):
+        try:
+            with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=초) as r:
+                return r.read()
+        except urllib.error.HTTPError as e:
+            if e.code < 500 or n == 되풀이 - 1:
+                raise
+        except (urllib.error.URLError, TimeoutError, ConnectionError):
+            if n == 되풀이 - 1:
+                raise
+        time.sleep(30 * (n + 1))
+
+
+def 오늘():
+    return time.strftime('%Y-%m-%d', time.gmtime(time.time() + 9 * 3600))   # 한국 날짜
 
 
 def 쪽들(갈래, 코드, 인자):
@@ -199,6 +214,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--분', type=float, default=300)
     ap.add_argument('--다시보내기', action='store_true', help='찾은 것 전부를 다시 보낸다')
+    ap.add_argument('--마지막시도', action='store_true',
+                    help='낮 재시도 — 아침에 이미 됐으면 그냥 끝, 아니면 훑고 못 해도 「못 봤음」을 보낸다')
     args = ap.parse_args()
     끝 = time.time() + args.분 * 60
 
@@ -215,20 +232,30 @@ def main():
     if args.다시보내기:   # 보내기만 — 국회 서버를 부르지 않는다(2026-10-08 목록 받다 시간 초과로 못 보냄)
         for f in 상태['찾은것']:
             f['보냄'] = False
+    # 아침에 못 하면 조용히 넘기고 낮(--마지막시도)에 한 번 더 — 「못 봤음」은 낮에도 안 될 때만(사용자: 서버 문제로 못 보는 일은 없어야).
+    if args.마지막시도 and 상태.get('마지막성공') == 오늘():
+        print('오늘 아침에 이미 됐다 — 낮 재시도 안 함')
+        return
     오류 = None
     if not args.다시보내기:
         try:
             모으기(상태, 본것, 끝, 적기)
-        except Exception as e:      # noqa: BLE001 — 국회 서버가 안 받아도 「못 훑었다」는 알린다
+            상태['마지막성공'] = 오늘()
+        except Exception as e:      # noqa: BLE001
             오류 = e
             print(f'  훑다 멈춤 — {e}')
+            if not args.마지막시도:
+                적기()
+                print('낮에 다시 본다 — 지금은 보내지 않는다')
+                return
     상태['찾은것'] = [f for f in 상태['찾은것'] if not (f['갈래'] == '보도자료' and f['날짜'] < 보도부터)]
     안보냄 = [f for f in 상태['찾은것'] if not f['보냄']]
     머리 = f"🏛 <b>국회 · {', '.join(낱말들)}</b>"
     꼬리 = f"\n⚠️ 국회 서버가 응답하지 않아 다 못 훑었습니다 — 내일 이어서 봅니다." if 오류 else ''
     열쇠있음 = os.environ.get('TELEGRAM_TOKEN') and os.environ.get('TELEGRAM_CHAT_ID')
     if not 안보냄 and 열쇠있음:   # 2026-10-08 사용자: 새것이 없으면 없다고 보낸다
-        보내기(f"{머리} — 오늘 새로 걸린 것 없음{꼬리}")
+        보내기(f"{머리} — ⚠️ 오늘은 국회 서버가 응답하지 않아 못 봤습니다. 내일 다시 봅니다." if 오류
+             else f"{머리} — 오늘 새로 걸린 것 없음")
     if 안보냄 and 열쇠있음:
         글 = f"{머리} — 새로 {len(안보냄)}건{꼬리}"
         for 갈 in sorted({f['갈래'] for f in 안보냄}, key=lambda g: 갈래차례.index(g) if g in 갈래차례 else 99):

@@ -65,6 +65,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--dry', action='store_true')
     ap.add_argument('--다시보내기', action='store_true', help='텔레그램 시작일 뒤의 것을 전부 다시 보낸다')
+    ap.add_argument('--마지막시도', action='store_true',
+                    help='낮 재시도(assembly.yml) — 아침에 이미 됐으면 그냥 끝, 아니면 보고 못 해도 「못 봤음」을 보낸다')
     args = ap.parse_args()
 
     키 = clik.키읽기()
@@ -73,6 +75,10 @@ def main():
     의회 = {c['rasmblyId']: c['의회명'] for c in
             json.load(open(os.path.join(clik.받는곳, '의회목록.json'), encoding='utf-8'))}
     글들 = []
+    if args.마지막시도 and 모음.get('_마지막성공') == clik.오늘():
+        print('오늘 아침에 이미 됐다 — 낮 재시도 안 함')
+        return
+    하나라도못받음 = False
 
     for 낱말, 의회코드, 부터, 알림부터 in 지켜볼것:
         열쇠 = f'{의회코드}:{낱말}'
@@ -92,6 +98,7 @@ def main():
                 if d is None or 오류:
                     print(f'  {낱말} {이름}: 못 받음 — {오류}')
                     못받음 = '하루 호출 한도를 다 써서' if 오류 == 'ERROR09' else 'CLIK 이 응답하지 않아'
+                    하나라도못받음 = True
                     break
                 줄들 = [x.get('ROW', x) for x in (d.get('LIST') or [])]
                 for r in 줄들:
@@ -132,6 +139,12 @@ def main():
     if args.dry or not (os.environ.get('TELEGRAM_TOKEN') and os.environ.get('TELEGRAM_CHAT_ID')):
         print('\n\n'.join(글들) or '(보낼 것 없음)')
         return
+    if 하나라도못받음 and not (args.마지막시도 or args.다시보내기):
+        clik.상태쓰기(상태)   # 호출 수만 적고, 모음은 안 적는다(적으면 그 사이 새것이 안 간다) — 낮에 다시
+        print('낮에 다시 본다 — 지금은 보내지 않는다')
+        return
+    if not 하나라도못받음:
+        모음['_마지막성공'] = clik.오늘()
     for 글 in 글들:
         보내기(글)
     if args.다시보내기:   # 보내기만 — 파일을 고쳐 두면 assembly.yml 의 올리기(pull --rebase)가 막힌다
