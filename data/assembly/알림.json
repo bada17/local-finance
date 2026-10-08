@@ -194,7 +194,6 @@
 "56489",
 "56490",
 "56491",
-"56492",
 "56493",
 "56494",
 "56495",
@@ -226,7 +225,6 @@
 "56529",
 "56532",
 "56533",
-"56534",
 "56535",
 "56536",
 "56537",
@@ -291,7 +289,6 @@
 "56617",
 "56618",
 "56619",
-"56620",
 "56621",
 "56623",
 "56630",
@@ -350,7 +347,6 @@
 "56916",
 "56917",
 "56918",
-"56919",
 "56930",
 "56950",
 "56951",
@@ -515,7 +511,6 @@
 "57270",
 "57271",
 "57272",
-"57273",
 "57274",
 "57275",
 "57276",
@@ -585,7 +580,7 @@
 "보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57294&type=summary",
 "번호": "57294",
 "낱말": "미래대응기금",
-"횟수": 58,
+"횟수": 59,
 "보냄": true,
 "맥락": [
 {
@@ -635,7 +630,7 @@
 "보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57256&type=summary",
 "번호": "57256",
 "낱말": "미래대응기금",
-"횟수": 1,
+"횟수": 13,
 "보냄": true,
 "맥락": [
 {
@@ -698,7 +693,7 @@
 "보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57229&type=summary",
 "번호": "57229",
 "낱말": "미래대응기금",
-"횟수": 7,
+"횟수": 8,
 "보냄": true,
 "맥락": [
 {
@@ -723,7 +718,7 @@
 "보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57241&type=summary",
 "번호": "57241",
 "낱말": "미래대응기금",
-"횟수": 1,
+"횟수": 4,
 "보냄": true,
 "맥락": [
 {
@@ -1034,6 +1029,160 @@
 "낱말": "미래대응기금",
 "횟수": 1,
 "보냄": true
+},
+{
+"갈래": "위원회",
+"날짜": "2026-10-01",
+"제목": "제22대 제439회 제1차 재정경제기획위원회 조세소위원회 (2026년 10월 01일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57359",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57359&type=summary",
+"번호": "57359",
+"낱말": "미래대응기금",
+"횟수": 1,
+"보냄": true
+},
+{
+"갈래": "위원회",
+"날짜": "2026-09-29",
+"제목": "제22대 제439회 제8차 연금개혁특별위원회 (2026년 09월 29일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57354",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57354&type=summary",
+"번호": "57354",
+"낱말": "미래대응기금",
+"횟수": 22,
+"보냄": true
+},
+{
+"갈래": "위원회",
+"날짜": "2026-09-15",
+"제목": "제22대 제439회 제2차 재정경제기획위원회 (2026년 09월 15일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57275",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57275&type=summary",
+"번호": "57275",
+"낱말": "미래대응기금",
+"횟수": 52,
+"보냄": true
+},
+{
+"갈래": "본회의",
+"날짜": "2026-09-11",
+"제목": "제22대 제439회 제7차 국회본회의 (2026년 09월 11일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57271",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57271&type=summary",
+"번호": "57271",
+"낱말": "미래대응기금",
+"횟수": 7,
+"보냄": true
+},
+{
+"갈래": "본회의",
+"날짜": "2026-09-08",
+"제목": "제22대 제439회 제4차 국회본회의 (2026년 09월 08일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57242",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57242&type=summary",
+"번호": "57242",
+"낱말": "미래대응기금",
+"횟수": 1,
+"보냄": true
+},
+{
+"갈래": "위원회",
+"날짜": "2026-09-02",
+"제목": "제22대 제439회 제1차 예산결산특별위원회 결산심사소위원회 (2026년 09월 02일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57225",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57225&type=summary",
+"번호": "57225",
+"낱말": "미래대응기금",
+"횟수": 1,
+"보냄": true
+},
+{
+"갈래": "위원회",
+"날짜": "2026-08-31",
+"제목": "제22대 제438회 제5차 예산결산특별위원회 (2026년 08월 31일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57193",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57193&type=summary",
+"번호": "57193",
+"낱말": "미래대응기금",
+"횟수": 17,
+"보냄": true
+},
+{
+"갈래": "위원회",
+"날짜": "2026-08-27",
+"제목": "제22대 제438회 제4차 예산결산특별위원회 (2026년 08월 27일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57212",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57212&type=summary",
+"번호": "57212",
+"낱말": "미래대응기금",
+"횟수": 3,
+"보냄": true
+},
+{
+"갈래": "위원회",
+"날짜": "2026-08-26",
+"제목": "제22대 제438회 제3차 예산결산특별위원회 (2026년 08월 26일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57186",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57186&type=summary",
+"번호": "57186",
+"낱말": "미래대응기금",
+"횟수": 11,
+"보냄": true
+},
+{
+"갈래": "위원회",
+"날짜": "2026-08-25",
+"제목": "제22대 제438회 제2차 예산결산특별위원회 (2026년 08월 25일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57163",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57163&type=summary",
+"번호": "57163",
+"낱말": "미래대응기금",
+"횟수": 50,
+"보냄": true
+},
+{
+"갈래": "위원회",
+"날짜": "2026-08-24",
+"제목": "제22대 제438회 제1차 예산결산특별위원회 (2026년 08월 24일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57162",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57162&type=summary",
+"번호": "57162",
+"낱말": "미래대응기금",
+"횟수": 35,
+"보냄": true
+},
+{
+"갈래": "위원회",
+"날짜": "2026-08-14",
+"제목": "제22대 제438회 제3차 교육위원회 (2026년 08월 14일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57091",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57091&type=summary",
+"번호": "57091",
+"낱말": "미래대응기금",
+"횟수": 4,
+"보냄": true
+},
+{
+"갈래": "위원회",
+"날짜": "2026-08-12",
+"제목": "제22대 제438회 제1차 산업통상자원중소벤처기업위원회 (2026년 08월 12일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57112",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57112&type=summary",
+"번호": "57112",
+"낱말": "미래대응기금",
+"횟수": 1,
+"보냄": true
+},
+{
+"갈래": "위원회",
+"날짜": "2026-08-12",
+"제목": "제22대 제438회 제2차 교육위원회 (2026년 08월 12일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57090",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57090&type=summary",
+"번호": "57090",
+"낱말": "미래대응기금",
+"횟수": 5,
+"보냄": true
 }
 ],
 "의안": {
@@ -1056,5 +1205,6 @@
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=196198&searchNoSeq=20260911196198",
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=197312&searchNoSeq=20260929197312",
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=197323&searchNoSeq=20260929197323"
-]
+],
+"본문": "html"
 }
