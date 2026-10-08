@@ -33,7 +33,7 @@ from watch_clik import 보내기
 
 낱말들 = ['미래대응기금']
 대수 = 22
-첫해 = 2026        # 사용자 — "올해 초부터"
+첫해 = 2024        # 22대 시작(2024-05-30)부터 — 2026-10-08 사용자 (처음엔 "올해 초부터" 2026)
 목록 = {'본회의': 'nzbyfwhwaoanttzje', '위원회': 'ncwgseseafwbuheph'}   # DAE_NUM + CONF_DATE(해)
 # 대(ERACO)로만 거르는 회의록 목록 — 코드는 github.com/hollobit/assembly-api-mcp src/api/codes.ts 에서 찾았다.
 VCONF = {'국정감사': 'VCONFAPIGCONFLIST', '국정조사': 'VCONFPIPCONFLIST', '공청회': 'VCONFPHCONFLIST',
