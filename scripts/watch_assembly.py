@@ -114,8 +114,11 @@ def 회의록(f):
 
 
 # 제목으로 거르는 자료 — 2026-10-08 사용자: "미래대응기금은 나올 수 있는 거 다". 이름 · 코드 · 제목 칸 · 날짜 칸 · 링크 칸.
-# 예산정책처·입법조사처는 그날 「미래대응」 0건이었다(나오면 알린다). 서면질의답변서는 제목 거르개가 없어 뺐다.
-제목자료 = [('보도자료', 'ninnagrlaelvtzfnt', 'TITLE', 'WRITE_DATE', 'CONTENT_URL'),
+# 예산정책처·입법조사처는 그날 「미래대응」 0건이었다(나오면 알린다).
+# 서면질의답변서는 제목 거르개가 안 먹어 전부(3천여 건) 받는다 — 아래에서 제목에 낱말이 있나 다시 본다.
+#   본회의 회의록의 「1번」이 대개 이것(보고사항의 「미래대응기금에 관한 질문서에 대한 답변서」 한 줄)이다.
+제목자료 = [('서면질의·답변서', 'VCONFATTQNALIST', 'FILE_CN', 'CONF_DT', 'DOWN_URL'),
+          ('보도자료', 'ninnagrlaelvtzfnt', 'TITLE', 'WRITE_DATE', 'CONTENT_URL'),
           ('입법조사처', 'ALLNARSPBLM', 'MTR_TTL', 'WRT_DT', 'LINK_URL')] + [
     (f'예산정책처 {이름}', 코드, 'SUBJECT', 'REG_DATE', 'LINK_URL') for 이름, 코드 in [
         ('예산 분석', 'nxeytfqvawilyincp'), ('결산 분석', 'negjnychalvyrcifv'), ('비용추계', 'npsofwddayuhqhfgh'),
