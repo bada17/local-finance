@@ -129,6 +129,8 @@ def main():
         return
     for 글 in 글들:
         보내기(글)
+    if args.다시보내기:   # 보내기만 — 파일을 고쳐 두면 assembly.yml 의 올리기(pull --rebase)가 막힌다
+        return
     clik.상태쓰기(상태)
     json.dump(모음, open(모음파일, 'w', encoding='utf-8'), ensure_ascii=False, indent=0)
 
