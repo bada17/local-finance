@@ -21,7 +21,8 @@ except AttributeError:
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 지표들 = ['세출예산 총액', '1인당 세출예산액', '재정자립도[당초]', '추경 증가율', '연말지출비율',
-        '수의계약비율', '업무추진비비율', '행사축제경비비율', '사회복지비중', '예산대비채무비율']
+        '수의계약비율', '업무추진비비율', '행사축제경비비율', '지방의회경비비율', '공무원 국외여비비율',
+        '의회 국외여비비율', '사회복지비중', '예산대비채무비율']
 
 
 def 읽기(*p):
@@ -69,7 +70,7 @@ def main():
     알림 = 읽기('data', 'clik', '알림_모음.json')
     지켜봄 = {}
     for 키, 줄 in 알림.items():
-        달 = Counter(x['날짜'][:6] for x in 줄)
+        달 = Counter(m for m, _ in {(x['날짜'][:6], x['글']) for x in 줄})   # 회의 수(같은 회의의 여러 쪽은 하나)
         y, m = date.today().year, date.today().month
         달들 = []
         for _ in range(18):   # 빈 달도 0 으로 — 건너뛰면 그래프가 시간을 속인다
@@ -80,6 +81,8 @@ def main():
             if x['글'] not in 본:
                 본.add(x['글']); 최근.append(x)
         지켜봄[키.split(':', 1)[-1]] = {
+            '처음': min(x['날짜'] for x in 줄),
+            '임기회의수': len({x['글'] for x in 줄 if '20220701' <= x['날짜'] <= '20260630'}),   # 8대 의회(지난 4년)만
             '건수': len(줄), '회의수': len({x['글'] for x in 줄}), '갈래': Counter(x['갈래'] for x in 줄),
             '달': [[d, 달.get(d, 0)] for d in reversed(달들)], '최근': 최근[:8]}
 
@@ -88,10 +91,23 @@ def main():
     게시판 = {'찾은날': 읽기('data', 'boards.json')['만든날'] if b else '',
              '고향사랑': [cd for cd, v in b.items() if v.get('고향사랑')]}
 
+    # 계약 — 다 끝난 마지막 해(올해는 아직 진행 중이라 뺀다). 조달청은 업체가 아니라 「대신 사 주는 곳」이라 상위 업체에서 뺀다
+    cs = 읽기('data', 'contracts_summary.json')
+    계약해 = str(date.today().year - 1)
+    계약 = []
+    for c in 곳:
+        y = (cs['곳'].get(c[0]) or {}).get(계약해)
+        if not y:
+            계약.append(None)
+            continue
+        업체 = [u for u in y.get('상위5', []) if '조달청' not in u['이름']][:3]
+        계약.append([y['건수'], y['수의건수'], y['수의건수율'], y['수의금액률'], y['금액'], [[u['이름'], u['금액']] for u in 업체]])
+
     out = {'만든날': date.today().isoformat(), '진행기준': 기준, '결산연도': dash['결산연도'], '예산연도': dash['예산연도'],
            '곳칸': dash['곳칸'], '곳': 곳, '지표': 지표, '집행칸': ['예산현액', '지출', '사업수'], '집행': 집행,
            '분야': 분야, '고향': 고향, '투명칸': ['됨', '안 됨', '못 봄'], '투명항목수': len(s['항목']), '투명': 투명,
-           '지켜봄': 지켜봄, '게시판': 게시판}
+           '지켜봄': 지켜봄, '게시판': 게시판,
+           '이름': [cs['곳이름'].get(c[0], c[1]) for c in 곳], '계약해': 계약해, '계약칸': ['건수', '수의건수', '수의건수율', '수의금액률', '금액', '상위업체(조달청 뺌)'], '계약': 계약}
     os.makedirs(os.path.join(ROOT, 'drafts'), exist_ok=True)
     path = os.path.join(ROOT, 'drafts', 'data.json')
     with open(path, 'w', encoding='utf-8') as f:
