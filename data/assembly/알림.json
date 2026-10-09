@@ -194,6 +194,7 @@
 "56489",
 "56490",
 "56491",
+"56492",
 "56493",
 "56494",
 "56495",
@@ -225,6 +226,7 @@
 "56529",
 "56532",
 "56533",
+"56534",
 "56535",
 "56536",
 "56537",
@@ -289,6 +291,7 @@
 "56617",
 "56618",
 "56619",
+"56620",
 "56621",
 "56623",
 "56630",
@@ -347,6 +350,7 @@
 "56916",
 "56917",
 "56918",
+"56919",
 "56930",
 "56950",
 "56951",
@@ -511,6 +515,7 @@
 "57270",
 "57271",
 "57272",
+"57273",
 "57274",
 "57275",
 "57276",
@@ -552,6 +557,7 @@
 "57383",
 "57385",
 "57390",
+"57431",
 "57433"
 ],
 "찾은것": [
@@ -1063,6 +1069,16 @@
 "낱말": "미래대응기금",
 "횟수": 5,
 "보냄": true
+},
+{
+"갈래": "입법조사처",
+"날짜": "2026-10-08",
+"번호": "http://drm.nars.go.kr:7003/sd/imageviewer?DocId=1Q4M3zgHRMr&ViewerYn=Y&EdmUserId=datauser&type=S&fileName=KOydtOyKiOyZgOuFvOygkCAyNTM47Zi4LTIwMjYxMDA4KeuvuOuemOuMgOydkeq4sOq4iOydmCDso7zsmpQg7J%2BB7KCQ6rO8IOyeheuyleqzvOygnC5wZGY%3D",
+"제목": "미래대응기금의 주요 쟁점과 입법과제",
+"보기": "http://drm.nars.go.kr:7003/sd/imageviewer?DocId=1Q4M3zgHRMr&ViewerYn=Y&EdmUserId=datauser&type=S&fileName=KOydtOyKiOyZgOuFvOygkCAyNTM47Zi4LTIwMjYxMDA4KeuvuOuemOuMgOydkeq4sOq4iOydmCDso7zsmpQg7J%2BB7KCQ6rO8IOyeheuyleqzvOygnC5wZGY%3D",
+"낱말": "미래대응기금",
+"횟수": 1,
+"보냄": false
 }
 ],
 "의안": {
@@ -1072,6 +1088,7 @@
 }
 },
 "자료본것": [
+"http://drm.nars.go.kr:7003/sd/imageviewer?DocId=1Q4M3zgHRMr&ViewerYn=Y&EdmUserId=datauser&type=S&fileName=KOydtOyKiOyZgOuFvOygkCAyNTM47Zi4LTIwMjYxMDA4KeuvuOuemOuMgOydkeq4sOq4iOydmCDso7zsmpQg7J%2BB7KCQ6rO8IOyeheuyleqzvOygnC5wZGY%3D",
 "https://www.assembly.go.kr/portal/bbs/B0000051/view.do?nttId=4980931&menuNo=600101",
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=191843&searchNoSeq=20260706191843",
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=191853&searchNoSeq=20260706191853",
@@ -1086,5 +1103,6 @@
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=197312&searchNoSeq=20260929197312",
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=197323&searchNoSeq=20260929197323"
 ],
-"본문": "html"
+"본문": "html",
+"마지막성공": "2026-10-09"
 }
