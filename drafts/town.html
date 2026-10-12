@@ -528,7 +528,7 @@ function 그리기() {
       <div class="crumb"><span>우리 동네 살림</span>${시도이름(i) ? `<i class="ph ph-caret-right"></i><span>${esc(시도이름(i))}</span>` : ''}<i class="ph ph-caret-right"></i><span>${갈래말(c[3])}</span></div>
       <h1>${esc(짧은이름(i))}의 돈,<br><span>시민이 볼 수 있게.</span></h1>
       <p class="lead">공개 자료를 읽고, 설명이 필요한 결정을 끝까지 묻는 시민행동의 활동을 만나보세요.</p>
-      <div class="hero-actions"><a class="btn" href="#activitiesH">우리 동네에서 볼 것</a><a class="text-link" href="index.html?cd=${cd}">다른 아이템도 보기</a></div>
+      <div class="hero-actions"><a class="btn" href="#activitiesH">우리 동네에서 볼 것</a><a class="text-link" href="meeting.html?cd=${cd}" data-meeting>회의·사업계획 검토</a></div>
     </div>
     <div class="map" role="img" aria-label="${esc(D.이름[i])} 모양"><div class="map-label">내가 사는 곳<b>${esc(짧은이름(i))}</b></div>${모양(cd)}${점}</div>
   </div><div class="town-context"><div>${D.예산연도}년 예산<b>${돈(지['세출예산 총액'].금액[i])}</b></div><div>일반회계 주민 1명당<b>${일인 == null ? '?' : 돈(일인 * 1000)}</b></div><div>인구<b>${c[4] == null ? '?' : c[4].toLocaleString() + '명'}</b></div></div></div>`;
@@ -595,7 +595,7 @@ function 그리기() {
 
   // 철마다 여는 문
   const 나머지 = ['연말', '고향', '추경', '독상', '노들섬'].filter(k => k !== 지금).slice(0, 4);
-  h += `<section class="reveal" style="background:var(--band)"><div class="wrap">
+  h += `<section class="reveal" id="seasonalDoors" style="background:var(--band)"><div class="wrap">
     <div class="sec-hd"><h2>철마다 여는 문</h2><p>예산이 정해지고, 바뀌고, 쓰이는 때에 맞춰 알려 드립니다.</p></div>
     <div class="doors">${나머지.map(k => { const f = 문[k]; return `<div class="door">
       <div class="h"><i class="ph ${f.아이콘}" style="font-size:26px;color:var(--deep)"></i><span class="pill">${f.언제}</span></div>

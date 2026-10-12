@@ -399,6 +399,7 @@ const 문들 = {
 function 그리기() {
   const 문 = Object.hasOwn(문들, location.hash.slice(1)) ? location.hash.slice(1) : 'one';
   document.querySelectorAll('[data-town]').forEach(a => { a.href = 'town.html?cd=' + 곳[i][0] + (a.dataset.town ? '#' + a.dataset.town : ''); });
+  $('meetingLink').href = 'meeting.html?cd=' + 곳[i][0];
   document.querySelectorAll('nav a').forEach(a => a.setAttribute('aria-current', a.dataset.d === 문 ? 'page' : 'false'));
   $('main').innerHTML = `<div class="door">${문들[문].그리기()}</div>`;
   document.querySelectorAll('[data-share]').forEach(b => b.onclick = () => {
@@ -409,7 +410,7 @@ function 그리기() {
 
 function 시작() {
   $('nav').innerHTML = Object.entries(문들).map(([k, v]) => `<a href="#${k}" data-d="${k}">${v.이름}</a>`).join('')
-    + `<a href="../site/score.html">투명성 지표</a><a href="town.html#story-grant" data-town="story-grant">교부세 감액·시정</a><a href="town.html#story-invest" data-town="story-invest">투자심사 후속</a><a href="town.html" data-town="" style="color:var(--accent)">시민 화면 시안</a>`;
+    + `<a href="../site/score.html">투명성 지표</a><a href="town.html#story-grant" data-town="story-grant">교부세 감액·시정</a><a href="town.html#story-invest" data-town="story-invest">투자심사 후속</a><a href="town.html" data-town="" style="color:var(--accent)">시민 화면 시안</a><a href="meeting.html" id="meetingLink">회의·사업계획</a>`;
   const 시도들 = [...new Set(곳.map(c => c[2]))];
   $('sido').innerHTML = 시도들.map(s => `<option>${esc(s)}</option>`).join('');
   const 채우기 = s => { $('place').innerHTML = 곳.map((c, j) => c[2] === s ? `<option value="${j}">${esc(이름(j).replace(/^\S+\s/, ''))}</option>` : '').join(''); };
