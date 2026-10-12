@@ -4,11 +4,16 @@
 #   python scripts/fetch_bizno.py 202609            그 달
 #   python scripts/fetch_bizno.py 202401 202609     그 달부터 그 달까지
 #   python scripts/fetch_bizno.py 202609 --다시     다시 받는다
-#   python scripts/fetch_bizno.py --분 50            50분이 지나면 새 달을 시작하지 않는다(인자 없이 부르면 기본 50)
+#   python scripts/fetch_bizno.py --분 50            50분이 지나면 받던 갈래를 버리고 멈춘다(인자 없이 부르면 기본 50)
 #
 # ⭐ **시간 한도를 스스로 지킨다**(2026-09-30). 빈 달이 27개면 한 달 12분씩 5시간이 넘는다 —
 #    봇 작업 제한(6시간)에 걸려 뒤의 「올리기」까지 잘렸다. 달 파일은 한 달이 끝날 때마다 쓰므로
 #    한도에서 멈춰도 받은 달은 남는다. 나머지는 다음 날 봇이 잇는다.
+# ⭐ **한 달이 갈래(물품·용역·공사)마다 조각으로 저장된다**(2026-10-12). 2025년부터 한 달이
+#    440쪽 × 8초 ≈ 60분이라 봇 단계 제한(60분)에 매번 잘려 **18달이 한 달도 못 찼다.**
+#    이제 갈래 하나(길어야 용역 270쪽 ≈ 37분)가 끝날 때마다 `data/bizno/조각/{달}_{갈래}.part.gz` 에 쓰고,
+#    마감은 **쪽마다** 본다 — 넘으면 받던 갈래만 버리고 멈춘다. 셋이 다 차면 달 파일로 합치고 조각은 지운다.
+#    ⚠️ 조각은 `.part.gz` 다 — build_contracts_summary.py 가 `**/*.json.gz` 를 훑으므로 두 번 세지 않게.
 #
 # ⭐ **끝난 해·달만 건너뛴다. 아직 안 끝난 것은 늘 다시 받는다.**
 #    자료가 계속 붙는데 한 번 받고 끝내면 옛 숫자가 그대로 굳는다
@@ -96,9 +101,33 @@ def 업체들(r):
                 yield 이름, 대표, 번호
 
 
-def 한달(키, 달):
+class 시간끝(Exception):
+    pass
+
+
+def 한달(키, 달, 낼곳, 마감=None):
     끝날 = calendar.monthrange(int(달[:4]), int(달[4:]))[1]
-    return 기간받기(키, f'{달}010000', f'{달}{끝날:02d}2359')
+    처음, 끝 = f'{달}010000', f'{달}{끝날:02d}2359'
+    사전 = {}
+    조각들 = []
+    for 갈래 in 길:
+        조각 = os.path.join(낼곳, '조각', f'{달}_{갈래}.part.gz')
+        조각들.append(조각)
+        if os.path.exists(조각):
+            with gzip.open(조각, 'rb') as f:
+                한쪽사전 = {(r['이름'], r['번호']): r for r in json.loads(f.read())}
+            print(f'  {달} {갈래} — 조각 있음')
+        else:
+            시작 = time.time()
+            한쪽사전, 줄수 = 갈래받기(키, 갈래, 처음, 끝, 마감)
+            파일쓰기(조각, 한쪽사전)
+            print(f'  {달} {갈래} — 계약 {줄수:,}줄 · {time.time() - 시작:.0f}초', flush=True)
+        for 열쇠, r in 한쪽사전.items():
+            if 열쇠 in 사전:
+                사전[열쇠]['건수'] += r['건수']
+            else:
+                사전[열쇠] = dict(r)
+    return 사전, 조각들
 
 
 def 파일쓰기(경로, 사전):
@@ -110,30 +139,39 @@ def 파일쓰기(경로, 사전):
     return 표
 
 
+def 갈래받기(키, 갈래, 처음, 끝, 마감=None, 사전=None):
+    사전 = {} if 사전 is None else 사전
+    줄수 = 0
+    쪽 = 1
+    while True:
+        if 마감 and time.time() > 마감:
+            raise 시간끝(f'{갈래} {쪽}쪽')
+        줄, 전체 = 부르기(갈래, 키, 처음, 끝, 쪽)
+        if not 줄:
+            break
+        줄수 += len(줄)
+        for r in 줄:
+            for 이름, 대표, 번호 in 업체들(r):
+                열쇠 = (이름, 번호)
+                한 = 사전.get(열쇠)
+                if 한:
+                    한['건수'] += 1
+                else:
+                    사전[열쇠] = {'이름': 이름, '번호': 번호,
+                               '대표자': 대표, '건수': 1}
+        if 쪽 * 한쪽 >= 전체:
+            break
+        쪽 += 1
+        time.sleep(0.1)
+    return 사전, 줄수
+
+
 def 기간받기(키, 처음, 끝):
     사전 = {}
     줄수 = 0
     for 갈래 in 길:
-        쪽 = 1
-        전체 = None
-        while True:
-            줄, 전체 = 부르기(갈래, 키, 처음, 끝, 쪽)
-            if not 줄:
-                break
-            줄수 += len(줄)
-            for r in 줄:
-                for 이름, 대표, 번호 in 업체들(r):
-                    열쇠 = (이름, 번호)
-                    한 = 사전.get(열쇠)
-                    if 한:
-                        한['건수'] += 1
-                    else:
-                        사전[열쇠] = {'이름': 이름, '번호': 번호,
-                                   '대표자': 대표, '건수': 1}
-            if 쪽 * 한쪽 >= 전체:
-                break
-            쪽 += 1
-            time.sleep(0.1)
+        _, n = 갈래받기(키, 갈래, 처음, 끝, 사전=사전)
+        줄수 += n
     return 사전, 줄수
 
 
@@ -197,12 +235,19 @@ def main():
         if os.path.exists(경로) and not 다시 and 달 < 이번달:
             print(f'{달} — 이미 있다 (끝난 달이라 건너뛴다)')
         else:
-            시작 = time.time()
-            사전, 줄수 = 한달(키, 달)
+            if 다시:
+                for x in glob.glob(os.path.join(낼곳, '조각', f'{달}_*.part.gz')):
+                    os.remove(x)
+            try:
+                사전, 조각들 = 한달(키, 달, 낼곳, 마감)
+            except 시간끝 as e:
+                print(f'{분:.0f}분이 지났다 — {e} 에서 멈춘다. 받은 갈래는 조각으로 남았다', flush=True)
+                break
             표 = 파일쓰기(경로, 사전)
+            for x in 조각들:
+                os.remove(x)
             번호있 = sum(1 for r in 표 if r['번호'])
-            print(f'{달} — 계약 {줄수:,}줄 · 업체 {len(표):,}가지 '
-                  f'(번호 붙은 것 {번호있:,}) · {time.time() - 시작:.0f}초')
+            print(f'{달} — 업체 {len(표):,}가지 (번호 붙은 것 {번호있:,})', flush=True)
         해, 월 = int(달[:4]), int(달[4:])
         해, 월 = (해 + 1, 1) if 월 == 12 else (해, 월 + 1)
         달 = f'{해}{월:02d}'

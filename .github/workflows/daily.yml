@@ -142,18 +142,20 @@ jobs:
   # 스크립트가 스스로 50분에서 멈춘다(달 파일은 한 달 끝날 때마다 쓴다). 아래 70분은 뒷받침.
   bizno:
     runs-on: ubuntu-latest
-    timeout-minutes: 70
+    timeout-minutes: 180
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      # 갈래(물품·용역·공사)마다 조각으로 저장하고 쪽마다 마감을 본다 — 150분에서 스스로 멈춘다.
+      # 한 달 ≈ 60분이라 빈 18달(2025-02~2026-07)은 1주쯤에 찬다. -u: 잘려도 로그가 남게
       - name: 사업자번호 받기
-        timeout-minutes: 60
+        timeout-minutes: 165
         env:
           DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}
         continue-on-error: true
-        run: python scripts/fetch_bizno.py
+        run: python -u scripts/fetch_bizno.py --분 150
       - name: 올리기
         if: ${{ !cancelled() }}
         run: sh scripts/bot_push.sh "날마다 수집 · 사업자번호 $(date -u +%Y-%m-%d)" data/bizno
