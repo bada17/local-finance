@@ -5,8 +5,9 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - run: cd scripts && python -c "import watch_clik as w; r=w.시의회누리집(w.누리집['002001'],'노들섬','20260701'); print(len(r), r[:2])"
+      - run: |
+          curl -sS -m 30 -o /dev/null -w "https %{http_code}\n" https://ms.smc.seoul.kr/ || true
+          curl -sS -m 30 -o /dev/null -w "http %{http_code}\n" http://ms.smc.seoul.kr/ || true
+          curl -sS -m 30 -o /dev/null -w "tls1.2 %{http_code}\n" --tlsv1.2 --tls-max 1.2 https://ms.smc.seoul.kr/ || true
+          curl -sS -m 30 -o /dev/null -w "smc-main %{http_code}\n" https://www.smc.seoul.kr/ || true
+          curl -sS -m 30 -o /dev/null -w "seoul.go.kr %{http_code}\n" https://www.seoul.go.kr/ || true
