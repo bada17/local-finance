@@ -85,7 +85,8 @@ def main():
     의회 = {c['rasmblyId']: c['의회명'] for c in
             json.load(open(os.path.join(clik.받는곳, '의회목록.json'), encoding='utf-8'))}
     글들 = []
-    if args.마지막시도 and 모음.get('_마지막성공') == clik.오늘():
+    오늘이미 = 모음.get('_마지막성공') == clik.오늘()   # 손으로 또 돌려도 「없음」을 두 번 보내지 않게
+    if args.마지막시도 and 오늘이미:
         print('오늘 아침에 이미 됐다 — 낮 재시도 안 함')
         return
     하나라도못받음 = False
@@ -141,7 +142,7 @@ def main():
             글들.append(f"{머리} — 새로 {len(새줄)}건\n" + '\n'.join(새줄))
         elif 못받음:
             글들.append(f"{머리} — ⚠️ 오늘은 {못받음} 못 봤습니다. 내일 다시 봅니다.")
-        else:   # 2026-10-08 사용자: 새것이 없으면 없다고 보낸다
+        elif not 오늘이미:   # 2026-10-08 사용자: 새것이 없으면 없다고 보낸다(하루 한 번)
             글들.append(f"{머리} — 오늘 새로 걸린 것 없음")
         print(f'  {낱말}({의회코드}): 새로 {len(새줄)}건{" (처음 — 모음만 채움)" if 처음 else ""}')
 
