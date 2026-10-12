@@ -45,6 +45,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - run: pip install -q openpyxl     # 교육청 화면(spec_edu.py)이 쓴다
 
       # ── 받기 — 결산·예산 지표와 연 2회 공시 자료(바뀌지 않았으면 같은 것이 온다) ──
       - { id: indicators, name: 지표,       continue-on-error: true, run: python fetch_indicators.py }
