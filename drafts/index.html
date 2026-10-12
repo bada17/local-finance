@@ -289,7 +289,7 @@ const 문들 = {
       <div class="sheet">
         <div class="top"><span>함께하는 시민행동 · 살림을 보는 시민</span><span>${D.예산연도} 우리 동네 살림 한 장</span></div>
         <div class="who">${esc(이름(i))}</div>
-        <p class="meta">인구 ${(c[4] || 0).toLocaleString()}명 · ${D.예산연도}년 예산 ${돈(지['세출예산 총액'].금액[i])} · 주민 1명당 ${일인 == null ? '-' : Math.round(일인).toLocaleString() + '천 원'}</p>
+        <p class="meta">인구 ${(c[4] || 0).toLocaleString()}명 · ${D.예산연도}년 예산 ${돈(지['세출예산 총액'].금액[i])} · 일반회계 주민 1명당 ${일인 == null ? '?' : Math.round(일인).toLocaleString() + '천 원'}</p>
         <ol class="sharp">${셋.map(s => `<li><span class="n">${큰수(s)}</span>
           <span class="t">${esc(s.x.글(s.v, s.금))}.<span class="r">${순위말(s.r)}${s.r.k <= Math.ceil(s.r.n / 10) ? ', 상위 10% 안입니다' : ''}.</span></span></li>`).join('')}</ol>
         <div class="four">
@@ -397,7 +397,8 @@ const 문들 = {
 };
 
 function 그리기() {
-  const 문 = (location.hash.slice(1) in 문들) ? location.hash.slice(1) : 'one';
+  const 문 = Object.hasOwn(문들, location.hash.slice(1)) ? location.hash.slice(1) : 'one';
+  document.querySelectorAll('[data-town]').forEach(a => { a.href = 'town.html?cd=' + 곳[i][0] + (a.dataset.town ? '#' + a.dataset.town : ''); });
   document.querySelectorAll('nav a').forEach(a => a.setAttribute('aria-current', a.dataset.d === 문 ? 'page' : 'false'));
   $('main').innerHTML = `<div class="door">${문들[문].그리기()}</div>`;
   document.querySelectorAll('[data-share]').forEach(b => b.onclick = () => {
@@ -408,7 +409,7 @@ function 그리기() {
 
 function 시작() {
   $('nav').innerHTML = Object.entries(문들).map(([k, v]) => `<a href="#${k}" data-d="${k}">${v.이름}</a>`).join('')
-    + `<a href="../site/score.html">투명성 지표</a><a href="town.html?cd=${곳[i] ? 곳[i][0] : ''}" style="color:var(--accent)">시민 화면 시안</a>`;
+    + `<a href="../site/score.html">투명성 지표</a><a href="town.html#story-grant" data-town="story-grant">교부세 감액·시정</a><a href="town.html#story-invest" data-town="story-invest">투자심사 후속</a><a href="town.html" data-town="" style="color:var(--accent)">시민 화면 시안</a>`;
   const 시도들 = [...new Set(곳.map(c => c[2]))];
   $('sido').innerHTML = 시도들.map(s => `<option>${esc(s)}</option>`).join('');
   const 채우기 = s => { $('place').innerHTML = 곳.map((c, j) => c[2] === s ? `<option value="${j}">${esc(이름(j).replace(/^\S+\s/, ''))}</option>` : '').join(''); };
