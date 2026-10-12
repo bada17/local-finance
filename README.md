@@ -480,6 +480,21 @@ python scripts/build_review_page.py
 **나머지는 저절로 돈다.** `.github/workflows/daily.yml` 이 날마다 네 갈래(계약·세출 / CLIK / 투자심사 / 사업자번호)를 따로 받아 저장소에
 쌓고, `pages.yml` 이 `site/` 를 깃허브 페이지로 올린다.
 
+**봇 넷 — 2026-10-12 부터**(사용자: 화면은 날마다 말고 **달마다**, 게시판은 봇으로, 공시 점검도 자동으로)
+
+| 워크플로 | 언제 | 하는 일 |
+|---|---|---|
+| `daily.yml` | 날마다 새벽 5:20 | 모으기만(계약·세출 / CLIK / 투자심사 / 사업자번호). **화면은 안 굽는다** |
+| `monthly.yml` | 매달 1일 10시 | 지표·세입·보조금·공기업·교육청 받기 → 위 「인계」 굽기 차례 전부 → 올리기 → 페이지 다시 올리기. 데이터 지도는 GPT 몫이라 뺐다 |
+| `boards.yml` | 매달 2일 새벽 3시 | 누리집 게시판 글 목록(`fetch_boards.js --새로`, 크롬) 자치단체 → 의회. 자리 찾기(1단계)는 `-f find=true` 일 때만 |
+| `disclosure.yml` | 3월·10월 10일 | 공시 링크 · 크롬 셋(공시 글·몇 번 눌러야·예산서 게시판) → 공시 점검 · 투명성 지표 화면 |
+
+- **실패 알림** — 넷 다 맨 끝 `alert` 작업이 `scripts/notify_fail.py` 로 텔레그램 한 통. continue-on-error 로 「초록」인 단계 실패까지 잡는다
+  (작업 outputs 의 `toJSON(steps)` — **id 붙은 단계만** 보이니 새 단계엔 id 를 붙일 것). 받는 방은 Secrets `TELEGRAM_ALERT_CHAT_ID`, 없으면 `TELEGRAM_CHAT_ID`.
+- 봇 푸시(GITHUB_TOKEN)는 push 이벤트를 안 일으켜 `pages.yml` 이 저절로 안 돈다 — 그래서 달마다 봇이 `gh workflow run pages.yml` 을 부른다.
+- 시험(저장소·페이지 안 바뀜): `gh workflow run monthly.yml -f push=false` · `gh workflow run disclosure.yml -f push=false` · `gh workflow run boards.yml -f test="1111000 2625000"`.
+- 크롬 스크립트는 우분투 러너의 `/usr/bin/google-chrome` 을 쓴다(`recheck_disclosure.js` 크롬자리, `CHROME_PATH` 로 바꿀 수 있다).
+
 **넘겨줄 것** — ① 저장소 쓰기 권한(`github.com/bada17/local-finance`)
 ② 지방재정365 인증키(저장소 Secrets 의 `LOFIN_KEY` · 새 사람은 `.env` 에도 넣어야 한다)
 ③ 이 README. **판단의 까닭은 전부 여기 적혀 있다** — 그래서 문서를 딴 데 만들지 않는다.
