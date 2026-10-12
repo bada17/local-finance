@@ -5,6 +5,8 @@
 //   node scripts/fetch_boards.js 고향사랑 1111000    그 과녁·그 곳만(시험용, 파일에 안 적는다)
 //   node scripts/fetch_boards.js --의회              의회 누리집 판 → board_posts_council.json
 //   node scripts/fetch_boards.js --새로              다 다시 본다(지난 결과는 바뀔 때까지 남긴다) — 달마다 봇
+//   node scripts/fetch_boards.js --실패만            못 읽은 것만 — 봇이 해외 서버라 못 여는 곳을 이 PC 에서
+// ⭐ 못 읽은 것은 끝에 한 번 더(탭 넷·20초 더). 그래도 못 읽으면 지난 결과를 두고 「못읽은날」만 붙인다.
 //
 // 판정 — 후보 링크를 차례로 열어, 날짜가 붙은 줄이 셋 이상이면 「게시판」으로 보고 첫 쪽 글을 적는다.
 //   게시판이 아니면(안내 화면) 그 화면에 붙은 파일만 적는다. 후보 셋까지 보고 게시판을 찾으면 멈춘다.
@@ -52,17 +54,18 @@ const 목록긁개 = String.raw`(() => {
   return JSON.stringify({ 화면: (document.title || '').replace(/\s+/g, ' ').trim().slice(0, 80), 주소: location.href.slice(0, 300), 글 });
 })()`;
 
-// 화면이 다 실릴 때까지 기다린다(이동한 뒤·누른 뒤 같이 쓴다)
+// 화면이 다 실릴 때까지 기다린다(이동한 뒤·누른 뒤 같이 쓴다). 다시 받는 판에서는 더 기다린다
+let 더기다림 = 0;
 async function 기다리기(보내기, 먼저 = 0) {
   if (먼저) await new Promise(x => setTimeout(x, 먼저));
-  const 끝날때 = Date.now() + 기다림;
+  const 끝날때 = Date.now() + 기다림 + 더기다림;
   while (Date.now() < 끝날때) {
     const r = await 보내기('Runtime.evaluate', {
       expression: 'location.href.slice(0,8) + "|" + document.readyState + "|" + (document.body ? document.body.innerText.length : 0)',
       returnByValue: true,
     });
     const [주소, 상태글, 길이] = String((r.result && r.result.value) || '').split('|');
-    if (주소.startsWith('http') && Number(길이) > 120 && (상태글 === 'complete' || Date.now() > 끝날때 - 기다림 + 6000)) break;
+    if (주소.startsWith('http') && Number(길이) > 120 && (상태글 === 'complete' || Date.now() > 끝날때 - 기다림 - 더기다림 + 6000)) break;
     await new Promise(x => setTimeout(x, 400));
   }
   await new Promise(x => setTimeout(x, 1200));
@@ -149,6 +152,9 @@ async function 한과녁(탭, 후보들, 과녁) {
   return 안내 || { 종류: '못 열었다' };
 }
 
+// 못 읽은 것 — 아예 못 열었거나, 크롬 접속 오류 화면을 안내 화면으로 적은 것(2026-10-12 해운대구)
+const 실패 = x => !x || x.종류 === '못 열었다' || x.종류 === '멈췄다' || /^chrome-error/.test(x.주소 || '');
+
 async function main() {
   if (!크롬자리) throw new Error('크롬을 못 찾겠다');
   const 곳들 = JSON.parse(fs.readFileSync(IN, 'utf-8'))['곳'];
@@ -168,8 +174,13 @@ async function main() {
   const 결과 = !시험 && !process.argv.includes('--다시') && fs.existsSync(OUT) ? JSON.parse(fs.readFileSync(OUT, 'utf-8'))['곳'] : {};
   const 적기 = () => fs.writeFileSync(OUT, JSON.stringify({ 만든날: new Date().toISOString().slice(0, 10), 곳: 결과 }, null, 1));
   // --새로 : 달마다 봇(boards.yml) — 다 다시 보되, 다시 볼 때까지 지난 결과를 그대로 둔다(중간에 잘려도 안 비게)
+  // --실패만 : 지난번에 못 읽은 것만 — 봇(해외 서버)이 계속 못 여는 곳을 이 PC 에서 메울 때
   const 새로 = process.argv.includes('--새로');
-  const 남은 = 새로 ? 할일 : 할일.filter(일 => { const x = (결과[일.laf] || {})[일.과녁]; return !x || x.종류 === '멈췄다'; });
+  const 실패만 = process.argv.includes('--실패만');
+  const 옛것 = (일) => (결과[일.laf] || {})[일.과녁];
+  const 남은 = 새로 ? 할일
+    : 실패만 ? 할일.filter(일 => 실패(옛것(일)) || (옛것(일) || {}).못읽은날)
+    : 할일.filter(일 => { const x = 옛것(일); return !x || x.종류 === '멈췄다'; });
   console.log(`할 일 ${할일.length}, 남은 것 ${남은.length}`);
   할일.splice(0, 할일.length, ...남은);
 
@@ -177,12 +188,16 @@ async function main() {
   const 크롬 = 크롬띄우기(프로필);
   await 붙을때까지();
   let 다음 = 0, 끝난 = 0;
+  const 오늘 = new Date().toISOString().slice(0, 10);
   const 일꾼 = async () => {
     const 탭 = await 탭열기();
     while (다음 < 할일.length) {
       const 일 = 할일[다음++];
       let 값;
       try { 값 = await 한과녁(탭, 일.후보, 일.과녁); } catch (e) { 값 = { 종류: '멈췄다', 까닭: String(e).slice(0, 60) }; }
+      // ⭐ 못 읽었으면 지난번에 잘 받은 것을 덮지 않는다 — 「못읽은날」만 붙인다(2026-10-12)
+      const 옛 = 옛것(일);
+      if (실패(값) && 옛 && !실패(옛)) 값 = { ...옛, 못읽은날: 오늘, 못읽은까닭: 값.까닭 || 값.종류 };
       (결과[일.laf] = 결과[일.laf] || { 이름: 일.이름 })[일.과녁] = 값;
       // 윈도에서 파일이 잠깐 잠기면(UNKNOWN open, 2026-10-12 260/1328 에서 죽음) 이번 것만 거른다 — 다음 적기가 통째로 쓴다
       if (!시험) try { 적기(); } catch (e) { console.log('   적기 실패, 다음에 씀:', e.code); }
@@ -192,6 +207,14 @@ async function main() {
     await fetch(`http://127.0.0.1:${PORT}/json/close/${탭.tab.id}`).catch(() => {});
   };
   await Promise.all(Array.from({ length: Math.min(한번에, 할일.length) }, 일꾼));
+
+  // 다시 받기 — 못 읽은 것만, 탭 넷·20초 더 기다리며 한 번 더(순간 끊김은 대개 여기서 풀린다)
+  const 다시 = 할일.filter(일 => { const x = 옛것(일); return 실패(x) || (x && x.못읽은날 === 오늘); });
+  if (다시.length && !시험) {
+    console.log(`다시 받기 ${다시.length}개`);
+    할일.splice(0, 할일.length, ...다시); 다음 = 0; 끝난 = 0; 더기다림 = 20000;
+    await Promise.all(Array.from({ length: Math.min(4, 할일.length) }, 일꾼));
+  }
   크롬.kill();
 
   const 셈 = {};
@@ -201,6 +224,9 @@ async function main() {
     셈[k][x.종류] = (셈[k][x.종류] || 0) + 1;
   }
   console.log(JSON.stringify(셈));
+  const 못읽음 = Object.entries(결과).flatMap(([laf, v]) => Object.entries(v).filter(([k, x]) => k !== '이름' && (실패(x) || x.못읽은날)).map(([k]) => `${laf} ${v.이름} ${k}`));
+  console.log(`못 읽은 것 ${못읽음.length}개 — 이 PC 에서: node scripts/fetch_boards.js ${의회판 ? '--의회 ' : ''}--실패만`);
+  for (const x of 못읽음.slice(0, 60)) console.log('   ' + x);
   // 시험은 곳마다 한 줄 — 코드 이름 과녁 종류 글수 까닭 주소(깃허브 로그에서 PC 결과와 견주려고)
   if (시험) for (const [laf, v] of Object.entries(결과)) for (const [k, x] of Object.entries(v)) {
     if (k !== '이름') console.log(['시험줄', laf, v.이름, k, x.종류, (x.글 || []).length, x.까닭 || '', x.주소 || ''].join('	'));
