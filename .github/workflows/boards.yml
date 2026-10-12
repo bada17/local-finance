@@ -42,9 +42,7 @@ jobs:
       - id: test
         name: 시험
         if: ${{ inputs.test != '' }}
-        run: |
-          node scripts/fetch_boards.js 업무추진비 ${{ inputs.test }} > "$RUNNER_TEMP/t.txt"
-          grep -E '^ "[0-9]{7}"|"이름"|"종류"|"까닭"|"주소"' "$RUNNER_TEMP/t.txt" | grep -v '"주소": "/' | head -80
+        run: node scripts/fetch_boards.js 업무추진비 ${{ inputs.test }}
 
       - id: find
         name: 게시판 자리 찾기

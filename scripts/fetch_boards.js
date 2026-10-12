@@ -201,7 +201,10 @@ async function main() {
     셈[k][x.종류] = (셈[k][x.종류] || 0) + 1;
   }
   console.log(JSON.stringify(셈));
-  if (시험) console.log(JSON.stringify(결과, null, 1));
+  // 시험은 곳마다 한 줄 — 코드 이름 과녁 종류 글수 까닭 주소(깃허브 로그에서 PC 결과와 견주려고)
+  if (시험) for (const [laf, v] of Object.entries(결과)) for (const [k, x] of Object.entries(v)) {
+    if (k !== '이름') console.log(['시험줄', laf, v.이름, k, x.종류, (x.글 || []).length, x.까닭 || '', x.주소 || ''].join('	'));
+  }
   else { 적기(); console.log('적음: data/board_posts.json'); }
   await new Promise(r => setTimeout(r, 1500));
   try { fs.rmSync(프로필, { recursive: true, force: true }); } catch (_) { /* 임시 폴더다 */ }
