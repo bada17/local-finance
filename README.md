@@ -522,12 +522,15 @@ python scripts/build_review_page.py
 | `daily.yml` | 날마다 새벽 5:20 | 모으기만(계약·세출 / CLIK / 투자심사 / 사업자번호). **화면은 안 굽는다** |
 | `monthly.yml` | 매달 1일 10시 | 지표·세입·보조금·공기업·교육청 받기 → 위 「인계」 굽기 차례 전부 → 올리기 → 페이지 다시 올리기. 데이터 지도는 GPT 몫이라 뺐다 |
 | `boards.yml` | 매달 2일 새벽 3시 | 누리집 게시판 글 목록(`fetch_boards.js --새로`, 크롬) 자치단체 → 의회. 자리 찾기(1단계)는 `-f find=true` 일 때만 |
+| `scripts/pc_fill_boards.ps1`(사용자 PC 작업 스케줄러 `local-finance-boards`) | 매달 3일 10시(꺼져 있었으면 켜질 때) | 봇이 해외 서버라 못 읽은 게시판만 이 PC 에서 다시(`fetch_boards.js --실패만`) → 올리기 |
 | `disclosure.yml` | 3월·10월 10일 | 공시 링크 · 크롬 셋(공시 글·몇 번 눌러야·예산서 게시판) → 공시 점검 · 투명성 지표 화면 |
 
 - **실패 알림** — 넷 다 맨 끝 `alert` 작업이 `scripts/notify_fail.py` 로 텔레그램 한 통. continue-on-error 로 「초록」인 단계 실패까지 잡는다
   (작업 outputs 의 `toJSON(steps)` — **id 붙은 단계만** 보이니 새 단계엔 id 를 붙일 것). 받는 방은 Secrets `TELEGRAM_ALERT_CHAT_ID`, 없으면 `TELEGRAM_CHAT_ID`.
 - 봇 푸시(GITHUB_TOKEN)는 push 이벤트를 안 일으켜 `pages.yml` 이 저절로 안 돈다 — 그래서 달마다 봇이 `gh workflow run pages.yml` 을 부른다.
 - 시험(저장소·페이지 안 바뀜): `gh workflow run monthly.yml -f push=false` · `gh workflow run disclosure.yml -f push=false` · `gh workflow run boards.yml -f test="1111000 2625000"`.
+- **게시판이 못 읽힐 때(2026-10-12)** — 봇은 못 읽은 것을 끝에 한 번 더(탭 넷·20초 더) 보고, 그래도 못 읽으면 **지난달 결과를 두고 `못읽은날`만** 붙인다. 남은 것은 PC 작업이 메운다.
+  self-hosted runner 는 **공개 저장소라 하지 않는다**(남이 보낸 PR 코드가 사용자 PC 에서 돌 수 있다). 국내 클라우드 서버는 돈이 들어 사용자 결정.
 - 크롬 스크립트는 우분투 러너의 `/usr/bin/google-chrome` 을 쓴다(`recheck_disclosure.js` 크롬자리, `CHROME_PATH` 로 바꿀 수 있다).
 
 **넘겨줄 것** — ① 저장소 쓰기 권한(`github.com/bada17/local-finance`)
