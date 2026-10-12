@@ -1087,7 +1087,7 @@
 "보기": "http://drm.nars.go.kr:7003/sd/imageviewer?DocId=1Q4M3zgHRMr&ViewerYn=Y&EdmUserId=datauser&type=S&fileName=KOydtOyKiOyZgOuFvOygkCAyNTM47Zi4LTIwMjYxMDA4KeuvuOuemOuMgOydkeq4sOq4iOydmCDso7zsmpQg7J%2BB7KCQ6rO8IOyeheuyleqzvOygnC5wZGY%3D",
 "낱말": "미래대응기금",
 "횟수": 1,
-"보냄": false
+"보냄": true
 }
 ],
 "의안": {
@@ -1113,5 +1113,5 @@
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=197323&searchNoSeq=20260929197323"
 ],
 "본문": "html",
-"마지막성공": "2026-10-11"
+"마지막성공": "2026-10-12"
 }
