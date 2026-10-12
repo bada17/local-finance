@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="우리 동네의 재정을 살펴보고, 함께하는 시민행동의 후속 소식과 참여로 이어지는 화면 설계 시안입니다.">
+<title>우리 동네 살림 · 함께하는 시민행동</title>
+<link rel="icon" href="https://cdn.imweb.me/upload/S20210826b814397ca4e6d/2a859fe4ace59.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<!-- 로컬 설계 시안. 기존 town/index와 원자료를 보존한다.
+     한 번에 한 질문을 보여주며, 관심 지역/질문 -> 연락처 -> 참여/후원 관계를 설계한다.
+     EJIEH 보유값을 그대로 표시한다. 비교는 같은 자치단체 유형의 유효값만 사용한다.
+     신청 화면은 개인정보를 저장/전송하지 않는다. 목적/보유기간/철회 안내 확정 전 실제 접수 금지. -->
+<style>
+@font-face{font-family:GmarketSans;src:url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff') format('woff');font-weight:700;font-display:swap}
+:root{color-scheme:light;--ground:#fff;--ink:#0b1e28;--soft:#4a6473;--line:#d5e4eb;--paper:#f1f6f8;--tint:#e2f5fd;--brand:#00afec;--deep:#0079a6;--on-deep:#fff;--danger:#9b362d;--title:GmarketSans,'Pretendard Variable',sans-serif;--body:'Pretendard Variable',Pretendard,'Malgun Gothic',system-ui,sans-serif}
+@media(prefers-color-scheme:dark){:root{color-scheme:dark;--ground:#071c26;--ink:#e6f1f6;--soft:#a7bcc8;--line:#294857;--paper:#102c3b;--tint:#11384a;--brand:#2bbff2;--deep:#7fd3f5;--on-deep:#04161f;--danger:#ffaaa0}}
+*{box-sizing:border-box}body{margin:0;background:var(--ground);color:var(--ink);font:17px/1.7 var(--body);word-break:keep-all}a{color:var(--deep);text-underline-offset:5px}button,input{font:inherit}button,a,input{touch-action:manipulation}:focus-visible{outline:3px solid var(--deep);outline-offset:5px}[hidden]{display:none!important}
+.wrap{width:min(100% - 64px,1080px);margin-inline:auto}.top{border-bottom:1px solid var(--line)}.masthead{min-height:88px;display:flex;align-items:center;gap:25px}.brand img{display:block;width:126px;height:auto}.brand{flex-shrink:0}.site-name{border-left:1px solid var(--line);padding-left:25px;color:var(--ink);text-decoration:none;font-size:17px;font-weight:750}.top-link{margin-left:auto;font-size:14px;text-decoration:none}.skip{position:absolute;top:-80px;left:20px;background:var(--ground);padding:8px;z-index:5}.skip:focus{top:8px}
+.preview-note{font-size:12px;color:var(--soft);padding-top:12px;margin:0}.home{max-width:740px;padding:68px 0 62px}.home h1{font:700 clamp(35px,4.8vw,56px)/1.4 var(--title);letter-spacing:-2px;margin:0 0 20px}.home .lead{font-size:20px;color:var(--soft);margin:0 0 42px;max-width:32em}.home h1 span{color:var(--deep)}.search-label{display:block;font-size:15px;font-weight:650;margin-bottom:10px}.search-box{display:flex;gap:12px;align-items:center;border-bottom:2px solid var(--ink);padding-bottom:10px}.search-box input{background:transparent;color:var(--ink);border:0;width:100%;min-width:0;padding:12px 0;font-size:23px;line-height:1.5}.search-box input::placeholder{color:var(--soft);opacity:1}.search-box:focus-within{border-color:var(--deep)}.search-box input:focus{outline:0}.search-status{font-size:14px;color:var(--soft);margin:12px 0}.results{list-style:none;margin:0;padding:0}.results a{display:flex;justify-content:space-between;gap:20px;padding:13px 4px;border-bottom:1px solid var(--line);font-weight:650;color:var(--ink);text-decoration:none}.results a:hover{background:var(--tint)}.results small{font-size:13px;color:var(--soft);font-weight:400}.home-question{border-top:1px solid var(--line);padding-top:22px;margin-top:42px}.home-question p{margin:0}.home-question small{display:block;color:var(--soft);font-size:13px;margin-bottom:6px}.home-question strong{font-size:20px;font-weight:650}.home-question .explain{font-size:15px;color:var(--soft);margin-top:8px}
+.button{display:inline-flex;align-items:center;justify-content:center;gap:15px;min-height:52px;padding:12px 22px;border:1px solid var(--deep);border-radius:6px;background:var(--deep);color:var(--on-deep);text-decoration:none;font-weight:700;font-size:16px;cursor:pointer;line-height:1.5;transition:filter .15s}.button:hover{filter:brightness(.94)}.button:active{transform:translateY(1px)}.button.secondary{background:transparent;color:var(--deep)}.back{display:inline-block;font-size:14px;text-decoration:none;margin:30px 0 25px}.place{font-size:15px;color:var(--soft);margin:0 0 13px}.question-title{font:700 clamp(30px,3.5vw,42px)/1.45 var(--title);letter-spacing:-1.3px;margin:0 0 25px}.town-layout{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(280px,1fr);gap:72px;padding-bottom:35px;align-items:start}.finding{padding:24px 0;border-top:2px solid var(--ink);border-bottom:1px solid var(--line)}.finding-label{font-size:14px;color:var(--soft);margin:0}.figure{font:700 76px/1.3 var(--body);font-variant-numeric:tabular-nums;letter-spacing:-3px;margin:6px 0}.figure span{font-size:32px;letter-spacing:0;margin-left:3px}.finding-caption{font-size:17px;margin:0 0 15px;max-width:31em}.source-line{font-size:12px;color:var(--soft);margin:0}.reading{font-size:16px;color:var(--soft);margin:20px 0 0;max-width:35em}.reading strong{color:var(--ink)}.follow{margin-top:3px;padding:28px;background:var(--paper);border-radius:8px}.follow h2{font-size:23px;line-height:1.5;letter-spacing:-.6px;margin:0 0 14px}.follow p{font-size:15px;color:var(--soft);margin:0 0 16px}.follow .button{width:100%;font-size:15px}.follow .after{font-size:12px;line-height:1.7;margin:13px 0 0}.detail-links{display:flex;flex-wrap:wrap;gap:12px 26px;margin:23px 0 0;font-size:14px}.other-path{border-top:1px solid var(--line);padding:19px 0;font-size:14px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}.other-path p{margin:0;color:var(--soft)}.text-button{border:0;padding:0;background:none;color:var(--deep);font:inherit;text-decoration:underline;text-underline-offset:5px;cursor:pointer}
+.reading-page{max-width:760px;padding-bottom:40px}.reading-page h1{font:700 clamp(27px,4vw,36px)/1.5 var(--title);letter-spacing:-1px;margin:0 0 16px}.reading-page .intro{color:var(--soft);margin:0 0 30px}.comparison{margin:28px 0 20px;padding:22px;background:var(--paper);border-radius:8px}.comparison-row{display:grid;grid-template-columns:130px 1fr 72px;gap:16px;align-items:center;margin:18px 0;font-size:15px}.comparison-row strong{font-size:20px;text-align:right;font-variant-numeric:tabular-nums}.track{height:12px;background:var(--line);border-radius:3px;overflow:hidden}.track span{display:block;height:100%;background:var(--soft)}.comparison-row.ours .track span{background:var(--deep)}.comparison-row.ours strong{color:var(--deep)}.small{font-size:13px;color:var(--soft)}.data-list{padding:0;margin:25px 0 32px}.data-list div{display:grid;grid-template-columns:130px 1fr;gap:20px;padding:16px 0;border-bottom:1px solid var(--line)}.data-list dt{color:var(--soft);font-size:14px}.data-list dd{margin:0;overflow-wrap:anywhere;font-size:15px}.data-list dd a{overflow-wrap:anywhere}.data-list dd small{display:block;color:var(--soft);font-size:12px}.details-table{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}th{background:var(--paper);font-weight:650}th:last-child,td:last-child{text-align:right;font-variant-numeric:tabular-nums}tr.current td{background:var(--tint);font-weight:700}details{margin:22px 0}summary{cursor:pointer;color:var(--deep);font-size:15px;font-weight:600}details p{font-size:14px;color:var(--soft)}.notice{border-left:3px solid var(--deep);background:var(--paper);padding:18px 20px;font-size:15px;margin:24px 0}.error{color:var(--danger)}
+.join-page{max-width:620px;padding-bottom:50px}.join-page h1{font:700 clamp(28px,3.3vw,38px)/1.5 var(--title);letter-spacing:-1px;margin:0 0 18px}.join-lead{color:var(--soft);font-size:17px;margin:0 0 26px}.interest{padding:18px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:25px}.interest small{display:block;color:var(--soft);font-size:13px}.interest strong{display:block;margin:5px 0;font-size:18px}.interest p{font-size:14px;color:var(--soft);margin:0}.field-label{display:block;font-size:15px;font-weight:650;margin:24px 0 8px}.field{display:block;width:100%;min-height:52px;border:1px solid var(--line);border-radius:6px;background:var(--ground);color:var(--ink);padding:12px 14px}.field::placeholder{color:var(--soft);opacity:1}.consent{border:0;padding:0;margin:25px 0}.consent legend{font-weight:650;font-size:15px;margin-bottom:12px}.check{display:flex;gap:10px;align-items:start;font-size:14px;margin-bottom:15px;cursor:pointer}.check input{width:19px;height:19px;flex-shrink:0;accent-color:var(--deep);margin-top:3px}.check small{display:block;color:var(--soft);font-size:12px;margin-top:4px}.join-page .button{width:100%}.join-page .small{margin-top:14px}.confirmation{max-width:620px;padding:52px 0}.confirmation h1{font:700 32px/1.5 var(--title);margin:16px 0}.confirmation p{color:var(--soft)}.confirmation .button{margin-top:14px}.confirmation .secondary{margin-left:8px}.foot{margin-top:25px;border-top:1px solid var(--line);padding:22px 0 30px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:12px;color:var(--soft)}.foot p{margin:0}.foot a{color:var(--soft)}.loading{padding:65px 0;min-height:50vh}
+@media(max-width:760px){.wrap{width:calc(100% - 40px)}.masthead{min-height:72px;gap:15px}.brand img{width:100px}.site-name{font-size:14px;padding-left:15px}.top-link{font-size:12px}.home{padding:42px 0}.home h1{letter-spacing:-1.2px}.home .lead{font-size:17px;margin-bottom:32px}.search-box input{font-size:18px}.home-question{margin-top:30px}.home-question strong{font-size:18px}.town-layout{grid-template-columns:1fr;gap:26px}.question-title{font-size:31px}.follow{padding:22px}.figure{font-size:66px}.back{margin:24px 0 22px}.comparison{padding:16px}.comparison-row{grid-template-columns:92px 1fr 65px;gap:10px;font-size:13px}.comparison-row strong{font-size:17px}.data-list div{grid-template-columns:96px 1fr;gap:12px}.confirmation .button{width:100%;margin-left:0}.foot{margin-top:18px}.preview-note{font-size:11px}.finding{padding-block:20px}}
+@media(max-width:370px){.wrap{width:calc(100% - 32px)}.brand img{width:87px}.masthead{gap:10px}.site-name{padding-left:10px;font-size:13px}.top-link{font-size:11px}.home h1{font-size:31px}.question-title{font-size:27px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+@media(prefers-color-scheme:dark){.brand{background:#fff;padding:4px 8px;border-radius:5px}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">본문 바로가기</a>
+<header class="top"><div class="wrap masthead">
+  <a class="brand" href="https://www.action.or.kr" aria-label="함께하는 시민행동 홈페이지"><img src="https://cdn.imweb.me/upload/S20210826b814397ca4e6d/2a859fe4ace59.png" alt="함께하는 시민행동" width="126" height="50"></a>
+  <a class="site-name" href="start.html">우리 동네 살림</a>
+  <a class="top-link" href="start.html" id="change-town" hidden>동네 바꾸기</a>
+</div></header>
+<div class="wrap"><p class="preview-note">로컬 설계 시안 · 연락처를 실제로 접수하지 않습니다.</p></div>
+<main class="wrap" id="main"><div class="loading" role="status">동네 자료를 읽고 있습니다.</div></main>
+<footer class="wrap foot"><p>함께하는 시민행동 · 우리 동네의 돈을 시민의 눈으로</p><a href="https://secure.donus.org/withaction0909/pay/step1" target="_blank" rel="noopener">정기후원으로 함께하기 ↗</a></footer>
+<noscript><p class="wrap">동네를 찾아보려면 자바스크립트를 켜 주세요.</p></noscript>
+<script>
+'use strict';
+const main = document.getElementById('main');
+const esc = text => String(text ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const valid = value => typeof value === 'number' && Number.isFinite(value) && value >= 0 && value <= 100;
+const pct = value => valid(value) ? value.toFixed(2) + '%' : '확인 중';
+const normalize = text => text.replace(/\s/g, '').toLowerCase();
+const params = new URLSearchParams(location.search);
+const link = (cd, view = '') => 'start.html?' + new URLSearchParams({cd, ...(view ? {view} : {})}).toString();
+const back = (cd, label = '동네의 질문으로') => `<a class="back" href="${link(cd)}">← ${label}</a>`;
+const issue = '연말 지출의 쓰임';
+let data;
+
+function showHome(message = '') {
+  document.title = '우리 동네 살림 · 함께하는 시민행동';
+  main.innerHTML = `<section class="home"><h1>우리 동네 돈,<br><span>어떻게 쓰였을까요?</span></h1>
+    <p class="lead">궁금한 동네의 살림을 살펴보고,<br>그 뒤의 변화를 시민행동과 함께 확인하세요.</p>
+    <form id="search-form" role="search"><label class="search-label" for="town-search">궁금한 동네를 찾아보세요</label>
+      <div class="search-box"><input id="town-search" type="search" placeholder="예: 종로구, 수원시" autocomplete="off" aria-describedby="search-status" aria-controls="search-results" ${data ? '' : 'disabled'}><span aria-hidden="true">↗</span></div>
+      <p class="search-status" id="search-status" role="status">${message || '사는 곳도, 마음이 가는 곳도 좋습니다.'}</p>
+      <ul class="results" id="search-results"></ul>
+    </form>
+    <div class="home-question"><small>지금 함께 볼 질문</small><strong>연말에 쓴 돈, 어디로 갔을까요?</strong><p class="explain">동네를 고르면 확인한 사실부터 보여드립니다.</p></div>
+  </section>`;
+  const input = document.getElementById('town-search');
+  input.addEventListener('input', () => search(input.value));
+  document.getElementById('search-form').addEventListener('submit', event => {
+    event.preventDefault();
+    const results = document.querySelectorAll('#search-results a');
+    if (results.length === 1) location.href = results[0].href;
+    else if (results.length) results[0].focus();
+  });
+}
+
+function search(query) {
+  const q = normalize(query);
+  const matches = q ? data.곳.map((place, i) => ({place, i})).filter(({place, i}) =>
+    normalize(data.이름[i]).includes(q) || normalize(place[1]).includes(q) || normalize(place[2] + data.이름[i].replace(/^\S+\s/, '')).includes(q)) : [];
+  const shown = matches.slice(0, 8);
+  document.getElementById('search-status').textContent = !q ? '사는 곳도, 마음이 가는 곳도 좋습니다.' : !matches.length ? '찾는 동네가 없습니다. 시·군·구 이름을 다시 입력해 주세요.' :
+    matches.length > 8 ? `${matches.length}곳이 있습니다. 이름을 더 입력하면 좁힐 수 있습니다.` : `${matches.length}곳을 찾았습니다. 동네를 골라 주세요.`;
+  document.getElementById('search-results').innerHTML = shown.map(({place, i}) => `<li><a href="${link(place[0])}"><span>${esc(data.이름[i])} ${place[3] === '광역' ? '<small>광역자치단체</small>' : ''}</span><span aria-hidden="true">→</span></a></li>`).join('');
+}
+
+function townContext(i) {
+  const place = data.곳[i], indicator = data.지표['연말지출비율'];
+  const group = data.곳.map((p, j) => ({name: data.이름[j], cd: p[0], type: p[3], value: indicator.비율[j]})).filter(p => p.type === place[3]);
+  const peers = group.filter(p => valid(p.value));
+  const sorted = peers.map(p => p.value).sort((a, b) => a - b), middle = Math.floor(sorted.length / 2);
+  const median = sorted.length ? sorted.length % 2 ? sorted[middle] : (sorted[middle - 1] + sorted[middle]) / 2 : null;
+  return {cd: place[0], name: data.이름[i], short: data.이름[i].replace(/^\S+\s/, ''), type: {광역:'광역자치단체',시:'시',군:'군',구:'자치구'}[place[3]] || place[3], value: indicator.비율[i], year: indicator.연도, peers, group, median};
+}
+
+function showTown(t) {
+  main.innerHTML = `<a class="back" href="start.html">← 다른 동네 찾기</a>
+    <p class="place">${esc(t.name)}의 살림</p>
+    <div class="town-layout"><article><h1 class="question-title">연말에 쓴 돈,<br>어디로 갔을까요?</h1>
+      <div class="finding"><p class="finding-label">${esc(t.year)}년 공시 · 연말지출비율</p>
+        ${valid(t.value) ? `<p class="figure">${t.value.toFixed(2)}<span>%</span></p><p class="finding-caption">공시 지표에 집계된 지출 중<br>11~12월 지출이 차지하는 비율입니다.</p>` : '<p class="figure" style="font-size:36px;letter-spacing:-1px">원자료 확인 중</p><p class="finding-caption">현재 보유값을 비율로 해석하기 어려워 확인이 필요합니다.</p>'}
+        <p class="source-line">출처: 지방재정365 · ${esc(t.year)}년 결산 자료</p>
+      </div>
+      <p class="reading"><strong>무엇에 썼고, 왜 연말이었을까요?</strong><br>사업이 끝나 대금을 지급했을 수도 있습니다. 이 숫자만으로 낭비라고 판단할 수는 없습니다.</p>
+      <div class="detail-links"><a href="${link(t.cd, 'compare')}">다른 동네와 비교하기</a><a href="${link(t.cd, 'source')}">숫자의 근거 확인하기</a></div>
+    </article>
+    <aside class="follow" aria-labelledby="follow-title"><h2 id="follow-title">숫자 다음의 이야기를<br>함께 확인해요.</h2><p>시민행동은 어떤 사업에 지출이 몰렸고, 설명이 필요한 부분은 무엇인지 이어서 살펴보려 합니다.</p>
+      <p>${esc(t.short)}에 관심을 남겨 주세요. 관련 확인 결과와 참여 기회가 마련되면 안내하겠습니다.</p>
+      <a class="button" href="${link(t.cd, 'join')}">이 동네 후속 소식 받기 <span aria-hidden="true">→</span></a>
+      <p class="after">함께하는 시민행동의 활동 소식입니다.<br>참여·후원 안내 전화는 따로 선택할 수 있습니다.</p>
+    </aside></div>
+    <div class="other-path"><p>예산 공개나 다른 지출도 궁금하다면</p><a href="index.html?cd=${encodeURIComponent(t.cd)}">다른 질문 살펴보기 →</a></div>`;
+}
+
+function showComparison(t) {
+  const description = valid(t.value) && valid(t.median) ? Math.abs(t.value - t.median) < .005 ? '같은 유형의 동네 중간값과 같습니다.' :
+    `같은 유형의 동네 중간값보다 ${Math.abs(t.value - t.median).toFixed(2)}%p ${t.value > t.median ? '높습니다' : '낮습니다'}.` : '현재 보유값을 확인한 뒤 비교할 수 있습니다.';
+  main.innerHTML = `<section class="reading-page">${back(t.cd)}<p class="place">${esc(t.name)} · ${esc(t.year)}년 결산</p><h1>다른 동네도 그랬을까요?</h1><p class="intro">${description}<br>비율의 차이는 사업 내역과 함께 살펴볼 단서입니다.</p>
+    <div class="comparison" role="img" aria-label="${esc(t.short)} ${pct(t.value)}, 같은 ${esc(t.type)} 중간값 ${pct(t.median)}. 그래프는 0부터 100%의 같은 눈금입니다.">
+      <div class="comparison-row ours"><span>${esc(t.short)}</span><div class="track"><span style="width:${valid(t.value) ? t.value : 0}%"></span></div><strong>${pct(t.value)}</strong></div>
+      <div class="comparison-row"><span>같은 ${esc(t.type)} 중간값</span><div class="track"><span style="width:${valid(t.median) ? t.median : 0}%"></span></div><strong>${pct(t.median)}</strong></div>
+    </div><p class="small">같은 유형인 ${esc(t.type)} ${t.peers.length}곳의 유효값으로 계산했습니다.${t.group.length !== t.peers.length ? ` 해석이 필요한 값 ${t.group.length - t.peers.length}곳은 제외했습니다.` : ''} 중간값은 값을 순서대로 놓았을 때 가운데에 오는 값입니다. 표본 수가 짝수면 가운데 두 값의 평균입니다.</p>
+    <details><summary>비교한 동네의 수치 보기</summary><div class="details-table"><table><thead><tr><th scope="col">동네</th><th scope="col">연말지출비율</th></tr></thead><tbody>${[...t.peers].sort((a,b) => a.name.localeCompare(b.name,'ko')).map(p => `<tr ${p.cd === t.cd ? 'class="current"' : ''}><td>${esc(p.name)}${p.cd === t.cd ? ' (선택한 동네)' : ''}</td><td>${pct(p.value)}</td></tr>`).join('')}</tbody></table></div></details>
+    <p class="small">출처: 지방재정365 연말지출비율 · ${esc(t.year)}년 결산, 보유 자료 생성일 ${esc(data.만든날)}.</p>
+    <div class="detail-links"><a href="${link(t.cd,'source')}">자료의 정의와 한계</a><a href="${link(t.cd,'join')}">이 동네 후속 소식 받기 →</a></div></section>`;
+}
+
+function showSource(t) {
+  main.innerHTML = `<section class="reading-page">${back(t.cd)}<p class="place">${esc(t.name)}</p><h1>이 숫자는 어디서 왔나요?</h1>
+    <dl class="data-list"><div><dt>자료</dt><dd>지방재정365 「연말지출비율」<small>공개 API 코드: EJIEH</small></dd></div><div><dt>기준</dt><dd>${esc(t.year)}년 결산 · 보유 자료 생성일 ${esc(data.만든날)}</dd></div>
+    <div><dt>보유값</dt><dd>${esc(t.value ?? '자료 없음')}${typeof t.value === 'number' ? '%' : ''}${!valid(t.value) ? '<small>0~100% 범위로 해석할 수 없어 요약과 비교에서 제외합니다.</small>' : ''}</dd></div>
+    <div><dt>지표 정의</dt><dd>세출결산액 중 연말(11~12월)에 지출한 금액이 차지하는 비율입니다.<small>원자료의 금액 필드명은 ‘연말지출 원인행위액’입니다. 사업별 실제 지급 내역과 집계 범위는 원문 대조가 필요합니다.</small></dd></div>
+    <div><dt>해석할 때</dt><dd>비율만으로 낭비나 위법을 판단하지 않습니다. 사업의 일정·지급 사유를 함께 확인해야 합니다. 이 화면에는 아직 기관에 질의한 결과가 없습니다.</dd></div></dl>
+    <div class="detail-links"><a href="https://www.lofin365.go.kr/" target="_blank" rel="noopener">지방재정365에서 확인하기 ↗</a><a href="data.json" download="지방재정-보유자료.json">이 화면의 보유 자료 내려받기</a><a href="../site/?g#${encodeURIComponent(t.cd)}">보유한 상세 재정표 보기 →</a></div>
+    <p class="small">지방재정365에서 ‘연말지출비율’을 검색하면 원자료 안내를 찾을 수 있습니다. 내려받기 파일은 이 시안에서 사용하는 지역별 보유 수치입니다.</p>
+    <div class="notice">시민행동이 이어서 확인할 것은 <strong>어떤 사업에 지출이 몰렸고, 그 이유는 무엇인지</strong>입니다.</div><a class="button" href="${link(t.cd,'join')}">이 동네 후속 소식 받기 →</a></section>`;
+}
+
+function showJoin(t) {
+  main.innerHTML = `<section class="join-page">${back(t.cd)}<h1>${esc(t.short)}의 다음 이야기,<br>시민행동과 이어가요.</h1>
+    <p class="join-lead">관련 확인 결과와 함께할 기회가 마련되면 알려드릴게요. 참여·후원 안내 전화도 원하시면 선택해 주세요.</p>
+    <div class="interest"><small>관심을 남길 동네와 질문</small><strong>${esc(t.name)} · ${issue}</strong><p>어떤 사업에 지출이 몰렸고, 이유는 무엇인지.</p></div>
+    <form id="join-form"><p class="notice small">신청 화면 미리보기입니다. 실제 연락처는 입력하지 마세요. 아래 항목은 운영안 검토용이며 실제 접수는 하지 않습니다.</p>
+      <label class="field-label" for="phone">휴대전화 번호</label><input class="field" id="phone" type="tel" inputmode="tel" autocomplete="off" placeholder="010-0000-0000" aria-describedby="phone-note"><p class="small" id="phone-note">문자로 활동 소식을 받을 번호입니다. 이름 등 추가 정보는 이 단계에서 묻지 않습니다.</p>
+      <fieldset class="consent"><legend>받을 안내를 골라 주세요</legend>
+        <label class="check"><input type="checkbox" id="news"><span>이 동네의 후속 소식과 활동 안내를 문자로 받겠습니다.<small>관련 확인 결과나 참여 기회가 마련되면 안내합니다.</small></span></label>
+        <label class="check"><input type="checkbox" id="calls"><span>참여·후원 안내 전화를 받겠습니다. (선택)<small>함께하는 시민행동이 활동 참여와 정기후원을 안내하는 전화입니다.</small></span></label>
+      </fieldset>
+      <details><summary>개인정보 안내 문구 검토</summary><p>운영안: 함께하는 시민행동이 휴대전화 번호, 관심 지역·주제, 동의 내역을 신청한 안내를 위해 처리합니다. 실제 접수 전 보유기간, 철회 방법, 개인정보 처리방침과 동의 문구를 확정해야 합니다.</p><p>이 시안은 입력한 번호와 선택을 서버·브라우저 저장소에 보관하거나 전송하지 않습니다.</p></details>
+      <button class="button" type="submit">신청 완료 화면 미리보기 →</button><p class="small">시안을 살펴보는 버튼입니다. 소식 신청이나 전화 안내 동의가 실제로 접수되지는 않습니다.</p>
+    </form></section>`;
+  document.getElementById('join-form').addEventListener('submit', event => {
+    event.preventDefault();
+    const calls = document.getElementById('calls').checked, news = document.getElementById('news').checked;
+    document.getElementById('phone').value = '';
+    main.innerHTML = `<section class="confirmation"><p class="place">신청 완료 화면 미리보기</p><h1>관심이 다음 행동으로<br>이어지도록.</h1><p>실제 서비스에서는 ${esc(t.short)}와 ‘${issue}’에 대한 관심을 이어받아, 동의한 방식으로 소식과 참여 기회를 안내합니다.</p>
+      <div class="interest"><small>이 시안에서 선택한 안내</small><strong>${news ? '활동 소식 문자' : '문자 선택 안 함'} · ${calls ? '참여·후원 안내 전화' : '전화 선택 안 함'}</strong></div>
+      <p class="notice">지금은 시안입니다. 연락처를 저장하거나 전송하지 않았고, 실제 신청은 접수되지 않았습니다.</p>
+      <a class="button" href="${link(t.cd)}">동네의 질문으로 돌아가기</a><a class="button secondary" href="https://secure.donus.org/withaction0909/pay/step1" target="_blank" rel="noopener">정기후원 알아보기 ↗</a></section>`;
+    main.setAttribute('tabindex','-1');main.focus();window.scrollTo(0,0);
+  });
+}
+
+fetch('data.json').then(response => {if(!response.ok) throw Error('자료 연결 실패');return response.json();}).then(d => {
+  if(!Array.isArray(d.곳) || !Array.isArray(d.이름) || !d.지표?.['연말지출비율']?.비율) throw Error('자료 형식 확인 필요');
+  data = d;
+  const i = data.곳.findIndex(place => place[0] === params.get('cd'));
+  if(i < 0) return showHome(params.has('cd') ? '이 주소의 동네를 찾지 못했습니다. 이름으로 다시 찾아 주세요.' : '');
+  const t = townContext(i);
+  document.getElementById('change-town').hidden = false;
+  document.title = `${t.short}의 살림 · 함께하는 시민행동`;
+  ({compare:showComparison,source:showSource,join:showJoin}[params.get('view')] || showTown)(t);
+}).catch(() => {
+  main.innerHTML = '<section class="loading"><h1>동네 자료를 불러오지 못했습니다.</h1><p>연결을 확인한 뒤 다시 열어 주세요.</p><button class="button" id="retry">다시 불러오기</button></section>';
+  document.getElementById('retry').addEventListener('click',()=>location.reload());
+});
+</script>
+</body>
+</html>
