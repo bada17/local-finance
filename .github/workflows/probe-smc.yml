@@ -5,9 +5,24 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
       - run: |
-          curl -sS -m 30 -o /dev/null -w "https %{http_code}\n" https://ms.smc.seoul.kr/ || true
-          curl -sS -m 30 -o /dev/null -w "http %{http_code}\n" http://ms.smc.seoul.kr/ || true
-          curl -sS -m 30 -o /dev/null -w "tls1.2 %{http_code}\n" --tlsv1.2 --tls-max 1.2 https://ms.smc.seoul.kr/ || true
-          curl -sS -m 30 -o /dev/null -w "smc-main %{http_code}\n" https://www.smc.seoul.kr/ || true
-          curl -sS -m 30 -o /dev/null -w "seoul.go.kr %{http_code}\n" https://www.seoul.go.kr/ || true
+          cat > p.py <<'PY'
+          import ssl, urllib.request
+          u = 'https://ms.smc.seoul.kr/kr/assembly/recordLocation.do?sTh=0&keyword=%EB%85%B8%EB%93%A4%EC%84%AC&pageNum=1'
+          def ctx(kind):
+              c = ssl.create_default_context()
+              if 'sec1' in kind: c.set_ciphers('DEFAULT@SECLEVEL=1')
+              if 'legacy' in kind: c.options |= 0x4
+              if 'eof' in kind: c.options |= getattr(ssl, 'OP_IGNORE_UNEXPECTED_EOF', 0x80)
+              return c
+          for k in ['plain', 'eof', 'sec1', 'legacy', 'sec1+legacy+eof']:
+              try:
+                  r = urllib.request.urlopen(urllib.request.Request(u, headers={'User-Agent': 'Mozilla/5.0'}), timeout=40, context=ctx(k))
+                  b = r.read(); print(k, 'OK', len(b))
+              except Exception as e:
+                  print(k, 'FAIL', repr(e)[:120])
+          PY
+          python p.py
