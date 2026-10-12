@@ -73,6 +73,9 @@ def 부르기(끝점, 길, 키, 해, 쪽, 개수=1000, 되풀이=3):
     # 머리 이름이 갈래마다 다르다(`openXmlMngInfo-header` 꼴) — 꼬리로 찾는다
     머리 = next((e for e in 뿌리 if e.tag.endswith('-header')), None)
     코드 = 머리.findtext('resultCode') if 머리 is not None else None
+    # 03 NODATA — 아직 안 올라온 해(올해 경영정보 등). 거절이 아니라 빈 것이다(2026-10-12 달마다 봇에서 멈춤)
+    if 코드 in ('3', '03'):
+        return [], 0
     if 코드 not in (None, '0', '00'):
         raise SystemExit(f'{길} 거절 — {코드} {머리.findtext("resultMsg")}')
 
@@ -124,6 +127,9 @@ def main():
             담[이름] = 줄
             셈.append(f'{이름} {len(줄):,}/{전체:,}')
             time.sleep(0.2)
+        if not any(담.values()):
+            print(f'{해} — 아직 올라온 것이 없다 (파일 안 씀)')
+            continue
         with gzip.open(길이름, 'wt', encoding='utf-8') as f:
             json.dump(담, f, ensure_ascii=False)
         기관 = {r.get('ENT_NAME') for 줄 in 담.values() for r in 줄}

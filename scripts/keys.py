@@ -22,6 +22,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     'DATA_GO_KR_KEY': 'data.go.kr 조달청 — 나라장터 4종 + 국고보조금',
     'EDU_ALIMI_KEY': '지방교육재정알리미 (교육부)',
     'CLIK_KEY': '지방의정포털 CLIK (국회도서관) — 하루 1,000회 한도',
+    'ASSEMBLY_KEY': '열린국회정보 (국회사무처) — 회의록 목록. 본문 검색은 없다',
     'OPENFISCAL_KEY': '열린재정 (기재부) — 후순위, 아직 안 쓴다',
 }
 

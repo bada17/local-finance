@@ -132,4 +132,5 @@ async function main() {
   try { fs.rmSync(프로필, { recursive: true, force: true }); } catch (_) { /* 임시 폴더다 */ }
 }
 
-main().catch(e => { console.error('FAIL', e); process.exit(1); });
+module.exports = { 첫화면, 뿌리, 열기 };
+if (require.main === module) main().catch(e => { console.error("FAIL", e); process.exit(1); });

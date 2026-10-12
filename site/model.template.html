@@ -177,6 +177,7 @@ footer{margin:48px 0 38px;padding-top:22px;font-size:13px;line-height:1.85;borde
 .clik-list{list-style:none;margin:0;padding:0;border-top:2px solid var(--ink)}.clik-list li{display:grid;grid-template-columns:105px minmax(0,1fr);gap:22px;padding:20px 0;border-bottom:1px solid var(--line)}
 .clik-list time{font:12px/1.8 var(--mono);color:var(--muted)}.clik-list a{font-size:16px;font-weight:700;text-decoration:none}.clik-list a:hover{text-decoration:underline}
 .clik-list p{font-size:12px;color:var(--muted);margin:4px 0 0;overflow-wrap:anywhere}.clik-list p span{margin-left:9px}.clik-pages{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:18px 0;font-size:12px;color:var(--muted)}
+.clik-note{border:1px solid var(--line);padding:16px 19px;margin:20px 0}.clik-note h3{font-size:15px;margin:0 0 10px}.clik-note ul{margin:0;padding-left:0;list-style:none}.clik-note li{font-size:14px;line-height:1.8;margin:0 0 8px}.clik-note .clik-tag{white-space:nowrap}.clik-note .clik-tag.unsure{border-style:dashed;background:none}
 .clik-empty{padding:30px;background:var(--sunk);font-size:14px}.clik-tag{font-size:10px;padding:2px 5px;background:var(--sunk);border:1px solid var(--line)}
 @media(min-width:1001px){
   .scroll:not(.needs-scroll){overflow:visible;max-height:none}.scroll:not(.needs-scroll) thead th{position:sticky;top:0;z-index:3}
@@ -203,16 +204,22 @@ footer{margin:48px 0 38px;padding-top:22px;font-size:13px;line-height:1.85;borde
 </style>
 
 <a class="skip-link" href="#app">본문으로 바로 가기</a>
-<header class="site-header"><div class="wrap site-masthead"><a class="site-brand" href="./">살림을 보는 시민<small>함께하는 시민행동 · 지방재정 감시</small></a><nav class="site-navigation" aria-label="전체 화면"><a href="./" aria-current="page">자치단체별</a><a href="board.html">시황판</a><a href="transparency.html">공시 점검</a><a href="catalog.html">자료 목록</a><a href="edu.html">교육청</a><a href="datamap.html">데이터 지도</a></nav></div></header>
+<header class="site-header"><div class="wrap site-masthead"><a class="site-brand" href="./">살림을 보는 시민<small>함께하는 시민행동 · 지방재정 감시</small></a><nav class="site-navigation" aria-label="전체 화면"><a href="./?g" id="nav-dash">대시보드</a><a href="./" id="nav-finance" aria-current="page">★우선 자치단체별</a><a href="./#,의회" id="nav-council">지방의회</a><a href="review.html">★우선 투자심사</a><a href="board.html">시황판</a><a href="transparency.html">공시 점검</a><a href="score.html">★우선 투명성 지표</a><a href="catalog.html">★우선 자료 목록</a><a href="edu.html">교육청</a><a href="datamap.html">★우선 데이터 지도</a></nav></div></header>
 
-<div class="wrap"><header class="page-intro"><div><p class="section-kicker">지방재정을 시민의 눈으로</p><h1>살림을 이해하고,<br>쓰임을 묻습니다.</h1></div><div class="intro-guide"><p>우리 동네의 예산부터 계약과 의회 기록까지.<br><b>숫자의 규모와 맥락을 먼저 살피고,<br>그 돈이 어디로 갔는지 확인합니다.</b></p><p class="reading-order">규모 → 흐름 → 출처 → 선택 → 감시 → 이름</p></div></header><div class="selection-bar" aria-label="지역과 자료 선택"><span class="grp" id="loc"></span><span class="grp" id="view"></span></div></div>
+<div class="wrap"><header class="page-intro"><div><p class="section-kicker" id="kicker">지방재정을 시민의 눈으로</p><h1>살림을 이해하고,<br>쓰임을 묻습니다.</h1></div><div class="intro-guide"><p>우리 동네의 예산부터 계약과 의회 기록까지.<br><b>숫자의 규모와 맥락을 먼저 살피고,<br>그 돈이 어디로 갔는지 확인합니다.</b></p><p class="reading-order">규모 → 흐름 → 출처 → 선택 → 감시 → 이름</p></div></header><div class="selection-bar" aria-label="지역과 자료 선택"><span class="grp" id="loc"></span><span class="grp" id="view"></span></div></div>
 <main class="wrap" id="app"></main>
 
+<script src="charts.js"></script>
 <script>
 /* 243곳의 목록만 화면에 박혀 있고, 고른 곳의 데이터는 그때 받아 온다.
    243곳을 다 담으면 2.3MB 라 페이지가 무거워진다. */
 const INDEX = __INDEX__;
 const 곳맵 = Object.fromEntries(INDEX.곳.map(x => [x.cd, x]));
+/* 한 화면을 두 메뉴가 나눠 쓴다(2026-10-01 사용자) — 「대시보드」(./?g)는 그래프만, 「자치단체별」(./)은 표만.
+   그래프가 있는 판은 결산·예산·세입뿐이라 대시보드에는 그 셋만 연다. */
+const 그래프 = new URLSearchParams(location.search).has('g');
+const 그래프판 = ['결산', '예산', '세입'];
+const 그림 = s => 그래프 ? s : '';
 const 곳캐시 = {};
 async function 곳데이터(cd){
   if (!(cd in 곳캐시)) {
@@ -229,7 +236,7 @@ function 주소읽기(){
   const [cd, v, q] = decodeURIComponent(location.hash.slice(1)).split(',');
   return {
     cd: 곳맵[cd] ? cd : (곳맵['2600000'] ? '2600000' : INDEX.곳[0].cd),
-    판: ['결산', '예산', '세입', '진행중', '계약'].includes(v) ? v : '결산',
+    판: ['결산', '예산', '세입', '진행중', '계약', '의회'].includes(v) ? v : '결산',
     찾기: q || '',
   };
 }
@@ -239,8 +246,9 @@ function 주소쓰기(){
   history.replaceState(null, '', '#' + 지금곳 + 뒤);
 }
 const 첫판 = 주소읽기();
+if (그래프) document.getElementById('kicker').textContent = '대시보드 — 고른 곳을 그래프로';
 let 지금곳 = 첫판.cd;
-let 판 = 첫판.판;
+let 판 = 그래프 && !그래프판.includes(첫판.판) ? '결산' : 첫판.판;
 
 const 정식 = {서울:'서울특별시', 부산:'부산광역시', 대구:'대구광역시', 인천:'인천광역시',
   광주:'광주광역시', 대전:'대전광역시', 울산:'울산광역시', 세종:'세종특별자치시',
@@ -257,6 +265,8 @@ const 이름of = d => d.진행만 ? d.이름            // 2026년에 바뀐 구
   : d.갈래 === '광역' ? (정식[d.시도] || d.이름)
   : (d.이름.startsWith(d.시도) ? d.이름.slice(d.시도.length) : d.이름);
 
+/* 중앙투자심사 표의 곳 표기 — 「전남(여수시)」·「서울(본청)」 */
+const 심사키 = d => `${d.시도}(${d.갈래 === '광역' ? '본청' : 이름of(d)})`;
 const n0 = v => v == null ? '' : Math.round(v).toLocaleString('ko-KR');
 const n1 = v => v == null ? '' : v.toLocaleString('ko-KR', {minimumFractionDigits:1, maximumFractionDigits:1});
 function 돈(v){
@@ -264,6 +274,7 @@ function 돈(v){
   const a = Math.abs(v);
   if (a >= 1e12) return (v/1e12).toLocaleString('ko-KR',{maximumFractionDigits:2}) + '조';
   if (a >= 1e8)  return (v/1e8 ).toLocaleString('ko-KR',{maximumFractionDigits:0}) + '억';
+  if (a >= 1e4)  return (v/1e4 ).toLocaleString('ko-KR',{maximumFractionDigits:0}) + '만';
   return n0(v);
 }
 
@@ -279,14 +290,17 @@ function table(cols, rows){
 /* 순위·중앙값·최소·최대는 화면에서 뺐다(2026-09-21 사용자 지시) —
    "이런 것은 아직 전혀 필요없어. 지금 해야 하는 건 어떤 것들이 있나".
    데이터에는 그대로 있으니 필요해지면 되살리면 된다. */
+/* 「구분」 — API 가 당초·최종을 밝히지 않은 예산 지표는 빈칸 대신 그렇다고 적는다(2026-09-30) */
+const 구분말 = 기준 => 기준 === '예산' ? '예산 · 당초/최종 표시 없음'
+  : 기준.replace('[', ' ').replace(']', '');
 function 지표행(m){
   const 천원 = m.단위 === '천원';
   return `<tr>
     <td>${m.이름}</td>
-    <td class="yr">${m.기준.replace('예산','')|| '—'}</td>
+    <td class="yr">${구분말(m.기준)}</td>
     <td class="yr">${m.연도}</td>
     ${m.비율 == null ? '<td class="dim">—</td>'
-      : `<td>${n1(m.비율)}${천원 ? '' : m.단위}</td>`}
+      : `<td>${m.비율 > 0 && m.비율 < 1 ? m.비율.toFixed(3) : n1(m.비율)}${천원 ? '' : m.단위}</td>`}
     <td>${천원 ? n0(m.금액) + ' 천원' : 돈(m.금액)}<span class="raw">${n0(m.금액)}</span></td>
   </tr>`;
 }
@@ -302,13 +316,15 @@ const 축설명 = {
 const 판설명 = {
   '결산': d => `<b>결산</b> — 이미 쓰고 나서 확정된 실적이다. 숫자가 다시 바뀌지 않는다.
     ${d.결산연도}년이 최신이고 ${Number(d.결산연도)+1}년 결산은 아직 안 올라왔다.
-    수의계약비율만 계약 <b>실적</b> 기준이다.`,
+    수의계약비율만 계약 <b>실적</b> 기준이다.<br>${세입세출말}`,
   '예산': d => `<b>예산</b> — 아직 쓰기 전의 계획이다. <b>당초</b>는 그 해 처음 짠 것,
-    <b>최종</b>은 추경까지 반영된 것. 당초는 ${d.예산연도}년까지 있고 최종은 추경이 끝나야
-    나오므로 한 해 늦다. ⚠️ 지방재정365는 <b>1차·2차 추경을 구분해 주지 않는다</b> —
-    「최종」 하나뿐이라 몇 차 추경인지는 알 수 없다. 당초/최종 표시가 없는 지표는
-    API 가 시점을 밝히지 않은 것이다.`
+    <b>최종</b>은 추경까지 반영된 것. 최종은 추경이 끝나야 나오므로 한 해 늦다 —
+    그래서 자립도·자주도는 <b>당초와 최종을 같은 해로 맞춰</b> 나란히 두었다(차이가 그 해 추경의 몫이다).
+    ⚠️ 지방재정365는 <b>1차·2차 추경을 구분해 주지 않는다</b> — 「최종」 하나뿐이라 몇 차 추경인지는 알 수 없다.<br>${세입세출말}`
 };
+/* 「결산 기준」·「예산 기준」 판이 세출만인지 묻는 말이 있었다(2026-09-30) — 둘 다 담는다고 밝힌다 */
+const 세입세출말 = `이 판은 <b>세입과 세출을 함께</b> 담는다 — ① 규모는 둘 다, ② 어디서 오나는 <b>세입</b>,
+    ③ 어디에 쓰나·④ 새는 곳은 <b>세출</b>, ⑤ 빚은 둘 다. 세입만 자세히 보려면 「세입」 판, 사업별 세출과 집행은 「세출과 집행」 판.`;
 
 /* ───── 진행 중인 사업 (QWGJK 세부사업별 세출, 일별 누계) ───── */
 
@@ -450,7 +466,7 @@ function 진행칠하기(o){
 async function renderOngoing(cd, d){
   const app = document.getElementById('app');
   app.innerHTML = `<h1>${이름of(d)} <span class="cd">${d.laf_cd}</span></h1>
-    <p class="note">진행 중인 사업을 받아 오는 중…</p>`;
+    <p class="note">세출과 집행 자료를 받아 오는 중…</p>`;
   맞추기();
 
   const o = await 진행데이터(cd);
@@ -461,11 +477,11 @@ async function renderOngoing(cd, d){
     app.innerHTML = `<h1>${이름of(d)} <span class="cd">${d.laf_cd}</span></h1>
       <p class="basis">${뒤
         ? `이 자치단체는 <b>2026년에 구역이 바뀌었다.</b> 결산·예산 지표는 옛 구역 기준으로 남아 있지만,
-           진행 중인 사업은 <b>새 이름으로</b> 올라온다.<br>${뒤}`
-        : `이 자치단체의 <b>진행 중인 사업</b> 자료가 아직 없다.
+           세출과 집행 자료는 <b>새 이름으로</b> 올라온다.<br>${뒤}`
+        : `이 자치단체의 <b>세출과 집행</b> 자료가 아직 없다.
            지방재정365는 단체마다 올리는 시점이 다르다.`}</p>`;
     app.querySelectorAll('button[data-go]').forEach(b => b.onclick = () => {
-      지금곳 = b.dataset.go; pick.value = 지금곳; 주소쓰기(); render();
+      지금곳 = b.dataset.go; 곳맞추기(지금곳); 주소쓰기(); render();
     });
     return;
   }
@@ -481,7 +497,7 @@ async function renderOngoing(cd, d){
       <span>기준 <b>${기준}</b></span>
     </p>
     ${d.새로생김 ? `<p class="basis">⚠️ <b>2026년에 새로 생긴 구역이다.</b>
-      결산(2024)·예산(2026) 지표는 옛 구역 기준이라 이 이름으로는 없다. 진행 중인 사업만 볼 수 있다.</p>` : ''}
+      결산(2024)·예산(2026) 지표는 옛 구역 기준이라 이 이름으로는 없다. 세출과 집행만 볼 수 있다.</p>` : ''}
     <p class="basis"><b>진행 중</b> — 올해 짜 놓은 세부사업과, ${기준}까지 <b>실제로 나간 돈</b>이다.
       결산이 아니라 <b>지금 집행 중인 숫자</b>라 날마다 바뀐다.
       지출액은 그날까지의 <b>누계</b>이며, 출납폐쇄 전이라 뒤에 정리되면서 달라질 수 있다.</p>
@@ -727,6 +743,14 @@ function 맞추기(){
     b.setAttribute('aria-selected', String(b.dataset.v === 판));
     b.disabled = 진행만 && !['진행중', '계약'].includes(b.dataset.v);
   });
+  /* 의회는 맨 위 메뉴 「지방의회」다 — 같은 화면을 쓰되 재정 판 단추를 감추고, 고른 곳은 서로 넘겨 준다 */
+  const 의회 = 판 === '의회';
+  document.getElementById('view').style.display = 의회 ? 'none' : '';
+  const [대시, 재정, 의회링크] = ['nav-dash', 'nav-finance', 'nav-council'].map(id => document.getElementById(id));
+  대시.href = './?g#' + 지금곳; 재정.href = './#' + 지금곳; 의회링크.href = `./#${지금곳},의회`;
+  const 지금 = 그래프 ? 대시 : 의회 ? 의회링크 : 재정;
+  [대시, 재정, 의회링크].forEach(a => a === 지금 ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'));
+  document.title = `살림을 보는 시민 — ${그래프 ? '대시보드' : 의회 ? '지방의회' : '자치단체별 지방재정'}`;
 }
 
 /* ───── 세입 판 — 돈이 어디서 오나 (data/revenue/<코드>.json) ─────
@@ -754,29 +778,6 @@ async function 세입가운데(){
   return 세입색인;
 }
 
-/* 막대 하나 — 재원 구성을 글자 없이도 읽히게.
-   세목은 「시세·취득세」처럼 앞에 임자가 붙는다 — **임자로 색을 나눈다**
-   (광역이 걷는 시세·도세 대 이 곳이 걷는 구세·군세). */
-function 띠(칸){
-  const 임자색 = {'시세':'#2f6f4f','도세':'#2f6f4f','구세':'#b4552d','군세':'#b4552d'};
-  const 첫 = 칸[0]?.이름 || '';
-  if (첫.includes('·')) {
-    return `<div class="bar">${칸.filter(x => x.몫 >= 0.3).map(x => {
-      const 임 = x.이름.split('·')[0];
-      const c = 임자색[임] || '#8d8d8d';
-      return `<span style="width:${x.몫}%;background:${c};opacity:${0.55 + Math.min(x.몫, 40) / 90}"
-        title="${x.이름.replace('·', ' · ')} ${x.몫}%"></span>`;
-    }).join('')}</div>`;
-  }
-  const 색 = {'지방세수입':'#2f6f4f','세외수입':'#4e9c78','지방교부세':'#c98a3a',
-              '조정교부금및재정보전금':'#d4a857','조정교부금등':'#d4a857','교부금':'#d4a857',
-              '보조금':'#b4552d','지방채':'#8a3b3b','지방채및예치금회수':'#8a3b3b',
-              '보전수입등및내부거래':'#8d8d8d','지방양여금':'#c98a3a'};
-  return `<div class="bar">${칸.filter(x => x.몫 >= 0.2).map(x =>
-    `<span style="width:${x.몫}%;background:${색[x.이름] || '#aaa'}"
-      title="${x.이름} ${x.몫}%"></span>`).join('')}</div>`;
-}
-
 function 세입표(제목, 설명, 속){
   return `<h2>${제목}<small>${설명}</small></h2>${속}`;
 }
@@ -799,8 +800,12 @@ async function renderRevenue(cd){
   const 재 = d.재원, 체 = (d.체납 || [])[d.체납.length - 1];
   const 면 = (d.감면 || [])[d.감면.length - 1];
 
-  /* ① 얼마가 들어오나 */
-  const 규모 = table(['구분','연도','총계','일반회계','특별회계·기금'], [
+  /* ① 얼마가 들어오나 — 결산(들어온 것)과 예산(잡은 것) 5년씩을 한 축에 */
+  const 해들 = [...new Set([...결.slice(-5), ...예.slice(-5)].map(x => x.해))].sort();
+  const 해값 = (목, 해) => 목.find(x => x.해 === 해)?.총계 ?? null;
+  const 규모그림 = 해들.length && 그래프 ? Chart.자리('선', {해: 해들, 단위: '원', 제목: '세입 결산·예산',
+    계열: [{이름: '세입 예산', 값: 해들.map(h => 해값(예, h)), 색: 2}, {이름: '세입 결산', 값: 해들.map(h => 해값(결, h)), 색: 1}]}) : '';
+  const 규모 = 규모그림 + 접기(table(['구분','연도','총계','일반회계','특별회계·기금'], [
     끝결 ? `<tr><td>세입 결산</td><td class="yr">${끝결.해}</td>
       <td>${돈(끝결.총계)}<span class="raw">${n0(끝결.총계)}</span></td>
       <td>${돈(끝결.일반회계)}</td>
@@ -809,18 +814,19 @@ async function renderRevenue(cd){
       <td>${돈(끝예.총계)}<span class="raw">${n0(끝예.총계)}</span></td>
       <td>${돈(끝예.일반회계)}</td>
       <td>${돈((끝예.공기업특별||0)+(끝예.기타특별||0)+(끝예.기금||0))}</td></tr>` : '',
-  ].filter(Boolean));
+  ].filter(Boolean)))
+    + `<p class="basis">예산은 <b>최종</b>(추경 반영) 기준이라 결산보다 해가 앞선다.${그래프 ? ' 같은 해의 두 선 사이가 <b>잡은 것과 들어온 것의 차이</b>다.' : ''}</p>`;
 
   /* ② 어디서 오나 — 예산(잡은 것)과 결산(들어온 것)을 나란히 */
   const 예재 = d.재원예산;
   const 한덩이 = (묶, 무엇) => 묶 ? `
     <h3>${무엇} <span class="yr">${묶.해}년</span></h3>
-    ${띠(묶.칸)}
-    ${table(['재원','금액','몫'], 묶.칸.map(x =>
+    ${그림(Chart.자리('쌓기', {칸: 재원차례(묶.칸), 색: 재원색}))}
+    ${접기(table(['재원','금액','몫'], 묶.칸.map(x =>
       `<tr><td>${x.이름}${x.밖에서 === false
           ? ' <b title="밖에서 새로 들어온 돈이 아니다">※</b>' : ''}</td>
        <td>${돈(x.금액)}<span class="raw">${n0(x.금액)}</span></td>
-       <td>${n1(x.몫)}%</td></tr>`))}` : `<h3>${무엇}</h3><p class="basis">자료가 없다.</p>`;
+       <td>${n1(x.몫)}%</td></tr>`)))}` : `<h3>${무엇}</h3><p class="basis">자료가 없다.</p>`;
   const 구성 = `${한덩이(예재, '예산 — 들어올 것으로 잡은 것')}
     ${한덩이(재, '결산 — 실제로 들어온 것')}
     <p class="basis"><b>예산은 추정이고 결산은 실적이다.</b> 둘을 섞지 않고 나란히 두었다.
@@ -842,11 +848,11 @@ async function renderRevenue(cd){
   /* ③ 무슨 세금인가 — 세목별 */
   const 세 = d.세목;
   const 원 = v => 세?.천원단위 ? (v == null ? v : v * 1000) : v;
-  const 세금 = 세 ? `${띠(세.칸)}
-    ${table(['세목','징수액','몫'], 세.칸.map(x =>
+  const 세금 = 세 ? `${그림(Chart.자리('막대', {단위: '원', 줄: 세.칸.map(x => ({이름: x.이름.replace('·', ' · '), v: 원(x.금액), 꼬리: n1(x.몫) + '%'}))}))}
+    ${접기(table(['세목','징수액','몫'], 세.칸.map(x =>
       `<tr><td>${x.이름.replace('·', ' · ')}</td>
        <td>${돈(원(x.금액))}<span class="raw">${n0(원(x.금액))}</span></td>
-       <td>${n1(x.몫)}%</td></tr>`))}
+       <td>${n1(x.몫)}%</td></tr>`)))}
     <p class="basis">${세.해}년 · <b>${세.단위}</b> 기준.
       ${세.이곳것아님
         ? `⚠️ <b>이 자치단체만의 세목별 자료를 못 찾았다.</b> 여기 숫자는
@@ -861,11 +867,13 @@ async function renderRevenue(cd){
     : '<p class="basis">세목별 자료가 없다.</p>';
 
   /* ③ 걷힌 것과 밀린 것 */
-  const 밀림 = 체 ? `${table(['연도','체납 누계','지방세 체납','세외수입 체납','지방세 징수액 대비'],
+  const 밀림 = 체 ? `${그림(Chart.자리('기둥', {단위: '원', 제목: '체납 누계',
+      칸: (d.체납 || []).slice(-6).map(x => ({x: String(x.해), v: x.누계, 꼬리: x.징수대비 == null ? '' : `지방세 징수액의 ${n1(x.징수대비)}%`}))}))}
+    ${접기(table(['연도','체납 누계','지방세 체납','세외수입 체납','지방세 징수액 대비'],
     (d.체납 || []).slice(-6).reverse().map(x =>
       `<tr><td class="yr">${x.해}</td><td>${돈(x.누계)}<span class="raw">${n0(x.누계)}</span></td>
        <td>${돈(x.지방세)}</td><td>${돈(x.세외수입)}</td>
-       <td>${x.징수대비 == null ? '<span class="dim">—</span>' : n1(x.징수대비) + '%'}</td></tr>`))}
+       <td>${x.징수대비 == null ? '<span class="dim">—</span>' : n1(x.징수대비) + '%'}</td></tr>`)))}
     <p class="basis">체납은 <b>쌓인 총액</b>이지 그 해에 새로 밀린 돈이 아니다.
       맨 오른쪽은 그 해 지방세 징수액에 견준 것 — ${체.징수대비 != null
         ? `이 곳은 ${n1(체.징수대비)}%, 전국 가운데값은 ${가.체납대비 != null ? n1(가.체납대비) + '%' : '—'}`
@@ -873,11 +881,13 @@ async function renderRevenue(cd){
     : '<p class="basis">체납 자료가 없다.</p>';
 
   /* ④ 깎아 준 돈 */
-  const 깎음 = 면 ? `${table(['연도','비과세액','감면액','지방세 징수액','비과세·감면율'],
+  const 깎음 = 면 ? `${그림(Chart.자리('기둥', {단위: '%', 제목: '비과세·감면율',
+      칸: (d.감면 || []).slice(-6).map(x => ({x: String(x.해), v: x.감면율, 꼬리: `비과세 ${돈(x.비과세)} · 감면 ${돈(x.감면)}`}))}))}
+    ${접기(table(['연도','비과세액','감면액','지방세 징수액','비과세·감면율'],
     (d.감면 || []).slice(-6).reverse().map(x =>
       `<tr><td class="yr">${x.해}</td><td>${돈(x.비과세)}</td><td>${돈(x.감면)}</td>
        <td>${돈(x.징수)}</td>
-       <td>${x.감면율 == null ? '<span class="dim">—</span>' : n1(x.감면율) + '%'}</td></tr>`))}
+       <td>${x.감면율 == null ? '<span class="dim">—</span>' : n1(x.감면율) + '%'}</td></tr>`)))}
     <p class="basis">걷을 수 있었는데 <b>법으로 안 걷기로 한 돈</b>이다. 낮다고 좋은 것도,
       높다고 나쁜 것도 아니다 — 무엇을 깎아 줬는지가 중요하다.
       전국 가운데값은 ${가.감면율 != null ? n1(가.감면율) + '%' : '—'}.</p>`
@@ -885,19 +895,28 @@ async function renderRevenue(cd){
 
   /* ⑤ 상과 벌 — 머리기사 */
   const 벌 = d.감액 || [];
+  // 깎인 적 없는 해도 칸을 둔다(0) — 빠뜨리면 해 간격이 들쭉날쭉해 보인다
+  const 벌해 = 벌.length ? Array.from({length: Math.max(...벌.map(x => x.해)) - Math.min(...벌.map(x => x.해)) + 1}, (_, k) => Math.min(...벌.map(x => x.해)) + k) : [];
   const 상벌 = `${벌.length ? `
+    ${벌해.length > 1 && 그래프 ? Chart.자리('기둥', {단위: '원', 제목: '해마다 깎인 교부세',
+      칸: 벌해.map(h => { const 것 = 벌.filter(x => x.해 === h); return {x: String(h), v: 것.reduce((s, x) => s + (x.금액 || 0), 0), 꼬리: `${것.length}건`}; })}) : ''}
     <p class="basis"><b>교부세에서 깎인 돈이 ${돈(d.감액합계)}</b>
       (${벌.length}건, ${벌[벌.length-1].해}~${벌[0].해}).
       전국으로는 ${색인.전국?.감액곳 || '—'}곳에서 ${돈(색인.전국?.감액합계)}가 깎였다.</p>
-    ${table(['연도','감액','사유','위반 지출 내역'], 벌.slice(0, 20).map(x =>
+    ${그래프 ? '' : table(['연도','감액','사유','위반 지출 내역'], 벌.slice(0, 20).map(x =>
       `<tr><td class="yr">${x.해}</td>
        <td>${돈(x.금액)}<span class="raw">${n0(x.금액)}</span></td>
        <td>${x.사유 || '<span class="dim">—</span>'}</td>
        <td class="long">${x.내역 || '<span class="dim">—</span>'}</td></tr>`))}
-    ${벌.length > 20 ? `<p class="note">최근 20건만 보였다(모두 ${벌.length}건).</p>` : ''}`
+    ${벌.length > 20 && !그래프 ? `<p class="note">최근 20건만 보였다(모두 ${벌.length}건).</p>` : ''}`
     : '<p class="basis">깎인 적이 없다.</p>'}
-    ${d.인센티브합계 ? `<p class="basis">거꾸로 인센티브로 받은 돈은
-      ${돈(d.인센티브합계)}다(${(d.인센티브||[]).length}개 해).</p>` : ''}`;
+    ${d.인센티브합계 ? `<h3 style="margin-top:28px">거꾸로 — 인센티브로 받은 돈 <span class="yr">${돈(d.인센티브합계)} · ${(d.인센티브||[]).length}개 해</span></h3>
+    ${그래프 ? '' : table(['연도', '받은 돈', '무슨 분야로'], (d.인센티브 || []).map(x =>
+      `<tr><td class="yr">${x.해}</td><td>${돈(x.금액)}<span class="raw">${n0(x.금액)}</span></td>
+       <td style="white-space:normal">${Object.entries(x.분야 || {}).map(([k, v]) => `${k} ${돈(v)}`).join(' · ') || '<span class="dim">분야가 안 적혀 있다</span>'}</td></tr>`))}
+    <p class="note">지방교부세 인센티브 — 행정안전부 재정분야 평가에서 잘한 곳에 얹어 준 교부세다(<code>LLBSI</code>).
+      ⚠️ 지방재정365 가 주는 것은 <b>분야별 금액까지</b>다. 깎인 돈(감액)처럼 무슨 일로 받았는지 적은 글은 없다 —
+      평가 내용은 행정안전부 평가 결과 발표에서 찾아야 한다.</p>` : ''}`;
 
   app.innerHTML = `<h1>${이름of(곳맵[cd] || {이름: cd})}</h1>
     <p class="basis"><b>세입</b> — 지금까지 화면은 <b>쓰는 쪽</b>만 보여 줬다.
@@ -912,7 +931,16 @@ async function renderRevenue(cd){
     <p class="note">자료 — 지방재정365 세입 계열 43종(<code>data/revenue/</code>).
       ⚠️ 자료마다 있는 해가 다르다. 없는 해는 빈칸으로 두었지 0 으로 채우지 않았다.
       ⚠️ 세목은 시·도 17곳까지만 나온다.</p>`;
+  Chart.그리기(app);
 }
+
+/* 표 — 자치단체별(./)에만 펼쳐 둔다. 대시보드(./?g)에서는 뺀다 */
+const 접기 = 속 => 그래프 ? '' : 속;
+/* 재원 띠 — 색은 재원 이름에 붙는다(곳마다 차례가 바뀌지 않게). 제 돈 → 받은 돈 → 빚·내부거래 */
+const 재원줄 = [['지방세수입'], ['세외수입'], ['지방교부세', '지방교부세 등', '지방양여금'],
+  ['조정교부금등', '조정교부금및재정보전금', '교부금'], ['보조금'], ['지방채', '지방채및예치금회수'], ['보전수입등및내부거래']];
+const 재원색 = Object.fromEntries(재원줄.flatMap((이름들, k) => 이름들.map(n => [n, k + 1])));
+const 재원차례 = 칸 => [...칸].sort((a, b) => (재원색[a.이름] ?? 9) - (재원색[b.이름] ?? 9));
 
 /* 2026년에 구역이 바뀐 곳 — 옛 이름으로는 진행 중인 사업이 안 올라온다 */
 const 바뀜 = {
@@ -947,13 +975,21 @@ async function renderFinance(){
   }
   if (판 === '진행중') return renderOngoing(cd, d);
   const 지표 = d.지표.filter(m => 판of(m) === 판);
+  const 전국 = await 전국표();
+  if (cd !== 지금곳) return;
 
+  /* ①~⑤ — 지표마다 점띠 한 줄(같은 종류 곳들 사이에서 이 곳이 어디쯤인가), 표는 접어 둔다.
+     2026-09-30 사용자 결정 — 「자치단체별 1~5번은 다 그래프로」. 그래서 21일에 뺐던 견줌이 점띠로 돌아왔다.
+     견주는 무리는 광역·시·군·구 가운데 같은 종류다(광역과 기초를 섞으면 돈이 두 번 세진다). */
+  const 무리 = 전국 ? 전국.무리(cd) : null;
   const byAxis = {};
   지표.forEach(m => (byAxis[m.축] ||= []).push(m));
   const 축들 = Object.keys(byAxis).map((axis, i) => `
     <h2>${'①②③④⑤⑥'[i] || ''} ${axis}<small>${축설명[axis] || ''}</small></h2>
-    ${table(['지표','구분','연도','비율','금액'],
-            byAxis[axis].map(지표행))}`).join('');
+    ${그래프 && 무리 && i === 0 ? `<p class="note">회색 점 하나가 <b>${무리.이름}</b> ${무리.곳.length}곳 가운데 한 곳이다. 초록이 이 곳, 세로 금이 가운데값. 점에 손을 대면 어느 곳인지 나온다.</p>` : ''}
+    ${그래프 ? (무리 ? byAxis[axis].map(m => 지표줄(m, 무리)).join('') : '<p class="basis">견줄 전국 표(data/dash.json)를 못 받았다.</p>')
+      + (axis === '규모' && 판 === '결산' && d.시계열?.length ? 추이칸(d) : '')
+      : table(['지표','구분','연도','비율','금액'], byAxis[axis].map(지표행))}`).join('');
 
   const docs = Object.entries(d.원문).map(([k, u]) =>
     `<li><b>${k}</b> <a href="${u}" target="_blank" rel="noopener">${u}</a></li>`).join('');
@@ -966,10 +1002,13 @@ async function renderFinance(){
       <span>이 판의 지표 <b>${지표.length}</b>종</span>
     </p>
     <p class="basis">${판설명[판](d)}</p>
-    <p class="note">순위·중앙값 같은 견줌은 화면에서 뺐다. 지금은 <b>무엇이 있는지</b>부터 본다 —
+    <p class="note">${그래프 ? `같은 종류 곳들 사이에서 <b>어디쯤인가</b>를 점띠로 보였다. 높고 낮음이 곧 잘잘못은 아니다 —
+      <a href="./#${d.laf_cd}${판 === '결산' ? '' : ',' + 판}">표로 보기</a>`
+      : `<a href="./?g#${d.laf_cd}${판 === '결산' ? '' : ',' + 판}">그래프로 보기(대시보드)</a>`} ·
       <a href="catalog.html">무슨 자료가 있나</a> ·
       <a href="transparency.html">공시 점검</a> ·
-      <a href="datamap.html">데이터 지도</a></p>
+      <a href="datamap.html">데이터 지도</a> ·
+      <a href="review.html#${encodeURIComponent(심사키(곳맵[d.laf_cd] || d))}">이 곳의 중앙투자심사</a></p>
     ${축들}
     <h2>원문<small>지방재정365 가 자치단체별 주소를 API 로 준다</small></h2>
     <ul class="docs">${docs}</ul>
@@ -992,18 +1031,73 @@ async function renderFinance(){
 
   document.querySelectorAll('#view button').forEach(b =>
     b.setAttribute('aria-selected', String(b.dataset.v === 판)));
+  Chart.그리기(app);
+}
+
+/* ───── 그래프 — site/data/dash.json(243곳 전국 표, build_dashboard.py) 을 한 번 받아 돌려 쓴다 ───── */
+let 전국캐시;
+async function 전국표(){
+  if (전국캐시 !== undefined) return 전국캐시;
+  try {
+    const D = await (await fetch('data/dash.json')).json();
+    const 곳 = D.곳.map(([cd, 이름, 시도, 갈래, 인구], i) => ({i, cd, 이름, 시도, 갈래, 인구}));
+    const 번 = Object.fromEntries(곳.map(p => [p.cd, p]));
+    const 이름표 = {광역: '광역자치단체', 시: '시', 군: '군', 구: '자치구'};
+    전국캐시 = {D, 곳, 번, 지표: Object.fromEntries(D.지표.map(m => [m.이름, m])),
+      무리: cd => { const me = 번[cd]; if (!me) return null;
+        return {me, 이름: 이름표[me.갈래] || me.갈래, 곳: 곳.filter(p => p.갈래 === me.갈래)}; }};
+  } catch (e) { 전국캐시 = null; }
+  return 전국캐시;
+}
+const 짧은이름 = p => p.갈래 === '광역' ? (정식[p.시도] || p.시도) : `${p.시도} ${p.이름.startsWith(p.시도) ? p.이름.slice(p.시도.length) : p.이름}`;
+
+function 지표줄(m, 무리){
+  const 표 = 전국캐시.지표[m.이름];
+  /* ① 규모는 비율이 아니라 금액으로(2026-09-30) — 1인당 두 지표는 총액(천원 → 원)을 앞에, 1인당은 작은 글씨로 */
+  const 규모금액 = m.축 === '규모' && 표.단위 === '천원';
+  const 단위 = 규모금액 ? '원' : 표.단위;
+  const 이름 = 규모금액 ? ({'1인당 세출예산액': '세출예산(일반회계)', '1인당 지방세부담액': '지방세 예산'}[m.이름] || m.이름) : m.이름;
+  const 값of = p => 규모금액 ? (표.금액[p.i] == null ? null : 표.금액[p.i] * 1000)
+    : 표.단위 === '원' || 표.비율[p.i] == null ? 표.금액[p.i] : 표.비율[p.i];
+  const vs = 무리.곳.map(p => ({cd: p.cd, 이름: 짧은이름(p), v: 값of(p)}));
+  const 숫 = vs.map(x => x.v).filter(v => v > 0);
+  const 로그 = 단위 === '원' && 숫.length > 1 && Math.max(...숫) / Math.min(...숫) > 30;
+  const 내 = 값of(무리.me);
+  const 위 = 내 == null ? null : vs.filter(x => x.v != null && x.v > 내).length + 1;
+  const 셈 = vs.filter(x => x.v != null).length;
+  const 금액 = 규모금액 ? ` · 주민 1인당 ${n0(m.비율)}천원` : 표.단위 === '%' && m.금액 != null ? ` · ${Chart.돈(m.금액)}원` : '';
+  return `<div class="ch-row"><div class="nm">${이름}
+      <b class="big">${Chart.값글(내, 단위)}</b>
+      <small>${구분말(m.기준)} ${m.연도}${금액}${위 ? ` · 큰 쪽에서 ${위}번째 / ${셈}곳` : ''}${로그 ? ' · 로그 눈금' : ''}</small></div>
+    ${Chart.자리('점띠', {값: vs, 나: 무리.me.cd, 단위, 로그, 제목: 이름,
+      누르면: c => { 지금곳 = c; 곳맞추기(c); 주소쓰기(); render(); scrollTo(0, 0); }})}</div>`;
+}
+
+/* 세출·세입 결산 5년 — 16년치를 받아 뒀지만 5년만 그린다(2026-09-21 사용자 결정) */
+function 추이칸(d){
+  const 끝5 = d.시계열.slice(-5);
+  return `<h3 style="margin-top:26px">세출·세입 결산 5년 <span class="yr">${끝5[0].연도}~${끝5[끝5.length - 1].연도}</span></h3>
+    ${Chart.자리('선', {해: 끝5.map(x => x.연도), 단위: '원', 제목: '세출·세입 결산 5년',
+      계열: [{이름: '세입 결산', 값: 끝5.map(x => x.세입), 색: 2}, {이름: '세출 결산', 값: 끝5.map(x => x.세출), 색: 1}]})}`;
 }
 
 /* CLIK: 선택한 곳만 받는다. 검색은 목록의 글자이며 전문 검색이 아니다. */
 const clikEsc = t => String(t ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const clikCache = new Map();
+/* 전문을 사람이 원문·집행 자료와 대조한 메모. 확인 못 한 것은 '확인 안 됨'으로 싣는다. */
+const clikNotes = fetch('data/clik_notes.json').then(r=>r.ok?r.json():{}).catch(()=>({}));
+const clikNotesHtml = notes => notes.map(n=>`<div class="clik-note"><h3>의회 기록에서 따라가 볼 것 · ${clikEsc(n.제목)}</h3><ul>${
+  n.줄.map(x=>`<li><span class="clik-tag${x.상태==='확인'?'':' unsure'}">${clikEsc(x.상태)}</span> ${clikEsc(x.글)}${
+    (x.근거||[]).map(([t,u])=>` <a href="${clikEsc(u)}" target="_blank" rel="noopener noreferrer">${clikEsc(t)} ↗</a>`).join('')}</li>`).join('')
+}</ul><p class="note">${clikEsc(n.확인한날)} 기준 사람이 확인한 내용입니다. 위법·낭비를 판단한 것이 아닙니다.</p></div>`).join('');
 let clikFilter = {cd:'',kind:'회의록',year:'',query:'',result:'',page:0};
 let renderSerial = 0;
 async function render(){
   const serial = ++renderSerial;
-  await renderFinance();
-  if (serial !== renderSerial) return;
+  if (판 !== '의회') return renderFinance();
+  맞추기();
   const cd = 지금곳;
+  document.getElementById('app').innerHTML = `<h1>${이름of(곳맵[cd] || {이름: cd})} <span class="cd">${cd}</span></h1>`;
   if (clikFilter.cd !== cd) clikFilter = {cd,kind:'회의록',year:'',query:'',result:'',page:0};
   document.getElementById('clik-panel')?.remove();
   const panel = document.createElement('section');
@@ -1023,7 +1117,8 @@ async function render(){
       clikCache.set(cd,data);
     }
     if (serial !== renderSerial || !panel.isConnected) return;
-    const data = clikCache.get(cd);
+    const data = clikCache.get(cd), notes = (await clikNotes)[cd] || [];
+    if (serial !== renderSerial || !panel.isConnected) return;
     const councils = data.의회.map(c=>clikEsc(c.의회명)+(c.지금있나 === false ? ' <span class="clik-tag">옛 의회</span>' : '')).join(' · ');
     panel.innerHTML = `<div class="section-kicker">의정활동 · 국회도서관 CLIK</div>
       <h2 id="clik-title">의회에서 무엇을 논의했나</h2>
@@ -1031,6 +1126,7 @@ async function render(){
       <p class="basis">회의록·의안 <b>목록만</b> 싣습니다. 제목을 누르면 CLIK 원문으로 이동합니다.
       검색은 회의명·의안명·제안자 등 <b>목록 안에서만</b> 찾으며, 발언 전문은 검색하지 않습니다.
       목록이 비어 있어도 논의가 없었다는 뜻은 아닙니다. 옛 의회의 기록은 당시 이름으로 남깁니다.</p>
+      ${clikNotesHtml(notes)}
       <div class="clik-controls"><div class="clik-tabs" role="group" aria-label="의정활동 자료 종류">
       ${['회의록','의안'].map(k=>`<button type="button" data-clik-kind="${k}" aria-pressed="${clikFilter.kind===k}">${k} <span>${n0(data[k].length)}</span></button>`).join('')}</div>
       <label>목록에서 찾기<input id="clik-query" type="search" placeholder="회의명·의안명·제안자" value="${clikEsc(clikFilter.query)}"></label>
@@ -1087,17 +1183,31 @@ function drawClik(panel,data){
 }
 
 /* 고르개 — 243곳을 시도로 묶는다. 광역 17곳이 맨 위 */
+/* 곳 고르기 — 두 칸이다(2026-09-30 사용자: "너무 많아서 찾기가 어려워").
+   ① 시도(행정구역 순서) ② 그 시도의 곳 — 본청이 맨 위, 기초는 코드 차례(행정 순서). */
 const loc = document.getElementById('loc');
-const 시도차례 = [...new Set(INDEX.곳.filter(x => x.갈래 === '기초').map(x => x.시도))];
-const 묶음 = [['광역자치단체 17곳', INDEX.곳.filter(x => x.갈래 === '광역')]]
-  .concat(시도차례.map(sd => [정식[sd] || sd, INDEX.곳.filter(x => x.갈래 === '기초' && x.시도 === sd)]));
-loc.innerHTML = `<select id="pick" aria-label="자치단체 고르기">${
-  묶음.map(([label, xs]) => `<optgroup label="${label}">${
-    xs.map(x => `<option value="${x.cd}">${이름of(x)}${x.진행만 ? ' — 진행 중인 사업만' : ''}</option>`).join('')
-  }</optgroup>`).join('')}</select>`;
-
+const 시도of = cd => (곳맵[cd] || {}).시도;
+const 시도들 = Chart.시도차례(INDEX.곳.map(x => x.시도));
+const 시도안 = sd => INDEX.곳.filter(x => x.시도 === sd)
+  .sort((a, b) => (a.갈래 !== '광역') - (b.갈래 !== '광역') || a.cd.localeCompare(b.cd));
+loc.innerHTML = `<select id="sidopick" aria-label="시도 고르기">${
+    시도들.map(sd => `<option value="${sd}">${정식[sd] || sd}</option>`).join('')}</select>
+  <select id="pick" aria-label="자치단체 고르기"></select>`;
+const sidopick = document.getElementById('sidopick');
 const pick = document.getElementById('pick');
+function 곳칸(sd){
+  sidopick.value = sd;
+  pick.innerHTML = 시도안(sd).map(x => `<option value="${x.cd}">${x.갈래 === '광역' && !x.진행만 ? (정식[x.시도] || x.이름) + ' 본청' : 이름of(x)}${x.진행만 ? ' — 세출과 집행만' : ''}</option>`).join('');
+}
+/* 다른 시도의 곳으로 넘어갈 때(점띠 누르기·주소 바뀜) 시도 칸도 따라간다 */
+function 곳맞추기(cd){ if (시도of(cd) && 시도of(cd) !== sidopick.value) 곳칸(시도of(cd)); pick.value = cd; }
+곳칸(시도of(지금곳) || 시도들[0]);
 pick.value = 지금곳;
+sidopick.addEventListener('change', () => {
+  곳칸(sidopick.value);
+  pick.value = pick.options[0].value;           // 시도를 바꾸면 그 시도 본청부터
+  pick.dispatchEvent(new Event('change'));
+});
 pick.addEventListener('change', () => {
   지금곳 = pick.value;
   찾기 = ''; 보일개수 = 100;
@@ -1107,13 +1217,14 @@ pick.addEventListener('change', () => {
 addEventListener('hashchange', () => {
   const h = 주소읽기();
   if (h.cd !== 지금곳 || h.판 !== 판 || h.찾기 !== 찾기) {
-    지금곳 = h.cd; 판 = h.판; 찾기 = h.찾기; pick.value = h.cd; render();
+    지금곳 = h.cd; 판 = 그래프 && !그래프판.includes(h.판) ? '결산' : h.판; 찾기 = h.찾기; 곳맞추기(h.cd); render();
   }
 });
 
 const view = document.getElementById('view');
-const 판이름 = {'세입': '세입', '진행중': '진행 중인 사업', '계약': '누가 받아 갔나'};
-view.innerHTML = ['결산', '예산', '세입', '진행중', '계약'].map(v =>
+// 2026-09-30 사용자: 「진행 중인 사업」→「세출과 집행」. 결산·예산 기준 판은 세입·세출 지표를 함께 담는다(판설명에 적음)
+const 판이름 = {'세입': '세입', '진행중': '세출과 집행', '계약': '누가 받아 갔나'};
+view.innerHTML = (그래프 ? 그래프판 : ['결산', '예산', '세입', '진행중', '계약']).map(v =>
   `<button data-v="${v}" aria-selected="${v === 판}">${판이름[v] || v + ' 기준'}</button>`).join('');
 view.addEventListener('click', e => {
   const b = e.target.closest('button'); if (!b) return;

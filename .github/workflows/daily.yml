@@ -3,6 +3,11 @@
 # ⚠️ 계약(WCEGCF)은 **날짜로만** 뽑힌다. 그날 안 받으면 나중에 소급이 안 되므로
 #    이 액션이 이 저장소에서 제일 중요한 자동 일감이다.
 # 인증키는 저장소 Secrets 의 LOFIN_KEY 에서 온다(2026-09-21 에 넣었다).
+#
+# ⭐ 갈래마다 따로 받고 따로 올린다(2026-09-30). 한 줄로 이어 두었더니 사업자번호가 5시간을 끌면서
+#    계약·CLIK 까지 그 뒤에 묶였고, 봇이 도는 동안 사람은 main 에 못 올렸다.
+#    이제 네 갈래가 나란히 돌고, 각자 끝나는 대로 scripts/bot_push.sh 로 자기 길만 올린다.
+#    한 갈래가 늘어지거나 죽어도 다른 갈래와 사람의 작업은 영향을 안 받는다.
 name: 날마다 수집
 
 on:
@@ -22,8 +27,12 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  collect:
+  # 지방재정365 — 계약·세출. 제일 중요한 갈래다(계약은 그날 안 받으면 소급이 안 된다).
+  lofin:
     runs-on: ubuntu-latest
+    outputs:
+      steps: ${{ toJSON(steps) }}   # 맨 끝 「알림」이 단계마다의 실패를 본다
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -32,8 +41,8 @@ jobs:
 
       # 어떤 키가 Secrets 에 들어와 있나를 로그에 남긴다. 키 값은 안 찍는다(길이만).
       # ⚠️ 봇은 .env 를 못 본다 — Secrets 에 없으면 그 수집은 그냥 안 돈다.
-      #    "왜 자료가 안 쌓이지" 를 여기서 바로 알 수 있게 해 둔다.
       - name: 키 점검
+        id: keys
         env:
           LOFIN_KEY: ${{ secrets.LOFIN_KEY }}
           DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}
@@ -44,50 +53,144 @@ jobs:
         run: python scripts/check_keys.py
 
       - name: 받기
+        id: collect
         env:
           LOFIN_KEY: ${{ secrets.LOFIN_KEY }}
         run: python scripts/collect_daily.py ${{ inputs.day }}
 
-      # 앞에서 한 곳이 막혀도(2026-09-23 지방재정365 시간 초과) 뒤 단계는 돈다.
-      # 실패는 실패대로 빨갛게 남는다 — continue-on-error 로 덮지 않는다.
+      # 앞에서 막혀도(2026-09-23 지방재정365 시간 초과) 이어 받기와 올리기는 돈다. 실패는 빨갛게 남는다.
+      # 지난날이 비어 있으면 하루에 30일씩만 조금씩 메운다 — 일일 트래픽 제한이 실측되지 않았다.
       - name: 못 채운 날 이어 받기
+        id: backfill
         if: ${{ !cancelled() }}
         env:
           LOFIN_KEY: ${{ secrets.LOFIN_KEY }}
-        # 지난날이 비어 있으면 하루에 30일씩만 조금씩 메운다.
-        # 한 번에 다 받으려 하지 않는다 — 일일 트래픽 제한이 실측되지 않았다.
         run: python scripts/backfill_contracts.py --limit 30
 
-      # 지방의정포털 CLIK — 제8회 지방선거 임기(2022-07-01~2026-06-30)만 받는다.
-      # 하루 1,000회 한도라 한 번에 다 못 받는다. 하루 900회씩 나흘이면 끝난다.
-      # ⚠️ Secrets 에 CLIK_KEY 가 없으면 이 단계는 그냥 건너뛴다(다른 수집을 막지 않는다).
-      # ⚠️ 날짜별 호출 수는 data/clik/상태.json 에 쌓인다. 손으로도 돌릴 거면
-      #    **먼저 pull 할 것** — 안 그러면 봇이 쓴 몫을 모르고 한도를 넘는다.
-      - name: CLIK 받기
+      - name: 올리기
+        id: push1
         if: ${{ !cancelled() }}
+        run: sh scripts/bot_push.sh "날마다 수집 · 지방재정365 $(date -u +%Y-%m-%d)" data/contracts data/spending
+
+  # 지방의정포털 CLIK — 하루 1,000회 한도. Secrets 에 CLIK_KEY 가 없으면 그냥 건너뛴다.
+  # ⚠️ 날짜별 호출 수는 data/clik/상태.json 에 쌓인다. 손으로도 돌릴 거면 **먼저 pull 할 것**.
+  clik:
+    runs-on: ubuntu-latest
+    outputs:
+      steps: ${{ toJSON(steps) }}   # 맨 끝 「알림」이 단계마다의 실패를 본다
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: CLIK 받기
+        id: clik
         env:
           CLIK_KEY: ${{ secrets.CLIK_KEY }}
         continue-on-error: true
         run: python scripts/fetch_clik.py --limit 900
-
-      # 나라장터 「업체명 → 사업자번호」 — 계약 원본 첫 달부터 지난달까지 빈 달 + 이번 달은 하루치 새 파일(덮어쓰지 않는다 — 저장소가 붓지 않게). 하루 한도가 있어 날마다 조금씩 찬다.
-      # 계약 요약(build_contracts_summary.py)이 이것으로 업체를 묶는다.
-      - name: 사업자번호 받기
+      - run: pip install -q holidays   # 주말·공휴일엔 알림 안 보냄(watch_clik.보내는날)
+      # 낱말 알림(노들섬 · 서울시의회 등) — 낱말 하나에 2회. 상세가 남은 한도를 다 쓰므로 그보다 먼저.
+      - name: CLIK 낱말 알림
+        id: watch
         if: ${{ !cancelled() }}
+        env:
+          CLIK_KEY: ${{ secrets.CLIK_KEY }}
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        continue-on-error: true
+        run: python scripts/watch_clik.py
+      # 목록이 쓰고 남은 한도로 상세(정책정보 본문 · 의안 처리 경과)를 한 건씩 — 약 240일짜리(2026-10-01)
+      # ⭐ 상세는 저장소가 아니라 R2(버킷 local-finance-raw, clik/상세)에 쌓는다. 받은 것을 알려고 먼저 내려받는다.
+      # ⚠️ 내려받기가 실패하면 수집기를 돌리지 않는다 — 「받은 것이 없다」고 보고 처음부터 다시 받아 한도를 날린다.
+      - name: CLIK 상세 — R2 에서 받은 것 내려받기
+        id: r2down
+        env:
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: ${{ secrets.R2_BUCKET }}
+        continue-on-error: true
+        run: sh scripts/r2_sync.sh down data/clik/상세 clik/상세
+      - name: CLIK 상세 받기
+        id: detail
+        if: steps.r2down.outcome == 'success'
+        env:
+          CLIK_KEY: ${{ secrets.CLIK_KEY }}
+        continue-on-error: true
+        run: python scripts/fetch_clik_detail.py
+      - name: CLIK 상세 — R2 로 올리기
+        id: r2up
+        if: ${{ !cancelled() && steps.r2down.outcome == 'success' }}
+        env:
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: ${{ secrets.R2_BUCKET }}
+        run: sh scripts/r2_sync.sh up data/clik/상세 clik/상세
+      - name: 올리기
+        id: push2
+        if: ${{ !cancelled() }}
+        run: sh scripts/bot_push.sh "날마다 수집 · CLIK $(date -u +%Y-%m-%d)" data/clik
+
+  # 중앙투자심사 결과 — 한 해 4~8회 올라오는 한글 파일. 키가 없고 1분이면 끝나서 날마다 통째로 다시 읽는다.
+  review:
+    runs-on: ubuntu-latest
+    outputs:
+      steps: ${{ toJSON(steps) }}   # 맨 끝 「알림」이 단계마다의 실패를 본다
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: 투자심사 받기
+        id: review
+        continue-on-error: true
+        run: python scripts/fetch_review.py
+      - name: 올리기
+        id: push3
+        if: ${{ !cancelled() }}
+        # site/review 는 한글 원본(새 회차만 새 파일이 된다). review.html 굽기와 PDF 뽑기는 사람 몫 — scripts/review_pdf.py
+        run: sh scripts/bot_push.sh "날마다 수집 · 투자심사 $(date -u +%Y-%m-%d)" data/review.json site/review
+
+  # 나라장터 「업체명 → 사업자번호」 — 빈 달을 날마다 조금씩 메운다. 급하지 않은 갈래다.
+  # 스크립트가 스스로 50분에서 멈춘다(달 파일은 한 달 끝날 때마다 쓴다). 아래 70분은 뒷받침.
+  bizno:
+    runs-on: ubuntu-latest
+    outputs:
+      steps: ${{ toJSON(steps) }}   # 맨 끝 「알림」이 단계마다의 실패를 본다
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      # 갈래(물품·용역·공사)마다 조각으로 저장하고 쪽마다 마감을 본다 — 150분에서 스스로 멈춘다.
+      # 한 달 ≈ 60분이라 빈 18달(2025-02~2026-07)은 1주쯤에 찬다. -u: 잘려도 로그가 남게
+      - name: 사업자번호 받기
+        id: bizno
+        timeout-minutes: 165
         env:
           DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}
         continue-on-error: true
-        run: python scripts/fetch_bizno.py
-
+        run: python -u scripts/fetch_bizno.py --분 150
       - name: 올리기
+        id: push4
         if: ${{ !cancelled() }}
-        run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/contracts data/spending data/clik data/bizno
-          if git diff --cached --quiet; then
-            echo '새로 받은 것이 없다'
-          else
-            git commit -m "날마다 수집 $(date -u +%Y-%m-%d)"
-            git push
-          fi
+        run: sh scripts/bot_push.sh "날마다 수집 · 사업자번호 $(date -u +%Y-%m-%d)" data/bizno
+
+  # 실패 알림 — continue-on-error 로 「초록」인 단계 실패까지 텔레그램 한 통(scripts/notify_fail.py)
+  alert:
+    needs: [lofin, clik, review, bizno]
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - run: python scripts/notify_fail.py
+        env:
+          NEEDS: ${{ toJSON(needs) }}
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_ALERT_CHAT_ID || secrets.TELEGRAM_CHAT_ID }}

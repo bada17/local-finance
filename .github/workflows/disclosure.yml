@@ -1,0 +1,90 @@
+# 공시 점검(transparency.html)과 투명성 지표(score.html)를 다시 긁고 굽는다 — 한 해 두 번. 크롬을 쓴다.
+#
+#   check_disclosure.py      재정공시 링크가 살아 있나(원문 HTML)        → data/disclosure.json
+#   recheck_disclosure.js    공시 글을 크롬으로(25분쯤)                  → data/disclosure_dom.json
+#   count_clicks.js          첫 화면에서 몇 번 눌러야 닿나(20분쯤)       → data/disclosure_clicks.json
+#   check_budget_docs.js     예산서·결산서 게시판(한 시간 안팎)          → data/budget_docs.json
+#   build_transparency.py    공시 점검 화면 + 발자취 한 회차 쌓기        → site/transparency.html
+#   build_score.py           투명성 지표 판정                            → data/score.json · site/score.html
+#
+# ⭐ 2026-10-12 사용자 — 「4번도 해봐」(자동으로). 9/30 에 사람 PC 에서 한 번 긁은 뒤로 멈춰 있었다.
+# 때 — 지방재정법 60조: 예산·결산 확정 뒤 2개월 안에 공시. 예산 공시가 2월, 결산 공시가 8~9월에 몰린다고 보고
+#      그 뒤 3월·10월 10일에 돈다(잘못 짚었으면 cron 만 고칠 것). build_transparency 가 돌 때마다 발자취 회차가 하나 쌓인다.
+# ⚠️ 크롬 스크립트 셋은 같은 포트(9333)를 쓴다 — 한 단계씩 차례로.
+name: 공시 점검·투명성 지표
+
+on:
+  schedule:
+    - cron: '0 18 9 3,10 *'      # 3월·10월 9일 UTC 18:00 = 한국 시간 10일 새벽 3시
+  workflow_dispatch:
+    inputs:
+      push:
+        description: '올리고 페이지까지 다시 올리나 (false 면 긁고 굽기만 — 시험)'
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: disclosure
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    outputs:
+      steps: ${{ toJSON(steps) }}
+    env:
+      LOFIN_KEY: ${{ secrets.LOFIN_KEY }}
+      PYTHONUNBUFFERED: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - { id: links,  name: 공시 링크,             continue-on-error: true, timeout-minutes: 60, run: python scripts/check_disclosure.py }
+      - { id: dom,    name: 공시 글(크롬),         continue-on-error: true, timeout-minutes: 60, run: node scripts/recheck_disclosure.js }
+      - { id: clicks, name: 몇 번 눌러야(크롬),    continue-on-error: true, timeout-minutes: 60, run: node scripts/count_clicks.js }
+      - { id: docs,   name: 예산서·결산서(크롬),   continue-on-error: true, timeout-minutes: 120, run: node scripts/check_budget_docs.js }
+      - { id: transparency, name: 공시 점검 화면,  continue-on-error: true, run: python scripts/build_transparency.py }
+      - { id: score,  name: 투명성 지표 화면,      continue-on-error: true, run: python scripts/build_score.py }
+
+      - name: 바뀐 것
+        if: ${{ !cancelled() }}
+        run: git status --short | head -50; git diff --stat | tail -3
+
+      - id: push
+        name: 올리기
+        if: ${{ !cancelled() && (github.event_name == 'schedule' || inputs.push) }}
+        run: >-
+          sh scripts/bot_push.sh "공시 점검·투명성 지표 $(date -u +%Y-%m)"
+          data/disclosure.json data/disclosure_dom.json data/disclosure_clicks.json data/disclosure_found.json
+          data/disclosure_history.json data/budget_docs.json data/score.json data/score_api.json
+          site/transparency.html site/score.html
+
+      - id: pages
+        name: 페이지 다시 올리기
+        if: ${{ !cancelled() && (github.event_name == 'schedule' || inputs.push) }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --ref main
+
+  alert:
+    needs: [check]
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - run: python scripts/notify_fail.py
+        env:
+          NEEDS: ${{ toJSON(needs) }}
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_ALERT_CHAT_ID || secrets.TELEGRAM_CHAT_ID }}

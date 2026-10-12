@@ -42,10 +42,13 @@ const 뜻있나 = n => {
   return (n.match(/[가-힣]/g) || []).length >= 3;
 };
 
+// 봇(우분투)에서도 돈다 — 깃허브 러너에는 /usr/bin/google-chrome 이 깔려 있다
 const 크롬자리 = [
+  process.env.CHROME_PATH,
   'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
   'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
-].find(p => fs.existsSync(p));
+  '/usr/bin/google-chrome',
+].find(p => p && fs.existsSync(p));
 
 // 페이지 안에서 도는 긁개 — 붙은 파일과 올린 날짜를 찾는다
 const 긁개 = String.raw`(() => {
@@ -351,6 +354,6 @@ async function main() {
   try { fs.rmSync(프로필, { recursive: true, force: true }); } catch (_) { /* 임시 폴더라 둬도 된다 */ }
 }
 
-// count_clicks.js 가 크롬 띄우기·탭 잡기를 빌려 쓴다
-module.exports = { 크롬자리, 크롬띄우기, 붙을때까지, 탭열기, PORT, UA };
+// count_clicks.js 가 크롬 띄우기·탭 잡기를, check_budget_docs.js 가 긁개까지 빌려 쓴다
+module.exports = { 크롬자리, 크롬띄우기, 붙을때까지, 탭열기, PORT, UA, 긁개, 뜻있나, 기다림 };
 if (require.main === module) main().catch(e => { console.error('FAIL', e); process.exit(1); });

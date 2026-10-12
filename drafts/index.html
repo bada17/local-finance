@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="ko">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>문 초안 · 살림을 보는 시민</title>
+<!-- ⚠️ 초안. site/ 밖이라 배포되지 않는다. 보려면 저장소 맨 위에서 python -m http.server 8765 → /drafts/
+     데이터: drafts/data.json (python scripts/build_drafts.py 가 굽는다). 숫자는 전부 그 파일에서 온다 — 손으로 넣은 숫자 없음.
+     화면에 보이는 글에는 긴 줄표를 쓰지 않는다. -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+  :root{
+    --ground:#F6F6F4; --paper:#FFFFFF; --tint:#EEEEEA; --line:#DCDCD7;
+    --ink:#17191C; --muted:#5C6168; --faint:#8C9198;
+    --accent:#C2410C; --accent-ink:#FFFFFF; --bar:#A9AEB4;
+    --font:'Pretendard Variable',Pretendard,system-ui,-apple-system,'Malgun Gothic',sans-serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ground:#131415; --paper:#1A1B1D; --tint:#222326; --line:#2F3134;
+      --ink:#EDEDEA; --muted:#A3A8AE; --faint:#767B81;
+      --accent:#F2845C; --accent-ink:#1A0E08; --bar:#4F5358;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#131415; --paper:#1A1B1D; --tint:#222326; --line:#2F3134;
+    --ink:#EDEDEA; --muted:#A3A8AE; --faint:#767B81;
+    --accent:#F2845C; --accent-ink:#1A0E08; --bar:#4F5358;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0; background:var(--ground); color:var(--ink); font:16px/1.6 var(--font); letter-spacing:-.01em; word-break:keep-all}
+  a{color:inherit}
+  .wrap{max-width:1180px; margin:0 auto; padding-inline:24px}
+  @media (max-width:640px){ .wrap{padding-inline:16px} }
+
+  /* 머리 */
+  header{position:sticky; top:0; z-index:20; background:var(--ground); border-bottom:1px solid var(--line)}
+  header .wrap{display:flex; align-items:center; gap:20px; height:64px}
+  .mark{font-weight:800; font-size:15px; white-space:nowrap}
+  .mark small{font-weight:600; color:var(--accent); margin-left:8px; font-size:12px}
+  nav{display:flex; gap:2px; overflow-x:auto; scrollbar-width:none; flex:1; min-width:0}
+  nav::-webkit-scrollbar{display:none}
+  nav a{white-space:nowrap; text-decoration:none; font-size:14px; font-weight:600; color:var(--muted); padding:8px 12px; border-bottom:2px solid transparent}
+  nav a[aria-current="page"]{color:var(--ink); border-bottom-color:var(--accent)}
+  nav a:hover{color:var(--ink)}
+  .pick{display:flex; gap:6px}
+  select{font:600 14px var(--font); color:var(--ink); background:var(--paper); border:1px solid var(--line); padding:7px 10px; border-radius:0}
+  :focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+  @media (max-width:860px){
+    header .wrap{height:auto; flex-wrap:wrap; padding-block:10px; gap:10px}
+    nav{order:3; flex-basis:100%}
+  }
+
+  /* 한 문 */
+  .door{animation:in .35s cubic-bezier(.16,1,.3,1)}
+  @keyframes in{from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none}}
+  @media (prefers-reduced-motion:reduce){ .door{animation:none} }
+
+  .hero{display:grid; grid-template-columns:minmax(0,3fr) minmax(0,1fr); gap:48px; align-items:end; padding:72px 0 56px; border-bottom:1px solid var(--line)}
+  .when{display:inline-block; font-size:13px; font-weight:700; color:var(--accent); margin-bottom:18px}
+  h1{font-size:clamp(28px,3.6vw,44px); line-height:1.2; letter-spacing:-.035em; font-weight:800; margin:0}
+  h1 em{font-style:normal; color:var(--accent)}
+  .sub{font-size:18px; color:var(--muted); max-width:34em; margin:22px 0 0}
+  .sub b{color:var(--ink)}
+  .big{border-left:3px solid var(--accent); padding-left:22px}
+  .big .n{font-size:clamp(40px,4.6vw,64px); font-weight:800; letter-spacing:-.045em; line-height:1}
+  .big .l{font-size:15px; font-weight:700; margin-top:10px}
+  .big .s{font-size:14px; color:var(--muted); margin-top:2px}
+  @media (max-width:860px){ .hero{grid-template-columns:1fr; gap:32px; padding:44px 0 36px} }
+
+  section.part{padding:56px 0; border-bottom:1px solid var(--line)}
+  h2{font-size:22px; letter-spacing:-.025em; margin:0 0 6px}
+  .cap{color:var(--muted); font-size:14px; margin:0 0 24px; max-width:46em}
+
+  /* 막대: 바탕 칸 없이 채움만, 고른 곳만 강조색 */
+  .bars{display:grid; grid-template-columns:minmax(120px,220px) 1fr; gap:9px 18px; align-items:center; max-width:880px}
+  .bars .lab{font-size:14px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .bars .row{display:flex; align-items:center; gap:10px}
+  .bars .fill{height:12px; background:var(--bar); min-width:3px}
+  .bars .v{font-size:13px; font-variant-numeric:tabular-nums; color:var(--muted); white-space:nowrap}
+  .bars .me{color:var(--ink); font-weight:800}
+  .bars .row.me .fill{background:var(--accent)}
+  .bars .row.me .v{color:var(--ink); font-weight:800}
+  .bars .gap{grid-column:1/-1; height:1px; background:var(--line); margin:4px 0}
+  @media (max-width:560px){ .bars{grid-template-columns:96px 1fr} }
+
+  /* 할 일 둘 */
+  .acts{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:56px}
+  @media (max-width:860px){ .acts{grid-template-columns:1fr; gap:40px} }
+  ol.plan{list-style:none; margin:0; padding:0}
+  ol.plan li{display:grid; grid-template-columns:140px 1fr; gap:16px; padding:16px 0; border-top:1px solid var(--line)}
+  ol.plan li:first-child{border-top:0; padding-top:4px}
+  ol.plan .t{font-weight:800; font-size:15px}
+  ol.plan .d{color:var(--muted)}
+  @media (max-width:560px){ ol.plan li{grid-template-columns:1fr; gap:2px} }
+
+  form.sub-form{background:var(--paper); border:1px solid var(--line); padding:26px}
+  form.sub-form h3{margin:0 0 4px; font-size:19px; letter-spacing:-.02em}
+  form.sub-form p{margin:0 0 18px; color:var(--muted); font-size:14px}
+  .field{display:grid; gap:6px; margin-bottom:12px}
+  .field label{font-size:13px; font-weight:700}
+  .field input{font:15px var(--font); padding:11px 12px; border:1px solid var(--line); background:var(--ground); color:var(--ink); border-radius:0}
+  .agree{display:flex; gap:8px; font-size:13px; color:var(--muted); margin:4px 0 16px}
+  .btns{display:flex; flex-wrap:wrap; gap:8px}
+  .btn{font:700 15px var(--font); padding:12px 20px; border:1px solid var(--ink); background:var(--ink); color:var(--ground); cursor:pointer; border-radius:0; white-space:nowrap; text-decoration:none; display:inline-block}
+  .btn.ghost{background:transparent; color:var(--ink)}
+  .btn.hot{background:var(--accent); border-color:var(--accent); color:var(--accent-ink)}
+  .btn:active{transform:translateY(1px)}
+  .btn[disabled]{opacity:.5; cursor:not-allowed}
+  .flag{font-size:12.5px; color:var(--accent); font-weight:600; margin-top:12px}
+
+  /* 후원 띠 */
+  .give{display:grid; grid-template-columns:minmax(0,1fr) auto; gap:32px; align-items:center; padding:48px 0}
+  .give p{margin:0; font-size:20px; font-weight:700; letter-spacing:-.02em; max-width:30em}
+  .give p span{display:block; font-size:15px; font-weight:400; color:var(--muted); margin-top:6px}
+  @media (max-width:700px){ .give{grid-template-columns:1fr} }
+
+  .src{font-size:12.5px; color:var(--faint); padding:22px 0 8px}
+  details.memo{margin:8px 0 64px; font-size:14px; color:var(--muted); background:var(--tint); padding:14px 18px}
+  details.memo summary{cursor:pointer; font-weight:700; color:var(--ink)}
+  details.memo ul{margin:10px 0 0; padding-left:18px}
+
+  /* 고향사랑 사업 */
+  .things{display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:12px}
+  .thing{background:var(--paper); border:1px solid var(--line); padding:16px 18px}
+  .thing .nm{font-weight:700; margin:0 0 8px}
+  .thing .m{font-size:14px; font-variant-numeric:tabular-nums; color:var(--muted)}
+  .thing .m b{font-size:20px; color:var(--ink)}
+
+  /* 투표 후보 */
+  .cands{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px}
+  @media (max-width:860px){ .cands{grid-template-columns:1fr} }
+  .cand{background:var(--paper); border:1px solid var(--line); padding:22px; display:flex; flex-direction:column; gap:12px}
+  .cand:nth-child(2){background:var(--tint)}
+  .cand .ph{font-size:24px; font-weight:800; letter-spacing:-.03em}
+  .cand dl{margin:0; display:grid; grid-template-columns:auto 1fr; gap:4px 12px; font-size:14px}
+  .cand dt{color:var(--faint)}
+  .cand dd{margin:0; color:var(--muted)}
+  .cand .btn{align-self:flex-start; margin-top:auto}
+
+  /* 노들섬 */
+  .cols{display:flex; align-items:flex-end; gap:4px; height:140px; max-width:880px}
+  .cols span{flex:1; background:var(--bar); min-height:2px}
+  .cols span.hot{background:var(--accent)}
+  .colx{display:flex; gap:4px; font-size:11.5px; color:var(--faint); max-width:880px; margin-top:6px}
+  .colx span{flex:1; text-align:center}
+  ul.feed{list-style:none; padding:0; margin:28px 0 0; max-width:880px}
+  ul.feed li{display:grid; grid-template-columns:110px 1fr; gap:12px; padding:10px 0; border-top:1px solid var(--line); font-size:15px}
+  ul.feed .d{color:var(--faint); font-variant-numeric:tabular-nums; font-size:14px}
+
+  /* 한 장 */
+  .sheet{background:var(--paper); border:1px solid var(--line); padding:44px 48px; max-width:900px}
+  @media (max-width:640px){ .sheet{padding:26px 20px} }
+  .sheet .top{display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-size:13px; color:var(--muted); font-weight:600}
+  .sheet .who{font-size:clamp(34px,5vw,56px); font-weight:800; letter-spacing:-.04em; line-height:1.1; margin:26px 0 6px}
+  .sheet .meta{color:var(--muted); font-size:14px; margin:0 0 32px}
+  .sharp{list-style:none; margin:0 0 36px; padding:0}
+  .sharp li{display:grid; grid-template-columns:190px 1fr; gap:22px; align-items:baseline; padding:20px 0; border-top:2px solid var(--ink)}
+  .sharp .n{font-size:34px; font-weight:800; letter-spacing:-.04em; color:var(--accent); line-height:1}
+  .sharp .t{font-size:18px; font-weight:700; letter-spacing:-.02em}
+  .sharp .r{font-size:14px; color:var(--muted); font-weight:400; display:block; margin-top:4px}
+  @media (max-width:640px){ .sharp li{grid-template-columns:1fr; gap:6px} }
+  .four{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px}
+  @media (max-width:640px){ .four{grid-template-columns:1fr} }
+  .four > div{padding:18px 20px; background:var(--tint)}
+  .four > div:nth-child(1){background:var(--ink); color:var(--ground)}
+  .four > div:nth-child(1) .q small{color:var(--bar)}
+  .four .q{font-weight:800; font-size:17px; margin-bottom:6px}
+  .four .q small{display:block; font-weight:500; font-size:13px; color:var(--muted)}
+  .four .a{font-size:14.5px}
+  .sheet .foot{display:flex; justify-content:space-between; align-items:center; gap:20px; margin-top:32px; padding-top:20px; border-top:1px solid var(--line)}
+  .sheet .foot b{font-size:17px}
+  .qr{width:84px; height:84px; border:1px dashed var(--faint); display:grid; place-items:center; font-size:11px; color:var(--faint); text-align:center; flex:none}
+
+  .empty{padding:120px 0; color:var(--muted)}
+  @media print{
+    header,.hero,.part:not(.print),.give,.src,details.memo,.no-print{display:none !important}
+    body{background:#fff}
+    .sheet{border:0; padding:0; max-width:none}
+  }
+</style>
+
+<header><div class="wrap">
+  <span class="mark">살림을 보는 시민<small>문 초안</small></span>
+  <nav id="nav" aria-label="문"></nav>
+  <div class="pick">
+    <select id="sido" aria-label="시도"></select>
+    <select id="place" aria-label="자치단체"></select>
+  </div>
+</div></header>
+
+<main class="wrap" id="main"><p class="empty">자료를 읽는 중입니다.</p></main>
+
+<script>
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const 받침 = s => { const c = String(s).trim().slice(-1).charCodeAt(0); return c >= 0xAC00 && c <= 0xD7A3 && (c - 0xAC00) % 28 !== 0; };
+const 은 = s => s + (받침(s) ? '은' : '는');
+const 이 = s => s + (받침(s) ? '이' : '가');
+const 을 = s => s + (받침(s) ? '을' : '를');
+const 돈 = v => v == null ? '-' : v === 0 ? '0원' : Math.abs(v) >= 1e12 ? (v / 1e12).toFixed(1) + '조 원' : Math.abs(v) >= 1e8 ? Math.round(v / 1e8).toLocaleString() + '억 원' : Math.round(v / 1e4).toLocaleString() + '만 원';
+const 퍼 = (v, d = 1) => v == null ? '-' : (+v).toFixed(d) + '%';
+const 갈래말 = g => ({광역: '광역', 시: '시', 군: '군', 구: '구'}[g] || g);
+
+let D, 곳, i = 0;
+const 이름 = j => D.이름[j];
+const 달 = () => +D.진행기준.slice(4);
+
+// 같은 갈래 안에서 높은 쪽부터 몇 번째인가
+function 순위(arr, j) {
+  if (arr[j] == null) return null;
+  const g = 곳[j][3], 같은 = 곳.map((c, x) => x).filter(x => 곳[x][3] === g && arr[x] != null);
+  return {k: 같은.filter(x => arr[x] > arr[j]).length + 1, n: 같은.length, g};
+}
+const 순위말 = r => r ? `같은 ${갈래말(r.g)} ${r.n}곳 가운데 ${r.k}위` : '';
+const 몇째 = k => k === 1 ? '가장' : `${k}번째로`;
+
+// 같은 갈래 위 10곳 + 고른 곳(10 밖이면 줄 하나 띄우고 덧붙임)
+function 막대(arr, fmt) {
+  const g = 곳[i][3];
+  const js = 곳.map((c, x) => x).filter(x => 곳[x][3] === g && arr[x] != null).sort((a, b) => arr[b] - arr[a]);
+  const 위 = js.slice(0, 10), 큰 = Math.max(arr[js[0]] || 0, 1e-9);
+  const 줄 = j => `<div class="lab${j === i ? ' me' : ''}" title="${esc(이름(j))}">${js.indexOf(j) + 1}. ${esc(이름(j))}</div>
+    <div class="row${j === i ? ' me' : ''}"><div class="fill" style="width:${Math.max(0, arr[j]) / 큰 * 82}%"></div><span class="v">${fmt(arr[j])}</span></div>`;
+  return `<div class="bars">${위.map(줄).join('')}${!위.includes(i) && arr[i] != null ? '<div class="gap"></div>' + 줄(i) : ''}</div>`;
+}
+
+const 받기 = (제목, 말) => `
+  <form class="sub-form" onsubmit="return false">
+    <h3>${제목}</h3><p>${말}</p>
+    <div class="field"><label for="f-n">이름</label><input id="f-n" disabled></div>
+    <div class="field"><label for="f-p">휴대전화</label><input id="f-p" type="tel" disabled></div>
+    <div class="field"><label for="f-e">이메일 (선택)</label><input id="f-e" type="email" disabled></div>
+    <label class="agree"><input type="checkbox" disabled> 개인정보 수집·이용에 동의합니다. [방침 링크 자리]</label>
+    <div class="btns"><button class="btn hot" disabled>받아 보기</button><button type="button" class="btn ghost" data-share>친구에게 보내기</button></div>
+    <div class="flag">초안이라 아직 받지 않습니다. 명부와 동의 문구가 정해지면 엽니다.</div>
+  </form>`;
+
+const 후원 = `<div class="give">
+  <p>이 일을 내년에도, 그다음 해에도 하려면 회원이 필요합니다.
+    <span>함께하는 시민행동은 27년째 세금이 어디로 가는지 따라가고, 밑빠진독상을 주는 단체입니다.</span></p>
+  <a class="btn" href="#" title="도너스 정기후원 링크 자리">정기후원</a>
+</div>`;
+
+const 할일 = 줄 => `<ol class="plan">${줄.map(([t, d]) => `<li><span class="t">${t}</span><span class="d">${d}</span></li>`).join('')}</ol>`;
+const 메모 = 줄 => `<details class="memo"><summary>초안 메모 (화면에는 안 나갈 것)</summary><ul>${줄.map(x => `<li>${x}</li>`).join('')}</ul></details>`;
+const 머리 = (when, h, sub, n, l, s) => `<div class="hero"><div><span class="when">${when}</span><h1>${h}</h1><p class="sub">${sub}</p></div>
+  ${n == null ? '<div></div>' : `<div class="big"><div class="n">${n}</div><div class="l">${l}</div><div class="s">${s || ''}</div></div>`}</div>`;
+const 둘 = (계획, 받기칸) => `<section class="part"><div class="acts"><div><h2>시민행동이 할 일</h2><p class="cap">날짜를 걸고 약속합니다.</p>${계획}</div><div>${받기칸}</div></div></section>`;
+
+// ── 한 장: 이 동네가 같은 갈래에서 가장 앞서는 세 가지를 스스로 고른다 ──
+const 날줄들 = [
+  {k: '계약', 값: j => D.계약[j] && D.계약[j][3], 자리: 0, 주어: '경쟁 없이 맺은 계약 비중',
+   글: (v, 금) => `${D.계약해}년 계약 금액의 ${퍼(v, 0)}를 경쟁 없이(수의계약) 맺었습니다`},
+  {k: '행사축제경비비율', 자리: 2, 주어: '행사·축제 비중', 금: true,
+   글: (v, 금) => `행사·축제에 ${돈(금)}을 썼습니다 (결산의 ${퍼(v, 2)})`},
+  {k: '업무추진비비율', 자리: 2, 주어: '업무추진비 비중', 금: true,
+   글: (v, 금) => `업무추진비로 ${돈(금)}을 썼습니다 (결산의 ${퍼(v, 2)})`},
+  {k: '지방의회경비비율', 자리: 2, 주어: '의회 운영비 비중', 금: true,
+   글: (v, 금) => `의회 운영에 ${돈(금)}을 썼습니다 (결산의 ${퍼(v, 2)})`},
+  {k: '연말지출비율', 자리: 1, 주어: '연말 몰아 쓰기 비중',
+   글: v => `한 해 쓴 돈의 ${퍼(v)}를 11~12월 두 달에 썼습니다`},
+  {k: '추경 증가율', 자리: 1, 주어: '추경으로 늘린 비율', 금: true,
+   글: (v, 금) => `처음 정한 예산을 추경으로 ${돈(금)} 늘렸습니다 (${퍼(v)})`},
+  {k: '예산대비채무비율', 자리: 1, 주어: '예산 대비 빚',
+   글: v => `빚이 예산의 ${퍼(v)}입니다`},
+];
+// 같은 갈래 위쪽 3분의 1 안에 드는 것만, 앞선 차례로 셋까지. 하나도 없으면 가장 앞선 하나.
+function 날카로운셋(j) {
+  const 다 = 날줄들.map(x => {
+    const arr = x.값 ? 곳.map((c, y) => x.값(y)) : (D.지표[x.k] || {}).비율;
+    const r = arr && 순위(arr, j);
+    return r && arr[j] > 0 && {x, v: arr[j], 금: x.금 ? D.지표[x.k].금액[j] : null, r, p: r.k / r.n};
+  }).filter(Boolean).sort((a, b) => a.p - b.p);
+  const 셋 = 다.filter(s => s.p <= 1 / 3).slice(0, 3);
+  return 셋.length ? 셋 : 다.slice(0, 1);
+}
+const 큰수 = s => s.금 ? 돈(s.금) : 퍼(s.v, s.x.자리);
+
+const 문들 = {
+  one: {이름: '한 장', 그리기() {
+    const c = 곳[i], 셋 = 날카로운셋(i), 투 = D.투명[i], 계 = D.계약[i], 지 = D.지표, 첫 = 셋[0];
+    const 일인 = 지['1인당 세출예산액'].비율[i];
+    return 머리('한 장짜리 우리 동네 살림 · 1년 내내',
+      첫 ? `${esc(은(이름(i)))} ${이(첫.x.주어)}<br><em>같은 ${갈래말(첫.r.g)} ${첫.r.n}곳 중 ${몇째(첫.r.k)} 높습니다.</em>` : `${esc(이름(i))} 살림 한 장`,
+      '세금이 어디로 새는지 같은 잣대로 해마다 다시 잽니다. 이 한 장을 모임에서 나누고 친구에게 보내 주세요.',
+      첫 ? 큰수(첫) : null, 첫 ? 첫.x.주어 + (첫.금 ? ` ${퍼(첫.v, 첫.x.자리)}` : '') : '', 첫 ? 순위말(첫.r) : '')
+    + `<section class="part print">
+      <div class="sheet">
+        <div class="top"><span>함께하는 시민행동 · 살림을 보는 시민</span><span>${D.예산연도} 우리 동네 살림 한 장</span></div>
+        <div class="who">${esc(이름(i))}</div>
+        <p class="meta">인구 ${(c[4] || 0).toLocaleString()}명 · ${D.예산연도}년 예산 ${돈(지['세출예산 총액'].금액[i])} · 주민 1명당 ${일인 == null ? '-' : Math.round(일인).toLocaleString() + '천 원'}</p>
+        <ol class="sharp">${셋.map(s => `<li><span class="n">${큰수(s)}</span>
+          <span class="t">${esc(s.x.글(s.v, s.금))}.<span class="r">${순위말(s.r)}${s.r.k <= Math.ceil(s.r.n / 10) ? ', 상위 10% 안입니다' : ''}.</span></span></li>`).join('')}</ol>
+        <div class="four">
+          <div><div class="q">숨기나<small>예산을 볼 수 있게 냈나</small></div><div class="a">투명성 ${D.투명항목수}항목 중 됨 ${투[0]}, 안 됨 ${투[1]}, 아직 못 봄 ${투[2]}</div></div>
+          <div><div class="q">새나<small>쓸 데 아닌 데 쓰나</small></div><div class="a">결산 가운데 업무추진비 ${퍼(지['업무추진비비율'].비율[i], 2)}, 행사·축제 ${퍼(지['행사축제경비비율'].비율[i], 2)}</div></div>
+          <div><div class="q">몰아주나<small>경쟁 없이 맡기나</small></div><div class="a">${계 ? `${D.계약해}년 계약 ${계[0].toLocaleString()}건 중 ${계[1].toLocaleString()}건이 수의계약${계[5][0] ? `. 가장 많이 받은 업체는 ${esc(계[5][0][0])} (${돈(계[5][0][1])})` : ''}` : '계약 자료 없음'}</div></div>
+          <div><div class="q">따지나<small>의회가 묻나</small></div><div class="a">[의회 회의록 자료는 있음. 무엇을 셀지 정하면 채움]</div></div>
+        </div>
+        <div class="foot"><div><b>내년에 같은 잣대로 다시 잽니다.</b><br><span style="color:var(--muted);font-size:14px">받아 보기 [주소 자리]</span></div><div class="qr">QR<br>자리</div></div>
+      </div>
+      <div class="btns no-print" style="margin-top:16px"><button class="btn" onclick="print()">이 장 인쇄</button><button class="btn ghost" data-share>친구에게 보내기</button></div>
+    </section>`
+    + 둘(할일([['매년 9월', '결산이 나오면 243곳을 같은 잣대로 다시 재고, 우리 동네 장을 새로 만듭니다.'], ['매년 12월', '내년 예산이 확정되면 바뀐 줄을 짚어 보내 드립니다.'], ['상위 10%에 든 곳', '그 지자체에 공식 질문을 보내고 받은 답을 공개합니다.']]),
+      받기(`${esc(이름(i))} 장을 해마다 받아 보기`, '9월과 12월, 1년에 두 번 보내 드립니다.'))
+    + 후원 + `<p class="src">출처: 지방재정365(공공누리 1유형) 지표 ${D.결산연도} 결산·${D.예산연도} 예산, 계약현황 ${D.계약해}년, 시민행동 투명성 점검. 「몇 번째」는 같은 갈래끼리 견준 것입니다.</p>`
+    + 메모(['맨 위 한 줄과 세 줄은 이 동네가 같은 갈래에서 가장 앞서는 지표 셋을 스스로 고른다(손으로 고른 게 아님). 곳마다 문장이 달라진다.',
+      '「앞선다」는 견줌이지 낭비 판정이 아니다. 판정 문구는 사례를 확인한 사람이 쓴다.',
+      '같은 갈래 위쪽 3분의 1 안에 드는 줄만 고른다. 빚이 0이거나 중간쯤인 줄은 날카롭지 않아 뺀다.',
+      '국외여비 두 지표는 분모 칸 뜻을 확인 못 해 뺐다. 공무원 인건비·행정운영경비는 작은 군일수록 구조적으로 높아 뺐다.',
+      '「가장 많이 받은 업체」는 조달청을 뺀 것. 많이 받았다는 사실만 적는다(특혜 단정 금지).']);
+  }},
+
+  home: {이름: '고향사랑', 그리기() {
+    const 고 = D.고향[i], 합 = 고.reduce((a, r) => a + r[1], 0), 씀 = 고.reduce((a, r) => a + r[2], 0);
+    const 찾음 = D.게시판.고향사랑.includes(곳[i][0]);
+    return 머리('고향사랑기부 · 2월 공개, 12월 기부철',
+      `당신이 낸 고향사랑기부금,<br><em>${esc(은(이름(i)))}</em> 어디에 썼을까요?`,
+      고.length ? `${esc(이름(i))}의 올해 사업 가운데 「고향사랑」 이름을 단 것은 ${고.length}개, 잡아 둔 돈은 <b>${돈(합)}</b>입니다. ${달()}월까지 쓴 건 <b>${합 ? 퍼(씀 / 합 * 100, 0) : '-'}</b>입니다.`
+        : `${esc(이름(i))}의 올해 사업 목록에는 「고향사랑」 이름이 붙은 사업이 <b>하나도 없습니다</b>. 받은 기부금은 지금 어디에 있을까요?`,
+      고.length ? (합 ? 퍼(씀 / 합 * 100, 0) : '-') : '0개', 고.length ? `${달()}월까지 쓴 몫` : '「고향사랑」 이름을 단 사업', 고.length ? `잡아 둔 ${돈(합)} 가운데` : `${D.진행기준.slice(0, 4)}년 ${달()}월 기준`)
+    + (고.length ? `<section class="part"><h2>「고향사랑」 이름을 단 사업</h2><p class="cap">${D.진행기준.slice(0, 4)}년 ${달()}월 누계. 사업 이름에 「고향사랑」이 든 것만 모았습니다.</p>
+      <div class="things">${고.map(([n, a, s]) => `<div class="thing"><div class="nm">${esc(n)}</div><div class="m"><b>${돈(a)}</b> 잡음<br>쓴 돈 ${돈(s)}${a ? ` (${퍼(s / a * 100, 0)})` : ''}</div></div>`).join('')}</div></section>` : '')
+    + `<section class="part"><h2>얼마를 받았는지는 2월 말에야 나옵니다</h2>
+      <p class="cap">지자체는 해마다 지난해 받은 기부금과 쓴 곳을 누리집에 올립니다. 시민행동은 243곳 가운데 ${D.게시판.고향사랑.length}곳에서 그 게시판을 찾아 두었습니다. ${esc(이름(i))}의 게시판은 ${찾음 ? '찾았습니다' : '아직 못 찾았습니다'}. 공개글이 올라오면 다 열어 봅니다.</p></section>`
+    + 둘(할일([['2월 말', '243곳이 올린 기부금 공개글을 다 열어 받은 돈, 답례품, 쓴 곳을 한 표로 모읍니다.'], ['3월', '안 올렸거나 알아보기 어렵게 올린 곳의 이름을 부릅니다.'], ['12월 기부철', '어느 동네가 어떻게 썼는지 보고 기부할 수 있게 정리해 보내 드립니다.']]),
+      받기('내 기부금이 간 곳 받아 보기', '기부한 지자체를 골라 두면 공개되는 날 알려 드립니다.'))
+    + 후원 + `<p class="src">출처: 지방재정365 세부사업별 세출현황(${D.진행기준.slice(0, 4)}-${D.진행기준.slice(4)} 누계), 시민행동 누리집 게시판 찾기(${D.게시판.찾은날}).</p>`
+    + 메모(['「2월 말까지 공개」는 고향사랑기부금법 13조·시행령 9조라고 앞서 조사했지만 조문 원문은 아직 다시 확인 안 함. 밖에 내기 전에 볼 것.',
+      '사업 이름으로만 모은 것이라 기금 예치와 실제 사업이 섞이고 두 번 셀 수 있다. 전국 합계는 내지 말 것.',
+      '「얼마 받았나」는 누리집 게시판 2단계(글 목록)와 3단계(파일 열기) 뒤에 채운다.']);
+  }},
+
+  yearend: {이름: '연말 몰아 쓰기', 그리기() {
+    const 집 = D.집행[i], 연 = D.지표['연말지출비율'], r = 순위(연.비율, i), 남 = 집 ? 집[0] - 집[1] : null;
+    return 머리('연말 몰아 쓰기 · 10~12월',
+      `석 달 남았습니다.<br>${esc(은(이름(i)))} 아직 <em>${돈(남)}</em>${받침(돈(남)) ? '을' : '를'} 쓰지 않았습니다.`,
+      연.비율[i] == null ? '남은 돈이 12월에 어떻게 나가는지 날마다 지켜봅니다.' : `지난해(${연.연도}) 한 해 쓴 돈의 <b>${퍼(연.비율[i])}</b>를 11~12월 두 달에 썼습니다. ${순위말(r)}입니다.`,
+      집 ? 퍼(집[1] / 집[0] * 100, 0) : '-', `${달()}월 말까지 쓴 몫`, 집 ? `올해 쓸 수 있는 돈 ${돈(집[0])} 가운데` : '')
+    + `<section class="part"><h2>지난해 마지막 두 달에 쓴 몫</h2><p class="cap">같은 ${갈래말(곳[i][3])} 가운데 높은 10곳. 강조한 줄이 ${esc(이름(i))}입니다.</p>${막대(연.비율, v => 퍼(v))}</section>`
+    + 둘(할일([['12월 1일부터', `${esc(이(이름(i)))} 날마다 얼마를 쓰는지 공개합니다. 지자체 집행 자료를 매일 받고 있습니다.`], ['12월 마지막 주', '마지막 주에 몰려 나간 사업을 이름 붙여 알려 드립니다.'], ['1월 말', '다 못 쓰고 넘긴 돈을 정리해 보내 드립니다.']]),
+      받기(`${esc(이름(i))}의 12월 받아 보기`, '12월 한 달, 일주일에 한 번 보내 드립니다.'))
+    + 후원 + `<p class="src">출처: 지방재정365 연말지출비율(${연.연도} 결산, 세출결산 중 11~12월 지출 몫), 세부사업별 세출현황(${D.진행기준.slice(0, 4)}-${D.진행기준.slice(4)} 누계).</p>`
+    + 메모(['「아직 쓰지 않은 돈」은 진행 중인 사업 자료의 예산현액에서 지출을 뺀 것. 이월·예비비·기금 예치가 섞여 있어 「다 써야 할 돈」은 아니다. 밖에 낼 땐 이 점을 한 줄 달 것.',
+      '12월 날마다 공개는 이미 받는 일별 집행 자료(QWGJK)로 가능. 다만 출납폐쇄(1.1~1.20) 정리분은 12.31.에 소급 반영된다.']);
+  }},
+
+  supp: {이름: '추경 부풀리기', 그리기() {
+    const 추 = D.지표['추경 증가율'], 당초 = 추.분모[i], 늘 = 추.금액[i], r = 순위(추.비율, i);
+    return 머리('추경 부풀리기 · 6~7월',
+      `${esc(이름(i))}의 ${추.연도}년 예산,<br>처음 정한 것보다 <em>${돈(늘)}</em> 늘었습니다.`,
+      `의회가 통과시킨 예산이 추경을 거치며 <b>${퍼(추.비율[i])}</b> 커졌습니다. ${순위말(r)}입니다. 늘어난 돈이 어떤 사업으로 갔는지 풀어 드립니다.`,
+      추.비율[i] == null ? '-' : '+' + 퍼(추.비율[i]), '추경으로 늘어난 몫', `당초 ${돈(당초)}에서 최종 ${돈(당초 + 늘)}`)
+    + `<section class="part"><h2>추경으로 늘어난 몫</h2><p class="cap">${추.연도}년, 같은 ${갈래말(곳[i][3])} 가운데 높은 10곳. 강조한 줄이 ${esc(이름(i))}입니다.</p>${막대(추.비율, v => 퍼(v))}</section>`
+    + 둘(할일([['추경안이 나오면', '늘어난 사업을 쉬운 말로 풀어 보내 드립니다.'], ['의회 심사 때', '추경 심사 회의에서 의원들이 무엇을 물었는지 회의록으로 확인합니다.'], ['연말', '처음 예산과 최종 예산을 나란히 놓고 한 장으로 정리합니다.']]),
+      받기(`${esc(이름(i))} 추경 받아 보기`, '추경안이 의회에 올라오는 날 알려 드립니다.'))
+    + 후원 + `<p class="src">출처: 지방재정365 재정자립도[당초]와 [최종]에 실린 예산 규모(${추.연도}). 추경 증가율은 (최종 - 당초) ÷ 당초.</p>`
+    + 메모(['받은 자료엔 최종 예산 하나뿐이라 1차·2차 추경을 나눌 수 없다.',
+      '「어떤 사업으로 갔나」는 아직 없는 자료. 일별 세부사업 자료의 예산현액이 바뀌는 날을 잡으면 만들 수 있을지 볼 것.',
+      '추경이 큰 것 자체는 낭비가 아니다(국비 내려옴·재난). 「부풀리기」는 문 이름일 뿐 판정으로 쓰지 말 것.']);
+  }},
+
+  vote: {이름: '독상 시민 투표', 그리기() {
+    return 머리('밑빠진독상 시민 투표 · 연말과 연초',
+      `올해 가장 어이없는 세금 낭비.<br><em>끝까지 따라갈 사건</em>을 당신이 고릅니다.`,
+      '시민행동이 자료로 확인한 후보 가운데 하나를 고르세요. 가장 많이 고른 사건에 공식 질문을 보내고, 답이 올 때까지 알려 드립니다.', null)
+    + `<section class="part"><h2>올해 후보</h2><p class="cap">낭비인지 아닌지를 투표로 정하는 게 아닙니다. 확인을 마친 사건 가운데 무엇을 끝까지 물을지 고릅니다.</p>
+      <div class="cands">${['가', '나', '다'].map(k => `<div class="cand"><div class="ph">[후보 ${k}]</div>
+        <dl><dt>어디</dt><dd>[지자체, 사업]</dd><dt>얼마</dt><dd>[금액]</dd><dt>확인한 것</dt><dd>[자료 이름, 날짜]</dd><dt>끝까지 물을 것</dt><dd>[공식 질문 한 줄]</dd></dl>
+        <button class="btn ghost" disabled>이 사건 고르기</button></div>`).join('')}</div></section>`
+    + 둘(할일([['12월', '후보를 공개하고 시민 투표를 엽니다.'], ['1월', '가장 많이 고른 사건의 지자체에 공식 질문을 보냅니다.'], ['답이 오면', '받은 답을 그대로 보내 드립니다. 답이 없으면 없다고 알립니다.']]),
+      받기('내가 고른 사건 받아 보기', '고른 사건에 답이 오는 날 알려 드립니다.'))
+    + 후원 + 메모(['후보 셋은 자리만. 독상 감시사업 등록 폼으로 들어온 것 가운데 확인을 마친 것을 넣는다.', '고른 사람 수는 참여 수이지 후원자 수가 아니다.']);
+  }},
+
+  watch: {이름: '지켜보는 사업', 그리기() {
+    const w = D.지켜봄['노들섬'];
+    if (!w) return '<p class="empty">지켜보는 사업 자료가 없습니다.</p>';
+    const 큰 = Math.max(...w.달.map(x => x[1]), 1), 최대 = w.달.reduce((a, x) => x[1] > a[1] ? x : a, w.달[0]);
+    const 날 = d => d.replace(/(\d{4})(\d\d)(\d\d)/, '$1.$2.$3');
+    return 머리('지켜보는 사업 · 1년 내내',
+      `지난 4년, 서울시의회는<br><em>${w.임기회의수}번의 회의</em>에서 노들섬을 이야기했습니다.`,
+      '누가 묻고 서울시가 뭐라고 답했는지, 회의록이 올라오는 날 골라서 알려 드립니다.',
+      w.임기회의수, '노들섬이 나온 회의', '8대 서울시의회 (2022.7~2026.6)')
+    + `<section class="part"><h2>달마다 노들섬이 나온 횟수</h2><p class="cap">최근 18달. 가장 많았던 달은 ${최대[0].slice(0, 4)}년 ${+최대[0].slice(4)}월(${최대[1]}번)입니다.</p>
+      <div class="cols">${w.달.map(([m, n]) => `<span class="${m === 최대[0] ? 'hot' : ''}" style="height:${n / 큰 * 100}%" title="${m.slice(0, 4)}.${m.slice(4)} ${n}번"></span>`).join('')}</div>
+      <div class="colx">${w.달.map(([m]) => `<span>${m.slice(4) === '01' || m === w.달[0][0] ? m.slice(2, 4) + '.' : ''}${+m.slice(4)}</span>`).join('')}</div>
+      <ul class="feed">${w.최근.slice(0, 5).map(x => `<li><span class="d">${날(x.날짜)}</span><a href="https://clik.nanet.go.kr/potal/search/searchView.do?DOCID=${encodeURIComponent(x.DOCID)}&collection=${x.갈래 === '회의록' ? 'minutes' : 'bill'}" target="_blank" rel="noopener">${esc(x.글.replace(/^\d{8}\s*/, ''))}</a></li>`).join('')}</ul></section>`
+    + 둘(할일([['회의록이 올라오는 날', '노들섬이 나온 대목만 골라 보내 드립니다.'], ['예산 심사 때', '노들섬 예산이 어떻게 바뀌는지 따로 짚습니다.'], ['언제든', '우리 동네 사업도 지켜봐 달라고 요청할 수 있습니다.']]),
+      받기('노들섬 소식 받아 보기', '새 회의에서 노들섬이 나오면 알려 드립니다.'))
+    + 후원 + `<p class="src">출처: 국회도서관 지방의회 회의록(CLIK) 낱말 찾기 「노들섬」, 서울시의회. 같은 회의의 여러 쪽은 하나로 셌습니다.</p>`
+    + 메모(['2026년 7월부터 0번이다. 새 의회가 조용한 건지, CLIK 에 늦게 올라오는 건지, 수집 범위 탓인지 확인 전. 확인하기 전엔 밖에 내지 말 것.',
+      '동네를 골라도 이 문은 바뀌지 않는다(서울시의회 노들섬 하나). 사업을 더 붙이면 사업 고르는 칸이 생긴다.',
+      '「이야기했다」는 회의록 본문에 낱말이 나왔다는 뜻. 지나가는 언급도 센다.']);
+  }},
+};
+
+function 그리기() {
+  const 문 = (location.hash.slice(1) in 문들) ? location.hash.slice(1) : 'one';
+  document.querySelectorAll('nav a').forEach(a => a.setAttribute('aria-current', a.dataset.d === 문 ? 'page' : 'false'));
+  $('main').innerHTML = `<div class="door">${문들[문].그리기()}</div>`;
+  document.querySelectorAll('[data-share]').forEach(b => b.onclick = () => {
+    navigator.clipboard?.writeText(location.href).then(() => { b.textContent = '주소를 복사했습니다'; setTimeout(() => b.textContent = '친구에게 보내기', 1800); });
+  });
+  document.title = `${문들[문].이름} · ${이름(i)} · 문 초안`;
+}
+
+function 시작() {
+  $('nav').innerHTML = Object.entries(문들).map(([k, v]) => `<a href="#${k}" data-d="${k}">${v.이름}</a>`).join('')
+    + `<a href="../site/score.html">투명성 지표</a><a href="town.html?cd=${곳[i] ? 곳[i][0] : ''}" style="color:var(--accent)">시민 화면 시안</a>`;
+  const 시도들 = [...new Set(곳.map(c => c[2]))];
+  $('sido').innerHTML = 시도들.map(s => `<option>${esc(s)}</option>`).join('');
+  const 채우기 = s => { $('place').innerHTML = 곳.map((c, j) => c[2] === s ? `<option value="${j}">${esc(이름(j).replace(/^\S+\s/, ''))}</option>` : '').join(''); };
+  const cd = new URLSearchParams(location.search).get('cd');
+  i = 곳.findIndex(c => c[0] === cd); if (i < 0) i = Math.max(0, 곳.findIndex(c => c[0] === '1111000'));
+  $('sido').value = 곳[i][2]; 채우기(곳[i][2]); $('place').value = i;
+  const 바꿈 = () => { history.replaceState(null, '', '?cd=' + 곳[i][0] + location.hash); 그리기(); };
+  $('sido').onchange = () => { 채우기($('sido').value); i = +$('place').value; 바꿈(); };
+  $('place').onchange = () => { i = +$('place').value; 바꿈(); };
+  addEventListener('hashchange', () => { 그리기(); scrollTo(0, 0); });
+  그리기();
+}
+
+fetch('data.json').then(r => r.json()).then(d => { D = d; 곳 = d.곳; 시작(); })
+  .catch(e => { $('main').innerHTML = `<p class="empty">data.json 을 못 읽었습니다. 저장소 맨 위에서 python -m http.server 8765 로 여세요. (${esc(e)})</p>`; });
+</script>

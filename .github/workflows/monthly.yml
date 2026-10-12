@@ -1,0 +1,103 @@
+# 한 달에 한 번 화면을 새 자료로 다시 굽는다 — 날마다 봇이 모은 것(계약·세출·CLIK·투자심사·사업자번호)과
+# 결산·예산 지표를 화면(site/)에 반영하고 페이지를 다시 올린다.
+#
+# ⭐ 2026-10-12 사용자 — "매일 자동으로 업데이트하지 말고 일단은 한 달 단위로". 날마다 모으기(daily.yml)는 그대로다.
+# 차례는 README 「다시 돌릴 때」·「인계」와 같다. 단계 하나가 실패해도 나머지는 돌고, 맨 끝 「알림」이 텔레그램으로 알린다.
+# ⚠️ 데이터 지도(build_datamap)는 GPT 몫이라 여기서 굽지 않는다. 공시 점검·투명성 지표는 disclosure.yml(크롬, 한 해 두 번).
+# 손으로: gh workflow run monthly.yml               (굽고 올리고 페이지까지)
+#         gh workflow run monthly.yml -f push=false  (굽기만 — 시험, 저장소·페이지 안 바뀜)
+name: 달마다 화면 굽기
+
+on:
+  schedule:
+    - cron: '0 1 1 * *'          # 매달 1일 UTC 01:00 = 한국 시간 10시 (새벽 날마다 수집이 끝난 뒤)
+  workflow_dispatch:
+    inputs:
+      push:
+        description: '올리고 페이지까지 다시 올리나 (false 면 굽기만 — 시험)'
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  actions: write                 # 페이지 올리기(pages.yml)를 부른다 — 봇 푸시는 push 이벤트를 안 일으킨다
+
+concurrency:
+  group: monthly-build
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    outputs:
+      steps: ${{ toJSON(steps) }}
+    env:
+      LOFIN_KEY: ${{ secrets.LOFIN_KEY }}
+      DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}
+      EDU_ALIMI_KEY: ${{ secrets.EDU_ALIMI_KEY }}
+      PYTHONUNBUFFERED: '1'
+    defaults:
+      run:
+        working-directory: scripts
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -q openpyxl     # 교육청 화면(spec_edu.py)이 쓴다
+
+      # ── 받기 — 결산·예산 지표와 연 2회 공시 자료(바뀌지 않았으면 같은 것이 온다) ──
+      - { id: indicators, name: 지표,       continue-on-error: true, run: python fetch_indicators.py }
+      - { id: series,     name: 5년 추이,   continue-on-error: true, run: python fetch_series.py }
+      - { id: revenue,    name: 세입 43종,  continue-on-error: true, run: python fetch_revenue.py }
+      - { id: grants,     name: 지방보조금, continue-on-error: true, run: python fetch_grants.py }
+      - { id: cleaneye,   name: 지방공기업, continue-on-error: true, run: python fetch_cleaneye.py }
+      - { id: edu,        name: 교육청,     continue-on-error: true, run: python fetch_edu.py }
+
+      # ── 굽기 ──
+      - { id: contracts,  name: 계약 요약(전수),  continue-on-error: true, run: python build_contracts_summary.py }
+      - { id: model,      name: 자치단체별 지표,  continue-on-error: true, run: python build_model_data.py --all }
+      - { id: ongoing,    name: 진행 중인 사업,   continue-on-error: true, run: python build_ongoing.py --all }
+      - { id: b_grants,   name: 보조금 화면 자료, continue-on-error: true, run: python build_grants.py }
+      - { id: b_revenue,  name: 세입 판,          continue-on-error: true, run: python build_revenue.py }
+      - { id: dashboard,  name: 대시보드,         continue-on-error: true, run: python build_dashboard.py }
+      - { id: b_clik,     name: 지방의회,         continue-on-error: true, run: python build_clik.py }
+      - { id: board,      name: 시황판,           continue-on-error: true, run: python build_board.py }
+      - { id: b_edu,      name: 교육청 화면,      continue-on-error: true, run: python build_edu_page.py }
+      - { id: b_review,   name: 투자심사 화면,    continue-on-error: true, run: python build_review_page.py }
+      - { id: catalog,    name: 무슨 자료가 있나, continue-on-error: true, run: python build_catalog_page.py }
+      - { id: page,       name: 자치단체 화면,    continue-on-error: true, run: python build_model_page.py }
+
+      - name: 바뀐 것
+        if: ${{ !cancelled() }}
+        working-directory: .
+        run: git status --short | head -100; git diff --stat | tail -3
+
+      - id: push
+        name: 올리기
+        if: ${{ !cancelled() && (github.event_name == 'schedule' || inputs.push) }}
+        working-directory: .
+        run: >-
+          sh scripts/bot_push.sh "달마다 화면 굽기 $(date -u +%Y-%m)"
+          site data/indicators data/series.json data/revenue data/grants data/cleaneye data/edu data/contracts_summary.json
+
+      - id: pages
+        name: 페이지 다시 올리기
+        if: ${{ !cancelled() && (github.event_name == 'schedule' || inputs.push) }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --ref main
+
+  alert:
+    needs: [build]
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - run: python scripts/notify_fail.py
+        env:
+          NEEDS: ${{ toJSON(needs) }}
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_ALERT_CHAT_ID || secrets.TELEGRAM_CHAT_ID }}

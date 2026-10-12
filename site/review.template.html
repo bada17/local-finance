@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="ko">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>살림을 보는 시민 — 중앙투자심사</title>
+<style>
+  :root{
+    --ground:#FFFFFF; --sunk:#F4F6F8; --line:#C9D2DA; --line-soft:#E3E8ED;
+    --ink:#11181F; --muted:#5A6672; --faint:#8A97A3;
+    --accent:#1F4E79; --alert:#B03A22;
+    --mono:ui-monospace,SFMono-Regular,'Cascadia Mono','DejaVu Sans Mono',monospace;
+    --body:system-ui,-apple-system,'Malgun Gothic',sans-serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ground:#12171C; --sunk:#1A2127; --line:#333C45; --line-soft:#242C34;
+      --ink:#E6EBF0; --muted:#98A5B1; --faint:#72808C;
+      --accent:#7FB3DC; --alert:#E0755C;
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0; background:var(--ground); color:var(--ink); font:14px/1.5 var(--body)}
+  .wrap{max-width:1100px; margin:0 auto; padding-inline:16px}
+  .topbar{position:sticky; top:0; z-index:10; background:var(--ground); border-bottom:1px solid var(--line)}
+  .topbar .wrap{display:flex; align-items:center; gap:10px; min-height:46px; flex-wrap:wrap; padding-block:6px}
+  .topbar .t{font-weight:600; font-size:13px; margin-right:auto}
+  a{color:var(--accent)}
+  h1{font-size:20px; margin:22px 0 4px}
+  .basis{margin:12px 0 0; padding:10px 12px; background:var(--sunk); border:1px solid var(--line);
+    font-size:12.5px; color:var(--muted)}
+  .basis b{color:var(--ink)}
+  .note{color:var(--faint); font-size:12px; margin:8px 0}
+  .srch{margin:12px 0 6px; display:flex; gap:6px; flex-wrap:wrap; align-items:center}
+  .srch input{font:15px var(--body); color:var(--ink); background:var(--sunk);
+    border:1px solid var(--line); padding:8px 11px; width:min(340px,100%)}
+  button{font:13px var(--body); color:var(--muted); background:var(--sunk);
+    border:1px solid var(--line); padding:5px 10px; cursor:pointer; white-space:nowrap}
+  button[aria-selected="true"]{background:var(--accent); border-color:var(--accent); color:#fff}
+  .scroll{overflow-x:auto; border:1px solid var(--line)}
+  table{border-collapse:collapse; width:100%; font-size:13px}
+  th,td{padding:6px 10px; border-bottom:1px solid var(--line-soft); white-space:nowrap; text-align:left}
+  thead th{background:var(--sunk); font-size:11.5px; color:var(--muted); font-weight:600; position:sticky; top:52px}
+  td.nm{white-space:normal; min-width:300px; max-width:520px; font-weight:500}
+  td.desc{white-space:normal; max-width:420px; color:var(--faint); font-size:12px}
+  td.num{font-family:var(--mono); text-align:right}
+  tbody tr:hover{background:var(--sunk)}
+  .tag{font-size:11px; color:var(--muted); background:var(--sunk); border:1px solid var(--line-soft); padding:1px 6px}
+  .old{color:var(--alert); font-weight:600}
+  .stop{color:var(--alert)}
+  footer{margin:30px 0 40px; padding-top:14px; border-top:1px solid var(--line); color:var(--muted); font-size:12px}
+  footer p{margin:0 0 5px}
+
+/* 시민행동의 재정 조사 화면 — 템플릿 안에서 공유하는 시각 규칙 */
+:root, :root[data-theme="light"] {
+  --ground:#f6f5ef;--paper:#fffef9;--sunk:#eeeee5;--soft:#eeeee5;
+  --ink:#202f2a;--muted:#53645b;--faint:#627168;--line:#cbd1c5;--line-soft:#e0e3d9;
+  --accent:#226447;--green:#226447;--green-bg:#e7efe5;--alert:#9c422a;
+  --red:#9c422a;--red-bg:#faede6;--amber:#80551b;--amber-bg:#f6efdb;
+  --body:'Malgun Gothic','Apple SD Gothic Neo',system-ui,sans-serif;
+  --mono:ui-monospace,'Cascadia Mono',Consolas,monospace;
+}
+body{font-family:var(--body);font-size:15px;line-height:1.75;background:var(--ground);color:var(--ink)}
+a{color:var(--accent);text-underline-offset:4px}a:hover{text-decoration-thickness:2px}
+.wrap{width:100%;max-width:1240px;margin-inline:auto;padding-inline:32px;min-width:0}
+.site-header{background:var(--paper);border-top:5px solid var(--accent);border-bottom:1px solid var(--line)}
+.site-masthead{display:flex;align-items:center;justify-content:space-between;gap:22px;min-height:87px;padding-block:17px}
+.site-brand{font-size:22px;font-weight:800;letter-spacing:-1px;color:var(--ink);text-decoration:none;line-height:1.25;white-space:nowrap}
+.site-brand small{display:block;font-size:11px;font-weight:500;letter-spacing:.02em;color:var(--muted);margin-top:7px}
+.site-navigation{display:flex;gap:20px;align-items:center;flex-wrap:wrap;font-size:13px;font-weight:600}
+.site-navigation a{padding-block:8px;text-decoration:none;color:var(--muted);white-space:nowrap}
+.site-navigation a[aria-current="page"]{color:var(--accent);box-shadow:inset 0 -2px var(--accent)}
+.site-navigation a:hover{color:var(--ink)}
+.section-kicker,.eyebrow{font-size:11px;letter-spacing:.1em;color:var(--accent);font-weight:700;margin:0 0 12px}
+.page-intro{padding-top:38px;padding-bottom:28px;border-bottom:1px solid var(--line);display:grid;grid-template-columns:1.35fr 1fr;gap:40px;align-items:end}
+.page-intro h1{font-size:44px;line-height:1.3;letter-spacing:-2px;margin:0;font-weight:800;text-wrap:balance}
+.page-intro .intro-guide{border-left:1px solid var(--line);padding-left:28px;color:var(--muted);font-size:14px;max-width:390px}
+.intro-guide b{color:var(--ink)}.intro-guide p{margin:0 0 8px}.intro-guide .reading-order{font-size:11px;color:var(--accent);letter-spacing:.03em}
+.selection-bar{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:20px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.selection-bar .grp{display:flex;gap:5px;flex-wrap:wrap;margin:0;padding:0;border:0;min-width:0}
+.selection-bar select{max-width:100%;min-width:180px;background:var(--paper);font-weight:700}
+.selection-bar #view{gap:3px}.selection-bar #view button{background:transparent;border-color:transparent}
+.selection-bar #view button[aria-selected="true"]{background:var(--accent);color:var(--paper)}
+h1{font-size:36px;line-height:1.4;letter-spacing:-1.4px;margin:38px 0 16px;font-weight:800;text-wrap:balance}
+h2{font-size:21px;letter-spacing:-.65px;line-height:1.6;margin:40px 0 14px;padding-bottom:10px;border-bottom:2px solid var(--ink)}
+h2 small{font-size:13px;font-weight:400;letter-spacing:0;display:inline-block;color:var(--muted);margin-left:12px}
+h3{font-size:16px;line-height:1.6}.meta{font-size:13px;color:var(--muted)}
+.basis{background:var(--sunk);border:0;border-left:3px solid var(--accent);padding:16px 19px;font-size:14px;line-height:1.85;margin:20px 0;color:var(--muted)}
+.basis b{color:var(--ink)}.note{font-size:13px;line-height:1.8;color:var(--muted);margin:10px 0 14px;overflow-wrap:anywhere}
+.warn,.warnbox{border-left:3px solid var(--alert);background:var(--red-bg);padding:18px 20px;line-height:1.9;color:var(--ink)}
+button,input,select{font:inherit;border-radius:3px}button{font-size:13px;min-height:38px;padding:7px 13px;transition:background .15s,color .15s;white-space:normal}
+input[type="search"],select{font-size:14px;min-height:42px;padding:9px 12px;color:var(--ink);background:var(--paper);border:1px solid var(--line);max-width:100%}
+button:hover:not(:disabled){background:var(--green-bg);color:var(--accent);border-color:var(--accent)}
+button[aria-selected="true"],button[aria-pressed="true"]{background:var(--accent);color:var(--paper);border-color:var(--accent)}
+button:disabled{opacity:.5;cursor:not-allowed}:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.scroll{border:1px solid var(--line);background:var(--paper);max-width:100%;min-width:0}
+table{font-size:14px}th,td{padding:12px 14px;border-color:var(--line-soft)}
+thead th{font-size:12px;font-weight:700;color:var(--muted);background:var(--sunk)}
+tbody td{font-variant-numeric:tabular-nums}tbody tr:hover{background:var(--green-bg)}
+.raw,.amount-under{display:block;font-size:11px;color:var(--muted);margin-top:3px;font-weight:400}
+.picker{padding:20px;background:var(--paper);border:1px solid var(--line)}
+.srch,.bar{gap:9px}.srch{display:flex;flex-wrap:wrap;align-items:center}.srch .grp{display:flex;flex-wrap:wrap;gap:6px}
+.pane{min-width:0;background:var(--paper)}.pane h2{padding:13px 16px;font-size:15px}.cols{gap:24px}.tree{padding:14px 10px}.tree .nd{padding:6px 4px}
+.layers{gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.layers .layer{border:0;border-right:1px solid var(--line);padding:22px;background:transparent;border-radius:0}.layers .layer:last-child{border-right:0}
+footer{margin:48px 0 38px;padding-top:22px;font-size:13px;line-height:1.85;border-top:1px solid var(--line);color:var(--muted)}footer p{margin:8px 0}
+.docs li{padding:13px 0}.docs a{font-size:12px;overflow-wrap:anywhere}
+.skip-link{position:absolute;left:12px;top:-100px;padding:12px;background:var(--paper);z-index:100}.skip-link:focus{top:12px}
+#clik-panel{margin:42px 0;scroll-margin-top:20px}#clik-panel h2{margin-top:0}.clik-intro{font-size:14px;color:var(--muted)}.clik-intro b{display:block;color:var(--ink);margin-top:5px}
+.clik-controls{display:flex;flex-wrap:wrap;gap:14px;align-items:end;margin:22px 0 10px}.clik-controls label{display:flex;flex-direction:column;gap:5px;font-size:12px;color:var(--muted)}
+.clik-controls label:first-of-type{flex:1;min-width:200px}.clik-tabs{display:flex;gap:4px}.clik-tabs button{min-height:42px}.clik-tabs span{font-family:var(--mono);font-size:11px;margin-left:6px}
+.clik-list{list-style:none;margin:0;padding:0;border-top:2px solid var(--ink)}.clik-list li{display:grid;grid-template-columns:105px minmax(0,1fr);gap:22px;padding:20px 0;border-bottom:1px solid var(--line)}
+.clik-list time{font:12px/1.8 var(--mono);color:var(--muted)}.clik-list a{font-size:16px;font-weight:700;text-decoration:none}.clik-list a:hover{text-decoration:underline}
+.clik-list p{font-size:12px;color:var(--muted);margin:4px 0 0;overflow-wrap:anywhere}.clik-list p span{margin-left:9px}.clik-pages{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:18px 0;font-size:12px;color:var(--muted)}
+.clik-empty{padding:30px;background:var(--sunk);font-size:14px}.clik-tag{font-size:10px;padding:2px 5px;background:var(--sunk);border:1px solid var(--line)}
+@media(min-width:1001px){
+  .scroll:not(.needs-scroll){overflow:visible;max-height:none}.scroll:not(.needs-scroll) thead th{position:sticky;top:0;z-index:3}
+  .scroll.needs-scroll{overflow:auto;max-height:78vh}.catalog-panel{overflow:visible}.catalog-scroll{max-height:none}
+}
+@media(max-width:1000px){.scroll{overflow-x:auto}.site-masthead{flex-direction:column;align-items:flex-start;gap:12px}.site-navigation{gap:19px}.page-intro{gap:24px}.page-intro h1{font-size:36px}}
+@media(max-width:600px){
+  .wrap{width:100%;padding-inline:18px}.site-masthead{padding-block:17px;gap:13px}.site-brand{font-size:21px}.site-brand small{font-size:10px}
+  .site-navigation{gap:2px 17px;font-size:12px;line-height:1.4}.site-navigation a{padding:7px 0}.page-intro{display:block;padding-top:28px;padding-bottom:23px}
+  .page-intro h1{font-size:32px;letter-spacing:-1.3px}.page-intro .intro-guide{border:0;padding:0;margin-top:19px;font-size:13px}.intro-guide .reading-order{font-size:10px}
+  .section-kicker{font-size:10px}.selection-bar{gap:13px;padding:17px 0}.selection-bar #loc{width:100%}.selection-bar select{width:100%}.selection-bar #view{gap:4px}.selection-bar button{font-size:12px;padding:7px 9px}
+  h1{font-size:28px;margin-top:27px;letter-spacing:-1px}h1 .cd{font-size:11px}h2{font-size:20px;margin-top:31px}h2 small{display:block;margin:4px 0 0;font-size:12px}
+  .basis{font-size:13px;padding:14px 15px;overflow-wrap:anywhere}.note{font-size:12px}th,td{padding:10px;font-size:12px}thead th{font-size:11px}
+  .warnbox{padding:15px}.layers{display:block}.layers .layer{border-right:0;border-bottom:1px solid var(--line);padding:18px 0}.layers .layer:last-child{border-bottom:0}
+  .clik-controls{gap:12px}.clik-tabs{width:100%}.clik-controls label:first-of-type{min-width:100%}.clik-controls label{min-width:0;flex:1}.clik-controls select{width:100%}
+  .clik-list li{grid-template-columns:1fr;gap:6px;padding:17px 0}.clik-list a{font-size:15px}.clik-pages{font-size:11px}footer{font-size:12px;overflow-wrap:anywhere}
+  .cols{grid-template-columns:minmax(0,1fr)}.pane{width:100%}.tree{max-height:45vh}
+}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--ground:#17251f;--paper:#1c2c24;--sunk:#26372e;--soft:#26372e;--ink:#edf0e6;--muted:#b4c3b6;--faint:#a3b4a6;--line:#485b4c;--line-soft:#35483c;--accent:#9ad4ae;--green:#9ad4ae;--green-bg:#2a4936;--red-bg:#443029;--alert:#f0ad91;--red:#f0ad91;--amber:#e0c18a;--amber-bg:#423a29}}
+:root[data-theme="dark"]{--ground:#17251f;--paper:#1c2c24;--sunk:#26372e;--soft:#26372e;--ink:#edf0e6;--muted:#b4c3b6;--faint:#a3b4a6;--line:#485b4c;--line-soft:#35483c;--accent:#9ad4ae;--green:#9ad4ae;--green-bg:#2a4936;--red-bg:#443029;--alert:#f0ad91;--red:#f0ad91;--amber:#e0c18a;--amber-bg:#423a29}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+@media print{.site-header,.selection-bar{position:static}.wrap{max-width:none;padding:0}.scroll{overflow:visible!important;max-height:none!important}body{background:white;color:black}.clik-controls,.clik-pages{display:none}}
+
+</style>
+
+<a class="skip-link" href="#main-content">본문으로 바로 가기</a>
+<header class="site-header"><div class="wrap site-masthead"><a class="site-brand" href="./">살림을 보는 시민<small>함께하는 시민행동 · 지방재정 감시</small></a><nav class="site-navigation" aria-label="전체 화면"><a href="dashboard.html">대시보드</a><a href="./">★우선 자치단체별</a><a href="./#,의회">지방의회</a><a href="review.html" aria-current="page">★우선 투자심사</a><a href="board.html">시황판</a><a href="transparency.html">공시 점검</a><a href="score.html">★우선 투명성 지표</a><a href="catalog.html">★우선 자료 목록</a><a href="edu.html">교육청</a><a href="datamap.html">★우선 데이터 지도</a></nav></div></header>
+
+<main class="wrap" id="main-content"><p class="section-kicker" style="margin-top:30px">큰 사업의 문턱</p>
+  <h1>중앙투자심사 — 통과시켰나, 돌려보냈나</h1>
+  <p class="basis">규모가 큰 지방 사업은 예산에 담기 전에 <b>행정안전부 중앙투자심사</b>를 거쳐야 한다(지방재정법 제37조).
+    심사 결과는 <b>적정 · 조건부 · 재검토 · 반려</b> 넷이다. 재검토·반려를 받은 사업은 그대로는 예산을 세울 수 없다.<br>
+    한 줄이 <b>심사 한 번</b>이다. 돌려보낸 사업이 다음 회차에 다시 올라오면(「재상정」) 두 줄이 된다.</p>
+  <details class="srcs" id="srcs"></details>
+  <div class="tally" id="tally"></div>
+  <p class="srch">
+    <input id="q" type="search" placeholder="사업명·곳 — 예: 여수시, 체육관, 케이블카" autocomplete="off">
+    <select id="sido" aria-label="시도"><option value="">모든 시도</option></select>
+    <select id="round" aria-label="심사 회차"><option value="">모든 회차</option></select>
+  </p>
+  <p class="note" id="say" role="status" aria-live="polite"></p>
+  <div id="list"></div>
+  <p><button id="more" type="button" hidden>더 보기</button></p>
+  <footer>
+    <p>자료 — 지방재정365 「통합자료실 &gt; 성과/평가 &gt; 중앙투자심사결과」에 행정안전부가 회차마다 올린 한글 파일의 표를 그대로 옮겼다.
+       <span id="from"></span> 이후 올라온 회차다. 공공데이터포털(15051377)의 링크는 끊겨 있다.</p>
+    <p><b>원문</b> — 위 「원문 파일」에 회차별로 모았다. 「PDF」는 한글 파일을 옮긴 것이고,
+       「한글」은 행정안전부가 올린 파일 그대로다. 지방재정365 의 글은 링크로 바로 열리지 않아(주소를 막아 둠)
+       <a href="https://www.lofin365.go.kr/portal/LF8310000.do" target="_blank" rel="noopener">지방재정365 통합자료실</a>에서
+       「중앙투자심사결과」 분류를 골라 회차 제목으로 찾아야 한다.</p>
+    <p>사업비는 파일에 적힌 <b>총사업비</b>(억 원)이고, 괄호 안은 원문 표기 그대로의 재원 구성이다.
+       정렬에는 맨 앞 숫자만 쓴다.</p>
+    <p>⚠️ 심사받은 사업이 실제 예산·집행의 어느 줄인지는 <b>이어 보지 않았다</b> — 사업 이름이 자료마다 달라 자동으로 잇지 못한다.
+       「반려됐는데 돈이 나갔다」는 이 판만으로는 말할 수 없다.</p>
+  </footer>
+</main>
+
+<style>
+.tally{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:2px solid var(--ink);border-bottom:1px solid var(--line);margin:26px 0 10px}
+.tally button{display:flex;flex-direction:column;align-items:flex-start;gap:2px;border:0;border-right:1px solid var(--line);border-radius:0;background:transparent;padding:16px 18px;text-align:left;min-height:0}
+.tally button:last-child{border-right:0}.tally b{font:700 28px/1.2 var(--mono)}.tally span{font-size:12px;color:var(--muted)}
+.tally button[aria-pressed="true"]{background:var(--green-bg);color:var(--ink);box-shadow:inset 0 -3px var(--accent)}
+.res{font-size:12px;font-weight:700;padding:2px 8px;border:1px solid var(--line);white-space:nowrap}
+.res.반려{color:var(--red);background:var(--red-bg);border-color:var(--red)}.res.재검토{color:var(--amber);background:var(--amber-bg);border-color:var(--amber)}
+.res.적정{color:var(--green);background:var(--green-bg)}
+td.nm{white-space:normal;min-width:260px;font-weight:600}td.nm small{display:block;font-weight:400;color:var(--muted);font-size:12px;line-height:1.6;margin-top:3px}
+td.num{font-family:var(--mono);text-align:right}td.num small{display:block;font-size:11px;color:var(--muted);white-space:normal;max-width:220px;margin-left:auto}
+.srch select{min-width:140px}
+.srcs{margin:18px 0 0;border:1px solid var(--line);background:var(--paper);padding:10px 16px}.srcs summary{cursor:pointer;font-weight:700;font-size:14px}
+.srcs ul{list-style:none;margin:10px 0 4px;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:4px 18px}
+.srcs li{font-size:13px;white-space:nowrap}.srcs small{color:var(--muted);font-size:11px;margin:0 4px}
+@media(max-width:600px){.tally{grid-template-columns:repeat(2,1fr)}.tally button:nth-child(2){border-right:0}.tally button:nth-child(-n+2){border-bottom:1px solid var(--line)}.tally b{font-size:22px}.srch select{flex:1}}
+</style>
+
+<script src="charts.js"></script>
+<script>
+/* 한 줄 = [올린날, 회차, 곳, 사업명, 기간, 사업량, 사업비(억·맨 앞 숫자), 사업비 원문, 결과,
+           원본 파일 이름(확장자 뺀 것), PDF 있나] */
+const ROWS = __ROWS__, 부터 = '__FROM__';
+const 결과들 = ['반려', '재검토', '조건부', '적정'];
+let 결과 = '', 보일 = 200;
+const esc = t => String(t ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const n0 = v => v == null ? '' : v.toLocaleString('ko-KR');
+/* 원문 — 줄마다 걸면 어지러워(2026-09-30 사용자) 표 위에 회차별로 한 번만 모은다 */
+const 파일들 = [...new Map(ROWS.map(r => [r[9], {회차: r[1], 날: r[0], 파일: r[9], pdf: r[10]}])).values()]
+  .sort((a, b) => b.날.localeCompare(a.날) || a.회차.localeCompare(b.회차));
+document.getElementById('srcs').innerHTML = `<summary>원문 파일 — 회차별 ${파일들.length}개 (행정안전부가 올린 한글 파일과 그것을 옮긴 PDF)</summary><ul>${
+  파일들.map(x => { const f = 'review/' + encodeURIComponent(x.파일);
+    return `<li><b>${esc(x.회차)}</b> <small>${esc(x.날)}</small> ${x.pdf ? `<a href="${f}.pdf" target="_blank" rel="noopener">PDF</a> · ` : ''}<a href="${f}.hwpx" download>한글</a></li>`; }).join('')}</ul>`;
+const q = document.getElementById('q'), sido = document.getElementById('sido'), round = document.getElementById('round');
+
+sido.innerHTML += Chart.시도차례(ROWS.map(r => r[2].split('(')[0])).map(s => `<option>${esc(s)}</option>`).join('');
+round.innerHTML += [...new Set(ROWS.map(r => r[1]))].map(s => `<option>${esc(s)}</option>`).join('');
+document.getElementById('from').textContent = 부터;
+
+function 걸린(무시결과){
+  const t = q.value.trim().replace(/\s+/g, '');
+  return ROWS.filter(r => (!t || (r[2] + r[3]).replace(/\s+/g, '').includes(t))
+    && (!sido.value || r[2].startsWith(sido.value + '(')) && (!round.value || r[1] === round.value)
+    && (무시결과 || !결과 || r[8] === 결과));
+}
+function 그리기(){
+  const 판 = 걸린(true), rs = 걸린(false);
+  document.getElementById('tally').innerHTML = 결과들.map(k =>
+    `<button type="button" data-r="${k}" aria-pressed="${k === 결과}"><span class="res ${k}">${k}</span><b>${n0(판.filter(r => r[8] === k).length)}</b><span>건</span></button>`).join('');
+  document.getElementById('say').textContent = `${n0(rs.length)}건 (모두 ${n0(ROWS.length)}건)` + (결과 ? ` · ${결과}만 — 위 칸을 다시 누르면 풀린다` : '');
+  document.getElementById('list').innerHTML = rs.length ? `<div class="scroll"><table>
+    <thead><tr><th>회차</th><th>곳</th><th>사업명 · 사업량</th><th>기간</th><th style="text-align:right">사업비(억 원)</th><th>결과</th></tr></thead>
+    <tbody>${rs.slice(0, 보일).map(r => `<tr><td>${esc(r[1])}<small class="raw">${esc(r[0])} 게시</small></td><td>${esc(r[2])}</td>
+      <td class="nm">${esc(r[3])}<small>${esc(r[5])}</small></td><td>${esc(r[4])}</td>
+      <td class="num">${n0(r[6])}<small>${esc(r[7].replace(/^[\d,\s]+/, ''))}</small></td><td><span class="res ${esc(r[8])}">${esc(r[8])}</span></td></tr>`).join('')}</tbody></table></div>`
+    : '<p class="note">걸린 심사가 없다. 이 곳이 심사를 안 받았거나, 이름이 다르게 적혔을 수 있다 — 글자를 줄여 보라.</p>';
+  const more = document.getElementById('more');
+  more.hidden = rs.length <= 보일; more.textContent = `더 보기 (${n0(rs.length - 보일)}건 남음)`;
+}
+document.getElementById('tally').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  결과 = 결과 === b.dataset.r ? '' : b.dataset.r; 보일 = 200; 그리기();
+});
+for (const el of [q, sido, round]) el.addEventListener(el === q ? 'input' : 'change', () => { 보일 = 200; 그리기(); });
+document.getElementById('more').addEventListener('click', () => { 보일 += 200; 그리기(); });
+/* 자치단체별 화면에서 review.html#전남(여수시) 로 넘어온다 */
+if (location.hash) q.value = decodeURIComponent(location.hash.slice(1));
+그리기();
+</script>
+
+<script>
+(()=>{let scheduled=false;function fit(){scheduled=false;document.querySelectorAll('.scroll').forEach(el=>{const table=el.querySelector('table');if(table)el.classList.toggle('needs-scroll',table.getBoundingClientRect().width>el.clientWidth+2);});}function queue(){if(!scheduled){scheduled=true;requestAnimationFrame(fit);}}new MutationObserver(queue).observe(document.body,{childList:true,subtree:true});addEventListener('resize',queue);queue();})();
+</script>

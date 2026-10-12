@@ -1,0 +1,17 @@
+# 실패 알림이 어디로 가나 확인한다 — 손으로만: gh workflow run alert-test.yml
+# 「⚠️ … 시험 — 작업 failure」 한 통이 TELEGRAM_ALERT_CHAT_ID(사용자 1:1)로 가면 맞다.
+name: 실패 알림 시험
+
+on: workflow_dispatch
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - run: python scripts/notify_fail.py
+        env:
+          NEEDS: '{"시험(진짜 실패 아님)":{"result":"failure"}}'
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_ALERT_CHAT_ID || secrets.TELEGRAM_CHAT_ID }}
