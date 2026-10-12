@@ -17,7 +17,10 @@ import argparse
 import html
 import json
 import os
+import re
 import sys
+import time
+import urllib.parse
 import urllib.request
 
 import fetch_clik as clik
@@ -27,6 +30,11 @@ import fetch_clik as clik
     # 서울특별시의회 · 2026-10-08 사용자: "18년도부터" 모으고, 텔레그램은 "올해 7월부터" 것만(전체는 정리만)
     ('노들섬', '002001', '20180101', '20260701'),
 ]
+
+# ⭐ 서울시의회는 CLIK 에 2026-06-24 뒤 회의록이 없다(2026-10-12 확인 — 다른 의회는 7~9월치가 들어와 있다).
+#    그래서 시의회 회의록 누리집(ms.smc.seoul.kr)의 회의록 검색을 같이 본다. CLIK 의 마지막 날짜 뒤만 보탠다.
+#    본문 검색이고 서버가 그려 주는 표라 크롬이 필요 없다. 한 쪽 20줄, 번호 큰 것(새것)부터.
+누리집 = {'002001': 'https://ms.smc.seoul.kr'}
 
 모음파일 = os.path.join(clik.받는곳, '알림_모음.json')   # {의회코드:낱말: [{갈래, 날짜, 글, DOCID}]} 새것이 위
 
@@ -43,6 +51,39 @@ def 링크(이름, DOCID):
     ('의안', 'bill.do', 'ITNC_DE/DESC', 'ITNC_DE',
      lambda r: f"{r.get('ITNC_DE', '')} {r.get('BI_SJ', '')} ({r.get('CL_STD_NM') or '처리 전'})"),
 ]
+
+
+def 시의회누리집(뿌리, 낱말, 부터):
+    """서울시의회 회의록 검색 → [{갈래, 날짜, 글, DOCID, 주소}]. 부터(YYYYMMDD) 앞 글만 나오는 쪽에서 멈춘다."""
+    줄 = []
+    for 쪽 in range(1, 31):
+        url = (f'{뿌리}/kr/assembly/recordLocation.do?sTh=0&keyword={urllib.parse.quote(낱말)}&pageNum={쪽}')
+        for n in range(3):
+            try:
+                req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+                본문 = urllib.request.urlopen(req, timeout=40).read().decode('utf-8', 'replace')
+                break
+            except Exception as e:
+                if n == 2:
+                    raise
+                time.sleep(20 * (n + 1))
+        몸 = 본문[본문.find('<tbody'):본문.find('</tbody>')]
+        이쪽 = []
+        for tr in re.findall(r'<tr>.*?</tr>', 몸, re.S):
+            칸 = re.findall(r'<td[^>]*>(.*?)</td>', tr, re.S)
+            m = re.search(r"href='(/record/recordView\.do\?key=([0-9a-f]+)[^']*)'", tr)
+            if len(칸) < 6 or not m:
+                continue
+            글자 = [re.sub(r'\s+', ' ', html.unescape(re.sub(r'<[^>]+>', ' ', c))).strip() for c in 칸]
+            날짜 = re.sub(r'\D', '', 글자[5])[:8]
+            회, 차, 회의 = re.sub(r'\D', '', 글자[2]), re.sub(r'\D', '', 글자[3]), 글자[4]
+            이쪽.append(날짜)
+            if 날짜 >= 부터:
+                줄.append({'갈래': '회의록', '날짜': 날짜, '글': f'{날짜} {회의} 제{회}회 {차}차',
+                           'DOCID': 'SMC' + m.group(2)[:32], '주소': 뿌리 + m.group(1).split('&')[0]})
+        if not 이쪽 or max(이쪽) < 부터:
+            break
+    return 줄
 
 
 def 보내는날():
@@ -98,6 +139,7 @@ def main():
         쌓인[:] = [x for x in 쌓인 if x['날짜'] >= 부터]
         본 = {x['DOCID'] for x in 쌓인}
         새줄, 못받음 = [], ''
+        누리집글 = {x['글'] for x in 쌓인 if x['DOCID'].startswith('SMC')}
         for 이름, 끝점, 정렬, 날짜칸, 한줄 in 갈래:
             쪽 = 0
             while True:   # 끝 쪽까지
@@ -116,11 +158,25 @@ def main():
                     if r.get('DOCID') and r['DOCID'] not in 본 and r.get(날짜칸, '') >= 부터:
                         본.add(r['DOCID'])
                         쌓인.append({'갈래': 이름, '날짜': r.get(날짜칸, ''), '글': 한줄(r), 'DOCID': r['DOCID']})
-                        if r.get(날짜칸, '') >= 알림부터:
+                        if r.get(날짜칸, '') >= 알림부터 and 한줄(r) not in 누리집글:   # 누리집에서 먼저 받은 회의는 또 안 보낸다
                             새줄.append(f"[{이름}] <a href=\"{링크(이름, r['DOCID'])}\">{html.escape(한줄(r))}</a>")
                 쪽 += 100
                 if not 줄들 or 쪽 >= int(d.get('TOTAL_COUNT') or 0):
                     break
+        if 의회코드 in 누리집:   # CLIK 이 아직 안 받은 날짜만 — CLIK 회의록의 마지막 날부터
+            clik끝 = max((x['날짜'] for x in 쌓인 if x['갈래'] == '회의록' and not x['DOCID'].startswith('SMC')), default=부터)
+            try:
+                있는글 = {x['글'] for x in 쌓인}
+                for x in 시의회누리집(누리집[의회코드], 낱말, clik끝):
+                    if x['DOCID'] in 본 or x['글'] in 있는글:
+                        continue
+                    본.add(x['DOCID']); 있는글.add(x['글']); 쌓인.append(x)
+                    if x['날짜'] >= 알림부터:
+                        새줄.append(f"[회의록·시의회] <a href=\"{x['주소']}\">{html.escape(x['글'])}</a>")
+            except Exception as e:
+                print(f'  {낱말} 시의회 누리집: 못 받음 — {e!r}'[:200])
+                못받음 = 못받음 or '서울시의회 회의록 누리집이 응답하지 않아'
+                하나라도못받음 = True
         쌓인.sort(key=lambda x: x['날짜'], reverse=True)
         머리 = f"🔔 <b>{html.escape(의회.get(의회코드, 의회코드))} · {html.escape(낱말)}</b>"
         if 처음:
@@ -133,7 +189,7 @@ def main():
                        + '\n'.join(f"{y}  " + ' · '.join(f'{k} {v}' for k, v in 해[y].items())
                                    for y in sorted(해, reverse=True)[:6]))
         elif args.다시보내기:   # 텔레그램 시작일 뒤의 것 전부(없어도 「0건」 한 통)
-            줄 = [f"[{x['갈래']}] <a href=\"{링크(x['갈래'], x['DOCID'])}\">{html.escape(x['글'])}</a>"
+            줄 = [f"[{x['갈래']}] <a href=\"{x.get('주소') or 링크(x['갈래'], x['DOCID'])}\">{html.escape(x['글'])}</a>"
                  for x in 쌓인 if x['날짜'] >= 알림부터]
             글들.append(f"{머리} — {알림부터[:4]}-{알림부터[4:6]} 이후 {len(줄)}건 "
                        f"(모은 것 {len(쌓인)}건 중, 마지막 회의 {max((x['날짜'] for x in 쌓인), default='-')})\n"

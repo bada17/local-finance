@@ -1,0 +1,12 @@
+name: 서울시의회 누리집 닿나(한 번)
+on: workflow_dispatch
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: cd scripts && python -c "import watch_clik as w; r=w.시의회누리집(w.누리집['002001'],'노들섬','20260701'); print(len(r), r[:2])"
