@@ -1,0 +1,84 @@
+# 누리집 게시판 글 목록을 달마다 다시 받는다 — 업무추진비·고향사랑·수의계약·감사결과·공약… (fetch_boards.js, 크롬)
+# 자치단체 243곳 판(board_posts.json) 다음에 의회 판(board_posts_council.json).
+#
+# ⭐ 2026-10-12 사용자 — 게시판은 봇으로("봇으로 해야지"). 그 전엔 사람 PC 크롬으로만 돌았다.
+# --새로 : 다 다시 보되 지난 결과는 바뀔 때까지 남긴다 — 6시간 제한에 잘려도 파일이 비지 않는다.
+# 게시판 자리 찾기(1단계, find_boards.js)는 자리가 잘 안 바뀌어 손으로만: -f find=true
+# 시험(파일 안 씀): gh workflow run boards.yml -f test="1111000 4113000 4831000"
+name: 달마다 누리집 게시판
+
+on:
+  schedule:
+    - cron: '0 18 1 * *'         # 매달 1일 UTC 18:00 = 한국 시간 2일 새벽 3시
+  workflow_dispatch:
+    inputs:
+      test:
+        description: '시험 — 곳 코드 몇 개(띄어 씀). 주면 그 곳만 보고 파일은 안 쓴다'
+        default: ''
+      find:
+        description: '게시판 자리부터 다시 찾나(1단계, 오래 걸림)'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: boards
+  cancel-in-progress: false
+
+jobs:
+  boards:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    outputs:
+      steps: ${{ toJSON(steps) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - id: test
+        name: 시험
+        if: ${{ inputs.test != '' }}
+        run: node scripts/fetch_boards.js 업무추진비 ${{ inputs.test }} | head -c 6000
+
+      - id: find
+        name: 게시판 자리 찾기
+        if: ${{ inputs.test == '' && inputs.find }}
+        continue-on-error: true
+        timeout-minutes: 150
+        run: node scripts/find_boards.js && node scripts/find_boards.js --의회
+
+      - id: local
+        name: 자치단체 게시판
+        if: ${{ !cancelled() && inputs.test == '' }}
+        continue-on-error: true
+        timeout-minutes: 200
+        run: node scripts/fetch_boards.js --새로
+
+      - id: council
+        name: 의회 게시판
+        if: ${{ !cancelled() && inputs.test == '' }}
+        continue-on-error: true
+        timeout-minutes: 100
+        run: node scripts/fetch_boards.js --의회 --새로
+
+      - id: push
+        name: 올리기
+        if: ${{ !cancelled() && inputs.test == '' }}
+        run: sh scripts/bot_push.sh "달마다 누리집 게시판 $(date -u +%Y-%m)" data/boards.json data/boards_council.json data/board_posts.json data/board_posts_council.json
+
+  alert:
+    needs: [boards]
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - run: python scripts/notify_fail.py
+        env:
+          NEEDS: ${{ toJSON(needs) }}
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_ALERT_CHAT_ID || secrets.TELEGRAM_CHAT_ID }}

@@ -42,10 +42,13 @@ const 뜻있나 = n => {
   return (n.match(/[가-힣]/g) || []).length >= 3;
 };
 
+// 봇(우분투)에서도 돈다 — 깃허브 러너에는 /usr/bin/google-chrome 이 깔려 있다
 const 크롬자리 = [
+  process.env.CHROME_PATH,
   'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
   'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
-].find(p => fs.existsSync(p));
+  '/usr/bin/google-chrome',
+].find(p => p && fs.existsSync(p));
 
 // 페이지 안에서 도는 긁개 — 붙은 파일과 올린 날짜를 찾는다
 const 긁개 = String.raw`(() => {

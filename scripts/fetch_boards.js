@@ -4,6 +4,7 @@
 //   node scripts/fetch_boards.js 고향사랑            그 과녁만
 //   node scripts/fetch_boards.js 고향사랑 1111000    그 과녁·그 곳만(시험용, 파일에 안 적는다)
 //   node scripts/fetch_boards.js --의회              의회 누리집 판 → board_posts_council.json
+//   node scripts/fetch_boards.js --새로              다 다시 본다(지난 결과는 바뀔 때까지 남긴다) — 달마다 봇
 //
 // 판정 — 후보 링크를 차례로 열어, 날짜가 붙은 줄이 셋 이상이면 「게시판」으로 보고 첫 쪽 글을 적는다.
 //   게시판이 아니면(안내 화면) 그 화면에 붙은 파일만 적는다. 후보 셋까지 보고 게시판을 찾으면 멈춘다.
@@ -166,7 +167,9 @@ async function main() {
   const 시험 = 한곳만.length > 0;
   const 결과 = !시험 && !process.argv.includes('--다시') && fs.existsSync(OUT) ? JSON.parse(fs.readFileSync(OUT, 'utf-8'))['곳'] : {};
   const 적기 = () => fs.writeFileSync(OUT, JSON.stringify({ 만든날: new Date().toISOString().slice(0, 10), 곳: 결과 }, null, 1));
-  const 남은 = 할일.filter(일 => { const x = (결과[일.laf] || {})[일.과녁]; return !x || x.종류 === '멈췄다'; });
+  // --새로 : 달마다 봇(boards.yml) — 다 다시 보되, 다시 볼 때까지 지난 결과를 그대로 둔다(중간에 잘려도 안 비게)
+  const 새로 = process.argv.includes('--새로');
+  const 남은 = 새로 ? 할일 : 할일.filter(일 => { const x = (결과[일.laf] || {})[일.과녁]; return !x || x.종류 === '멈췄다'; });
   console.log(`할 일 ${할일.length}, 남은 것 ${남은.length}`);
   할일.splice(0, 할일.length, ...남은);
 
@@ -181,7 +184,8 @@ async function main() {
       let 값;
       try { 값 = await 한과녁(탭, 일.후보, 일.과녁); } catch (e) { 값 = { 종류: '멈췄다', 까닭: String(e).slice(0, 60) }; }
       (결과[일.laf] = 결과[일.laf] || { 이름: 일.이름 })[일.과녁] = 값;
-      if (!시험) 적기();
+      // 윈도에서 파일이 잠깐 잠기면(UNKNOWN open, 2026-10-12 260/1328 에서 죽음) 이번 것만 거른다 — 다음 적기가 통째로 쓴다
+      if (!시험) try { 적기(); } catch (e) { console.log('   적기 실패, 다음에 씀:', e.code); }
       if (++끝난 % 20 === 0) console.log(`   ${끝난}/${할일.length}`);
     }
     탭.ws.close();
