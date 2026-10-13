@@ -1,5 +1,5 @@
 {
- "만든날": "2026-10-12",
+ "만든날": "2026-10-13",
  "곳": {
   "1111000": {
    "이름": "서울종로구",
@@ -10891,18 +10891,721 @@
    "국외출장": {
     "종류": "안내 화면",
     "링크글자": "2022. 공무국외출장 심사회의록",
-    "화면": "council.haeundae.go.kr",
-    "주소": "chrome-error://chromewebdata/",
-    "파일": [],
-    "날짜": ""
+    "화면": "( 보고서 )의 내용 | 의정자료 | 해운대구의회",
+    "주소": "https://council.haeundae.go.kr/board/view.do?boardId=BBS_0000123&menuCd=DOM_000000706004000000&paging=ok&startPage=1&dataSid=3092566",
+    "파일": [
+     {
+      "이름": "2022공무국외출장심사회의록(아랍에미리트-두바이_아부다... (63 kb)",
+      "주소": "/board/download.do?boardId=BBS_0000123&menuCd=DOM_000000706004000000&paging=ok&startPage=1&dataSid=3092566&command=update&fileSid=3116189"
+     },
+     {
+      "이름": "2022공무국외출장심사회의록(아랍에미리트-두바이_아부다비). 첨부",
+      "주소": "/board/download.do?boardId=BBS_0000123&menuCd=DOM_000000706004000000&paging=ok&startPage=1&dataSid=3092566&command=update&fileSid=3116189"
+     },
+     {
+      "이름": "별지제1호서식(공무국외출장계획서).hwpx (75 kb)",
+      "주소": "/board/download.do?boardId=BBS_0000123&menuCd=DOM_000000706004000000&paging=ok&startPage=1&dataSid=3092566&command=update&fileSid=3116190"
+     },
+     {
+      "이름": "별지제1호서식(공무국외출장계획서). 첨부",
+      "주소": "/board/download.do?boardId=BBS_0000123&menuCd=DOM_000000706004000000&paging=ok&startPage=1&dataSid=3092566&command=update&fileSid=3116190"
+     },
+     {
+      "이름": "별지제1호서식(공무국외출장계획서).hwpx",
+      "주소": ""
+     }
+    ],
+    "날짜": "2022-09-26"
    },
    "업무추진비": {
-    "종류": "안내 화면",
-    "링크글자": "업무추진비 집행 현황",
-    "화면": "council.haeundae.go.kr",
-    "주소": "chrome-error://chromewebdata/",
-    "파일": [],
-    "날짜": ""
+    "종류": "게시판",
+    "링크글자": "업무추진비",
+    "화면": "업무추진비의 목록 < 감사 < 공개 < 해운대구청",
+    "주소": "https://www.haeundae.go.kr/board/list.do;jsessionid=A784C8C9821CCF23EDB5903D692B061F?boardId=BBS_0000004&menuCd=DOM_000000104004003000&contentsSid=62",
+    "검색어": "",
+    "글": [
+     {
+      "제목": "2026년 3분기 행정국, 총무과 업무추진비 집행내역",
+      "날짜": "2026-10-12",
+      "주소": "https://www.haeundae.go.kr/health/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=1&dataSid=3175840",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2026년 9월 재송2동 업무추진비 집행내역",
+      "날짜": "2026-10-12",
+      "주소": "https://www.haeundae.go.kr/health/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=1&dataSid=3175834",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2026년 7~9월 해양진흥과 업무추진비 집행내역",
+      "날짜": "2026-10-12",
+      "주소": "https://www.haeundae.go.kr/health/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=1&dataSid=3175802",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2026년 9월 교육도서관과 업무추진비 집행내역",
+      "날짜": "2026-10-12",
+      "주소": "https://www.haeundae.go.kr/health/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=1&dataSid=3175790",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2026년 9월 업무추진비 집행내역",
+      "날짜": "2026-10-11",
+      "주소": "https://www.haeundae.go.kr/health/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=1&dataSid=3175762",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2026년 9월 문화관광경제국, 문화관광과 업무추진비 집행내역",
+      "날짜": "2026-10-10",
+      "주소": "https://www.haeundae.go.kr/health/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=1&dataSid=3175752",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2026년 9월 환경위생과 업무추진비 집행내역",
+      "날짜": "2026-10-09",
+      "주소": "https://www.haeundae.go.kr/health/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=1&dataSid=3175734",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2026년 9월 반여1동 업무추진비 집행내역",
+      "날짜": "2026-10-09",
+      "주소": "https://www.haeundae.go.kr/health/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=1&dataSid=3175732",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2026년 7~9월 건설과 업무추진비 집행내역",
+      "날짜": "2026-10-08",
+      "주소": "https://www.haeundae.go.kr/health/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=1&dataSid=3175694",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2026년 3분기 늘푸른과 업무추진비 사용내역",
+      "날짜": "2026-10-08",
+      "주소": "https://www.haeundae.go.kr/health/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=1&dataSid=3175667",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2026년 2분기 늘푸른과 업무추진비 사용내역",
+      "날짜": "2026-10-08",
+      "주소": "https://www.haeundae.go.kr/culture/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=2&dataSid=3175665",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2026년 9월 업무추진비 집행내역",
+      "날짜": "2026-10-08",
+      "주소": "https://www.haeundae.go.kr/culture/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=2&dataSid=3175656",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2026년 9월 업무추진비 내역",
+      "날짜": "2026-10-08",
+      "주소": "https://www.haeundae.go.kr/culture/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=2&dataSid=3175655",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2026년 9월 업무추진비 내역 공개",
+      "날짜": "2026-10-08",
+      "주소": "https://www.haeundae.go.kr/culture/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=2&dataSid=3175647",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2026년 9월 업무추진비 집행내역",
+      "날짜": "2026-10-07",
+      "주소": "https://www.haeundae.go.kr/culture/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=2&dataSid=3175638",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2026년 3분기 재무과 업무추진비 집행내역",
+      "날짜": "2026-10-07",
+      "주소": "https://www.haeundae.go.kr/culture/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=2&dataSid=3175620",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2026년 9월 관광시설사업소 업무추진비 집행내역",
+      "날짜": "2026-10-07",
+      "주소": "https://www.haeundae.go.kr/culture/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=2&dataSid=3175578",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2026년 3분기 경제진흥과 업무추진비 내역",
+      "날짜": "2026-10-06",
+      "주소": "https://www.haeundae.go.kr/culture/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=2&dataSid=3175565",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2026년 3분기 비전전략국, 기획예산과 업무추진비 집행내역",
+      "날짜": "2026-10-06",
+      "주소": "https://www.haeundae.go.kr/culture/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=2&dataSid=3175562",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2026년 9월 반송1동 업무추진비 집행내역",
+      "날짜": "2026-10-06",
+      "주소": "https://www.haeundae.go.kr/culture/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=2&dataSid=3175529",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2026년 3분기 보건소 보건정책과 업무추진비 집행내역",
+      "날짜": "2026-10-06",
+      "주소": "https://www.haeundae.go.kr/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=3&dataSid=3175510",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2026년 9월 업무추진비 집행내역",
+      "날짜": "2026-10-06",
+      "주소": "https://www.haeundae.go.kr/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=3&dataSid=3175506",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2026년 3분기 교통환경국, 교통행정과 업무추진비 사용 내역",
+      "날짜": "2026-10-04",
+      "주소": "https://www.haeundae.go.kr/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=3&dataSid=3175451",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2026년 9월 가족복지과 업무추진비 집행내역",
+      "날짜": "2026-10-02",
+      "주소": "https://www.haeundae.go.kr/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=3&dataSid=3175410",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2026년 9월 공동주택과 업무추진비 집행내역",
+      "날짜": "2026-10-02",
+      "주소": "https://www.haeundae.go.kr/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=3&dataSid=3175407",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2026년 9월 중2동 업무추진비 집행내역",
+      "날짜": "2026-10-02",
+      "주소": "https://www.haeundae.go.kr/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=3&dataSid=3175400",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2026년 3분기 창조도시과 업무추진비 집행내역",
+      "날짜": "2026-10-02",
+      "주소": "https://www.haeundae.go.kr/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=3&dataSid=3175362",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2026년 3분기 신청사건립추진단 업무추진비",
+      "날짜": "2026-10-02",
+      "주소": "https://www.haeundae.go.kr/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=3&dataSid=3175350",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2026년 9월 자원순환과 업무추진비",
+      "날짜": "2026-10-02",
+      "주소": "https://www.haeundae.go.kr/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=3&dataSid=3175347",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2026년 9월 노인장애인복지과 업무추진비 집행내역",
+      "날짜": "2026-10-01",
+      "주소": "https://www.haeundae.go.kr/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=3&dataSid=3175339",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2026년 9월 업무추진비 집행내역",
+      "날짜": "2026-10-01",
+      "주소": "https://www.haeundae.go.kr/culture/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=4&dataSid=3175338",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "2026년 9월 업무추진비",
+      "날짜": "2026-10-01",
+      "주소": "https://www.haeundae.go.kr/culture/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=4&dataSid=3175331",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "9월 보건소 수의계약 내역 및 신용카드 사용 내역",
+      "날짜": "2026-10-01",
+      "주소": "https://www.haeundae.go.kr/culture/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=4&dataSid=3175328",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "2026년 3분기 도시관리과 업무추진비 집행내역",
+      "날짜": "2026-10-01",
+      "주소": "https://www.haeundae.go.kr/culture/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=4&dataSid=3175327",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "2026년 9월 반여4동 업무추진비 집행내역",
+      "날짜": "2026-10-01",
+      "주소": "https://www.haeundae.go.kr/culture/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=4&dataSid=3175321",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "2026년 9월 업무추진비내역(반송2동)",
+      "날짜": "2026-10-01",
+      "주소": "https://www.haeundae.go.kr/culture/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=4&dataSid=3175318",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "2026년9월 업무추진비 집행내역",
+      "날짜": "2026-10-01",
+      "주소": "https://www.haeundae.go.kr/culture/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=4&dataSid=3175286",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "2026년 9월 좌3동 업무추진비 집행내역",
+      "날짜": "2026-10-01",
+      "주소": "https://www.haeundae.go.kr/culture/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=4&dataSid=3175284",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "2026년 9월 문화회관 업무추진비 집행내역",
+      "날짜": "2026-10-01",
+      "주소": "https://www.haeundae.go.kr/culture/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=4&dataSid=3175277",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "2026년 9월 재산취득세과 업무추진비 집행내역",
+      "날짜": "2026-10-01",
+      "주소": "https://www.haeundae.go.kr/culture/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=4&dataSid=3175273",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "2026년 9월 업무추진비 내역입니다",
+      "날짜": "2026-09-30",
+      "주소": "https://www.haeundae.go.kr/youth/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=5&dataSid=3175251",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "2026년 8월 민원여권과 업무추진비 사용내역",
+      "날짜": "2026-09-30",
+      "주소": "https://www.haeundae.go.kr/youth/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=5&dataSid=3175239",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "2026년 9월 건강증진과 업무추진비 집행내역",
+      "날짜": "2026-09-30",
+      "주소": "https://www.haeundae.go.kr/youth/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=5&dataSid=3175228",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "2026년 3분기 감사담당관 업무추진비 집행내역",
+      "날짜": "2026-09-30",
+      "주소": "https://www.haeundae.go.kr/youth/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=5&dataSid=3175220",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "2026년 9월 업무추진비 집행내역",
+      "날짜": "2026-09-30",
+      "주소": "https://www.haeundae.go.kr/youth/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=5&dataSid=3175209",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "2026년 8월 업무추진비 집행내역",
+      "날짜": "2026-09-23",
+      "주소": "https://www.haeundae.go.kr/youth/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=5&dataSid=3174925",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "2026년 7-8월 홍보협력과 업무추진비 집행 내역",
+      "날짜": "2026-07-08",
+      "주소": "https://www.haeundae.go.kr/youth/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=5&dataSid=3174862",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "2026년 8월 환경위생과 업무추진비 집행내역",
+      "날짜": "2026-09-21",
+      "주소": "https://www.haeundae.go.kr/youth/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=5&dataSid=3174767",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "2026년 8월 반여1동 업무추진비 집행내역",
+      "날짜": "2026-09-11",
+      "주소": "https://www.haeundae.go.kr/youth/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=5&dataSid=3173902",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "2026년 8월 반송1동 업무추진비 집행내역",
+      "날짜": "2026-09-10",
+      "주소": "https://www.haeundae.go.kr/youth/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=5&dataSid=3173846",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "2026년 8월 업무추진비 내역 공개",
+      "날짜": "2026-09-10",
+      "주소": "https://www.haeundae.go.kr/library/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=6&dataSid=3173794",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "2026년 8월 문화관광경제국, 문화관광과 업무추진비 집행내역",
+      "날짜": "2026-09-09",
+      "주소": "https://www.haeundae.go.kr/library/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=6&dataSid=3173652",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "2026년 8월 업무추진비 내역",
+      "날짜": "2026-09-08",
+      "주소": "https://www.haeundae.go.kr/library/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=6&dataSid=3173503",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "2026년 8월 토지정보과 업무추진비 집행내역",
+      "날짜": "2026-09-07",
+      "주소": "https://www.haeundae.go.kr/library/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=6&dataSid=3173469",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "2026년 7월 토지정보과 업무추진비 집행내역",
+      "날짜": "2026-09-07",
+      "주소": "https://www.haeundae.go.kr/library/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=6&dataSid=3173468",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "2026년 6월 토지정보과 업무추진비 집행내역",
+      "날짜": "2026-09-07",
+      "주소": "https://www.haeundae.go.kr/library/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=6&dataSid=3173467",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "2026년 8월 가족복지과 업무추진비 집행내역",
+      "날짜": "2026-09-07",
+      "주소": "https://www.haeundae.go.kr/library/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=6&dataSid=3173466",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "2026년 8월 재송2동 업무추진비 집행내역",
+      "날짜": "2026-09-07",
+      "주소": "https://www.haeundae.go.kr/library/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=6&dataSid=3173396",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "2026년 8월 노인장애인복지과 업무추진비 집행내역",
+      "날짜": "2026-09-06",
+      "주소": "https://www.haeundae.go.kr/library/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=6&dataSid=3173375",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "2026년 8월 업무추진비 내역입니다",
+      "날짜": "2026-09-05",
+      "주소": "https://www.haeundae.go.kr/library/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=6&dataSid=3173358",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "2026년 8월 업무추진비 집행내역",
+      "날짜": "2026-09-04",
+      "주소": "https://www.haeundae.go.kr/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=7&dataSid=3173331",
+      "번째": -1,
+      "쪽": 7
+     },
+     {
+      "제목": "2026년 8월 자원순환과 업무추진비",
+      "날짜": "2026-09-04",
+      "주소": "https://www.haeundae.go.kr/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=7&dataSid=3173299",
+      "번째": -1,
+      "쪽": 7
+     },
+     {
+      "제목": "2026년 8월 교육도서관과 업무추진비 집행내역",
+      "날짜": "2026-09-03",
+      "주소": "https://www.haeundae.go.kr/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=7&dataSid=3173275",
+      "번째": -1,
+      "쪽": 7
+     },
+     {
+      "제목": "2026년 8월 업무추진비 집행내역",
+      "날짜": "2026-09-03",
+      "주소": "https://www.haeundae.go.kr/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=7&dataSid=3173237",
+      "번째": -1,
+      "쪽": 7
+     },
+     {
+      "제목": "2026년 8월 업무추진비 집행내역",
+      "날짜": "2026-09-01",
+      "주소": "https://www.haeundae.go.kr/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=7&dataSid=3173126",
+      "번째": -1,
+      "쪽": 7
+     },
+     {
+      "제목": "2026년 8월 공동주택과 업무추진비 집행내역",
+      "날짜": "2026-09-01",
+      "주소": "https://www.haeundae.go.kr/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=7&dataSid=3173121",
+      "번째": -1,
+      "쪽": 7
+     },
+     {
+      "제목": "8월 보건소 수의계약내역, 신용카드 사용내역 알림",
+      "날짜": "2026-09-01",
+      "주소": "https://www.haeundae.go.kr/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=7&dataSid=3173074",
+      "번째": -1,
+      "쪽": 7
+     },
+     {
+      "제목": "2026년 8월 업무추진비",
+      "날짜": "2026-09-01",
+      "주소": "https://www.haeundae.go.kr/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=7&dataSid=3173067",
+      "번째": -1,
+      "쪽": 7
+     },
+     {
+      "제목": "2026년 8월 좌3동 업무추진비 집행내역",
+      "날짜": "2026-09-01",
+      "주소": "https://www.haeundae.go.kr/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=7&dataSid=3173062",
+      "번째": -1,
+      "쪽": 7
+     },
+     {
+      "제목": "2026년 8월 문화회관 업무추진비 집행내역",
+      "날짜": "2026-09-01",
+      "주소": "https://www.haeundae.go.kr/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=8&dataSid=3173059",
+      "번째": -1,
+      "쪽": 8
+     },
+     {
+      "제목": "2026년8월 업무추진비 집행내역",
+      "날짜": "2026-09-01",
+      "주소": "https://www.haeundae.go.kr/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=8&dataSid=3173057",
+      "번째": -1,
+      "쪽": 8
+     },
+     {
+      "제목": "2026년 8월 중2동 업무추진비 집행내역",
+      "날짜": "2026-08-31",
+      "주소": "https://www.haeundae.go.kr/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=8&dataSid=3173040",
+      "번째": -1,
+      "쪽": 8
+     },
+     {
+      "제목": "2026년 8월 반여4동 업무추진비 집행내역",
+      "날짜": "2026-08-31",
+      "주소": "https://www.haeundae.go.kr/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=8&dataSid=3173035",
+      "번째": -1,
+      "쪽": 8
+     },
+     {
+      "제목": "2026년 8월 건강증진과 업무추진비 집행내역",
+      "날짜": "2026-08-31",
+      "주소": "https://www.haeundae.go.kr/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=8&dataSid=3172976",
+      "번째": -1,
+      "쪽": 8
+     },
+     {
+      "제목": "2026년 8월 업무추진비내역(반송2동)",
+      "날짜": "2026-08-31",
+      "주소": "https://www.haeundae.go.kr/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=8&dataSid=3172957",
+      "번째": -1,
+      "쪽": 8
+     },
+     {
+      "제목": "2026년 7월 반여1동 업무추진비 집행내역",
+      "날짜": "2026-08-12",
+      "주소": "https://www.haeundae.go.kr/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=8&dataSid=3172081",
+      "번째": -1,
+      "쪽": 8
+     },
+     {
+      "제목": "2026년 7월 업무추진비 집행내역",
+      "날짜": "2026-08-10",
+      "주소": "https://www.haeundae.go.kr/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=8&dataSid=3171839",
+      "번째": -1,
+      "쪽": 8
+     },
+     {
+      "제목": "2026년 7월 업무추진비 집행내역",
+      "날짜": "2026-08-06",
+      "주소": "https://www.haeundae.go.kr/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=8&dataSid=3171708",
+      "번째": -1,
+      "쪽": 8
+     },
+     {
+      "제목": "2026년 7월 업무추진비 내역 공개",
+      "날짜": "2026-08-06",
+      "주소": "https://www.haeundae.go.kr/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=8&dataSid=3171691",
+      "번째": -1,
+      "쪽": 8
+     },
+     {
+      "제목": "2026년 7월 반송1동 업무추진비 집행내역",
+      "날짜": "2026-08-05",
+      "주소": "https://www.haeundae.go.kr/culture/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=9&dataSid=3171640",
+      "번째": -1,
+      "쪽": 9
+     },
+     {
+      "제목": "2026년 7월 가족복지과 업무추진비 집행내역",
+      "날짜": "2026-08-05",
+      "주소": "https://www.haeundae.go.kr/culture/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=9&dataSid=3171633",
+      "번째": -1,
+      "쪽": 9
+     },
+     {
+      "제목": "2026년 7월 환경위생과 업무추진비 집행내역",
+      "날짜": "2026-08-05",
+      "주소": "https://www.haeundae.go.kr/culture/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=9&dataSid=3171607",
+      "번째": -1,
+      "쪽": 9
+     },
+     {
+      "제목": "2026년 6월 환경위생과 업무추진비 집행내역",
+      "날짜": "2026-08-05",
+      "주소": "https://www.haeundae.go.kr/culture/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=9&dataSid=3171606",
+      "번째": -1,
+      "쪽": 9
+     },
+     {
+      "제목": "2026년 7월 자원순환과 업무추진비",
+      "날짜": "2026-08-05",
+      "주소": "https://www.haeundae.go.kr/culture/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=9&dataSid=3171595",
+      "번째": -1,
+      "쪽": 9
+     },
+     {
+      "제목": "2026년 7월 재송2동 업무추진비 집행내역",
+      "날짜": "2026-08-05",
+      "주소": "https://www.haeundae.go.kr/culture/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=9&dataSid=3171588",
+      "번째": -1,
+      "쪽": 9
+     },
+     {
+      "제목": "2026년 7월 업무추진비 집행내역",
+      "날짜": "2026-08-04",
+      "주소": "https://www.haeundae.go.kr/culture/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=9&dataSid=3171573",
+      "번째": -1,
+      "쪽": 9
+     },
+     {
+      "제목": "2026년 7월 공동주택과 업무추진비 집행내역",
+      "날짜": "2026-08-04",
+      "주소": "https://www.haeundae.go.kr/culture/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=9&dataSid=3171532",
+      "번째": -1,
+      "쪽": 9
+     },
+     {
+      "제목": "2026년 7월 업무추진비 내역",
+      "날짜": "2026-08-04",
+      "주소": "https://www.haeundae.go.kr/culture/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=9&dataSid=3171524",
+      "번째": -1,
+      "쪽": 9
+     },
+     {
+      "제목": "2026년 4~6월 해양진흥과 업무추진비 집행내역",
+      "날짜": "2026-08-03",
+      "주소": "https://www.haeundae.go.kr/reserve/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=10&dataSid=3171495",
+      "번째": -1,
+      "쪽": 10
+     },
+     {
+      "제목": "2026년 7월 재산취득세과 업무추진비 집행내역",
+      "날짜": "2026-08-03",
+      "주소": "https://www.haeundae.go.kr/reserve/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=10&dataSid=3171494",
+      "번째": -1,
+      "쪽": 10
+     },
+     {
+      "제목": "2026년 7월 교육도서관과 업무추진비 집행내역",
+      "날짜": "2026-08-03",
+      "주소": "https://www.haeundae.go.kr/reserve/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=10&dataSid=3171493",
+      "번째": -1,
+      "쪽": 10
+     },
+     {
+      "제목": "2026년 7월 업무추진비내역(반송2동)",
+      "날짜": "2026-08-03",
+      "주소": "https://www.haeundae.go.kr/reserve/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=10&dataSid=3171486",
+      "번째": -1,
+      "쪽": 10
+     },
+     {
+      "제목": "2026년 7월 업무추진비 집행내역",
+      "날짜": "2026-08-03",
+      "주소": "https://www.haeundae.go.kr/reserve/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=10&dataSid=3171474",
+      "번째": -1,
+      "쪽": 10
+     },
+     {
+      "제목": "2026년 7월 업무추진비",
+      "날짜": "2026-08-03",
+      "주소": "https://www.haeundae.go.kr/reserve/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=10&dataSid=3171470",
+      "번째": -1,
+      "쪽": 10
+     },
+     {
+      "제목": "2026년 7월 반여4동 업무추진비 집행내역",
+      "날짜": "2026-08-03",
+      "주소": "https://www.haeundae.go.kr/reserve/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=10&dataSid=3171443",
+      "번째": -1,
+      "쪽": 10
+     },
+     {
+      "제목": "2026년7월 업무추진비 집행내역",
+      "날짜": "2026-08-03",
+      "주소": "https://www.haeundae.go.kr/reserve/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=10&dataSid=3171428",
+      "번째": -1,
+      "쪽": 10
+     },
+     {
+      "제목": "2026년 7월 좌3동 업무추진비 집행내역",
+      "날짜": "2026-08-03",
+      "주소": "https://www.haeundae.go.kr/reserve/board/view.do?boardId=BBS_0000004&menuCd=DOM_000000104004003000&paging=ok&startPage=10&dataSid=3171406",
+      "번째": -1,
+      "쪽": 10
+     }
+    ],
+    "본쪽": 10,
+    "멈춘까닭": "다음 쪽이 없다"
    }
   },
   "2620000": {
@@ -48770,12 +49473,589 @@
   "4138000": {
    "이름": "경기여주시",
    "업무추진비": {
-    "종류": "안내 화면",
+    "종류": "게시판",
     "링크글자": "업무추진비 현황",
-    "화면": "",
-    "주소": "chrome-error://chromewebdata/",
-    "파일": [],
-    "날짜": ""
+    "화면": "업무추진비 현황 > 의회 운영 분야 > 정보공개 > 여주시의회",
+    "주소": "https://www.yeojucouncil.go.kr/kr/costBBS.do",
+    "검색어": "",
+    "글": [
+     {
+      "제목": "2026년 8월 업무추진비 사용현황(의회사무과장)",
+      "날짜": "2026-09-20",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=2D7F8A53ED317D04F3D07ED877865E52&schwrd=&flag=all&page=1&list_style=",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2026년 8월 업무추진비(의장, 부의장, 예결위원장) 및 의정운영공통경비 공개",
+      "날짜": "2026-09-20",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=4CDF38D69995A302C98171CF33199A7B&schwrd=&flag=all&page=1&list_style=",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2026년 7월 업무추진비 사용현황(의회사무과장)",
+      "날짜": "2026-08-16",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=401F7C35CB4C1A1E364FF06FE2236534&schwrd=&flag=all&page=1&list_style=",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2026년 7월 업무추진비(의장, 부의장, 예결위원장) 및 의정운영공통경비 공개",
+      "날짜": "2026-08-16",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=206B531201921089661080E677934092&schwrd=&flag=all&page=1&list_style=",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2026년 6월 업무추진비 사용현황(의회사무과장)",
+      "날짜": "2026-07-21",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=3EF6299D45AE4CC92FDD857553D1CFE3&schwrd=&flag=all&page=1&list_style=",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2026년 6월 업무추진비(의장, 부의장, 예결위원장) 및 의정운영공통경비 공개",
+      "날짜": "2026-07-21",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=C11755B66E826CB6251E373517B2CCE3&schwrd=&flag=all&page=1&list_style=",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2026년 5월 업무추진비 사용현황(의회사무과장)",
+      "날짜": "2026-06-15",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=49067CBA671C20AC158F1B86B83C5520&schwrd=&flag=all&page=1&list_style=",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2026년 5월 업무추진비(의장, 부의장, 예결위원장) 및 의정운영공통경비 공개",
+      "날짜": "2026-06-15",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=B3E09D2EBE3FFFF4E8CF8139708CD9D0&schwrd=&flag=all&page=1&list_style=",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2026년 4월 업무추진비 사용현황(의회사무과장)",
+      "날짜": "2026-05-12",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=7722AC50988749CDA6DC5BC3E25E6774&schwrd=&flag=all&page=1&list_style=",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2026년 4월 업무추진비(의장, 부의장, 예결위원장) 및 의정운영공통경비 공개",
+      "날짜": "2026-05-12",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=1415E9C9A801E281B78BDC9A2BE60CCF&schwrd=&flag=all&page=1&list_style=",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2026년 3월 업무추진비 사용현황(의회사무과장)",
+      "날짜": "2026-04-20",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=9DA4037332C10C22BB9647570884D8B6&schwrd=&flag=all&page=2&list_style=",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2026년 3월 업무추진비(의장, 부의장, 예결위원장) 및 의정운영공통경비 공개",
+      "날짜": "2026-04-20",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=6DD4E5D8CD92B9DDC20359A2252AFFDB&schwrd=&flag=all&page=2&list_style=",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2026년 2월 업무추진비 사용현황(의회사무과장)",
+      "날짜": "2026-03-20",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=4C2785C8D469EED0C557F212954D5A64&schwrd=&flag=all&page=2&list_style=",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2026년 2월 업무추진비(의장, 부의장, 예결위원장) 및 의정운영공통경비 공개",
+      "날짜": "2026-03-20",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=A854C9B2EA2BFCC3F5F28757DD175A7D&schwrd=&flag=all&page=2&list_style=",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2026년 1월 업무추진비 사용현황(의회사무과장)",
+      "날짜": "2026-02-23",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=3BE149F581A7EA82258379BEB7FDBB8F&schwrd=&flag=all&page=2&list_style=",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2026년 1월 업무추진비(의장, 부의장, 예결위원장) 및 의정운영공통경비 공개",
+      "날짜": "2026-02-23",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=A4E3B3F261EF73163E12C13394D74B30&schwrd=&flag=all&page=2&list_style=",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2025년 12월 업무추진비 사용현황(의회사무과장)",
+      "날짜": "2026-01-19",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=2C837AE1566856A5A8A60EB5CCB4538B&schwrd=&flag=all&page=2&list_style=",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2025년 12월 업무추진비(의장, 부의장,예결위) 및 의정운영공통경비 공개",
+      "날짜": "2026-01-19",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=F8A2F9C815300791B71C069DF0792D9F&schwrd=&flag=all&page=2&list_style=",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2025년 11월 업무추진비 사용현황(의회사무과장)",
+      "날짜": "2025-12-18",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=BC15DA9BACE7B65111AC7F517E89F1B7&schwrd=&flag=all&page=2&list_style=",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2025년 11월 업무추진비(의장, 부의장,예결위) 및 의정운영공통경비 공개",
+      "날짜": "2025-12-18",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=54BE74F17B8EEEE7B5D49EE47098A7D2&schwrd=&flag=all&page=2&list_style=",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2025년 10월 업무추진비 사용현황(의회사무과장)",
+      "날짜": "2025-11-21",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=6056A11135DFEA76CA8E4A2579C41C1F&schwrd=&flag=all&page=3&list_style=",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2025년 10월 업무추진비(의장, 부의장,예결위) 및 의정운영공통경비 공개",
+      "날짜": "2025-11-21",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=92AD12C59CB9766160DC65746314ACAF&schwrd=&flag=all&page=3&list_style=",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2025년 9월 업무추진비 사용현황(의회사무과장)",
+      "날짜": "2025-10-15",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=57706B4CF6144F20B26862B857D0F81C&schwrd=&flag=all&page=3&list_style=",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2025년 9월 업무추진비(의장, 부의장,예결위) 및 의정운영공통경비 공개",
+      "날짜": "2025-10-15",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=1790275E8419BB49E3BD2C68E80E331C&schwrd=&flag=all&page=3&list_style=",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2025년 8월 업무추진비 사용현황(의회사무과장)",
+      "날짜": "2025-09-16",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=A026BBD7CDA5DD6CB000D742C1C192CF&schwrd=&flag=all&page=3&list_style=",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2025년 8월 업무추진비(의장, 부의장,예결위) 및 의정운영공통경비 공개",
+      "날짜": "2025-09-16",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=D5CFA72A039271C295CF5295183560AE&schwrd=&flag=all&page=3&list_style=",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2025년 7월 업무추진비 사용현황(의회사무과장)",
+      "날짜": "2025-08-12",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=F8B5B241C6A6FF5F498D05434F5BFFB7&schwrd=&flag=all&page=3&list_style=",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2025년 7월 업무추진비(의장, 부의장,예결위) 및 의정운영공통경비 공개",
+      "날짜": "2025-08-12",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=95025A15992C3112B433CD2474310BB8&schwrd=&flag=all&page=3&list_style=",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2025년 6월 업무추진비 사용현황(의회사무과장)",
+      "날짜": "2025-07-18",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=6FA6B22B18E442B459C28D0EB1922B85&schwrd=&flag=all&page=3&list_style=",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2025년 6월 업무추진비(의장, 부의장,예결위) 및 의정운영공통경비 공개",
+      "날짜": "2025-07-18",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=F9F91E490820E5A991B9C491B23B89C7&schwrd=&flag=all&page=3&list_style=",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2025년 5월 업무추진비 사용현황(의회사무과장)",
+      "날짜": "2025-06-14",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=D2113CC4481810BC893E00CD830693CC&schwrd=&flag=all&page=4&list_style=",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "2025년 5월 업무추진비(의장, 부의장) 및 의정운영공통경비 공개",
+      "날짜": "2025-06-14",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=FF8A1507EAA00283ABD66157B030A4AB&schwrd=&flag=all&page=4&list_style=",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "2025년 4월 업무추진비 사용현황(의회사무과장)",
+      "날짜": "2025-06-14",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=88F03D7A99A232E46C8F407469638C27&schwrd=&flag=all&page=4&list_style=",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "2025년 4월 업무추진비(의장, 부의장) 및 의정운영공통경비 공개",
+      "날짜": "2025-06-14",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=5737CF93BF71A27C2C6D5ECAAB41F863&schwrd=&flag=all&page=4&list_style=",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "2025년 3월 업무추진비 사용현황(의회사무과장)",
+      "날짜": "2025-04-09",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=72DD77507BB25F7746C25794E6994147&schwrd=&flag=all&page=4&list_style=",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "2025년 3월 업무추진비(의장, 부의장) 및 의정운영공통경비 공개",
+      "날짜": "2025-04-09",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=BA60B8E465C2574A6F7D23A7D7DA41D0&schwrd=&flag=all&page=4&list_style=",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "2025년 2월 업무추진비 사용현황(의회사무과장)",
+      "날짜": "2025-03-16",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=97C35455B91B022FDAADB97287D0D977&schwrd=&flag=all&page=4&list_style=",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "2025년 2월 업무추진비(의장, 부의장) 및 의정운영공통경비 공개",
+      "날짜": "2025-03-16",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=A6A59B513B375418C63BC8F8749CA242&schwrd=&flag=all&page=4&list_style=",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "2025년 1월 업무추진비 사용현황(의회사무과장)",
+      "날짜": "2025-02-20",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=F23530AAF05AF3BE373D74B07F352B9A&schwrd=&flag=all&page=4&list_style=",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "2025년 1월 업무추진비(의장, 부의장) 및 의정운영공통경비 공개",
+      "날짜": "2025-02-20",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=411E9D5F49F8D93D903CD7ABB9374182&schwrd=&flag=all&page=4&list_style=",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "2024년 4분기 업무추진비 사용현황(의회사무과장)",
+      "날짜": "2025-01-12",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=73EDB5E28DF32506B2A844458201D17E&schwrd=&flag=all&page=5&list_style=",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "2024년 4분기 업무추진비 공개(의장, 부의장, 예결위원장)",
+      "날짜": "2025-01-12",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=33E956DF5F3340C0EE8CF5E627E0CE16&schwrd=&flag=all&page=5&list_style=",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "2024년 3분기 업무추진비 사용현황(의회사무과장)",
+      "날짜": "2024-10-14",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=31C41E634296AA9E3BED7742CDC6B5BF&schwrd=&flag=all&page=5&list_style=",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "2024년 9월 업무추진비 공개(의장, 부의장, 예결위원장)",
+      "날짜": "2024-10-14",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=58109BCE10A46238FA5D3CB1E9C5094B&schwrd=&flag=all&page=5&list_style=",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "2024년 8월 업무추진비 공개(의장, 부의장)",
+      "날짜": "2024-10-14",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=A72DFFD9650D904D5B75CAAB6170780A&schwrd=&flag=all&page=5&list_style=",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "2024년 7월 업무추진비 공개(의장, 부의장)",
+      "날짜": "2024-10-14",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=67D6CABFAA7C2F76098D8C39E8083C55&schwrd=&flag=all&page=5&list_style=",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "2024년 2분기 업무추진비 사용현황(의회사무과장)",
+      "날짜": "2024-07-22",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=C07A3C34343DA2B57D8C1DF6162D057E&schwrd=&flag=all&page=5&list_style=",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "2024년 6월 업무추진비 공개(의장, 부의장, 예결위원장)",
+      "날짜": "2024-07-22",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=75568D9882729F5A80F3BDDD820F752B&schwrd=&flag=all&page=5&list_style=",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "2024년 5월 업무추진비 공개(의장, 부의장)",
+      "날짜": "2024-07-22",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=617A79F34F2108EC6F5C873CC47E655C&schwrd=&flag=all&page=5&list_style=",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "2024년 4월 업무추진비 공개(의장, 부의장)",
+      "날짜": "2024-07-22",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=35E6B83F886848FB44A63D4F39999CC8&schwrd=&flag=all&page=5&list_style=",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "2024년 1분기 업무추진비 사용현황(의회사무과장)",
+      "날짜": "2024-04-09",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=90F6C9F2BE697BDE24DC1B9E51E28FAF&schwrd=&flag=all&page=6&list_style=",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "2024년 3월 업무추진비 공개(의장, 부의장)",
+      "날짜": "2024-04-09",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=6354C33E74B7B3C601F16D958C342369&schwrd=&flag=all&page=6&list_style=",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "2024년 2월 업무추진비 공개(의장, 부의장)",
+      "날짜": "2024-04-09",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=37629D4F91492CB4AF6DD6AB6A9A0A76&schwrd=&flag=all&page=6&list_style=",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "2024년 1월 업무추진비 공개(의장, 부의장)",
+      "날짜": "2024-04-09",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=3D519A76148CE03D0642AC8B31A07A9B&schwrd=&flag=all&page=6&list_style=",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "2023년 4분기 업무추진비 사용현황(의회사무과장)",
+      "날짜": "2024-01-16",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=62F7A3CC470FE09E388D2881D8198E97&schwrd=&flag=all&page=6&list_style=",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "2023년 12월 업무추진비 공개(의장, 부의장, 예결위원장)",
+      "날짜": "2024-01-16",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=415A9CCC3470C752E8A252E0DFF7E8F2&schwrd=&flag=all&page=6&list_style=",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "2023년 11월 업무추진비 공개(의장, 부의장)",
+      "날짜": "2024-01-16",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=2BD76DB5FF3D0181D644ACD2FAADBAD3&schwrd=&flag=all&page=6&list_style=",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "2023년 10월 업무추진비 공개(의장, 부의장)",
+      "날짜": "2024-01-16",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=341941FE971A92CD50A0D475A2BF0BAB&schwrd=&flag=all&page=6&list_style=",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "2023년 9월 업무추진비 공개(의장, 부의장,예결위원장)",
+      "날짜": "2023-10-17",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=0F1D897C03B45A4C11C329DF0CFC237E&schwrd=&flag=all&page=6&list_style=",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "2023년 8월 업무추진비 공개(의장, 부의장)",
+      "날짜": "2023-10-17",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=DECE409C42B1AFA34827898AD3B3AACC&schwrd=&flag=all&page=6&list_style=",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "2023년 7월 업무추진비 공개(의장, 부의장)",
+      "날짜": "2023-10-17",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=70AE6316D26AB520D279FFD432145B22&schwrd=&flag=all&page=7&list_style=",
+      "번째": -1,
+      "쪽": 7
+     },
+     {
+      "제목": "2023년 6월 업무추진비 공개(의장, 부의장, 예결위원장)",
+      "날짜": "2023-07-14",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=1E1F490C88DFB7F592838B37A418ABCE&schwrd=&flag=all&page=7&list_style=",
+      "번째": -1,
+      "쪽": 7
+     },
+     {
+      "제목": "2023년 5월 업무추진비 공개(의장, 부의장)",
+      "날짜": "2023-07-14",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=761646CC04B23277392B47F1B4169B6D&schwrd=&flag=all&page=7&list_style=",
+      "번째": -1,
+      "쪽": 7
+     },
+     {
+      "제목": "2023년 4월 업무추진비 공개(의장, 부의장)",
+      "날짜": "2023-07-14",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=272CE1D2F2103F825A637CC71ECD47E3&schwrd=&flag=all&page=7&list_style=",
+      "번째": -1,
+      "쪽": 7
+     },
+     {
+      "제목": "2023년 3월 업무추진비 공개(의장, 부의장)",
+      "날짜": "2023-04-14",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=8D1B04A1E81596A35ACDC7EAF6622714&schwrd=&flag=all&page=7&list_style=",
+      "번째": -1,
+      "쪽": 7
+     },
+     {
+      "제목": "2023년 2월 업무추진비 공개(의장, 부의장)",
+      "날짜": "2023-04-14",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=92AC73A52B5FAE6F26FFBF9B75C8CADA&schwrd=&flag=all&page=7&list_style=",
+      "번째": -1,
+      "쪽": 7
+     },
+     {
+      "제목": "2023년 1월 업무추진비 공개(의장, 부의장)",
+      "날짜": "2023-04-14",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=4F1A5021B518CC898CBA2DBEECB169A5&schwrd=&flag=all&page=7&list_style=",
+      "번째": -1,
+      "쪽": 7
+     },
+     {
+      "제목": "2022년 12월 업무추진비 공개(의장, 부의장, 예결위원장)",
+      "날짜": "2023-01-09",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=FA05CC7A88B38A53AE54B3F4A1726C99&schwrd=&flag=all&page=7&list_style=",
+      "번째": -1,
+      "쪽": 7
+     },
+     {
+      "제목": "2022년 11월 업무추진비 공개(의장, 부의장)",
+      "날짜": "2023-01-09",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=A5EDDD984185E77FDD10C82C308D513E&schwrd=&flag=all&page=7&list_style=",
+      "번째": -1,
+      "쪽": 7
+     },
+     {
+      "제목": "2022년 10월 업무추진비 공개(의장, 부의장)",
+      "날짜": "2023-01-09",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=642AC99D6DE1EDA3FC25CD5BAFD88F59&schwrd=&flag=all&page=7&list_style=",
+      "번째": -1,
+      "쪽": 7
+     },
+     {
+      "제목": "2022년 9월 업무추진비 공개(의장, 부의장,예결위원장)",
+      "날짜": "2022-10-07",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=C0D108F739D9F3C2B4B8E606E5336C74&schwrd=&flag=all&page=8&list_style=",
+      "번째": -1,
+      "쪽": 8
+     },
+     {
+      "제목": "2022년 8월 업무추진비 공개(의장, 부의장)",
+      "날짜": "2022-10-07",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=6FFCA0FE4A7F4F18ABDC660F3A05F5CA&schwrd=&flag=all&page=8&list_style=",
+      "번째": -1,
+      "쪽": 8
+     },
+     {
+      "제목": "2022년 7월 업무추진비 공개(의장, 부의장)",
+      "날짜": "2022-10-07",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=63CEF3AFFEE674245264B87A256CBAB3&schwrd=&flag=all&page=8&list_style=",
+      "번째": -1,
+      "쪽": 8
+     },
+     {
+      "제목": "2022년 6월 업무추진비 공개(의장, 부의장)",
+      "날짜": "2022-07-14",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=D915E83E73DCE3CAF5C0C203F8621F9E&schwrd=&flag=all&page=8&list_style=",
+      "번째": -1,
+      "쪽": 8
+     },
+     {
+      "제목": "2022년 5월 업무추진비 공개(의장, 부의장)",
+      "날짜": "2022-07-14",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=1852FA67E5A1C5F9A021AD5BE2DA438F&schwrd=&flag=all&page=8&list_style=",
+      "번째": -1,
+      "쪽": 8
+     },
+     {
+      "제목": "2022년 4월 업무추진비 공개(의장, 부의장)",
+      "날짜": "2022-07-14",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=D03F69D83F45B9AF65C8D4FA391E2281&schwrd=&flag=all&page=8&list_style=",
+      "번째": -1,
+      "쪽": 8
+     },
+     {
+      "제목": "2022년 3월 업무추진비 공개(의장, 부의장)",
+      "날짜": "2022-04-12",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=E6A5E28C7DBB7A0DAF5B390ECC4F3F1D&schwrd=&flag=all&page=8&list_style=",
+      "번째": -1,
+      "쪽": 8
+     },
+     {
+      "제목": "2022년 2월 업무추진비 공개(의장, 부의장)",
+      "날짜": "2022-04-12",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=FE1CA324437563B2F342B51AE6FA534B&schwrd=&flag=all&page=8&list_style=",
+      "번째": -1,
+      "쪽": 8
+     },
+     {
+      "제목": "2022년 1월 업무추진비 공개(의장, 부의장)",
+      "날짜": "2022-04-12",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=ADA2AA7BF5646A37ED50B2CA67113969&schwrd=&flag=all&page=8&list_style=",
+      "번째": -1,
+      "쪽": 8
+     },
+     {
+      "제목": "2021년 12월 업무추진비 공개(의장, 부의장)",
+      "날짜": "2022-01-13",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=0BE269FFA6D1BB8782B9D6A33F2EDEA1&schwrd=&flag=all&page=8&list_style=",
+      "번째": -1,
+      "쪽": 8
+     },
+     {
+      "제목": "2021년 11월 업무추진비 공개(의장, 부의장)",
+      "날짜": "2022-01-13",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=DE8D913D114E2DAEC71A753C59D4867F&schwrd=&flag=all&page=9&list_style=",
+      "번째": -1,
+      "쪽": 9
+     },
+     {
+      "제목": "2021년 10월 업무추진비 공개(의장, 부의장)",
+      "날짜": "2022-01-13",
+      "주소": "https://www.yeojucouncil.go.kr/kr/costBBSview.do?uid=40116FABCC244E2D4B3579D39483FA80&schwrd=&flag=all&page=9&list_style=",
+      "번째": -1,
+      "쪽": 9
+     }
+    ],
+    "본쪽": 9,
+    "멈춘까닭": "2022-01-01 앞 글에 닿음"
    }
   },
   "4175000": {
@@ -51527,20 +52807,595 @@
   "4213000": {
    "이름": "강원강릉시",
    "업무추진비": {
-    "종류": "안내 화면",
+    "종류": "게시판",
     "링크글자": "업무추진비 현황",
-    "화면": "www.gncl.go.kr",
-    "주소": "chrome-error://chromewebdata/",
-    "파일": [],
-    "날짜": ""
+    "화면": "정보공개 > 강원특별자치도 강릉시의회",
+    "주소": "https://www.gncl.go.kr/kr/bbs?bbs_id=open",
+    "검색어": "",
+    "글": [
+     {
+      "제목": "제12대 강릉시 지방의원 겸직신고 현황(2025.7.1.기준) 공지",
+      "날짜": "2025-07-01",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=D069F90E683DBB430354A71A04342017&page=&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2026년 3분기 의정운영공통경비 사용내역 공개",
+      "날짜": "2026-10-02",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=D3A3FA8CA336183CA0FE084FC6CD271E&page=&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2026년 9월 업무추진비 사용내역 공개",
+      "날짜": "2026-10-02",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=449584760B4015CE05614CA8A789BF73&page=&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2026년 8월 업무추진비 사용내역 공개",
+      "날짜": "2026-09-03",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=CA706AD4E9462FD0215194890CD73DEE&page=&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2026년 상반기 인센티브 집행내역",
+      "날짜": "2026-08-04",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=BBCE785D57962A887C66ED5D301E0E8A&page=&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2026년 7월 업무추진비 사용내역 공개",
+      "날짜": "2026-08-04",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=F33A0909C09F7C1BA1C63DFA1E137297&page=&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2026년 2분기 의정운영공통경비 사용내역 공개",
+      "날짜": "2026-07-06",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=2298E04086F33EAD7CF47DD057940BA8&page=&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2026년 6월 업무추진비 사용내역 공개",
+      "날짜": "2026-07-06",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=AF06B285D491BC6FCF63481FFF548216&page=&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2026년 5월 업무추진비 사용내역 공개",
+      "날짜": "2026-06-05",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=C136D69ED5541F2BBB86B76AD2E078E2&page=&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2026년 4월 업무추진비 사용내역 공개",
+      "날짜": "2026-05-06",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=5E8CDC33C12A58E879285C31BEAB4ACA&page=&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2026년 1분기 의정운영공통경비 사용내역 공개",
+      "날짜": "2026-04-02",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=6709844EECBD62A222FCBA606D2B41C1&page=&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2026년 3월 업무추진비 사용내역 공개",
+      "날짜": "2026-04-02",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=316D1198E6C6EF9814EACA14D1188275&page=2&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2026년 2월 업무추진비 사용내역 공개",
+      "날짜": "2026-03-04",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=D2FC5AB7D18BAEECFC85351667121BF9&page=2&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2026년 1월 업무추진비 사용내역 공개",
+      "날짜": "2026-02-03",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=837E00E01703EBB04F6DB985F8C0B829&page=2&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2025년 4분기 의정운영공통경비 사용내역 공개",
+      "날짜": "2026-01-05",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=D3DEA4EAB3DF2F32834BB73F5A421287&page=2&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2025년 12월 업무추진비 사용내역 공개",
+      "날짜": "2026-01-05",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=5911E1694D1D7A4BC138CAB24FA643F5&page=2&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2025년 11월 업무추진비 사용내역 공개",
+      "날짜": "2025-12-02",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=4F256D2A1267DCEE13FB7EF986B0A906&page=2&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2025년 10월 업무추진비 사용내역 공개",
+      "날짜": "2025-11-05",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=0F5DC66F7655AFF8E5E8274CE40E1F80&page=2&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2025년 9월 업무추진비 사용내역 공개",
+      "날짜": "2025-10-02",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=002B652EE5234EF3CF4D5EBE37768FFE&page=2&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2025년 3분기 의정운영공통경비 사용내역 공개(수정)",
+      "날짜": "2025-10-02",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=276EDF06182D1BD8E6712F972D107321&page=2&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2025년 8월 업무추진비 사용내역 공개",
+      "날짜": "2025-09-02",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=C877C4EA39E9ADB5999BFF827E75FFDF&page=2&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2025년 7월 업무추진비 사용내역 공개",
+      "날짜": "2025-08-05",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=BC25C1903B59E26DF1EB393AE19B7347&page=3&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2025년 2분기 의정운영공통경비 사용내역 공개",
+      "날짜": "2025-07-04",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=057873BD9898115FF3D195E331342082&page=3&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2025년 6월 업무추진비 사용내역 공개",
+      "날짜": "2025-07-04",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=C1D6148758E2AFD81AE0F110EA4FCBC5&page=3&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2025년 1분기 의정운영공통경비 사용내역 공개",
+      "날짜": "2025-07-04",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=386F34B65E49CFBBEDFCC375C2710E1E&page=3&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2025년 5월 업무추진비 사용내역 공개",
+      "날짜": "2025-06-04",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=4619A068820087580629B096698D2799&page=3&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2025년 4월 업무추진비 사용내역 공개",
+      "날짜": "2025-05-07",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=F6B48DB2BBC915F5A95650F9D46A99D0&page=3&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2025년 3월 업무추진비 사용내역 공개",
+      "날짜": "2025-04-04",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=4FCA4D4FF4C85F2E5F41FEDA14837478&page=3&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2025년 2월 업무추진비 사용내역 공개",
+      "날짜": "2025-03-04",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=7B6AAA13B522A66A8E5BFCAA705608F7&page=3&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2025년 1월 업무추진비 사용내역 공개",
+      "날짜": "2025-02-04",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=F294E23628568079563765C9ACB60038&page=3&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2024년 4분기 의정운영공통경비 사용내역 공개",
+      "날짜": "2025-01-05",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=29C17ED1B94EF05389290645EA1560A8&page=4&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "2024년 12월 업무추진비 사용내역 공개",
+      "날짜": "2025-01-05",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=04E1EE963900988AD03AF9B8527EA8B7&page=4&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "2024년 11월 업무추진비 사용내역 공개",
+      "날짜": "2024-12-04",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=17337C1B4DACCA16D4DA1F1932C8EB72&page=4&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "2024년 10월 업무추진비 사용내역 공개",
+      "날짜": "2024-11-22",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=D3AC46F917855F4F3BA245EF6D48B36C&page=4&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "2024년 3분기 의정운영공통경비 사용내역 공개",
+      "날짜": "2024-10-19",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=DA119439DC7FE1C4D86EE9B060CE3362&page=4&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "2024년 9월 업무추진비 사용내역 공개",
+      "날짜": "2024-10-06",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=283031C01BB95C932990D72903E66059&page=4&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "2024년 8월 업무추진비 사용내역 공개",
+      "날짜": "2024-09-05",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=E2A49B03093822F10B3A8066FB2890DE&page=4&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "2024년 7월 업무추진비 사용내역 공개",
+      "날짜": "2024-08-05",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=308155DFF5CF8B236516748E7215B3FE&page=4&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "2024년 2분기 의정운영공통경비 사용내역 공개",
+      "날짜": "2024-07-05",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=EB1EE777AD6C2F9FA4F3AF41FF9B821E&page=4&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "2024년 6월 업무추진비 사용내역 공개",
+      "날짜": "2024-07-05",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=F26AB84695CDE0727AAECE85400544DE&page=4&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "2024년 5월 업무추진비 사용내역 공개",
+      "날짜": "2024-06-05",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=465931E7027CB40A258CD6DE21AD16D5&page=5&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "2024년 4월 업무추진비 사용내역 공개",
+      "날짜": "2024-05-03",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=85B6C8CEFF3848F06B30A0D475B9E2DC&page=5&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "2024년 1분기 의정운영공통경비 사용내역 공개",
+      "날짜": "2024-04-04",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=67A1F268D82D7D51BC90180D343455AD&page=5&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "2024년 3월 업무추진비 사용내역 공개",
+      "날짜": "2024-04-04",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=0094E85A33B324531165E5B770F01E5D&page=5&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "2024년 2월 업무추진비 사용내역 공개",
+      "날짜": "2024-03-05",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=D5CA13435B3850907409C5A46F876E43&page=5&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "2024년 1월 업무추진비 사용내역 공개",
+      "날짜": "2024-02-05",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=8772F0844543EDD4A1D6D1E17DCAA608&page=5&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "2023년 4분기 의정운영공통경비 사용내역 공개",
+      "날짜": "2024-01-02",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=C84238D5BDFBAD4E94C0C6A44BC927E4&page=5&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "2023년 12월 업무추진비 사용내역 공개",
+      "날짜": "2024-01-02",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=681108AA35C8800B9004C89B72A6D59E&page=5&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "2023년 11월 업무추진비 사용내역 공개",
+      "날짜": "2023-12-05",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=9C45FA1859423F4CA7DC20AC9ECB641E&page=5&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "2023년 10월 업무추진비 사용내역 공개",
+      "날짜": "2023-11-03",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=6F9CED73919A77BD3113F87A17F67741&page=5&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "2023년 3분기 의정운영공통경비 사용내역 공개",
+      "날짜": "2023-10-10",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=8D9AEE98FD10FE5315BB296C631646B9&page=6&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "2023년 9월 업무추진비 사용내역 공개",
+      "날짜": "2023-10-10",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=1644509C168CBEA2E8EAACAC3DE9477A&page=6&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "2023년 8월 업무추진비 사용내역 공개",
+      "날짜": "2023-09-04",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=AABDDE0A9FD312AECAD422983656A6B0&page=6&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "2023년 7월 업무추진비 사용내역 공개",
+      "날짜": "2023-08-07",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=EA97F2901A19DC375C615CC3ED64431A&page=6&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "2023년 2분기 의정운영공통경비 사용내역 공개",
+      "날짜": "2023-07-03",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=D5C99E2090809FE6E3F114C3DF1625C9&page=6&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "2023년 6월 업무추진비 사용내역 공개",
+      "날짜": "2023-07-03",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=EAED79EAA0B16576C0754EB6E2078994&page=6&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "2023년 5월 업무추진비 사용내역 공개",
+      "날짜": "2023-06-07",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=0F8B58A952A3A68FAF0F3BB343CE26B8&page=6&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "2023년 4월 업무추진비 사용내역 공개",
+      "날짜": "2023-05-03",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=E6ADC79F15B71BBE8A4401FFBBEABB7A&page=6&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "2023년 1분기 의정운영공통경비 사용내역 공개",
+      "날짜": "2023-04-04",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=8FCCD406E5FD56A088A58C4F8F3A8304&page=6&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "2023년 3월 업무추진비 사용내역 공개",
+      "날짜": "2023-04-04",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=5E70DA96A7BE80125B28427C8561DF17&page=6&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "2023년 2월 업무추진비 사용내역 공개",
+      "날짜": "2023-03-02",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=19CE96D23D928AE30DB768DDFA29586B&page=7&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 7
+     },
+     {
+      "제목": "2023년 1월 업무추진비 사용내역 공개",
+      "날짜": "2023-02-01",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=01A1671D4242C87A012C9639FF45FCB7&page=7&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 7
+     },
+     {
+      "제목": "2022년 4분기 의정운영공통경비 사용내역 공개",
+      "날짜": "2023-01-01",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=5E38C1AD387C3554F0405CC272132187&page=7&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 7
+     },
+     {
+      "제목": "2022년 12월 업무추진비 사용내역 공개",
+      "날짜": "2023-01-01",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=79FF1C8D3554021E96D007173A79D372&page=7&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 7
+     },
+     {
+      "제목": "2022년 11월 업무추진비 사용내역 공개",
+      "날짜": "2022-12-05",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=A9C1F2B17B3441C4F92D7AC431833BAB&page=7&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 7
+     },
+     {
+      "제목": "2022년 10월 업무추진비 사용내역 공개",
+      "날짜": "2022-11-07",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=E39528E7A330F9A79B48883F7BC3B0CD&page=7&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 7
+     },
+     {
+      "제목": "제12대 강릉시 지방의원 겸직신고 현황",
+      "날짜": "2022-10-20",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=D4EA0D8DD406F93BDDCC13D499CFD217&page=7&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 7
+     },
+     {
+      "제목": "2022년 3분기 의정운영공통경비 사용내역 공개",
+      "날짜": "2022-10-13",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=17F55C5C5763D8BC9AE690132671EC3B&page=7&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 7
+     },
+     {
+      "제목": "2022년 9월 업무추진비 사용내역 공개",
+      "날짜": "2022-10-13",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=C2FD210B78ED952CB74773A176C9E86C&page=7&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 7
+     },
+     {
+      "제목": "2022년 8월 업무추진비 사용내역 공개",
+      "날짜": "2022-09-06",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=9418CAF16649B800EF81F3FC3669B153&page=7&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 7
+     },
+     {
+      "제목": "2022년 7월 업무추진비 사용내역 공개",
+      "날짜": "2022-08-04",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=709E0E1B33538D2DD6C2E69E4593BD86&page=8&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 8
+     },
+     {
+      "제목": "2022년 2분기 의정운영공통경비 사용내역 공개",
+      "날짜": "2022-07-05",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=81284353660B58F5E60F657219859EC0&page=8&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 8
+     },
+     {
+      "제목": "2022년 6월 업무추진비 사용내역 공개",
+      "날짜": "2022-07-05",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=DC0000C2CBDD65F2F5762358A9F2170D&page=8&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 8
+     },
+     {
+      "제목": "2022년 5월 업무추진비 사용내역 공개",
+      "날짜": "2022-06-13",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=013DDC1F71484737F3D51E77ACA559A2&page=8&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 8
+     },
+     {
+      "제목": "2022년 4월 업무추진비 사용내역 공개",
+      "날짜": "2022-05-09",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=39369F7BD315B46961880147951C2E0B&page=8&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 8
+     },
+     {
+      "제목": "2022년 1분기 의정운영공통경비 사용내역 공개",
+      "날짜": "2022-04-04",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=11530464F7A168235C1344544B277563&page=8&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 8
+     },
+     {
+      "제목": "2022년 3월 업무추진비 사용내역 공개",
+      "날짜": "2022-04-04",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=2D5F97C3F1AB8C93FE0984DB15EC4A9A&page=8&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 8
+     },
+     {
+      "제목": "2022년 2월 업무추진비 사용내역 공개",
+      "날짜": "2022-03-07",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=1C4897BE39F151AC4FE02620C88675AD&page=8&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 8
+     },
+     {
+      "제목": "2022년 1월 업무추진비 사용내역 공개",
+      "날짜": "2022-02-07",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=32D5E15906D3B708AED5A51C952D9E97&page=8&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 8
+     },
+     {
+      "제목": "2021년 4분기 의정운영공통경비 사용내역 공개",
+      "날짜": "2022-01-08",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=F9154A4D11B9040C5D0DB35E6CDF1791&page=8&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 8
+     },
+     {
+      "제목": "2021년 12월 업무추진비 사용내역 공개",
+      "날짜": "2022-01-08",
+      "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=EEEAFC86048A710F15D9A3682E57ECF0&page=9&flag=&keyword=&search_code=&bbs_id=open&list_style=",
+      "번째": -1,
+      "쪽": 9
+     }
+    ],
+    "본쪽": 9,
+    "멈춘까닭": "2022-01-01 앞 글에 닿음"
    },
    "국외출장": {
     "종류": "안내 화면",
     "링크글자": "2025 애틀란타 ITS 세계총회 참가 공무국외연수 결과보고서",
-    "화면": "www.gncl.go.kr",
-    "주소": "chrome-error://chromewebdata/",
-    "파일": [],
-    "날짜": ""
+    "화면": "의정자료실 > 강원특별자치도 강릉시의회",
+    "주소": "https://www.gncl.go.kr/kr/bbs?reform=view&uid=4A6C188F088133D43901F643EEF30722&page=&flag=&keyword=&search_code=&bbs_id=data&list_style=",
+    "파일": [
+     {
+      "이름": "2025_애틀란타_ITS_세계총회_참가_공무국외연수_결과보고서.pdf",
+      "주소": "/kr/bbs/download?bbs_id=data&uid=36E9BFA257BB30E09C248A1CEC83E2B1&page=&flag=&keyword=&search_code=&bbs_id=data&list_style="
+     }
+    ],
+    "날짜": "2025-10-16"
    }
   },
   "4214000": {
@@ -65826,9 +67681,130 @@
    "업무추진비": {
     "종류": "안내 화면",
     "링크글자": "업무추진비 현황",
-    "화면": "",
-    "주소": "chrome-error://chromewebdata/",
-    "파일": [],
+    "화면": "업무추진비 현황 > 의회 운영 분야 > 정보공개 > 순천시의회",
+    "주소": "https://www.sccouncil.go.kr/kr/costBBS.do",
+    "파일": [
+     {
+      "이름": "1. 의회운영업무추진비(2026. 2분기).pdf",
+      "주소": "/kr/bbs/download.do?bbs_id=cost&uid=4F5DC09D3ABE007010341CD3B3AB2F0A"
+     },
+     {
+      "이름": "2. 시책추진업무추진비(2026. 2분기).pdf",
+      "주소": "/kr/bbs/download.do?bbs_id=cost&uid=14721DB0EBC5CB6941DDD8065FFCC13F"
+     },
+     {
+      "이름": "3. 의정운영공통경비(2026. 2분기).pdf",
+      "주소": "/kr/bbs/download.do?bbs_id=cost&uid=7F7AF445D621B469B199C9A94174A86A"
+     },
+     {
+      "이름": "1. 의회운영업무추진비(2026. 1분기).pdf",
+      "주소": "/kr/bbs/download.do?bbs_id=cost&uid=D4DB451DDAF470568F17272620EAACD1"
+     },
+     {
+      "이름": "2. 시책추진업무추진비(2026. 1분기).pdf",
+      "주소": "/kr/bbs/download.do?bbs_id=cost&uid=746B5053E7C3949CFE7AD0A95DDF1A24"
+     },
+     {
+      "이름": "3. 의정운영공통경비(2026. 1분기).pdf",
+      "주소": "/kr/bbs/download.do?bbs_id=cost&uid=8087D4748D5FEBEF1EBAE75CC7A1E04E"
+     },
+     {
+      "이름": "1. 의회운영업무추진비(2025. 4분기).pdf",
+      "주소": "/kr/bbs/download.do?bbs_id=cost&uid=9AFFB878AFF64317C3D129D4DAE88D56"
+     },
+     {
+      "이름": "2. 시책추진업무추진비(2025. 4분기).pdf",
+      "주소": "/kr/bbs/download.do?bbs_id=cost&uid=43C5B00FB4C4064BD765ECD47D050203"
+     },
+     {
+      "이름": "3. 의정운영공통경비(2025. 4분기).pdf",
+      "주소": "/kr/bbs/download.do?bbs_id=cost&uid=93DCE1FF5757A2CA7ECF8EE2A690CC5C"
+     },
+     {
+      "이름": "1. 의회운영업무추진비(2025. 3분기).pdf",
+      "주소": "/kr/bbs/download.do?bbs_id=cost&uid=A5272C013596B626154D9CB4D9A46EAB"
+     },
+     {
+      "이름": "2. 시책추진업무추진비(2025. 3분기).pdf",
+      "주소": "/kr/bbs/download.do?bbs_id=cost&uid=A1B562372867B6A1F9BBBA2F4E5ACA5E"
+     },
+     {
+      "이름": "3. 의정운영공통경비(2025. 3분기).pdf",
+      "주소": "/kr/bbs/download.do?bbs_id=cost&uid=205E488E3FE6B9C5F28848228CD7137A"
+     },
+     {
+      "이름": "2025. 2분기 시책추진업무추진비 사용 내역.pdf",
+      "주소": "/kr/bbs/download.do?bbs_id=cost&uid=D2C1388393133426EB2B615344A9DFA2"
+     },
+     {
+      "이름": "2025. 2분기 의정운영공통경비 사용 내역.pdf",
+      "주소": "/kr/bbs/download.do?bbs_id=cost&uid=C7AC278EC9BA574A73BB5213A81765E5"
+     },
+     {
+      "이름": "2025. 2분기 의회운영업무추진비 사용 내역.pdf",
+      "주소": "/kr/bbs/download.do?bbs_id=cost&uid=348E48E25E5E32F291147E09FE8DA873"
+     },
+     {
+      "이름": "1. 의회운영업무추진비(2025.1분기).pdf",
+      "주소": "/kr/bbs/download.do?bbs_id=cost&uid=723A3E511034A1AD06E78894DEBBB7CB"
+     },
+     {
+      "이름": "2. 의정운영공통경비(2025.1분기).pdf",
+      "주소": "/kr/bbs/download.do?bbs_id=cost&uid=0C6F65E6539937797E3014D002EE6107"
+     },
+     {
+      "이름": "3. 의회사무국업무추진비(2025.1분기).pdf",
+      "주소": "/kr/bbs/download.do?bbs_id=cost&uid=FB120D23E37F8399384FB304DF49F3FE"
+     },
+     {
+      "이름": "1. 의회운영업무추진비(2024.4분기).pdf",
+      "주소": "/kr/bbs/download.do?bbs_id=cost&uid=E59BB9955D03431C3004A7AB38D57FD3"
+     },
+     {
+      "이름": "2. 의정운영공통경비(2024.4분기).pdf",
+      "주소": "/kr/bbs/download.do?bbs_id=cost&uid=F1A779E7CC3CE58B94CA691D045D1441"
+     },
+     {
+      "이름": "3. 의회사무국업무추진비(2024.4분기).pdf",
+      "주소": "/kr/bbs/download.do?bbs_id=cost&uid=AF015724C0D793DBC33BAC5FBFAFAA6E"
+     },
+     {
+      "이름": "1. 의회운영업무추진비(2024.3분기).pdf",
+      "주소": "/kr/bbs/download.do?bbs_id=cost&uid=FCB78A0D54D9392BFF8EC0534FA75E5D"
+     },
+     {
+      "이름": "2. 의정운영공통경비(2024.3분기).pdf",
+      "주소": "/kr/bbs/download.do?bbs_id=cost&uid=771969BBDD007C4554345FD833F72A91"
+     },
+     {
+      "이름": "3. 의회사무국업무추진비(2024.3분기).pdf",
+      "주소": "/kr/bbs/download.do?bbs_id=cost&uid=0F73C65AB810CE1352F66A14B3037F0D"
+     },
+     {
+      "이름": "1. 의회운영업무추진비(2024.2분기).pdf",
+      "주소": "/kr/bbs/download.do?bbs_id=cost&uid=768D0BF9325193EDE6AC8DFFCD11F191"
+     },
+     {
+      "이름": "2. 의정운영공통경비(2024.2분기).pdf",
+      "주소": "/kr/bbs/download.do?bbs_id=cost&uid=AF279C1BD46D73406B27D9D4BEB4E958"
+     },
+     {
+      "이름": "3. 의회사무국업무추진비(2024.2분기).pdf",
+      "주소": "/kr/bbs/download.do?bbs_id=cost&uid=45D45649C05526E17B363677F0FBCC4C"
+     },
+     {
+      "이름": "1. 의회운영업무추진비(2024.1분기).pdf",
+      "주소": "/kr/bbs/download.do?bbs_id=cost&uid=95423EA45E85D579E3C20ADAD392B591"
+     },
+     {
+      "이름": "2. 의정운영공통경비(2024.1분기).pdf",
+      "주소": "/kr/bbs/download.do?bbs_id=cost&uid=B5A5028F4E122D1DEDE5BE7D0A1CF089"
+     },
+     {
+      "이름": "3. 의회사무국업무추진비(2024.1분기).pdf",
+      "주소": "/kr/bbs/download.do?bbs_id=cost&uid=74149839507D7591D983A4AA62AE88BB"
+     }
+    ],
     "날짜": ""
    }
   },
@@ -87465,34 +89441,1331 @@
   "4817000": {
    "이름": "경남김해시",
    "업무추진비": {
-    "종류": "안내 화면",
+    "종류": "게시판",
     "링크글자": "업무추진비",
-    "화면": "council.gimhae.go.kr",
-    "주소": "chrome-error://chromewebdata/",
-    "파일": [],
-    "날짜": ""
+    "화면": "김해시의회 : 업무추진비 현황",
+    "주소": "https://council.gimhae.go.kr/cnts/bbs/boardList.php?bbsCd=opn&bbsSubCd=opn0104",
+    "검색어": "",
+    "글": [
+     {
+      "제목": "2026년 8월 업무추진비 집행내역",
+      "날짜": "2026-09-28",
+      "주소": "",
+      "번째": 361,
+      "쪽": 1
+     },
+     {
+      "제목": "2026년 7월 업무추진비 집행내역",
+      "날짜": "2026-08-31",
+      "주소": "",
+      "번째": 362,
+      "쪽": 1
+     },
+     {
+      "제목": "2026년 6월 업무추진비 집행내역",
+      "날짜": "2026-07-20",
+      "주소": "",
+      "번째": 363,
+      "쪽": 1
+     },
+     {
+      "제목": "2026년 5월 업무추진비 집행내역",
+      "날짜": "2026-06-22",
+      "주소": "",
+      "번째": 364,
+      "쪽": 1
+     },
+     {
+      "제목": "2026년 4월 업무추진비 집행내역",
+      "날짜": "2026-06-22",
+      "주소": "",
+      "번째": 365,
+      "쪽": 1
+     },
+     {
+      "제목": "2026년 3월 업무추진비 집행내역",
+      "날짜": "2026-04-13",
+      "주소": "",
+      "번째": 366,
+      "쪽": 1
+     },
+     {
+      "제목": "2026년 2월 업무추진비 집행내역",
+      "날짜": "2026-03-24",
+      "주소": "",
+      "번째": 367,
+      "쪽": 1
+     },
+     {
+      "제목": "2026년 1월 업무추진비 집행내역",
+      "날짜": "2026-03-04",
+      "주소": "",
+      "번째": 368,
+      "쪽": 1
+     },
+     {
+      "제목": "2025년 12월 업무추진비 집행내역",
+      "날짜": "2026-01-29",
+      "주소": "",
+      "번째": 369,
+      "쪽": 1
+     },
+     {
+      "제목": "2025년 11월 업무추진비 집행내역",
+      "날짜": "2025-12-08",
+      "주소": "",
+      "번째": 370,
+      "쪽": 1
+     },
+     {
+      "제목": "2025년 10월 업무추진비 집행내역",
+      "날짜": "2025-12-08",
+      "주소": "",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2025년 9월 업무추진비 집행내역",
+      "날짜": "2025-10-17",
+      "주소": "",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2025년 8월 업무추진비 집행내역",
+      "날짜": "2025-10-15",
+      "주소": "",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2025년 7월 업무추진비 집행내역",
+      "날짜": "2025-09-22",
+      "주소": "",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2025년 6월 업무추진비 집행내역",
+      "날짜": "2025-07-25",
+      "주소": "",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2025년 5월 업무추진비 집행내역",
+      "날짜": "2025-06-29",
+      "주소": "",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2025년 4월 업무추진비 집행내역",
+      "날짜": "2025-06-29",
+      "주소": "",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2025년 3월 업무추진비 집행내역",
+      "날짜": "2025-04-30",
+      "주소": "",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2025년 2월 업무추진비 집행내역",
+      "날짜": "2025-03-30",
+      "주소": "",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2025년 1월 업무추진비 집행내역",
+      "날짜": "2025-02-20",
+      "주소": "",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2024년 12월 업무추진비 집행내역",
+      "날짜": "2025-02-20",
+      "주소": "",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2024년 11월 업무추진비 집행내역",
+      "날짜": "2024-12-21",
+      "주소": "",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2024년 10월 업무추진비 집행내역",
+      "날짜": "2024-11-15",
+      "주소": "",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2024년 9월 업무추진비 집행내역",
+      "날짜": "2024-10-14",
+      "주소": "",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2024년 8월 업무추진비 집행내역",
+      "날짜": "2024-09-20",
+      "주소": "",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2024년 7월 업무추진비 집행내역",
+      "날짜": "2024-08-12",
+      "주소": "",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2024년 6월 업무추진비 집행내역",
+      "날짜": "2024-07-09",
+      "주소": "",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2024년 5월 업무추진비 집행내역",
+      "날짜": "2024-06-09",
+      "주소": "",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2024년 4월 업무추진비 집행내역",
+      "날짜": "2024-05-13",
+      "주소": "",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2024년 3월 업무추진비 집행내역",
+      "날짜": "2024-04-15",
+      "주소": "",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2024년 2월 업무추진비 집행내역",
+      "날짜": "2024-03-11",
+      "주소": "",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "2024년 1월 업무추진비 집행내역",
+      "날짜": "2024-03-11",
+      "주소": "",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "2023년 12월 업무추진비 집행내역",
+      "날짜": "2024-01-04",
+      "주소": "",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "2023년 11월 업무추진비 집행내역",
+      "날짜": "2023-12-04",
+      "주소": "",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "2023년 10월 업무추진비 집행내역",
+      "날짜": "2023-11-06",
+      "주소": "",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "2023년 9월 업무추진비 집행내역",
+      "날짜": "2023-10-06",
+      "주소": "",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "2023년 8월 업무추진비 집행내역",
+      "날짜": "2023-09-06",
+      "주소": "",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "2023년 7월 업무추진비 집행내역",
+      "날짜": "2023-08-07",
+      "주소": "",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "2023년 6월 업무추진비 집행내역",
+      "날짜": "2023-07-07",
+      "주소": "",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "2023년 5월 업무추진비 집행내역",
+      "날짜": "2023-06-06",
+      "주소": "",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "2023년 4월 업무추진비 집행내역",
+      "날짜": "2023-05-06",
+      "주소": "",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "2023년 3월 업무추진비 집행내역",
+      "날짜": "2023-04-06",
+      "주소": "",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "2023년 2월 업무추진비 집행내역",
+      "날짜": "2023-03-02",
+      "주소": "",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "2023년 1월 업무추진비 집행내역",
+      "날짜": "2023-02-17",
+      "주소": "",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "2022년 12월 업무추진비 집행내역",
+      "날짜": "2023-01-06",
+      "주소": "",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "2022년 11월 업무추진비 집행내역",
+      "날짜": "2022-12-06",
+      "주소": "",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "2022년 10월 업무추진비 집행내역",
+      "날짜": "2022-11-04",
+      "주소": "",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "2022년 9월 업무추진비 집행내역",
+      "날짜": "2022-10-05",
+      "주소": "",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "2022년 8월 업무추진비 집행내역",
+      "날짜": "2022-09-05",
+      "주소": "",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "2022년 7월 업무추진비 집행내역",
+      "날짜": "2022-08-05",
+      "주소": "",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "2022년 6월 업무추진비 집행내역",
+      "날짜": "2022-07-04",
+      "주소": "",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "2022년 5월 업무추진비 집행내역",
+      "날짜": "2022-06-03",
+      "주소": "",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "2022년 4월 업무추진비 집행내역",
+      "날짜": "2022-05-05",
+      "주소": "",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "2022년 3월 업무추진비 집행내역",
+      "날짜": "2022-04-05",
+      "주소": "",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "2022년 2월 업무추진비 집행내역",
+      "날짜": "2022-03-11",
+      "주소": "",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "2022년 1월 업무추진비 집행내역",
+      "날짜": "2022-02-08",
+      "주소": "",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "2021년 12월 업무추진비 집행내역",
+      "날짜": "2022-01-06",
+      "주소": "",
+      "번째": -1,
+      "쪽": 6
+     }
+    ],
+    "본쪽": 6,
+    "멈춘까닭": "2022-01-01 앞 글에 닿음"
    },
    "국외출장": {
-    "종류": "못 열었다"
+    "종류": "게시판",
+    "링크글자": "입법예고 김해시의회 의원 공무국외출장 규칙 일부개정규칙안 김해시의회 의원",
+    "화면": "김해시의회 : 입법예고",
+    "주소": "https://council.gimhae.go.kr/cnts/bbs/boardView.php?bbsSn=19644&pageNo=1&bbsCd=cns&bbsSubCd=cns04",
+    "검색어": "",
+    "글": [
+     {
+      "제목": "김해시 갈등유발 예상시설 사전고지 조례 일부개정조례안",
+      "날짜": "2026-08-25",
+      "주소": "",
+      "번째": 352,
+      "쪽": 1
+     },
+     {
+      "제목": "김해시 마이스(MICE)산업 육성에 관한 조례 제정조례안",
+      "날짜": "2026-08-25",
+      "주소": "",
+      "번째": 353,
+      "쪽": 1
+     },
+     {
+      "제목": "김해시 소상공인 보호 및 지원에 관한 조례 일부개정조례안",
+      "날짜": "2026-08-25",
+      "주소": "",
+      "번째": 354,
+      "쪽": 1
+     },
+     {
+      "제목": "김해시 출자·출연 기관의 장의 임기에 관한 조례 제정조례안",
+      "날짜": "2026-08-25",
+      "주소": "",
+      "번째": 355,
+      "쪽": 1
+     },
+     {
+      "제목": "김해시의회 교섭단체 및 위원회 구성과 운영에 관한 조례 일부개정조례안",
+      "날짜": "2026-08-25",
+      "주소": "",
+      "번째": 356,
+      "쪽": 1
+     },
+     {
+      "제목": "김해시 체육 진흥 조례 전부개정조례안",
+      "날짜": "2026-03-24",
+      "주소": "",
+      "번째": 357,
+      "쪽": 1
+     },
+     {
+      "제목": "김해시 미래인재장학재단 설립 및 운영에 관한 조례 일부개정조례안",
+      "날짜": "2026-03-24",
+      "주소": "",
+      "번째": 358,
+      "쪽": 1
+     },
+     {
+      "제목": "김해시 아동의 빈곤예방 및 지원에 관한 조례 제정조례안",
+      "날짜": "2026-03-24",
+      "주소": "",
+      "번째": 359,
+      "쪽": 1
+     },
+     {
+      "제목": "김해시 공영장례 지원에 관한 조례 일부개정조례안",
+      "날짜": "2026-03-24",
+      "주소": "",
+      "번째": 360,
+      "쪽": 1
+     },
+     {
+      "제목": "김해시 장애인 대상 범죄 예방 및 피해자 보호에 관한 조례 제정조례안",
+      "날짜": "2026-03-24",
+      "주소": "",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "김해시 순환경제사회 전환 촉진 조례 제정조례안",
+      "날짜": "2026-03-24",
+      "주소": "",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "김해시 도시계획 조례 일부개정조례안",
+      "날짜": "2026-03-03",
+      "주소": "",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "김해시 지역자율방재단 구성 및 운영에 관한 조례 일부개정조례안",
+      "날짜": "2026-03-03",
+      "주소": "",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "김해시 평생교육진흥 조례 전부개정조례안",
+      "날짜": "2026-03-03",
+      "주소": "",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "김해추모의 공원 설치 및 관리 조례 전부개정조례안",
+      "날짜": "2026-03-03",
+      "주소": "",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "김해시 외국인주민 및 다문화가족 지원 조례 일부개정조례안",
+      "날짜": "2026-03-03",
+      "주소": "",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "김해시 고향사랑 기부금 모금 및 운용에 관한 조례 일부개정조례안",
+      "날짜": "2026-03-03",
+      "주소": "",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "김해시 전세사기피해자 지원 및 주거안정에 관한 조례 제정조례안",
+      "날짜": "2026-01-20",
+      "주소": "",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "김해시 도시계획 조례 일부개정조례안",
+      "날짜": "2026-01-20",
+      "주소": "",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "김해시 병역명문가 예우에 관한 조례 일부개정조례안",
+      "날짜": "2026-01-20",
+      "주소": "",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "김해시 체육시설 관리 운영 조례 일부개정조례안",
+      "날짜": "2026-01-20",
+      "주소": "",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "김해시 교육발전협의회 설치 및 운영 조례 일부개정조례안",
+      "날짜": "2026-01-20",
+      "주소": "",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "김해시 건강가정지원센터 조직 및 운영 조례 전부개정조례안",
+      "날짜": "2026-01-20",
+      "주소": "",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "김해시 이동약자를 위한 공중이용시설 경사로 설치 지원 조례 제정조례안",
+      "날짜": "2026-01-20",
+      "주소": "",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "김해시의회 회의 규칙 일부개정규칙안",
+      "날짜": "2026-01-20",
+      "주소": "",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "김해시 건설기계 공영주기장 설치 및 운영 조례 제정조례안",
+      "날짜": "2025-11-12",
+      "주소": "",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "김해시 예방접종 지원에 관한 조례 일부개정조례안",
+      "날짜": "2025-11-12",
+      "주소": "",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "김해시 체육시설 관리 운영 조례 일부개정조례안",
+      "날짜": "2025-11-12",
+      "주소": "",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "김해시 박물관 관리 및 운영 조례 전부개정조례안",
+      "날짜": "2025-11-12",
+      "주소": "",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "김해시 참전유공자 등 지원 조례 일부개정조례안",
+      "날짜": "2025-11-12",
+      "주소": "",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "김해시 아동보호구역 운영 조례 제정조례안",
+      "날짜": "2025-11-12",
+      "주소": "",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "김해시 보호대상아동 자립 지원 조례 전부개정조례안",
+      "날짜": "2025-11-12",
+      "주소": "",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "김해시 학교폭력예방 및 대책 지원에 관한 조례 제정조례안",
+      "날짜": "2025-11-12",
+      "주소": "",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "김해시 현수막의 친환경 소재 사용 촉진 및 재활용 활성화 조례 일부개정조례안",
+      "날짜": "2025-11-12",
+      "주소": "",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "김해시 축사 악취 배출허용기준 및 가축분뇨 처리 지원 조례 일부개정조례안",
+      "날짜": "2025-11-12",
+      "주소": "",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "김해시 인공지능 기본조례 제정조례안",
+      "날짜": "2025-11-12",
+      "주소": "",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "김해시 마을방송시스템 운영 및 지원에 관한 조례 제정조례안",
+      "날짜": "2025-11-12",
+      "주소": "",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "김해시의회 의정 홍보 등에 관한 조례 제정조례안",
+      "날짜": "2025-11-12",
+      "주소": "",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "김해시 도시공원 및 녹지 등에 관한 조례 일부개정조례안",
+      "날짜": "2025-10-02",
+      "주소": "",
+      "번째": -1,
+      "쪽": 4
+     },
+     {
+      "제목": "김해시 침수 피해 예방을 위한 빗물받이 관리 조례 제정조례안",
+      "날짜": "2025-10-02",
+      "주소": "",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "김해시 도시계획 조례 일부개정조례안",
+      "날짜": "2025-10-02",
+      "주소": "",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "김해시 치매관리 및 지원 조례 일부개정조례안",
+      "날짜": "2025-10-02",
+      "주소": "",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "김해시 장군차 문화 진흥 지원에 관한 조례 제정조례안",
+      "날짜": "2025-10-02",
+      "주소": "",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "김해시 입양가정 지원 조례 제정조례안",
+      "날짜": "2025-10-02",
+      "주소": "",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "김해시 청소년상담복지센터 설치 및 운영 조례 전부개정조례안",
+      "날짜": "2025-10-02",
+      "주소": "",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "김해시 실종자 발생예방 및 수색활동 지원 조례 제정조례안",
+      "날짜": "2025-10-02",
+      "주소": "",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "김해시 한의약 육성을 위한 조례 제정조례안",
+      "날짜": "2025-09-01",
+      "주소": "",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "김해가야테마파크 관리 및 운영 조례 일부개정조례안",
+      "날짜": "2025-09-01",
+      "주소": "",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "김해시 노인 지역사회통합돌봄 지원 조례 전부개정조례안",
+      "날짜": "2025-09-01",
+      "주소": "",
+      "번째": -1,
+      "쪽": 5
+     },
+     {
+      "제목": "김해시 장애인 건강권 및 의료접근성 보장에 관한 조례 제정조례안",
+      "날짜": "2025-09-01",
+      "주소": "",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "김해시 전기자동차 전용주차구역의 화재 예방 및 안전시설 지원에 관한 조례 제정조례안",
+      "날짜": "2025-09-01",
+      "주소": "",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "김해시 지역생산품 구매 활성화 조례 제정조례안",
+      "날짜": "2025-09-01",
+      "주소": "",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "김해시 한국자유총연맹 육성 및 지원에 관한 조례 제정조례안",
+      "날짜": "2025-09-01",
+      "주소": "",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "김해시 바르게살기운동조직 육성 및 지원에 관한 조례 제정조례안",
+      "날짜": "2025-09-01",
+      "주소": "",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "김해시 필수노동자 보호 및 지원에 관한 조례 전부개정조례안",
+      "날짜": "2025-09-01",
+      "주소": "",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "김해시의회 의원 윤리강령 및 윤리실천 규범에 관한 조례 일부개정조례안",
+      "날짜": "2025-09-01",
+      "주소": "",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "김해시의회 의원 의정활동비·월정수당 및 여비 지급에 관한 조례 일부개정조례안",
+      "날짜": "2025-09-01",
+      "주소": "",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "김해시 농수산식품 수출 촉진 및 지원에 관한 조례 제정조례안",
+      "날짜": "2025-07-08",
+      "주소": "",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "김해시 도시계획 조례 일부개정조례안",
+      "날짜": "2025-07-08",
+      "주소": "",
+      "번째": -1,
+      "쪽": 6
+     },
+     {
+      "제목": "김해시 웰다잉(Well-Dying) 문화 조성에 관한 조례 전부개정조례안",
+      "날짜": "2025-07-08",
+      "주소": "",
+      "번째": -1,
+      "쪽": 7
+     },
+     {
+      "제목": "김해시 시민의 건강증진을 위한 신체활동 활성화 조례 전부개정조례안",
+      "날짜": "2025-07-08",
+      "주소": "",
+      "번째": -1,
+      "쪽": 7
+     },
+     {
+      "제목": "김해시 여성친화도시 조성에 관한 기본 조례 전부개정조례안",
+      "날짜": "2025-07-08",
+      "주소": "",
+      "번째": -1,
+      "쪽": 7
+     },
+     {
+      "제목": "김해시 플라스틱 사용 저감 조례 일부개정조례안",
+      "날짜": "2025-07-08",
+      "주소": "",
+      "번째": -1,
+      "쪽": 7
+     },
+     {
+      "제목": "김해시 후계농업인 및 청년농업인 육성·지원 조례 제정조례안",
+      "날짜": "2025-05-26",
+      "주소": "",
+      "번째": -1,
+      "쪽": 7
+     },
+     {
+      "제목": "김해시 한림체력증진센터 설치 및 운영 조례 일부개정조례안",
+      "날짜": "2025-05-26",
+      "주소": "",
+      "번째": -1,
+      "쪽": 7
+     },
+     {
+      "제목": "김해시 선배시민 존중문화 조성을 위한 조례 제정조례안",
+      "날짜": "2025-05-26",
+      "주소": "",
+      "번째": -1,
+      "쪽": 7
+     },
+     {
+      "제목": "김해시 외국인근로자 지원에 관한 조례 제정조례안",
+      "날짜": "2025-05-26",
+      "주소": "",
+      "번째": -1,
+      "쪽": 7
+     },
+     {
+      "제목": "김해시 전기자동차 전용주차구역의 화재 예방 및 안전시설 지원에 관한 조례 제정조례안",
+      "날짜": "2025-05-26",
+      "주소": "",
+      "번째": -1,
+      "쪽": 7
+     },
+     {
+      "제목": "김해시 화포천습지 생태공원시설 관리 및 운영 조례 일부개정조례안",
+      "날짜": "2025-05-26",
+      "주소": "",
+      "번째": -1,
+      "쪽": 7
+     },
+     {
+      "제목": "김해시 시민고충처리위원회 구성 및 운영에 관한 조례 제정조례안",
+      "날짜": "2025-05-26",
+      "주소": "",
+      "번째": -1,
+      "쪽": 8
+     },
+     {
+      "제목": "김해시의회 의원 공무국외출장 규칙 전부개정규칙안",
+      "날짜": "2025-05-26",
+      "주소": "",
+      "번째": -1,
+      "쪽": 8
+     },
+     {
+      "제목": "김해시의회 포상 규칙 전부개정규칙안",
+      "날짜": "2025-05-26",
+      "주소": "",
+      "번째": -1,
+      "쪽": 8
+     },
+     {
+      "제목": "김해시의회 윤리특별위원회 구성 등에 관한 규칙 일부개정규칙안",
+      "날짜": "2025-05-26",
+      "주소": "",
+      "번째": -1,
+      "쪽": 8
+     },
+     {
+      "제목": "김해시의회 의원 윤리강령 및 윤리실천 규범에 관한 조례 일부개정조례안",
+      "날짜": "2025-05-26",
+      "주소": "",
+      "번째": -1,
+      "쪽": 8
+     },
+     {
+      "제목": "김해시 도시숲 등의 조성 및 관리에 관한 조례 제정조례안",
+      "날짜": "2025-04-14",
+      "주소": "",
+      "번째": -1,
+      "쪽": 8
+     },
+     {
+      "제목": "김해시 사무의 민간위탁 조례 일부개정조례안",
+      "날짜": "2025-04-14",
+      "주소": "",
+      "번째": -1,
+      "쪽": 8
+     },
+     {
+      "제목": "김해시도시개발공사 설립 및 운영 조례 일부개정조례안",
+      "날짜": "2025-04-14",
+      "주소": "",
+      "번째": -1,
+      "쪽": 8
+     },
+     {
+      "제목": "김해시 출자·출연 기관의 운영에 관한 조례 일부개정조례안",
+      "날짜": "2025-04-14",
+      "주소": "",
+      "번째": -1,
+      "쪽": 8
+     },
+     {
+      "제목": "김해시 갑질 행위 근절 및 피해자 지원 조례 제정조례안",
+      "날짜": "2025-04-14",
+      "주소": "",
+      "번째": -1,
+      "쪽": 8
+     },
+     {
+      "제목": "김해시의회 회의 규칙 일부개정규칙안",
+      "날짜": "2025-04-14",
+      "주소": "",
+      "번째": -1,
+      "쪽": 9
+     },
+     {
+      "제목": "김해시의회 건의안 및 결의안 관리에 관한 조례 제정조례안",
+      "날짜": "2025-04-14",
+      "주소": "",
+      "번째": -1,
+      "쪽": 9
+     },
+     {
+      "제목": "김해시 수도급수 조례 일부개정조례안",
+      "날짜": "2025-03-10",
+      "주소": "",
+      "번째": -1,
+      "쪽": 9
+     },
+     {
+      "제목": "김해시 반려동물 진료비 부담 완화 지원 조례 전부개정조례안",
+      "날짜": "2025-03-10",
+      "주소": "",
+      "번째": -1,
+      "쪽": 9
+     },
+     {
+      "제목": "김해시 화훼산업 활성화 지원 조례 일부개정조례안",
+      "날짜": "2025-03-10",
+      "주소": "",
+      "번째": -1,
+      "쪽": 9
+     },
+     {
+      "제목": "김해시 응급의료 지원 조례 제정조례안",
+      "날짜": "2025-03-10",
+      "주소": "",
+      "번째": -1,
+      "쪽": 9
+     },
+     {
+      "제목": "김해시 국어 진흥 조례 일부개정조례안",
+      "날짜": "2025-03-10",
+      "주소": "",
+      "번째": -1,
+      "쪽": 9
+     },
+     {
+      "제목": "김해시 도시역사문화 아카이브 구축 및 운영 조례 제정조례안",
+      "날짜": "2025-03-10",
+      "주소": "",
+      "번째": -1,
+      "쪽": 9
+     },
+     {
+      "제목": "김해시 장애인생산품 우선구매 촉진에 관한 조례 일부개정조례안",
+      "날짜": "2025-03-10",
+      "주소": "",
+      "번째": -1,
+      "쪽": 9
+     },
+     {
+      "제목": "도로명주소 표기에 따른 김해시 4개 조례의 일괄개정에 관한 조례안",
+      "날짜": "2025-03-10",
+      "주소": "",
+      "번째": -1,
+      "쪽": 9
+     },
+     {
+      "제목": "김해시 장애인 평생교육 지원 조례 제정조례안",
+      "날짜": "2025-01-24",
+      "주소": "",
+      "번째": -1,
+      "쪽": 10
+     },
+     {
+      "제목": "김해시 예비비 지출 승인에 관한 조례 제정조례안",
+      "날짜": "2025-01-24",
+      "주소": "",
+      "번째": -1,
+      "쪽": 10
+     },
+     {
+      "제목": "김해시 청년 기본 조례 일부개정조례안",
+      "날짜": "2025-01-24",
+      "주소": "",
+      "번째": -1,
+      "쪽": 10
+     },
+     {
+      "제목": "김해시 기후변화대응 작물 육성 및 지원에 관한 조례 제정조례안",
+      "날짜": "2024-11-13",
+      "주소": "",
+      "번째": -1,
+      "쪽": 10
+     },
+     {
+      "제목": "김해시 공동주택 경비원 인권 증진에 관한 조례 전부개정조례안",
+      "날짜": "2024-11-13",
+      "주소": "",
+      "번째": -1,
+      "쪽": 10
+     },
+     {
+      "제목": "김해시 공항소음 대책지역 등 주민지원에 관한 조례 일부개정조례안",
+      "날짜": "2024-11-13",
+      "주소": "",
+      "번째": -1,
+      "쪽": 10
+     },
+     {
+      "제목": "김해시 지역건설산업 활성화 조례 일부개정조례안",
+      "날짜": "2024-11-13",
+      "주소": "",
+      "번째": -1,
+      "쪽": 10
+     },
+     {
+      "제목": "김해시 청소년출입제한구역 지정 및 운영 조례 일부개정조례안",
+      "날짜": "2024-11-13",
+      "주소": "",
+      "번째": -1,
+      "쪽": 10
+     },
+     {
+      "제목": "김해시 청소년 도박문제 예방 및 지원에 관한 조례 제정조례안",
+      "날짜": "2024-11-13",
+      "주소": "",
+      "번째": -1,
+      "쪽": 10
+     },
+     {
+      "제목": "김해시 고려인 주민 지원 조례 제정조례안",
+      "날짜": "2024-11-13",
+      "주소": "",
+      "번째": -1,
+      "쪽": 10
+     }
+    ],
+    "본쪽": 10,
+    "멈춘까닭": "다음 쪽이 없다"
    }
   },
   "4818000": {
    "이름": "경남밀양시",
    "업무추진비": {
-    "종류": "안내 화면",
+    "종류": "게시판",
     "링크글자": "업무추진비공개",
-    "화면": "",
-    "주소": "chrome-error://chromewebdata/",
-    "파일": [],
-    "날짜": ""
+    "화면": "업무추진비공개 | 밀양시의회",
+    "주소": "https://council.miryang.go.kr/board/EgovBoardList.do;jsessionid=F9457E9B030F3AC38B6A893F0A9471D9?bbsId=BBSMSTR_000000000101&menuNo=12040000&tId=73e1815097f073c15d6781c11160aa2d0a45114cf07458d702af2937c5e33a5f",
+    "검색어": "",
+    "글": [
+     {
+      "제목": "2026년 2/4분기 밀양시의회 업무추진비 집행내역",
+      "날짜": "2026-02-04",
+      "주소": "https://council.miryang.go.kr/board/EgovBoardDetail.do?bbsId=BBSMSTR_000000000101&menuNo=12040000&nttId=6903&searchCnd=&searchWrd=&pageIndex=1",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2026년 1/4분기 밀양시의회 업무추진비 집행내역",
+      "날짜": "2026-01-04",
+      "주소": "https://council.miryang.go.kr/board/EgovBoardDetail.do?bbsId=BBSMSTR_000000000101&menuNo=12040000&nttId=6756&searchCnd=&searchWrd=&pageIndex=1",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2025년 4/4분기 밀양시의회 업무추진비 집행내역",
+      "날짜": "2025-04-04",
+      "주소": "https://council.miryang.go.kr/board/EgovBoardDetail.do?bbsId=BBSMSTR_000000000101&menuNo=12040000&nttId=6606&searchCnd=&searchWrd=&pageIndex=1",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2025년 3/4분기 밀양시의회 업무추진비 집행내역",
+      "날짜": "2025-03-04",
+      "주소": "https://council.miryang.go.kr/board/EgovBoardDetail.do?bbsId=BBSMSTR_000000000101&menuNo=12040000&nttId=6418&searchCnd=&searchWrd=&pageIndex=1",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2025년 2/4분기 밀양시의회 업무추진비 집행내역",
+      "날짜": "2025-02-04",
+      "주소": "https://council.miryang.go.kr/board/EgovBoardDetail.do?bbsId=BBSMSTR_000000000101&menuNo=12040000&nttId=6259&searchCnd=&searchWrd=&pageIndex=1",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2025년 1/4분기 밀양시의회 업무추진비 집행내역",
+      "날짜": "2025-01-04",
+      "주소": "https://council.miryang.go.kr/board/EgovBoardDetail.do?bbsId=BBSMSTR_000000000101&menuNo=12040000&nttId=6048&searchCnd=&searchWrd=&pageIndex=1",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2024년 4/4분기 밀양시의회 업무추진비 집행내역",
+      "날짜": "2024-04-04",
+      "주소": "https://council.miryang.go.kr/board/EgovBoardDetail.do?bbsId=BBSMSTR_000000000101&menuNo=12040000&nttId=5873&searchCnd=&searchWrd=&pageIndex=1",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2024년 3/4분기 밀양시의회 업무추진비 집행내역",
+      "날짜": "2024-03-04",
+      "주소": "https://council.miryang.go.kr/board/EgovBoardDetail.do?bbsId=BBSMSTR_000000000101&menuNo=12040000&nttId=5755&searchCnd=&searchWrd=&pageIndex=1",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2024년 2/4분기 밀양시의회 업무추진비 집행내역",
+      "날짜": "2024-02-04",
+      "주소": "https://council.miryang.go.kr/board/EgovBoardDetail.do?bbsId=BBSMSTR_000000000101&menuNo=12040000&nttId=5611&searchCnd=&searchWrd=&pageIndex=1",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2024년 1/4분기 밀양시의회 업무추진비 집행내역",
+      "날짜": "2024-01-04",
+      "주소": "https://council.miryang.go.kr/board/EgovBoardDetail.do?bbsId=BBSMSTR_000000000101&menuNo=12040000&nttId=5232&searchCnd=&searchWrd=&pageIndex=1",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2023년 4/4분기 밀양시의회 업무추진비 집행내역",
+      "날짜": "2023-04-04",
+      "주소": "https://council.miryang.go.kr/board/EgovBoardDetail.do?bbsId=BBSMSTR_000000000101&menuNo=12040000&nttId=5157&searchCnd=&searchWrd=&pageIndex=2",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2023년 3/4분기 밀양시의회 업무추진비 집행내역",
+      "날짜": "2023-03-04",
+      "주소": "https://council.miryang.go.kr/board/EgovBoardDetail.do?bbsId=BBSMSTR_000000000101&menuNo=12040000&nttId=4807&searchCnd=&searchWrd=&pageIndex=2",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2023년 2/4분기 밀양시의회 업무추진비 집행내역",
+      "날짜": "2023-02-04",
+      "주소": "https://council.miryang.go.kr/board/EgovBoardDetail.do?bbsId=BBSMSTR_000000000101&menuNo=12040000&nttId=4693&searchCnd=&searchWrd=&pageIndex=2",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2023년 1/4분기 업무추진비 집행내역",
+      "날짜": "2023-01-04",
+      "주소": "https://council.miryang.go.kr/board/EgovBoardDetail.do?bbsId=BBSMSTR_000000000101&menuNo=12040000&nttId=4521&searchCnd=&searchWrd=&pageIndex=2",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2022년 업무추진비 집행내역(기관운영업무추진비, 시책추진업무추진비)",
+      "날짜": "2023-02-07",
+      "주소": "https://council.miryang.go.kr/board/EgovBoardDetail.do?bbsId=BBSMSTR_000000000101&menuNo=12040000&nttId=4465&searchCnd=&searchWrd=&pageIndex=2",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2022년 4/4분기 업무추진비 집행내역",
+      "날짜": "2022-04-04",
+      "주소": "https://council.miryang.go.kr/board/EgovBoardDetail.do?bbsId=BBSMSTR_000000000101&menuNo=12040000&nttId=4453&searchCnd=&searchWrd=&pageIndex=2",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2022년 9월 업무추진비 집행내역",
+      "날짜": "2022-10-13",
+      "주소": "https://council.miryang.go.kr/board/EgovBoardDetail.do?bbsId=BBSMSTR_000000000101&menuNo=12040000&nttId=4211&searchCnd=&searchWrd=&pageIndex=2",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2022년 8월 업무추진비 집행내역",
+      "날짜": "2022-10-11",
+      "주소": "https://council.miryang.go.kr/board/EgovBoardDetail.do?bbsId=BBSMSTR_000000000101&menuNo=12040000&nttId=4208&searchCnd=&searchWrd=&pageIndex=2",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2022년 7월 업무추진비 집행내역",
+      "날짜": "2022-08-02",
+      "주소": "https://council.miryang.go.kr/board/EgovBoardDetail.do?bbsId=BBSMSTR_000000000101&menuNo=12040000&nttId=4137&searchCnd=&searchWrd=&pageIndex=2",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2022년 6월 업무추진비 집행내역",
+      "날짜": "2022-07-24",
+      "주소": "https://council.miryang.go.kr/board/EgovBoardDetail.do?bbsId=BBSMSTR_000000000101&menuNo=12040000&nttId=4133&searchCnd=&searchWrd=&pageIndex=2",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2022년 5월 업무추진비 집행내역",
+      "날짜": "2022-06-12",
+      "주소": "https://council.miryang.go.kr/board/EgovBoardDetail.do?bbsId=BBSMSTR_000000000101&menuNo=12040000&nttId=4070&searchCnd=&searchWrd=&pageIndex=3",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2022년 4월 업무추진비 집행내역",
+      "날짜": "2022-05-06",
+      "주소": "https://council.miryang.go.kr/board/EgovBoardDetail.do?bbsId=BBSMSTR_000000000101&menuNo=12040000&nttId=4067&searchCnd=&searchWrd=&pageIndex=3",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2022년 3월 업무추진비 집행내역",
+      "날짜": "2022-04-14",
+      "주소": "https://council.miryang.go.kr/board/EgovBoardDetail.do?bbsId=BBSMSTR_000000000101&menuNo=12040000&nttId=4031&searchCnd=&searchWrd=&pageIndex=3",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2022년 2월 업무추진비 집행내역",
+      "날짜": "2022-03-13",
+      "주소": "https://council.miryang.go.kr/board/EgovBoardDetail.do?bbsId=BBSMSTR_000000000101&menuNo=12040000&nttId=3992&searchCnd=&searchWrd=&pageIndex=3",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2022년 1월 업무추진비 집행내역",
+      "날짜": "2022-02-13",
+      "주소": "https://council.miryang.go.kr/board/EgovBoardDetail.do?bbsId=BBSMSTR_000000000101&menuNo=12040000&nttId=3987&searchCnd=&searchWrd=&pageIndex=3",
+      "번째": -1,
+      "쪽": 3
+     },
+     {
+      "제목": "2021년 12월 업무추진비 집행내역",
+      "날짜": "2022-01-02",
+      "주소": "https://council.miryang.go.kr/board/EgovBoardDetail.do?bbsId=BBSMSTR_000000000101&menuNo=12040000&nttId=3942&searchCnd=&searchWrd=&pageIndex=3",
+      "번째": -1,
+      "쪽": 3
+     }
+    ],
+    "본쪽": 3,
+    "멈춘까닭": "2022-01-01 앞 글에 닿음"
    },
    "국외출장": {
     "종류": "안내 화면",
     "링크글자": "2025년 밀양시의회 의원 공무국외출장 보고서",
-    "화면": "",
-    "주소": "chrome-error://chromewebdata/",
-    "파일": [],
-    "날짜": ""
+    "화면": "의원연수 | 밀양시의회",
+    "주소": "https://council.miryang.go.kr/board/EgovBoardDetail.do?bbsId=BBSMSTR_000000000031&menuNo=13050000&nttId=6373&searchCnd=&searchWrd=&pageIndex=1",
+    "파일": [
+     {
+      "이름": "공무국외연수 결과보고서(2025 우즈백)(250922).pdf",
+      "주소": "/cmm/fms/FileDown.do?atchFileId=FILE_000000000009998&fileSn=0"
+     },
+     {
+      "이름": "우즈백)(250922).pdf",
+      "주소": ""
+     }
+    ],
+    "날짜": "2025-09-22"
    }
   },
   "4819000": {
@@ -89033,12 +92306,155 @@
   "4878000": {
    "이름": "경남함양군",
    "업무추진비": {
-    "종류": "안내 화면",
+    "종류": "게시판",
     "링크글자": "업무추진비 현황",
-    "화면": "council.hygn.go.kr",
-    "주소": "chrome-error://chromewebdata/",
-    "파일": [],
-    "날짜": ""
+    "화면": "함양군의회",
+    "주소": "https://council.hygn.go.kr/kr/data/bbsCost.do",
+    "검색어": "",
+    "글": [
+     {
+      "제목": "2026년 3분기 업무추진비 집행내역",
+      "날짜": "2026-10-12",
+      "주소": "https://council.hygn.go.kr/kr/data/bbsCost.do?reform=view&key=652cc4344ef7d06a39499501e2333621a6f5dc4abef9812d0f1eeefaba20504a285c6e92eece7985&pageNum=1&flag=&keyword=",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2026년 2분기 업무추진비 집행내역",
+      "날짜": "2026-07-14",
+      "주소": "https://council.hygn.go.kr/kr/data/bbsCost.do?reform=view&key=4f1c68f0ad4ac083d5994b0b823bc2a5cc5a6178dd07a54b95447053ab9ede5776b68e4e2efa1898&pageNum=1&flag=&keyword=",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2026년 1분기 업무추진비 집행내역",
+      "날짜": "2026-04-08",
+      "주소": "https://council.hygn.go.kr/kr/data/bbsCost.do?reform=view&key=f921e60a0929d6e81599998928202c3512680dd898d91bd14a0cd27a8014b25ab967439b0ef5bfc5&pageNum=1&flag=&keyword=",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2025년 4분기 업무추진비 집행내역",
+      "날짜": "2026-01-08",
+      "주소": "https://council.hygn.go.kr/kr/data/bbsCost.do?reform=view&key=da347e20688c7e763fb501ab43ee97341c9ed8c8b2e05053722db2381bc118438f3f550d7bd0ec3e&pageNum=1&flag=&keyword=",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2025년 3분기 업무추진비 집행내역",
+      "날짜": "2025-10-10",
+      "주소": "https://council.hygn.go.kr/kr/data/bbsCost.do?reform=view&key=deb6ea7c30e115a758812f26ead40aaf9569eb64b333d09f0f4bdef3d06015b7b949d7740e3ac56d&pageNum=1&flag=&keyword=",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2025년 2분기 업무추진비 집행내역",
+      "날짜": "2025-07-01",
+      "주소": "https://council.hygn.go.kr/kr/data/bbsCost.do?reform=view&key=036cd23c9a3483c6fe10516370ce4faea2d722d7db653b292a0e6c62d9db82d9155e09950b2451ba&pageNum=1&flag=&keyword=",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2025년 1분기 업무추진비 집행내역",
+      "날짜": "2025-04-01",
+      "주소": "https://council.hygn.go.kr/kr/data/bbsCost.do?reform=view&key=d700ef42f7ec2820542fe1ae8bbaa36106fdd320ac25a7e8a46ac07891766aeb420705a13ed7a529&pageNum=1&flag=&keyword=",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2024년 4분기 업무추진비 집행내역",
+      "날짜": "2025-01-03",
+      "주소": "https://council.hygn.go.kr/kr/data/bbsCost.do?reform=view&key=4e8fc52bbdfa6e3ce149a04a31d68c800e50776ab0ae81f661c969c92da04458baba22d77c04b010&pageNum=1&flag=&keyword=",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2024년 3분기 업무추진비 집행내역",
+      "날짜": "2024-10-01",
+      "주소": "https://council.hygn.go.kr/kr/data/bbsCost.do?reform=view&key=95309c1f779301d6714860a66fa32d09071d8d1dfd27360e85149cf6d081f3dcf466c9c2bf1d30d6&pageNum=1&flag=&keyword=",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2024년 2분기 업무추진비 집행내역",
+      "날짜": "2024-07-01",
+      "주소": "https://council.hygn.go.kr/kr/data/bbsCost.do?reform=view&key=497ca407aac1d09cb65bd05a373ab63837bcf2b9dc6aae086920f3143f85e636a98872621158df97&pageNum=1&flag=&keyword=",
+      "번째": -1,
+      "쪽": 1
+     },
+     {
+      "제목": "2024년 1분기 업무추진비 집행내역",
+      "날짜": "2024-04-01",
+      "주소": "https://council.hygn.go.kr/kr/data/bbsCost.do?reform=view&key=4e8eacbf30355a9e19c79240f661b6ff285182c7f3cbfca8ce28c56caa3bb6783989b682e16d6eb5&pageNum=2&flag=&keyword=",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2023년 4분기 업무추진비 집행내역",
+      "날짜": "2024-01-03",
+      "주소": "https://council.hygn.go.kr/kr/data/bbsCost.do?reform=view&key=fa7425720278ade6ed4acfed4f0fa3922ef6a9def0bab73386f3449739ed405074359629181a4fb2&pageNum=2&flag=&keyword=",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2023년 3분기 업무추진비 집행내역",
+      "날짜": "2023-10-02",
+      "주소": "https://council.hygn.go.kr/kr/data/bbsCost.do?reform=view&key=c279a2ac5ef911946981c43368cb551a7ac0dd6b82d9654b2b6dd8a59fb4bd96e5363bb772f4134e&pageNum=2&flag=&keyword=",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2023년 2분기 업무추진비 집행내역",
+      "날짜": "2023-07-03",
+      "주소": "https://council.hygn.go.kr/kr/data/bbsCost.do?reform=view&key=aa827333c62d019dc6b420cb78327dcaf3ff3fd5469f0ac75fbf50559bdeeef84198c4a6604c166b&pageNum=2&flag=&keyword=",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2023년 1분기 업무추진비 집행내역",
+      "날짜": "2023-04-03",
+      "주소": "https://council.hygn.go.kr/kr/data/bbsCost.do?reform=view&key=9c8daaf7637f94ad6c6767436663301926e4be136a6228faf608fbe7db5ae6f000f398467d2d03cb&pageNum=2&flag=&keyword=",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2022년 4분기 업무추진비 집행내역",
+      "날짜": "2023-01-06",
+      "주소": "https://council.hygn.go.kr/kr/data/bbsCost.do?reform=view&key=f02239aeda5ffb487eadb608274b7e1037bca46e4e6f44069b899987aaee409fa4da28d30a2ec3df&pageNum=2&flag=&keyword=",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2022년 3분기 업무추진비 집행내역",
+      "날짜": "2022-10-05",
+      "주소": "https://council.hygn.go.kr/kr/data/bbsCost.do?reform=view&key=45ce4ce4d2709aae594f32e8f91f3071dcc10cbbac21967880a5157aa7b7ef8eccf782e43f52d94c&pageNum=2&flag=&keyword=",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2022년 2분기 업무추진비 사용내역",
+      "날짜": "2022-08-24",
+      "주소": "https://council.hygn.go.kr/kr/data/bbsCost.do?reform=view&key=ef7b6f2a66c05a1cb7f9b3bf33923df265025ff3c0b541858c707bafa4aadeb9845ac1c68e6574fb&pageNum=2&flag=&keyword=",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2022년 1분기 업무추진비 사용내역",
+      "날짜": "2022-04-04",
+      "주소": "https://council.hygn.go.kr/kr/data/bbsCost.do?reform=view&key=7092c99d27a82cf5b5729413c5c69867fc3922507c065f0360f83dadcfa3e09f93eb970e89ddefe3&pageNum=2&flag=&keyword=",
+      "번째": -1,
+      "쪽": 2
+     },
+     {
+      "제목": "2021년 4분기 업무추진비 사용내역",
+      "날짜": "2022-03-22",
+      "주소": "https://council.hygn.go.kr/kr/data/bbsCost.do?reform=view&key=29165a7024fd7a123e970a9066afc4b5dcb24d8893e72e0b5086a8aa6b90ccfcc57fbf7ebba68451&pageNum=2&flag=&keyword=",
+      "번째": -1,
+      "쪽": 2
+     }
+    ],
+    "본쪽": 3,
+    "멈춘까닭": "2022-01-01 앞 글에 닿음"
    }
   },
   "4879000": {
