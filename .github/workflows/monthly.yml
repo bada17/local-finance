@@ -54,6 +54,7 @@ jobs:
       - { id: grants,     name: 지방보조금, continue-on-error: true, run: python fetch_grants.py }
       - { id: cleaneye,   name: 지방공기업, continue-on-error: true, run: python fetch_cleaneye.py }
       - { id: edu,        name: 교육청,     continue-on-error: true, run: python fetch_edu.py }
+      - { id: items,      name: 재료표 API 12종, continue-on-error: true, run: python fetch_items.py }
 
       # ── 굽기 ──
       - { id: contracts,  name: 계약 요약(전수),  continue-on-error: true, run: python build_contracts_summary.py }
@@ -80,7 +81,7 @@ jobs:
         working-directory: .
         run: >-
           sh scripts/bot_push.sh "달마다 화면 굽기 $(date -u +%Y-%m)"
-          site data/indicators data/series.json data/revenue data/grants data/cleaneye data/edu data/contracts_summary.json
+          site data/indicators data/series.json data/revenue data/grants data/cleaneye data/edu data/items data/contracts_summary.json
 
       - id: pages
         name: 페이지 다시 올리기
