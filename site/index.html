@@ -99,6 +99,9 @@
   .side table{table-layout:fixed; min-width:640px}
   .side th:first-child,.side td:first-child{width:30%}
   .side td{white-space:normal}
+  .itemlist td{text-align:left; white-space:normal; vertical-align:top}
+  .itemlist th{text-align:left}
+  .itemlist td:nth-child(5){text-align:right; white-space:nowrap}
   .check p,.check ul{margin:6px 0 4px; color:var(--muted); font-size:12.5px}
 
   /* 세입 판 — 위반 지출 내역은 글이라 줄을 바꿔야 읽힌다 */
@@ -995,6 +998,7 @@ async function renderSide(cd){
     }).join('');
     return `<h2>${글막기(묶음)}</h2>
       ${있나 ? `<div class="side">${table(['', ...S.해들], 줄)}</div>` : '<p class="note">이 곳은 이 자료가 없다 — 까닭은 아래 「어떻게 붙였나」에 있다(빈칸이지 0 이 아니다).</p>'}
+      ${있나 && ms.some(m => m.목록) ? `<div class="itemlist" data-list="${ms.find(m => m.목록).목록}"><p class="note">건별 목록을 불러오는 중이다.</p></div>` : ''}
       <details class="check"><summary>어떻게 붙였나</summary>${펼침}</details>`;
   }).join('');
   app.innerHTML = 머리 + `<p class="basis"><b>서로 다른 자료를 같은 곳·같은 해로 옆에 놓은 것이다. 이어진 것이 아니다.</b>
@@ -1002,6 +1006,22 @@ async function renderSide(cd){
     칸마다 「해」의 뜻이 다르다(결산한 해·계약한 날·회의한 날 …). <b>빈칸(—)은 자료가 없는 것이지 0 이 아니다.</b>
     0 은 그 해 전부를 받았다고 확인한 자료에서만 쓴다.</p>` + 몸 +
     `<footer><p>자료를 붙인 날 ${S.만든날}. 묶음마다 「어떻게 붙였나」를 펼치면 출처·붙인 법·못 붙은 것이 나온다.</p></footer>`;
+  /* 건별 목록 — 줄 하나가 보조사업 → 계약 → 계약 상대로 이어진 자료만 이렇게 편다(site/data/<목록>/<코드>.json) */
+  for (const el of app.querySelectorAll('[data-list]')) {
+    let d = null;
+    try { const r = await fetch(`data/${el.dataset.list}/${cd}.json`); d = r.ok ? await r.json() : null; } catch (e) {}
+    if (cd !== 지금곳) return;
+    if (!d) { el.innerHTML = '<p class="note">건별 목록을 못 읽었다.</p>'; continue; }
+    const i = Object.fromEntries(d.칸.map((k, j) => [k, j]));
+    const 보일 = d.줄.slice(0, 20);
+    el.innerHTML = `<h3>건 하나하나 — 금액이 큰 것부터 ${보일.length}건 <small>모두 ${d.줄.length.toLocaleString('ko-KR')}건</small></h3>` +
+      table(['해', '보조사업', '돈을 받은 곳(보조사업자)', '계약', '금액', '계약 상대'], 보일.map(r => `<tr>
+        <td>${r[i.해]}</td><td>${글막기(r[i.보조사업명])}<span class="raw">${글막기(r[i.중앙관서])}</span></td>
+        <td>${글막기(r[i.보조사업자])}${r[i.직접] ? '<span class="raw">자치단체 자신</span>' : ''}</td>
+        <td>${글막기(r[i.계약건명])}<span class="raw">${글막기(r[i.계약유형])}</span></td>
+        <td>${원글(r[i.금액])}원${r[i.사업비옮김] ? '<span class="raw">사업비를 옮겨 적은 것으로 보임 — 합계에서 뺐다</span>' : ''}</td>
+        <td>${글막기(r[i.계약상대방])}</td></tr>`));
+  }
 }
 
 async function renderFinance(){
