@@ -563,11 +563,17 @@
 "57451",
 "57452",
 "57453",
+"57462",
 "57471",
+"57472",
 "57473",
 "57488",
 "57510",
-"57512"
+"57511",
+"57512",
+"57521",
+"57552",
+"57557"
 ],
 "찾은것": [
 {
@@ -1088,6 +1094,27 @@
 "낱말": "미래대응기금",
 "횟수": 1,
 "보냄": true
+},
+{
+"갈래": "국정감사",
+"날짜": "2026-10-06",
+"제목": "제22대 제439회 개회식 과학기술정보방송통신위원회 (국정감사 회의록)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57472",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57472&type=summary",
+"번호": "57472",
+"낱말": "미래대응기금",
+"횟수": 2,
+"보냄": true
+},
+{
+"갈래": "보도자료",
+"날짜": "2026-10-10",
+"번호": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=198173&searchNoSeq=20261010198173",
+"제목": "[전은수 원내대변인] 국민의힘은 미래대응기금 비난을 멈추십시오",
+"보기": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=198173&searchNoSeq=20261010198173",
+"낱말": "미래대응기금",
+"횟수": 1,
+"보냄": true
 }
 ],
 "의안": {
@@ -1110,8 +1137,9 @@
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=194510&searchNoSeq=20260827194510",
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=196198&searchNoSeq=20260911196198",
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=197312&searchNoSeq=20260929197312",
-"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=197323&searchNoSeq=20260929197323"
+"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=197323&searchNoSeq=20260929197323",
+"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=198173&searchNoSeq=20261010198173"
 ],
 "본문": "html",
-"마지막성공": "2026-10-14"
+"마지막성공": "2026-10-15"
 }
