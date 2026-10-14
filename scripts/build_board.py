@@ -126,6 +126,31 @@ def 진행칸(곳, 지표목록, 자리):
     return 붙은곳, 달
 
 
+def 나란히칸(곳, 지표목록, 자리):
+    """build_side.py 가 「같은 곳 · 같은 해」로 붙인 칸 가운데 시황판에 올려도 되는 것(시황판: true)만, 온전한해 하나로.
+    칸마다 점검(출처·해의 뜻·붙인 법·못 붙은 것·손으로 고친 것)을 같이 실어 화면이 표 아래에 보여준다."""
+    p = os.path.join(ROOT, 'site', 'data', 'side.json')
+    if not os.path.exists(p):
+        print('   (나란히 자료가 없어 그 칸은 건너뛴다 — python scripts/build_side.py)')
+        return 0
+    s = json.load(open(p, encoding='utf-8'))
+    붙임 = 0
+    for m in s['지표']:
+        if not (m['시황판'] and m['온전한해']):
+            continue
+        i = 자리[m['이름']] = len(지표목록)
+        지표목록.append({'이름': m['이름'], '축': m['묶음'], '단위': m['단위'], '기준': '나란히', '연도': m['온전한해'],
+                       '높을수록나쁨': m['나쁨'], '해뜻': m['해뜻'], '붙은곳': m['붙은곳'], '곳수': s['곳수'], '점검': m['점검']})
+        붙임 += 1
+        for r in 곳:
+            d = s['곳'].get(r['cd'], {})
+            v = d.get(m['id'], {}).get(m['온전한해'])
+            if v is None:
+                continue
+            r['값'][i] = [v, d.get(m['금액짝'], {}).get(m['온전한해'])] if m['단위'] == '%' else [None, v]
+    return 붙임
+
+
 def main():
     files = sorted(glob.glob(os.path.join(LOC, '*.json')))
     files = [f for f in files if not f.endswith('index.json')]
@@ -149,6 +174,7 @@ def main():
 
     붙임, 계약해 = 계약칸(곳, 지표목록, 자리)
     진행붙임, 기준달 = 진행칸(곳, 지표목록, 자리)
+    나란히붙임 = 나란히칸(곳, 지표목록, 자리)
 
     out = {'만든날': __import__('time').strftime('%Y-%m-%d'),
            '결산연도': d['결산연도'], '예산연도': d['예산연도'],
@@ -164,7 +190,7 @@ def main():
 
     print(f'구움: site/data/board.json.gz ({os.path.getsize(OUT)/1024:,.0f} KB) · '
           f'{len(곳)}곳 × 지표 {len(지표목록)}종 '
-          f'(계약 칸 {붙임}곳 [{계약해}] · 진행 칸 {진행붙임}곳 [{기준달}])')
+          f'(계약 칸 {붙임}곳 [{계약해}] · 진행 칸 {진행붙임}곳 [{기준달}] · 나란히 칸 {나란히붙임}개)')
     print('구움: site/board.html (템플릿을 그대로 옮긴 것)')
 
 

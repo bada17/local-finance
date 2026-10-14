@@ -94,6 +94,12 @@
   td.mark{color:var(--alert); font-weight:600}
   td.dim{color:var(--faint)}
   .raw{font-size:11px; color:var(--faint); display:block}
+  .check{border-bottom:1px solid var(--line-soft); padding:6px 0; font-size:13px}
+  .check summary{cursor:pointer; color:var(--muted)}
+  .side table{table-layout:fixed; min-width:640px}
+  .side th:first-child,.side td:first-child{width:30%}
+  .side td{white-space:normal}
+  .check p,.check ul{margin:6px 0 4px; color:var(--muted); font-size:12.5px}
 
   /* 세입 판 — 위반 지출 내역은 글이라 줄을 바꿔야 읽힌다 */
   tbody td.long{white-space:normal; max-width:420px; min-width:220px; line-height:1.45}
@@ -236,7 +242,7 @@ function 주소읽기(){
   const [cd, v, q] = decodeURIComponent(location.hash.slice(1)).split(',');
   return {
     cd: 곳맵[cd] ? cd : (곳맵['2600000'] ? '2600000' : INDEX.곳[0].cd),
-    판: ['결산', '예산', '세입', '진행중', '계약', '의회'].includes(v) ? v : '결산',
+    판: ['결산', '예산', '세입', '진행중', '계약', '나란히', '의회'].includes(v) ? v : '결산',
     찾기: q || '',
   };
 }
@@ -950,6 +956,54 @@ const 바뀜 = {
   '2812000': ['2812500'],            // 인천동구 → 제물포구
 };
 
+/* ───── 해마다 나란히 — 서로 다른 자료를 같은 곳·같은 해로 옆에 놓는다(site/data/side.json · build_side.py) ─────
+   2026-10-14 사용자: 「데이터의 엄밀성이 필요해. 괜히 대충 연결했다가 문제가 되면 안돼.」
+   이어진 것이 아니라 옆에 놓은 것이다. 칸마다 해의 뜻이 다르다. 빈칸은 자료가 없는 것이지 0 이 아니다.
+   어떻게 붙였는지(출처·붙인 법·못 붙은 것·손으로 고친 것)는 묶음마다 펼쳐 볼 수 있게 같이 싣는다. */
+let 나란히자료;
+const 글막기 = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+async function renderSide(cd){
+  if (나란히자료 === undefined) {
+    try { const r = await fetch('data/side.json'); 나란히자료 = r.ok ? await r.json() : null; } catch (e) { 나란히자료 = null; }
+  }
+  if (cd !== 지금곳) return;
+  const app = document.getElementById('app');
+  const 머리 = `<h1>${이름of(곳맵[cd] || {이름: cd})} <span class="cd">${cd}</span></h1>`;
+  if (!나란히자료) { app.innerHTML = 머리 + '<p class="basis">나란히 자료(data/side.json)를 못 읽었다.</p>'; return; }
+  const S = 나란히자료, 내 = S.곳[cd] || {};
+  // 억 단위에서 반올림하면 2.4억이 「2억」이 된다 — 100억 아래는 소수 한 자리까지
+  const 원글 = v => Math.abs(v) >= 1e8 && Math.abs(v) < 1e10 ? (v / 1e8).toLocaleString('ko-KR', {maximumFractionDigits: 1}) + '억' : 돈(v);
+  const 칸글 = (m, v) => v == null ? '<span style="color:var(--faint)">—</span>'
+    : m.단위 === '원' ? 원글(v) + '원' : m.단위 === '%' ? n1(v) + '%' : m.단위 === '섞임' ? '섞임' : n0(v) + m.단위;
+  const 묶음들 = [...new Set(S.지표.map(m => m.묶음))];
+  const 몸 = 묶음들.map(묶음 => {
+    const ms = S.지표.filter(m => m.묶음 === 묶음);
+    const 있나 = ms.some(m => Object.keys(내[m.id] || {}).length);
+    const 줄 = ms.filter(m => m.단위 !== '섞임' || Object.keys(내[m.id] || {}).length).map(m => `<tr>
+      <td>${글막기(m.이름)}<span class="raw">${글막기(m.해뜻)} 기준</span></td>
+      ${S.해들.map(h => { const v = (내[m.id] || {})[h];
+        return `<td>${칸글(m, v)}${v != null && m.반쪽[h] ? `<span class="raw">${글막기(m.반쪽[h])}</span>` : ''}</td>`; }).join('')}</tr>`);
+    const 점검들 = [...new Map(ms.map(m => [m.점검.출처, [m, m.점검]])).values()];
+    const 펼침 = 점검들.map(([m, p]) => {
+      const 못 = p.못붙음.reduce((a, x) => a + x[1], 0);
+      const 목록 = [...p.주의.map(글막기),
+        ...p.못붙음.map(([k, n]) => `못 붙음 — ${글막기(k)}${n ? ` (${n.toLocaleString('ko-KR')}줄)` : ''}`),
+        ...p.고친것.map(x => `손으로 고침 — ${글막기(x)}`), ...p.맞춰본것.map(x => `맞춰 봄 — ${글막기(x)}`)];
+      return `<p>출처 — ${글막기(p.출처)}<br>붙인 법 — ${글막기(p.붙인법)}<br>범위 — ${글막기(p.범위)}<br>
+        붙은 곳 ${m.붙은곳}/${S.곳수}${못 ? ` · 못 붙은 원자료 ${못.toLocaleString('ko-KR')}줄` : ''}</p>
+        <ul>${목록.map(x => `<li>${x}</li>`).join('')}</ul>`;
+    }).join('');
+    return `<h2>${글막기(묶음)}</h2>
+      ${있나 ? `<div class="side">${table(['', ...S.해들], 줄)}</div>` : '<p class="note">이 곳은 이 자료가 없다 — 까닭은 아래 「어떻게 붙였나」에 있다(빈칸이지 0 이 아니다).</p>'}
+      <details class="check"><summary>어떻게 붙였나</summary>${펼침}</details>`;
+  }).join('');
+  app.innerHTML = 머리 + `<p class="basis"><b>서로 다른 자료를 같은 곳·같은 해로 옆에 놓은 것이다. 이어진 것이 아니다.</b>
+    계약 금액이 어느 사업 돈인지, 투자심사 사업이 세출 어디에 들었는지는 이 표로 알 수 없다 — 그래서 서로 나누지(비율) 않았다.
+    칸마다 「해」의 뜻이 다르다(결산한 해·계약한 날·회의한 날 …). <b>빈칸(—)은 자료가 없는 것이지 0 이 아니다.</b>
+    0 은 그 해 전부를 받았다고 확인한 자료에서만 쓴다.</p>` + 몸 +
+    `<footer><p>자료를 붙인 날 ${S.만든날}. 묶음마다 「어떻게 붙였나」를 펼치면 출처·붙인 법·못 붙은 것이 나온다.</p></footer>`;
+}
+
 async function renderFinance(){
   const cd = 지금곳;
   const app = document.getElementById('app');
@@ -958,6 +1012,8 @@ async function renderFinance(){
   if (판 === '계약') return renderContracts(cd);
   // 세입 판도 마찬가지 — 제 자료(site/data/revenue/<코드>.json)만 있으면 된다
   if (판 === '세입') return renderRevenue(cd);
+  // 해마다 나란히 판 — 제 자료(site/data/side.json)만 있으면 된다
+  if (판 === '나란히') return renderSide(cd);
   // 2026년에 새로 생긴 구역은 지표(2024 결산·2026 예산)가 아직 없다 — 진행 판만 연다
   const 쪽지 = 곳맵[cd];
   if (쪽지?.진행만) {
@@ -1223,8 +1279,8 @@ addEventListener('hashchange', () => {
 
 const view = document.getElementById('view');
 // 2026-09-30 사용자: 「진행 중인 사업」→「세출과 집행」. 결산·예산 기준 판은 세입·세출 지표를 함께 담는다(판설명에 적음)
-const 판이름 = {'세입': '세입', '진행중': '세출과 집행', '계약': '누가 받아 갔나'};
-view.innerHTML = (그래프 ? 그래프판 : ['결산', '예산', '세입', '진행중', '계약']).map(v =>
+const 판이름 = {'세입': '세입', '진행중': '세출과 집행', '계약': '누가 받아 갔나', '나란히': '해마다 나란히'};
+view.innerHTML = (그래프 ? 그래프판 : ['결산', '예산', '세입', '진행중', '계약', '나란히']).map(v =>
   `<button data-v="${v}" aria-selected="${v === 판}">${판이름[v] || v + ' 기준'}</button>`).join('');
 view.addEventListener('click', e => {
   const b = e.target.closest('button'); if (!b) return;

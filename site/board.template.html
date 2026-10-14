@@ -53,6 +53,9 @@
   tbody td:nth-child(2){font-family:var(--body); text-align:left; color:var(--faint); font-size:12px}
   tbody tr:hover{background:var(--sunk)}
   .mark{color:var(--alert); font-weight:600}
+  .check{border-bottom:1px solid var(--line-soft); padding:6px 0; font-size:13px}
+  .check summary{cursor:pointer}
+  .check p,.check ul{margin:6px 0 4px; color:var(--muted); font-size:12.5px}
   footer{margin:26px 0 40px; padding-top:14px; border-top:1px solid var(--line); color:var(--muted); font-size:12px}
   footer p{margin:0 0 5px}
 
@@ -163,6 +166,7 @@ footer{margin:48px 0 38px;padding-top:22px;font-size:13px;line-height:1.85;borde
 
   <div class="picker" id="picker" hidden></div>
   <div id="list"></div>
+  <div id="checks"></div>
 
   <footer>
     <p>자료 — 지방재정365. 결산은 <b id="sy"></b>년, 예산은 <b id="by"></b>년 기준.
@@ -173,6 +177,9 @@ footer{margin:48px 0 38px;padding-top:22px;font-size:13px;line-height:1.85;borde
        원본에 <b>자릿수 오류</b>가 있어 한 건이 1조원을 넘는 세 줄(임실군 708조 등)은 빼고 셌다.</p>
     <p>⚠️ <b>「진행 중인 사업」 칸은 그달 누계</b>다(2026년 9월까지). 결산·예산·계약과 또 기준이 다르다.
        2026년에 구역이 바뀌어 <b>광주본청·전남본청·인천중구·인천동구는 진행 자료가 없다</b> — 빈칸이지 0이 아니다.</p>
+    <p>⚠️ <b>「업무추진비 편성」·「중앙투자심사」·「의원 국외출장」 칸</b>은 서로 다른 자료를 같은 곳·같은 해로 붙여 옆에 놓은 것이다.
+       칸마다 해의 뜻이 다르다 — 칸을 고르면 <b>표 아래에 출처·붙인 법·못 붙은 것</b>이 나온다.
+       지방의회(CLIK) 회의·의안 수는 의회마다 올린 정도가 달라 여기서 줄 세우지 않는다(자치단체별 화면 「해마다 나란히」에만 있다).</p>
     <p>⚠️ 붉은 값은 「값이 큰 쪽이 눈여겨볼 만한」 지표에서 위쪽 10%에 든 곳이다.
        <b>잘못했다는 뜻이 아니다</b> — 왜 그런지 들여다볼 자리라는 표시다.</p>
   </footer>
@@ -267,6 +274,23 @@ function updateBoardAmounts(){
     if(amount!=null)boardAmounts.set(`${r.cd}|${m.이름}`,amount);
   }
 }
+/* 「같은 곳 · 같은 해로 붙인 칸」(build_side.py)은 칸마다 어떻게 붙였는지를 같이 싣는다 — 고른 것만 표 아래에 */
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function 점검글(){
+  const 고른 = 고른칸.map(i => 지표[i]).filter(m => m.점검);
+  if (!고른.length) return '';
+  return `<h2>고른 칸은 이렇게 붙였다<small>다른 자료를 같은 곳·같은 해로 옆에 놓은 것이다. 서로 이어진 것이 아니다</small></h2>` +
+    고른.map(m => {
+      const p = m.점검, 못 = p.못붙음.reduce((a, x) => a + x[1], 0);
+      const 줄 = [...p.주의.map(x => esc(x)),
+        ...p.못붙음.map(([k, n]) => `못 붙음 — ${esc(k)}${n ? ` (${n.toLocaleString('ko-KR')}줄)` : ''}`),
+        ...p.고친것.map(x => `손으로 고침 — ${esc(x)}`),
+        ...p.맞춰본것.map(x => `맞춰 봄 — ${esc(x)}`)];
+      return `<details class="check"><summary><b>${esc(m.이름)}</b> · ${m.연도}년 · ${esc(m.해뜻)} 기준 · 붙은 곳 ${m.붙은곳}/${m.곳수}${못 ? ` · 못 붙은 원자료 ${못.toLocaleString('ko-KR')}줄` : ''}</summary>
+        <p>출처 — ${esc(p.출처)}<br>붙인 법 — ${esc(p.붙인법)}<br>범위 — ${esc(p.범위)}</p>
+        <ul>${줄.map(x => `<li>${x}</li>`).join('')}</ul></details>`;
+    }).join('');
+}
 function 그리기(){
   updateBoardAmounts();
   const q = 찾기.trim();
@@ -315,6 +339,7 @@ function 그리기(){
 
   document.getElementById('list').innerHTML =
     `<div class="scroll"><table><thead><tr>${머리}</tr></thead><tbody>${몸}</tbody></table></div>`;
+  document.getElementById('checks').innerHTML = 점검글();
   fillBoardAmounts();
 
   document.querySelectorAll('thead th').forEach(th => th.onclick = () => {
