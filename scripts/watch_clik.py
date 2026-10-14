@@ -55,7 +55,7 @@ def 링크(이름, DOCID):
 
 def 시의회누리집(뿌리, 낱말, 부터):
     """서울시의회 회의록 검색 → [{갈래, 날짜, 글, DOCID, 주소}]. 부터(YYYYMMDD) 앞 글만 나오는 쪽에서 멈춘다."""
-    줄 = []
+    줄, 본키 = [], set()
     for 쪽 in range(1, 31):
         url = (f'{뿌리}/kr/assembly/recordLocation.do?sTh=0&keyword={urllib.parse.quote(낱말)}&pageNum={쪽}')
         for n in range(3):
@@ -68,6 +68,12 @@ def 시의회누리집(뿌리, 낱말, 부터):
                     raise
                 time.sleep(20 * (n + 1))
         몸 = 본문[본문.find('<tbody'):본문.find('</tbody>')]
+        # ⚠️ 이 누리집은 pageNum 을 무시한다 — 몇 쪽이든 같은 첫 20줄(2026-10-14). 예전엔 같은 쪽을 30번 불러 봇(해외)에서
+        #    한 번은 꼭 끊겼다(10-12 뒤 노들섬 멈춤). 새 글이 없는 쪽이면 멈춘다
+        키들 = set(re.findall(r"recordView\.do\?key=([0-9a-f]+)", 몸))
+        if not 키들 - 본키:
+            break
+        본키 |= 키들
         이쪽 = []
         for tr in re.findall(r'<tr>.*?</tr>', 몸, re.S):
             칸 = re.findall(r'<td[^>]*>(.*?)</td>', tr, re.S)
