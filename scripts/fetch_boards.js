@@ -11,7 +11,7 @@
 // 판정 — 후보 링크를 차례로 열어, 날짜가 붙은 줄이 셋 이상이면 「게시판」으로 보고 첫 쪽 글을 적는다.
 //   게시판이 아니면(안내 화면) 그 화면에 붙은 파일만 적는다. 후보 셋까지 보고 게시판을 찾으면 멈춘다.
 // ⭐ 쪽을 넘겨 2022-01-01 글까지 받는다(사용자 2026-10-08). 고시·공고는 「공청회」로 검색한 결과만.
-// ⚠️ 글 안의 파일·표는 아직 안 연다(3단계). 여기서는 「어디에 무엇이 있나」까지만.
+// 글 안의 파일·표는 여기서 안 연다 — 3단계 fetch_post_files.js → read_post_files.py. 여기서는 「어디에 무엇이 있나」까지만.
 //
 // ⭐ 끊겨도 된다 — 하나마다 적고, 다시 부르면 남은 것만 한다. 처음부터는 --다시
 // 결과: data/board_posts.json  (과녁별로 합쳐 적는다 — 한 과녁만 돌려도 다른 과녁은 남는다)
@@ -127,11 +127,30 @@ async function 지난쪽까지(탭, 첫목록) {
   return { 글: 글.filter(x => !x.날짜 || x.날짜 >= 시작날), 본쪽: 쪽, 멈춘까닭 };
 }
 
+// 「…#」 은 href="#" 메뉴 링크(자바스크립트로 연다) — 주소로는 못 여니 그 화면을 열고 같은 글자를 누른다.
+//   2026-10-14 전엔 건너뛰어서 칠곡·구미·철원·수원·청도·광산 7곳이 「못 열었다」였다. 새 창으로 여는 곳은 이 탭에서 열게 한다
+const 같게 = s => (s || '').replace(/\s+/g, '');
+const 누르기식 = 글자 => String.raw`(() => {
+  const a = [...document.querySelectorAll('a,button')].find(x => (x.textContent || '').replace(/\s+/g, '') === ${JSON.stringify(같게(글자))});
+  if (!a) return 'false';
+  window.open = u => { if (u) location.href = u; };
+  a.removeAttribute('target');
+  a.click();
+  return 'true';
+})()`;
+
 async function 한과녁(탭, 후보들, 과녁) {
   let 안내 = null;
   for (const 후보 of 후보들.slice(0, 후보끝)) {
-    if (!/^https?:/.test(후보.주소) || /#$/.test(후보.주소)) continue;
-    let 목록 = await 열고긁기(탭, 후보.주소, 목록긁개);
+    if (!/^https?:/.test(후보.주소)) continue;
+    let 목록;
+    if (/#$/.test(후보.주소)) {
+      await 탭.보내기('Page.navigate', { url: 후보.주소.slice(0, -1) });
+      await 기다리기(탭.보내기);
+      if ((await 탭.보내기('Runtime.evaluate', { expression: 누르기식(후보.글자), returnByValue: true })).result?.value !== 'true') continue;
+      await 기다리기(탭.보내기, 2000);
+      목록 = await 긁기(탭.보내기, 목록긁개);
+    } else 목록 = await 열고긁기(탭, 후보.주소, 목록긁개);
     if (목록 && 목록.글.length >= 3) {
       let 검색어 = '';
       if (과녁 === '고시공고') {
@@ -145,7 +164,7 @@ async function 한과녁(탭, 후보들, 과녁) {
       return { 종류: '게시판', 링크글자: 후보.글자, 화면: 목록.화면, 주소: 목록.주소, 검색어, ...넘김 };
     }
     if (!안내) {
-      const 화면 = await 열고긁기(탭, 후보.주소, 긁개);
+      const 화면 = await 긁기(탭.보내기, 긁개);   // 지금 화면이 그 후보다(누른 뒤 화면 포함) — 다시 열지 않는다
       if (화면) 안내 = { 종류: '안내 화면', 링크글자: 후보.글자, 화면: 화면.제목, 주소: 화면.주소, 파일: 화면.파일, 날짜: 화면.날짜 };
     }
   }
