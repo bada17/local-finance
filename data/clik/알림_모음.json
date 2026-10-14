@@ -2,6 +2,69 @@
 "002001:노들섬": [
 {
 "갈래": "회의록",
+"날짜": "20260904",
+"글": "20260904 문화체육관광위원회 제339회 4차",
+"DOCID": "SMC81e2442facb399af2034e72ebc4dd79f",
+"주소": "https://ms.smc.seoul.kr/record/recordView.do?key=81e2442facb399af2034e72ebc4dd79f9928a998a2e605c6d853155751f4215c608c1dcf1dba186a"
+},
+{
+"갈래": "회의록",
+"날짜": "20260903",
+"글": "20260903 도시계획균형위원회 제339회 3차",
+"DOCID": "SMC4e6788bc829fabcd39296325bae055b5",
+"주소": "https://ms.smc.seoul.kr/record/recordView.do?key=4e6788bc829fabcd39296325bae055b5546c651fb74c30da1bdb7b95a773e62ebf108c1b2d464015"
+},
+{
+"갈래": "회의록",
+"날짜": "20260903",
+"글": "20260903 주택공간위원회 제339회 2차",
+"DOCID": "SMC1ca1739aaad638e9fd8da2c0d318212d",
+"주소": "https://ms.smc.seoul.kr/record/recordView.do?key=1ca1739aaad638e9fd8da2c0d318212d2db77dbd52bbc51899b6a94e9193ac76462295e6b4ca806b"
+},
+{
+"갈래": "회의록",
+"날짜": "20260902",
+"글": "20260902 환경수자원위원회 제339회 3차",
+"DOCID": "SMC7cfdc36cc19a40f11e954b1b5d18b713",
+"주소": "https://ms.smc.seoul.kr/record/recordView.do?key=7cfdc36cc19a40f11e954b1b5d18b713066f43b03a4924e7eed6aac5d724556013286b6b6a6d83ff"
+},
+{
+"갈래": "회의록",
+"날짜": "20260902",
+"글": "20260902 주택공간위원회 제339회 1차",
+"DOCID": "SMC699daa70acf588311782d8c368adb3ac",
+"주소": "https://ms.smc.seoul.kr/record/recordView.do?key=699daa70acf588311782d8c368adb3aced2bab5a8d833fb84e56a2e97733ca927a15b03fdefa7d9d"
+},
+{
+"갈래": "회의록",
+"날짜": "20260901",
+"글": "20260901 환경수자원위원회 제339회 2차",
+"DOCID": "SMC8cc921bb9bf811e17e267d4965e178eb",
+"주소": "https://ms.smc.seoul.kr/record/recordView.do?key=8cc921bb9bf811e17e267d4965e178ebfe1c9b43b5f540c9666db510059c76ea3c728b28a7e536fa"
+},
+{
+"갈래": "회의록",
+"날짜": "20260901",
+"글": "20260901 문화체육관광위원회 제339회 2차",
+"DOCID": "SMC0c2a617c33502a4727f15f66e2c0e642",
+"주소": "https://ms.smc.seoul.kr/record/recordView.do?key=0c2a617c33502a4727f15f66e2c0e642f7eb04a949de61b0d734bbe5b3318a6ce761b93d82fc3534"
+},
+{
+"갈래": "회의록",
+"날짜": "20260811",
+"글": "20260811 도시계획균형위원회 제338회 2차",
+"DOCID": "SMCd52028f921f476cde4cc5a49615a2f70",
+"주소": "https://ms.smc.seoul.kr/record/recordView.do?key=d52028f921f476cde4cc5a49615a2f70092cc1f6027f2b2971a741210200879c639a5820955f491b"
+},
+{
+"갈래": "회의록",
+"날짜": "20260723",
+"글": "20260723 주택공간위원회 제338회 1차",
+"DOCID": "SMCb2227b3e9499a8a111a59b92c5698e50",
+"주소": "https://ms.smc.seoul.kr/record/recordView.do?key=b2227b3e9499a8a111a59b92c5698e504094245a6c4c5dd70cd49f88e0c010633dbb9063140a3603"
+},
+{
+"갈래": "회의록",
 "날짜": "20260619",
 "글": "20260619 예산결산특별위원회 제336회 1차",
 "DOCID": "CLIKC2297889254209005"
@@ -1897,5 +1960,5 @@
 "DOCID": "CLIKC3785781277787915"
 }
 ],
-"_마지막성공": "2026-10-12"
+"_마지막성공": "2026-10-14"
 }
