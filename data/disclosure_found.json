@@ -2,6 +2,7 @@
   "설명": "지방재정365(FINLK)가 준 재정공시 주소가 죽은 곳을 손으로 찾은 것. disclosure.json 을 고치지 않고 따로 둔다 — 「지방재정365 링크가 죽었다」는 사실이 가려지지 않게. build_transparency.py 가 읽어 줄을 펼치면 보여준다.",
   "찾은날": "2026-09-29",
   "곳": {
+    "1100000": {"주소": "https://news.seoul.go.kr/gov/archives/category/tax-news_c1/data_finance-c1/data_year_budget-n2", "까닭": "지방재정365 주소가 재정공시가 아니라 「연도별 예산서」 목록으로 간다(2026-10-15). 재정공시는 「예산기준 공시」·「결산기준 공시」 둘로 갈려 있다 — 결산은 …/data_year_finance-n2"},
     "1132000": {"주소": "https://www.seocho.go.kr/site/seocho/03/10304030000002015070207.jsp", "까닭": "주소 끝이 .Jsp(대문자)라 404 — 소문자 .jsp 면 열린다"},
     "2812000": {"주소": "https://www.jemulpo.go.kr/main/information/finance/region_form.jsp", "까닭": "2026년 구역 개편으로 제물포구 누리집으로 옮겨 갔다"},
     "4112000": {"주소": "https://www.seongnam.go.kr/pm03050101", "까닭": "누리집 개편으로 주소가 바뀌었다"},

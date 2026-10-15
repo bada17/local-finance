@@ -285,7 +285,11 @@ async function 한곳(탭, 곳) {
 async function main() {
   if (!크롬자리) throw new Error('크롬을 못 찾겠다');
   const dis = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'disclosure.json'), 'utf-8'));
-  let 곳들 = dis['곳'].filter(r => r['주소']);
+  // 지방재정365 주소가 죽었거나 엉뚱한 곳(서울 → 연도별 예산서)은 손으로 찾은 주소에서 파일을 본다 — count_clicks.js 와 같게.
+  // 링크 판정(check_disclosure.py)은 그대로 지방재정365 주소다
+  const 찾은p = path.join(ROOT, 'data', 'disclosure_found.json');
+  const 찾은 = fs.existsSync(찾은p) ? JSON.parse(fs.readFileSync(찾은p, 'utf-8'))['곳'] : {};
+  let 곳들 = dis['곳'].filter(r => r['주소']).map(r => ({ ...r, 주소: (찾은[r.laf_cd] || {}).주소 || r.주소 }));
   const i = process.argv.indexOf('--only');
   if (i > 0) 곳들 = 곳들.slice(0, parseInt(process.argv[i + 1], 10));
 
@@ -313,7 +317,8 @@ async function main() {
       const k = 다음++;
       if (k >= 곳들.length) break;
       try {
-        결과.push(await 한곳(탭, 곳들[k]));
+        // 손주소 — 손으로 찾은 주소에서 봤다는 표시. build_transparency 가 이것으로 지방재정365 링크 판정에서 뺀다
+        결과.push({ ...await 한곳(탭, 곳들[k]), ...(찾은[곳들[k].laf_cd] ? { 손주소: true } : {}) });
       } catch (e) {
         결과.push({ laf_cd: 곳들[k].laf_cd, 이름: 곳들[k].이름, 실패: String(e).slice(0, 80), 파일: [] });
       }
