@@ -289,6 +289,15 @@ def 자료훑기():
                       '어디': ['data/openfiscal_198.json'], '칸': ['중앙정부 총량'], '다시': ''}
 
     없는것 = {
+        # 2026-10-15 더함 — 9-30 뒤에 받은 것. 파일이 있으면 아래 고리가 「가진 자료」로 옮긴다
+        '국고수의계약': {'이름': '국고보조사업 수의계약', '있다': False,
+                    '어디있나': 'data.go.kr 파일 15163532 「기획예산처_보조사업별_수의계약현황」(연 1회)',
+                    '있으면생기는칸': ['보조사업', '보조사업자', '계약건명', '계약금액', '계약상대방'],
+                    '막힘': '아직 안 받았다 — `python scripts/fetch_subsidy_contracts.py`'},
+        '누리집게시판': {'이름': '누리집 업무추진비·국외출장 게시판 글과 첨부 파일', '있다': False,
+                    '어디있나': '자치단체·의회 누리집 게시판(곳마다 제 형식)',
+                    '있으면생기는칸': ['업무추진비 쓴 날·곳·금액(건별)', '의원 국외출장 계획·결과 글'],
+                    '막힘': '아직 안 받았다 — `boards.yml` · `fetch_post_files.js` · `read_post_files.py`'},
         '보탬e': {'이름': '보탬e 지방보조금', '있다': False,
                 '어디있나': '보탬e 포털. 지방재정365에는 편성현황만 있다',
                 '있으면생기는칸': ['보조금을 받은 단체 이름', '교부액', '성과평가 결과', '교부 취소'],
@@ -382,6 +391,7 @@ def 전수(자료=None, 없는것=None):
                     지표이름.setdefault(c, []).append(m['이름'])
 
     세입코드 = {os.path.basename(p).removesuffix('.json.gz') for p in 파일들(['data/revenue/*.json.gz'])}
+    재료코드 = {os.path.basename(p).removesuffix('.json.gz') for p in 파일들(['data/items/*.json.gz'])}   # 2026-10-13 받은 재료표 12종
     세입연결 = set()
     if 있나('scripts/build_revenue.py') and 파일들(['site/data/revenue/*.json']):
         with open(os.path.join(ROOT, 'scripts/build_revenue.py'), encoding='utf-8') as f:
@@ -401,6 +411,8 @@ def 전수(자료=None, 없는것=None):
             상태, 까닭 = '쓴다', '세입 판 · 받은 원본을 화면에 연결'
         elif 코드 in 세입코드:
             상태, 까닭 = '받아 둠', '세입 원본 수집 · 화면 미반영'
+        elif 코드 in 재료코드:
+            상태, 까닭 = '받아 둠', '재료표 API 12종 — 해마다 받아 둠(`data/items/`) · 화면 미반영'
         else:
             상태, 까닭 = '아직 안 씀', ''
         if 측정제외:
@@ -439,10 +451,71 @@ def 전수(자료=None, 없는것=None):
                            (' · ' + 자료[k]['얼마나'] if k == 'CLIK' else '')) if 받음
                           else 없는것.get(k, {}).get('막힘', v['막힘'])})
 
-    # 쓰는 것과 막힌 것을 위로 — 파일 차례대로 두면 「쓴다」가 289줄 밑에 묻힌다
+    단계매기기(줄, set(지표이름), 세입연결)
+    # 앞 화면에 이은 것부터 — 파일 차례대로 두면 「쓴다」가 289줄 밑에 묻힌다
     차례 = {'쓴다': 0, '받아 둠': 1, '미수집': 2, '아직 안 씀': 5}
-    줄.sort(key=lambda r: (차례.get(r['상태'], 9), r['곳'] != '지방재정365', r['갈래'], r['이름']))
+    줄.sort(key=lambda r: (단계들.index(r['단계']), 차례.get(r['상태'], 9), r['곳'] != '지방재정365', r['갈래'], r['이름']))
     return 줄
+
+
+# ─────────────────────────────────────────────────────────────────
+# 1-3. 어디까지 이었나 — 줄마다 「가장 앞에 나간 화면」 (2026-10-15)
+#   사용자: 「지금은 다 쭉 나열해놨잖아. 이제 여기서 필요한 것들을 하나씩 뽑아서 연결시키는 것으로 가자.」
+#   ① 우리 동네(첫 화면) ② 자치단체별(finance.html) ③ 작업대에만 ④ 받아만 둠 ⑤ 안 받음
+#   손으로 적지 않는다 —
+#     ① 첫 화면 코드(site/index.html)에 그 지표 이름이 따옴표째 적혔나 + 아래 첫화면자료(D.집행 등)를 쓰나
+#     ② 자치단체별이 읽는 것 — 지표 전부 · 세입 판 · 진행 중인 사업 · 계약 · 보조금 · 의회 · 해마다 나란히(side.json 출처 칸)
+#   그래서 첫 화면에 하나를 이으면 다음 굽기에서 저절로 ①로 올라간다.
+# ─────────────────────────────────────────────────────────────────
+단계들 = ['우리 동네', '자치단체별', '작업대에만', '받아만 둠', '안 받음']
+첫화면자료 = {'D.집행': 'lofin:QWGJK', 'D.고향': 'lofin:QWGJK', 'D.계약': 'lofin:WCEGCF', 'D.의회': 'external:CLIK'}
+자치단체별자료 = ['lofin:QWGJK', 'lofin:WCEGCF', 'external:보탬e', 'external:CLIK']   # 세출과 집행 · 누가 받아 갔나 · 의회 판
+
+
+def 단계매기기(줄, 지표코드, 세입연결):
+    지표이름 = {}
+    p = os.path.join(ROOT, 'data', 'indicators')
+    이름들 = sorted(f for f in os.listdir(p) if f.endswith('.json') and '-' in f) if os.path.isdir(p) else []
+    if 이름들:
+        for m in js(f'data/indicators/{이름들[-1]}')['지표목록']:
+            for c in str(m.get('코드', '')).split('↔'):
+                if c.strip():
+                    지표이름.setdefault('lofin:' + c.strip(), []).append(m['이름'])
+
+    첫 = open(os.path.join(SITE, 'index.html'), encoding='utf-8').read() if 있나('site/index.html') else ''
+    동네 = {i for i, 이름 in 지표이름.items() if any(f"'{x}'" in 첫 for x in 이름)}
+    동네 |= {i for k, i in 첫화면자료.items() if k in 첫}
+
+    자치 = {'lofin:' + c for c in 지표코드 | 세입연결} | set(자치단체별자료)
+    나란히 = {}
+    if 있나('site/data/side.json'):
+        for x in js('site/data/side.json')['지표']:
+            출처 = str(x.get('점검', {}).get('출처', '') if isinstance(x.get('점검'), dict) else x.get('점검', ''))
+            ids = {'lofin:' + c for c in re.findall(r'\b[A-Z]{5,6}\b', 출처)}
+            for 낱말, i in (('CLIK', 'external:CLIK'), ('15163532', 'external:국고수의계약'),
+                           ('누리집', 'external:누리집게시판'), ('중앙투자심사', 'external:투자심사')):
+                if 낱말 in 출처:
+                    ids.add(i)
+            for i in ids:
+                나란히.setdefault(i, []).append(x['이름'].strip())
+    자치 |= set(나란히)
+
+    for r in 줄:
+        if r['id'] in 동네:
+            r['단계'] = '우리 동네'
+        elif r['id'] in 자치:
+            r['단계'] = '자치단체별'
+        elif r['상태'] == '쓴다':
+            r['단계'] = '작업대에만'
+        elif r['상태'] == '받아 둠':
+            r['단계'] = '받아만 둠'
+        else:
+            r['단계'] = '안 받음'
+        if r['단계'] in ('우리 동네', '자치단체별') and r['상태'] != '쓴다':
+            r['상태'] = '쓴다'
+        if r['id'] in 나란히:
+            붙임 = '해마다 나란히 · ' + ' · '.join(dict.fromkeys(나란히[r['id']]))[:80]
+            r['까닭'] = 붙임 if r['까닭'].startswith(('재료표', '수집 파일 있음')) or not r['까닭'] else r['까닭'] + ' · ' + 붙임
 
 
 밖의소스 = {
@@ -458,6 +531,10 @@ def 전수(자료=None, 없는것=None):
               '막힘': '길은 있다 — 파일로 나온다(15051377). 아직 안 받았다'},
     '사업설명서': {'곳': '자치단체 예산서', '이름': '세부사업 설명서 (사업명세서)', '갈래': '세출',
                '막힘': '자료로는 없다 — 곳마다 제 홈페이지에 제 형식으로 올린다'},
+    '국고수의계약': {'곳': 'data.go.kr', '이름': '국고보조사업 수의계약 (15163532)', '갈래': '계약',
+                '막힘': '아직 안 받았다'},
+    '누리집게시판': {'곳': '자치단체 누리집', '이름': '업무추진비·국외출장 게시판 글과 첨부 파일', '갈래': '집행',
+                '막힘': '아직 안 받았다'},
     '주민참여예산': {'곳': '주민e참여', '이름': '주민참여예산 운영현황', '갈래': '법정공시',
                 '막힘': '전국 통합본이 없다(포털 전수로 확인). 제공신청·정보공개청구가 남았다'},
 }
@@ -498,7 +575,9 @@ def 전수(자료=None, 없는것=None):
     '나라장터': ['site/data/bizno*.json'],
     '클린아이': ['site/data/cleaneye*.json'],
     'CLIK': ['site/data/clik*.json', 'site/data/clik/*.json', 'site/data/clik/*.json.gz'],
-    '투자심사': ['site/data/review*.json'],
+    '투자심사': ['site/review.html'],      # 2026-10-15 고침 — 화면은 review.html 하나다(옛 자리 site/data/review*.json 은 없다)
+    '국고수의계약': ['site/data/subsidy/*.json'],
+    '누리집게시판': ['site/data/side.json'],   # 해마다 나란히 판의 업무추진비 실제·국외출장 칸
     '주민참여예산': ['site/data/pb*.json'],
     '사업설명서': ['site/data/bizdesc*.json'],
 }
@@ -512,6 +591,8 @@ def 전수(자료=None, 없는것=None):
     '투자심사': ['data/review*.json', 'data/review/*.json', 'data/review/*.json.gz'],
     '주민참여예산': ['data/pb*.json', 'data/pb/*.json', 'data/pb/*.json.gz'],
     '사업설명서': ['data/bizdesc*.json', 'data/bizdesc/*.json', 'data/bizdesc/*.json.gz'],
+    '국고수의계약': ['data/subsidy_contracts.json.gz'],
+    '누리집게시판': ['data/board_posts.json', 'data/expense_rows.json.gz'],
 }
 
 층위들 = [

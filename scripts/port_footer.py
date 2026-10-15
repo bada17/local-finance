@@ -6,7 +6,7 @@
 #           AH_FOOTER 환경변수에 파일 경로를 주면 그 파일을 읽는다(손으로 고친 것을 미리 볼 때)
 # 쓰는 것 : site/*.html 의 표시 사이(AH:FOOTER START ~ END). 표시가 없으면 </main> 바로 뒤에 처음 한 번 만든다.
 #           템플릿(*.template.html)과 구운 화면 둘 다 — 구운 화면은 다음 굽기에서도 템플릿 것이 그대로 나온다.
-#           데이터 지도(datamap*)는 GPT 몫이라 건드리지 않는다. dashboard.html 은 넘겨주기만 하는 파일이라 뺀다.
+#           dashboard.html 은 넘겨주기만 하는 파일이라 뺀다. 데이터 지도도 2026-10-15 부터 붙인다(Claude 몫이 됨).
 # 달마다 봇(monthly.yml)이 굽기 전에 돌린다 — 홈페이지 하단이 바뀌면 다음 달 화면에 저절로 따라온다.
 #
 # 손으로 베끼지 않는 까닭 — 하단은 홈페이지·상담소·밑빠진독상도 같이 쓴다(독상 tools/port-footer.py 와 같은 방식).
@@ -86,7 +86,7 @@ def main():
     바뀜 = []
     for p in sorted(glob.glob(os.path.join(ROOT, 'site', '*.html'))):
         n = os.path.basename(p)
-        if n.startswith('datamap') or n == 'dashboard.html':
+        if n == 'dashboard.html':
             continue
         s = open(p, encoding='utf-8').read()
         i, j = s.find(BEGIN), s.find(END)

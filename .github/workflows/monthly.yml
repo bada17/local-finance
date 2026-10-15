@@ -3,7 +3,8 @@
 #
 # ⭐ 2026-10-12 사용자 — "매일 자동으로 업데이트하지 말고 일단은 한 달 단위로". 날마다 모으기(daily.yml)는 그대로다.
 # 차례는 README 「다시 돌릴 때」·「인계」와 같다. 단계 하나가 실패해도 나머지는 돌고, 맨 끝 「알림」이 텔레그램으로 알린다.
-# ⚠️ 데이터 지도(build_datamap)는 GPT 몫이라 여기서 굽지 않는다. 공시 점검·투명성 지표는 disclosure.yml(크롬, 한 해 두 번).
+# 데이터 지도(build_datamap)는 2026-10-15 부터 Claude 몫이라 맨 끝에 굽는다(첫 화면·나란히를 읽어 「어디까지 이었나」를 매긴다).
+# 공시 점검·투명성 지표는 disclosure.yml(크롬, 한 해 두 번).
 # 손으로: gh workflow run monthly.yml               (굽고 올리고 페이지까지)
 #         gh workflow run monthly.yml -f push=false  (굽기만 — 시험, 저장소·페이지 안 바뀜)
 name: 달마다 화면 굽기
@@ -73,6 +74,7 @@ jobs:
       - { id: b_review,   name: 투자심사 화면,    continue-on-error: true, run: python build_review_page.py }
       - { id: catalog,    name: 무슨 자료가 있나, continue-on-error: true, run: python build_catalog_page.py }
       - { id: page,       name: 자치단체 화면,    continue-on-error: true, run: python build_model_page.py }
+      - { id: datamap,    name: 데이터 지도,      continue-on-error: true, run: python build_datamap.py }   # 맨 끝 — 첫 화면(index.html)·side.json 을 읽는다
 
       - name: 바뀐 것
         if: ${{ !cancelled() }}
