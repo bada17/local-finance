@@ -34,8 +34,8 @@ jobs:
       steps: ${{ toJSON(steps) }}   # 맨 끝 「알림」이 단계마다의 실패를 본다
     timeout-minutes: 120
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
 
@@ -80,8 +80,8 @@ jobs:
       steps: ${{ toJSON(steps) }}   # 맨 끝 「알림」이 단계마다의 실패를 본다
     timeout-minutes: 120
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
       - name: CLIK 받기
@@ -141,8 +141,8 @@ jobs:
       steps: ${{ toJSON(steps) }}   # 맨 끝 「알림」이 단계마다의 실패를 본다
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
       - name: 투자심사 받기
@@ -163,8 +163,8 @@ jobs:
       steps: ${{ toJSON(steps) }}   # 맨 끝 「알림」이 단계마다의 실패를 본다
     timeout-minutes: 180
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
       # 갈래(물품·용역·공사)마다 조각으로 저장하고 쪽마다 마감을 본다 — 150분에서 스스로 멈춘다.
@@ -188,7 +188,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - run: python scripts/notify_fail.py
         env:
           NEEDS: ${{ toJSON(needs) }}

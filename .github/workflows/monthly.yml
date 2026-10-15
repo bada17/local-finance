@@ -42,8 +42,8 @@ jobs:
       run:
         working-directory: scripts
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
       - run: pip install -q openpyxl     # 교육청 화면(spec_edu.py)이 쓴다
@@ -102,7 +102,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - run: python scripts/notify_fail.py
         env:
           NEEDS: ${{ toJSON(needs) }}

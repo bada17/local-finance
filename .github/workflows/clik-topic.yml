@@ -18,8 +18,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
       - name: 호출 보호장치 검증
@@ -41,7 +41,7 @@ jobs:
           tar -czf "$RUNNER_TEMP/clik-result.tar.gz" -C "$RUNNER_TEMP/clik-private" .
           openssl enc -aes-256-cbc -salt -pbkdf2 -iter 200000 -in "$RUNNER_TEMP/clik-result.tar.gz" -out "$RUNNER_TEMP/clik-encrypted/result.enc" -pass "file:$RUNNER_TEMP/artifact-password"
           openssl pkeyutl -encrypt -pubin -inkey .github/clik-review-public.pem -in "$RUNNER_TEMP/artifact-password" -out "$RUNNER_TEMP/clik-encrypted/password.enc" -pkeyopt rsa_padding_mode:oaep -pkeyopt rsa_oaep_md:sha256
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         if: ${{ always() }}
         with:
           name: clik-private-${{ github.run_id }}
