@@ -1,11 +1,18 @@
-# 「문」 초안 화면(drafts/index.html)이 쓰는 표를 굽는다 — drafts/data.json
+# 첫 화면 「우리 동네 페이지」(site/index.html)가 쓰는 표를 굽는다 — site/data/town.json
 #
-#   python scripts/build_drafts.py
+#   python scripts/build_town.py
 #
-# ⚠️ 초안이다. drafts/ 는 site/ 밖이라 깃허브 페이지에 안 올라간다(pages.yml 은 site/** 만 본다).
-#    보려면: python -m http.server 8000  →  http://localhost:8000/drafts/
-# 이미 받은 자료만 쓴다 — dash.json(지표) · ongoing(진행 중인 사업) · score.json(투명성) · clik 알림(지켜보는 사업).
-# 숫자는 여기서 고치지 않는다. 고향사랑 사업은 이름에 「고향사랑」이 든 것만 모은 것이라 쌓기·옮기기가 섞여 있다(합계 내지 말 것).
+# 이미 받은 자료만 쓴다 — dash.json·지표 원본(지표) · ongoing(진행 중인 사업) · score.json(투명성) · side.json(의회 회의·의안)
+#   · contracts_summary(계약) · clik 알림(지켜보는 사업). 숫자는 여기서 고치지 않는다.
+# 고향사랑 사업은 이름에 「고향사랑」이 든 것만 모은 것이라 쌓기·옮기기가 섞여 있다(합계 내지 말 것).
+# 문을 고르는 내부 검토판 drafts/index.html 도 이 파일을 읽는다.
+#
+# ⚠️ 2026-10-15 에 원자료와 맞춰 보고 고친 것 — 화면 글을 바꿀 때 다시 볼 것
+#   · 비율은 dash.json 에서 소수 둘째 자리로 잘려 있어 같은 값이 수십 곳씩 겹친다(의회경비 최대 21곳).
+#     순위는 지표 원본의 금액 ÷ 분모로 다시 낸 값으로 매긴다(243곳 전부 API 비율과 반올림 안에서 맞음).
+#   · 1인당 세출예산액은 일반회계 ÷ 인구다(세출예산 총액은 총계) — 화면에 「일반회계」라고 적는다.
+#   · 연말지출비율의 분모는 세출결산 전체가 아니다(이 지표가 세는 돈, 세출결산의 0.1~32%, 가운데 12%).
+#     「한 해 쓴 돈의 몇 %」라고 쓰면 틀린다. 그래서 분모 금액을 같이 싣는다.
 
 import gzip
 import json
@@ -36,13 +43,18 @@ def main():
     for x in dash['지표']:
         if x['이름'] in 지표들:
             지표[x['이름']] = {k: x[k] for k in ('단위', '기준', '연도', '나쁨', '비율', '금액')}
-    # 추경 증가율의 분모(당초 예산)는 dash.json 에 없어 지표 원본에서 꺼낸다
+    # 분모와 반올림 안 한 비율은 지표 원본에서 꺼낸다
     ind = 읽기('data', 'indicators', f"{dash['결산연도']}-{dash['예산연도']}.json")
-    분모 = {x['laf_cd']: (x['지표'].get('추경 증가율') or {}).get('분모') for x in ind['자치단체']}
-    지표['추경 증가율']['분모'] = [분모.get(c[0]) for c in 곳]
+    원본 = {x['laf_cd']: x['지표'] for x in ind['자치단체']}
+    for k, v in 지표.items():
+        분모 = [((원본.get(c[0]) or {}).get(k) or {}).get('분모') for c in 곳]
+        if not any(분모):
+            continue
+        v['분모'] = 분모
+        v['비율'] = [round(a / b * 100, 6) if a is not None and b else r for a, b, r in zip(v['금액'], 분모, v['비율'])]
 
     집행, 분야, 고향 = [], [], []
-    기준 = ''
+    기준 = 받은날 = ''
     for c in 곳:
         p = os.path.join(ROOT, 'site', 'data', 'ongoing', f'{c[0]}.json.gz')
         if not os.path.exists(p):
@@ -50,6 +62,7 @@ def main():
             continue
         j = json.load(gzip.open(p, 'rt', encoding='utf-8'))
         기준 = 기준 or j['기준']
+        받은날 = max(받은날, j.get('받은날', ''))
         i = {k: n for n, k in enumerate(j['열차례'])}
         분야이름 = j['이름표']['분야']
         합 = Counter()
@@ -60,6 +73,7 @@ def main():
         고향.append(sorted(([r[i['이름']], r[i['예산현액']] or 0, r[i['지출']] or 0]
                            for r in j['사업'] if '고향사랑' in r[i['이름']]), key=lambda r: -r[1]))
 
+    # 투명성은 첫 화면에서 뺐다(2026-10-15, 선배 몫) — drafts/index.html 검토판만 쓴다
     s = 읽기('data', 'score.json')
     판 = {x['cd']: x['판'] for x in s['곳']}
     투명 = []
@@ -67,9 +81,21 @@ def main():
         v = [(판.get(c[0]) or {}).get(h['키'], {}).get('값') for h in s['항목']]
         투명.append([v.count('O'), v.count('X'), len(v) - v.count('O') - v.count('X')])
 
+    # 의회 — CLIK 에 올라온 회의·의안(같은 회의가 여러 번 올라온 것은 build_side.py 가 하나로 셌다).
+    # 다 끝난 마지막 해만. 0 이나 빈칸은 「안 했다」가 아니라 「CLIK 에 안 올라왔다」일 수 있다(의안 0 인 의회 36곳).
+    side = 읽기('site', 'data', 'side.json')
+    의회해 = str(date.today().year - 1)
+    의회 = []
+    for c in 곳:
+        x = side['곳'].get(c[0]) or {}
+        회, 안 = (x.get('회의수') or {}).get(의회해), (x.get('의안수') or {}).get(의회해)
+        의회.append([회, 안] if 회 or 안 else None)
+
     알림 = 읽기('data', 'clik', '알림_모음.json')
     지켜봄 = {}
     for 키, 줄 in 알림.items():
+        if 키.startswith('_'):   # _마지막성공 같은 장부 칸
+            continue
         달 = Counter(m for m, _ in {(x['날짜'][:6], x['글']) for x in 줄})   # 회의 수(같은 회의의 여러 쪽은 하나)
         y, m = date.today().year, date.today().month
         달들 = []
@@ -101,18 +127,21 @@ def main():
             계약.append(None)
             continue
         업체 = [u for u in y.get('상위5', []) if '조달청' not in u['이름']][:3]
-        계약.append([y['건수'], y['수의건수'], y['수의건수율'], y['수의금액률'], y['금액'], [[u['이름'], u['금액']] for u in 업체]])
+        계약.append([y['건수'], y['수의건수'], y['수의건수율'], y['수의금액률'], y['금액'],
+                   [[u['이름'], u['금액']] for u in 업체], y['수의금액']])
 
-    out = {'만든날': date.today().isoformat(), '진행기준': 기준, '결산연도': dash['결산연도'], '예산연도': dash['예산연도'],
+    out = {'만든날': date.today().isoformat(), '진행기준': 기준, '진행받은날': 받은날,
+           '결산연도': dash['결산연도'], '예산연도': dash['예산연도'],
            '곳칸': dash['곳칸'], '곳': 곳, '지표': 지표, '집행칸': ['예산현액', '지출', '사업수'], '집행': 집행,
            '분야': 분야, '고향': 고향, '투명칸': ['됨', '안 됨', '못 봄'], '투명항목수': len(s['항목']), '투명': 투명,
+           '의회해': 의회해, '의회칸': ['회의', '의안'], '의회': 의회,
            '지켜봄': 지켜봄, '게시판': 게시판,
-           '이름': [cs['곳이름'].get(c[0], c[1]) for c in 곳], '계약해': 계약해, '계약칸': ['건수', '수의건수', '수의건수율', '수의금액률', '금액', '상위업체(조달청 뺌)'], '계약': 계약}
-    os.makedirs(os.path.join(ROOT, 'drafts'), exist_ok=True)
-    path = os.path.join(ROOT, 'drafts', 'data.json')
+           '이름': [cs['곳이름'].get(c[0], c[1]) for c in 곳], '계약해': 계약해,
+           '계약칸': ['건수', '수의건수', '수의건수율', '수의금액률', '금액', '상위업체(조달청 뺌)', '수의금액'], '계약': 계약}
+    path = os.path.join(ROOT, 'site', 'data', 'town.json')
     with open(path, 'w', encoding='utf-8') as f:
         json.dump(out, f, ensure_ascii=False, separators=(',', ':'))
-    print(f'적음: drafts/data.json ({os.path.getsize(path) // 1024}KB) · 고향사랑 사업 {sum(map(len, 고향))}개 · 진행 기준 {기준}')
+    print(f'적음: site/data/town.json ({os.path.getsize(path) // 1024}KB) · 고향사랑 사업 {sum(map(len, 고향))}개 · 진행 {받은날} 받음')
 
 
 if __name__ == '__main__':

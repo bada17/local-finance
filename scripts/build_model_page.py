@@ -1,4 +1,4 @@
-# 화면을 굽는다. site/model.template.html 에 자치단체 목록을 끼워 site/index.html 을 낸다.
+# 화면을 굽는다. site/model.template.html 에 자치단체 목록을 끼워 site/finance.html(자치단체별·대시보드)을 낸다.
 #
 #   python scripts/build_model_page.py
 #
@@ -7,8 +7,8 @@
 # site/data/ongoing/<코드>.json 을 화면이 그때그때 받아 온다.
 # 목록은 build_model_data.py 가 먼저 만들어 둔다.
 #
-# 화면을 고칠 때는 template 쪽을 고치고 다시 구울 것. index.html 은 손대지 말 것.
-# 깃허브 페이지가 site/ 를 통째로 올리므로 파일 이름이 index.html 이어야 한다.
+# 화면을 고칠 때는 template 쪽을 고치고 다시 구울 것. finance.html 은 손대지 말 것.
+# 첫 화면 site/index.html 은 우리 동네 페이지다(2026-10-15, 손으로 쓴 파일 — 자료는 build_town.py).
 
 import gzip
 import json
@@ -53,14 +53,14 @@ def main():
         raise SystemExit('template 에 __INDEX__ 자리가 없다')
 
     out = tpl.replace('__INDEX__', json.dumps(index, ensure_ascii=False, separators=(',', ':')))
-    path = os.path.join(SITE, 'index.html')
+    path = os.path.join(SITE, 'finance.html')
     with open(path, 'w', encoding='utf-8') as f:
         f.write(out)
 
     광역 = sum(1 for x in index['곳'] if x['갈래'] == '광역')
     있는것 = len(os.listdir(os.path.join(SITE, 'data', 'ongoing'))) \
         if os.path.isdir(os.path.join(SITE, 'data', 'ongoing')) else 0
-    print(f'구움: site/index.html ({os.path.getsize(path)/1024:,.0f} KB)')
+    print(f'구움: site/finance.html ({os.path.getsize(path)/1024:,.0f} KB)')
     if 새로:
         print('  지표에 없고 진행 자료만 있는 곳 ' + str(len(새로)) + '곳 — '
               + ' · '.join(x['이름'] for x in 새로))

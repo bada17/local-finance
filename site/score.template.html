@@ -138,7 +138,7 @@ footer{margin:48px 0 38px;padding-top:22px;font-size:13px;line-height:1.85;borde
 </style>
 
 <a class="skip-link" href="#main-content">본문으로 바로 가기</a>
-<header class="site-header"><div class="wrap site-masthead"><a class="site-brand" href="./">살림을 보는 시민<small>함께하는 시민행동 · 지방재정 감시</small></a><nav class="site-navigation" aria-label="전체 화면"><a href="./">자치단체별</a><a href="work.html" aria-current="page">작업대</a></nav></div></header><div class="wrap" style="margin-top:14px"><p style="margin:0;padding:10px 14px;background:var(--amber-bg,#f6efdb);border-left:3px solid var(--amber,#80551b);font-size:13px;line-height:1.7;color:var(--ink)"><b>작업대</b> — 자료를 모으고 검증하는 화면이다. 시민용으로 다듬기 전이라 <b>검증 중인 숫자가 섞여 있다.</b> <a href="work.html">작업대 목록</a> · <a href="./">시민용 화면</a></p></div>
+<header class="site-header"><div class="wrap site-masthead"><a class="site-brand" href="./">살림을 보는 시민<small>함께하는 시민행동 · 지방재정 감시</small></a><nav class="site-navigation" aria-label="전체 화면"><a href="./">우리 동네</a><a href="finance.html">자치단체별</a><a href="work.html" aria-current="page">작업대</a></nav></div></header><div class="wrap" style="margin-top:14px"><p style="margin:0;padding:10px 14px;background:var(--amber-bg,#f6efdb);border-left:3px solid var(--amber,#80551b);font-size:13px;line-height:1.7;color:var(--ink)"><b>작업대</b> — 자료를 모으고 검증하는 화면이다. 시민용으로 다듬기 전이라 <b>검증 중인 숫자가 섞여 있다.</b> <a href="work.html">작업대 목록</a> · <a href="./">시민용 화면</a></p></div>
 
 <main class="wrap" id="main-content">
 <section class="page-intro">
@@ -290,7 +290,7 @@ function 근거(p){
   return `<p style="margin:0 0 10px"><b>${esc(짧(p))}</b> — 본 곳:
     ${주소(p.예산주소) ? `<a href="${주소(p.예산주소)}" target="_blank" rel="noopener">예산서 게시판</a>` : '예산서 주소 없음'} ·
     ${주소(p.결산주소) ? `<a href="${주소(p.결산주소)}" target="_blank" rel="noopener">결산서 게시판</a>` : '결산서 주소 없음'} ·
-    <a href="./#${p.cd}">이 곳의 살림</a></p><ul>${D.항목.map(x => { const v = p.판[x.키];
+    <a href="finance.html#${p.cd}">이 곳의 살림</a></p><ul>${D.항목.map(x => { const v = p.판[x.키];
       return `<li>${칸(v.값, v.손)}<span><b>${esc(x.이름)}${v.손 ? ' ✋' : ''}</b>${esc(v.근거)}${주소(v.주소) ? ` <small><a href="${주소(v.주소)}" target="_blank" rel="noopener">근거 주소</a></small>` : ''}${v.참고 ? `<small>참고 — ${esc(v.참고)}</small>` : ''}</span></li>`; }).join('')}</ul>`;
 }
 document.getElementById('grp').onclick = e => { const b = e.target.closest('button'); if (!b) return; 갈 = b.dataset.g; 그리기(); };

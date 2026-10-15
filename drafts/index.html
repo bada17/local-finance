@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>문 초안 · 살림을 보는 시민</title>
 <!-- ⚠️ 초안. site/ 밖이라 배포되지 않는다. 보려면 저장소 맨 위에서 python -m http.server 8765 → /drafts/
-     데이터: drafts/data.json (python scripts/build_drafts.py 가 굽는다). 숫자는 전부 그 파일에서 온다 — 손으로 넣은 숫자 없음.
+     데이터: site/data/town.json (python scripts/build_town.py 가 굽는다). 숫자는 전부 그 파일에서 온다 — 손으로 넣은 숫자 없음.
      화면에 보이는 글에는 긴 줄표를 쓰지 않는다. -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
@@ -408,7 +408,7 @@ function 그리기() {
 
 function 시작() {
   $('nav').innerHTML = Object.entries(문들).map(([k, v]) => `<a href="#${k}" data-d="${k}">${v.이름}</a>`).join('')
-    + `<a href="../site/score.html">투명성 지표</a><a href="town.html?cd=${곳[i] ? 곳[i][0] : ''}" style="color:var(--accent)">시민 화면 시안</a>`;
+    + `<a href="../site/score.html">투명성 지표</a><a href="../site/?cd=${곳[i] ? 곳[i][0] : ''}" style="color:var(--accent)">시민 화면 시안</a>`;
   const 시도들 = [...new Set(곳.map(c => c[2]))];
   $('sido').innerHTML = 시도들.map(s => `<option>${esc(s)}</option>`).join('');
   const 채우기 = s => { $('place').innerHTML = 곳.map((c, j) => c[2] === s ? `<option value="${j}">${esc(이름(j).replace(/^\S+\s/, ''))}</option>` : '').join(''); };
@@ -422,6 +422,6 @@ function 시작() {
   그리기();
 }
 
-fetch('data.json').then(r => r.json()).then(d => { D = d; 곳 = d.곳; 시작(); })
-  .catch(e => { $('main').innerHTML = `<p class="empty">data.json 을 못 읽었습니다. 저장소 맨 위에서 python -m http.server 8765 로 여세요. (${esc(e)})</p>`; });
+fetch('../site/data/town.json').then(r => r.json()).then(d => { D = d; 곳 = d.곳; 시작(); })
+  .catch(e => { $('main').innerHTML = `<p class="empty">town.json 을 못 읽었습니다. 저장소 맨 위에서 python -m http.server 8765 로 여세요. (${esc(e)})</p>`; });
 </script>

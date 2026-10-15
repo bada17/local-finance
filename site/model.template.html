@@ -213,7 +213,7 @@ footer{margin:48px 0 38px;padding-top:22px;font-size:13px;line-height:1.85;borde
 </style>
 
 <a class="skip-link" href="#app">본문으로 바로 가기</a>
-<header class="site-header"><div class="wrap site-masthead"><a class="site-brand" href="./">살림을 보는 시민<small>함께하는 시민행동 · 지방재정 감시</small></a><nav class="site-navigation" aria-label="전체 화면"><a href="./" id="nav-finance" aria-current="page">자치단체별</a><a href="work.html" id="nav-work">작업대</a></nav></div></header><div class="wrap" id="workbar" hidden style="margin-top:14px"><p style="margin:0;padding:10px 14px;background:var(--amber-bg,#f6efdb);border-left:3px solid var(--amber,#80551b);font-size:13px;line-height:1.7;color:var(--ink)"><b>작업대</b> — 자료를 모으고 검증하는 화면이다. 시민용으로 다듬기 전이라 <b>검증 중인 숫자가 섞여 있다.</b> <a href="work.html">작업대 목록</a> · <a href="./">시민용 화면</a></p></div>
+<header class="site-header"><div class="wrap site-masthead"><a class="site-brand" href="./">살림을 보는 시민<small>함께하는 시민행동 · 지방재정 감시</small></a><nav class="site-navigation" aria-label="전체 화면"><a href="./">우리 동네</a><a href="finance.html" id="nav-finance" aria-current="page">자치단체별</a><a href="work.html" id="nav-work">작업대</a></nav></div></header><div class="wrap" id="workbar" hidden style="margin-top:14px"><p style="margin:0;padding:10px 14px;background:var(--amber-bg,#f6efdb);border-left:3px solid var(--amber,#80551b);font-size:13px;line-height:1.7;color:var(--ink)"><b>작업대</b> — 자료를 모으고 검증하는 화면이다. 시민용으로 다듬기 전이라 <b>검증 중인 숫자가 섞여 있다.</b> <a href="work.html">작업대 목록</a> · <a href="./">시민용 화면</a></p></div>
 
 <div class="wrap"><header class="page-intro"><div><p class="section-kicker" id="kicker">지방재정을 시민의 눈으로</p><h1>살림을 이해하고,<br>쓰임을 묻습니다.</h1></div><div class="intro-guide"><p>우리 동네의 예산부터 계약과 의회 기록까지.<br><b>숫자의 규모와 맥락을 먼저 살피고,<br>그 돈이 어디로 갔는지 확인합니다.</b></p><p class="reading-order">규모 → 흐름 → 출처 → 선택 → 감시 → 이름</p></div></header><div class="selection-bar" aria-label="지역과 자료 선택"><span class="grp" id="loc"></span><span class="grp" id="view"></span></div></div>
 <main class="wrap" id="app"></main>
@@ -224,7 +224,7 @@ footer{margin:48px 0 38px;padding-top:22px;font-size:13px;line-height:1.85;borde
    243곳을 다 담으면 2.3MB 라 페이지가 무거워진다. */
 const INDEX = __INDEX__;
 const 곳맵 = Object.fromEntries(INDEX.곳.map(x => [x.cd, x]));
-/* 한 화면을 두 메뉴가 나눠 쓴다(2026-10-01 사용자) — 「대시보드」(./?g)는 그래프만, 「자치단체별」(./)은 표만.
+/* 한 화면을 두 메뉴가 나눠 쓴다(2026-10-01 사용자) — 「대시보드」(finance.html?g)는 그래프만, 「자치단체별」(finance.html)은 표만. 첫 화면(./)은 우리 동네 페이지다(2026-10-15).
    그래프가 있는 판은 결산·예산·세입뿐이라 대시보드에는 그 셋만 연다. */
 const 그래프 = new URLSearchParams(location.search).has('g');
 const 그래프판 = ['결산', '예산', '세입'];
@@ -757,7 +757,7 @@ function 맞추기(){
   document.getElementById('view').style.display = 의회 ? 'none' : '';
   /* 2026-10-14 메뉴를 시민용(자치단체별)과 작업대로 나눴다 — 대시보드·지방의회는 작업대 목록에서 들어온다(작업대 띠를 켠다) */
   const [재정, 작업] = ['nav-finance', 'nav-work'].map(id => document.getElementById(id));
-  재정.href = './#' + 지금곳;
+  재정.href = 'finance.html#' + 지금곳;
   const 지금 = 그래프 || 의회 ? 작업 : 재정;
   [재정, 작업].forEach(a => a === 지금 ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'));
   document.getElementById('workbar').hidden = !(그래프 || 의회);
@@ -945,7 +945,7 @@ async function renderRevenue(cd){
   Chart.그리기(app);
 }
 
-/* 표 — 자치단체별(./)에만 펼쳐 둔다. 대시보드(./?g)에서는 뺀다 */
+/* 표 — 자치단체별(finance.html)에만 펼쳐 둔다. 대시보드(finance.html?g)에서는 뺀다 */
 const 접기 = 속 => 그래프 ? '' : 속;
 /* 재원 띠 — 색은 재원 이름에 붙는다(곳마다 차례가 바뀌지 않게). 제 돈 → 받은 돈 → 빚·내부거래 */
 const 재원줄 = [['지방세수입'], ['세외수입'], ['지방교부세', '지방교부세 등', '지방양여금'],
@@ -1081,8 +1081,8 @@ async function renderFinance(){
     </p>
     <p class="basis">${판설명[판](d)}</p>
     <p class="note">${그래프 ? `같은 종류 곳들 사이에서 <b>어디쯤인가</b>를 점띠로 보였다. 높고 낮음이 곧 잘잘못은 아니다 —
-      <a href="./#${d.laf_cd}${판 === '결산' ? '' : ',' + 판}">표로 보기</a>`
-      : `<a href="./?g#${d.laf_cd}${판 === '결산' ? '' : ',' + 판}">그래프로 보기(대시보드)</a>`} ·
+      <a href="finance.html#${d.laf_cd}${판 === '결산' ? '' : ',' + 판}">표로 보기</a>`
+      : `<a href="finance.html?g#${d.laf_cd}${판 === '결산' ? '' : ',' + 판}">그래프로 보기(대시보드)</a>`} ·
       <a href="catalog.html">무슨 자료가 있나</a> ·
       <a href="transparency.html">공시 점검</a> ·
       <a href="datamap.html">데이터 지도</a> ·

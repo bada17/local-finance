@@ -147,7 +147,7 @@ footer{margin:48px 0 38px;padding-top:22px;font-size:13px;line-height:1.85;borde
 </style>
 
 <a class="skip-link" href="#main-content">본문으로 바로 가기</a>
-<header class="site-header"><div class="wrap site-masthead"><a class="site-brand" href="./">살림을 보는 시민<small>함께하는 시민행동 · 지방재정 감시</small></a><nav class="site-navigation" aria-label="전체 화면"><a href="./">자치단체별</a><a href="work.html" aria-current="page">작업대</a></nav></div></header><div class="wrap" style="margin-top:14px"><p style="margin:0;padding:10px 14px;background:var(--amber-bg,#f6efdb);border-left:3px solid var(--amber,#80551b);font-size:13px;line-height:1.7;color:var(--ink)"><b>작업대</b> — 자료를 모으고 검증하는 화면이다. 시민용으로 다듬기 전이라 <b>검증 중인 숫자가 섞여 있다.</b> <a href="work.html">작업대 목록</a> · <a href="./">시민용 화면</a></p></div>
+<header class="site-header"><div class="wrap site-masthead"><a class="site-brand" href="./">살림을 보는 시민<small>함께하는 시민행동 · 지방재정 감시</small></a><nav class="site-navigation" aria-label="전체 화면"><a href="./">우리 동네</a><a href="finance.html">자치단체별</a><a href="work.html" aria-current="page">작업대</a></nav></div></header><div class="wrap" style="margin-top:14px"><p style="margin:0;padding:10px 14px;background:var(--amber-bg,#f6efdb);border-left:3px solid var(--amber,#80551b);font-size:13px;line-height:1.7;color:var(--ink)"><b>작업대</b> — 자료를 모으고 검증하는 화면이다. 시민용으로 다듬기 전이라 <b>검증 중인 숫자가 섞여 있다.</b> <a href="work.html">작업대 목록</a> · <a href="./">시민용 화면</a></p></div>
 
 <main class="wrap" id="main-content"><p class="section-kicker" style="margin-top:30px">같은 기준으로, 나란히 보기</p>
   <h1 id="h1">기초단체까지, 한 표에</h1>
@@ -328,7 +328,7 @@ function 그리기(){
     }).join('');
 
   const 몸 = 줄.map(r => `<tr>
-      <td><a href="./#${r.cd}">${이름of(r)}</a></td>
+      <td><a href="finance.html#${r.cd}">${이름of(r)}</a></td>
       <td>${r.갈래 === '광역' ? '광역' : r.시도}</td>
       <td>${n0(r.인구)}</td>
       ${고른칸.map(i => {

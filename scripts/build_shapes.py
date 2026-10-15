@@ -1,4 +1,4 @@
-# 「우리 동네 페이지」(drafts/town.html)에 그릴 지자체 모양을 굽는다 — drafts/shapes.json
+# 「우리 동네 페이지」(site/index.html)에 그릴 지자체 모양을 굽는다 — site/data/shapes.json
 #
 #   pip install pyarrow pandas      (이 스크립트만 쓴다 — 경계가 바뀔 때 한 번)
 #   python scripts/build_shapes.py
@@ -115,10 +115,10 @@ def main():
         out[cd] = {'d': d, 'w': w, 'h': h,
                    '점': [round(((min(gx) + max(gx)) / 2 - 전국틀[0]) * 전국k), round((전국틀[3] - (min(gy) + max(gy)) / 2) * 전국k)]}
 
-    path = os.path.join(ROOT, 'drafts', 'shapes.json')
+    path = os.path.join(ROOT, 'site', 'data', 'shapes.json')
     json.dump({'출처': 'vuski/admdongkor 시군구·시도 경계 2026-07-01 (CC BY 4.0)', '전국': {'d': 전국d, 'w': 전국w, 'h': 전국h}, '곳': out},
               open(path, 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
-    print(f'적음: drafts/shapes.json ({os.path.getsize(path) // 1024}KB) · {len(out)}곳 · 못 이은 곳 {len(못)} {못}')
+    print(f'적음: site/data/shapes.json ({os.path.getsize(path) // 1024}KB) · {len(out)}곳 · 못 이은 곳 {len(못)} {못}')
     assert not 못, '못 이은 곳이 있다 — 이름이 바뀌었는지 볼 것'
 
 
