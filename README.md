@@ -549,6 +549,15 @@ python scripts/build_review_page.py
 
 ## 기록
 
+### 2026-10-15 — Claude: 하단을 홈페이지(action.or.kr)와 똑같이
+
+사용자: **「로컬 파이낸스 하단을 홈페이지 하단과 똑같이 만들어줘. 뭔가 통일감이 있어야 할 것 같아서」.**
+`python scripts/port_footer.py` — 홈페이지 하단 원본(개편 저장소 `tools/parts/footer.html`, 공개라 깃허브에서 바로 받는다)을 site/ 화면 16개(템플릿 포함)의
+`AH:FOOTER` 표시 사이에 채운다. 상담소·밑빠진독상과 같은 방식(독상 `tools/port-footer.py`) — **베끼지 않고 읽어 온다.** 달마다 봇이 굽기 전에 다시 받는다.
+바꾸는 것: 안쪽 주소(/34·/37·/8)를 action.or.kr 로 · 전체 폭 음수 여백 끔 · 이 사이트의 h2 밑줄·footer·section 여백·.wrap 폭이 하단에 새지 않게 막는 줄 · 글꼴(Pretendard·GmarketSans) 불러오기.
+우리 동네 페이지의 남색 후원 띠(「이 일을 해마다 하려면 회원이 필요합니다」)는 하단의 후원 띠와 겹쳐 뺐다. 화면마다 있던 자료 출처 줄(`<footer>`)은 본문이라 그대로.
+데이터 지도(GPT 몫)에는 안 넣었다 — **GPT 에게:** `datamap.template.html` 의 `</main>` 뒤에 `AH:FOOTER` 표시를 두면 port_footer.py 가 채운다(지금은 datamap 을 건너뛰게 돼 있으니 그 줄도 같이 풀 것).
+
 ### 2026-10-15 — Claude: 첫 화면을 「우리 동네 페이지」로 · 숫자를 원자료와 맞춰 고침 · 투명성 지표는 따로 뺌
 
 사용자: **「일단 그 대시보드 웹 만든 것부터 손보자」**, 첫 화면은 **우리 동네 한 페이지**(물음에 고름).

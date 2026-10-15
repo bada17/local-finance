@@ -58,6 +58,7 @@ jobs:
       - { id: subsidy,    name: 국고보조 수의계약, continue-on-error: true, run: python fetch_subsidy_contracts.py }   # 한 해 한 번 새 파일, 같으면 건너뜀
 
       # ── 굽기 ──
+      - { id: footer,     name: 홈페이지 공통 하단, continue-on-error: true, run: python port_footer.py }   # 템플릿에 먼저 — 아래 굽기가 그대로 옮긴다
       - { id: contracts,  name: 계약 요약(전수),  continue-on-error: true, run: python build_contracts_summary.py }
       - { id: model,      name: 자치단체별 지표,  continue-on-error: true, run: python build_model_data.py --all }
       - { id: ongoing,    name: 진행 중인 사업,   continue-on-error: true, run: python build_ongoing.py --all }
