@@ -1,5 +1,5 @@
 {
- "만든날": "2026-09-29",
+ "만든날": "2026-10-15",
  "곳": {
   "1100000": {
    "첫화면": "https://www.seoul.go.kr/",
@@ -28,11 +28,8 @@
   },
   "1113000": {
    "첫화면": "https://www.yongsan.go.kr/",
-   "번": 1,
-   "길": [
-    "지방재정공시"
-   ],
-   "닿은곳": "https://www.yongsan.go.kr/portal/bbs/B0000181/list.do?menuNo=200925"
+   "번": null,
+   "까닭": "3번 안에 「재정공시」 링크를 못 찾았다"
   },
   "1114000": {
    "첫화면": "https://www.sd.go.kr/",
@@ -60,11 +57,8 @@
   },
   "1117000": {
    "첫화면": "https://www.jungnang.go.kr/",
-   "번": 1,
-   "길": [
-    "재정공시"
-   ],
-   "닿은곳": "https://www.jungnang.go.kr/portal/main/contents.do?menuNo=200431"
+   "번": null,
+   "까닭": "첫 화면이 안 열린다"
   },
   "1118000": {
    "첫화면": "https://www.sb.go.kr/",
@@ -288,11 +282,8 @@
   },
   "2619000": {
    "첫화면": "https://www.haeundae.go.kr/",
-   "번": 1,
-   "길": [
-    "재정공시"
-   ],
-   "닿은곳": "https://www.haeundae.go.kr/index.do?menuCd=DOM_000000104005005000"
+   "번": null,
+   "까닭": "첫 화면이 안 열린다"
   },
   "2620000": {
    "첫화면": "https://www.saha.go.kr/",
@@ -326,11 +317,8 @@
   },
   "2624000": {
    "첫화면": "https://www.suyeong.go.kr/",
-   "번": 1,
-   "길": [
-    "재정공시"
-   ],
-   "닿은곳": "https://www.suyeong.go.kr/index.suyeong?menuCd=DOM_000000119001004000"
+   "번": null,
+   "까닭": "첫 화면이 안 열린다"
   },
   "2625000": {
    "첫화면": "https://www.sasang.go.kr/",
@@ -439,7 +427,7 @@
   "2811000": {
    "첫화면": "https://www.icjg.go.kr/",
    "번": null,
-   "까닭": "3번 안에 「재정공시」 링크를 못 찾았다"
+   "까닭": "첫 화면이 안 열린다"
   },
   "2812000": {
    "첫화면": "https://www.jemulpo.go.kr/",
@@ -484,11 +472,8 @@
   },
   "2817000": {
    "첫화면": "https://www.gyeyang.go.kr/",
-   "번": 1,
-   "길": [
-    "재정공시"
-   ],
-   "닿은곳": "https://www.gyeyang.go.kr/open_content/main/open_info/budget/finance.jsp"
+   "번": null,
+   "까닭": "첫 화면이 안 열린다"
   },
   "2818000": {
    "첫화면": "https://www.seo.incheon.kr/",
@@ -778,8 +763,11 @@
   },
   "4123000": {
    "첫화면": "https://www.nyj.go.kr/",
-   "번": null,
-   "까닭": "첫 화면이 안 열린다"
+   "번": 1,
+   "길": [
+    "지방재정공시"
+   ],
+   "닿은곳": "https://www.nyj.go.kr/www/selectBbsNttList.do?key=2425&bbsNo=41"
   },
   "4124000": {
    "첫화면": "https://www.osan.go.kr/",
@@ -895,12 +883,8 @@
   },
   "4138000": {
    "첫화면": "https://www.yeoju.go.kr/",
-   "번": 2,
-   "길": [
-    "행복도시 희망여주 여주시청 여주시 대표 누리집",
-    "지방재정공시"
-   ],
-   "닿은곳": "https://www.yeoju.go.kr/www/selectBbsNttList.do?bbsNo=24&key=350"
+   "번": null,
+   "까닭": "첫 화면이 안 열린다"
   },
   "4175000": {
    "첫화면": "https://www.yeoncheon.go.kr/",
@@ -961,12 +945,12 @@
    "닿은곳": "https://www.gn.go.kr/www/selectBbsNttList.do?bbsNo=8&key=124"
   },
   "4214000": {
-   "첫화면": "https://dh.go.kr/",
+   "첫화면": "https://www.dh.go.kr/",
    "번": 1,
    "길": [
     "재정공시(결산)"
    ],
-   "닿은곳": "https://dh.go.kr/www/contents.do?key=2163"
+   "닿은곳": "https://www.dh.go.kr/www/contents.do?key=2163"
   },
   "4215000": {
    "첫화면": "https://www.taebaek.go.kr/",
@@ -987,12 +971,8 @@
   },
   "4217000": {
    "첫화면": "https://www.samcheok.go.kr/",
-   "번": 2,
-   "길": [
-    "삼척시청 삼척시 대표 누리집 바로가기",
-    "재정공시"
-   ],
-   "닿은곳": "https://www.samcheok.go.kr/opendata/00238/00313.web"
+   "번": null,
+   "까닭": "첫 화면이 안 열린다"
   },
   "4271000": {
    "첫화면": "https://www.hongcheon.go.kr/",
@@ -1092,11 +1072,8 @@
   },
   "4300000": {
    "첫화면": "https://www.chungbuk.go.kr/",
-   "번": 1,
-   "길": [
-    "재정공시"
-   ],
-   "닿은곳": "https://www.chungbuk.go.kr/finance/contents.do?key=5441"
+   "번": null,
+   "까닭": "3번 안에 「재정공시」 링크를 못 찾았다"
   },
   "4312000": {
    "첫화면": "https://www.chungju.go.kr/",
@@ -1208,9 +1185,10 @@
   },
   "4412000": {
    "첫화면": "https://www.gongju.go.kr/",
-   "번": 2,
+   "번": 3,
    "길": [
     "새창열림",
+    "공주시청 대표 홈페이지",
     "지방재정공시"
    ],
    "닿은곳": "https://www.gongju.go.kr/kr/sub02_19_03.do"
@@ -1368,11 +1346,8 @@
   },
   "4515000": {
    "첫화면": "https://www.namwon.go.kr/",
-   "번": 1,
-   "길": [
-    "재정공시"
-   ],
-   "닿은곳": "https://www.namwon.go.kr/index.do?menuUid=ff8080818e3beff0018e40d673360242"
+   "번": null,
+   "까닭": "첫 화면이 안 열린다"
   },
   "4516000": {
    "첫화면": "https://www.gimje.go.kr/",
@@ -1478,11 +1453,8 @@
   },
   "4613000": {
    "첫화면": "https://www.suncheon.go.kr/",
-   "번": 1,
-   "길": [
-    "재정공시"
-   ],
-   "닿은곳": "https://www.suncheon.go.kr/kr/open/0006/0015"
+   "번": null,
+   "까닭": "첫 화면이 안 열린다"
   },
   "4614000": {
    "첫화면": "https://www.naju.go.kr/",
@@ -1499,7 +1471,7 @@
     "바로가기이동",
     "지방재정공시"
    ],
-   "닿은곳": "https://gwangyang.go.kr/menu.es?mid=a11202043000"
+   "닿은곳": "https://gwangyang.go.kr/menu.es?mid=a11202043100"
   },
   "4671000": {
    "첫화면": "https://www.damyang.go.kr/",
@@ -1517,12 +1489,8 @@
   },
   "4673000": {
    "첫화면": "https://www.gurye.go.kr/",
-   "번": 2,
-   "길": [
-    "구례군 대표누리집 홈페이지 바로가기",
-    "지방재정공시(예산기준)"
-   ],
-   "닿은곳": "https://www.gurye.go.kr/kr/subPage.do?menuNo=115002002007"
+   "번": null,
+   "까닭": "첫 화면이 안 열린다"
   },
   "4674000": {
    "첫화면": "https://www.goheung.go.kr/",
@@ -1544,7 +1512,7 @@
    "닿은곳": "https://www.boseong.go.kr/www/open_data/budget/finance"
   },
   "4676000": {
-   "첫화면": "https://www.hwasun.go.kr/",
+   "첫화면": "http://www.hwasun.go.kr/",
    "번": 1,
    "길": [
     "재정공시"
@@ -1561,11 +1529,8 @@
   },
   "4678000": {
    "첫화면": "https://www.gangjin.go.kr/",
-   "번": 1,
-   "길": [
-    "재정공시"
-   ],
-   "닿은곳": "https://www.gangjin.go.kr/www/open_information/finance/gongsi"
+   "번": null,
+   "까닭": "첫 화면이 안 열린다"
   },
   "4679000": {
    "첫화면": "https://www.haenam.go.kr/",
@@ -1598,7 +1563,7 @@
     "군민과 함께 만드는 함평, 대표 누리집 바로가기",
     "재정공시"
    ],
-   "닿은곳": "https://www.hampyeong.go.kr/contentsView.do?pageId=www681"
+   "닿은곳": "https://www.hampyeong.go.kr/contentsView.do?pageId=www691"
   },
   "4683000": {
    "첫화면": "https://www.yeonggwang.go.kr/",
@@ -1628,13 +1593,13 @@
    "닿은곳": "https://www.wando.go.kr/wando/sub.cs?m=1403"
   },
   "4686000": {
-   "첫화면": "https://www.jindo.go.kr/",
+   "첫화면": "https://jindo.go.kr/",
    "번": 2,
    "길": [
     "바로가기",
     "재정공시"
    ],
-   "닿은곳": "https://www.jindo.go.kr/home/sub.cs?m=789"
+   "닿은곳": "https://jindo.go.kr/home/sub.cs?m=789"
   },
   "4687000": {
    "첫화면": "https://www.shinan.go.kr/",
@@ -1646,7 +1611,7 @@
    "닿은곳": "https://www.shinan.go.kr/home/www/gov30/gov30_09_01/gov30_09_01_04/page.wscms"
   },
   "4700000": {
-   "첫화면": "https://gb.go.kr/",
+   "첫화면": "https://www.gb.go.kr/",
    "번": 2,
    "길": [
     "재정정보",
@@ -1672,11 +1637,8 @@
   },
   "4713000": {
    "첫화면": "https://www.gc.go.kr/",
-   "번": 1,
-   "길": [
-    "재정공시"
-   ],
-   "닿은곳": "https://www.gc.go.kr/portal/contents.do?mId=1205030000"
+   "번": null,
+   "까닭": "첫 화면이 안 열린다"
   },
   "4714000": {
    "첫화면": "https://www.andong.go.kr/",
@@ -1699,18 +1661,15 @@
    "첫화면": "https://www.yeongju.go.kr/",
    "번": 2,
    "길": [
-    "바로가기",
+    "명예의 전당",
     "재정공시"
    ],
    "닿은곳": "https://www.yeongju.go.kr/open_content/main/page.do?mnu_uid=4048&"
   },
   "4717000": {
    "첫화면": "https://www.yc.go.kr/",
-   "번": 1,
-   "길": [
-    "재정공시(예산 기준)"
-   ],
-   "닿은곳": "https://www.yc.go.kr/portal/contents.do?mId=0303020000"
+   "번": null,
+   "까닭": "첫 화면이 안 열린다"
   },
   "4718000": {
    "첫화면": "https://www.sangju.go.kr/",
@@ -1727,11 +1686,8 @@
   },
   "4720000": {
    "첫화면": "https://www.gbgs.go.kr/",
-   "번": 1,
-   "길": [
-    "지방재정공시"
-   ],
-   "닿은곳": "https://www.gbgs.go.kr/open_content/ko/page.do?mnu_uid=2172&"
+   "번": null,
+   "까닭": "첫 화면이 안 열린다"
   },
   "4772000": {
    "첫화면": "https://www.usc.go.kr/",
@@ -1743,47 +1699,28 @@
   },
   "4773000": {
    "첫화면": "https://www.cs.go.kr/",
-   "번": 1,
-   "길": [
-    "지방재정공시"
-   ],
-   "닿은곳": "https://www.cs.go.kr/openData/00003034/00003071.web"
+   "번": null,
+   "까닭": "첫 화면이 안 열린다"
   },
   "4774000": {
    "첫화면": "https://www.yyg.go.kr/",
-   "번": 2,
-   "길": [
-    "새창",
-    "재정공시"
-   ],
-   "닿은곳": "https://www.yyg.go.kr/www/organization/finance_info/finance"
+   "번": null,
+   "까닭": "첫 화면이 안 열린다"
   },
   "4775000": {
    "첫화면": "https://www.yd.go.kr/",
-   "번": 2,
-   "길": [
-    "바로가기",
-    "지방재정공시"
-   ],
-   "닿은곳": "https://www.yd.go.kr/?p=910"
+   "번": null,
+   "까닭": "첫 화면이 안 열린다"
   },
   "4776000": {
    "첫화면": "https://www.cheongdo.go.kr/",
-   "번": 2,
-   "길": [
-    "예산재정",
-    "재정공시"
-   ],
-   "닿은곳": ""
+   "번": null,
+   "까닭": "첫 화면이 안 열린다"
   },
   "4777000": {
-   "첫화면": "http://www.goryeong.go.kr/",
-   "번": 2,
-   "길": [
-    "예산현황",
-    "재정공시"
-   ],
-   "닿은곳": "https://www.goryeong.go.kr/budget/boardList.do?BRD_ID=local_budget&IDX=14"
+   "첫화면": "https://www.goryeong.go.kr/",
+   "번": null,
+   "까닭": "첫 화면이 안 열린다"
   },
   "4778000": {
    "첫화면": "https://www.sj.go.kr/",
@@ -1795,11 +1732,8 @@
   },
   "4779000": {
    "첫화면": "https://www.chilgok.go.kr/",
-   "번": 1,
-   "길": [
-    "재정공시"
-   ],
-   "닿은곳": ""
+   "번": null,
+   "까닭": "첫 화면이 안 열린다"
   },
   "4780000": {
    "첫화면": "https://www.ycg.kr/",
@@ -1814,7 +1748,7 @@
    "첫화면": "https://www.bonghwa.go.kr/",
    "번": 2,
    "길": [
-    "예산/재정",
+    "예산정보",
     "재정공시"
    ],
    "닿은곳": ""
@@ -1823,18 +1757,15 @@
    "첫화면": "https://www.uljin.go.kr/",
    "번": 2,
    "길": [
-    "바로가기",
+    "고향사랑기부제",
     "지방재정공시"
    ],
    "닿은곳": "https://www.uljin.go.kr/index.uljin?menuCd=DOM_000000103006004000"
   },
   "4783000": {
    "첫화면": "https://www.ulleung.go.kr/",
-   "번": 1,
-   "길": [
-    "재정공시"
-   ],
-   "닿은곳": "https://www.ulleung.go.kr/ko/page.do?mnu_uid=531&"
+   "번": null,
+   "까닭": "첫 화면이 안 열린다"
   },
   "4800000": {
    "첫화면": "https://www.gyeongnam.go.kr/",
@@ -1855,11 +1786,8 @@
   },
   "4813000": {
    "첫화면": "https://www.jinju.go.kr/",
-   "번": 1,
-   "길": [
-    "재정공시"
-   ],
-   "닿은곳": "https://www.jinju.go.kr/00133/00443/00500.web"
+   "번": null,
+   "까닭": "첫 화면이 안 열린다"
   },
   "4815000": {
    "첫화면": "https://www.tongyeong.go.kr/",
@@ -1878,7 +1806,7 @@
    "첫화면": "https://www.gimhae.go.kr/",
    "번": 2,
    "길": [
-    "민원·신청·기존서비스 김해시청 대표누리집 바로가기",
+    "민원·신청·기존서비스 김해시 대표누리집 바로가기",
     "재정공시"
    ],
    "닿은곳": "https://www.gimhae.go.kr/00761/00745/00752.web"
@@ -1894,12 +1822,8 @@
   },
   "4819000": {
    "첫화면": "https://www.geoje.go.kr/",
-   "번": 2,
-   "길": [
-    "거제시 대표 누리집 바로가기",
-    "재정공시"
-   ],
-   "닿은곳": "http://www.geoje.go.kr/yesan/index.geoje?menuCd=DOM_000009301004000000"
+   "번": null,
+   "까닭": "첫 화면이 안 열린다"
   },
   "4820000": {
    "첫화면": "https://www.yangsan.go.kr/",
@@ -1912,84 +1836,53 @@
   },
   "4871000": {
    "첫화면": "https://www.uiryeong.go.kr/",
-   "번": 1,
-   "길": [
-    "재정공시"
-   ],
-   "닿은곳": "https://www.uiryeong.go.kr/index.uiryeong?menuCd=DOM_000000202004001000"
+   "번": null,
+   "까닭": "첫 화면이 안 열린다"
   },
   "4872000": {
    "첫화면": "https://www.haman.go.kr/",
-   "번": 2,
-   "길": [
-    "누리집(홈페이지) 바로가기",
-    "재정공시(예산)"
-   ],
-   "닿은곳": "https://www.haman.go.kr/00099/00190/00273.web"
+   "번": null,
+   "까닭": "첫 화면이 안 열린다"
   },
   "4873000": {
    "첫화면": "https://www.cng.go.kr/",
-   "번": 1,
-   "길": [
-    "재정공시"
-   ],
-   "닿은곳": "https://www.cng.go.kr/00002/00138/00219.web"
+   "번": null,
+   "까닭": "첫 화면이 안 열린다"
   },
   "4874000": {
    "첫화면": "https://www.goseong.go.kr/",
    "번": null,
-   "까닭": "3번 안에 「재정공시」 링크를 못 찾았다"
+   "까닭": "첫 화면이 안 열린다"
   },
   "4875000": {
    "첫화면": "https://www.namhae.go.kr/",
-   "번": 1,
-   "길": [
-    "재정공시"
-   ],
-   "닿은곳": "https://www.namhae.go.kr/portal/Index.do?c=WW0306280000"
+   "번": null,
+   "까닭": "첫 화면이 안 열린다"
   },
   "4876000": {
    "첫화면": "https://www.hadong.go.kr/",
-   "번": 1,
-   "길": [
-    "재정공시"
-   ],
-   "닿은곳": "https://www.hadong.go.kr/05194/00133.web"
+   "번": null,
+   "까닭": "첫 화면이 안 열린다"
   },
   "4877000": {
    "첫화면": "https://www.sancheong.go.kr/",
-   "번": 1,
-   "길": [
-    "지방재정공시"
-   ],
-   "닿은곳": "https://www.sancheong.go.kr/www/sub.do?key=6864"
+   "번": null,
+   "까닭": "첫 화면이 안 열린다"
   },
   "4878000": {
    "첫화면": "https://www.hygn.go.kr/",
-   "번": 2,
-   "길": [
-    "대표 누리집",
-    "재정공시"
-   ],
-   "닿은곳": "https://www.hygn.go.kr/00430/00586/00636.web"
+   "번": null,
+   "까닭": "첫 화면이 안 열린다"
   },
   "4879000": {
    "첫화면": "https://www.geochang.go.kr/",
-   "번": 2,
-   "길": [
-    "대표누리집 군민과 함께하는 새로운 거창",
-    "지방재정공시"
-   ],
-   "닿은곳": "https://www.geochang.go.kr/00203/00205/00217.web"
+   "번": null,
+   "까닭": "첫 화면이 안 열린다"
   },
   "4880000": {
    "첫화면": "https://www.hc.go.kr/",
-   "번": 2,
-   "길": [
-    "바로가기",
-    "지방재정공시"
-   ],
-   "닿은곳": "https://www.hc.go.kr/04959/04965/05016.web"
+   "번": null,
+   "까닭": "첫 화면이 안 열린다"
   },
   "4900000": {
    "첫화면": "https://www.jeju.go.kr/",
