@@ -31,7 +31,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 지표들 = ['세출예산 총액', '1인당 세출예산액', '재정자립도[당초]', '추경 증가율', '연말지출비율',
         '수의계약비율', '업무추진비비율', '행사축제경비비율', '지방의회경비비율', '공무원 국외여비비율',
         '의회 국외여비비율', '사회복지비중', '예산대비채무비율',
-        # 2026-10-16 넣은 다섯 중 넷 — 자립도·자주도는 당초·최종·결산 셋 다(해가 다르다: 당초·최종 2025, 결산 2024)
+        # 2026-10-16 넣은 다섯 중 넷 — 자립도·자주도는 최종(2025)·결산(2024). 당초는 아래 「올해 당초」(2026)를 쓴다
         '재정자립도[최종]', '재정자립도[결산]', '재정자주도[당초]', '재정자주도[최종]', '재정자주도[결산]',
         '1인당 지방세부담액']   # 지방세 ÷ 인구(천원). 법인이 낸 것도 들어 있다 — 「주민이 낸 세금」이 아니다
 
@@ -56,6 +56,12 @@ def main():
             continue
         v['분모'] = 분모
         v['비율'] = [round(a / b * 100, 6) if a is not None and b else r for a, b, r in zip(v['금액'], 분모, v['비율'])]
+    # 자립도·자주도는 올해 예산(당초)으로 본다(2026-10-16 사용자). dash 의 [당초] 는 최종과 해를 맞춘 것이라 한 해 늦다.
+    for 이름 in ('재정자립도', '재정자주도'):
+        k = f'{이름}[올해 당초]'
+        v = [((원본.get(c[0]) or {}).get(k) or {}) for c in 곳]
+        지표[k] = {'단위': '%', '기준': '예산[당초]', '연도': next(x['연도'] for x in v if x), '나쁨': 0,
+                  '비율': [x.get('비율') for x in v]}
 
     집행, 분야, 고향 = [], [], []
     기준 = 받은날 = ''
@@ -129,6 +135,33 @@ def main():
         x = side['곳'].get(c[0]) or {}
         회, 안 = (x.get('회의수') or {}).get(의회해), (x.get('의안수') or {}).get(의회해)
         의회.append([회, 안] if 회 or 안 else None)
+
+    # 9대 의회(2026-07-01~)에 올라온 의안 전부 — 거르지 않는다(2026-10-16 사용자 「다 올린다」). 결과·요지는 CLIK 에 없다.
+    # 곳마다 따로 굽는다(전부 7천여 건, town.json 에 넣으면 1MB 가 는다). 같은 의안이 여러 번 올라온 것은 하나로(build_side.py 와 같은 열쇠).
+    # 9대에 광주시의회·전남도의회가 「전남광주통합특별시의회」(6100000, 지표 243곳 밖)로 합쳐졌다 — 두 본청 화면에 같이 싣는다.
+    의안시작 = '2026-07-01'
+    통합 = {'2900000': '6100000', '4600000': '6100000'}
+    os.makedirs(os.path.join(ROOT, 'site', 'data', 'bills'), exist_ok=True)
+    의안곳 = 의안수 = 0
+    for c in 곳:
+        줄, 의회명 = {}, set()
+        for cd in (c[0], 통합.get(c[0])):
+            p = os.path.join(ROOT, 'site', 'data', 'clik', f'{cd}.json')
+            if not cd or not os.path.exists(p):
+                continue
+            d = 읽기('site', 'data', 'clik', f'{cd}.json')
+            n0 = len(줄)
+            for row in d['의안']:
+                r = dict(zip(d['칸']['의안'], row))
+                if (r.get('날짜') or '') >= 의안시작:
+                    줄[(r['RASMBLY_ID'], r['RASMBLY_NUMPR'], r['BI_NO'], r['BI_SJ'])] = [r['날짜'], r['BI_KND_NM'], r['BI_SJ'], r.get('PROPSR') or '']
+            if len(줄) > n0:
+                의회명.update(x['의회명'] for x in d.get('의회', []) if x.get('지금있나'))
+        with open(os.path.join(ROOT, 'site', 'data', 'bills', f'{c[0]}.json'), 'w', encoding='utf-8') as f:
+            json.dump({'시작': 의안시작, '의회': sorted(의회명), '칸': ['날짜', '종류', '제목', '제안'], '줄': sorted(줄.values(), reverse=True)},
+                      f, ensure_ascii=False, separators=(',', ':'))
+        의안곳 += bool(줄); 의안수 += len(줄)
+    print(f'의안 {의안시작}~ : {의안곳}곳 {의안수:,}건 → site/data/bills/')
 
     알림 = 읽기('data', 'clik', '알림_모음.json')
     지켜봄 = {}
