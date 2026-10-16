@@ -1,0 +1,51 @@
+# 교부세 감액 화면(site/cuts.html, 작업대)이 쓰는 표를 굽는다 — site/data/cuts.json
+#   python scripts/build_cuts.py
+#
+# 원자료: data/items/LLBSR.json.gz(지방재정365 「지방교부세 감액현황」, fetch_items.py 가 매달 다시 받는다)
+# ⚠️ README 「기록」 10-13 표 — 확인한 것:
+#   · mamt_amt1 = 그 해 그 곳 감액 합계(줄마다 되풀이), mamt_amt2 = 건별. 합칠 때 amt2 만 더한다.
+#   · fyr = **깎인 해**다. 감사에서 걸린 해는 그 전이고, 고쳤는지는 자료에 없다.
+#   · 사유는 띄어쓰기만 다른 이름이 섞여 있다(법령위반 과다지출 / 법령위반과다지출) — 빈칸을 지워 묶는다.
+#     투자심사를 안 받은 것은 이름이 넷(재정투융자미심사·재정투자미심사·투융자미심사·투자미심사)이라 하나로.
+#   · 사유 「N/A」 143건 — 빈 사유로 둔다(내역은 있다).
+# 우리 동네(build_town.py)도 이 파일을 읽어 곳마다 한 줄을 만든다 — 이것을 먼저 굽는다.
+
+import gzip
+import json
+import os
+import re
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+같은사유 = {'재정투융자미심사': '투자심사 안 받음', '재정투자미심사': '투자심사 안 받음', '투융자미심사': '투자심사 안 받음',
+          '투자미심사': '투자심사 안 받음', '특별교부세반환': '특별교부세 반납', '특별교부세반납': '특별교부세 반납'}
+# 옛 자치단체 번호 → 지금 번호(우리 동네에서 붙일 곳). 화면에는 깎일 때 이름 그대로 낸다.
+지금번호 = {'4311000': '4314000', '4371000': '4314000',   # 옛 청주시·청원군 → 청주시(2014 통합)
+          '4771000': '2772000'}                         # 경북 군위군 → 대구 군위군(2023)
+
+
+def 사유(s):
+    s = re.sub(r'\s+', '', str(s or ''))
+    if s in ('', 'N/A', 'NA'):
+        return ''
+    return ','.join(같은사유.get(x, x) for x in s.split(','))
+
+
+def main():
+    d = json.load(gzip.open(os.path.join(ROOT, 'data', 'items', 'LLBSR.json.gz'), 'rt', encoding='utf-8'))
+    건, 이름 = [], {}
+    for r in d['행']:
+        이름[r['laf_cd']] = [r['laf_hg_nm'], r['wa_laf_hg_nm']]
+        건.append([int(r['fyr']), r['laf_cd'], r.get('mamt_amt2') or 0, 사유(r.get('mamt_rson_cn')),
+                  str(r.get('viol_ep_cn') or '').strip()])
+    건.sort(key=lambda x: (-x[0], -x[2]))
+    out = {'받은날': d['만든날'], '출처': '지방재정365 지방교부세 감액현황(LLBSR)',
+           '칸': ['해', '코드', '금액', '사유', '내역'], '건': 건, '이름': 이름, '지금번호': 지금번호}
+    path = os.path.join(ROOT, 'site', 'data', 'cuts.json')
+    with open(path, 'w', encoding='utf-8') as f:
+        json.dump(out, f, ensure_ascii=False, separators=(',', ':'))
+    print(f'적음: site/data/cuts.json ({os.path.getsize(path) // 1024}KB) · {len(건):,}건 · {len(이름)}곳 · '
+          f'{min(x[0] for x in 건)}~{max(x[0] for x in 건)} · 합 {sum(x[2] for x in 건) / 1e8:,.0f}억')
+
+
+if __name__ == '__main__':
+    main()

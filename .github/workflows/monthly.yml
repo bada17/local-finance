@@ -69,6 +69,7 @@ jobs:
       - { id: dashboard,  name: 대시보드,         continue-on-error: true, run: python build_dashboard.py }
       - { id: b_clik,     name: 지방의회,         continue-on-error: true, run: python build_clik.py }
       - { id: side,       name: 해마다 나란히,    continue-on-error: true, run: python build_side.py }   # 시황판보다 먼저 — 시황판이 이걸 읽는다
+      - { id: cuts,       name: 교부세 감액,       continue-on-error: true, run: python build_cuts.py }    # 우리 동네가 읽는다 — 그 앞에
       - { id: town,       name: 우리 동네(첫 화면), continue-on-error: true, run: python build_town.py }   # 계약·진행·대시보드·나란히를 읽는다 — 그 뒤에
       - { id: board,      name: 시황판,           continue-on-error: true, run: python build_board.py }
       - { id: b_edu,      name: 교육청 화면,      continue-on-error: true, run: python build_edu_page.py }
