@@ -1,24 +1,22 @@
 # PC 에서 받은 원자료를 Cloudflare R2 로 올린다 — 키는 깃허브에만 있다(이 PC 엔 없다).
 #
-# 쓰는 법(2026-10-16): PC 에서 파일을 릴리스 `suui-move` 에 붙이면 이 봇이 돈다.
-#   gh release create suui-move data/수의계약/*.json.gz --title "R2 로 옮길 것(잠깐)" --notes "봇이 R2 로 옮기고 지운다"
+# 쓰는 법(2026-10-16): PC 에서 파일을 **임시(draft) 릴리스** `suui-move` 에 붙이고 이 봇을 손으로 돌린다.
+#   gh release create suui-move data/수의계약/*.json.gz --draft --title "R2 로 옮길 것(잠깐)" --notes "봇이 옮기고 지운다"
+#   gh workflow run r2-move.yml --ref main
 # → 내려받아 R2(수의계약/)에 올리고, 다시 내려받아 견준 뒤 **같으면 릴리스를 지운다.** 저장소 기록엔 안 남는다.
-# ⚠️ 릴리스는 공개라 옮기는 몇 분 동안은 누구나 볼 수 있다(공공 자료라 괜찮다고 봄).
+# ⚠️ 임시 릴리스라 남에게 안 보인다. 대신 태그가 없어 `--cleanup-tag` 를 붙이면 422 로 빨갛게 끝난다(첫 실행에서 데임).
 # 지난 쓰임: 2026-10-01 CLIK 상세(data/clik/상세 → clik/상세)를 저장소에서 옮겼다.
 #   그때는 이 파일을 고쳐 푸시하면 돌았는데, 고칠 때마다 빈 폴더를 올리려다 빨갛게 떠서 그 길은 뺐다.
 name: R2 로 옮기기
 
 on:
   workflow_dispatch:
-  release:
-    types: [published]
 
 permissions:
   contents: write     # 다 옮긴 뒤 릴리스를 지운다
 
 jobs:
   move:
-    if: github.event_name == 'workflow_dispatch' || github.event.release.tag_name == 'suui-move'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     env:
@@ -37,4 +35,4 @@ jobs:
           rm -rf /tmp/back && sh scripts/r2_sync.sh down /tmp/back 수의계약
           for f in data/수의계약/*.json.gz; do cmp "$f" "/tmp/back/$(basename "$f")"; done
           echo '같다 — 다 올라갔다'
-          gh release delete suui-move --cleanup-tag -y
+          gh release delete suui-move -y
