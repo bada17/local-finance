@@ -87,7 +87,8 @@ def 부르기(갈래, 키, 처음, 끝, 쪽, 되풀이=4):
             d = json.loads(본문)
         except Exception as e:
             마지막 = e
-            time.sleep(3 * (n + 1))
+            # 429 는 잠깐 막는 것으로 보인다(2026-10-16: 막힌 사이 다른 갈래는 59쪽을 받았다) — 1·2·3분 쉰다
+            time.sleep(60 * (n + 1) if getattr(e, 'code', None) == 429 else 3 * (n + 1))
             continue
         틀림 = d.get('nkoneps.com.response.ResponseError') or d.get('OpenAPI_ServiceResponse')
         if 틀림:
