@@ -118,6 +118,15 @@ def main():
         기초세 = sum(v for k, v in t['소계'].items() if k != 접) * 1000
         흐름.append([광역세, 기초세] + 받음.get(c[0], [0, 0]))
 
+    # 서울 구 — 예산(결산)의 「지방세수입」 = 연감 구세 + 공동재산세(특별시분 재산세를 25구에 똑같이 나눈 것).
+    # 2026-10-16 확인: 2024 결산에서 25구 모두 차이가 679.17억으로 같다(천원 반올림 안). 「1명당 세금」에 이 몫이 들어 있다.
+    지방세수입 = {r['laf_cd']: r['tott_sum_amt'] for r in 재원
+                if int(r['_해']) == 흐름해 and str(r.get('lvl_no')) == '2' and r.get('armk_nm') == '지방세수입'}
+    for j, c in enumerate(곳):
+        t = 세목[j]
+        if c[2] == '서울' and c[3] == '구' and t and t.get('소계', {}).get('구세') and c[0] in 지방세수입:
+            t['공동재산세'] = 지방세수입[c[0]] - t['소계']['구세'] * 1000
+
     # 투명성은 첫 화면에서 뺐다(2026-10-15, 선배 몫) — drafts/index.html 검토판만 쓴다
     s = 읽기('data', 'score.json')
     판 = {x['cd']: x['판'] for x in s['곳']}
