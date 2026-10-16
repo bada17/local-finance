@@ -10,3 +10,6 @@ data/raw/
 
 # CLIK 상세는 Cloudflare R2(local-finance-raw, clik/상세)에 쌓는다 — 봇이 내려받아 쓰고 다시 올린다(2026-10-01)
 data/clik/상세/
+
+# 지자체 수의계약 사유도 R2(수의계약/)에 쌓는다 — 봇이 내려받아 쓰고 다시 올린다(2026-10-16, fetch_bizno.py)
+data/수의계약/

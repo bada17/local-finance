@@ -167,6 +167,17 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
+      # 지자체 수의계약 사유(data/수의계약)는 저장소가 아니라 R2(수의계약/)에 쌓는다(2026-10-16) — CLIK 상세와 같다.
+      # ⚠️ 내려받기가 실패하면 `--사유끔` — 받은 사유가 없다고 보고 지난 달을 전부 다시 받아 한도를 날리지 않게.
+      - name: 수의계약 사유 — R2 에서 내려받기
+        id: r2down_suui
+        env:
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: ${{ secrets.R2_BUCKET }}
+        continue-on-error: true
+        run: sh scripts/r2_sync.sh down data/수의계약 수의계약
       # 갈래(물품·용역·공사)마다 조각으로 저장하고 쪽마다 마감을 본다 — 150분에서 스스로 멈춘다.
       # 한 달 ≈ 60분이라 빈 18달(2025-02~2026-07)은 1주쯤에 찬다. -u: 잘려도 로그가 남게
       - name: 사업자번호 받기
@@ -175,7 +186,16 @@ jobs:
         env:
           DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}
         continue-on-error: true
-        run: python -u scripts/fetch_bizno.py --분 150
+        run: python -u scripts/fetch_bizno.py --분 150 ${{ steps.r2down_suui.outcome != 'success' && '--사유끔' || '' }}
+      - name: 수의계약 사유 — R2 로 올리기
+        id: r2up_suui
+        if: ${{ !cancelled() && steps.r2down_suui.outcome == 'success' }}
+        env:
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: ${{ secrets.R2_BUCKET }}
+        run: sh scripts/r2_sync.sh up data/수의계약 수의계약
       - name: 올리기
         id: push4
         if: ${{ !cancelled() }}
