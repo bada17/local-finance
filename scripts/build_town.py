@@ -127,19 +127,19 @@ def main():
         if c[2] == '서울' and c[3] == '구' and t and t.get('소계', {}).get('구세') and c[0] in 지방세수입:
             t['공동재산세'] = 지방세수입[c[0]] - t['소계']['구세'] * 1000
 
-    # 교부세 감액(build_cuts.py 가 먼저 굽는다) — 곳마다 [깎인 해 수, 건수, 합계, 마지막 해, 그 해 사유들]. 2020 뒤만(cuts.html 처음 화면과 같게)
+    # 교부세 감액(build_cuts.py 가 먼저 굽는다) — 곳마다 [깎인 일 수(같은 내역은 하나), 건수, 합계, 마지막 해, 그 해 사유들]. 2020 뒤만(cuts.html 처음 화면과 같게)
     cuts = 읽기('site', 'data', 'cuts.json')
     감액시작 = 2020
     벌 = {}
-    for 해, cd, 금, 사, _ in cuts['건']:
+    for 해, cd, 금, 사, _, 일 in cuts['건']:
         if 해 >= 감액시작:
-            벌.setdefault(cuts['지금번호'].get(cd, cd), []).append((해, 금, 사))
+            벌.setdefault(cuts['지금번호'].get(cd, cd), []).append((해, 금, 사, 일))
     감액 = []
     for c in 곳:
         x = 벌.get(c[0])
-        끝 = x and max(h for h, _, _ in x)
-        감액.append(x and [len({h for h, _, _ in x}), len(x), sum(m for _, m, _ in x), 끝,
-                         sorted({s for h, _, s in x if h == 끝 and s})])
+        끝 = x and max(r[0] for r in x)
+        감액.append(x and [len({r[3] for r in x}), len(x), sum(r[1] for r in x), 끝,
+                         sorted({r[2] for r in x if r[0] == 끝 and r[2]})])
 
     # 투명성은 첫 화면에서 뺐다(2026-10-15, 선배 몫) — drafts/index.html 검토판만 쓴다
     s = 읽기('data', 'score.json')
@@ -233,7 +233,7 @@ def main():
            '분야': 분야, '세목': 세목, '흐름해': 흐름해, '흐름칸': ['걷힌 광역세', '기초세', '조정교부금', '시도비보조금'], '흐름': 흐름, '고향': 고향, '투명칸': ['됨', '안 됨', '못 봄'], '투명항목수': len(s['항목']), '투명': 투명,
            '의회해': 의회해, '의회칸': ['회의', '의안'], '의회': 의회,
            '지켜봄': 지켜봄, '게시판': 게시판,
-           '감액시작': 감액시작, '감액칸': ['깎인 해', '건', '합계', '마지막 해', '마지막 해 사유'], '감액': 감액,
+           '감액시작': 감액시작, '감액칸': ['깎인 일', '건', '합계', '마지막 해', '마지막 해 사유'], '감액': 감액,
            '이름': [통합전이름.get(c[0]) or cs['곳이름'].get(c[0], c[1]) for c in 곳], '계약해': 계약해,
            '계약칸': ['건수', '수의건수', '수의건수율', '수의금액률', '금액', '상위업체(조달청 뺌)', '수의금액'], '계약': 계약}
     path = os.path.join(ROOT, 'site', 'data', 'town.json')

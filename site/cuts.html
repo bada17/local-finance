@@ -404,7 +404,7 @@ function 그리기() {
   const 건 = D.건.filter(([해, c, , , 내역]) => 해 >= from && (!sido || D.이름[c][1] === sido)
     && (!cd || c === cd || D.지금번호[c] === cd) && (!q || 이름(c).includes(q) || 내역.includes(q)));
   const 합 = 건.reduce((s, r) => s + r[2], 0), 곳들 = new Set(건.map(r => r[1]));
-  let h = `<p><b>${곳들.size}곳 · ${건.length.toLocaleString()}건 · ${돈(합)}</b> (${from}~${D.끝}년${sido ? ', ' + esc(sido) : ''}${cd ? ', ' + esc(이름(cd) || cd) : ''}${q ? `, 「${esc(q)}」` : ''})</p>`;
+  let h = `<p><b>${곳들.size}곳 · ${new Set(건.map(r => r[5])).size.toLocaleString()}가지 일 · ${건.length.toLocaleString()}건 · ${돈(합)}</b> (${from}~${D.끝}년${sido ? ', ' + esc(sido) : ''}${cd ? ', ' + esc(이름(cd) || cd) : ''}${q ? `, 「${esc(q)}」` : ''})</p>`;
 
   const 해별 = {};
   건.forEach(([해, c, 금]) => { const x = 해별[해] = 해별[해] || [new Set(), 0, 0]; x[0].add(c); x[1]++; x[2] += 금; });
@@ -417,10 +417,11 @@ function 그리기() {
     Object.entries(사유별).sort((a, b) => b[1][1] - a[1][1]).map(([k, v]) => [esc(k), v[0], 돈(v[1])]), [1, 2]);
 
   const 곳별 = {};
-  건.forEach(([해, c, 금]) => { const x = 곳별[c] = 곳별[c] || [new Set(), 0, 0, 0]; x[0].add(해); x[1]++; x[2] += 금; x[3] = Math.max(x[3], 해); });
-  h += `<h2>곳별 — 깎인 해가 많은 차례</h2>` + 표(['곳', '깎인 해', '건', '깎인 돈', '마지막'],
+  // 「일」= 같은 곳·같은 내역. 한 일을 여러 해 나눠 깎은 것(2019 이전)은 하나로 센다 — build_cuts.py
+  건.forEach(([해, c, 금, , , 일]) => { const x = 곳별[c] = 곳별[c] || [new Set(), 0, 0, 0]; x[0].add(일); x[1]++; x[2] += 금; x[3] = Math.max(x[3], 해); });
+  h += `<h2>곳별 — 깎인 일이 많은 차례</h2><p><small>같은 일을 여러 해에 나눠 깎은 것(2019년 전 인천 청사 예정부지 매각 5해 등)은 한 가지 일로 셉니다. 「건」은 해마다 나눠 깎은 것을 따로 셉니다.</small></p>` + 표(['곳', '깎인 일', '건', '깎인 돈', '마지막'],
     Object.entries(곳별).sort((a, b) => b[1][0].size - a[1][0].size || b[1][2] - a[1][2]).map(([c, v]) =>
-      [`<a href="?cd=${c}">${esc(이름(c))}</a>`, `${v[0].size}해`, v[1], 돈(v[2]), v[3]]), [1, 2, 3, 4]);
+      [`<a href="?cd=${c}">${esc(이름(c))}</a>`, `${v[0].size}가지`, v[1], 돈(v[2]), v[3]]), [1, 2, 3, 4]);
 
   h += `<h2>건마다</h2>` + 표(['해', '곳', '깎인 돈', '사유', '위반 지출 내역'],
     건.map(([해, c, 금, 사, 내]) => [해, esc(이름(c)), 돈(금), esc(사), esc(내)]), [0, 2]);
