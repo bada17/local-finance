@@ -17,6 +17,7 @@
 import gzip
 import json
 import os
+import re
 import sys
 from collections import Counter
 from datetime import date
@@ -82,7 +83,34 @@ def main():
     for c in 곳:
         p = os.path.join(ROOT, 'site', 'data', 'revenue', f'{c[0]}.json')
         x = 읽기('site', 'data', 'revenue', f'{c[0]}.json').get('세목') if os.path.exists(p) else None
-        세목.append(x and {k: x.get(k) for k in ('해', '단위', '이곳것아님', '천원단위', '합계', '소계', '칸')})
+        세목.append(x and {k: x.get(k) for k in ('해', '단위', '이곳것아님', '천원단위', '합계', '소계', '시도전체', '칸')})
+
+    # 돈의 흐름 — 광역 ↔ 기초(2026-10-16 사용자 「돈의 흐름이 잘 보여야」). **2024 결산 하나로 맞춘다.**
+    #   걷힘: 그 구역에서 걷힌 광역세(연감 세목의 소계 — 서울은 「시세」, 도는 「도세」)
+    #   내려옴: 기초가 받은 조정교부금(재원 2단계 「조정교부금등」)·시도비보조금(3단계, 이름이 해마다 「시ㆍ도비보조금등」 등으로 바뀐다)
+    #   ⚠️ 걷힌 광역세는 광역 살림 전체로 들어간다 — 받은 돈과 1:1 로 맞바꾼 것이 아니다. 나눈 비율은 내지 않는다.
+    재원 = json.load(gzip.open(os.path.join(ROOT, 'data', 'revenue', 'FIACRV.json.gz'), 'rt', encoding='utf-8'))
+    흐름해 = max(int(r['_해']) for r in 재원)
+    받음 = {}
+    for r in 재원:
+        if int(r['_해']) != 흐름해:
+            continue
+        n, 층 = re.sub(r'[^가-힣]', '', r.get('armk_nm') or ''), str(r.get('lvl_no'))
+        칸 = 0 if 층 == '2' and n.startswith('조정교부금') else 1 if 층 == '3' and n.startswith('시도비') else None
+        if 칸 is not None:
+            받음.setdefault(r['laf_cd'], [0, 0])[칸] += r.get('tott_sum_amt') or 0
+    광역접두 = {c[2]: next(iter(세목[j]['소계'])) for j, c in enumerate(곳)
+              if c[3] == '광역' and 세목[j] and 세목[j].get('소계')}
+    흐름 = []
+    for j, c in enumerate(곳):
+        t, 접 = 세목[j], 광역접두.get(c[2])
+        if c[3] == '광역' or not (t and t.get('소계') and 접):
+            흐름.append(None)
+            continue
+        assert t['해'] == 흐름해, (c, t['해'], 흐름해)       # 세목과 받은 돈의 해가 같아야 나란히 놓는다
+        광역세 = t['소계'].get(접, 0) * 1000                  # 연감은 천원
+        기초세 = sum(v for k, v in t['소계'].items() if k != 접) * 1000
+        흐름.append([광역세, 기초세] + 받음.get(c[0], [0, 0]))
 
     # 투명성은 첫 화면에서 뺐다(2026-10-15, 선배 몫) — drafts/index.html 검토판만 쓴다
     s = 읽기('data', 'score.json')
@@ -144,7 +172,7 @@ def main():
     out = {'만든날': date.today().isoformat(), '진행기준': 기준, '진행받은날': 받은날,
            '결산연도': dash['결산연도'], '예산연도': dash['예산연도'],
            '곳칸': dash['곳칸'], '곳': 곳, '지표': 지표, '집행칸': ['예산현액', '지출', '사업수'], '집행': 집행,
-           '분야': 분야, '세목': 세목, '고향': 고향, '투명칸': ['됨', '안 됨', '못 봄'], '투명항목수': len(s['항목']), '투명': 투명,
+           '분야': 분야, '세목': 세목, '흐름해': 흐름해, '흐름칸': ['걷힌 광역세', '기초세', '조정교부금', '시도비보조금'], '흐름': 흐름, '고향': 고향, '투명칸': ['됨', '안 됨', '못 봄'], '투명항목수': len(s['항목']), '투명': 투명,
            '의회해': 의회해, '의회칸': ['회의', '의안'], '의회': 의회,
            '지켜봄': 지켜봄, '게시판': 게시판,
            '이름': [cs['곳이름'].get(c[0], c[1]) for c in 곳], '계약해': 계약해,

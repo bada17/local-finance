@@ -617,6 +617,23 @@ function 그리기() {
       <table style="width:100%;border-collapse:collapse" border="1" cellpadding="4">
         ${t.칸.map(r => `<tr><td>${esc(r.이름)}</td><td><b>${원(r.금액)}</b></td><td>${퍼(r.몫)}</td></tr>`).join('')}
       </table>`; })()}
+    ${(() => {   // 돈의 흐름 — 광역 ↔ 기초, 같은 해 결산(build_town.py). 걷힌 광역세는 광역 살림 전체로 가므로 받은 돈과 맞바꾼 것이 아니다
+      const f = D.흐름[i], 해 = D.흐름해;
+      if (f) return `<h3>${esc(시도이름(i))}와 오간 돈 — ${해}년 결산</h3>
+        <p>${esc(짧은이름(i))} 구역에서 걷힌 ${esc(시도이름(i))} 세금 <b>${돈(f[0])}</b> (${esc(짧은이름(i))} 세금 ${돈(f[1])})<br>
+        ${esc(시도이름(i))}에서 받은 돈 — 조정교부금 <b>${돈(f[2])}</b> · 시·도비 보조금 <b>${돈(f[3])}</b><br>
+        <small>걷힌 ${esc(시도이름(i))} 세금은 ${esc(시도이름(i))} 살림 전체로 들어갑니다. 받은 돈과 맞바꾼 것이 아닙니다.</small></p>`;
+      if (곳[i][3] !== '광역') return '';
+      const 아래 = 곳.map((c, j) => j).filter(j => 곳[j][2] === 곳[i][2] && D.흐름[j]);
+      if (!아래.length) return '';
+      const 합 = k => 아래.reduce((s, j) => s + D.흐름[j][k], 0), 전 = (D.세목[i] || {}).시도전체 || {};
+      return `<h3>시·군·구와 오간 돈 — ${해}년 결산</h3>
+        <p>${esc(D.이름[i])} 전체에서 걷힌 지방세 — ${Object.entries(전).map(([k, v]) => `${esc(k)} <b>${돈(v * 1000)}</b>`).join(' · ')}<br>
+        시·군·구 ${아래.length}곳에 내려간 돈(받은 쪽 결산을 더함) — 조정교부금 <b>${돈(합(2))}</b> · 시·도비 보조금 <b>${돈(합(3))}</b></p>
+        <table style="width:100%;border-collapse:collapse" border="1" cellpadding="4">
+          <tr><th>곳</th><th>그 구역에서 걷힌 광역세</th><th>기초세</th><th>받은 조정교부금</th><th>받은 시·도비 보조금</th></tr>
+          ${아래.sort((a, b) => D.흐름[b][0] - D.흐름[a][0]).map(j => `<tr><td>${esc(짧은이름(j))}</td>${D.흐름[j].map(v => `<td>${돈(v)}</td>`).join('')}</tr>`).join('')}
+        </table>`; })()}
     <h3>분야별 예산 — ${esc(D.진행기준.slice(0, 4))}년 세부사업 예산현액(${진행날()}에 받음)</h3>
     <table style="width:100%;border-collapse:collapse" border="1" cellpadding="4">
       ${분.map(([n, v]) => `<tr><td>${esc(n)}</td><td><b>${돈(v)}</b></td><td>${분합 ? 퍼(v / 분합 * 100) : '-'}</td></tr>`).join('')}
