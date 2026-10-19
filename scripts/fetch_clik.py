@@ -144,15 +144,25 @@ def 오늘():
     return _kst('%Y-%m-%d')
 
 
+연속무응답 = 0
+
+
 def 부르기(끝점, 인자, 되풀이=3):
-    """실패하면 2초·4초 쉬고 세 번까지. 돌아오는 것은 (본문, 오류코드)."""
+    """실패하면 2초·4초 쉬고 세 번까지. 돌아오는 것은 (본문, 오류코드).
+    ⚠️ 서버가 아예 답을 안 하는 부름이 **이어서 둘이면** 그 뒤로는 부르지 않고 바로 '무응답' 을 돌려준다.
+       2026-10-19 아침 CLIK 이 답을 안 하자 실패한 갈래를 하루 한도(900회)까지 다시 불러 —
+       한 번에 3분씩 — 2시간 제한에 잘렸고, 뒤의 낱말 알림·올리기까지 못 돌았다."""
+    global 연속무응답
+    if 연속무응답 >= 2:
+        return None, '무응답'
     url = f'{BASE}/{끝점}?' + urllib.parse.urlencode(인자)
-    마지막 = None
+    마지막, 답함 = None, False
     for n in range(되풀이):
         try:
             req = urllib.request.Request(url, headers={'User-Agent': UA})
             with urllib.request.urlopen(req, timeout=60) as r:
                 본문 = r.read().decode('utf-8', 'replace')
+            답함, 연속무응답 = True, 0
             d = json.loads(본문)
             d = d[0] if isinstance(d, list) and d else d
             코드 = d.get('RESULT_CODE')
@@ -166,6 +176,8 @@ def 부르기(끝점, 인자, 되풀이=3):
             마지막 = str(e)
         if n < 되풀이 - 1:
             time.sleep(2 * (n + 1))
+    if not 답함:
+        연속무응답 += 1
     return None, 마지막
 
 
@@ -227,6 +239,8 @@ def 한갈래받기(갈래, 키, 상태, 남은예산, 시작날=기본시작, �
 
         if 오류 == 'ERROR09':
             return False, '일별 트래픽 초과(ERROR09)'
+        if 오류 == '무응답':
+            return False, 'CLIK 무응답 — 내일 다시'
         if d is None:
             return False, f'오류 — {오류}'
 
@@ -279,7 +293,7 @@ def 한갈래받기(갈래, 키, 상태, 남은예산, 시작날=기본시작, �
 
     # ── ② 이어받기 위치부터 깊이 파기 ────────────────────────────────────────
     시작 = 칸['다음시작']
-    if not 멈춘까닭.startswith(('일별', '오류')):
+    if not 멈춘까닭.startswith(('일별', '오류', 'CLIK 무응답')):
         while 셈['호출'] < 남은예산:
             더갈까, 까닭 = 한쪽받기(시작)
             시작 += 한번에
@@ -407,8 +421,8 @@ def main():
         쓴것, 까닭 = 한갈래받기(갈래, 키, 상태, min(몫, 남음), 시작날, 끝날)
         남음 -= 쓴것
         상태쓰기(상태)
-        if 까닭.startswith('일별 트래픽'):
-            print('일별 한도에 걸렸다. 내일 이어서 받는다.')
+        if 까닭.startswith(('일별 트래픽', 'CLIK 무응답')):
+            print(f'{까닭} — 내일 이어서 받는다.')
             끝났다 = True
             break
 
@@ -429,8 +443,8 @@ def main():
             남음 -= 쓴것
             돈것 += 쓴것
             상태쓰기(상태)
-            if 까닭.startswith('일별 트래픽'):
-                print('일별 한도에 걸렸다. 내일 이어서 받는다.')
+            if 까닭.startswith(('일별 트래픽', 'CLIK 무응답')):
+                print(f'{까닭} — 내일 이어서 받는다.')
                 끝났다 = True
                 break
         if 돈것 == 0:

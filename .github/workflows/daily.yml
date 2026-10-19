@@ -79,6 +79,10 @@ jobs:
     outputs:
       steps: ${{ toJSON(steps) }}   # 맨 끝 「알림」이 단계마다의 실패를 본다
     timeout-minutes: 120
+    # ⚠️ 단계마다 시간 제한을 둔다 — 한 단계가 멈춰도 뒤의 낱말 알림·올리기는 돈다(2026-10-19: CLIK 받기가
+    #    2시간을 다 써서 일 전체가 잘렸다). 평소 걸리는 시간: 받기 30초 · 알림 30초 · 상세 15분 안팎.
+    env:
+      PYTHONUNBUFFERED: '1'   # 로그가 그때그때 찍히게 — 잘렸을 때 어디서 멈췄는지 보인다
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-python@v6
@@ -89,6 +93,7 @@ jobs:
         env:
           CLIK_KEY: ${{ secrets.CLIK_KEY }}
         continue-on-error: true
+        timeout-minutes: 20
         run: python scripts/fetch_clik.py --limit 900
       - run: pip install -q holidays   # 주말·공휴일엔 알림 안 보냄(watch_clik.보내는날)
       # 낱말 알림(노들섬 · 서울시의회 등) — 낱말 하나에 2회. 상세가 남은 한도를 다 쓰므로 그보다 먼저.
@@ -100,6 +105,7 @@ jobs:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         continue-on-error: true
+        timeout-minutes: 20
         run: python scripts/watch_clik.py
       # 목록이 쓰고 남은 한도로 상세(정책정보 본문 · 의안 처리 경과)를 한 건씩 — 약 240일짜리(2026-10-01)
       # ⭐ 상세는 저장소가 아니라 R2(버킷 local-finance-raw, clik/상세)에 쌓는다. 받은 것을 알려고 먼저 내려받는다.
@@ -119,6 +125,7 @@ jobs:
         env:
           CLIK_KEY: ${{ secrets.CLIK_KEY }}
         continue-on-error: true
+        timeout-minutes: 45
         run: python scripts/fetch_clik_detail.py
       - name: CLIK 상세 — R2 로 올리기
         id: r2up
