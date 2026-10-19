@@ -49,6 +49,7 @@ import sys
 import time
 import urllib.parse
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor
 
 import keys
 
@@ -149,12 +150,11 @@ class 시간끝(Exception):
     pass
 
 
-def 한달(키, 달, 낼곳, 마감=None, 사유만=False):
+def 한달(키, 달, 낼곳, 마감=None, 사유만=False, 갈래들=길):
     끝날 = calendar.monthrange(int(달[:4]), int(달[4:]))[1]
-    처음, 끝 = f'{달}010000', f'{달}{끝날:02d}2359'
     사전, 수의 = {}, []
     조각들 = []
-    for 갈래 in 길:
+    for 갈래 in 갈래들:
         조각 = os.path.join(낼곳, '조각', f'{달}_{갈래}.part.gz')
         수의조각 = os.path.join(수의곳, '조각', f'{달}_{갈래}.part.gz')   # 저장소 밖(R2) — data/bizno/조각 은 봇이 커밋한다
         조각들 += [조각, 수의조각]
@@ -165,7 +165,26 @@ def 한달(키, 달, 낼곳, 마감=None, 사유만=False):
         else:
             시작 = time.time()
             한쪽수의 = []
-            한쪽사전, 줄수 = 갈래받기(키, 갈래, 처음, 끝, 마감, 수의=한쪽수의)
+            # ⭐ 하루씩 묻는다 — 한 달로 물으면 서버가 쪽마다 한 달치를 다시 세어 999줄에 12~26초(뒤쪽일수록 느림),
+            #    하루로 물으면 1~2.5초(2026-10-19 잼). 하루씩 센 합 = 한 달로 센 수(202502 공사 106,128). 부르는 횟수는 1할쯤 는다.
+            #    날짜 넷을 한꺼번에 부른다 — 하루 한도는 부른 수로 세니 한도는 더 빨리 안 찬다. 합치는 건 날짜 차례대로.
+            한쪽사전, 줄수 = {}, 0
+            def 하루(날):
+                사전, 수의 = {}, []
+                n = 갈래받기(키, 갈래, f'{달}{날:02d}0000', f'{달}{날:02d}2359', 마감, 사전, 수의)[1]
+                return n, 사전, 수의
+            일꾼 = ThreadPoolExecutor(4)
+            try:
+                for n, 날사전, 날수의 in 일꾼.map(하루, range(1, 끝날 + 1)):
+                    줄수 += n
+                    한쪽수의 += 날수의
+                    for 열쇠, r in 날사전.items():
+                        if 열쇠 in 한쪽사전:
+                            한쪽사전[열쇠]['건수'] += r['건수']
+                        else:
+                            한쪽사전[열쇠] = r
+            finally:
+                일꾼.shutdown(cancel_futures=True)   # 한 날이 막히면(한도·마감) 남은 날은 부르지 않고 멈춘다
             if not 사유만:
                 파일쓰기(조각, 한쪽사전)
             수의쓰기(수의조각, 한쪽수의)
@@ -253,6 +272,8 @@ def main():
     다시 = '--다시' in sys.argv
     사유만 = '--사유만' in sys.argv
     사유끔 = '--사유끔' in sys.argv       # 봇이 R2 에서 못 내려받은 날 — 사유가 없어도 「있다」고 친다
+    # 「--갈래 물품,공사」 — 한 갈래가 하루 한도에 막혔을 때 다른 갈래만 먼저 받는다. 조각만 남기고 달 파일은 안 쓴다(세 갈래가 다 차야 쓴다)
+    갈래들 = sys.argv[sys.argv.index('--갈래') + 1].split(',') if '--갈래' in sys.argv else list(길)
     분 = float(sys.argv[sys.argv.index('--분') + 1]) if '--분' in sys.argv else (None if 달들 else 50)
     마감 = time.time() + 분 * 60 if 분 else None
 
@@ -305,10 +326,12 @@ def main():
             for x in glob.glob(os.path.join(낼곳, '조각', f'{달}_*.part.gz')) + glob.glob(os.path.join(수의곳, '조각', f'{달}_*.part.gz')):
                 os.remove(x)
         try:
-            사전, 수의, 조각들 = 한달(키, 달, 낼곳, 마감, 사유만)
+            사전, 수의, 조각들 = 한달(키, 달, 낼곳, 마감, 사유만, 갈래들)
         except 시간끝 as e:
             print(f'{분:.0f}분이 지났다 — {e} 에서 멈춘다. 받은 갈래는 조각으로 남았다', flush=True)
             break
+        if len(갈래들) < len(길):
+            continue
         수의쓰기(수의경로(달), 수의)
         if not 사유만:
             표 = 파일쓰기(경로(달), 사전)
