@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>우리 동네 살림 · 함께하는 시민행동</title>
 <!-- 첫 화면 — 시민용 「우리 동네 페이지」(2026-10-15 사용자: 첫 화면은 우리 동네 한 페이지). 아직 시험판이다.
-     보기: 저장소 맨 위에서 python -m http.server 8765 → /site/?cd=4177000  (철 바꿔 보기: &m=2)
+     보기: 저장소 맨 위에서 python -m http.server 8765 → /site/?cd=4177000
      데이터: site/data/town.json (scripts/build_town.py, 달마다 봇) · site/data/shapes.json (scripts/build_shapes.py)
      자치단체별 표·대시보드는 finance.html 이다. 옛 주소(./#코드 · ./?g)로 오면 그리로 넘긴다.
      색·글꼴·모양은 시민행동 홈 개편판 DESIGN.md 값을 그대로 쓴다(바꾸지 말 것). 화면 글에는 긴 줄표를 쓰지 않는다.
@@ -50,8 +50,6 @@
   @media (max-width:640px){ .wrap{padding-inline:16px} }
   h1,h2,h3,.t{font-family:var(--title); font-weight:700; letter-spacing:-.022em; line-height:1.35}
   :focus-visible{outline:2px solid var(--deep); outline-offset:2px}
-  .pill{display:inline-flex; align-items:center; gap:6px; border-radius:999px; font:600 13px var(--body); padding:4px 12px; border:1px solid var(--line); color:var(--soft); background:var(--ground); white-space:nowrap}
-  .pill.now{background:var(--deep); border-color:var(--deep); color:var(--on-deep)}
   .tbd{display:inline-flex; align-items:center; gap:4px; border-radius:999px; font:600 12px var(--body); padding:2px 10px; color:var(--flag); background:var(--flag-bg); border:1px solid var(--flag-line)}
   .btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; border-radius:999px; font:700 15px var(--body); padding:12px 22px; border:1px solid var(--deep); background:var(--deep); color:var(--on-deep); cursor:pointer; white-space:nowrap; text-decoration:none}
   .btn.line{background:transparent; color:var(--deep)}
@@ -100,28 +98,10 @@
   .sec-hd h2{font-size:clamp(24px,3vw,32px); margin:0}
   .sec-hd p{margin:6px 0 0; color:var(--soft)}
 
-  /* 지금 볼 것 */
-  .now{background:var(--band)}
-  .feat{display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,1fr); gap:48px; align-items:end}
-  @media (max-width:860px){ .feat{grid-template-columns:1fr; gap:28px} }
-  .feat .when{display:flex; gap:8px; align-items:center; margin-bottom:18px}
-  .feat h2{font-size:clamp(28px,4vw,46px); line-height:1.25; margin:0}
-  .feat h2 em{font-style:normal; color:var(--deep)}
-  .feat .why{font-size:17px; color:var(--soft); margin:18px 0 0; max-width:34em}
-  .feat .why b{color:var(--ink)}
-  .gauge{margin-top:30px; max-width:640px}
-  .gauge .bar{display:flex; height:22px; border:1px solid var(--ink)}
-  .gauge .bar span:first-child{background:var(--ink)}
-  .gauge .bar span:last-child{background:repeating-linear-gradient(135deg,var(--brand) 0 6px,transparent 6px 12px)}
-  .gauge .lab{display:flex; justify-content:space-between; font-size:14px; margin-top:8px; color:var(--soft)}
-  .gauge .lab b{color:var(--ink); font-family:var(--title)}
-  .promise{background:var(--card); border:1px solid var(--line); padding:26px}
-
   /* 세 줄 카드 */
   .cards{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px}
   .card.more-card{background:var(--paper); border-style:dashed; border-color:var(--line)}
   .card.more-card .n{margin-top:auto}
-  .gauge .note{font-size:13px; color:var(--faint); margin:6px 0 0}
   @media (max-width:860px){ .cards{grid-template-columns:none; grid-auto-flow:column; grid-auto-columns:82%; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; padding-bottom:8px} .cards::-webkit-scrollbar{display:none} .cards > *{scroll-snap-align:start} }
   .share{display:flex; flex-direction:column; gap:10px}
   .card{aspect-ratio:1/1; padding:28px; display:flex; flex-direction:column; background:var(--card); border:1px solid var(--line); color:var(--ink); position:relative; overflow:hidden}
@@ -151,18 +131,6 @@
   .four p{margin:6px 0 0; font-size:16px}
   .four p b{font-family:var(--title)}
   .four .more{font-size:14px; margin-top:6px; display:inline-block}
-
-  /* 철마다 여는 문 */
-  .doors{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px}
-  @media (max-width:980px){ .doors{grid-template-columns:repeat(2,minmax(0,1fr))} }
-  @media (max-width:560px){ .doors{grid-template-columns:1fr} }
-  .door{background:var(--card); border:1px solid var(--line); padding:22px; display:flex; flex-direction:column; gap:10px; min-height:250px}
-  .door:nth-child(2){background:var(--paper)}
-  .door .h{display:flex; justify-content:space-between; align-items:center}
-  .door h3{margin:0; font-size:19px}
-  .door .n{font:700 34px/1.1 var(--title); letter-spacing:-.03em; color:var(--deep); margin-top:6px}
-  .door p{margin:0; color:var(--soft); font-size:15px}
-  .door .btn{margin-top:auto; align-self:flex-start}
 
 
   footer{padding:28px 0 40px; font-size:13px; color:var(--faint)}
@@ -481,10 +449,8 @@ const 받기열림 = false;   // 받아 보기 — 명부(어디에 모을지)·
 let D, S, 곳, i = 0;
 const 짧은이름 = j => D.이름[j].replace(/^\S+\s/, '');          // 「경기도 가평군」 → 「가평군」, 광역은 그대로
 const 시도이름 = j => D.이름[j].includes(' ') ? D.이름[j].split(' ')[0] : '';
-const 달 = (() => { const m = +new URLSearchParams(location.search).get('m'); return m >= 1 && m <= 12 ? m : new Date().getMonth() + 1; })();
 // 진행 중인 사업 자료의 날(그날까지의 누계, 2026-10-19 부터 날짜로 받는다). 옛 자료(YYYYMM)는 받은 날로
 const 진행날 = () => { const g = String(D.진행기준); if (g.length === 8) return `${+g.slice(4, 6)}월 ${+g.slice(6)}일`; const [, m, d] = D.진행받은날.split('-'); return `${+m}월 ${+d}일`; };
-const 남은달 = () => ['한 달', '두 달', '석 달'][12 - 달] || '';
 
 function 순위(arr, j) {
   if (arr[j] == null) return null;
@@ -503,7 +469,7 @@ function 의회말(j) {
 
 // 그 동네가 같은 갈래 위쪽 3분의 1에 드는 것만, 앞선 차례로 셋까지. 순위는 반올림 전 비율로 매긴다(build_town.py).
 // 추경 증가율은 뺐다 — 2025년 하나뿐이라 다른 해와 섞여 헷갈린다(2026-10-19 사용자). 철마다 여는 문의 추경 칸도 같이 뺐다.
-// 연말지출비율은 뺐다 — 분모가 세출결산의 0.1~32%로 곳마다 달라 줄 세우면 안 된다(2026-10-15). 연말 문에서만 금액과 같이 쓴다.
+// 연말지출비율은 뺐다 — 분모가 세출결산의 0.1~32%로 곳마다 달라 줄 세우면 안 된다(2026-10-15). 연말 문도 걷었다(2026-10-19).
 const 해 = k => D.지표[k].연도;
 const 날줄들 = [
   {k: '계약', 값: j => D.계약[j] && D.계약[j][3], 주어: '경쟁 없이 맺은 계약 비중', 자리: 0, 아이콘: 'ph-handshake',
@@ -524,7 +490,6 @@ function 날카로운셋(j) {
 
 const 모양 = (cd, cls = 'town') => { const s = S.곳[cd]; return s ? `<svg class="${cls}" viewBox="-8 -8 ${s.w + 16} ${s.h + 16}" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><path d="${s.d}"/></svg>` : ''; };
 
-// ── 철마다 여는 문 ──
 // 「시민행동이 할 일」·약속·한 해 달력·독상 투표 문은 뺐다(2026-10-16 사용자 「아직 컨트롤할 수 없는 거고 만들어가는 중」). 되살리려면 git 기록
 // 세부사업 자료(QWGJK)의 예산현액이 처음 짠 예산 총액보다 작은 곳이 있다 — 추경·이월을 더한 값인데도(2026-10-19, 마포 73%).
 // 받다 잘린 것이 아니다(받은 줄 = API 전체 줄). 무엇이 빠졌는지는 아직 모른다 — 있는 그대로 적는다. 1% 넘게 모자란 곳만.
@@ -532,24 +497,11 @@ function 덜잡힘(v, j) {
   const 총 = D.지표['세출예산 총액'].금액[j];
   return v != null && 총 && v < 총 * 0.99 ? `이 자료에 잡힌 돈은 처음 짠 ${D.예산연도}년 예산(${돈(총)})보다 <b>${돈(총 - v)} 적습니다</b> — 세부사업 자료에 다 잡히지 않은 돈이 있는 것으로 보입니다(까닭은 아직 모릅니다).` : '';
 }
-function 문들() {
-  // 고향사랑·노들섬은 뺐다(2026-10-15 사용자) — town.json 에는 남아 있다(drafts/index.html 검토판이 쓴다)
-  const j = i, 집 = D.집행[j], 연 = D.지표['연말지출비율'];
-  return {
-    연말: {이름: '연말 몰아 쓰기', 달: [10, 11, 12], 언제: '10~12월', 아이콘: 'ph-calendar-x',
-      작은: 집 ? 퍼(집[1] / 집[0] * 100, 0) : '-', 작은말: `${진행날()}까지 쓴 몫`,
-      큰제목: 집 ? `올해 마지막 ${남은달()}입니다.<br>${esc(은(짧은이름(j)))} 아직 <em>${돈(집[0] - 집[1])}</em>${받침(돈(집[0] - 집[1])) ? '을' : '를'} 쓰지 않았습니다.`
-        : `올해 마지막 ${남은달()}입니다.<br>${esc(짧은이름(j))}의 올해 집행 자료는 지방재정365에 없습니다.`,
-      // 연말지출비율의 분모는 세출결산 전체가 아니다 — 「한 해 쓴 돈의 몇 %」라고 쓰지 말 것(build_town.py 머리)
-      까닭: 연.비율[j] == null || !연.분모[j] ? '' : 연.비율[j] < 0 ? `${연.연도}년 「연말지출비율」은 지방재정365 자료가 음수(${퍼(연.비율[j])})로 와서 싣지 않습니다.` : `${연.연도}년에는 지방재정365 「연말지출비율」이 세는 돈 ${돈(연.분모[j])} 가운데 <b>${돈(연.금액[j])}(${퍼(연.비율[j])})</b>을 11~12월 두 달에 쓰기로 했습니다(지출 원인행위 기준).`,
-      게이지: 집 && [집[1], 집[0]],
-      게이지말: `세부사업별 집행 자료의 올해 예산현액 ${돈(집 && 집[0])}(추경·지난해에서 넘어온 돈 포함) 기준, ${진행날()}까지 쓴 돈입니다. ${덜잡힘(집 && 집[0], j) || `위의 「${D.예산연도}년 예산」은 처음 짠 예산 총계라 이 숫자와 다릅니다.`}`, 받기: '12월 받아 보기'},
-  };
-}
-const 지금문 = () => 달 >= 10 ? '연말' : null;
+// 「연말 몰아 쓰기」(철마다 여는 문·지금 볼 것)는 걷었다(2026-10-19 사용자 「몰아 쓰지 않는데 굳이 몰아 쓴다고 해야 하니?」).
+// 9월 말에 남은 돈은 어디나 많다(239곳 가운데값 61.5% 씀) — 남은 돈이 몰아 쓰기의 증거가 아니다. 되살리려면 git 기록
 
 function 그리기() {
-  const c = 곳[i], cd = c[0], 지 = D.지표, 셋 = 날카로운셋(i), 문 = 문들(), 지금 = 지금문();
+  const c = 곳[i], cd = c[0], 지 = D.지표, 셋 = 날카로운셋(i);
   const 일인 = 지['1인당 세출예산액'].비율[i], 계 = D.계약[i], 의 = D.의회[i], s = S.곳[cd];
   $('townName').textContent = 짧은이름(i);
   $('dockT').innerHTML = `${esc(짧은이름(i))} 소식, 때가 되면 알려 드립니다<span>1년에 몇 번만 보냅니다</span>`;
@@ -627,7 +579,7 @@ function 그리기() {
     </table>
   </div></section>`;
 
-  // ── 돈을 어디에 쓰나 ── 올해 계획 → 쓰는 중(연말 문) → 결과(세 줄 카드 · 세 가지 질문 · 의안)
+  // ── 돈을 어디에 쓰나 ── 올해 계획 → 결과(세 줄 카드 · 세 가지 질문 · 의안)
   h += `<section id="쓰나" style="padding:48px 0 16px"><div class="wrap">
     <div class="sec-hd"><h2>돈을 어디에 쓰나</h2><p>예산을 어디에 짰고, 얼마나 썼고, 제대로 썼는지.</p></div>
     <h3>${D.예산연도}년 계획</h3>
@@ -638,34 +590,6 @@ function 그리기() {
     <table style="width:100%;border-collapse:collapse" border="1" cellpadding="4">
       ${분.map(([n, v]) => `<tr><td>${esc(n)}</td><td><b>${돈(v)}</b></td><td>${분합 ? 퍼(v / 분합 * 100) : '-'}</td></tr>`).join('')}
     </table>` : '<p>올해 세부사업 자료가 지방재정365에 없습니다.</p>'}
-  </div></section>`;
-
-  // 지금 볼 것
-  if (지금) {
-    const f = 문[지금];
-    h += `<section class="now reveal"><div class="wrap"><div class="feat">
-      <div>
-        <div class="when"><span class="pill now"><i class="ph ph-clock"></i>지금 볼 것</span><span class="pill">${f.언제}</span></div>
-        <h2>${f.큰제목}</h2>
-        ${f.까닭 ? `<p class="why">${f.까닭}</p>` : ''}
-        ${f.게이지 ? `<div class="gauge"><div class="bar"><span style="flex:${f.게이지[0]}"></span><span style="flex:${Math.max(0, f.게이지[1] - f.게이지[0])}"></span></div>
-          <div class="lab"><span>쓴 돈 <b>${돈(f.게이지[0])}</b></span><span>남은 돈 <b>${돈(f.게이지[1] - f.게이지[0])}</b></span></div>
-          <p class="note">${f.게이지말}</p></div>` : ''}
-      </div>
-      ${받기열림 ? `<div class="promise"><button class="btn" data-sub="${지금}">${f.받기}</button></div>` : ''}
-    </div></div></section>`;
-  }
-
-  // 철마다 여는 문
-  const 나머지 = ['연말'].filter(k => k !== 지금);
-  if (나머지.length) h += `<section class="reveal" style="background:var(--band)"><div class="wrap">
-    <div class="sec-hd"><h2>철마다 여는 문</h2><p>예산이 정해지고, 바뀌고, 쓰이는 때.</p></div>
-    <div class="doors">${나머지.map(k => { const f = 문[k]; return `<div class="door">
-      <div class="h"><i class="ph ${f.아이콘}" style="font-size:26px;color:var(--deep)"></i><span class="pill">${f.언제}</span></div>
-      <h3>${f.이름}</h3>
-      <div><div class="n">${f.작은}</div><p>${f.작은말}</p></div>
-      ${받기열림 ? `<button class="btn sm line" data-sub="${k}">${f.받기}</button>` : ''}
-    </div>`; }).join('')}</div>
   </div></section>`;
 
   // 세 줄 카드
@@ -728,7 +652,7 @@ function 그리기() {
 }
 
 function 붙이기() {
-  document.querySelectorAll('[data-sub]').forEach(b => b.onclick = () => 받기열기(b.dataset.sub || 지금문()));
+  document.querySelectorAll('[data-sub]').forEach(b => b.onclick = () => 받기열기(b.dataset.sub));
   document.querySelectorAll('[data-pick]').forEach(b => b.onclick = () => $('townBtn').click());
   document.querySelectorAll('[data-send]').forEach(b => b.onclick = async () => {
     const url = location.href;
@@ -757,9 +681,8 @@ function 제목글꼴() {
 }
 
 function 받기열기(먼저) {
-  const 문 = 문들();
   $('subH').textContent = `${짧은이름(i)} 소식 받아 보기`;
-  $('wants').innerHTML = '<legend>무엇을 받을까요</legend>' + [['한장', `${짧은이름(i)} 한 장 `], ...Object.keys(문).map(k => [k, 문[k].이름])]
+  $('wants').innerHTML = '<legend>무엇을 받을까요</legend>' + [['한장', `${짧은이름(i)} 한 장 `]]
     .map(([k, t]) => `<label><input type="checkbox" value="${k}" ${k === 먼저 || (!먼저 && k === '한장') ? 'checked' : ''}> ${esc(t)}</label>`).join('');
   $('subDlg').showModal();
 }
@@ -771,7 +694,7 @@ function 고르기목록(q = '') {
     `<button data-j="${j}" aria-current="${j === i}">${esc(곳[j][3] === '광역' ? D.이름[j] : 짧은이름(j))}</button>`).join('')}</div>`).join('') || '<p class="sub">찾는 동네가 없습니다.</p>';
   $('pickList').querySelectorAll('button').forEach(b => b.onclick = () => {
     i = +b.dataset.j; $('pickDlg').close();
-    history.replaceState(null, '', '?cd=' + 곳[i][0] + (new URLSearchParams(location.search).get('m') ? '&m=' + 달 : ''));
+    history.replaceState(null, '', '?cd=' + 곳[i][0]);
     그리기(); scrollTo({top: 0});
   });
 }
