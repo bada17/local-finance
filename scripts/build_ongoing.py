@@ -1,15 +1,20 @@
 # 「지금 돌아가는 사업」 화면에 넣을 데이터를 굽는다.
 #
-#   python scripts/build_ongoing.py --all              243곳 전부 (전국 한 번에 받아 쪼갠다)
+#   python scripts/build_ongoing.py --all              243곳 전부, 어제 날짜 (전국 한 번에 받아 쪼갠다)
 #   python scripts/build_ongoing.py 4612000            한 곳만
-#   python scripts/build_ongoing.py --all --month 202609
+#   python scripts/build_ongoing.py --all --month 202609     그 달 말일 (20260930 처럼 날짜도 된다)
+#
+# ⭐ 매달 1일 봇(monthly.yml)이 굽는다 — 「어제」 = 지난달 말일이라 화면은 「○월 말 기준」이 된다(2026-10-19 사용자).
 #
 # 지방재정365 QWGJK(세부사업별 세출현황)를 자치단체별로 갈라
 # site/data/ongoing/<자치단체코드>.json.gz 로 낸다(눌러서). 화면이 받아서 푼다.
 #
 # ⚠️ ep_amt 는 그날까지의 누계다. 두 날짜를 빼야 그 사이 집행액이 나온다.
 #    여기서는 「올해 들어 지금까지 얼마나 썼나」로만 쓴다.
-# ⚠️ 달만 넣어도 먹힌다(202609). 날짜를 하루하루 부르면 호출이 30배로 는다.
+# ⚠️ **QWGJK 는 날짜(YYYYMMDD)로 부른다 — 달(YYYYMM)로 부르면 엉뚱한 값이 온다**(2026-10-19 확인).
+#    2025 한 해를 14곳 견줘 보니, 「3월」로 부르면 2월 말 값이 오거나 그보다도 작은 값이 왔다
+#    (마포 「12월」 6,404억 vs 「11월 30일」 9,153억 — 누계가 줄어든다). 날짜로 부르면 달마다 꾸준히 는다.
+#    마포 2026 「10월」은 933줄 7,211억, 「10월 18일」은 1,034줄 11,294억이었다. 부르는 횟수는 같다.
 # ⚠️ 단체마다 올리는 시점이 다르다 — 2026년 것이 아직 없는 곳이 있다(전남본청이 그랬다).
 #    없으면 그 단체는 건너뛰고, 있던 파일은 그대로 둔다. 못 받은 것은 없어졌다는 뜻이 아니다.
 #
@@ -20,7 +25,8 @@ import gzip
 import json
 import os
 import sys
-from datetime import date
+import calendar
+from datetime import date, timedelta
 
 try:
     sys.stdout.reconfigure(encoding='utf-8', errors='replace')
@@ -70,7 +76,7 @@ def 굽기(code, rows, month):
         '자치단체': rows[0].get('laf_hg_nm') or '',
         'laf_cd': code,
         '연도': month[:4],
-        '기준': month,
+        '기준': month,          # 그날(YYYYMMDD) — 그날까지의 누계
         '받은날': date.today().isoformat(),
         '사업수': len(사업),
         '예산현액': 합(4), '지출': 합(5),
@@ -147,8 +153,9 @@ def main():
         args.remove('--all')
     codes = args or ['2600000', '4373000', '4612000']
     if not month:
-        t = date.today()
-        month = f'{t.year}{t.month:02d}'
+        month = (date.today() - timedelta(days=1)).strftime('%Y%m%d')
+    elif len(month) == 6:       # 달만 주면 그 달 말일로 — 달로 부르면 엉뚱한 값이 온다(머리 ⚠️)
+        month += f'{calendar.monthrange(int(month[:4]), int(month[4:]))[1]:02d}'
 
     key = load_key()
     if not key:

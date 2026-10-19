@@ -722,7 +722,7 @@ async function renderOngoing(cd, d){
     return;
   }
 
-  const 기준 = `${o.기준.slice(0, 4)}년 ${Number(o.기준.slice(4, 6))}월`;
+  const 기준 = `${o.기준.slice(0, 4)}년 ${Number(o.기준.slice(4, 6))}월${o.기준.length === 8 ? ` ${Number(o.기준.slice(6))}일` : ''}`;   // 2026-10-19 부터 날짜
   app.innerHTML = `
     <h1>${이름of(d)} <span class="cd">${d.laf_cd}</span></h1>
     <p class="meta">

@@ -7,7 +7,7 @@
 #
 #   계약현황(WCEGCF) — 하루 1,300~2,300건. 작아서 원본 그대로 날마다 쌓는다.
 #                      업체명·계약방법·금액·하도급유무가 들어 있는, 이 사이트의 승부처.
-#   세부사업별 세출(QWGJK) — 그 달 누계로 44만 행. 원본은 깃에 안 넣고 집계만 남긴다.
+#   세부사업별 세출(QWGJK) — 그날까지의 누계로 44만 행.  그 달 파일을 날마다 그날 것으로 덮는다. 원본은 깃에 안 넣고 집계만 남긴다.
 #                          ep_amt 가 누계라 날마다 원본을 쌓을 이유도 없다.
 #                          원본이 필요하면 fetch_lofin.py 로 8분이면 다시 받는다.
 #
@@ -64,9 +64,14 @@ def contracts(day, key):
     return True
 
 
-def spending(month, key):
-    """세부사업별 세출 그 달 누계를 받아 자치단체 x 분야로 집계."""
-    rows, total = fetch('QWGJK', {'fyr': month[:4], 'exe_ymd': month}, key)
+# ⚠️ **QWGJK 는 날짜(YYYYMMDD)로 부른다 — 달(YYYYMM)로 부르면 엉뚱한 값이 온다**(2026-10-19 확인).
+#    2025 한 해를 14곳 견줘 보니, 「3월」로 부르면 2월 말 값이 오거나 그보다도 작은 값이 왔다
+#    (마포 「12월」 6,404억 vs 「11월 30일」 9,153억 — 누계가 줄어든다). 날짜로 부르면 달마다 꾸준히 는다.
+#    마포 2026 「10월」은 933줄 7,211억, 「10월 18일」은 1,034줄 11,294억이었다. 부르는 횟수는 같다.
+def spending(day, key):
+    """세부사업별 세출 그날까지의 누계를 받아 자치단체 x 분야로 집계(파일은 그 달 이름)."""
+    month = day[:6]
+    rows, total = fetch('QWGJK', {'fyr': day[:4], 'exe_ymd': day}, key)
     if len(rows) != total:
         print(f'  ⚠ 세출 {len(rows)}/{total} — 덜 받았다. 저장 안 함')
         return False
@@ -107,7 +112,7 @@ def main():
 
     print(f'수집 {day} (키 있음)')
     ok = contracts(day, key)
-    ok = spending(month, key) and ok
+    ok = spending(day, key) and ok
     print('끝' if ok else '⚠ 덜 받은 것이 있다')
     return 0 if ok else 1
 
