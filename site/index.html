@@ -158,6 +158,9 @@
   .bar{display:grid; grid-template-columns:minmax(120px,210px) minmax(0,1fr) 104px 56px; gap:16px; align-items:center; padding:8px 4px; border-bottom:1px solid var(--line); font-size:15px}
   .bar:hover{background:var(--band)}
   .bar .tr{height:12px}
+  details.sub>summary{list-style:none; cursor:pointer} details.sub>summary::-webkit-details-marker{display:none}
+  details.sub>summary .nm::after{content:' ▸'; color:var(--soft)} details.sub[open]>summary .nm::after{content:' ▾'}
+  details.sub .bars{margin:0 0 6px 18px; border-top:0} details.sub .bars .bar{font-size:14px; padding:6px 4px} details.sub .bars .tr i{opacity:.55}
   .bar .tr i{display:block; height:100%; background:var(--deep); border-radius:0 4px 4px 0}
   .bar .am{text-align:right; font-weight:700; font-variant-numeric:tabular-nums; white-space:nowrap}
   .bar .pc{text-align:right; font-size:14px; color:var(--soft); font-variant-numeric:tabular-nums}
@@ -607,6 +610,11 @@ function 그리기() {
     return `<div class="bars">${줄들.map(([n, v, p]) => `<div class="bar" title="${esc(n)} ${esc(꼴(v))}${p == null ? '' : ' · ' + 퍼(p)}"><span class="nm">${esc(n)}</span>
       <span class="tr"><i style="width:${Math.max(0, v / 큰 * 100)}%"></i></span><span class="am">${꼴(v)}</span><span class="pc">${p == null ? '' : 퍼(p)}</span></div>`).join('')}</div>`; };
   const 분 = D.분야[i] || [], 분합 = 분.reduce((s, r) => s + r[1], 0);
+  // 분야 막대를 누르면 부문이 펼쳐진다(2026-10-20) — 부문이 하나뿐인 분야(기타)는 그냥 막대. 부문 %는 그 분야 안에서의 몫
+  const 분야막대 = (줄들, 합, 속) => { const 한줄 = 막대(줄들.map(([n, v]) => [n, v, 합 ? v / 합 * 100 : null]), 돈);
+    const 칸들 = 한줄.slice('<div class="bars">'.length, -'</div>'.length).split(/(?=<div class="bar" )/);
+    return `<div class="bars">${칸들.map((칸, k) => { const 아래 = 속[줄들[k][0]];
+      return 아래 ? `<details class="sub"><summary>${칸}</summary>${막대(아래.map(([n, v]) => [n, v, 줄들[k][1] ? v / 줄들[k][1] * 100 : null]), 돈)}</details>` : 칸; }).join('')}</div>`; };
 
   h += `<div class="wrap"><nav class="jump" aria-label="이 페이지 두 쪽">
     <a href="#오나"><span>돈이 어디서 오나<small>세금, 나라와 시·도에서 받는 돈, 빌린 돈</small></span><i class="ph ph-arrow-down"></i></a>
@@ -689,10 +697,34 @@ function 그리기() {
       </div>
       <div class="blk"><h4>분야별 예산</h4>
         <p class="desc">${esc(D.진행기준.slice(0, 4))}년 세부사업 예산현액, ${진행날()} 기준. 처음 예산에 추경·이월을 더한 돈입니다.</p>
-        ${분.length ? `${막대(분.map(([n, v]) => [n, v, 분합 ? v / 분합 * 100 : null]), 돈)}
+        ${분.length ? `${분야막대(분, 분합, D.부문[i] || {})}
         ${덜잡힘(분합, i) ? `<p class="note">이 막대의 합은 ${돈(분합)}입니다. ${덜잡힘(분합, i)}</p>` : ''}` : '<p>올해 세부사업 자료가 지방재정365에 없습니다.</p>'}
-      </div>
-    </div>`;
+      </div>`;
+
+  // 올해 지금까지 얼마 썼나 · 누가 정한 돈인가(2026-10-20 사용자 ⓐⓑ) — 순위는 안 붙인다
+  const 집 = D.집행[i], 큰 = D.큰사업[i] || [], 원 = D.재원[i], 광역 = c[3] === '광역';
+  if (집 && 집[0]) h += `<div class="blk"><h4>올해 지금까지 얼마 썼나</h4>
+        <p class="desc">${진행날()}까지, 세부사업 ${집[2].toLocaleString()}개의 예산현액 기준입니다.</p>
+        <div class="stats"><div class="stat"><div class="k">쓴 돈</div><div class="v">${돈(집[1])}</div>
+          <div class="meter" aria-hidden="true"><i style="width:${Math.min(100, 집[1] / 집[0] * 100)}%"></i></div>
+          <div class="rk">예산 ${돈(집[0])} 가운데 ${퍼(집[1] / 집[0] * 100, 0)}</div></div></div>
+        ${큰.length ? `<h4 style="margin-top:22px">${esc(짧은이름(i))} 돈을 가장 많이 넣은 사업 다섯</h4>
+        ${D.정해진합[i] ? `<p class="desc">인력운영비·기초연금·생계급여처럼 어디서나 정해져 나가는 돈 <b>${돈(D.정해진합[i])}</b>(예산의 ${퍼(D.정해진합[i] / 집[0] * 100, 0)})과 보전지출·예비비 같은 회계 숫자는 뺐습니다.</p>` : ''}
+        <p class="desc">막대는 그 사업에 넣은 ${esc(짧은이름(i))} 돈, 오른쪽 %는 그 사업 예산 가운데 지금까지 쓴 몫입니다.</p>
+        ${막대(큰.map(r => [r[0], r[3], r[1] ? r[2] / r[1] * 100 : null]), 돈)}` : ''}
+      </div>`;
+  const 자 = 지['자체사업비중'].비율[i], 보 = 지['보조사업비중'].비율[i], 정 = 지['정책사업비중'].비율[i];
+  const 몫칸 = (k, v, 풀이) => `<div class="stat"><div class="k">${k}</div><div class="v">${퍼(v)}</div>
+          <div class="meter" aria-hidden="true"><i style="width:${Math.max(0, Math.min(100, v))}%"></i></div><div class="rk">${풀이}</div></div>`;
+  if (자 != null) h += `<div class="blk"><h4>누가 정한 돈인가</h4>
+        <p class="desc">${해('자체사업비중')}년 예산(일반회계) 기준입니다. 보조사업은 나라나 시·도가 정한 사업에 돈을 보태 함께 하는 것이라 ${esc(짧은이름(i))}가 마음대로 바꾸기 어렵습니다.</p>
+        <div class="stats">${몫칸('스스로 정하는 사업', 자, '자체사업')}${몫칸('나라·시·도와 함께 하는 사업', 보, '보조사업')}${정 != null ? 몫칸('그 밖', 100 - 정, '사람 쓰는 돈·기본 운영비 등') : ''}</div>
+        ${원 ? `<p class="desc" style="margin-top:18px">올해 세부사업 예산은 이런 돈으로 채웠습니다.</p>
+        ${(() => { const 줄 = 광역 ? [['나랏돈(국비)', 원[0]], [짧은이름(i) + ' 돈', 원[1] + 원[2]], ['그 밖', 원[3]]]
+                                      : [['나랏돈(국비)', 원[0]], ['시·도에서 받은 돈', 원[1]], [짧은이름(i) + ' 돈', 원[2]], ['그 밖', 원[3]]];
+                   const 합 = 줄.reduce((s, r) => s + r[1], 0); return 막대(줄.map(([n, v]) => [n, v, 합 ? v / 합 * 100 : null]), 돈); })()}` : ''}
+      </div>`;
+  h += `</div>`;
 
   // 결과 묶음(세 줄 카드 · 두 가지 질문)은 통째로 숨겼다(2026-10-20 사용자 「둘 다 일단 주석처리」) —
   //   「많으면 문제」라는 잣대 없이 순위만 내걸고, 「몰아주나」 밑에 업체 실명이 붙어서. 잣대를 정하면 되살린다.

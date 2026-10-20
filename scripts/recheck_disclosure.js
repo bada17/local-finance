@@ -70,7 +70,8 @@ const 긁개 = String.raw`(() => {
     // 이름은 아래에서 옆 글자로 찾고, 옆에도 한글 이름이 없으면 담지 않는다.
     const 글없는내려받기 = ((내려받기.test(h) || 내려받기.test(oc) || /down\s*\(/i.test(h + oc)) && t.trim().length <= 3)
       || /^(파일\s*)?(다운로드|다운받기|내려받기)$/.test(t.trim());      // 「다운받기」 단추(href="#", 안동·칠곡·연제)
-    if (EXT.test(t) || EXT.test(h) || ((내려받기.test(h) || 내려받기.test(oc)) && t.trim().length > 3) || 글없는내려받기) {
+    // onclick 안에만 파일 이름이 있는 곳도 본다 — downFile('예산총칙.pdf',…)(연제), goFileOld2('00.pdf',…)(양산), 2026-10-20
+    if (EXT.test(t) || EXT.test(h) || EXT.test(oc) || ((내려받기.test(h) || 내려받기.test(oc)) && t.trim().length > 3) || 글없는내려받기) {
       // 링크 글자에 「다운로드」·「바로보기」가 덧붙는 곳이 많다 — 이름만 남긴다
       let nm = t.replace(/\s*(다운로드|내려받기|바로보기|미리보기|새창열림|down|download)\s*$/gi, '').trim();
       if (!nm && EXT.test(h)) nm = decodeURIComponent((h.split(/[?#]/)[0].split('/').pop() || ''));

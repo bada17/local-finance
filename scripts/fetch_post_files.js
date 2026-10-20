@@ -402,4 +402,6 @@ async function main() {
   console.log(`글 ${줄들.length}건 · 파일 ${파일수}개 받음 ·`, JSON.stringify(셈));
 }
 
+// click_budget_books.js 가 크롬 받기를 빌려 쓴다(2026-10-20)
+module.exports = { 브라우저붙기, 파일받기, 기다리기, 값, 캐시 };
 if (require.main === module) main().catch(e => { console.error(e); process.exit(1); });
