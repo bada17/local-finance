@@ -13,6 +13,13 @@
 <script>
   // 옛 주소 — 자치단체별 표(./#코드)·대시보드(./?g)는 finance.html 로 옮겼다
   if (location.hash.length > 1 || new URLSearchParams(location.search).has('g')) location.replace('finance.html' + location.search + location.hash);
+  // 게임(시민의 숲) 안에 띄울 때 — ?cd=코드&part=오나|쓰나. 그 쪽만 남기고, 링크는 새 탭으로, 게임에 어두운 화면이 없어 밝게 고정
+  const 쪽만 = new URLSearchParams(location.search).get('part');
+  if (쪽만 === '오나' || 쪽만 === '쓰나') {
+    document.documentElement.dataset.part = 쪽만;
+    document.documentElement.dataset.theme = 'light';
+    document.head.append(Object.assign(document.createElement('base'), {target: '_blank'}));
+  }
 </script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
@@ -232,6 +239,9 @@
   .reveal.in{opacity:1; transform:none}
   @media (prefers-reduced-motion:reduce){ .reveal{opacity:1; transform:none; transition:none} .map svg.town{animation:none} html{scroll-behavior:auto} }
   .loading{padding:160px 0; color:var(--soft)}
+  /* 게임 안(?part=) — 머리 띠·동네 이름 머리·바로가기·다른 쪽·공통 하단(후원 띠)·작업대 링크는 감춘다. 동네는 게임이 고른다 */
+  [data-part] header.top, [data-part] .hero, [data-part] .jump, [data-part] #ah-foot, [data-part] .links,
+  [data-part="오나"] #쓰나, [data-part="쓰나"] #오나{display:none}
 </style>
 
 <header class="top"><div class="wrap">
@@ -600,7 +610,7 @@ function 그리기() {
 
   h += `<div class="wrap"><nav class="jump" aria-label="이 페이지 두 쪽">
     <a href="#오나"><span>돈이 어디서 오나<small>세금, 나라와 시·도에서 받는 돈, 빌린 돈</small></span><i class="ph ph-arrow-down"></i></a>
-    <a href="#쓰나"><span>돈을 어디에 쓰나<small>어디에 짰고, 제대로 썼는지</small></span><i class="ph ph-arrow-down"></i></a>
+    <a href="#쓰나"><span>돈을 어디에 쓰나<small>분야마다 얼마를 짰는지</small></span><i class="ph ph-arrow-down"></i></a>
   </nav></div>`;
 
   // ── 돈이 어디서 오나 ── 교부세 감액(감시 거리)을 맨 앞에
@@ -682,9 +692,12 @@ function 그리기() {
         ${분.length ? `${막대(분.map(([n, v]) => [n, v, 분합 ? v / 분합 * 100 : null]), 돈)}
         ${덜잡힘(분합, i) ? `<p class="note">이 막대의 합은 ${돈(분합)}입니다. ${덜잡힘(분합, i)}</p>` : ''}` : '<p>올해 세부사업 자료가 지방재정365에 없습니다.</p>'}
       </div>
-    </div>
+    </div>`;
 
-    <div class="grp"><h3>${D.결산연도}년 결과 · ${D.계약해}년 계약 <span class="chip done">결과</span></h3>`;
+  // 결과 묶음(세 줄 카드 · 두 가지 질문)은 통째로 숨겼다(2026-10-20 사용자 「둘 다 일단 주석처리」) —
+  //   「많으면 문제」라는 잣대 없이 순위만 내걸고, 「몰아주나」 밑에 업체 실명이 붙어서. 잣대를 정하면 되살린다.
+  /*
+  h += `<div class="grp"><h3>${D.결산연도}년 결과 · ${D.계약해}년 계약 <span class="chip done">결과</span></h3>`;
 
   // 세 줄 카드
   if (셋.length) h += `<div class="blk reveal"><h4 class="big">${esc(짧은이름(i))}, 이것만은 알고 계세요</h4><p class="desc">같은 갈래끼리 견줘 앞선 것만 골랐습니다. 친구에게 보내 주세요.</p>
@@ -719,12 +732,14 @@ function 그리기() {
     </div>
     <p style="margin:18px 0 0"><a href="finance.html#${cd}">${esc(짧은이름(i))}의 숫자 전부 보기</a></p>
   </div>
-  </div></div></section>`;
+  </div>`;
+  */
+  h += `</div></section>`;
 
   // 후원 띠는 홈페이지 공통 하단(#ah-foot, scripts/port_footer.py)의 것을 쓴다 — 두 번 나오지 않게 여기 것은 뺐다(2026-10-15)
   h += `<footer><div class="wrap">
     <p>자료: 지방재정365(공공누리 1유형) 지표 ${D.결산연도} 결산·${D.예산연도} 예산, 세부사업별 세출현황(${D.진행기준.slice(0, 4)}년 ${진행날()} 기준), 계약현황 ${D.계약해}년(우리가 건별로 셈). 「몇 위」는 같은 갈래(광역·시·군·구)끼리 반올림하기 전 비율로 견준 것이고, 비율의 분모는 지방재정365가 지표마다 정한 것 그대로입니다. 「일반회계 주민 1명당」은 지방재정365 「1인당 세출예산액」(일반회계 ÷ 인구)이고, 인구도 그 지표가 쓴 ${D.예산연도} 예산의 인구입니다.</p>
-    <p><a href="finance.html#${cd}">자치단체별 숫자 전부</a> · <a href="work.html">작업대(검증 중인 화면들)</a></p>
+    <p class="links"><a href="finance.html#${cd}">자치단체별 숫자 전부</a> · <a href="work.html">작업대(검증 중인 화면들)</a></p>
     <p>지도: ${esc(S.출처)}</p>
     <p><span class="tbd">시험판</span> 다듬는 중인 화면입니다. 숫자는 달마다 새 자료로 다시 굽습니다(${esc(D.만든날)} 구움).</p>
   </div></footer>`;
@@ -751,6 +766,11 @@ function 붙이기() {
   // 보이는 곳에 들어오면 나타나기(움직임 줄이기 설정이면 그냥 다 보임)
   const 보기 = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); 보기.unobserve(e.target); } }), {threshold: .12});
   document.querySelectorAll('.reveal').forEach(el => 보기.observe(el));
+  // 게임 안(?part=)이면 높이를 알려 준다 — 게임이 창 높이를 맞춰 판 하나로 내려 읽게(주소가 달라 게임이 직접 못 잰다)
+  if (document.documentElement.dataset.part && parent !== window && !window.높이알림) {
+    window.높이알림 = new ResizeObserver(() => parent.postMessage({lfHeight: document.body.offsetHeight}, '*'));
+    window.높이알림.observe(document.body);
+  }
 }
 
 // 카드 그림에 넣을 제목 글꼴 — 글꼴을 다 넣으면(Pretendard 조각 수십 개) 10초 넘게 걸려 GmarketSans 만 data URL 로 넣는다.
