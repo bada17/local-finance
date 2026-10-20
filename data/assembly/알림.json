@@ -1127,6 +1127,16 @@
 "낱말": "미래대응기금",
 "횟수": 1,
 "보냄": true
+},
+{
+"갈래": "보도자료",
+"날짜": "2026-10-08",
+"번호": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=198809&searchNoSeq=20261008198809",
+"제목": "법정 아동수당, 들쑥날쑥한 미래대응기금 아닌 일반회계로 돌려놔야!",
+"보기": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=198809&searchNoSeq=20261008198809",
+"낱말": "미래대응기금",
+"횟수": 1,
+"보냄": true
 }
 ],
 "의안": {
@@ -1150,8 +1160,9 @@
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=196198&searchNoSeq=20260911196198",
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=197312&searchNoSeq=20260929197312",
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=197323&searchNoSeq=20260929197323",
-"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=198173&searchNoSeq=20261010198173"
+"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=198173&searchNoSeq=20261010198173",
+"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=198809&searchNoSeq=20261008198809"
 ],
 "본문": "html",
-"마지막성공": "2026-10-20"
+"마지막성공": "2026-10-21"
 }
