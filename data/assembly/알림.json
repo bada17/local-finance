@@ -558,6 +558,7 @@
 "57385",
 "57386",
 "57390",
+"57426",
 "57431",
 "57433",
 "57450",
@@ -592,7 +593,11 @@
 "57571",
 "57573",
 "57576",
-"57577"
+"57577",
+"57582",
+"57583",
+"57584",
+"57590"
 ],
 "찾은것": [
 {
@@ -1155,6 +1160,26 @@
 "낱말": "미래대응기금",
 "횟수": 13,
 "보냄": true
+},
+{
+"갈래": "보도자료",
+"날짜": "2026-10-22",
+"번호": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199027&searchNoSeq=20261022199027",
+"제목": "드론 부품 국산화율 30%, 국가 자존심 문제…미래대응기금 투입해야",
+"보기": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199027&searchNoSeq=20261022199027",
+"낱말": "미래대응기금",
+"횟수": 1,
+"보냄": false
+},
+{
+"갈래": "보도자료",
+"날짜": "2026-10-06",
+"번호": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199046&searchNoSeq=20261006199046",
+"제목": "용인반도체클러스터, ‘미래대응기금’으로 뒷받침해야",
+"보기": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199046&searchNoSeq=20261006199046",
+"낱말": "미래대응기금",
+"횟수": 1,
+"보냄": false
 }
 ],
 "의안": {
@@ -1179,8 +1204,10 @@
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=197312&searchNoSeq=20260929197312",
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=197323&searchNoSeq=20260929197323",
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=198173&searchNoSeq=20261010198173",
-"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=198809&searchNoSeq=20261008198809"
+"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=198809&searchNoSeq=20261008198809",
+"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199027&searchNoSeq=20261022199027",
+"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199046&searchNoSeq=20261006199046"
 ],
 "본문": "html",
-"마지막성공": "2026-10-23"
+"마지막성공": "2026-10-24"
 }
