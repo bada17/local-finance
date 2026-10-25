@@ -592,13 +592,16 @@
 "57562",
 "57571",
 "57573",
+"57575",
 "57576",
 "57577",
 "57582",
 "57583",
 "57584",
+"57585",
 "57590",
-"57591"
+"57591",
+"57592"
 ],
 "찾은것": [
 {
@@ -1170,7 +1173,7 @@
 "보기": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199027&searchNoSeq=20261022199027",
 "낱말": "미래대응기금",
 "횟수": 1,
-"보냄": false
+"보냄": true
 },
 {
 "갈래": "보도자료",
@@ -1180,7 +1183,7 @@
 "보기": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199046&searchNoSeq=20261006199046",
 "낱말": "미래대응기금",
 "횟수": 1,
-"보냄": false
+"보냄": true
 }
 ],
 "의안": {
@@ -1210,5 +1213,5 @@
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199046&searchNoSeq=20261006199046"
 ],
 "본문": "html",
-"마지막성공": "2026-10-25"
+"마지막성공": "2026-10-26"
 }
