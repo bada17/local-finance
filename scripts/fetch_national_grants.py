@@ -137,7 +137,7 @@ def 상세(x):
 def main():
     os.makedirs(OUT, exist_ok=True)
     인자 = sys.argv[1:]
-    해들 = [int(a) for a in 인자 if a.isdigit()] or list(range(date.today().year - 1, date.today().year - 6, -1))
+    해들 = [int(a) for a in 인자 if re.fullmatch(r'20\d\d', a)] or list(range(date.today().year - 1, date.today().year - 6, -1))   # 「--시간 290」의 290 을 해로 읽었다(10-26 첫 실행)
     분 = float(인자[인자.index('--시간') + 1]) if '--시간' in 인자 else None
     끝시각 = time.time() + 분 * 60 if 분 else None
     세션()

@@ -42,7 +42,7 @@ jobs:
         run: |
           python - <<'PY'
           import gzip, json, os, glob
-          for p in sorted(glob.glob('data/national_grants/[0-9]*.json.gz')):
+          for p in sorted(glob.glob('data/national_grants/20[0-9][0-9].json.gz')):
               해 = os.path.basename(p)[:4]
               줄 = json.load(gzip.open(p, 'rt', encoding='utf-8'))['줄']
               q = f'data/national_grants/상세_{해}.json.gz'
