@@ -161,7 +161,6 @@
   details.sub>summary{list-style:none; cursor:pointer} details.sub>summary::-webkit-details-marker{display:none}
   details.sub>summary .nm::after{content:' ▸'; color:var(--soft)} details.sub[open]>summary .nm::after{content:' ▾'}
   h5.taxg{margin:18px 0 4px; font-size:15px; font-weight:600} h5.taxg b{font-weight:700}
-  ol.grant{margin:8px 0 0 22px; font-size:14px; line-height:1.7} ol.grant li{margin-bottom:6px}
   details.vend{border-top:1px solid var(--line); padding:8px 4px} details.vend>summary{cursor:pointer} details.vend ul{margin:8px 0 4px 18px; font-size:14px; line-height:1.7}
   details.sub .bars{margin:0 0 6px 18px; border-top:0} details.sub .bars .bar{font-size:14px; padding:6px 4px} details.sub .bars .tr i{opacity:.55}
   .bar .tr i{display:block; height:100%; background:var(--deep); border-radius:0 4px 4px 0}
@@ -829,10 +828,10 @@ function 그리기() {
   //   고른 곳 파일만 받는다(site/data/suui/<코드>.json, build_suui.py)
   if (수) fetch(`data/suui/${cd}.json`).then(r => r.ok ? r.json() : null).then(u => {
     const el = $('suuiUp'); if (!u || !el || 곳[i][0] !== cd) return;
-    const 모두 = u.분포.reduce((s, r) => s + r[1], 0);
-    el.innerHTML = `<h4 style="margin-top:22px">같은 업체와 몇 번 맺었나</h4>
-      ${막대(u.분포.map(([n, k], j) => [`${u.분포칸[j]} 맺은 업체 ${n.toLocaleString()}곳`, k, 모두 ? k / 모두 * 100 : null]), 건)}
-      <h4 style="margin-top:22px">가장 여러 번 맺은 업체 ${u.업체.length}곳</h4>
+    // 「같은 업체와 몇 번 맺었나」(분포 막대)는 숨겼다(2026-10-26 사용자 「주석 처리해」) — 되살릴 땐 아래 둘을 풀 것
+    // const 모두 = u.분포.reduce((s, r) => s + r[1], 0);
+    // <h4 style="margin-top:22px">같은 업체와 몇 번 맺었나</h4>${막대(u.분포.map(([n, k], j) => [`${u.분포칸[j]} 맺은 업체 ${n.toLocaleString()}곳`, k, 모두 ? k / 모두 * 100 : null]), 건)}
+    el.innerHTML = `<h4 style="margin-top:22px">가장 여러 번 맺은 업체 ${u.업체.length}곳</h4>
       ${u.업체.map(([이름, , n, , 줄]) => `<details class="vend"><summary><b>${esc(이름)}</b> ${n.toLocaleString()}건</summary>
         <ul>${줄.map(([날, 금, 명, b]) => `<li>${esc(날)} · ${esc(명)} · ${돈(금)}${D.수의법[b] ? ` · <small>${esc(사유말(b))}</small>` : ''}</li>`).join('')}${n > 줄.length ? `<li>그 밖 ${(n - 줄.length).toLocaleString()}건</li>` : ''}</ul></details>`).join('')}`;
   }).catch(() => {});
@@ -859,7 +858,9 @@ function 그리기() {
           <div class="stat"><div class="k">많이 받은 다섯 곳</div><div class="v">${퍼(y.상위몫 / y.금액 * 100, 0)}</div><div class="rk">보조금 ${돈(y.상위몫)}</div></div>
           ${y.비공개건수 ? `<div class="stat"><div class="k">받은 곳을 가린 것</div><div class="v">${돈(y.비공개금액)}</div><div class="rk">보조금의 ${퍼(y.비공개금액 / y.금액 * 100)} · ${y.비공개건수.toLocaleString()}건</div></div>` : ''}
         </div>
-        <h4 style="margin-top:22px">많이 받은 열 곳</h4>        <ol class="grant">${y.받은곳.slice(0, 10).map(([이름, 금, 건, 업]) => `<li><b>${돈(금)}</b> (${퍼(금 / y.금액 * 100)}) · ${이름 === '비공개기관' ? '이름을 가린 곳' : esc(가림(이름, 업))}<br><small>${esc(업)}${건 > 1 ? ` 등 ${건.toLocaleString()}건` : ''}</small></li>`).join('')}</ol>
+        <h4 style="margin-top:22px">많이 받은 열 곳</h4>
+        ${y.받은곳.slice(0, 10).map(([이름, 금, 건, 업]) => `<details class="vend"><summary><b>${이름 === '비공개기관' ? '이름을 가린 곳' : esc(가림(이름, 업))}</b> ${돈(금)}</summary>
+          <ul><li>${esc(업)}${건 > 1 ? ` 등 ${건.toLocaleString()}건` : ''}</li></ul></details>`).join('')}
       </div></div>`;
   }).catch(() => {});
 }
