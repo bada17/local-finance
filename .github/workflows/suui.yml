@@ -5,6 +5,11 @@ name: 수의계약 사유 굽어 보기
 
 on:
   workflow_dispatch:
+    inputs:
+      raw:
+        description: '원자료(data/수의계약)도 하루짜리 결과물로 남기나 — PC 에서 살펴볼 때'
+        type: boolean
+        default: false
 
 jobs:
   build:
@@ -26,3 +31,9 @@ jobs:
         with:
           name: suui
           path: site/data/suui.json
+      - if: ${{ inputs.raw }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: suui-raw
+          path: data/수의계약
+          retention-days: 1
