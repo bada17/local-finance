@@ -59,6 +59,7 @@
 import collections
 import glob
 import gzip
+import heapq
 import json
 import os
 import re
@@ -151,7 +152,7 @@ def main():
 
     # (laf_cd, 연도) → 셈
     셈 = collections.defaultdict(lambda: {
-        '건수': 0, '금액': 0, '수의건수': 0, '수의금액': 0, '1인건수': 0, '1인금액': 0, '다년건수': 0, '다년금액': 0,
+        '건수': 0, '금액': 0, '수의건수': 0, '수의금액': 0, '1인건수': 0, '1인금액': 0, '수의종류': {}, '큰1인': [], '다년건수': 0, '다년금액': 0,
         '겹친건수': 0, '겹친금액': 0,
         '이름꼴': collections.defaultdict(collections.Counter),   # 열쇠 → {적힌 이름: 금액}
         '조달청건수': 0, '조달청금액': 0, '번호금액': 0,
@@ -207,9 +208,16 @@ def main():
             if 방법.startswith('수의'):
                 s['수의건수'] += 1
                 s['수의금액'] += 금액
+            if 방법.startswith('수의'):         # 공사·용역·물품별 수의계약 [건수, 금액](2026-10-26 사용자 A)
+                칸 = s['수의종류'].setdefault(r.get('ctrt_knd_nm') or '그밖', [0, 0])
+                칸[0] += 1
+                칸[1] += 금액
             if 방법 == '수의1인견적':           # 「경쟁 없이」는 이것만 — 2인 이상 견적은 견적끼리 견준다(2026-10-15 사용자)
                 s['1인건수'] += 1
                 s['1인금액'] += 금액
+                # 금액이 큰 1인 견적 다섯(2026-10-26 사용자 B) — [날, 계약명, 업체, 금액, 종류]. 다년계약은 두 줄로 올 수 있다(위 ⚠️)
+                줄 = (금액, 날, (r.get('ctrt_trgt_nm') or '').strip(), 업체, r.get('ctrt_knd_nm') or '')
+                (heapq.heappush if len(s['큰1인']) < 5 else heapq.heappushpop)(s['큰1인'], 줄)
             if 다년표기.search(r.get('ctrt_trgt_nm') or ''):
                 s['다년건수'] += 1
                 s['다년금액'] += 금액
@@ -264,6 +272,8 @@ def main():
             '수의금액': s['수의금액'],
             '1인건수': s['1인건수'],
             '1인금액': s['1인금액'],
+            '수의종류': s['수의종류'],
+            '큰1인': [[날, 명, 업, 금, 종] for 금, 날, 명, 업, 종 in sorted(s['큰1인'], reverse=True)],
             '수의건수율': round(s['수의건수'] / s['건수'] * 100, 1) if s['건수'] else None,
             '수의금액률': round(s['수의금액'] / s['금액'] * 100, 1) if s['금액'] else None,
             '업체수': len(업체),
