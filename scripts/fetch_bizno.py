@@ -7,7 +7,7 @@
 #   python scripts/fetch_bizno.py --분 50            50분이 지나면 받던 갈래를 버리고 멈춘다(인자 없이 부르면 기본 50)
 #   python scripts/fetch_bizno.py 202401 202508 --사유만   사전은 두고 수의계약 사유만(data/수의계약/) 받는다
 #   python scripts/fetch_bizno.py --사유끔          사유 파일이 없어도 받은 달로 친다(봇이 R2 에서 못 내려받은 날)
-#   python scripts/fetch_bizno.py 202501 202512 --사유만 --차수채움   수의계약 파일에 「차수」 칸이 없는 달만 다시 받는다(suui-refetch.yml)
+#   python scripts/fetch_bizno.py 202501 202512 --사유만 --차수채움   수의계약 파일에 「원자료」 칸이 없는 달만 다시 받는다(suui-refetch.yml)
 #
 # ⭐ **지자체 수의계약 줄은 사유까지 따로 담는다**(2026-10-16) → `data/수의계약/{달}.json.gz`, 이번 달은 `일/`.
 #    나라장터 계약에는 `baseLawNm`(근거 조항)·`baseDtls`(사유 — 「추정가격 2천만원 이하 물품 또는 용역」 등)이 온다.
@@ -119,7 +119,10 @@ def 업체들(r):
 
 # 수의계약 파일은 {'칸': 수의칸, '줄': [[…], …]} — 칸 이름을 줄마다 안 적고 기관·날 차례로 세워
 # 25% 작다(하루 0.28→0.21MB, 2025-09-02 로 잼). 34달이면 그래도 150MB 안팎이다.
-수의칸 = ['계약', '기관', '곳', '날', '갈래', '금액', '총액', '법', '사유', '업체', '건', '원계약', '차수']
+수의칸 = ['계약', '기관', '곳', '날', '갈래', '금액', '총액', '법', '사유', '업체', '건', '원계약', '차수', '원자료']
+# ⭐ 원자료(2026-10-26 사용자 「잘라서 가져오지 마 — 전부 가져와서 나중에 필요한 것만 뽑으면 되지」) — 응답 줄의 모든 칸.
+#    담당 공무원 이름·전화·팩스만 뺀다(사용자 「필요없긴 하지」). 앞 칸들은 굽는 쪽이 쓰던 것이라 그대로 둔다.
+뺄칸 = {'cntrctInsttOfclNm', 'cntrctInsttOfclTelNo', 'cntrctInsttOfclFaxNo'}
 # ⭐ 원계약·차수(2026-10-26) — 상세 주소의 ctrtNo·ctrtChgOrd. 같은 계약을 고쳐 다시 올리면 계약(untyCntrctNo)은 새로 붙고 이 둘은 이어진다.
 #    10-23 공사 수의 하루치: 차수 00 이 줄 63%·금액 41%, 01 이상(고친 것)이 금액 59% — 원계약마다 마지막 차수만 세야 금액이 맞는다.
 #    확정계약번호(dcsnCntrctNo) 끝 두 자리도 차수지만 그 칸은 절반이 빈다. 2026-10-26 전에 받은 파일엔 두 칸이 없다.
@@ -130,14 +133,14 @@ def 원(값):
 
 
 def 수의줄(r, 갈래):
-    """지자체 수의계약이면 사유까지 추린 한 줄, 아니면 None. 담당자 이름·전화는 안 담는다(저장소가 공개)."""
+    """지자체 수의계약이면 사유까지 추린 한 줄 + 원자료, 아니면 None. 담당 공무원 이름·전화·팩스는 안 담는다."""
     if r.get('cntrctInsttJrsdctnDivNm') != '지방자치단체' or '수의' not in str(r.get('cntrctCnclsMthdNm') or ''):
         return None
     return [r.get('untyCntrctNo'), r.get('cntrctInsttCd'), r.get('cntrctInsttNm'),
             r.get('cntrctCnclsDate') or r.get('cntrctDate'),          # 체결일이 빈 줄이 절반쯤 — 계약일로
             갈래, 원(r.get('thtmCntrctAmt')), 원(r.get('totCntrctAmt')),
             r.get('baseLawNm'), r.get('baseDtls'), [번호 for _, _, 번호 in 업체들(r)], r.get('cntrctNm'),
-            *원계약차수(r.get('cntrctDtlInfoUrl'))]
+            *원계약차수(r.get('cntrctDtlInfoUrl')), {k: v for k, v in r.items() if k not in 뺄칸}]
 
 
 def 원계약차수(주소):
@@ -145,8 +148,8 @@ def 원계약차수(주소):
     return [m.group(1), int(m.group(2))] if m else [None, None]
 
 
-def 차수있나(경로):
-    return os.path.exists(경로) and '차수' in 줄읽기(경로)['칸']
+def 원자료있나(경로):
+    return os.path.exists(경로) and '원자료' in 줄읽기(경로)['칸']
 
 
 def 수의쓰기(경로, 줄):
@@ -173,7 +176,7 @@ def 한달(키, 달, 낼곳, 마감=None, 사유만=False, 갈래들=길, 차수
         조각 = os.path.join(낼곳, '조각', f'{달}_{갈래}.part.gz')
         수의조각 = os.path.join(수의곳, '조각', f'{달}_{갈래}.part.gz')   # 저장소 밖(R2) — data/bizno/조각 은 봇이 커밋한다
         조각들 += [조각, 수의조각]
-        if (차수있나(수의조각) if 차수채움 else os.path.exists(수의조각)) and (사유만 or os.path.exists(조각)):
+        if (원자료있나(수의조각) if 차수채움 else os.path.exists(수의조각)) and (사유만 or os.path.exists(조각)):
             한쪽수의 = 줄읽기(수의조각)['줄']
             한쪽사전 = {} if 사유만 else {(r['이름'], r['번호']): r for r in 줄읽기(조각)}
             print(f'  {달} {갈래} — 조각 있음')
@@ -287,7 +290,7 @@ def main():
     다시 = '--다시' in sys.argv
     사유만 = '--사유만' in sys.argv
     사유끔 = '--사유끔' in sys.argv       # 봇이 R2 에서 못 내려받은 날 — 사유가 없어도 「있다」고 친다
-    차수채움 = '--차수채움' in sys.argv   # 수의계약 파일에 차수 칸이 없으면 받은 달로 안 친다 — 조각도 차수 칸이 있어야 잇는다(며칠에 걸쳐 이어 받게)
+    차수채움 = '--차수채움' in sys.argv   # 수의계약 파일에 원자료 칸이 없으면 받은 달로 안 친다 — 조각도 그 칸이 있어야 잇는다(며칠에 걸쳐 이어 받게)
     # 「--갈래 물품,공사」 — 한 갈래가 하루 한도에 막혔을 때 다른 갈래만 먼저 받는다. 조각만 남기고 달 파일은 안 쓴다(세 갈래가 다 차야 쓴다)
     갈래들 = sys.argv[sys.argv.index('--갈래') + 1].split(',') if '--갈래' in sys.argv else list(길)
     분 = float(sys.argv[sys.argv.index('--분') + 1]) if '--분' in sys.argv else (None if 달들 else 50)
@@ -334,7 +337,7 @@ def main():
             print(f'{분:.0f}분이 지났다 — {달} 부터는 다음에 받는다')
             break
         # ⭐ 끝난 달만 건너뛴다. 이번 달은 계약이 계속 붙으니 늘 다시 받는다.
-        if ((사유끔 or (차수있나(수의경로(달)) if 차수채움 else os.path.exists(수의경로(달)))) and (사유만 or os.path.exists(경로(달)))
+        if ((사유끔 or (원자료있나(수의경로(달)) if 차수채움 else os.path.exists(수의경로(달)))) and (사유만 or os.path.exists(경로(달)))
                 and not 다시 and 달 < 이번달):
             print(f'{달} — 이미 있다 (끝난 달이라 건너뛴다)')
             continue
