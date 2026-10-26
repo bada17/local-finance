@@ -11,6 +11,9 @@
 #    거른 뒤 지방재정365 수의계약과 견주면 곳마다 건수는 가운데 1.13배(10~90% 0.55~1.58)지만 **금액은 1.81배**로 부푼다.
 #    「기관·계약명·업체」로 묶으면 같은 이름의 따로 맺은 계약까지 합쳐져 0.81배로 모자란다 — 맞는 열쇠가 없다.
 #    → **화면은 건수 몫(%)만 쓴다. 금액 칸은 싣지만 합계·몫으로 내걸지 말 것.** 금액은 계약현황(contracts_summary) 몫이다.
+#    ⭐ 2026-10-26 부터 받는 파일엔 원계약·차수 칸이 있다(fetch_bizno.py) → 있으면 원계약마다 차수가 가장 큰 줄 하나만 센다.
+#       2025년 12달은 suui-refetch.yml 이 다시 받아 채운다. 다 차면 2025 금액을 지방재정365 와 다시 견줘 볼 것.
+#       ponytail: 차수 칸 있는 해와 없는 해에 걸친 계약은 두 번 셀 수 있다 — 2024·2026 도 다시 받으면 사라진다
 # ⚠️ 2024년치는 `사유` 칸이 거의 비고 `법` 칸만 찼다 → 조항으로 묶고, 이름은 그 조항에 가장 많이 붙은 사유를 쓴다.
 # ⭐ 같은 업체와 여러 번 맺었나(2026-10-26 사용자 — 「유착을 보려는 게 아니라 구조적 문제가 있나 보는 게 먼저」, 업체 이름은 공개된 것이라 싣는다)
 #    → site/data/suui/<코드>.json: 작년 한 해, 업체당 건수 분포와 가장 여러 번 맺은 업체 열 곳·그 계약들. 우리 동네가 고른 곳 것만 받는다.
@@ -76,7 +79,7 @@ def main():
     파일 = sorted(glob.glob(os.path.join(IN, '*.json.gz')) + glob.glob(os.path.join(IN, '일', '*.json.gz')))
     if not 파일:
         raise SystemExit(f'{IN} 에 파일이 없다 — R2 내려받기가 됐나')
-    계약 = {}                  # 계약번호 뺀 칸들 → (날, cd, 금액, 법, 사유, 동네칸번호, 업체번호, 계약명)
+    계약 = {}                  # 원계약(없으면 계약번호 뺀 칸들) → (날, cd, 금액, 법, 사유, 동네칸번호, 업체번호, 계약명, 차수)
     사유꼴 = collections.defaultdict(collections.Counter)   # 법 → {사유: 건수}
     못붙임 = collections.Counter()
     for f in 파일:
@@ -98,8 +101,13 @@ def main():
             칸 = 3 if not u else 0 if (u == cd or (cd in 광역 and 시도of[u] == 시도of[cd])) else 1 if 시도of[u] == 시도of[cd] else 2
             if 금액 <= 0:                         # 감액 변경으로 보이는 음수·0원 줄(2025 년 29줄)
                 continue
-            키 = (r[k['기관']], 날, r[k['갈래']], 금액, r[k['총액']], 법, 사유, tuple(r[k['업체']] or ()), r[k['건']])   # 계약번호만 뺀 전부
-            계약[키] = (날, cd, 금액, sys.intern(법), sys.intern(사유), 칸, 번호, r[k['건']])
+            원 = r[k['원계약']] if '원계약' in k else None
+            차 = r[k['차수']] if 원 else -1
+            키 = ('#', 원) if 원 else (r[k['기관']], 날, r[k['갈래']], 금액, r[k['총액']], 법, 사유, tuple(r[k['업체']] or ()), r[k['건']])   # 없으면 계약번호만 뺀 전부
+            옛 = 계약.get(키)
+            if 옛 and (옛[-1], 옛[0]) > (차, 날):
+                continue
+            계약[키] = (날, cd, 금액, sys.intern(법), sys.intern(사유), 칸, 번호, r[k['건']], 차)
 
     법이름 = {법: c.most_common(1)[0][0] for 법, c in 사유꼴.items()}
     셈 = collections.defaultdict(lambda: {'건수': 0, '금액': 0, '법': collections.Counter(), '법건': collections.Counter(), '동네': [0, 0, 0, 0]})   # 동네 = 건수
@@ -107,7 +115,7 @@ def main():
     # 사유 글로 묶는다 — 조항이 달라도 사유가 같으면 한 줄(「2천만원 이하 물품 또는 용역」이 두 조항으로 갈려 왔다).
     #   사유가 빈 줄은 그 조항에 가장 많이 붙은 사유, 그것도 없으면 조항 이름 그대로
     업체별 = collections.defaultdict(lambda: collections.defaultdict(list))   # cd → 업체번호 → [(날, 금액, 계약명, 사유)]
-    for 날, cd, 금액, 법, 사유, 칸, 번호, 건 in 계약.values():
+    for 날, cd, 금액, 법, 사유, 칸, 번호, 건, _ in 계약.values():
         if len(날) < 4:        # 체결일·계약일 둘 다 빈 줄
             continue
         법 = 사유 or 법이름.get(법) or ('근거 조항이 비어 있음' if '(조 항 호 )' in 법 else 법)   # 「지방계약법 (조 항 호 )」로 빈 채 온다
