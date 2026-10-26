@@ -120,18 +120,13 @@ def main():
     # 사유 글로 묶는다 — 조항이 달라도 사유가 같으면 한 줄(「2천만원 이하 물품 또는 용역」이 두 조항으로 갈려 왔다).
     #   사유가 빈 줄은 그 조항에 가장 많이 붙은 사유, 그것도 없으면 조항 이름 그대로
     업체별 = collections.defaultdict(lambda: collections.defaultdict(list))   # cd → 업체번호 → [(날, 금액, 계약명, 사유)]
-    # 지방재정365 「금액이 큰 1인 견적 다섯」의 사유 — 같은 곳·이름이 똑같은 나라장터 계약에서(2026-10-26 사용자). 앞 글자만 맞추면 딴 계약이 붙었다
     이름꼴 = lambda x: ' '.join((x or '').split())
-    cs = json.load(open(os.path.join(ROOT, 'data', 'contracts_summary.json'), encoding='utf-8'))['곳']
-    큰찾기 = {(cd, 이름꼴(x[1])): None for cd, 해들 in cs.items() for x in (해들.get(업체해) or {}).get('큰1인', [])}
     for 날, cd, 금액, 법, 사유, 칸, 번호, 건, _ in 계약.values():
         if len(날) < 4:        # 체결일·계약일 둘 다 빈 줄
             continue
         법 = 사유 or 법이름.get(법) or ('근거 조항이 비어 있음' if '(조 항 호 )' in 법 else 법)   # 「지방계약법 (조 항 호 )」로 빈 채 온다
         if 날[:4] == 업체해 and 번호:
             업체별[cd][번호].append((날, 금액, 이름꼴(건), 법))
-        if 날[:4] == 업체해 and (cd, 이름꼴(건)) in 큰찾기:
-            큰찾기[(cd, 이름꼴(건))] = 법
         s = 셈[(cd, 날[:4])]
         s['건수'] += 1
         s['금액'] += 금액
@@ -168,11 +163,7 @@ def main():
                                [[x[0], x[1], x[2], 법번호[x[3]]] for x in sorted(sorted(줄, key=lambda x: -x[1])[:계약N])]] for b, 줄 in 위]},
                       f, ensure_ascii=False, separators=(',', ':'))
 
-    큰사유 = collections.defaultdict(dict)
-    for (cd, 명), 법 in 큰찾기.items():
-        if 법:
-            큰사유[cd][명] = 법
-    out = {'만든날': date.today().isoformat(), '첫날': 첫날, '끝날': 끝날, '파일': len(파일), '큰1인사유': 큰사유,
+    out = {'만든날': date.today().isoformat(), '첫날': 첫날, '끝날': 끝날, '파일': len(파일),
            '사유': 법들, '동네칸': 동네칸,
            '칸': ['건수', '금액(부풂 — 내걸지 말 것)', '사유별 [사유번호(-1=그 밖), 건수, 금액] 건수 큰 차례', '업체 있는 곳별 건수'], '곳': 곳}
     path = os.path.join(ROOT, 'site', 'data', 'suui.json')

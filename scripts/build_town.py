@@ -2,7 +2,7 @@
 #
 #   python scripts/build_town.py
 #
-# 이미 받은 자료만 쓴다 — dash.json·지표 원본(지표) · ongoing(진행 중인 사업) · score.json(투명성) · side.json(의회 회의·의안)
+# 이미 받은 자료만 쓴다 — dash.json·지표 원본(지표) · ongoing(진행 중인 사업) · score.json(투명성)
 #   · contracts_summary(계약) · clik 알림(지켜보는 사업). 숫자는 여기서 고치지 않는다.
 # 고향사랑 사업은 이름에 「고향사랑」이 든 것만 모은 것이라 쌓기·옮기기가 섞여 있다(합계 내지 말 것).
 # 문을 고르는 내부 검토판 drafts/index.html 도 이 파일을 읽는다.
@@ -109,55 +109,16 @@ def main():
         x = 읽기('site', 'data', 'revenue', f'{c[0]}.json').get('세목') if os.path.exists(p) else None
         세목.append(x and {k: x.get(k) for k in ('해', '단위', '이곳것아님', '천원단위', '합계', '소계', '시도전체', '칸')})
 
-    # 돈의 흐름 — 광역 ↔ 기초(2026-10-16 사용자 「돈의 흐름이 잘 보여야」). **2024 결산 하나로 맞춘다.**
-    #   걷힘: 그 구역에서 걷힌 광역세(연감 세목의 소계 — 서울은 「시세」, 도는 「도세」)
-    #   내려옴: 기초가 받은 조정교부금(재원 2단계 「조정교부금등」)·시도비보조금(3단계, 이름이 해마다 「시ㆍ도비보조금등」 등으로 바뀐다)
-    #   ⚠️ 걷힌 광역세는 광역 살림 전체로 들어간다 — 받은 돈과 1:1 로 맞바꾼 것이 아니다. 나눈 비율은 내지 않는다.
     재원 = json.load(gzip.open(os.path.join(ROOT, 'data', 'revenue', 'FIACRV.json.gz'), 'rt', encoding='utf-8'))
-    흐름해 = max(int(r['_해']) for r in 재원)
-    받음 = {}
-    for r in 재원:
-        if int(r['_해']) != 흐름해:
-            continue
-        n, 층 = re.sub(r'[^가-힣]', '', r.get('armk_nm') or ''), str(r.get('lvl_no'))
-        칸 = 0 if 층 == '2' and n.startswith('조정교부금') else 1 if 층 == '3' and n.startswith('시도비') else None
-        if 칸 is not None:
-            받음.setdefault(r['laf_cd'], [0, 0])[칸] += r.get('tott_sum_amt') or 0
-    광역접두 = {c[2]: next(iter(세목[j]['소계'])) for j, c in enumerate(곳)
-              if c[3] == '광역' and 세목[j] and 세목[j].get('소계')}
-    흐름 = []
-    for j, c in enumerate(곳):
-        t, 접 = 세목[j], 광역접두.get(c[2])
-        if c[3] == '광역' or not (t and t.get('소계') and 접):
-            흐름.append(None)
-            continue
-        assert t['해'] == 흐름해, (c, t['해'], 흐름해)       # 세목과 받은 돈의 해가 같아야 나란히 놓는다
-        광역세 = t['소계'].get(접, 0) * 1000                  # 연감은 천원
-        기초세 = sum(v for k, v in t['소계'].items() if k != 접) * 1000
-        흐름.append([광역세, 기초세] + 받음.get(c[0], [0, 0]))
-
+    재원해 = max(int(r['_해']) for r in 재원)
     # 서울 구 — 예산(결산)의 「지방세수입」 = 연감 구세 + 공동재산세(특별시분 재산세를 25구에 똑같이 나눈 것).
     # 2026-10-16 확인: 2024 결산에서 25구 모두 차이가 679.17억으로 같다(천원 반올림 안). 「1명당 세금」에 이 몫이 들어 있다.
     지방세수입 = {r['laf_cd']: r['tott_sum_amt'] for r in 재원
-                if int(r['_해']) == 흐름해 and str(r.get('lvl_no')) == '2' and r.get('armk_nm') == '지방세수입'}
+                if int(r['_해']) == 재원해 and str(r.get('lvl_no')) == '2' and r.get('armk_nm') == '지방세수입'}
     for j, c in enumerate(곳):
         t = 세목[j]
         if c[2] == '서울' and c[3] == '구' and t and t.get('소계', {}).get('구세') and c[0] in 지방세수입:
             t['공동재산세'] = 지방세수입[c[0]] - t['소계']['구세'] * 1000
-
-    # 교부세 감액(build_cuts.py 가 먼저 굽는다) — 곳마다 [깎인 일 수(같은 내역은 하나), 건수, 합계, 마지막 해, 그 해 사유들]. 2020 뒤만(cuts.html 처음 화면과 같게)
-    cuts = 읽기('site', 'data', 'cuts.json')
-    감액시작 = 2020
-    벌 = {}
-    for 해, cd, 금, 사, _, 일 in cuts['건']:
-        if 해 >= 감액시작:
-            벌.setdefault(cuts['지금번호'].get(cd, cd), []).append((해, 금, 사, 일))
-    감액 = []
-    for c in 곳:
-        x = 벌.get(c[0])
-        끝 = x and max(r[0] for r in x)
-        감액.append(x and [len({r[3] for r in x}), len(x), sum(r[1] for r in x), 끝,
-                         sorted({r[2] for r in x if r[0] == 끝 and r[2]})])
 
     # 투명성은 첫 화면에서 뺐다(2026-10-15, 선배 몫) — drafts/index.html 검토판만 쓴다
     s = 읽기('data', 'score.json')
@@ -166,43 +127,6 @@ def main():
     for c in 곳:
         v = [(판.get(c[0]) or {}).get(h['키'], {}).get('값') for h in s['항목']]
         투명.append([v.count('O'), v.count('X'), len(v) - v.count('O') - v.count('X')])
-
-    # 의회 — CLIK 에 올라온 회의·의안(같은 회의가 여러 번 올라온 것은 build_side.py 가 하나로 셌다).
-    # 다 끝난 마지막 해만. 0 이나 빈칸은 「안 했다」가 아니라 「CLIK 에 안 올라왔다」일 수 있다(의안 0 인 의회 36곳).
-    side = 읽기('site', 'data', 'side.json')
-    의회해 = str(date.today().year - 1)
-    의회 = []
-    for c in 곳:
-        x = side['곳'].get(c[0]) or {}
-        회, 안 = (x.get('회의수') or {}).get(의회해), (x.get('의안수') or {}).get(의회해)
-        의회.append([회, 안] if 회 or 안 else None)
-
-    # 9대 의회(2026-07-01~)에 올라온 의안 전부 — 거르지 않는다(2026-10-16 사용자 「다 올린다」). 결과·요지는 CLIK 에 없다.
-    # 곳마다 따로 굽는다(전부 7천여 건, town.json 에 넣으면 1MB 가 는다). 같은 의안이 여러 번 올라온 것은 하나로(build_side.py 와 같은 열쇠).
-    # 9대에 광주시의회·전남도의회가 「전남광주통합특별시의회」(6100000, 지표 243곳 밖)로 합쳐졌다 — 두 본청 화면에 같이 싣는다.
-    의안시작 = '2026-07-01'
-    통합 = {'2900000': '6100000', '4600000': '6100000'}
-    os.makedirs(os.path.join(ROOT, 'site', 'data', 'bills'), exist_ok=True)
-    의안곳 = 의안수 = 0
-    for c in 곳:
-        줄, 의회명 = {}, set()
-        for cd in (c[0], 통합.get(c[0])):
-            p = os.path.join(ROOT, 'site', 'data', 'clik', f'{cd}.json')
-            if not cd or not os.path.exists(p):
-                continue
-            d = 읽기('site', 'data', 'clik', f'{cd}.json')
-            n0 = len(줄)
-            for row in d['의안']:
-                r = dict(zip(d['칸']['의안'], row))
-                if (r.get('날짜') or '') >= 의안시작:
-                    줄[(r['RASMBLY_ID'], r['RASMBLY_NUMPR'], r['BI_NO'], r['BI_SJ'])] = [r['날짜'], r['BI_KND_NM'], r['BI_SJ'], r.get('PROPSR') or '']
-            if len(줄) > n0:
-                의회명.update(x['의회명'] for x in d.get('의회', []) if x.get('지금있나'))
-        with open(os.path.join(ROOT, 'site', 'data', 'bills', f'{c[0]}.json'), 'w', encoding='utf-8') as f:
-            json.dump({'시작': 의안시작, '의회': sorted(의회명), '칸': ['날짜', '종류', '제목', '제안'], '줄': sorted(줄.values(), reverse=True)},
-                      f, ensure_ascii=False, separators=(',', ':'))
-        의안곳 += bool(줄); 의안수 += len(줄)
-    print(f'의안 {의안시작}~ : {의안곳}곳 {의안수:,}건 → site/data/bills/')
 
     알림 = 읽기('data', 'clik', '알림_모음.json')
     지켜봄 = {}
@@ -242,13 +166,11 @@ def main():
         업체 = [u for u in y.get('상위5', []) if '조달청' not in u['이름']][:3]
         계약.append([y['건수'], y['수의건수'], y['수의건수율'], y['수의금액률'], y['금액'],
                    [[u['이름'], u['금액']] for u in 업체], y['수의금액'], y.get('1인건수'), y.get('1인금액'),
-                   y.get('수의종류'), y.get('큰1인'), y.get('1인가운데'), y.get('1인작은')])
+                   y.get('수의종류')])
 
     # 수의계약 근거 조항·업체 있는 곳 — 나라장터 줄(build_suui.py, 봇이 R2 에서 굽는다). 계약현황과 다른 자료라 따로 싣는다
     su = 읽기('site', 'data', 'suui.json') if os.path.exists(os.path.join(ROOT, 'site', 'data', 'suui.json')) else {'곳': {}}
     수의 = [(su['곳'].get(c[0]) or {}).get(계약해) for c in 곳]
-    큰사유 = [[(su.get('큰1인사유', {}).get(c[0]) or {}).get(' '.join(x[1].split())) for x in (계[10] or [])] if 계 else None
-             for c, 계 in zip(곳, 계약)]
 
     # 올해 빌릴 돈 — 올해 세입예산(재원별, FIRVBG)의 「지방채」(2026-10-26 사용자 「26년 지방채 발행계획은 따로 볼 수 있게」). 없으면 0
     채 = {r['laf_cd']: r['last_bdg_tott_amt'] for r in json.load(gzip.open(os.path.join(ROOT, 'data', 'revenue', 'FIRVBG.json.gz'), 'rt', encoding='utf-8'))
@@ -259,7 +181,7 @@ def main():
     통합전이름 = {'2900000': '광주광역시', '4600000': '전라남도'}
     이름 = [통합전이름.get(c[0]) or cs['곳이름'].get(c[0], c[1]) for c in 곳]
     # 시·도 앞말은 그 시·도 본청 이름으로 맞춘다 — 계약 자료 이름이 섞여 온다(2026-10-19: 군위군이 「경상북도」(2023 대구 편입),
-    # 정읍만 「전라북도」, 통합 뒤 광주·전남 기초가 「광주 동구」·「전남 목포시」). 화면은 앞말로 「○○와 오간 돈」을 쓴다.
+    # 정읍만 「전라북도」, 통합 뒤 광주·전남 기초가 「광주 동구」·「전남 목포시」).
     광역이름 = {c[2]: n for c, n in zip(곳, 이름) if c[3] == '광역'}
     assert all(' ' in n for c, n in zip(곳, 이름) if c[3] != '광역'), '기초 이름에 시·도 앞말이 없다'
     이름 = [n if c[3] == '광역' else f"{광역이름[c[2]]} {n.split(' ', 1)[1]}" for c, n in zip(곳, 이름)]
@@ -267,13 +189,11 @@ def main():
            '결산연도': dash['결산연도'], '예산연도': dash['예산연도'],
            '곳칸': dash['곳칸'], '곳': 곳, '지표': 지표, '집행칸': ['예산현액', '지출', '사업수'], '집행': 집행,
            '큰사업칸': ['이름', '예산현액', '지출', '동네 돈'], '큰사업': 큰사업, '정해진합': 정해진합, '재원칸': ['국비', '시도비', '시군구비', '기타'], '재원': 재원몫,
-           '분야': 분야, '부문': 부문, '세목': 세목, '흐름해': 흐름해, '흐름칸': ['걷힌 광역세', '기초세', '조정교부금', '시도비보조금'], '흐름': 흐름, '고향': 고향, '투명칸': ['됨', '안 됨', '못 봄'], '투명항목수': len(s['항목']), '투명': 투명,
-           '의회해': 의회해, '의회칸': ['회의', '의안'], '의회': 의회,
+           '분야': 분야, '부문': 부문, '세목': 세목, '고향': 고향, '투명칸': ['됨', '안 됨', '못 봄'], '투명항목수': len(s['항목']), '투명': 투명,
            '지켜봄': 지켜봄, '게시판': 게시판,
-           '감액시작': 감액시작, '감액칸': ['깎인 일', '건', '합계', '마지막 해', '마지막 해 사유'], '감액': 감액,
            '이름': 이름, '계약해': 계약해,
-           '계약칸': ['건수', '수의건수', '수의건수율', '수의금액률', '금액', '상위업체(조달청 뺌)', '수의금액', '1인건수', '1인금액', '수의종류 {종류: [건수, 금액]}', '큰1인 [날, 계약명, 업체, 금액, 종류]', '1인가운데', '1인작은(2,200만 이하 건수)'], '계약': 계약,
-           '수의칸': su.get('칸'), '수의법': su.get('사유'), '수의동네칸': su.get('동네칸'), '수의끝날': su.get('끝날'), '수의': 수의, '수의큰사유': 큰사유,
+           '계약칸': ['건수', '수의건수', '수의건수율', '수의금액률', '금액', '상위업체(조달청 뺌)', '수의금액', '1인건수', '1인금액', '수의종류 {종류: [건수, 금액]}'], '계약': 계약,
+           '수의칸': su.get('칸'), '수의법': su.get('사유'), '수의동네칸': su.get('동네칸'), '수의끝날': su.get('끝날'), '수의': 수의,
            '지방채계획': 지방채계획}
     path = os.path.join(ROOT, 'site', 'data', 'town.json')
     with open(path, 'w', encoding='utf-8') as f:

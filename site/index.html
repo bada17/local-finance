@@ -160,7 +160,6 @@
   .bar .tr{height:12px}
   details.sub>summary{list-style:none; cursor:pointer} details.sub>summary::-webkit-details-marker{display:none}
   details.sub>summary .nm::after{content:' ▸'; color:var(--soft)} details.sub[open]>summary .nm::after{content:' ▾'}
-  ul.big5{margin:8px 0 0 18px; font-size:14px; line-height:1.7}
   h5.taxg{margin:18px 0 4px; font-size:15px; font-weight:600} h5.taxg b{font-weight:700}
   details.vend{border-top:1px solid var(--line); padding:8px 4px} details.vend>summary{cursor:pointer} details.vend ul{margin:8px 0 4px 18px; font-size:14px; line-height:1.7}
   details.sub .bars{margin:0 0 6px 18px; border-top:0} details.sub .bars .bar{font-size:14px; padding:6px 4px} details.sub .bars .tr i{opacity:.55}
@@ -248,6 +247,8 @@
   /* 게임 안(?part=) — 머리 띠·동네 이름 머리·바로가기·다른 쪽·공통 하단(후원 띠)·작업대 링크는 감춘다. 동네는 게임이 고른다 */
   [data-part] header.top, [data-part] .hero, [data-part] .jump, [data-part] #ah-foot, [data-part] .links,
   [data-part="오나"] #쓰나, [data-part="쓰나"] #오나{display:none}
+  /* 출처·기준일 같은 잔설명도 게임 안에선 감춘다(2026-10-26 사용자) — 빼면 잘못 읽히는 것만 .keep */
+  [data-part] .desc:not(.keep), [data-part] .note{display:none}
 </style>
 
 <header class="top"><div class="wrap">
@@ -650,7 +651,7 @@ function 그리기() {
         return Object.keys(묶).sort((a, b) => (b === 이곳) - (a === 이곳)).map(g => `${g ? `<h5 class="taxg">${esc(g)} <b>${원(t.소계?.[g] ?? 묶[g].reduce((s, r) => s + r.금액, 0))}</b></h5>` : ''}
           ${막대(묶[g].sort((x, y) => y.금액 - x.금액).map(r => [r.이름, t.천원단위 ? r.금액 * 1000 : r.금액, r.몫]), 돈)}`).join(''); })()}
       ${t.공동재산세 ? `<p class="note">${t.해}년 결산에서 ${esc(짧은이름(i))}의 지방세 수입은 구세 ${원(t.소계.구세)}에 <b>공동재산세 ${돈(t.공동재산세)}</b>을 더한 것입니다 — 서울시가 걷은 특별시분 재산세를 25개 구에 똑같이 나눈 몫이라 구마다 같습니다.</p>` : ''}</div>`; })()}
-    ${''/* 「○○와 오간 돈」·「시·군·구와 오간 돈」은 뺐다(2026-10-26 사용자) — town.json 흐름 칸은 그대로 굽는다 */}
+    ${''/* 「○○와 오간 돈」·「시·군·구와 오간 돈」은 뺐다(2026-10-26 사용자) — 굽기도 뺐다(되살리려면 git 기록) */}
       <div class="blk"><h4>스스로 버는 비율 · 빚 — ${D.결산연도}년 결산</h4>
         <div class="stats">
           ${칸('재정자립도', '재정자립도[결산]', 퍼, {해: D.결산연도, 기준: '결산', 바늘: true})}
@@ -685,7 +686,7 @@ function 그리기() {
           <div class="rk">예산 ${돈(집[0])} 가운데 ${퍼(집[1] / 집[0] * 100, 0)}</div></div></div>
         ${큰.length ? `<h4 style="margin-top:22px">${esc(짧은이름(i))} 돈을 가장 많이 넣은 사업 다섯</h4>
         ${D.정해진합[i] ? `<p class="desc">인력운영비·기초연금·생계급여처럼 어디서나 정해져 나가는 돈 <b>${돈(D.정해진합[i])}</b>(예산의 ${퍼(D.정해진합[i] / 집[0] * 100, 0)})과 보전지출·예비비 같은 회계 숫자는 뺐습니다.</p>` : ''}
-        <p class="desc">막대는 그 사업에 넣은 ${esc(짧은이름(i))} 돈, 오른쪽 %는 그 사업 예산 가운데 지금까지 쓴 몫입니다.</p>
+        <p class="desc keep">막대는 그 사업에 넣은 ${esc(짧은이름(i))} 돈, 오른쪽 %는 그 사업 예산 가운데 지금까지 쓴 몫입니다.</p>
         ${막대(큰.map(r => [r[0], r[3], r[1] ? r[2] / r[1] * 100 : null]), 돈)}` : ''}
       </div>`;
   // 「누가 정한 돈인가」는 다듬을 거리라 숨겼다(2026-10-26 사용자 「일단 주석처리」)
@@ -707,10 +708,11 @@ function 그리기() {
   // 수의계약(2026-10-16 사용자 답 4) — 「경쟁 없이」는 1인 견적만. 순위는 안 붙인다. 업체 이름은 공개된 것이라 싣는다(2026-10-26 사용자)
   //   「어디 업체와 맺었나」(주소로 가른 동네 몫)는 뺐다(2026-10-26 사용자 「필요없을듯」) — suui.json 엔 남아 있다
   //   위 칸은 지방재정365 계약현황, 조항·업체 있는 곳은 나라장터 줄(build_suui.py) — 자료가 달라 합치지 않는다
+  //   ponytail: 나라장터는 고친 계약이 겹쳐 사유는 비율만 낸다(2026-10-26 사용자 「일단은 꼼수」) — 차수 채우기가 다 차면 원계약 하나로 세어 다시 볼 것
   const 수 = D.수의 && D.수의[i], 건 = v => v.toLocaleString() + '건';
   if (계) h += `<div class="grp"><h3>${D.계약해}년 계약 <span class="chip done">결과</span></h3>
       <div class="blk"><h4>수의계약</h4>
-        <p class="desc">한 업체에서만 견적을 받아 맺으면 「1인 견적」, 두 곳 이상에서 견적을 받아 견주면 「2인 이상 견적」입니다.</p>
+        <p class="desc keep">한 업체에서만 견적을 받아 맺으면 「1인 견적」, 두 곳 이상에서 견적을 받아 견주면 「2인 이상 견적」입니다.</p>
         <div class="stats">
           <div class="stat"><div class="k">수의계약</div><div class="v">${돈(계[6])}</div><div class="rk">계약 ${돈(계[4])} 가운데 ${퍼(계[3], 0)} · ${계[1].toLocaleString()}건</div></div>
           ${계[8] != null ? `<div class="stat"><div class="k">경쟁 없이(1인 견적)</div><div class="v">${돈(계[8])}</div><div class="rk">계약 금액의 ${퍼(계[4] ? 계[8] / 계[4] * 100 : null, 0)} · ${계[7].toLocaleString()}건</div></div>
@@ -719,13 +721,9 @@ function 그리기() {
         ${계[9] ? `<h4 style="margin-top:22px">무엇을 수의계약으로 맺었나</h4>
         <p class="desc">수의계약 ${돈(계[6])}을 계약 종류로 나눴습니다(지방재정365 계약현황).</p>
         ${막대(Object.entries(계[9]).sort((x, y) => y[1][1] - x[1][1]).map(([n, [k, v]]) => [`${n} ${k.toLocaleString()}건`, v, 계[6] ? v / 계[6] * 100 : null]), 돈)}` : ''}
-        ${계[10] && 계[10].length ? `<h4 style="margin-top:22px">드물게 큰 1인 견적 다섯</h4>
-        ${계[11] != null ? `<p class="desc">1인 견적 ${계[7].toLocaleString()}건의 가운데값은 <b>${돈(계[11])}</b>이고, ${퍼(계[7] ? 계[12] / 계[7] * 100 : null, 0)}가 2,200만 원 이하입니다. 1인 견적은 보통 추정가격 2천만 원(부가세 넣어 2,200만 원)까지라, 그보다 큰 것은 법이 따로 허락한 경우입니다.</p>` : ''}
-        <p class="desc">아래는 그 가운데 큰 차례입니다(지방재정365 계약현황). 사유는 나라장터에서 이름이 똑같은 계약을 찾아 붙였습니다. 여러 해에 걸친 계약은 전체와 그해 몫이 따로 한 줄씩 있을 수 있습니다.</p>
-        <ul class="big5">${계[10].map(([날, 명, 업, 금, 종], k) => `<li><b>${돈(금)}</b> · ${esc(명)} · ${esc(업)} · ${esc(종)} · ${날.slice(0, 4)}-${날.slice(4, 6)}-${날.slice(6)}<br><small>사유: ${esc((D.수의큰사유[i] || [])[k] || '나라장터에서 못 찾음')}</small></li>`).join('')}</ul>` : ''}
         ${수 ? `<h4 style="margin-top:22px">왜 수의계약으로 했나 — 법에 적힌 근거</h4>
-        <p class="desc">나라장터에 올라온 ${D.계약해}년 수의계약 ${수[0].toLocaleString()}건을 건수로 셌습니다. 나라장터엔 고쳐 다시 올린 계약이 섞여 있어 금액은 쓰지 않았고, 위 칸(지방재정365)과 건수도 맞지 않습니다.</p>
-        ${막대(수[2].map(([b, n]) => [b < 0 ? '그 밖' : D.수의법[b] || '사유가 적히지 않은 조항', n, 수[0] ? n / 수[0] * 100 : null]), 건)}
+        <p class="desc keep">사유는 나라장터에만 적혀 있어 나라장터 자료로 비율만 냈습니다. 나라장터는 계약을 고칠 때마다 새로 올라와 건수·금액이 부풀어 있습니다.</p>
+        ${막대(수[2].map(([b, n]) => [b < 0 ? '그 밖' : D.수의법[b] || '사유가 적히지 않은 조항', n, 수[0] ? n / 수[0] * 100 : null]), () => '')}
         <div id="suuiUp"></div>` : ''}
       </div></div>`;
 
@@ -754,7 +752,7 @@ function 그리기() {
       </div></div>` : ''}</div>
   </div>`;
 
-  // 두 가지 질문 — 「따지나」(의회)·의안 목록은 뺐다(2026-10-19 사용자 「의회 부분은 일단 빼자. 정신 사나워」, town.json·data/bills/ 는 그대로 굽는다).
+  // 두 가지 질문 — 「따지나」(의회)·의안 목록은 뺐다(2026-10-19 사용자 「의회 부분은 일단 빼자. 정신 사나워」, 굽기도 뺐다 — 되살리려면 git 기록).
   //   「숨기나」(투명성 지표)는 따로 뺐다(2026-10-15, 선배가 맡음). score.html·transparency.html 은 작업대에 그대로
   h += `<div class="blk reveal"><h4 class="big">두 가지 질문으로 본 ${esc(짧은이름(i))}</h4><p class="desc">새나, 몰아주나. 시민행동이 지방 살림을 따지는 잣대입니다.</p>
     <div class="four">
@@ -788,10 +786,10 @@ function 그리기() {
     const el = $('suuiUp'); if (!u || !el || 곳[i][0] !== cd) return;
     const 모두 = u.분포.reduce((s, r) => s + r[1], 0);
     el.innerHTML = `<h4 style="margin-top:22px">같은 업체와 몇 번 맺었나</h4>
-      <p class="desc">${u.해}년 나라장터 수의계약을 업체(사업자번호)마다 묶었습니다. 막대는 그만큼 맺은 업체들의 계약 건수입니다. 여러 번 맺었다고 잘못이라는 뜻은 아닙니다. 공사마다 따로 맺어야 하는 안전 점검처럼 구조가 그렇게 만든 것도 있습니다.</p>
+      <p class="desc keep">${u.해}년 나라장터 수의계약을 업체(사업자번호)마다 묶었습니다. 막대는 그만큼 맺은 업체들의 계약 건수입니다. 여러 번 맺었다고 잘못이라는 뜻은 아닙니다. 공사마다 따로 맺어야 하는 안전 점검처럼 구조가 그렇게 만든 것도 있습니다.</p>
       ${막대(u.분포.map(([n, k], j) => [`${u.분포칸[j]} 맺은 업체 ${n.toLocaleString()}곳`, k, 모두 ? k / 모두 * 100 : null]), 건)}
       <h4 style="margin-top:22px">가장 여러 번 맺은 업체 ${u.업체.length}곳</h4>
-      <p class="desc">누르면 계약이 펼쳐집니다(금액 큰 차례로 50건까지). 금액은 나라장터에 적힌 그대로라, 고쳐 다시 올린 계약이 따로 한 줄로 있을 수 있습니다.</p>
+      <p class="desc keep">누르면 계약이 펼쳐집니다(금액 큰 차례로 50건까지). 금액은 나라장터에 적힌 그대로라, 고쳐 다시 올린 계약이 따로 한 줄로 있을 수 있습니다.</p>
       ${u.업체.map(([이름, 어디, n, 작은, 줄]) => `<details class="vend"><summary><b>${esc(이름)}</b> · ${esc(어디)} — ${n.toLocaleString()}건${작은 ? ` (그 가운데 「2천만원 이하」 사유 ${작은.toLocaleString()}건)` : ''}</summary>
         <ul>${줄.map(([날, 금, 명, b]) => `<li>${esc(날)} · ${esc(명)} · ${돈(금)}${D.수의법[b] && !D.수의법[b].startsWith('추정가격 2천만원 이하') ? ` · <small>${esc(D.수의법[b])}</small>` : ''}</li>`).join('')}${n > 줄.length ? `<li>그 밖 ${(n - 줄.length).toLocaleString()}건</li>` : ''}</ul></details>`).join('')}`;
   }).catch(() => {});
