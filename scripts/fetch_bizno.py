@@ -10,6 +10,9 @@
 #   python scripts/fetch_bizno.py 202501 202512 --사유만 --차수채움   수의계약 파일에 「원자료」 칸이 없는 달만 다시 받는다(suui-refetch.yml)
 #
 # ⭐ **지자체 수의계약 줄은 사유까지 따로 담는다**(2026-10-16) → `data/수의계약/{달}.json.gz`, 이번 달은 `일/`.
+#    ⭐ 2026-10-26 부터는 **모든 계약 줄**(기관·계약방법 가리지 않음)을 원자료째 담는다 — 사용자 「잘라서 가져오지 마」.
+#       폴더 이름은 그대로 「수의계약」이다. 지자체 수의계약만 고르는 건 굽는 쪽(build_suui.py)이 원자료 칸을 보고 한다.
+#       그 전에 받은 파일은 지자체 수의계약 줄만 있고 원자료 칸이 없다.
 #    나라장터 계약에는 `baseLawNm`(근거 조항)·`baseDtls`(사유 — 「추정가격 2천만원 이하 물품 또는 용역」 등)이 온다.
 #    **저장소엔 안 올린다 — R2(local-finance-raw, 수의계약/)에 쌓는다.** 봇이 내려받고→받고→올린다(daily.yml).
 #    ⚠️ 2024년치는 `사유` 칸이 거의 비고(2024-01: 5만 줄 중 64줄) `법` 칸만 찼다 — 조항으로 갈래를 알 수 있다.
@@ -133,9 +136,7 @@ def 원(값):
 
 
 def 수의줄(r, 갈래):
-    """지자체 수의계약이면 사유까지 추린 한 줄 + 원자료, 아니면 None. 담당 공무원 이름·전화·팩스는 안 담는다."""
-    if r.get('cntrctInsttJrsdctnDivNm') != '지방자치단체' or '수의' not in str(r.get('cntrctCnclsMthdNm') or ''):
-        return None
+    """계약 한 줄 — 굽는 쪽이 쓰던 칸 + 원자료(모든 칸). 담당 공무원 이름·전화·팩스는 안 담는다."""
     return [r.get('untyCntrctNo'), r.get('cntrctInsttCd'), r.get('cntrctInsttNm'),
             r.get('cntrctCnclsDate') or r.get('cntrctDate'),          # 체결일이 빈 줄이 절반쯤 — 계약일로
             갈래, 원(r.get('thtmCntrctAmt')), 원(r.get('totCntrctAmt')),
@@ -206,7 +207,7 @@ def 한달(키, 달, 낼곳, 마감=None, 사유만=False, 갈래들=길, 차수
             if not 사유만:
                 파일쓰기(조각, 한쪽사전)
             수의쓰기(수의조각, 한쪽수의)
-            print(f'  {달} {갈래} — 계약 {줄수:,}줄 · 지자체 수의 {len(한쪽수의):,} · {time.time() - 시작:.0f}초', flush=True)
+            print(f'  {달} {갈래} — 계약 {줄수:,}줄 · 담은 줄 {len(한쪽수의):,} · {time.time() - 시작:.0f}초', flush=True)
         수의 += 한쪽수의
         for 열쇠, r in 한쪽사전.items():
             if 열쇠 in 사전:
@@ -279,7 +280,7 @@ def 이번달하루치(키, 낼곳, 이번달, 사유끔=False):
             if not os.path.exists(경로):           # 사전 날짜 파일은 덮어쓰지 않는다(위 ⭐)
                 파일쓰기(경로, 사전)
             수의쓰기(수의경로, 수의)
-            print(f'{하루} — 계약 {줄수:,}줄 · 업체 {len(사전):,}가지 · 지자체 수의 {len(수의):,} (하루치)')
+            print(f'{하루} — 계약 {줄수:,}줄 · 업체 {len(사전):,}가지 · 담은 줄 {len(수의):,} (하루치)')
         하루 = time.strftime('%Y%m%d', time.localtime(
             time.mktime(time.strptime(하루, '%Y%m%d')) + 86400 + 3600))
 
@@ -356,7 +357,7 @@ def main():
             표 = 파일쓰기(경로(달), 사전)
             번호있 = sum(1 for r in 표 if r['번호'])
             print(f'{달} — 업체 {len(표):,}가지 (번호 붙은 것 {번호있:,})', flush=True)
-        print(f'{달} — 지자체 수의계약 {len(수의):,}줄', flush=True)
+        print(f'{달} — 계약 원자료 {len(수의):,}줄', flush=True)
         for x in 조각들:
             if os.path.exists(x):
                 os.remove(x)

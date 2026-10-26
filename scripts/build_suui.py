@@ -86,6 +86,10 @@ def main():
         표 = 읽기(f)
         k = {n: j for j, n in enumerate(표['칸'])}
         for r in 표['줄']:
+            if '원자료' in k:      # 2026-10-26 뒤 파일은 모든 계약 줄 — 지자체 수의계약만 고른다(그 전 파일은 이미 골라 담았다)
+                o = r[k['원자료']]
+                if o.get('cntrctInsttJrsdctnDivNm') != '지방자치단체' or '수의' not in str(o.get('cntrctCnclsMthdNm') or ''):
+                    continue
             법 = (r[k['법']] or '').strip() or '근거 조항 없음'
             사유 = (r[k['사유']] or '').strip()
             if 사유:
