@@ -6,8 +6,11 @@
 # ⚠️ 원자료는 R2(수의계약/)에만 있고 **이 PC 엔 R2 키가 없다** — 그래서 달마다 봇(monthly.yml)이 내려받아 굽는다.
 # 무엇을 세나(2026-10-16 사용자 답 4) — 「왜 수의계약인가」(근거 조항)·「동네 업체가 받았나」(사업자번호 → 조달업체 등록 주소).
 #   · 1인 견적 / 2인 이상 견적은 여기 말고 지방재정365 계약현황(contracts_summary)에서 센다 — 나라장터 줄엔 그 칸이 없다.
-#   · 나라장터 줄 수는 지방재정365 계약현황과 다르다(같은 날 2배쯤 많다) — 두 자료를 섞어 셈하지 말 것.
-# ⚠️ 같은 계약(`계약` 칸)이 변경 등록으로 또 올 수 있다 — 날이 가장 늦은 줄 하나만 센다.
+# ⚠️⚠️ **같은 계약이 계약번호만 바꿔 다시 올라온다(2026-10-26 잼).** 2025년 203만 줄 중 106만 줄이 번호 말고는 똑같다
+#    → 번호를 뺀 나머지 칸이 다 같으면 하나로 센다. 그래도 고쳐 다시 올린 변경 계약(날·금액이 다름)은 못 거른다:
+#    거른 뒤 지방재정365 수의계약과 견주면 곳마다 건수는 가운데 1.13배(10~90% 0.55~1.58)지만 **금액은 1.81배**로 부푼다.
+#    「기관·계약명·업체」로 묶으면 같은 이름의 따로 맺은 계약까지 합쳐져 0.81배로 모자란다 — 맞는 열쇠가 없다.
+#    → **화면은 건수 몫(%)만 쓴다. 금액 칸은 싣지만 합계·몫으로 내걸지 말 것.** 금액은 계약현황(contracts_summary) 몫이다.
 # ⚠️ 2024년치는 `사유` 칸이 거의 비고 `법` 칸만 찼다 → 조항으로 묶고, 이름은 그 조항에 가장 많이 붙은 사유를 쓴다.
 # 기관 이름(「경상북도 구미시 맑은물사업소」)의 앞 두 낱말로 243곳에 붙인다 — 교육청·통합 뒤 광주·전남 본청은 못 붙인다(따로 센다).
 
@@ -66,7 +69,7 @@ def main():
     파일 = sorted(glob.glob(os.path.join(IN, '*.json.gz')) + glob.glob(os.path.join(IN, '일', '*.json.gz')))
     if not 파일:
         raise SystemExit(f'{IN} 에 파일이 없다 — R2 내려받기가 됐나')
-    계약 = {}                  # 계약번호 → (날, cd, 금액, 법, 동네칸번호)
+    계약 = {}                  # 계약번호 뺀 칸들 → (날, cd, 금액, 법, 사유, 동네칸번호)
     사유꼴 = collections.defaultdict(collections.Counter)   # 법 → {사유: 건수}
     못붙임 = collections.Counter()
     for f in 파일:
@@ -86,42 +89,46 @@ def main():
             번호 = (r[k['업체']] or [None])[0]     # ponytail: 공동수급은 첫 업체 하나로 — 몫을 나누려면 업체마다 금액 칸이 필요
             u = 업체곳.get(번호)
             칸 = 3 if not u else 0 if (u == cd or (cd in 광역 and 시도of[u] == 시도of[cd])) else 1 if 시도of[u] == 시도of[cd] else 2
-            키 = r[k['계약']] or f'{f}:{id(r)}'
-            if 키 not in 계약 or 날 >= 계약[키][0]:
-                계약[키] = (날, cd, 금액, sys.intern(법), 칸)
+            if 금액 <= 0:                         # 감액 변경으로 보이는 음수·0원 줄(2025 년 29줄)
+                continue
+            키 = (r[k['기관']], 날, r[k['갈래']], 금액, r[k['총액']], 법, 사유, tuple(r[k['업체']] or ()), r[k['건']])   # 계약번호만 뺀 전부
+            계약[키] = (날, cd, 금액, sys.intern(법), sys.intern(사유), 칸)
 
     법이름 = {법: c.most_common(1)[0][0] for 법, c in 사유꼴.items()}
-    셈 = collections.defaultdict(lambda: {'건수': 0, '금액': 0, '법': collections.Counter(), '법건': collections.Counter(), '동네': [0, 0, 0, 0]})
+    셈 = collections.defaultdict(lambda: {'건수': 0, '금액': 0, '법': collections.Counter(), '법건': collections.Counter(), '동네': [0, 0, 0, 0]})   # 동네 = 건수
     첫날, 끝날 = min(x[0] for x in 계약.values() if x[0]), max(x[0] for x in 계약.values())
-    for 날, cd, 금액, 법, 칸 in 계약.values():
+    # 사유 글로 묶는다 — 조항이 달라도 사유가 같으면 한 줄(「2천만원 이하 물품 또는 용역」이 두 조항으로 갈려 왔다).
+    #   사유가 빈 줄은 그 조항에 가장 많이 붙은 사유, 그것도 없으면 조항 이름 그대로
+    for 날, cd, 금액, 법, 사유, 칸 in 계약.values():
         if len(날) < 4:        # 체결일·계약일 둘 다 빈 줄
             continue
+        법 = 사유 or 법이름.get(법) or ('근거 조항이 비어 있음' if '(조 항 호 )' in 법 else 법)   # 「지방계약법 (조 항 호 )」로 빈 채 온다
         s = 셈[(cd, 날[:4])]
         s['건수'] += 1
         s['금액'] += 금액
         s['법'][법] += 금액
         s['법건'][법] += 1
-        s['동네'][칸] += 금액
+        s['동네'][칸] += 1
 
     법들 = sorted({법 for s in 셈.values() for 법 in s['법']})
     법번호 = {법: j for j, 법 in enumerate(법들)}
     곳 = collections.defaultdict(dict)
     for (cd, 해), s in 셈.items():
-        위 = s['법'].most_common(조항N)
-        나머지 = [s['금액'] - sum(v for _, v in 위), s['건수'] - sum(s['법건'][b] for b, _ in 위)]
-        곳[cd][해] = [s['건수'], s['금액'], [[법번호[b], s['법건'][b], v] for b, v in 위] + ([[-1, 나머지[1], 나머지[0]]] if 나머지[1] else []), s['동네']]
+        위 = s['법건'].most_common(조항N)
+        나머지 = [s['금액'] - sum(s['법'][b] for b, _ in 위), s['건수'] - sum(n for _, n in 위)]
+        곳[cd][해] = [s['건수'], s['금액'], [[법번호[b], n, s['법'][b]] for b, n in 위] + ([[-1, 나머지[1], 나머지[0]]] if 나머지[1] else []), s['동네']]
 
     out = {'만든날': date.today().isoformat(), '첫날': 첫날, '끝날': 끝날, '파일': len(파일),
-           '법': 법들, '사유': [법이름.get(b, '') for b in 법들], '동네칸': 동네칸,
-           '칸': ['건수', '금액', '조항별 [법번호(-1=그 밖), 건수, 금액]', '업체 있는 곳별 금액'], '곳': 곳}
+           '사유': 법들, '동네칸': 동네칸,
+           '칸': ['건수', '금액(부풂 — 내걸지 말 것)', '사유별 [사유번호(-1=그 밖), 건수, 금액] 건수 큰 차례', '업체 있는 곳별 건수'], '곳': 곳}
     path = os.path.join(ROOT, 'site', 'data', 'suui.json')
     with open(path, 'w', encoding='utf-8') as f:
         json.dump(out, f, ensure_ascii=False, separators=(',', ':'))
 
     모두 = sum(s['금액'] for s in 셈.values()) + sum(못붙임.values())
-    print(f'적음: site/data/suui.json ({os.path.getsize(path) // 1024}KB) · 파일 {len(파일)} · 계약 {len(계약):,} · {첫날}~{끝날} · 조항 {len(법들)}')
+    print(f'적음: site/data/suui.json ({os.path.getsize(path) // 1024}KB) · 파일 {len(파일)} · 계약 {len(계약):,} · {첫날}~{끝날} · 사유 {len(법들)}가지')
     print(f'못 붙인 기관 금액 {sum(못붙임.values()) / max(1, 모두) * 100:.1f}% — 큰 것', 못붙임.most_common(5))
-    for 해 in sorted({h for _, h in 셈}):
+    for 해 in sorted({h for _, h in 셈 if h >= "2024"}):
         d = [sum(s['동네'][j] for (c, h), s in 셈.items() if h == 해) for j in range(4)]
         print(f'  {해}  ' + ' · '.join(f'{n} {v / max(1, sum(d)) * 100:.0f}%' for n, v in zip(동네칸, d)))
 
