@@ -13,6 +13,8 @@ data/clik/상세/
 
 # 지자체 수의계약 사유도 R2(수의계약/)에 쌓는다 — 봇이 내려받아 쓰고 다시 올린다(2026-10-16, fetch_bizno.py)
 data/수의계약/
+# 국고보조금 받은 곳(e나라도움)도 R2(국고보조/)에 — national-grants.yml(2026-10-26)
+data/national_grants/
 
 # 예산서에서 뽑은 세부사업 통계목 전부 — 크다, 쓸 데 정해지면 고른다(2026-10-20, read_budget_books.py)
 data/예산서/

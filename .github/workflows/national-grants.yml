@@ -1,0 +1,51 @@
+# 국고보조금 받은 곳 — e나라도움 보조사업자 정보공시(bojo.go.kr) 최근 5년 목록과 상세(주소·국비/지방비/자부담)를 날마다 이어 받는다
+# (2026-10-26 사용자 「수집봇 만들어서 해봐. 최근 5년만 먼저」). 보탬e(fetch_grants.py)는 지방비 보조뿐이라 국비가 섞인 보조가 빠져 있었다.
+# 하루 290분까지 받고 멈춘다 — 다음 날 안 받은 줄부터 잇는다. 받은 것은 R2(국고보조/)에 둔다.
+name: 국고보조 받은 곳
+
+on:
+  schedule:
+    - cron: '0 18 * * *'         # 한국 시간 새벽 3시
+  workflow_dispatch:
+
+concurrency:
+  group: national-grants
+  cancel-in-progress: false
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    env:
+      R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+      R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+      R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+      R2_BUCKET: ${{ secrets.R2_BUCKET }}
+      PYTHONUNBUFFERED: '1'
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      # 내려받기가 안 되면 여기서 멈춘다 — 받은 것을 모르고 처음부터 받으면 하루를 날린다
+      - run: sh scripts/r2_sync.sh down data/national_grants 국고보조
+      - id: fetch
+        name: 목록·상세 받기
+        timeout-minutes: 310
+        continue-on-error: true
+        run: python -u scripts/fetch_national_grants.py --시간 290
+      - name: R2 로 올리기
+        if: ${{ !cancelled() }}
+        run: sh scripts/r2_sync.sh up data/national_grants 국고보조
+      - name: 얼마나 찼나
+        if: ${{ !cancelled() }}
+        run: |
+          python - <<'PY'
+          import gzip, json, os, glob
+          for p in sorted(glob.glob('data/national_grants/[0-9]*.json.gz')):
+              해 = os.path.basename(p)[:4]
+              줄 = json.load(gzip.open(p, 'rt', encoding='utf-8'))['줄']
+              q = f'data/national_grants/상세_{해}.json.gz'
+              상 = json.load(gzip.open(q, 'rt', encoding='utf-8')) if os.path.exists(q) else {}
+              print(f'{해}: 목록 {len(줄):,}줄 · 상세 {len(상):,} · 주소 있는 것 {sum(1 for v in 상.values() if v.get("주소")):,}')
+          PY
