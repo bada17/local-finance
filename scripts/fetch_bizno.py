@@ -140,7 +140,7 @@ def 수의줄(r, 갈래):
     return [r.get('untyCntrctNo'), r.get('cntrctInsttCd'), r.get('cntrctInsttNm'),
             r.get('cntrctCnclsDate') or r.get('cntrctDate'),          # 체결일이 빈 줄이 절반쯤 — 계약일로
             갈래, 원(r.get('thtmCntrctAmt')), 원(r.get('totCntrctAmt')),
-            r.get('baseLawNm'), r.get('baseDtls'), [번호 for _, _, 번호 in 업체들(r)], r.get('cntrctNm'),
+            r.get('baseLawNm'), r.get('baseDtls'), [번호 for _, _, 번호 in 업체들(r)], r.get('cntrctNm') or r.get('cnstwkNm'),   # 공사는 이름이 cnstwkNm 에 온다
             *원계약차수(r.get('cntrctDtlInfoUrl')), {k: v for k, v in r.items() if k not in 뺄칸}]
 
 
