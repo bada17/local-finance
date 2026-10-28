@@ -92,10 +92,9 @@ def compile_rows(places, councils, source):
     return data, report
 
 
-def main():
-    def read(path):
-        return json.loads(path.read_text(encoding='utf-8'))
-    idx = read(ROOT/'site/data/loc/index.json')
+def load_places():
+    """자치단체 이름 → laf_cd. 예산안 공개 재기(report_budget_proposal.py)도 쓴다."""
+    idx = json.loads((ROOT/'site/data/loc/index.json').read_text(encoding='utf-8'))
     places = {r['이름']:r['cd'] for r in idx['곳']}
     for path in sorted((ROOT/'site/data/ongoing').glob('*.json.gz')):
         cd = path.name.split('.')[0]
@@ -103,6 +102,13 @@ def main():
             with gzip.open(path,'rt',encoding='utf-8') as f:
                 r = json.load(f)
             places[r['자치단체']] = cd
+    return places
+
+
+def main():
+    def read(path):
+        return json.loads(path.read_text(encoding='utf-8'))
+    places = load_places()
     source = {}
     for kind in FIELDS:
         rows = []

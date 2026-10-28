@@ -21,7 +21,8 @@ const os = require('os');
 const { 크롬자리, 크롬띄우기, 붙을때까지, 탭열기, PORT, 긁개, 뜻있나, 기다림 } = require('./recheck_disclosure.js');
 
 const ROOT = path.dirname(__dirname);
-const OUT = path.join(ROOT, 'data', 'budget_docs.json');
+// --out 은 공개 평가(budget_docs.json)를 덮지 않고 따로 긁을 때 — 예산안 공개 재기(report_budget_proposal.py)가 쓴다
+const OUT = process.argv.includes('--out') ? path.resolve(process.argv[process.argv.indexOf('--out') + 1]) : path.join(ROOT, 'data', 'budget_docs.json');
 const 한번에 = 4;
 const 잠깐 = ms => new Promise(r => setTimeout(r, ms));
 
@@ -175,7 +176,7 @@ async function main() {
 
   const 셈 = k => 결과.filter(r => r[k] && ((r[k].파일 || []).length || (r[k].들어간글 || []).some(g => g.파일.length))).length;
   console.log(`\n본 곳 ${결과.length} · 예산 파일 잡힘 ${셈('예산')} · 결산 파일 잡힘 ${셈('결산')}`);
-  console.log('적음: data/budget_docs.json');
+  console.log('적음:', OUT);
   크롬.kill();
   await 잠깐(1500);
   try { fs.rmSync(프로필, { recursive: true, force: true }); } catch (_) {}
