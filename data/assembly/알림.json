@@ -568,10 +568,12 @@
 "57452",
 "57453",
 "57462",
+"57470",
 "57471",
 "57472",
 "57473",
 "57485",
+"57486",
 "57488",
 "57510",
 "57511",
@@ -601,6 +603,7 @@
 "57583",
 "57584",
 "57585",
+"57586",
 "57590",
 "57591",
 "57592"
@@ -1186,6 +1189,38 @@
 "낱말": "미래대응기금",
 "횟수": 1,
 "보냄": true
+},
+{
+"갈래": "국정감사",
+"날짜": "2026-10-07",
+"제목": "제22대 제439회 개회식 국토교통위원회 (국정감사 회의록)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57486",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57486&type=summary",
+"번호": "57486",
+"낱말": "미래대응기금",
+"횟수": 1,
+"보냄": true
+},
+{
+"갈래": "국정감사",
+"날짜": "2026-10-06",
+"제목": "제22대 제439회 개회식 행정안전위원회 (국정감사 회의록)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57470",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57470&type=summary",
+"번호": "57470",
+"낱말": "미래대응기금",
+"횟수": 43,
+"보냄": true
+},
+{
+"갈래": "보도자료",
+"날짜": "2026-10-26",
+"번호": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199262&searchNoSeq=20261026199262",
+"제목": "[정책위원회] 조국혁신당  혁신정책연구원 … 미래대응기금, 지방재정 해법 찾는다",
+"보기": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199262&searchNoSeq=20261026199262",
+"낱말": "미래대응기금",
+"횟수": 1,
+"보냄": true
 }
 ],
 "의안": {
@@ -1212,8 +1247,9 @@
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=198173&searchNoSeq=20261010198173",
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=198809&searchNoSeq=20261008198809",
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199027&searchNoSeq=20261022199027",
-"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199046&searchNoSeq=20261006199046"
+"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199046&searchNoSeq=20261006199046",
+"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199262&searchNoSeq=20261026199262"
 ],
 "본문": "html",
-"마지막성공": "2026-10-28"
+"마지막성공": "2026-10-29"
 }
