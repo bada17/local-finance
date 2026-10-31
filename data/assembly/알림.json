@@ -609,6 +609,9 @@
 "57591",
 "57592",
 "57593",
+"57594",
+"57612",
+"57614",
 "57630"
 ],
 "찾은것": [
@@ -1245,6 +1248,28 @@
 "낱말": "미래대응기금",
 "횟수": 1,
 "보냄": true
+},
+{
+"갈래": "공청회",
+"날짜": "2026-10-30",
+"제목": "제22대 제439회 제2차 예산결산특별위원회 (예산결산특별위원회 공청회 회의록)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57612",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57612&type=summary",
+"번호": "57612",
+"낱말": "미래대응기금",
+"횟수": 92,
+"보냄": false
+},
+{
+"갈래": "국정감사",
+"날짜": "2026-10-29",
+"제목": "제22대 제439회 개회식 국회운영위원회 (국정감사 회의록)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57614",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57614&type=summary",
+"번호": "57614",
+"낱말": "미래대응기금",
+"횟수": 4,
+"보냄": false
 }
 ],
 "의안": {
@@ -1279,5 +1304,5 @@
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199262&searchNoSeq=20261026199262"
 ],
 "본문": "html",
-"마지막성공": "2026-10-30"
+"마지막성공": "2026-10-31"
 }
