@@ -80,8 +80,8 @@
   },
   "1116000": {
    "이름": "서울동대문구",
-   "주소": "",
-   "어떻게": "못 찾음",
+   "주소": "https://www.ddm.go.kr/www/contents.do?key=3966",
+   "어떻게": "사람",
    "점수": 2,
    "근거": [
     "2024년 세입세출 예산서",
@@ -91,7 +91,7 @@
    "본": [
     "https://www.ddm.go.kr/www/contents.do?key=3684"
    ],
-   "메모": "해마다 화면이 따로다(2026 = contents.do?key=3966) — 예산서 파일이 있는지 못 봄"
+   "메모": "동대문구 2026년 예산일반현황에 「2026년 세입세출 예산서」 내려받기 확인. 2026 본예산 파일 형식: PDF."
   },
   "1117000": {
    "이름": "서울중랑구",
@@ -121,8 +121,8 @@
   },
   "1119000": {
    "이름": "서울강북구",
-   "주소": "https://www.gangbuk.go.kr/portal/bbs/B0000121/list.do?menuNo=200396",
-   "어떻게": "BUDLK",
+   "주소": "https://child.gangbuk.go.kr/portal/bbs/B0000018/list.do?menuNo=200397",
+   "어떻게": "사람",
    "점수": 5,
    "근거": [
     "세입예산서(일반회계)",
@@ -130,7 +130,8 @@
     "세출예산서(일반회계)",
     "세출예산서(특별회계)"
    ],
-   "BUDLK": "https://www.gangbuk.go.kr/portal/bbs/B0000121/list.do?menuNo=200396"
+   "BUDLK": "https://www.gangbuk.go.kr/portal/bbs/B0000121/list.do?menuNo=200396",
+   "메모": "강북구 공식 게시판에 「2026년도 일반·특별회계 사업예산서」와 예산서 첨부 확인. 2026 본예산 파일 형식: PDF."
   },
   "1120000": {
    "이름": "서울도봉구",
@@ -205,7 +206,8 @@
    "근거": [
     "2026년 사업예산서"
    ],
-   "BUDLK": "https://www.yangcheon.go.kr/site/yangcheon/ex/bbs/List.do?cbIdx=421"
+   "BUDLK": "https://www.yangcheon.go.kr/site/yangcheon/ex/bbs/List.do?cbIdx=421",
+   "메모": "양천구 게시판에 「2026년 사업예산서」 확인. 2026 본예산 파일 형식: PDF."
   },
   "1126000": {
    "이름": "서울강서구",
@@ -249,7 +251,8 @@
     "예산서 보기",
     "예산서 보기 예산 현황 예산서"
    ],
-   "BUDLK": "https://www.ydp.go.kr/www/selectBbsNttList.do?bbsNo=349&key=4191&"
+   "BUDLK": "https://www.ydp.go.kr/www/selectBbsNttList.do?bbsNo=349&key=4191&",
+   "메모": "영등포구 예산 게시판에 「2026년 영등포 예산 현황」 및 사업예산서 첨부 확인. 2026 본예산 파일 형식: PDF."
   },
   "1130000": {
    "이름": "서울동작구",
@@ -354,8 +357,8 @@
   },
   "2612000": {
    "이름": "부산서구",
-   "주소": "https://www.bsseogu.go.kr/index.bsseogu?menuCd=DOM_000000103005001086&cpath=",
-   "어떻게": "BUDLK",
+   "주소": "https://www.bsseogu.go.kr/index.bsseogu?menuCd=DOM_000000103005001102",
+   "어떻게": "사람",
    "점수": 5,
    "근거": [
     "세입세출 예산서 세입예산 세입예산서(총괄) 세입예산서(일반회계)",
@@ -363,7 +366,8 @@
     "2024본예산08-2세입예산서(일반).pdf')",
     "세입예산서(특별회계)"
    ],
-   "BUDLK": "https://www.bsseogu.go.kr/index.bsseogu?menuCd=DOM_000000103005001086&cpath="
+   "BUDLK": "https://www.bsseogu.go.kr/index.bsseogu?menuCd=DOM_000000103005001086&cpath=",
+   "메모": "기존 주소는 2024년 화면. 부산 서구 2026년 본예산 각목명세서 화면 확인. 2026 본예산 파일 형식: PDF."
   },
   "2613000": {
    "이름": "부산동구",
@@ -430,14 +434,15 @@
   },
   "2618000": {
    "이름": "부산북구",
-   "주소": "https://www.bsbukgu.go.kr/index.bsbukgu?menuCd=DOM_000000105009001063",
-   "어떻게": "BUDLK",
+   "주소": "https://www.bsbukgu.go.kr/index.bsbukgu?menuCd=DOM_000000105009001066",
+   "어떻게": "사람",
    "점수": 5,
    "근거": [
     "세입예산사업명세서 문서",
     "세입예산사업명세서 다운로드 문서바로보기"
    ],
-   "BUDLK": "https://www.bsbukgu.go.kr/index.bsbukgu?menuCd=DOM_000000105009001063"
+   "BUDLK": "https://www.bsbukgu.go.kr/index.bsbukgu?menuCd=DOM_000000105009001063",
+   "메모": "기존 주소는 2025년 화면. 부산 북구 2026년 본예산 화면 확인. 2026 본예산 파일 형식: PDF."
   },
   "2619000": {
    "이름": "부산해운대구",
@@ -479,18 +484,19 @@
   },
   "2622000": {
    "이름": "부산강서구",
-   "주소": "https://www.bsgangseo.go.kr/portal/bgtStts/list.do?mid=0502010000&token=1733962993428",
-   "어떻게": "BUDLK",
+   "주소": "https://www.bsgangseo.go.kr/portal/bgtStts/list.do?mid=0502010000",
+   "어떻게": "사람",
    "점수": 4,
    "근거": [
     "2026년도 본예산"
    ],
-   "BUDLK": "https://www.bsgangseo.go.kr/portal/bgtStts/list.do?mid=0502010000&token=1733962993428"
+   "BUDLK": "https://www.bsgangseo.go.kr/portal/bgtStts/list.do?mid=0502010000&token=1733962993428",
+   "메모": "부산 강서구 예산현황 목록에 「2026년도 본예산」 게시글 확인. 2026 본예산 첨부 형식: 상세보기 접근 제한으로 미확인."
   },
   "2623000": {
    "이름": "부산연제구",
-   "주소": "https://www.yeonje.go.kr/portal/contents/budgetList.do?seq=20250&mId=0403020000",
-   "어떻게": "BUDLK",
+   "주소": "https://www.yeonje.go.kr/portal/contents/budgetList.do?seq=20260&mId=0403020000",
+   "어떻게": "사람",
    "점수": 5,
    "근거": [
     "세입예산서 보기 문서",
@@ -498,7 +504,8 @@
     "세입예산 사업명세서 보기 문서",
     "세입예산서 PDF 파일 보기 문서바로보기 세출예산서 PDF 파일 보기 문서바로보기"
    ],
-   "BUDLK": "https://www.yeonje.go.kr/portal/contents/budgetList.do?seq=20250&mId=0403020000"
+   "BUDLK": "https://www.yeonje.go.kr/portal/contents/budgetList.do?seq=20250&mId=0403020000",
+   "메모": "기존 주소는 2025년 화면. 부산 연제구 2026년 본예산 화면 확인. 2026 본예산 파일 형식: PDF."
   },
   "2624000": {
    "이름": "부산수영구",
@@ -546,19 +553,20 @@
     "2회 추가경정 세입세출예산",
     "세입예산서(일반회계, 기타특별회계 )"
    ],
-   "BUDLK": "https://jumin.daegu.go.kr/budget/information/informationBudgetBill.do"
+   "BUDLK": "https://jumin.daegu.go.kr/budget/information/informationBudgetBill.do",
+   "메모": "대구광역시 주민참여예산 누리집에 2026년 세입세출예산서 확인. 2026 본예산 파일 형식: PDF."
   },
   "2711000": {
    "이름": "대구중구",
-   "주소": "",
-   "어떻게": "못 찾음",
+   "주소": "https://www.jung.daegu.kr/new/pages/administration/page.html?mc=0182",
+   "어떻게": "사람",
    "점수": 0,
    "근거": [],
    "BUDLK": "https://www.jung.daegu.kr/new/pages/administration/page.html?mc=0182",
    "본": [
     "https://www.jung.daegu.kr/new/pages/administration/page.html?mc=0182"
    ],
-   "메모": "BUDLK 가 400 Bad Request — 주소가 바뀐 듯"
+   "메모": "대구 중구 공식 예산서 화면에서 2026년 세입·세출 예산서 확인(접속 시 보안 쿠키 필요). 2026 본예산 파일 형식: PDF."
   },
   "2712000": {
    "이름": "대구동구",
@@ -609,7 +617,8 @@
     "세출예산총괄표(조직별)",
     "세입예산 사업명세서 세입예산사업명세서"
    ],
-   "BUDLK": "https://www.buk.daegu.kr/index.do?menu_id=00000129"
+   "BUDLK": "https://www.buk.daegu.kr/index.do?menu_id=00000129",
+   "메모": "대구 북구 예산서 화면에 2026년 세입세출예산서 확인. 2026 본예산 파일 형식: PDF."
   },
   "2716000": {
    "이름": "대구수성구",
@@ -683,12 +692,12 @@
    "본": [
     "chrome-error://chromewebdata/"
    ],
-   "메모": "icjg.go.kr 도메인이 없다"
+   "메모": "기존 인천 중구 누리집은 2026년 7월 행정구역 개편 뒤 운영 중단. 옛 중구의 해마다 쓰는 예산서 화면은 확인하지 못함. 2026 본예산 파일 형식: 미확인."
   },
   "2812000": {
    "이름": "인천동구",
-   "주소": "https://www.jemulpo.go.kr/main/information/finance/budget.jsp",
-   "어떻게": "BUDLK",
+   "주소": "",
+   "어떻게": "못 찾음",
    "점수": 5,
    "근거": [
     "일반-세입예산서(장관항)",
@@ -696,7 +705,8 @@
     "일반-세입예산사업명세서",
     "제 2 조 세입·세출 예산의 명세는 \"세입·세출 예산\"과 같다."
    ],
-   "BUDLK": "https://www.icdonggu.go.kr/main/information/finance/budget.jsp"
+   "BUDLK": "https://www.icdonggu.go.kr/main/information/finance/budget.jsp",
+   "메모": "기존 주소는 2026년 제물포구 본예산 화면으로, 종전 인천 동구의 예산서가 아님. 동구의 2026년 본예산서 화면을 확인하지 못함. 2026 본예산 파일 형식: 미확인."
   },
   "2813000": {
    "이름": "인천미추홀구",
@@ -718,7 +728,8 @@
    "근거": [
     "제2조 : 세입ㆍ세출예산의 명세는 별첨 \"세입ㆍ세출 예산\"과 같다."
    ],
-   "BUDLK": "https://www.yeonsu.go.kr/main/administration/budget/present.asp"
+   "BUDLK": "https://www.yeonsu.go.kr/main/administration/budget/present.asp",
+   "메모": "연수구 예산현황에 2026년 본예산 확인. 2026 본예산 파일 형식: PDF."
   },
   "2815000": {
    "이름": "인천남동구",
@@ -731,7 +742,8 @@
     "세출예산서(일반)",
     "세입 세입예산서 의료급여 발전소주변지역 폐기물처리시설설치 주차장"
    ],
-   "BUDLK": "https://www.namdong.go.kr/main/administration/budget/finance/status.jsp"
+   "BUDLK": "https://www.namdong.go.kr/main/administration/budget/finance/status.jsp",
+   "메모": "남동구 예산현황에 2026년 본예산 확인. 2026 본예산 파일 형식: PDF."
   },
   "2816000": {
    "이름": "인천부평구",
@@ -744,7 +756,8 @@
     "세출예산서 다운받기",
     "제2조 세입 ․ 세출 예산의 명세는 별첨“세입 ․ 세출예산”과 같다"
    ],
-   "BUDLK": "https://www.icbp.go.kr/main/administration/finance/general.jsp"
+   "BUDLK": "https://www.icbp.go.kr/main/administration/finance/general.jsp",
+   "메모": "부평구 재정현황에 2026년 본예산 확인. 2026 본예산 파일 형식: PDF."
   },
   "2817000": {
    "이름": "인천계양구",
@@ -806,7 +819,8 @@
    "근거": [
     "세입세출예산서"
    ],
-   "BUDLK": "https://www.gwangju.go.kr/finance/boardList.do?boardId=BD_0000120200&pageId=finance23"
+   "BUDLK": "https://www.gwangju.go.kr/finance/boardList.do?boardId=BD_0000120200&pageId=finance23",
+   "메모": "광주광역시 예산 게시판에 2026년 본예산 게시글과 첨부 확인. 2026 본예산 파일 형식: PDF."
   },
   "2911000": {
    "이름": "광주동구",
@@ -884,7 +898,8 @@
     "세출예산서(일반)",
     "세출예산서(기타)"
    ],
-   "BUDLK": "https://www.daejeon.go.kr/bud/BudFinanceboardList.do?boardId=budboard005&menuSeq=349"
+   "BUDLK": "https://www.daejeon.go.kr/bud/BudFinanceboardList.do?boardId=budboard005&menuSeq=349",
+   "메모": "대전광역시 예산 게시판에 2026년 본예산 확인. 2026 본예산 파일 형식: PDF."
   },
   "3011000": {
    "이름": "대전동구",
@@ -939,8 +954,8 @@
   },
   "3015000": {
    "이름": "대전대덕구",
-   "주소": "",
-   "어떻게": "못 찾음",
+   "주소": "https://www.daedeok.go.kr/ftp/goContents.do?link=/ftp/ftp01/FTP010217&menuId=FTP010217",
+   "어떻게": "사람",
    "점수": 1,
    "근거": [
     "예산서공개"
@@ -950,7 +965,7 @@
     "https://www.daedeok.go.kr/ftp/goContents.do?link=/ftp/ftp01/FTP010201&menuId=FTP010201",
     "https://www.daedeok.go.kr/ftp/goContents.do?link=/ftp/ftp01/FTP010217&menuId=FTP010217"
    ],
-   "메모": "「예산서공개」 화면(FTP010217)에 파일이 안 보임"
+   "메모": "대덕구 「2026년 예산서공개」에서 본예산 세입·세출예산서 확인. 2026 본예산 파일 형식: PDF."
   },
   "3100000": {
    "이름": "울산본청",
@@ -998,7 +1013,8 @@
     "08 세입예산서(전체).pdf [0.06 MB]",
     "10 세출예산서(전체).pdf [0.27 MB]"
    ],
-   "BUDLK": "https://www.donggu.ulsan.kr/us/prg/bdgt/list.do"
+   "BUDLK": "https://www.donggu.ulsan.kr/us/prg/bdgt/list.do",
+   "메모": "울산 동구 예산서 목록에 2026년 당초예산 확인. 2026 본예산 파일 형식: PDF."
   },
   "3114000": {
    "이름": "울산북구",
@@ -1011,12 +1027,13 @@
     "세출예산서",
     "세출예산사업명세서"
    ],
-   "BUDLK": "https://www.bukgu.ulsan.kr/lay1/S1T178C2387/contents.do"
+   "BUDLK": "https://www.bukgu.ulsan.kr/lay1/S1T178C2387/contents.do",
+   "메모": "울산 북구 예산현황에 2026년 당초예산 확인. 2026 본예산 파일 형식: PDF."
   },
   "3171000": {
    "이름": "울산울주군",
-   "주소": "https://www.ulju.ulsan.kr/ulju/contents.do?mId=0402101601",
-   "어떻게": "BUDLK",
+   "주소": "https://www.ulju.ulsan.kr/ulju/contents.do?mId=0402101800",
+   "어떻게": "사람",
    "점수": 5,
    "근거": [
     "세입예산서(일반)",
@@ -1024,7 +1041,8 @@
     "세출예산서(일반)",
     "세입 세입예산서(일반)다운로드 세입예산사업명세서다운로드"
    ],
-   "BUDLK": "https://www.ulju.ulsan.kr/ulju/contents.do?mId=0402101601"
+   "BUDLK": "https://www.ulju.ulsan.kr/ulju/contents.do?mId=0402101601",
+   "메모": "기존 주소는 2024년 화면. 울주군 2026년 예산 화면에서 본예산서 확인. 2026 본예산 파일 형식: PDF."
   },
   "3200000": {
    "이름": "세종본청",
@@ -1065,15 +1083,15 @@
   },
   "4112000": {
    "이름": "경기성남시",
-   "주소": "",
-   "어떻게": "못 찾음",
+   "주소": "https://www.seongnam.go.kr/cn03050201",
+   "어떻게": "사람",
    "점수": 0,
    "근거": [],
    "BUDLK": "https://www.seongnam.go.kr/finance/financialDisclosure2025.do?menuIdx=1000524&returnURL=%2Fmain.do",
    "본": [
     "https://www.seongnam.go.kr/finance/financialDisclosure2025.do?menuIdx=1000524&returnURL=%2Fmain.do"
    ],
-   "메모": "BUDLK 가 404 — 주소가 바뀐 듯"
+   "메모": "성남시 「연도별 예산서」에 「2026년 세입세출예산서」 확인. 2026 본예산 파일 형식: PDF."
   },
   "4113000": {
    "이름": "경기의정부시",
@@ -1095,15 +1113,15 @@
   },
   "4115000": {
    "이름": "경기부천시",
-   "주소": "",
-   "어떻게": "못 찾음",
+   "주소": "https://budget.bucheon.go.kr/site/homepage/menu/viewMenu?menuid=168002001020001",
+   "어떻게": "사람",
    "점수": 0,
    "근거": [],
    "BUDLK": "https://budget.bucheon.go.kr/site/main/index168",
    "본": [
     "https://budget.bucheon.go.kr/site/main/index168"
    ],
-   "메모": "budget.bucheon.go.kr 본예산 화면에 파일이 안 보임"
+   "메모": "부천시 예산정보에서 2026년 당초예산 세입·세출 예산서 확인. 2026 본예산 파일 형식: PDF."
   },
   "4116000": {
    "이름": "경기광명시",
@@ -1135,13 +1153,14 @@
   },
   "4118000": {
    "이름": "경기동두천시",
-   "주소": "https://www.ddc.go.kr/ddc/contents.do?key=2290",
-   "어떻게": "BUDLK",
+   "주소": "https://www.ddc.go.kr/ddc/contents.do?key=2328",
+   "어떻게": "사람",
    "점수": 4,
    "근거": [
     "③ 세출예산 규모(분야별)"
    ],
-   "BUDLK": "https://www.ddc.go.kr/ddc/contents.do?key=2290"
+   "BUDLK": "https://www.ddc.go.kr/ddc/contents.do?key=2290",
+   "메모": "기존 주소는 재정공시 화면. 동두천시 2026년 재정공개(예산)에 일반·특별회계 본예산 세입세출 예산서 확인. 2026 본예산 파일 형식: PDF."
   },
   "4119000": {
    "이름": "경기안산시",
@@ -1196,15 +1215,15 @@
   },
   "4123000": {
    "이름": "경기남양주시",
-   "주소": "",
-   "어떻게": "못 찾음",
+   "주소": "https://www.nyj.go.kr/www/selectBbsNttList.do?key=2423&bbsNo=39",
+   "어떻게": "사람",
    "점수": 0,
    "근거": [],
    "BUDLK": "https://www.nyj.go.kr/www/selectBbsNttList.do?key=2425&bbsNo=41",
    "본": [
     "https://www.nyj.go.kr/tracer/info.jsp"
    ],
-   "메모": "「개발자도구 감지」 화면으로 튕겨 봇이 못 봄"
+   "메모": "남양주시 예산현황 게시판에 「2026년도 본예산(일반회계 및 기타·공기업특별회계)」 게시글과 본예산서 첨부 확인. 2026 본예산 파일 형식: PDF."
   },
   "4124000": {
    "이름": "경기오산시",
@@ -1290,15 +1309,15 @@
   },
   "4130000": {
    "이름": "경기파주시",
-   "주소": "",
-   "어떻게": "못 찾음",
+   "주소": "https://www.paju.go.kr/user/board/BD_board.list.do?bbsCd=2004&q_ctgCd=4006",
+   "어떻게": "사람",
    "점수": 0,
    "근거": [],
    "BUDLK": "https://www.paju.go.kr/user/board/BD_board.list.do?bbsCd=1014",
    "본": [
     "https://www.paju.go.kr/user/board/BD_board.list.do?bbsCd=1014"
    ],
-   "메모": "예산정보 게시판(bbsCd=2004&q_ctgCd=4006)이 비어 보임"
+   "메모": "파주시 예산정보 게시판에 「2026년 일반 및 특별회계 예산서」 게시글 확인. 2026 본예산 파일 형식: PDF."
   },
   "4131000": {
    "이름": "경기이천시",
@@ -1347,7 +1366,8 @@
     "예산서 공개"
    ],
    "BUDLK": "https://money.hscity.go.kr/Money/finfo/fRead1.jsp",
-   "메뉴글": "예산서공개"
+   "메뉴글": "예산서공개",
+   "메모": "화성시 예산공개에 2026년 본예산 예산규모 및 회계별 내려받기 확인. 2026 본예산 파일 형식: 전용 내려받기 방식으로 미확인."
   },
   "4135000": {
    "이름": "경기광주시",
@@ -1400,7 +1420,8 @@
     "예산서 공개"
    ],
    "BUDLK": "https://www.yeoju.go.kr/www/selectBbsNttList.do?bbsNo=24&key=350",
-   "메뉴글": "예산서 공개"
+   "메뉴글": "예산서 공개",
+   "메모": "여주시 예산현황 게시판에 2026년도 본예산 확인. 2026 본예산 파일 형식: PDF."
   },
   "4175000": {
    "이름": "경기연천군",
@@ -1428,7 +1449,8 @@
     "일반회계 세출 사업명세서"
    ],
    "BUDLK": "https://www.gp.go.kr/portal/contents.do?key=2492",
-   "메뉴글": "예산서"
+   "메뉴글": "예산서",
+   "메모": "가평군 예산현황에 2026년 본예산 확인. 2026 본예산 파일 형식: PDF."
   },
   "4178000": {
    "이름": "경기양평군",
@@ -1544,7 +1566,7 @@
    "본": [
     "https://www.hongcheon.go.kr/www/contents.do?key=1527"
    ],
-   "메모": "추경 화면만 보이고 본예산 화면을 못 찾음"
+   "메모": "홍천군 예산정보와 재정공시를 확인했으나 군 전체 2026년 본예산서가 올라오는 화면은 확인하지 못함(검색되는 복지시설 예산서는 별개). 2026 본예산 파일 형식: 미확인."
   },
   "4272000": {
    "이름": "강원횡성군",
@@ -1561,8 +1583,8 @@
   },
   "4273000": {
    "이름": "강원영월군",
-   "주소": "",
-   "어떻게": "못 찾음",
+   "주소": "https://www.yw.go.kr/www/contents.do?key=1589",
+   "어떻게": "사람",
    "점수": 1,
    "근거": [
     "세입·세출예산서"
@@ -1572,7 +1594,7 @@
     "https://www.yw.go.kr/www/contents.do?key=1431",
     "https://www.yw.go.kr/www/contents.do?key=1589"
    ],
-   "메모": "본예산 화면(key=1431·1589)이 몇 년 것인지 모름"
+   "메모": "영월군 2026년 본예산 화면에 세입·세출예산서 및 사업명세서 확인. 2026 본예산 파일 형식: PDF."
   },
   "4274000": {
    "이름": "강원평창군",
@@ -1631,7 +1653,8 @@
     "세입예산 사업명세서",
     "- 세입세출예산서"
    ],
-   "BUDLK": "https://www.yanggu.go.kr/user_sub?gfnc=www&mu_idx=545"
+   "BUDLK": "https://www.yanggu.go.kr/user_sub?gfnc=www&mu_idx=545",
+   "메모": "양구군 예산정보에 2026년도 예산 및 예산서 파일 확인. 2026 본예산 파일 형식: PDF."
   },
   "4279000": {
    "이름": "강원인제군",
@@ -1657,7 +1680,8 @@
     "세입예산서(기타특별회계)",
     "세출예산서총괄"
    ],
-   "BUDLK": "https://gwgs.go.kr/prog/yesanInfo/kor/sub04_0401/list.do"
+   "BUDLK": "https://gwgs.go.kr/prog/yesanInfo/kor/sub04_0401/list.do",
+   "메모": "강원 고성군 예산정보 주소는 접속 실패로 재검증하지 못함. 2026 본예산 게시 여부 및 파일 형식: 미확인."
   },
   "4281000": {
    "이름": "강원양양군",
@@ -1670,7 +1694,8 @@
     "세입예산사업명세서",
     "세입예산서 PDF 파일"
    ],
-   "BUDLK": "https://www.yangyang.go.kr/gw/portal/yyc_opinfo_adinfo_finan_bud"
+   "BUDLK": "https://www.yangyang.go.kr/gw/portal/yyc_opinfo_adinfo_finan_bud",
+   "메모": "양양군 예산현황에 2026년 본예산 확인. 2026 본예산 파일 형식: PDF."
   },
   "4300000": {
    "이름": "충북본청",
@@ -1726,8 +1751,8 @@
   },
   "4372000": {
    "이름": "충북보은군",
-   "주소": "https://www.boeun.go.kr/www/prg.do?key=174&prgId=yesan&ctsId=2025_2",
-   "어떻게": "BUDLK",
+   "주소": "https://www.boeun.go.kr/www/prg.do?key=174&prgId=yesan&ctsId=2026_1",
+   "어떻게": "사람",
    "점수": 5,
    "근거": [
     "세입예산서(일반+특별)",
@@ -1735,7 +1760,8 @@
     "세입예산서(특별)",
     "세출예산서(일반+특별)"
    ],
-   "BUDLK": "https://www.boeun.go.kr/www/prg.do?key=174&prgId=yesan&ctsId=2025_2"
+   "BUDLK": "https://www.boeun.go.kr/www/prg.do?key=174&prgId=yesan&ctsId=2025_2",
+   "메모": "기존 주소는 2025년 화면. 보은군 예산현황에서 2026년 본예산 선택 확인. 2026 본예산 파일 형식: PDF."
   },
   "4373000": {
    "이름": "충북옥천군",
@@ -1752,8 +1778,8 @@
   },
   "4374000": {
    "이름": "충북영동군",
-   "주소": "",
-   "어떻게": "못 찾음",
+   "주소": "https://www.yd21.go.kr/kr/html/sub03/03020301.html",
+   "어떻게": "사람",
    "점수": 1,
    "근거": [
     "세입세출예산서"
@@ -1763,7 +1789,7 @@
     "https://www.yd21.go.kr/kr/html/sub03/03020301.html",
     "https://www.yd21.go.kr/kr/html/sub03/03020301.html"
    ],
-   "메모": "예산공개 화면에 글이 안 보임"
+   "메모": "영동군 공식 예산서 화면에서 2026년 본예산 및 세입·세출예산서 확인. 2026 본예산 파일 형식: PDF."
   },
   "4375000": {
    "이름": "충북진천군",
@@ -1824,7 +1850,8 @@
     "세출예산서 세출예산서",
     "세출예산서 파일"
    ],
-   "BUDLK": "http://www.jp.go.kr/kor/prog/yesanInfo/sub01_05_04/list.do"
+   "BUDLK": "http://www.jp.go.kr/kor/prog/yesanInfo/sub01_05_04/list.do",
+   "메모": "증평군 예산현황에 2026년 본예산 및 PDF 첨부 확인. 2026 본예산 파일 형식: PDF."
   },
   "4400000": {
    "이름": "충남본청",
@@ -1895,8 +1922,8 @@
   },
   "4415000": {
    "이름": "충남서산시",
-   "주소": "https://www.seosan.go.kr/www/contents.do?key=9390",
-   "어떻게": "BUDLK",
+   "주소": "https://www.seosan.go.kr/www/contents.do?key=10450",
+   "어떻게": "사람",
    "점수": 5,
    "근거": [
     "세입예산서",
@@ -1904,7 +1931,8 @@
     "기타세입예산서",
     "기타세출예산서"
    ],
-   "BUDLK": "https://www.seosan.go.kr/www/contents.do?key=9390"
+   "BUDLK": "https://www.seosan.go.kr/www/contents.do?key=9390",
+   "메모": "기존 주소는 2024년 화면. 서산시 2026년도 본예산과 세입예산서 첨부 확인. 2026 본예산 파일 형식: PDF."
   },
   "4416000": {
    "이름": "충남논산시",
@@ -1919,14 +1947,15 @@
   },
   "4417000": {
    "이름": "충남계룡시",
-   "주소": "https://gyeryong.go.kr/kr/html/sub02/020301.html?list_fyr=2024&list_cl=3",
-   "어떻게": "BUDLK",
+   "주소": "https://gyeryong.go.kr/kr/html/sub02/020301.html?list_fyr=2026&list_cl=1",
+   "어떻게": "사람",
    "점수": 5,
    "근거": [
     "세입세출예산서",
     "세입예산사업명세서"
    ],
-   "BUDLK": "https://gyeryong.go.kr/kr/html/sub02/020301.html?list_fyr=2024&list_cl=3"
+   "BUDLK": "https://gyeryong.go.kr/kr/html/sub02/020301.html?list_fyr=2024&list_cl=3",
+   "메모": "기존 주소는 2024년 추가경정예산. 계룡시 2026년 본예산 목록과 예산총칙 첨부 확인. 2026 본예산 파일 형식: PDF."
   },
   "4418000": {
    "이름": "충남당진시",
@@ -2014,7 +2043,8 @@
     "2023년도 제2회 추가경정예산서",
     "2023년도 제3회 추가경정예산서"
    ],
-   "BUDLK": "https://www.yesan.go.kr/prog/bdgtpr/kor/sub02_04_01/list.do"
+   "BUDLK": "https://www.yesan.go.kr/prog/bdgtpr/kor/sub02_04_01/list.do",
+   "메모": "예산군 예산공개 목록에 2026년도 본예산과 세입·세출 사업명세서 확인. 2026 본예산 파일 형식: 전용 내려받기 방식으로 미확인."
   },
   "4478000": {
    "이름": "충남태안군",
@@ -2050,8 +2080,8 @@
   },
   "4512000": {
    "이름": "전북군산시",
-   "주소": "https://www.gunsan.go.kr/main/m2809",
-   "어떻게": "BUDLK",
+   "주소": "https://www.gunsan.go.kr/main/m2982",
+   "어떻게": "사람",
    "점수": 5,
    "근거": [
     "세입 예산 세입예산서(일반회계)",
@@ -2059,19 +2089,20 @@
     "세출 예산 세출예산서(일반회계)",
     "세출예산서(특별회계)"
    ],
-   "BUDLK": "https://www.gunsan.go.kr/main/m2809"
+   "BUDLK": "https://www.gunsan.go.kr/main/m2809",
+   "메모": "기존 주소는 2024년 화면. 군산시 2026년 본예산서 화면 확인. 2026 본예산 파일 형식: PDF."
   },
   "4513000": {
    "이름": "전북익산시",
-   "주소": "",
-   "어떻게": "못 찾음",
+   "주소": "https://www.iksan.go.kr/index.do?menuUid=ff8080819904153301990df7213d1c14",
+   "어떻게": "사람",
    "점수": 0,
    "근거": [],
    "BUDLK": "https://www.iksan.go.kr/index.iksan?menuCd=DOM_000000901001065000&myear=2025",
    "본": [
     "https://www.iksan.go.kr/index.iksan?menuCd=DOM_000000901001065000&myear=2025"
    ],
-   "메모": "BUDLK 가 404 — 주소가 바뀐 듯"
+   "메모": "익산시 예산공개 메뉴에 「2026년 본예산」과 예산서 파일 확인. 2026 본예산 파일 형식: PDF."
   },
   "4514000": {
    "이름": "전북정읍시",
@@ -2119,14 +2150,15 @@
   },
   "4572000": {
    "이름": "전북진안군",
-   "주소": "https://www.jinan.go.kr/index.jinan?menuCd=DOM_000000106005034000",
-   "어떻게": "BUDLK",
+   "주소": "https://www.jinan.go.kr/index.jinan?menuCd=DOM_000000106005035000",
+   "어떻게": "사람",
    "점수": 5,
    "근거": [
     "세입예산사업명세서",
     "세입예산사업명세서 다운로드 바로보기"
    ],
-   "BUDLK": "https://www.jinan.go.kr/index.jinan?menuCd=DOM_000000106005034000"
+   "BUDLK": "https://www.jinan.go.kr/index.jinan?menuCd=DOM_000000106005034000",
+   "메모": "기존 주소는 2025년 화면. 진안군 2026년도 본예산서 확인. 2026 본예산 파일 형식: PDF."
   },
   "4573000": {
    "이름": "전북무주군",
@@ -2191,7 +2223,8 @@
     "16.세출예산서(일반,47-62). 다운",
     "18.세출예산서(기타,66). 다운"
    ],
-   "BUDLK": "https://www.gochang.go.kr/index.gochang?menuCd=DOM_000000103003001000"
+   "BUDLK": "https://www.gochang.go.kr/index.gochang?menuCd=DOM_000000103003001000",
+   "메모": "고창군 예산공개 게시판에서 2026년 본예산 확인. 2026 본예산 파일 형식: PDF."
   },
   "4578000": {
    "이름": "전북부안군",
@@ -2201,7 +2234,8 @@
    "근거": [
     "세입예산사업명세서(일반회계)보기"
    ],
-   "BUDLK": "https://www.buan.go.kr/index.buan?menuCd=DOM_000000105006003000"
+   "BUDLK": "https://www.buan.go.kr/index.buan?menuCd=DOM_000000105006003000",
+   "메모": "부안군 예산공개 화면에서 2026년 예산서 선택 및 본예산 내려받기 확인. 2026 본예산 파일 형식: ZIP 압축파일."
   },
   "4600000": {
    "이름": "전남본청",
@@ -2222,7 +2256,8 @@
     "세입예산사업명세서"
    ],
    "BUDLK": "https://www.mokpo.go.kr/www/open_data/finance/estimate_open/2024/bon",
-   "메뉴글": "예산공개"
+   "메뉴글": "예산공개",
+   "메모": "목포시 예산공개에 2026년 본예산 확인. 2026 본예산 파일 형식: PDF."
   },
   "4612000": {
    "이름": "전남여수시",
@@ -2273,14 +2308,15 @@
   },
   "4671000": {
    "이름": "전남담양군",
-   "주소": "https://www.damyang.go.kr/menu/goToContentsPage?contentsSid=136&domainId=DOM_0000001&menuCd=DOM_000000190005003001&activeSid=189&viewId=ie0301_2024",
-   "어떻게": "BUDLK",
+   "주소": "https://www.damyang.go.kr/menu/goToContentsPage?contentsSid=136&domainId=DOM_0000001&menuCd=DOM_000000190005003001&activeSid=189&viewId=ie0301_2026",
+   "어떻게": "사람",
    "점수": 5,
    "근거": [
     "세입 예산 사업명세서",
     "세출 예산 사업명세서"
    ],
-   "BUDLK": "https://www.damyang.go.kr/menu/goToContentsPage?contentsSid=136&domainId=DOM_0000001&menuCd=DOM_000000190005003001&activeSid=189&viewId=ie0301_2024"
+   "BUDLK": "https://www.damyang.go.kr/menu/goToContentsPage?contentsSid=136&domainId=DOM_0000001&menuCd=DOM_000000190005003001&activeSid=189&viewId=ie0301_2024",
+   "메모": "기존 주소는 2024년 화면. 담양군 2026년 본예산 확인. 2026 본예산 파일 형식: PDF."
   },
   "4672000": {
    "이름": "전남곡성군",
@@ -2338,7 +2374,8 @@
    "근거": [
     "예산서공개"
    ],
-   "BUDLK": "https://www.hwasun.go.kr/contents.do?S=S01&M=020408000000"
+   "BUDLK": "https://www.hwasun.go.kr/contents.do?S=S01&M=020408000000",
+   "메모": "화순군 예산서공개 화면에서 2026년 본예산 항목 확인. 2026 본예산 파일 형식: 미확인."
   },
   "4677000": {
    "이름": "전남장흥군",
@@ -2436,7 +2473,8 @@
     "세입예산 사업명세서"
    ],
    "BUDLK": "https://www.jangseong.go.kr/home/www/news/budget/document_17",
-   "메뉴글": "본예산"
+   "메뉴글": "본예산",
+   "메모": "장성군 2026년 본예산 화면에서 예산서 첨부 확인. 2026 본예산 파일 형식: PDF."
   },
   "4685000": {
    "이름": "전남완도군",
@@ -2475,15 +2513,15 @@
   },
   "4700000": {
    "이름": "경북본청",
-   "주소": "",
-   "어떻게": "못 찾음",
+   "주소": "https://www.gb.go.kr/Main/finace/page.do?mnu_uid=14817&LARGE_CODE=930&MEDIUM_CODE=20&SMALL_CODE=10&mnu_order=3",
+   "어떻게": "사람",
    "점수": 0,
    "근거": [],
    "BUDLK": "https://www.gb.go.kr/Main/open_contents/section/finace/page.do?mnu_uid=2620&LARGE_CODE=330&MEDIUM_CODE=20&SMALL_CODE=10&mnu_order=3",
    "본": [
     "https://www.gb.go.kr/Main/open_contents/section/finace/page.do?mnu_uid=2620&LARGE_CODE=330&MEDIUM_CODE=20&SMALL_CODE=10&mnu_order=3"
    ],
-   "메모": "화면이 빈 채로 열림"
+   "메모": "경상북도 세입세출예산서 화면에 「2026년도 세입세출예산서」 확인. 2026 본예산 파일 형식: PDF."
   },
   "4711000": {
    "이름": "경북포항시",
@@ -2570,7 +2608,8 @@
     "세입예산서",
     "세출예산서"
    ],
-   "BUDLK": "https://www.yc.go.kr/portal/contents/budgetList.do?mId=0303010000"
+   "BUDLK": "https://www.yc.go.kr/portal/contents/budgetList.do?mId=0303010000",
+   "메모": "영천시 예산현황에 2026년 본예산 선택 확인. 2026 본예산 파일 형식: PDF."
   },
   "4718000": {
    "이름": "경북상주시",
@@ -2587,8 +2626,8 @@
   },
   "4719000": {
    "이름": "경북문경시",
-   "주소": "https://www.gbmg.go.kr/portal/contents.do?mId=0202011400",
-   "어떻게": "BUDLK",
+   "주소": "https://www.gbmg.go.kr/portal/contents.do?mId=0202011900",
+   "어떻게": "사람",
    "점수": 5,
    "근거": [
     "세입예산사업명세서",
@@ -2596,7 +2635,8 @@
     "세출예산사업명세서(정책기획단)",
     "세출예산사업명세서(총무과)"
    ],
-   "BUDLK": "https://www.gbmg.go.kr/portal/contents.do?mId=0202011400"
+   "BUDLK": "https://www.gbmg.go.kr/portal/contents.do?mId=0202011400",
+   "메모": "문경시 공식 2026년 예산현황 화면에 본예산서와 사업명세서가 표시됨(검색 색인에서 확인, 직접 접속 실패). 2026 본예산 파일 형식: PDF(화면의 아크로벳리더 안내 기준)."
   },
   "4720000": {
    "이름": "경북경산시",
@@ -2609,7 +2649,8 @@
     "일반회계 세입예산서 2차추경",
     "일반회계 세입예산서 3차추경"
    ],
-   "BUDLK": "https://www.gbgs.go.kr/open_content/ko/page.do?mnu_uid=2171&"
+   "BUDLK": "https://www.gbgs.go.kr/open_content/ko/page.do?mnu_uid=2171&",
+   "메모": "경산시 예산현황에 2026년 본예산 선택 확인. 2026 본예산 파일 형식: PDF."
   },
   "4772000": {
    "이름": "경북의성군",
@@ -2686,7 +2727,8 @@
     "세입예산서(특별회계)",
     "세입예산사업명세서"
    ],
-   "BUDLK": "http://www.goryeong.go.kr/budget/boardList.do?BRD_ID=a1_budget&IDX=9"
+   "BUDLK": "http://www.goryeong.go.kr/budget/boardList.do?BRD_ID=a1_budget&IDX=9",
+   "메모": "고령군 예산 게시판에 2026년 본예산서 및 첨부 확인. 2026 본예산 파일 형식: PDF."
   },
   "4778000": {
    "이름": "경북성주군",
@@ -2714,8 +2756,8 @@
   },
   "4780000": {
    "이름": "경북예천군",
-   "주소": "https://www.ycg.kr/open.content/ko/administrative/budget/list/2024/2024.3/",
-   "어떻게": "BUDLK",
+   "주소": "https://www.ycg.kr/open.content/ko/administrative/budget/list/2026/2026.1/",
+   "어떻게": "사람",
    "점수": 5,
    "근거": [
     "세입예산서(전체)",
@@ -2723,7 +2765,8 @@
     "세입예산서(기타특별)",
     "세출예산서(전체)"
    ],
-   "BUDLK": "https://www.ycg.kr/open.content/ko/administrative/budget/list/2024/2024.3/"
+   "BUDLK": "https://www.ycg.kr/open.content/ko/administrative/budget/list/2024/2024.3/",
+   "메모": "기존 주소는 2024년 추가경정예산. 예천군 2026년 본예산 화면 확인. 2026 본예산 파일 형식: PDF."
   },
   "4781000": {
    "이름": "경북봉화군",
@@ -2773,14 +2816,15 @@
   },
   "4811000": {
    "이름": "경남창원시",
-   "주소": "https://www.changwon.go.kr/cwportal/10312/10569/14993.web",
-   "어떻게": "BUDLK",
+   "주소": "https://www.changwon.go.kr/cwportal/10312/10569/15263.web",
+   "어떻게": "사람",
    "점수": 5,
    "근거": [
     "세입 세입예산 사업명세서",
     "세입예산 사업명세서"
    ],
-   "BUDLK": "https://www.changwon.go.kr/cwportal/10312/10569/14993.web"
+   "BUDLK": "https://www.changwon.go.kr/cwportal/10312/10569/14993.web",
+   "메모": "기존 주소는 2025년 화면. 창원시 2026년도 본예산서 확인. 2026 본예산 파일 형식: PDF."
   },
   "4813000": {
    "이름": "경남진주시",
@@ -2795,15 +2839,15 @@
   },
   "4815000": {
    "이름": "경남통영시",
-   "주소": "",
-   "어떻게": "못 찾음",
+   "주소": "https://www.tongyeong.go.kr/00681/00682/00683.web?idx=87",
+   "어떻게": "사람",
    "점수": 0,
    "근거": [],
    "BUDLK": "https://www.tongyeong.go.kr/00681/00682/00683.web",
    "본": [
     "https://www.tongyeong.go.kr/tracer/info.jsp"
    ],
-   "메모": "「개발자도구 감지」 화면으로 튕겨 봇이 못 봄"
+   "메모": "통영시 예산공개 연도 선택의 「2026년 예산」에 세입·세출 예산서 확인. 2026 본예산 파일 형식: PDF."
   },
   "4816000": {
    "이름": "경남사천시",
@@ -2932,7 +2976,8 @@
     "세출예산서 총괄 다운로드 또는",
     "세출예산서 일반회계 다운로드 또는"
    ],
-   "BUDLK": "https://www.sancheong.go.kr/www/contents.do?key=2345&subKey=6760"
+   "BUDLK": "https://www.sancheong.go.kr/www/contents.do?key=2345&subKey=6760",
+   "메모": "산청군 예산현황에 2026년 예산 및 세입·세출예산서 확인. 2026 본예산 파일 형식: PDF."
   },
   "4878000": {
    "이름": "경남함양군",
