@@ -58,7 +58,14 @@ def 부르기(길, 몸, 되풀이=4):
 
 
 def 세션():
-    op.open(urllib.request.Request(B + '/ea/getEA001201View.do', headers={'User-Agent': UA}), timeout=60).read()
+    # 깃허브(해외)에서 가끔 연결이 시간 초과로 끊긴다 — 되풀이 없이 부르면 첫 줄에서 봇이 통째로 죽었다(10-28·11-02, 2분 만에 끝남)
+    for n in range(5):
+        try:
+            op.open(urllib.request.Request(B + '/ea/getEA001201View.do', headers={'User-Agent': UA}), timeout=60).read()
+            return
+        except Exception as e:
+            print(f'   ⚠️ 세션 {n + 1}번째 실패: {e!r}', flush=True)
+            time.sleep(30 * (n + 1))
 
 
 def 다듬기(x):
