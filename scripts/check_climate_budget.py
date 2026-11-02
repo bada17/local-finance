@@ -14,13 +14,13 @@
 # 가름: 있음(올해) · 있음(지난해만) · 있음(해 모름) · 관련 글만 · 없음(①을 끝까지 봤고 ②가 0건) · 못 봄(①을 못 봤거나 ②가 둘 다 막힘)
 #   「있음」은 제목에 「예산서」가 있을 때만 — 네이버 본문 조각엔 국가재정법 27조(「온실가스감축인지 예산서의 작성」)가 자주 걸린다
 # 있음이면 내려받기 주소가 바로인 것은 받아 둔다(캐시 local-finance-files/기후예산서).
-# 결과: data/climate_budget.json
+# 결과: site/data/climate_budget.json — 작업대 「기후예산서를 공개했나」(site/climate.html)가 그대로 읽는다(2026-11-02)
 import html, json, os, re, sys, time, datetime, urllib.request, urllib.parse
 
 # UA·캐시 자리는 read_budget_books.py 와 같게 — 가져오면 pymupdf 까지 불러와서(그게 깨지면 이 봇도 못 돈다, 10-26) 따로 적는다
 UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/130 Safari/537.36'
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-OUT = os.path.join(ROOT, 'data', 'climate_budget.json')
+OUT = os.path.join(ROOT, 'site', 'data', 'climate_budget.json')
 캐시 = os.path.join(os.environ.get('LOCALAPPDATA') or os.path.expanduser('~'), 'local-finance-files', '기후예산서')
 기후 = re.compile(r'온실가스\s*감축\s*인지|기후\s*(변화)?\s*(대응)?\s*(영향)?\s*예산|탄소\s*인지\s*예산|기후\s*재정')
 해 = datetime.date.today().year
