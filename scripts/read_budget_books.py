@@ -31,21 +31,45 @@ def 고르기(곳, 해):
     # 이름이 「사업예산서」가 아니어도 후보로 — 통째 예산서(「2026년 예산서」·「전체 파일」), 장으로 쪼갠 곳의 「일반회계」 장.
     #   어느 것이 맞는지는 읽어 보고 공식 숫자와 견줘 고른다(main)
     e = 곳.get('예산') or {}
-    후보 = [(f, e.get('끝주소') or e.get('주소')) for f in e.get('파일', [])]
-    후보 += [(f, g.get('주소') or e.get('주소')) for g in e.get('들어간글', []) for f in g.get('파일', [])]
+    후보 = [(f, e.get('끝주소') or e.get('주소'), '') for f in e.get('파일', [])]
+    후보 += [(f, g.get('주소') or e.get('주소'), g.get('글', '')) for g in e.get('들어간글', []) for f in g.get('파일', [])]
+    def 다른해(t):
+        해들 = set(re.findall(r'(?<!\d)20\d{2}(?!\d)', t or ''))
+        return bool(해들) and str(해) not in 해들
     def 점수(f):
         t = f['이름']
         # 엑셀·재정공시 별첨은 예산서가 아니다(광명·의왕·하남·김포가 「세출」로 골라졌다, 11-02)
-        if re.search(r'성인지|기금|성과|결산|중기|의견서|주민참여|총칙|규모|총괄|세입|리플릿|안내|점자|음성|재정공시|\.(xlsx?|csv)$', t):
+        if re.search(r'성인지|기금|성과|결산|중기|의견서|주민참여|총칙|규모|총괄|리플릿|안내|점자|음성|재정공시|\.(xlsx?|csv)$', t):
+            return -1
+        if '세입' in t and '세출' not in t:
             return -1
         s = 30 if 뜻.search(t) else 20 if re.search(r'세부내역|전체|예산서', t) else 10 if re.search(r'일반회계|세출', t) else -1
         return s + (str(해) in t) * 2 + (not re.search(r'추경|추가경정|제\s*\d\s*회', t))
-    return [fb for fb in sorted(후보, key=lambda fb: -점수(fb[0])) if 점수(fb[0]) > 0]
+    return [(f, 바탕) for f, 바탕, 글 in sorted(후보, key=lambda fb: -점수(fb[0]))
+            if 점수(f) > 0 and not 다른해(f['이름']) and not 다른해(글)]
 
 
 def 누를것(f):
     주소 = f['주소']
     return not 주소 or 주소.lower().startswith('javascript') or 주소.startswith('#') or not re.match(r'^(https?:)?/|^[\w./-]+(\?|$)', 주소)
+
+
+def 분할파일(곳, 후보, 해):
+    """같은 해의 일반회계 부서별 세출 사업명세서 직접 링크만 묶는다."""
+    e = 곳.get('예산') or {}
+    if not any(str(해) in (e.get(k) or '') for k in ('주소', '끝주소', '제목')) and not any(
+            str(해) in (f['이름'] + f['주소']) for f, _ in 후보):
+        return []
+    묶음, 본 = [], set()
+    for f, 바탕 in 후보:
+        이름 = f['이름']
+        if not re.search(r'세출예산사업명세서\([^)]+\)', 이름) or re.search(r'세입|특별회계|공기업|기금', 이름):
+            continue
+        if 누를것(f) or f['주소'] in 본:
+            continue
+        본.add(f['주소'])
+        묶음.append((f, 바탕))
+    return 묶음 if 3 <= len(묶음) <= 60 else []
 
 
 def 누른자리(cd, f, 바탕):
@@ -175,9 +199,39 @@ def main():
                                     공식_천원=round(맞 / 1000) if 맞 else None, 차이=차이), 사업, f['이름'])
             if 가장 and 가장[0] < 1:
                 break
+        묶음 = 분할파일(곳, 후보, 해) if not 가장 or 가장[0] >= 1 else []
+        if 묶음:
+            전부, 실패 = [], ''
+            for f, 바탕 in 묶음:
+                자리, 까닭 = 받기(cd, f, 바탕)
+                if not 자리:
+                    실패 = 까닭
+                    break
+                try:
+                    _, 사업 = 읽기(자리)
+                except Exception as e:
+                    실패 = f'못 읽음 {str(e)[:60]}'
+                    break
+                if not 사업:
+                    실패 = '세부사업 0개'
+                    break
+                전부.extend([{**x, '파일': f['이름'][:80]} for x in 사업])
+            if not 실패:
+                합 = sum(v for x in 전부 for k, v in x['목'].items() if k in 행사)
+                차이 = round((합 * 1000 - 맞) / 맞 * 100, 2) if 맞 else None
+                어긋남 = abs(차이) if 차이 is not None else (0 if len(전부) >= 100 else 100)
+                if not 가장 or 어긋남 < 가장[0]:
+                    이름 = f'세출예산사업명세서 {len(묶음)}개 파일'
+                    가장 = (어긋남, dict(파일=이름, 분할파일=len(묶음), 까닭='', 세부사업=len(전부),
+                                        행사축제_천원=합, 공식_천원=round(맞 / 1000) if 맞 else None, 차이=차이), 전부, 이름)
+            elif not 가장:
+                줄['까닭'] = f'분할파일 못 읽음: {실패}'
         if 가장:
             줄.update(가장[1])
             json.dump({'해': 해, '파일': 가장[3], '사업': 가장[2]}, gzip.open(os.path.join(OUT, f'{cd}.json.gz'), 'wt', encoding='utf-8'), ensure_ascii=False)
+        elif 후보 and not 줄.get('까닭'):
+            줄['파일'] = 후보[0][0]['이름'][:80]
+            줄['까닭'] = '세부사업 0개'
         요약[cd] = 줄
         print(cd, json.dumps(줄, ensure_ascii=False), flush=True)
     json.dump({'만든날': str(datetime.date.today()), '곳': 요약}, open(요약파일, 'w', encoding='utf-8'), ensure_ascii=False, indent=0)

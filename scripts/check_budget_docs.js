@@ -4,7 +4,7 @@
 //   node scripts/check_budget_docs.js --only 12     앞 12곳만 (시험)
 //   node scripts/check_budget_docs.js --곳 1100000,4613000   몇 곳만 다시 — 결과를 합친다
 //
-// 어디를 보나 — 지방재정365 가 자치단체마다 준 「예산서」·「결산서」 주소(BUDLK·SETLK, site/data/loc/<코드>.json 의 원문).
+// 어디를 보나 — 예산서는 data/budget_book_places.json 의 화면 주소, 결산서는 지방재정365 SETLK.
 //   대부분 게시판 목록이다. 목록의 **글 제목**(「2026년 성인지 예산서」 따위)을 적어 두고,
 //   올해 본예산 글·가장 새 결산 글에 **한 겹만** 들어가 붙은 파일 이름과 형식을 적는다.
 //
@@ -19,6 +19,7 @@ const fs = require('fs');
 const path = require('path');
 const os = require('os');
 const { 크롬자리, 크롬띄우기, 붙을때까지, 탭열기, PORT, 긁개, 뜻있나, 기다림 } = require('./recheck_disclosure.js');
+const { 예산서주소 } = require('./budget_book_source.js');
 
 const ROOT = path.dirname(__dirname);
 // --out 은 공개 평가(budget_docs.json)를 덮지 않고 따로 긁을 때 — 예산안 공개 재기(report_budget_proposal.py)가 쓴다
@@ -125,9 +126,10 @@ async function 한판(탭, url, 종류, 해들) {
 async function main() {
   if (!크롬자리) throw new Error('크롬을 못 찾겠다');
   const 목록 = JSON.parse(fs.readFileSync(path.join(ROOT, 'site', 'data', 'loc', 'index.json'), 'utf-8'));
+  const 자리목록 = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'budget_book_places.json'), 'utf-8')).곳;
   let 곳들 = 목록.곳.filter(x => !x.진행만).map(x => {
     const d = JSON.parse(fs.readFileSync(path.join(ROOT, 'site', 'data', 'loc', `${x.cd}.json`), 'utf-8'));
-    return { laf_cd: x.cd, 이름: d.이름, 예산서: d.원문.예산서, 결산서: d.원문.결산서, 예산연도: +d.예산연도, 결산연도: +d.결산연도 };
+    return { laf_cd: x.cd, 이름: d.이름, 예산서: 예산서주소(x.cd, d.원문.예산서, 자리목록), 결산서: d.원문.결산서, 예산연도: +d.예산연도, 결산연도: +d.결산연도 };
   });
   const i = process.argv.indexOf('--only');
   if (i > 0) 곳들 = 곳들.slice(0, parseInt(process.argv[i + 1], 10));

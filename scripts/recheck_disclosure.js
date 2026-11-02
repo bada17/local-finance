@@ -137,7 +137,7 @@ const 긁개 = String.raw`(() => {
   return JSON.stringify({
     제목: (document.title || '').replace(/\s+/g, ' ').trim().slice(0, 80),
     주소: location.href.slice(0, 200),
-    파일: 파일.slice(0, 40),
+    파일: 파일.slice(0, 200),
     후보,
     날짜,
     글자수: 글.length,
