@@ -7,6 +7,8 @@
 # ⚠️ 임시 릴리스라 남에게 안 보인다. 대신 태그가 없어 `--cleanup-tag` 를 붙이면 422 로 빨갛게 끝난다(첫 실행에서 데임).
 # 지난 쓰임: 2026-10-01 CLIK 상세(data/clik/상세 → clik/상세)를 저장소에서 옮겼다.
 #   그때는 이 파일을 고쳐 푸시하면 돌았는데, 고칠 때마다 빈 폴더를 올리려다 빨갛게 떠서 그 길은 뺐다.
+# 2026-11-02 계약 원본 2020~2023(1,461일) — 릴리스 첨부는 1,000개까지라 **해마다 tar 하나로 묶어** `contracts-move` 에 붙인다.
+#   봇이 풀어 R2(계약/)에 올린다. 있는 릴리스만 옮기고 없는 건 건너뛴다.
 name: R2 로 옮기기
 
 on:
@@ -18,7 +20,7 @@ permissions:
 jobs:
   move:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 40
     env:
       R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
       R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
@@ -29,6 +31,7 @@ jobs:
       - uses: actions/checkout@v5
       - name: 수의계약 사유 올리기
         run: |
+          gh release view suui-move > /dev/null 2>&1 || { echo '릴리스 suui-move 없음 — 건너뜀'; exit 0; }
           gh release download suui-move -D data/수의계약
           sh scripts/r2_sync.sh up data/수의계약 수의계약
           # 올라갔는지 — 내려받아 하나씩 견준다
@@ -36,3 +39,14 @@ jobs:
           for f in data/수의계약/*.json.gz; do cmp "$f" "/tmp/back/$(basename "$f")"; done
           echo '같다 — 다 올라갔다'
           gh release delete suui-move -y
+      - name: 계약 원본 올리기
+        run: |
+          gh release view contracts-move > /dev/null 2>&1 || { echo '릴리스 contracts-move 없음 — 건너뜀'; exit 0; }
+          gh release download contracts-move -D /tmp/tar
+          mkdir -p data/contracts_old
+          for t in /tmp/tar/*.tar; do tar -xf "$t" -C data/contracts_old; done
+          sh scripts/r2_sync.sh up data/contracts_old 계약
+          rm -rf /tmp/back && sh scripts/r2_sync.sh down /tmp/back 계약
+          for f in data/contracts_old/*.json.gz; do cmp "$f" "/tmp/back/$(basename "$f")"; done
+          echo '같다 — 다 올라갔다'
+          gh release delete contracts-move -y
