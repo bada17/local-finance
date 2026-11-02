@@ -1,0 +1,2988 @@
+{
+ "만든날": "2026-11-02",
+ "곳": {
+  "1100000": {
+   "이름": "서울본청",
+   "주소": "https://news.seoul.go.kr/gov/archives/category/tax-news_c1/info_budget_c1/data_document_budget-n2",
+   "어떻게": "BUDLK",
+   "점수": 23,
+   "근거": [
+    "2026년 예산서",
+    "2026년 세출예산서,세입예산서,명시이월조서,예산",
+    "2026 예산서",
+    "2025년 예산서 등록일 : 2025-01-13"
+   ],
+   "BUDLK": "https://news.seoul.go.kr/gov/archives/category/tax-news_c1/info_budget_c1/data_document_budget-n2"
+  },
+  "1111000": {
+   "이름": "서울종로구",
+   "주소": "https://www.jongno.go.kr/portal/bbs/selectBoardList.do?bbsId=BBSMSTR_000000000971&contentsDvCo=BG&menuId=1823&menuNo=1823",
+   "어떻게": "BUDLK",
+   "점수": 20,
+   "근거": [
+    "105 2025년 제1차 추가경정예산서 2026년10월22일",
+    "99 2026년 사업예산서 2025년12월31일",
+    "96 2025년 종로구 추가경정예산서 2025년07월09일",
+    "91 2025년 종로구 사업예산서 2025년01월09일"
+   ],
+   "BUDLK": "https://www.jongno.go.kr/portal/bbs/selectBoardList.do?bbsId=BBSMSTR_000000000971&contentsDvCo=BG&menuId=1823&menuNo=1823"
+  },
+  "1112000": {
+   "이름": "서울중구",
+   "주소": "https://www.junggu.seoul.kr/content.do?cmsid=14364",
+   "어떻게": "BUDLK",
+   "점수": 20,
+   "근거": [
+    "★2026년 제2회 추가경정 사업예산서(공개). (새창)",
+    "★2026년 제1회 추가경정 사업예산서(공개). (새창)",
+    "★ (서울중구) 2026년 사업예산서. (새창)",
+    "2025년 제2차 추가경정예산서(최종). (새창)"
+   ],
+   "BUDLK": "https://www.junggu.seoul.kr/content.do?cmsid=14364"
+  },
+  "1113000": {
+   "이름": "서울용산구",
+   "주소": "https://www.yongsan.go.kr/portal/bbs/B0000035/list.do?menuNo=200921",
+   "어떻게": "BUDLK",
+   "점수": 12,
+   "근거": [
+    "2026년도 제1회 추가경정 사업예산서",
+    "2026년도 사업예산서",
+    "2025년도 제1회 추가경정사업예산서"
+   ],
+   "BUDLK": "https://www.yongsan.go.kr/portal/bbs/B0000035/list.do?menuNo=200921"
+  },
+  "1114000": {
+   "이름": "서울성동구",
+   "주소": "https://www.sd.go.kr/pr/selectBbsNttList.do?bbsNo=245&key=2064&",
+   "어떻게": "BUDLK",
+   "점수": 20,
+   "근거": [
+    "2026년도 사업예산서",
+    "2025사업예산서",
+    "2026년도 사업예산서 바로보기 다운로드",
+    "2025사업예산서 바로보기 다운로드"
+   ],
+   "BUDLK": "https://www.sd.go.kr/pr/selectBbsNttList.do?bbsNo=245&key=2064&"
+  },
+  "1115000": {
+   "이름": "서울광진구",
+   "주소": "https://www.gwangjin.go.kr/portal/bbs/B0000050/list.do?menuNo=200130",
+   "어떻게": "BUDLK",
+   "점수": 23,
+   "근거": [
+    "★2026년도 제3회 추가경정예산서(확정). pdf",
+    "★2026년도 제3회 추가경정예산서(확정). -",
+    "★2026년도 제2회 추가경정예산서(확정). pdf",
+    "★2026년도 제2회 추가경정예산서(확정). -"
+   ],
+   "BUDLK": "https://www.gwangjin.go.kr/portal/bbs/B0000050/list.do?menuNo=200130"
+  },
+  "1116000": {
+   "이름": "서울동대문구",
+   "주소": "",
+   "어떻게": "못 찾음",
+   "점수": 2,
+   "근거": [
+    "2024년 세입세출 예산서",
+    "2024년 제1회 추가경정예산서"
+   ],
+   "BUDLK": "https://www.ddm.go.kr/www/contents.do?key=3684",
+   "본": [
+    "https://www.ddm.go.kr/www/contents.do?key=3684"
+   ],
+   "메모": "해마다 화면이 따로다(2026 = contents.do?key=3966) — 예산서 파일이 있는지 못 봄"
+  },
+  "1117000": {
+   "이름": "서울중랑구",
+   "주소": "https://www.jungnang.go.kr/portal/bbs/list/B0000232.do?menuNo=200430",
+   "어떻게": "BUDLK",
+   "점수": 20,
+   "근거": [
+    "2026년도 제2회 추가경정예산서.pdf",
+    "추가경정예산서(2026년 제1회).pdf",
+    "추가경정예산 사업명세서(2026년 제1회).pdf",
+    "1. 2026년도 세입 세출 예산서.pdf"
+   ],
+   "BUDLK": "https://www.jungnang.go.kr/portal/bbs/list/B0000232.do?menuNo=200430"
+  },
+  "1118000": {
+   "이름": "서울성북구",
+   "주소": "https://www.sb.go.kr/www/selectBbsNttList.do?bbsNo=19&key=5901",
+   "어떻게": "BUDLK",
+   "점수": 23,
+   "근거": [
+    "2026년 제2회 일반·특별회계 세입·세출 추가경정예산서",
+    "2026년 제1회 일반·특별회계 세입·세출 추가경정예산서",
+    "2026년 예산서",
+    "2025년 제2회 일반·특별회계 세입·세출 추가경정예산서"
+   ],
+   "BUDLK": "https://www.sb.go.kr/www/selectBbsNttList.do?bbsNo=19&key=5901"
+  },
+  "1119000": {
+   "이름": "서울강북구",
+   "주소": "https://www.gangbuk.go.kr/portal/bbs/B0000121/list.do?menuNo=200396",
+   "어떻게": "BUDLK",
+   "점수": 5,
+   "근거": [
+    "세입예산서(일반회계)",
+    "세입예산서(특별회계)",
+    "세출예산서(일반회계)",
+    "세출예산서(특별회계)"
+   ],
+   "BUDLK": "https://www.gangbuk.go.kr/portal/bbs/B0000121/list.do?menuNo=200396"
+  },
+  "1120000": {
+   "이름": "서울도봉구",
+   "주소": "https://www.dobong.go.kr/Contents.asp?code=10008831",
+   "어떻게": "BUDLK",
+   "점수": 23,
+   "근거": [
+    "2026년도 의회사무국 세출예산(일반)",
+    "2026년도 감사담당관 세출예산(일반)",
+    "2026년도 행정안전국 세출예산(일반)",
+    "2026년도 기획재정국 세출예산(일반)"
+   ],
+   "BUDLK": "https://www.dobong.go.kr/Contents.asp?code=10008831"
+  },
+  "1121000": {
+   "이름": "서울노원구",
+   "주소": "https://www.nowon.kr/www/administ/administ5/administ5_01.jsp",
+   "어떻게": "BUDLK",
+   "점수": 20,
+   "근거": [
+    "2026년 제3회 추가경정예산서. 받기",
+    "2026년 제2회 추가경정예산서. 받기",
+    "2026년 제1회 추가경정예산서. 받기",
+    "2026년 예산서. 받기"
+   ],
+   "BUDLK": "https://www.nowon.kr/www/administ/administ5/administ5_01.jsp"
+  },
+  "1122000": {
+   "이름": "서울은평구",
+   "주소": "https://www.ep.go.kr/www/selectBbsNttList.do?bbsNo=134&key=1942",
+   "어떻게": "BUDLK",
+   "점수": 20,
+   "근거": [
+    "2026년도 제1차 추가경정예산서",
+    "2026년도 사업예산서",
+    "2025년도 제1차 추가경정예산서",
+    "2025년도 사업예산서"
+   ],
+   "BUDLK": "https://www.ep.go.kr/www/selectBbsNttList.do?bbsNo=134&key=1942"
+  },
+  "1123000": {
+   "이름": "서울서대문구",
+   "주소": "https://www.sdm.go.kr/admininfo/budget/document2.do",
+   "어떻게": "BUDLK",
+   "점수": 23,
+   "근거": [
+    "2026년도 제1회 추가경정 예산서",
+    "2026년 사업예산서(조직개편 사항 반영)",
+    "2025년 제2회 추가경정예산서",
+    "2025년 제1회 추가경정예산서"
+   ],
+   "BUDLK": "https://www.sdm.go.kr/admininfo/budget/document2.do"
+  },
+  "1124000": {
+   "이름": "서울마포구",
+   "주소": "https://www.mapo.go.kr/site/main/content/mapo03020301",
+   "어떻게": "BUDLK",
+   "점수": 11,
+   "근거": [
+    "세입예산서[전체]",
+    "세입예산서[일반회계]",
+    "세입예산서[특별회계]",
+    "세출예산서[전체]"
+   ],
+   "BUDLK": "https://www.mapo.go.kr/site/main/content/mapo03020301"
+  },
+  "1125000": {
+   "이름": "서울양천구",
+   "주소": "https://www.yangcheon.go.kr/site/yangcheon/ex/bbs/List.do?cbIdx=421",
+   "어떻게": "BUDLK",
+   "점수": 4,
+   "근거": [
+    "2026년 사업예산서"
+   ],
+   "BUDLK": "https://www.yangcheon.go.kr/site/yangcheon/ex/bbs/List.do?cbIdx=421"
+  },
+  "1126000": {
+   "이름": "서울강서구",
+   "주소": "https://www.gangseo.seoul.kr/gs030409",
+   "어떻게": "BUDLK",
+   "점수": 8,
+   "근거": [
+    "2026년도 사업예산서",
+    "2025년도 제3회 세입·세출 추가경정예산서"
+   ],
+   "BUDLK": "https://www.gangseo.seoul.kr/gs030409"
+  },
+  "1127000": {
+   "이름": "서울구로구",
+   "주소": "https://www.guro.go.kr/www/selectBbsNttList.do?bbsNo=657&key=1767",
+   "어떻게": "BUDLK",
+   "점수": 23,
+   "근거": [
+    "2026년 제2회 추가경정예산서",
+    "2026년도 예산서",
+    "2025년 제2회 추가경정예산서",
+    "2025년 제1회 추가경정예산서"
+   ],
+   "BUDLK": "https://www.guro.go.kr/www/selectBbsNttList.do?bbsNo=657&key=1767"
+  },
+  "1128000": {
+   "이름": "서울금천구",
+   "주소": "https://www.geumcheon.go.kr/portal/contents.do?key=265",
+   "어떻게": "사람",
+   "점수": null,
+   "근거": [],
+   "BUDLK": "https://www.geumcheon.go.kr/portal/contents.do?key=265",
+   "메모": "「예산편성 세부내역 (전체)」 내려받기가 이 화면에 있다 (Claude 확인 2026-11-02)"
+  },
+  "1129000": {
+   "이름": "서울영등포구",
+   "주소": "https://www.ydp.go.kr/www/selectBbsNttList.do?bbsNo=349&key=4191&",
+   "어떻게": "BUDLK",
+   "점수": 5,
+   "근거": [
+    "예산서 보기",
+    "예산서 보기 예산 현황 예산서"
+   ],
+   "BUDLK": "https://www.ydp.go.kr/www/selectBbsNttList.do?bbsNo=349&key=4191&"
+  },
+  "1130000": {
+   "이름": "서울동작구",
+   "주소": "https://www.dongjak.go.kr/portal/bbs/B0000082/list.do?menuNo=200121",
+   "어떻게": "BUDLK",
+   "점수": 23,
+   "근거": [
+    "2026년도 제2회 추가경정예산서",
+    "2026년도 제1회 추가경정예산서",
+    "2026년도 예산서",
+    "2025년 제3회 추가경정예산서"
+   ],
+   "BUDLK": "https://www.dongjak.go.kr/portal/bbs/B0000082/list.do?menuNo=200121"
+  },
+  "1131000": {
+   "이름": "서울관악구",
+   "주소": "https://www.gwanak.go.kr/site/gwanak/ex/bbs/List.do?cbIdx=442",
+   "어떻게": "BUDLK",
+   "점수": 20,
+   "근거": [
+    "2026년 추가경정예산서",
+    "2026년도 예산서",
+    "2025년도 제2회 추가경정예산서",
+    "2025년도 제1회 추가경정예산서"
+   ],
+   "BUDLK": "https://www.gwanak.go.kr/site/gwanak/ex/bbs/List.do?cbIdx=442"
+  },
+  "1132000": {
+   "이름": "서울서초구",
+   "주소": "https://www.seocho.go.kr/site/seocho/ex/bbs/List.do?cbIdx=31",
+   "어떻게": "BUDLK",
+   "점수": 12,
+   "근거": [
+    "2026년도 제2회 일반 및 특별회계 추가경정 사업예산서",
+    "2026년도 제1회 일반회계 추가경정 사업예산서",
+    "2026년도 일반 및 특별회계 세입·세출 사업예산서"
+   ],
+   "BUDLK": "https://www.seocho.go.kr/site/seocho/ex/bbs/List.do?cbIdx=31"
+  },
+  "1133000": {
+   "이름": "서울강남구",
+   "주소": "https://www.gangnam.go.kr/board/B_000742/list.do?mid=ID05_050302",
+   "어떻게": "BUDLK",
+   "점수": 20,
+   "근거": [
+    "117 2026년도 강남구 예산서 본예산 2026-01-13",
+    "115 2025년 제2회 강남구 추가경정예산서 추가경정예산 2025-09-30",
+    "113 2025년 제1회 강남구 추가경정예산서 2025-07-11",
+    "2026년도 강남구 예산서"
+   ],
+   "BUDLK": "https://www.gangnam.go.kr/board/B_000742/list.do?mid=ID05_050302"
+  },
+  "1134000": {
+   "이름": "서울송파구",
+   "주소": "https://www.songpa.go.kr/book/selectBbsNttList.do?bbsNo=226&key=3746&searchCtgry=%EC%82%AC%EC%97%85%EC%98%88%EC%82%B0%EC%84%9C&",
+   "어떻게": "BUDLK",
+   "점수": 23,
+   "근거": [
+    "2026년도 제1회 추가경정예산서",
+    "2026년 송파구 사업예산서",
+    "2025년 제3회 세입세출 추가경정 예산서",
+    "2025년 제2회 세입세출 추가경정 예산서"
+   ],
+   "BUDLK": "https://www.songpa.go.kr/book/selectBbsNttList.do?bbsNo=226&key=3746&searchCtgry=%EC%82%AC%EC%97%85%EC%98%88%EC%82%B0%EC%84%9C&"
+  },
+  "1135000": {
+   "이름": "서울강동구",
+   "주소": "https://www.gangdong.go.kr/web/newportal/bbs/b_057",
+   "어떻게": "BUDLK",
+   "점수": 23,
+   "근거": [
+    "2026회계연도 제1회 일반회계 및 특별회계 세입·세출 추가경정예산서",
+    "2026회계연도 일반회계 및 특별회계 세입세출 예산서",
+    "2025회계연도 제2회 일반회계 및 특별회계 세입·세출 추가경정예산서",
+    "2025회계연도 제1회 일반회계 및 특별회계 세입·세출 추가경정예산서"
+   ],
+   "BUDLK": "https://www.gangdong.go.kr/web/newportal/bbs/b_057"
+  },
+  "2600000": {
+   "이름": "부산본청",
+   "주소": "https://www.busan.go.kr/ghstat",
+   "어떻게": "BUDLK",
+   "점수": 14,
+   "근거": [
+    "2026년도 세입세출예산서",
+    "2025년도 세입세출예산서"
+   ],
+   "BUDLK": "https://www.busan.go.kr/ghstat"
+  },
+  "2611000": {
+   "이름": "부산중구",
+   "주소": "https://www.bsjunggu.go.kr/index.junggu?menuCd=DOM_000000103004001026",
+   "어떻게": "BUDLK",
+   "점수": 8,
+   "근거": [
+    "세입예산서",
+    "세출예산서",
+    "세입예산사업명세서",
+    "세입세출예산운용시스템"
+   ],
+   "BUDLK": "https://www.bsjunggu.go.kr/index.junggu?menuCd=DOM_000000103004001026"
+  },
+  "2612000": {
+   "이름": "부산서구",
+   "주소": "https://www.bsseogu.go.kr/index.bsseogu?menuCd=DOM_000000103005001086&cpath=",
+   "어떻게": "BUDLK",
+   "점수": 5,
+   "근거": [
+    "세입세출 예산서 세입예산 세입예산서(총괄) 세입예산서(일반회계)",
+    "2024본예산08-1세입예산서(총괄).pdf')",
+    "2024본예산08-2세입예산서(일반).pdf')",
+    "세입예산서(특별회계)"
+   ],
+   "BUDLK": "https://www.bsseogu.go.kr/index.bsseogu?menuCd=DOM_000000103005001086&cpath="
+  },
+  "2613000": {
+   "이름": "부산동구",
+   "주소": "https://www.bsdonggu.go.kr/index.donggu?menuCd=DOM_000000103003001000",
+   "어떻게": "BUDLK",
+   "점수": 8,
+   "근거": [
+    "세입예산서",
+    "세출예산서",
+    "세입예산사업명세서",
+    "세출예산 사업명세서 의회사무과 일자리경제과"
+   ],
+   "BUDLK": "http://www.bsdonggu.go.kr/index.donggu?menuCd=DOM_000000103003001000"
+  },
+  "2614000": {
+   "이름": "부산영도구",
+   "주소": "https://www.yeongdo.go.kr/00000/00067/00068.web",
+   "어떻게": "BUDLK",
+   "점수": 8,
+   "근거": [
+    "예산서 선택",
+    "추경예산서 선택"
+   ],
+   "BUDLK": "https://www.yeongdo.go.kr/00000/00067/00068.web"
+  },
+  "2615000": {
+   "이름": "부산부산진구",
+   "주소": "https://www.busanjin.go.kr/index.busanjin?menuCd=DOM_000000109004008022",
+   "어떻게": "BUDLK",
+   "점수": 11,
+   "근거": [
+    "세입예산서",
+    "세출예산서",
+    "세입예산사업명세서",
+    "세입예산서 다운로드 미리보기"
+   ],
+   "BUDLK": "https://www.busanjin.go.kr/index.busanjin?menuCd=DOM_000000109004008022"
+  },
+  "2616000": {
+   "이름": "부산동래구",
+   "주소": "https://www.dongnae.go.kr/index.dongnae?menuCd=DOM_000000101005001001",
+   "어떻게": "BUDLK",
+   "점수": 11,
+   "근거": [
+    "일반회계 세입예산서",
+    "일반회계 세입예산 사업명세서",
+    "일반회계 세출예산서",
+    "의회사무국세출예산"
+   ],
+   "BUDLK": "https://www.dongnae.go.kr/index.dongnae?menuCd=DOM_000000101005001001"
+  },
+  "2617000": {
+   "이름": "부산남구",
+   "주소": "https://www.bsnamgu.go.kr/index.namgu?menuCd=DOM_000000105003001000",
+   "어떻게": "BUDLK",
+   "점수": 8,
+   "근거": [
+    "☞ 2008년 이전 예산서를 보실려면 psrViewer(2.9Mbyte)을 설치 하여야 합니다. Internet Explorer 5.5 이하일때",
+    "세입세출 예산공개",
+    "◦ 세입예산서",
+    "◦ 세입예산 사업명세서"
+   ],
+   "BUDLK": "https://www.bsnamgu.go.kr/index.namgu?menuCd=DOM_000000105003001000"
+  },
+  "2618000": {
+   "이름": "부산북구",
+   "주소": "https://www.bsbukgu.go.kr/index.bsbukgu?menuCd=DOM_000000105009001063",
+   "어떻게": "BUDLK",
+   "점수": 5,
+   "근거": [
+    "세입예산사업명세서 문서",
+    "세입예산사업명세서 다운로드 문서바로보기"
+   ],
+   "BUDLK": "https://www.bsbukgu.go.kr/index.bsbukgu?menuCd=DOM_000000105009001063"
+  },
+  "2619000": {
+   "이름": "부산해운대구",
+   "주소": "https://www.haeundae.go.kr/index.do?menuCd=DOM_000000104005001073",
+   "어떻게": "BUDLK",
+   "점수": 8,
+   "근거": [
+    "세입예산서",
+    "세출예산서",
+    "세출예산사업명세서",
+    "세입세출예산 연도 선택"
+   ],
+   "BUDLK": "https://www.haeundae.go.kr/index.do?menuCd=DOM_000000104005001073"
+  },
+  "2620000": {
+   "이름": "부산사하구",
+   "주소": "https://www.saha.go.kr/portal/contents.do?mId=0303080100",
+   "어떻게": "BUDLK",
+   "점수": 11,
+   "근거": [
+    "세입예산서",
+    "세입예산사업명세서",
+    "세출예산서",
+    "세입예산서 l 세입예산사업명세서"
+   ],
+   "BUDLK": "https://www.saha.go.kr/portal/contents.do?mId=0303080100"
+  },
+  "2621000": {
+   "이름": "부산금정구",
+   "주소": "https://www.geumjeong.go.kr/index.geumj?menuCd=DOM_000000124006001101",
+   "어떻게": "메뉴",
+   "점수": 17,
+   "근거": [
+    "2026년 본예산",
+    "2025년 본예산"
+   ],
+   "BUDLK": "https://www.geumjeong.go.kr/index.geumj?menuCd=DOM_0000001240060010970000124006001091",
+   "메뉴글": "예산서"
+  },
+  "2622000": {
+   "이름": "부산강서구",
+   "주소": "https://www.bsgangseo.go.kr/portal/bgtStts/list.do?mid=0502010000&token=1733962993428",
+   "어떻게": "BUDLK",
+   "점수": 4,
+   "근거": [
+    "2026년도 본예산"
+   ],
+   "BUDLK": "https://www.bsgangseo.go.kr/portal/bgtStts/list.do?mid=0502010000&token=1733962993428"
+  },
+  "2623000": {
+   "이름": "부산연제구",
+   "주소": "https://www.yeonje.go.kr/portal/contents/budgetList.do?seq=20250&mId=0403020000",
+   "어떻게": "BUDLK",
+   "점수": 5,
+   "근거": [
+    "세입예산서 보기 문서",
+    "세출예산서 보기 문서",
+    "세입예산 사업명세서 보기 문서",
+    "세입예산서 PDF 파일 보기 문서바로보기 세출예산서 PDF 파일 보기 문서바로보기"
+   ],
+   "BUDLK": "https://www.yeonje.go.kr/portal/contents/budgetList.do?seq=20250&mId=0403020000"
+  },
+  "2624000": {
+   "이름": "부산수영구",
+   "주소": "https://www.suyeong.go.kr/finance/index.suyeong?menuCd=DOM_000000901001000000",
+   "어떻게": "BUDLK",
+   "점수": 14,
+   "근거": [
+    "2026년 제2회 추가경정예산서",
+    "2026년 제1회 추가경정예산서"
+   ],
+   "BUDLK": "https://www.suyeong.go.kr/finance/index.suyeong?menuCd=DOM_000000901001000000"
+  },
+  "2625000": {
+   "이름": "부산사상구",
+   "주소": "https://www.sasang.go.kr/index.sasang?menuCd=DOM_000000101006001014",
+   "어떻게": "BUDLK",
+   "점수": 17,
+   "근거": [
+    "예산서열기202620252024202320222021202020192018201720162015201420132012",
+    "예산서 2026 2025 2024 2023 2022 2021 2020 2019 2018 2017 2016 2015 2014 2013 2012"
+   ],
+   "BUDLK": "https://www.sasang.go.kr/index.sasang?menuCd=DOM_000000101006001014"
+  },
+  "2671000": {
+   "이름": "부산기장군",
+   "주소": "https://www.gijang.go.kr/index.gijang?menuCd=DOM_000000101003002091",
+   "어떻게": "BUDLK",
+   "점수": 8,
+   "근거": [
+    "세입예산서(총괄)",
+    "세출예산서(총괄)",
+    "세입예산 사업명세서(전부서)",
+    "세출예산 사업명세서(전부서)"
+   ],
+   "BUDLK": "https://www.gijang.go.kr/index.gijang?menuCd=DOM_000000101003002091"
+  },
+  "2700000": {
+   "이름": "대구본청",
+   "주소": "https://jumin.daegu.go.kr/budget/information/informationBudgetBill.do",
+   "어떻게": "BUDLK",
+   "점수": 5,
+   "근거": [
+    "세입세출예산서",
+    "1회 추가경정 세입세출예산",
+    "2회 추가경정 세입세출예산",
+    "세입예산서(일반회계, 기타특별회계 )"
+   ],
+   "BUDLK": "https://jumin.daegu.go.kr/budget/information/informationBudgetBill.do"
+  },
+  "2711000": {
+   "이름": "대구중구",
+   "주소": "",
+   "어떻게": "못 찾음",
+   "점수": 0,
+   "근거": [],
+   "BUDLK": "https://www.jung.daegu.kr/new/pages/administration/page.html?mc=0182",
+   "본": [
+    "https://www.jung.daegu.kr/new/pages/administration/page.html?mc=0182"
+   ],
+   "메모": "BUDLK 가 400 Bad Request — 주소가 바뀐 듯"
+  },
+  "2712000": {
+   "이름": "대구동구",
+   "주소": "https://www.dong.daegu.kr/portal/contents/budgetList.do?mid=0503010000&seq=202602",
+   "어떻게": "메뉴",
+   "점수": 8,
+   "근거": [
+    "세입예산서",
+    "세입예산사업명세서",
+    "세출예산서",
+    "세출예산서 세출예산사업명세서 실과선택 의회사무국 정책추진단 감사실 기획예산과 홍보전산과 세무1과 세무2과 행정지원과 문화관광과 교육정책과 체육진"
+   ],
+   "BUDLK": "https://www.dong.daegu.kr/portal/contents/budgetList.do?mid=0503010000&token=1753159452087",
+   "메뉴글": "세입세출예산서"
+  },
+  "2713000": {
+   "이름": "대구서구",
+   "주소": "https://www.dgs.go.kr/portal/contents.do?mid=0505010102",
+   "어떻게": "BUDLK",
+   "점수": 17,
+   "근거": [
+    "2026년 하위메뉴 열기 세입세출예산서",
+    "2025년 하위메뉴 열기 예산현황 세입세출예산서"
+   ],
+   "BUDLK": "https://www.dgs.go.kr/portal/contents.do?mid=0505010102"
+  },
+  "2714000": {
+   "이름": "대구남구",
+   "주소": "https://nam.daegu.kr/index.do?menu_id=00003471",
+   "어떻게": "BUDLK",
+   "점수": 26,
+   "근거": [
+    "알기쉬운 예산서공개 펼치기 2026년 예산서 2025년 예산서 2024년 예산서 2023년 예산서",
+    "2026년 예산서",
+    "2025년 예산서",
+    "2026년 2회추경 예산서"
+   ],
+   "BUDLK": "https://nam.daegu.kr/index.do?menu_id=00003471"
+  },
+  "2715000": {
+   "이름": "대구북구",
+   "주소": "https://www.buk.daegu.kr/index.do?menu_id=00000129",
+   "어떻게": "BUDLK",
+   "점수": 5,
+   "근거": [
+    "세출예산총괄표(기능별)",
+    "세출예산총괄표(성질별)",
+    "세출예산총괄표(조직별)",
+    "세입예산 사업명세서 세입예산사업명세서"
+   ],
+   "BUDLK": "https://www.buk.daegu.kr/index.do?menu_id=00000129"
+  },
+  "2716000": {
+   "이름": "대구수성구",
+   "주소": "https://www.suseong.kr/index.do?menu_id=00042630&servletPath=%2Findex.do",
+   "어떻게": "메뉴",
+   "점수": 17,
+   "근거": [
+    "2026년 예산서",
+    "2025년 예산서"
+   ],
+   "BUDLK": "https://www.suseong.kr/index.do?menu_id=00042143&servletPath=%2Findex.do",
+   "메뉴글": "세입세출예산서"
+  },
+  "2717000": {
+   "이름": "대구달서구",
+   "주소": "https://www.dalseo.daegu.kr/index.do?menu_id=10000139",
+   "어떻게": "BUDLK",
+   "점수": 23,
+   "근거": [
+    "2026년 1차 추가경정 세입세출예산서",
+    "2025년도 제4회 추가경정 세입세출예산서",
+    "2026년도 세입세출예산서",
+    "2025년도 제3회 추가경정 세입세출예산서"
+   ],
+   "BUDLK": "https://www.dalseo.daegu.kr/index.do?menu_id=10000139"
+  },
+  "2771000": {
+   "이름": "대구달성군",
+   "주소": "https://www.dalseong.daegu.kr/index.do?menu_id=00001707",
+   "어떻게": "BUDLK",
+   "점수": 8,
+   "근거": [
+    "2026년도 세입세출예산",
+    "2025년도 세입세출예산"
+   ],
+   "BUDLK": "https://www.dalseong.daegu.kr/index.do?menu_id=00001707"
+  },
+  "2772000": {
+   "이름": "대구군위군",
+   "주소": "https://www.gunwi.go.kr/ko/page.do?mnu_uid=164&code_uid=24",
+   "어떻게": "BUDLK",
+   "점수": 8,
+   "근거": [
+    "세입예산서(일반) 본예산",
+    "세입예산서(일반) 1 차 추경",
+    "세입예산서(일반) 2 차 추경",
+    "세입예산사업명세서(일반) 본예산"
+   ],
+   "BUDLK": "https://www.gunwi.go.kr/ko/page.do?mnu_uid=164&code_uid=24"
+  },
+  "2800000": {
+   "이름": "인천본청",
+   "주소": "https://www.incheon.go.kr/open/OPEN030101",
+   "어떻게": "BUDLK",
+   "점수": 8,
+   "근거": [
+    "세입예산서",
+    "세출예산서",
+    "세입예산사업명세서(세입)",
+    "세출예산사업명세서(세출)"
+   ],
+   "BUDLK": "https://www.incheon.go.kr/open/OPEN030101"
+  },
+  "2811000": {
+   "이름": "인천중구",
+   "주소": "",
+   "어떻게": "못 찾음",
+   "점수": 0,
+   "근거": [],
+   "BUDLK": "https://www.icjg.go.kr/krop0202a",
+   "본": [
+    "chrome-error://chromewebdata/"
+   ],
+   "메모": "icjg.go.kr 도메인이 없다"
+  },
+  "2812000": {
+   "이름": "인천동구",
+   "주소": "https://www.jemulpo.go.kr/main/information/finance/budget.jsp",
+   "어떻게": "BUDLK",
+   "점수": 5,
+   "근거": [
+    "일반-세입예산서(장관항)",
+    "일반-세출예산서",
+    "일반-세입예산사업명세서",
+    "제 2 조 세입·세출 예산의 명세는 \"세입·세출 예산\"과 같다."
+   ],
+   "BUDLK": "https://www.icdonggu.go.kr/main/information/finance/budget.jsp"
+  },
+  "2813000": {
+   "이름": "인천미추홀구",
+   "주소": "https://www.michuhol.go.kr/main/budget/document/list.do",
+   "어떻게": "BUDLK",
+   "점수": 6,
+   "근거": [
+    "세입예산사업명세서",
+    "제 2 조 세입·세출예산의 명세는 별첨 \"세입·세출예산\"과 같다.",
+    "총괄 및 세입 세입총괄표 세출총괄표(기능별) 세출총괄표(조직별) 세출총괄표(성질별) 세입예산사업명세서"
+   ],
+   "BUDLK": "https://www.michuhol.go.kr/main/budget/document/list.do"
+  },
+  "2814000": {
+   "이름": "인천연수구",
+   "주소": "https://www.yeonsu.go.kr/main/administration/budget/present.asp",
+   "어떻게": "BUDLK",
+   "점수": 4,
+   "근거": [
+    "제2조 : 세입ㆍ세출예산의 명세는 별첨 \"세입ㆍ세출 예산\"과 같다."
+   ],
+   "BUDLK": "https://www.yeonsu.go.kr/main/administration/budget/present.asp"
+  },
+  "2815000": {
+   "이름": "인천남동구",
+   "주소": "https://www.namdong.go.kr/main/administration/budget/finance/status.jsp",
+   "어떻게": "BUDLK",
+   "점수": 5,
+   "근거": [
+    "세입예산서(일반)",
+    "제 2 조 세입·세출예산의 명세는 별첨 \"세입·세출 예산\"과 같다",
+    "세출예산서(일반)",
+    "세입 세입예산서 의료급여 발전소주변지역 폐기물처리시설설치 주차장"
+   ],
+   "BUDLK": "https://www.namdong.go.kr/main/administration/budget/finance/status.jsp"
+  },
+  "2816000": {
+   "이름": "인천부평구",
+   "주소": "https://www.icbp.go.kr/main/administration/finance/general.jsp",
+   "어떻게": "BUDLK",
+   "점수": 5,
+   "근거": [
+    "세입예산서 다운받기",
+    "세입예산사업명세서 다운받기",
+    "세출예산서 다운받기",
+    "제2조 세입 ․ 세출 예산의 명세는 별첨“세입 ․ 세출예산”과 같다"
+   ],
+   "BUDLK": "https://www.icbp.go.kr/main/administration/finance/general.jsp"
+  },
+  "2817000": {
+   "이름": "인천계양구",
+   "주소": "https://www.gyeyang.go.kr/open_content/main/open_info/budget/tax.jsp",
+   "어떻게": "BUDLK",
+   "점수": 8,
+   "근거": [
+    "세입예산서",
+    "세입예산사업명세서",
+    "세출예산서",
+    "세입세출예산서"
+   ],
+   "BUDLK": "https://www.gyeyang.go.kr/open_content/main/open_info/budget/tax.jsp"
+  },
+  "2818000": {
+   "이름": "인천서구",
+   "주소": "https://www.seohae.go.kr/open_content/main/open_info/finance/budget_2025.jsp",
+   "어떻게": "BUDLK",
+   "점수": 7,
+   "근거": [
+    "세입예산서",
+    "세출예산서",
+    "세입예산사업명세서",
+    "제2조 : (예산의 명세) 세입·세출 예산의 명세는 별첨 \"세입·세출 예산\" 과 같다."
+   ],
+   "BUDLK": "https://www.seo.incheon.kr/open_content/main/open_info/finance/budget_2025.jsp"
+  },
+  "2871000": {
+   "이름": "인천강화군",
+   "주소": "https://www.ganghwa.go.kr/open_content/main/open_info/finance/budget.jsp",
+   "어떻게": "BUDLK",
+   "점수": 20,
+   "근거": [
+    "348 2026년도 제2회 추가경정 일반 및 특별회계 세입‧세출 예산 고시(2) 기획예산과 추경예산 2026.08.12 528",
+    "347 2026년도 제2회 추가경정 일반 및 특별회계 세입‧세출 예산 고시(1) 기획예산과 추경예산 2026.08.12 458",
+    "345 2026년도 제1회 추가경정 일반 및 특별회계 세입‧세출 예산 고시(2) 기획예산과 추경예산 2026.03.17 1023",
+    "344 2026년도 제1회 추가경정 일반 및 특별회계 세입‧세출 예산 고시(1) 기획예산과 추경예산 2026.03.17 916"
+   ],
+   "BUDLK": "https://www.ganghwa.go.kr/open_content/main/open_info/finance/budget.jsp"
+  },
+  "2872000": {
+   "이름": "인천옹진군",
+   "주소": "https://www.ongjin.go.kr/open_content/main/administration/budget/statement.jsp",
+   "어떻게": "BUDLK",
+   "점수": 7,
+   "근거": [
+    "세입예산서 전체 일반 특별",
+    "세출예산서 전체 일반 특별",
+    "[제2조] 세입·세출 예산의 명세는 별첨 \"세입·세출예산서\"와 같다",
+    "QR CODE 이미지를 스마트폰에 인식시키면 자동으로 이 페이지로 연결됩니다.이 QR CODE는 예산서 페이지의 정보를 담고 있습니다."
+   ],
+   "BUDLK": "https://www.ongjin.go.kr/open_content/main/administration/budget/statement.jsp"
+  },
+  "2900000": {
+   "이름": "광주본청",
+   "주소": "https://www.gwangju.go.kr/finance/boardList.do?boardId=BD_0000120200&pageId=finance23",
+   "어떻게": "BUDLK",
+   "점수": 4,
+   "근거": [
+    "세입세출예산서"
+   ],
+   "BUDLK": "https://www.gwangju.go.kr/finance/boardList.do?boardId=BD_0000120200&pageId=finance23"
+  },
+  "2911000": {
+   "이름": "광주동구",
+   "주소": "https://www.donggu.kr/board.es?mid=a10410010200&bid=0222",
+   "어떻게": "BUDLK",
+   "점수": 8,
+   "근거": [
+    "15. 세입예산서(총괄). 첨부",
+    "15. 세입예산서(총괄). (새창)",
+    "16. 세입예산서(일반회계). 첨부",
+    "16. 세입예산서(일반회계). (새창)"
+   ],
+   "BUDLK": "https://www.donggu.kr/board.es?mid=a10410010200&bid=0222"
+  },
+  "2912000": {
+   "이름": "광주서구",
+   "주소": "https://www.seogu.gwangju.kr/board.es?mid=a60203020000&bid=0137",
+   "어떻게": "BUDLK",
+   "점수": 20,
+   "근거": [
+    "2026년 제1회 추가경정 세입예산서",
+    "2026년 제1회 추가경정 일반회계 세입예산서",
+    "2026년 제1회 추가경정 특별회계 세입예산서",
+    "2026년 제1회 추가경정 세출예산서"
+   ],
+   "BUDLK": "https://www.seogu.gwangju.kr/board.es?mid=a60203020000&bid=0137"
+  },
+  "2913000": {
+   "이름": "광주남구",
+   "주소": "https://www.namgu.gwangju.kr/board.es?mid=a10308010100&bid=0272",
+   "어떻게": "BUDLK",
+   "점수": 23,
+   "근거": [
+    "2025년 본예산 예산서",
+    "2025년 1차 추경 예산서",
+    "2025년 2차 추경 예산서",
+    "2025년 3차 추경 예산서"
+   ],
+   "BUDLK": "https://www.namgu.gwangju.kr/board.es?mid=a10308010100&bid=0272"
+  },
+  "2914000": {
+   "이름": "광주북구",
+   "주소": "https://bukgu.gwangju.kr/board.es?mid=a90103010000&bid=0303",
+   "어떻게": "BUDLK",
+   "점수": 23,
+   "근거": [
+    "2026년 2차 추경예산 2026년 제2회 추가경정예산서 전체",
+    "2026년 2차 추경예산 세입예산서(총괄)",
+    "2026년 2차 추경예산 세입예산서(일반회계)",
+    "2026년 2차 추경예산 세입예산서(특별회계)"
+   ],
+   "BUDLK": "https://bukgu.gwangju.kr/board.es?mid=a90103010000&bid=0303"
+  },
+  "2915000": {
+   "이름": "광주광산구",
+   "주소": "https://www.gwangsan.go.kr/contentsView.do?pageId=www793",
+   "어떻게": "BUDLK",
+   "점수": 20,
+   "근거": [
+    "2025년 본 예산서",
+    "2025년 제1회 추경예산서",
+    "2025년 제2회 추경예산서",
+    "2025년 제3회 추경예산서"
+   ],
+   "BUDLK": "https://www.gwangsan.go.kr/contentsView.do?pageId=www793"
+  },
+  "3000000": {
+   "이름": "대전본청",
+   "주소": "https://www.daejeon.go.kr/bud/BudFinanceboardList.do?boardId=budboard005&menuSeq=349",
+   "어떻게": "BUDLK",
+   "점수": 5,
+   "근거": [
+    "세입예산서(일반)",
+    "세입예산서(기타)",
+    "세출예산서(일반)",
+    "세출예산서(기타)"
+   ],
+   "BUDLK": "https://www.daejeon.go.kr/bud/BudFinanceboardList.do?boardId=budboard005&menuSeq=349"
+  },
+  "3011000": {
+   "이름": "대전동구",
+   "주소": "https://www.donggu.go.kr/dg/kor/75/budget",
+   "어떻게": "BUDLK",
+   "점수": 7,
+   "근거": [
+    "일반회계 세입예산 세입예산사업명세서",
+    "세출예산 기획홍보실",
+    "세출예산 발전소주변지역지원사업",
+    "예산서공개"
+   ],
+   "BUDLK": "https://www.donggu.go.kr/dg/kor/75/budget"
+  },
+  "3012000": {
+   "이름": "대전중구",
+   "주소": "https://www.djjunggu.go.kr/prog/yesanInfo/YESAN01/yesan/sub02_01/list.do",
+   "어떻게": "메뉴",
+   "점수": 8,
+   "근거": [
+    "세입예산사업명세서",
+    "세출예산사업명세서",
+    "세입세출예산서",
+    "세입‧세출예산 총괄"
+   ],
+   "BUDLK": "https://www.djjunggu.go.kr/prog/yesanInfo/YESAN01/jejung/sub05_01/list.do",
+   "메뉴글": "세입세출예산서"
+  },
+  "3013000": {
+   "이름": "대전서구",
+   "주소": "https://www.seogu.go.kr/prog/bdgtpr/kor/sub02_07_06/list.do",
+   "어떻게": "BUDLK",
+   "점수": 14,
+   "근거": [
+    "2026년 본예산서(전체) 본예산서(전체)",
+    "2026년 본예산서(전체) 본예산서(전체) 바로보기 파일다운로드"
+   ],
+   "BUDLK": "https://www.seogu.go.kr/prog/bdgtpr/kor/sub02_07_06/list.do"
+  },
+  "3014000": {
+   "이름": "대전유성구",
+   "주소": "https://www.yuseong.go.kr/prog/bdgtpr/kor/sub05_05_03/list.do",
+   "어떻게": "BUDLK",
+   "점수": 8,
+   "근거": [
+    "2. 세입예산서",
+    "3. 세출예산서",
+    "예산서 보기",
+    "2. 세입예산서 2. 세입예산서 미리보기 파일다운로드"
+   ],
+   "BUDLK": "https://www.yuseong.go.kr/prog/bdgtpr/kor/sub05_05_03/list.do"
+  },
+  "3015000": {
+   "이름": "대전대덕구",
+   "주소": "",
+   "어떻게": "못 찾음",
+   "점수": 1,
+   "근거": [
+    "예산서공개"
+   ],
+   "BUDLK": "https://www.daedeok.go.kr/ftp/goContents.do?link=/ftp/ftp01/FTP010201&menuId=FTP010201",
+   "본": [
+    "https://www.daedeok.go.kr/ftp/goContents.do?link=/ftp/ftp01/FTP010201&menuId=FTP010201",
+    "https://www.daedeok.go.kr/ftp/goContents.do?link=/ftp/ftp01/FTP010217&menuId=FTP010217"
+   ],
+   "메모": "「예산서공개」 화면(FTP010217)에 파일이 안 보임"
+  },
+  "3100000": {
+   "이름": "울산본청",
+   "주소": "https://www.ulsan.go.kr/u/tax/contents.ulsan?mId=001003001018000000",
+   "어떻게": "BUDLK",
+   "점수": 14,
+   "근거": [
+    "2025년 예산서"
+   ],
+   "BUDLK": "https://www.ulsan.go.kr/u/tax/contents.ulsan?mId=001003001018000000"
+  },
+  "3111000": {
+   "이름": "울산중구",
+   "주소": "https://www.junggu.ulsan.kr/index.ulsan?menuCd=DOM_000000104003001000",
+   "어떻게": "메뉴",
+   "점수": 6,
+   "근거": [
+    "세입예산사업명세서(일반)",
+    "부서별 세출예산사업명세서(전체)",
+    "세출예산사업명세서(부서별)"
+   ],
+   "BUDLK": "https://www.junggu.ulsan.kr/index.ulsan?menuCd=DOM_000000104003001001",
+   "메뉴글": "예산서"
+  },
+  "3112000": {
+   "이름": "울산남구",
+   "주소": "https://www.ulsannamgu.go.kr/fieldInfo/openEstimate2026.jsp",
+   "어떻게": "메뉴",
+   "점수": 8,
+   "근거": [
+    "세입예산사업명세서(일반)",
+    "세입예산사업명세서",
+    "세입예산사업명세서(지역자원)",
+    "세출예산사업명세서(지역자원)"
+   ],
+   "BUDLK": "https://www.ulsannamgu.go.kr/fieldInfo/openEstimate2024.jsp",
+   "메뉴글": "예산공개"
+  },
+  "3113000": {
+   "이름": "울산동구",
+   "주소": "https://www.donggu.ulsan.kr/us/prg/bdgt/list.do",
+   "어떻게": "BUDLK",
+   "점수": 5,
+   "근거": [
+    "08 세입예산서(전체).pdf [0.06 MB]",
+    "10 세출예산서(전체).pdf [0.27 MB]"
+   ],
+   "BUDLK": "https://www.donggu.ulsan.kr/us/prg/bdgt/list.do"
+  },
+  "3114000": {
+   "이름": "울산북구",
+   "주소": "https://www.bukgu.ulsan.kr/lay1/S1T178C2387/contents.do",
+   "어떻게": "BUDLK",
+   "점수": 4,
+   "근거": [
+    "세입예산서",
+    "세입예산사업명세서",
+    "세출예산서",
+    "세출예산사업명세서"
+   ],
+   "BUDLK": "https://www.bukgu.ulsan.kr/lay1/S1T178C2387/contents.do"
+  },
+  "3171000": {
+   "이름": "울산울주군",
+   "주소": "https://www.ulju.ulsan.kr/ulju/contents.do?mId=0402101601",
+   "어떻게": "BUDLK",
+   "점수": 5,
+   "근거": [
+    "세입예산서(일반)",
+    "세입예산사업명세서",
+    "세출예산서(일반)",
+    "세입 세입예산서(일반)다운로드 세입예산사업명세서다운로드"
+   ],
+   "BUDLK": "https://www.ulju.ulsan.kr/ulju/contents.do?mId=0402101601"
+  },
+  "3200000": {
+   "이름": "세종본청",
+   "주소": "https://www.sejong.go.kr/prog/yesanInfo/finance/sub05_01/list.do",
+   "어떻게": "BUDLK",
+   "점수": 8,
+   "근거": [
+    "2026년 예산서 (본예산)"
+   ],
+   "BUDLK": "https://www.sejong.go.kr/prog/yesanInfo/finance/sub05_01/list.do"
+  },
+  "4100000": {
+   "이름": "경기본청",
+   "주소": "https://www.gg.go.kr/bbs/board.do?bsIdx=515&menuId=1946#page=1",
+   "어떻게": "BUDLK",
+   "점수": 23,
+   "근거": [
+    "2026년 제2회 추가경정 합본예산서",
+    "2026년 제2회 추가경정 예산서(일반회계 및 기타특별회계)",
+    "2026년 제1회 추가경정 합본예산서",
+    "2026년 제1회 추가경정 예산서(일반회계 및 기타특별회계)"
+   ],
+   "BUDLK": "https://www.gg.go.kr/bbs/board.do?bsIdx=515&menuId=1946#page=1"
+  },
+  "4111000": {
+   "이름": "경기수원시",
+   "주소": "https://www.suwon.go.kr/web/budgetDoc/BD_budgetDoc.list.do",
+   "어떻게": "메뉴",
+   "점수": 23,
+   "근거": [
+    "2026 일반 · 특별회계 2026년도 제2회 일반 및 특별회계 세입·세출 추가경정 예산서 보기 (523)",
+    "2026년도 제1회 일반 및 특별회계 세입·세출 추가경정 예산서",
+    "2026 일반 · 특별회계 2026년도 일반 및 특별회계 세입·세출 예산서 보기 (6349)",
+    "2026년도 제2회 일반 및 특별회계 세입·세출 추가경정 예산서"
+   ],
+   "BUDLK": "https://www.suwon.go.kr/web/board/BD_board.list.do?bbsCd=1078&q_ctgCd=1001",
+   "메뉴글": "예산서"
+  },
+  "4112000": {
+   "이름": "경기성남시",
+   "주소": "",
+   "어떻게": "못 찾음",
+   "점수": 0,
+   "근거": [],
+   "BUDLK": "https://www.seongnam.go.kr/finance/financialDisclosure2025.do?menuIdx=1000524&returnURL=%2Fmain.do",
+   "본": [
+    "https://www.seongnam.go.kr/finance/financialDisclosure2025.do?menuIdx=1000524&returnURL=%2Fmain.do"
+   ],
+   "메모": "BUDLK 가 404 — 주소가 바뀐 듯"
+  },
+  "4113000": {
+   "이름": "경기의정부시",
+   "주소": "https://www.ui4u.go.kr/portal/bbs/list.do?ptIdx=64&mId=0107010000",
+   "어떻게": "사람",
+   "점수": null,
+   "근거": [],
+   "BUDLK": "https://www.ui4u.go.kr/portal/bbs/list.do?ptIdx=110&mId=0107030000",
+   "메모": "예산현황 게시판 — 「2026년도 세입세출예산서」 (Claude 확인 2026-11-02)"
+  },
+  "4114000": {
+   "이름": "경기안양시",
+   "주소": "https://www.anyang.go.kr/main/selectBbsNttList.do?bbsNo=35&key=3803",
+   "어떻게": "사람",
+   "점수": null,
+   "근거": [],
+   "BUDLK": "https://www.anyang.go.kr/main/selectBbsNttList.do?bbsNo=39&key=200",
+   "메모": "「예산 자료」 게시판 — 추경 예산서. 본예산은 contents.do?key=3802 (Claude 확인 2026-11-02)"
+  },
+  "4115000": {
+   "이름": "경기부천시",
+   "주소": "",
+   "어떻게": "못 찾음",
+   "점수": 0,
+   "근거": [],
+   "BUDLK": "https://budget.bucheon.go.kr/site/main/index168",
+   "본": [
+    "https://budget.bucheon.go.kr/site/main/index168"
+   ],
+   "메모": "budget.bucheon.go.kr 본예산 화면에 파일이 안 보임"
+  },
+  "4116000": {
+   "이름": "경기광명시",
+   "주소": "https://www.gm.go.kr/pt/user/bbs/BD_selectBbsList.do?q_bbsCode=2261",
+   "어떻게": "메뉴",
+   "점수": 19,
+   "근거": [
+    "2026년도 본예산",
+    "2025년도 본예산",
+    "130 2026년도 본예산 | 작성자 : 관*자 | 조회수 : 4202 | 작성일 : 2025-12-24",
+    "126 2025년도 본예산 | 작성자 : 관*자1 | 조회수 : 5205 | 작성일 : 2024-12-30"
+   ],
+   "BUDLK": "https://www.gm.go.kr/pt/user/bbs/BD_selectBbsList.do?q_bbsCode=2264",
+   "메뉴글": "예산서"
+  },
+  "4117000": {
+   "이름": "경기평택시",
+   "주소": "https://www.pyeongtaek.go.kr/pyeongtaek/contents.do?mid=0107010100",
+   "어떻게": "메뉴",
+   "점수": 7,
+   "근거": [
+    "최근 예산서",
+    "최근 예산서 선택됨",
+    "전체 예산서",
+    "예산서선택됨"
+   ],
+   "BUDLK": "https://www.pyeongtaek.go.kr/pyeongtaek/bbs/list.do?ptIdx=22&mId=0108020000&bIdx=",
+   "메뉴글": "예산서"
+  },
+  "4118000": {
+   "이름": "경기동두천시",
+   "주소": "https://www.ddc.go.kr/ddc/contents.do?key=2290",
+   "어떻게": "BUDLK",
+   "점수": 4,
+   "근거": [
+    "③ 세출예산 규모(분야별)"
+   ],
+   "BUDLK": "https://www.ddc.go.kr/ddc/contents.do?key=2290"
+  },
+  "4119000": {
+   "이름": "경기안산시",
+   "주소": "https://www.ansan.go.kr/www/common/bbs/selectPageListBbs.do?bbs_code=WWW22",
+   "어떻게": "메뉴",
+   "점수": 23,
+   "근거": [
+    "2026년도 제3회 추가경정 예산서",
+    "2026년도 제2회 추가경정 예산서",
+    "2026년도 제1회 추가경정 예산서",
+    "2025년도 간주예산서"
+   ],
+   "BUDLK": "https://www.ansan.go.kr/www/common/bbs/selectPageListBbs.do?bbs_code=B0065",
+   "메뉴글": "예산서"
+  },
+  "4120000": {
+   "이름": "경기고양시",
+   "주소": "https://www.goyang.go.kr/www/user/bbs/BD_selectBbsList.do?q_bbsCode=1045",
+   "어떻게": "사람",
+   "점수": null,
+   "근거": [],
+   "BUDLK": "https://www.goyang.go.kr/www/www04/www04_10/www04_10_1/www04_10_1_tab1.jsp",
+   "메모": "연도별예산서 게시판 — 「2026년 본예산서 게시」 (Claude 확인 2026-11-02)"
+  },
+  "4121000": {
+   "이름": "경기과천시",
+   "주소": "https://www.gccity.go.kr/portal/budgetStatus/list.do?mId=0203150501",
+   "어떻게": "메뉴",
+   "점수": 23,
+   "근거": [
+    "2026년 제2회 추경예신사 및 사업명세서(확정).pdf [1.7 MByte]",
+    "2025합본예산서(최종).pdf [12.3 MByte]",
+    "2026 예산서(확정) 최종.pdf [1.6 MByte]",
+    "2026 세입세출예산명세서(확정)(교정).pdf [4.2 MByte]"
+   ],
+   "BUDLK": "https://www.gccity.go.kr/portal/contents.do?mId=0203010100",
+   "메뉴글": "예산현황(예산서)"
+  },
+  "4122000": {
+   "이름": "경기구리시",
+   "주소": "https://www.guri.go.kr/www/selectBbsNttList.do?bbsNo=10&key=324",
+   "어떻게": "메뉴",
+   "점수": 23,
+   "근거": [
+    "제목 2026년도 제4회 일반 및 특별회계 추가경정 예산서",
+    "2026년도 제4회 일반 및 특별회계 추가경정 예산서",
+    "제목 2026년도 제3회 일반 및 특별회계 추가경정 예산서",
+    "2026년도 제3회 일반 및 특별회계 추가경정 예산서"
+   ],
+   "BUDLK": "https://www.guri.go.kr/www/selectBbsNttList.do?bbsNo=12&key=327",
+   "메뉴글": "예산서 목록"
+  },
+  "4123000": {
+   "이름": "경기남양주시",
+   "주소": "",
+   "어떻게": "못 찾음",
+   "점수": 0,
+   "근거": [],
+   "BUDLK": "https://www.nyj.go.kr/www/selectBbsNttList.do?key=2425&bbsNo=41",
+   "본": [
+    "https://www.nyj.go.kr/tracer/info.jsp"
+   ],
+   "메모": "「개발자도구 감지」 화면으로 튕겨 봇이 못 봄"
+  },
+  "4124000": {
+   "이름": "경기오산시",
+   "주소": "https://www.osan.go.kr/portal/bbs/list.do?ptIdx=173&mId=0202030100",
+   "어떻게": "메뉴",
+   "점수": 23,
+   "근거": [
+    "2026년도 제4회 추경 세입세출예산(안)(일반 및 기타특별회계)",
+    "2026년도 제3회 추경 세입세출예산(안)(일반 및 기타특별회계)",
+    "2026년 제2회 추경 일반 및 특별회계 세입세출예산서",
+    "2026년도 제2회 추경 세입세출예산(안)(일반 및 기타특별회계)"
+   ],
+   "BUDLK": "https://www.osan.go.kr/portal/bbs/list.do?ptIdx=345&mId=0203030000",
+   "메뉴글": "예산서 공개"
+  },
+  "4125000": {
+   "이름": "경기시흥시",
+   "주소": "https://www.siheung.go.kr/main/contents.do?mId=0309040000",
+   "어떻게": "메뉴",
+   "점수": 26,
+   "근거": [
+    "2026년 상수도 예산서",
+    "2026년 하수도 예산서",
+    "2026년 공영개발 예산서",
+    "2025년 상수도 예산서"
+   ],
+   "BUDLK": "https://www.siheung.go.kr/main/bbs/list.do?ptIdx=38&mId=0309070000",
+   "메뉴글": "예산서"
+  },
+  "4126000": {
+   "이름": "경기군포시",
+   "주소": "https://www.gunpo.go.kr/www/contents.do?key=1009088",
+   "어떻게": "메뉴",
+   "점수": 8,
+   "근거": [
+    "세입예산서(일반+특별)",
+    "세입예산서(일반)",
+    "세입예산서(특별)",
+    "세출예산서(일반+특별)"
+   ],
+   "BUDLK": "https://www.gunpo.go.kr/www/selectBbsNttList.do?bbsNo=710&key=4269",
+   "메뉴글": "예산공개"
+  },
+  "4127000": {
+   "이름": "경기의왕시",
+   "주소": "https://www.uiwang.go.kr/UWKOROPEN0221",
+   "어떻게": "메뉴",
+   "점수": 8,
+   "근거": [
+    "일반회계 및 기타특별회계 사업 예산서",
+    "일반회계 세입 사업명세서",
+    "의회 세출예산 명세서",
+    "예산서(2024년 이전)"
+   ],
+   "BUDLK": "https://www.uiwang.go.kr/UWKOROPEN0202",
+   "메뉴글": "예산서"
+  },
+  "4128000": {
+   "이름": "경기하남시",
+   "주소": "https://www.hanam.go.kr/www/selectBbsNttList.do?bbsNo=7&key=42",
+   "어떻게": "메뉴",
+   "점수": 10,
+   "근거": [
+    "2026년도 일반 및 기타특별회계 세입세출예산서 게시핫이슈",
+    "2025년도 일반 및 기타 특별회계 세입세출예산서 게시핫이슈"
+   ],
+   "BUDLK": "https://www.hanam.go.kr/www/selectBbsNttList.do?bbsNo=14&key=50",
+   "메뉴글": "본예산"
+  },
+  "4129000": {
+   "이름": "경기용인시",
+   "주소": "https://www.yongin.go.kr/home/ifOp/ifOpMunic/ifOpMunic01.jsp",
+   "어떻게": "메뉴",
+   "점수": 8,
+   "근거": [
+    "예산서 안내",
+    "예산서공개",
+    "세입세출예산공개",
+    "성립시기에 따라 ①본예산 ②수정예산 ③성립전사용예산 ④추가경정예산이 있습니다. 본 홈페이지의 예산서 공개는 본예산과 추가경정예산만 등록되어 있습니다."
+   ],
+   "BUDLK": "https://www.yongin.go.kr/user/bbs/BD_selectBbsList.do?q_bbsCode=1001&q_clCode=8",
+   "메뉴글": "예산서 안내"
+  },
+  "4130000": {
+   "이름": "경기파주시",
+   "주소": "",
+   "어떻게": "못 찾음",
+   "점수": 0,
+   "근거": [],
+   "BUDLK": "https://www.paju.go.kr/user/board/BD_board.list.do?bbsCd=1014",
+   "본": [
+    "https://www.paju.go.kr/user/board/BD_board.list.do?bbsCd=1014"
+   ],
+   "메모": "예산정보 게시판(bbsCd=2004&q_ctgCd=4006)이 비어 보임"
+  },
+  "4131000": {
+   "이름": "경기이천시",
+   "주소": "https://www.icheon.go.kr/portal/contents.do?mid=0304010000",
+   "어떻게": "사람",
+   "점수": null,
+   "근거": [],
+   "BUDLK": "https://www.icheon.go.kr/portal/board/post/list.do?bcIdx=689&mid=0304060000&token=1709096425288",
+   "메모": "예산현황 게시판으로 넘어간다 — 「2026년도 일반 및 특별회계 세입·세출 예산서」 (Claude 확인 2026-11-02)"
+  },
+  "4132000": {
+   "이름": "경기안성시",
+   "주소": "https://www.anseong.go.kr/portal/contents.do?mId=0403010000",
+   "어떻게": "메뉴",
+   "점수": 8,
+   "근거": [
+    "세입예산서 세입예산서(일반)",
+    "세입예산서(기타)",
+    "세출예산서 세출예산서(일반)",
+    "세출예산서(기타)"
+   ],
+   "BUDLK": "https://www.anseong.go.kr/portal/bbs/list.do?ptIdx=28&mId=0403040000&token=1741061908564",
+   "메뉴글": "예산서"
+  },
+  "4133000": {
+   "이름": "경기김포시",
+   "주소": "https://www.gimpo.go.kr/portal/selectBbsNttList.do?bbsNo=295&key=1115",
+   "어떻게": "메뉴",
+   "점수": 19,
+   "근거": [
+    "2026년 제3회 추경 일반 및 기타특별회계 세입세출예산서",
+    "2026년 제2회 추경 일반 및 기타특별회계 세입세출예산서",
+    "2026년 제1회 추경 일반 및 기타특별회계 세입세출예산서",
+    "2025년 제4회 추경∙간주처리 일반 및 기타특별회계 세입세출예산서"
+   ],
+   "BUDLK": "https://www.gimpo.go.kr/portal/selectBbsNttList.do?bbsNo=293&key=2683&searchCtgry=%EC%98%88%EC%82%B0%EA%B3%B5%EC%8B%9C",
+   "메뉴글": "예산서"
+  },
+  "4134000": {
+   "이름": "경기화성시",
+   "주소": "https://money.hscity.go.kr/Money/finfo/budOpen.jsp",
+   "어떻게": "메뉴",
+   "점수": 5,
+   "근거": [
+    "예산서공개",
+    "예산서 공개"
+   ],
+   "BUDLK": "https://money.hscity.go.kr/Money/finfo/fRead1.jsp",
+   "메뉴글": "예산서공개"
+  },
+  "4135000": {
+   "이름": "경기광주시",
+   "주소": "https://www.gjcity.go.kr/portal/bbs/list.do?ptIdx=37&mId=0303010000&token=1793583818237",
+   "어떻게": "메뉴",
+   "점수": 20,
+   "근거": [
+    "2026년 제1회 일반 및 기타 특별회계 세입세출 추가경정 예산서",
+    "2026년 제1회 하수도사업특별회계 세입세출 추가경정 예산서",
+    "2025년 제4회 하수도사업특별회계 세입세출 추가경정 예산서",
+    "2026년 상수도사업특별회계 세입세출 예산서"
+   ],
+   "BUDLK": "https://www.gjcity.go.kr/portal/bbs/list.do?ptIdx=38&mId=0303040100&token=1709616607975",
+   "메뉴글": "예산공개"
+  },
+  "4136000": {
+   "이름": "경기양주시",
+   "주소": "https://www.yangju.go.kr/www/selectBbsNttList.do?bbsNo=37&key=254",
+   "어떻게": "메뉴",
+   "점수": 23,
+   "근거": [
+    "2026년 제2회 추가경정예산서",
+    "2026년 제1회 추가경정예산서",
+    "2026년도 본예산서 게시",
+    "2025년 제3회 추가경정예산서"
+   ],
+   "BUDLK": "https://www.yangju.go.kr/www/contents.do?key=4082",
+   "메뉴글": "연도별예산서"
+  },
+  "4137000": {
+   "이름": "경기포천시",
+   "주소": "https://www.pocheon.go.kr/www/selectBbsNttList.do?bbsNo=1451&key=3565",
+   "어떻게": "메뉴",
+   "점수": 20,
+   "근거": [
+    "27 2026년도 제3회 추가경정 예산서 바로가기 267 2026-09-02",
+    "26 2026년도 제2회 추가경정 예산서 바로가기 573 2026-04-22",
+    "25 2026년도 제1회 추가경정 예산서 바로가기 546 2026-04-03",
+    "24 2026년도 본예산 예산서 바로가기 3238 2025-12-18"
+   ],
+   "BUDLK": "https://www.pocheon.go.kr/www/contents.do?key=17743",
+   "메뉴글": "예산서"
+  },
+  "4138000": {
+   "이름": "경기여주시",
+   "주소": "https://www.yeoju.go.kr/www/selectBbsNttList.do?bbsNo=22&key=347",
+   "어떻게": "메뉴",
+   "점수": 4,
+   "근거": [
+    "예산서 공개"
+   ],
+   "BUDLK": "https://www.yeoju.go.kr/www/selectBbsNttList.do?bbsNo=24&key=350",
+   "메뉴글": "예산서 공개"
+  },
+  "4175000": {
+   "이름": "경기연천군",
+   "주소": "https://www.yeoncheon.go.kr/budget/selectBbsNttList.do?bbsNo=23&key=4390",
+   "어떻게": "메뉴",
+   "점수": 23,
+   "근거": [
+    "2026년도 일반 및 특별회계 세입 · 세출 제2회 추가경정예산서",
+    "2026년 일반 및 특별회계 세입세출 제1회 추가경정예산서 핫이슈",
+    "2026년도 일반 및 특별회계 세입세출 예산서 핫이슈",
+    "2025년 일반 및 특별회계 세입세출 제3회 추가경정예산서 핫이슈"
+   ],
+   "BUDLK": "https://www.yeoncheon.go.kr/budget/selectBbsNttList.do?bbsNo=35&key=4386",
+   "메뉴글": "세입세출예산서"
+  },
+  "4177000": {
+   "이름": "경기가평군",
+   "주소": "https://www.gp.go.kr/portal/contents.do?key=2562",
+   "어떻게": "메뉴",
+   "점수": 5,
+   "근거": [
+    "세입예산서",
+    "세출예산서",
+    "일반회계 세입 사업명세서",
+    "일반회계 세출 사업명세서"
+   ],
+   "BUDLK": "https://www.gp.go.kr/portal/contents.do?key=2492",
+   "메뉴글": "예산서"
+  },
+  "4178000": {
+   "이름": "경기양평군",
+   "주소": "https://www.yp21.go.kr/www/contents.do?key=4623",
+   "어떻게": "메뉴",
+   "점수": 8,
+   "근거": [
+    "세입예산사업명세서(일반)",
+    "세입예산사업명세서(기타)",
+    "세출예산사업명세서",
+    "알기쉬운 예산서"
+   ],
+   "BUDLK": "https://www.yp21.go.kr/www/contents.do?key=1843",
+   "메뉴글": "예산서"
+  },
+  "4200000": {
+   "이름": "강원본청",
+   "주소": "https://state.gwd.go.kr/portal/administration/finance/budget/2025",
+   "어떻게": "BUDLK",
+   "점수": 20,
+   "근거": [
+    "2026년 예산서",
+    "2025년 예산서 당초예산서 제1회 추경예산서 제3회 추경예산서 제2회 추경예산서 간주처리 예산서",
+    "2025년 예산서"
+   ],
+   "BUDLK": "https://state.gwd.go.kr/portal/administration/finance/budget/2025"
+  },
+  "4211000": {
+   "이름": "강원춘천시",
+   "주소": "https://www.chuncheon.go.kr/cityhall/administrative-info/housekeeping/budget-statement/2025/",
+   "어떻게": "BUDLK",
+   "점수": 17,
+   "근거": [
+    "2026년 예산서",
+    "2025년 예산서"
+   ],
+   "BUDLK": "https://www.chuncheon.go.kr/cityhall/administrative-info/housekeeping/budget-statement/2025/"
+  },
+  "4212000": {
+   "이름": "강원원주시",
+   "주소": "https://www.wonju.go.kr/www/contents.do?key=6530",
+   "어떻게": "메뉴",
+   "점수": 16,
+   "근거": [
+    "2026년 예산서",
+    "2026년 1회 추경예산서"
+   ],
+   "BUDLK": "https://www.wonju.go.kr/www/contents.do?key=146&",
+   "메뉴글": "1회 추경예산서"
+  },
+  "4213000": {
+   "이름": "강원강릉시",
+   "주소": "https://www.gn.go.kr/www/contents.do?key=6595",
+   "어떻게": "BUDLK",
+   "점수": 17,
+   "근거": [
+    "2025년 예산서",
+    "2026년 예산서"
+   ],
+   "BUDLK": "https://www.gn.go.kr/www/contents.do?key=6595"
+  },
+  "4214000": {
+   "이름": "강원동해시",
+   "주소": "https://dh.go.kr/www/contents.do?key=1995",
+   "어떻게": "BUDLK",
+   "점수": 26,
+   "근거": [
+    "예산서 공개 2026년도 2025년도 2024년도 2023년도 2022년도 2021년도 2020년도 2019년도 2018년 이전",
+    "2025년 본예산서",
+    "2025년 제1회 추경예산서",
+    "2025년 제2회 추경예산서"
+   ],
+   "BUDLK": "https://dh.go.kr/www/contents.do?key=1995"
+  },
+  "4215000": {
+   "이름": "강원태백시",
+   "주소": "https://www.taebaek.go.kr/www/contents.do?key=1952",
+   "어떻게": "메뉴",
+   "점수": 6,
+   "근거": [],
+   "BUDLK": "https://www.taebaek.go.kr/www/contents.do?key=1868",
+   "메뉴글": "예산서"
+  },
+  "4216000": {
+   "이름": "강원속초시",
+   "주소": "https://www.sokcho.go.kr/sc/portal/adminfo/budget/statement",
+   "어떻게": "BUDLK",
+   "점수": 12,
+   "근거": [
+    "2026년 본예산",
+    "2025년 본예산"
+   ],
+   "BUDLK": "https://www.sokcho.go.kr/sc/portal/adminfo/budget/statement"
+  },
+  "4217000": {
+   "이름": "강원삼척시",
+   "주소": "https://www.samcheok.go.kr/opendata/00238/00267.web",
+   "어떻게": "BUDLK",
+   "점수": 8,
+   "근거": [
+    "세입세출예산서",
+    "예산서 선택"
+   ],
+   "BUDLK": "https://www.samcheok.go.kr/opendata/00238/00267.web"
+  },
+  "4271000": {
+   "이름": "강원홍천군",
+   "주소": "",
+   "어떻게": "못 찾음",
+   "점수": 0,
+   "근거": [],
+   "BUDLK": "https://www.hongcheon.go.kr/www/contents.do?key=1527",
+   "본": [
+    "https://www.hongcheon.go.kr/www/contents.do?key=1527"
+   ],
+   "메모": "추경 화면만 보이고 본예산 화면을 못 찾음"
+  },
+  "4272000": {
+   "이름": "강원횡성군",
+   "주소": "https://www.hsg.go.kr/www/selectBbsNttList.do?bbsNo=139&key=864",
+   "어떻게": "BUDLK",
+   "점수": 23,
+   "근거": [
+    "2026년도 제2회 추가경정예산 예산서",
+    "2026년도 제1회 추가경정예산 예산서",
+    "2026년도 본예산 예산서",
+    "2025년도 제3회 추가경정예산 예산서"
+   ],
+   "BUDLK": "https://www.hsg.go.kr/www/selectBbsNttList.do?bbsNo=139&key=864"
+  },
+  "4273000": {
+   "이름": "강원영월군",
+   "주소": "",
+   "어떻게": "못 찾음",
+   "점수": 1,
+   "근거": [
+    "세입·세출예산서"
+   ],
+   "BUDLK": "https://www.yw.go.kr/www/contents.do?key=1431",
+   "본": [
+    "https://www.yw.go.kr/www/contents.do?key=1431",
+    "https://www.yw.go.kr/www/contents.do?key=1589"
+   ],
+   "메모": "본예산 화면(key=1431·1589)이 몇 년 것인지 모름"
+  },
+  "4274000": {
+   "이름": "강원평창군",
+   "주소": "https://www.pc.go.kr/portal/info/info-finance/info-finance-budgetary",
+   "어떻게": "BUDLK",
+   "점수": 14,
+   "근거": [
+    "2026년 예산서",
+    "2025년 예산서"
+   ],
+   "BUDLK": "https://www.pc.go.kr/portal/info/info-finance/info-finance-budgetary"
+  },
+  "4275000": {
+   "이름": "강원정선군",
+   "주소": "https://www.jeongseon.go.kr/portal/admininfo/financialinfo/budgetbill",
+   "어떻게": "BUDLK",
+   "점수": 8,
+   "근거": [
+    "세입세출예산서 PDF",
+    "제1차 추가경정예산서 PDF",
+    "제2차 추가경정예산서 PDF",
+    "제3차 추가경정예산서 PDF"
+   ],
+   "BUDLK": "https://www.jeongseon.go.kr/portal/admininfo/financialinfo/budgetbill"
+  },
+  "4276000": {
+   "이름": "강원철원군",
+   "주소": "https://www.cwg.go.kr/www/contents.do?key=1915",
+   "어떻게": "사람",
+   "점수": null,
+   "근거": [],
+   "BUDLK": "https://www.cwg.go.kr/www/contents.do?key=1855",
+   "메모": "메뉴 「예산서」 = 본예산 화면(2026 으로 보임, 2025 는 key=1914) (Claude 확인 2026-11-02)"
+  },
+  "4277000": {
+   "이름": "강원화천군",
+   "주소": "https://www.ihc.go.kr/www/selectBbsNttList.do?bbsNo=61&key=962",
+   "어떻게": "BUDLK",
+   "점수": 20,
+   "근거": [
+    "2026년 3회 추가경정예산서",
+    "2026년 2회 추가경정예산서 핫이슈",
+    "2026년 1회 추가경정예산서 핫이슈",
+    "2026년 본예산서 핫이슈"
+   ],
+   "BUDLK": "https://www.ihc.go.kr/www/selectBbsNttList.do?bbsNo=61&key=962"
+  },
+  "4278000": {
+   "이름": "강원양구군",
+   "주소": "https://www.yanggu.go.kr/user_sub?gfnc=www&mu_idx=545",
+   "어떻게": "BUDLK",
+   "점수": 5,
+   "근거": [
+    "세입예산서 전 체 일반회계 특별회계",
+    "세출예산서 전 체 일반회계 특별회계",
+    "세입예산 사업명세서",
+    "- 세입세출예산서"
+   ],
+   "BUDLK": "https://www.yanggu.go.kr/user_sub?gfnc=www&mu_idx=545"
+  },
+  "4279000": {
+   "이름": "강원인제군",
+   "주소": "https://www.inje.go.kr/portal/inje-news/budget/bill",
+   "어떻게": "BUDLK",
+   "점수": 26,
+   "근거": [
+    "2026년 1회 추경예산서",
+    "2026년 당초예산서",
+    "2025년 3회 추경예산서",
+    "2025년 2회 추경예산서"
+   ],
+   "BUDLK": "https://www.inje.go.kr/portal/inje-news/budget/bill"
+  },
+  "4280000": {
+   "이름": "강원고성군",
+   "주소": "https://gwgs.go.kr/prog/yesanInfo/kor/sub04_0401/list.do",
+   "어떻게": "BUDLK",
+   "점수": 5,
+   "근거": [
+    "세입예산서총괄",
+    "세입예산서(일반회계)",
+    "세입예산서(기타특별회계)",
+    "세출예산서총괄"
+   ],
+   "BUDLK": "https://gwgs.go.kr/prog/yesanInfo/kor/sub04_0401/list.do"
+  },
+  "4281000": {
+   "이름": "강원양양군",
+   "주소": "https://www.yangyang.go.kr/gw/portal/yyc_opinfo_adinfo_finan_bud",
+   "어떻게": "BUDLK",
+   "점수": 5,
+   "근거": [
+    "세입예산서",
+    "세출예산서",
+    "세입예산사업명세서",
+    "세입예산서 PDF 파일"
+   ],
+   "BUDLK": "https://www.yangyang.go.kr/gw/portal/yyc_opinfo_adinfo_finan_bud"
+  },
+  "4300000": {
+   "이름": "충북본청",
+   "주소": "https://www.chungbuk.go.kr/finance/contents.do?key=5182",
+   "어떻게": "BUDLK",
+   "점수": 8,
+   "근거": [
+    "세입예산서(일반회계)",
+    "세출예산서(일반회계)",
+    "세입예산서(소방특별회계)",
+    "세출예산서(소방특별회계)"
+   ],
+   "BUDLK": "https://www.chungbuk.go.kr/finance/contents.do?key=5182"
+  },
+  "4312000": {
+   "이름": "충북충주시",
+   "주소": "https://www.chungju.go.kr/www/selectBbsNttList.do?bbsNo=49&key=441",
+   "어떻게": "BUDLK",
+   "점수": 20,
+   "근거": [
+    "2026년도 제2회 추경예산 일반 및 특별회계 세입ㆍ세출 예산서 / 기금운용계획",
+    "2026년도 제1회 추경예산 일반 및 특별회계 세입ㆍ세출 예산서 / 기금운용계획",
+    "2026년도 당초 일반 및 특별회계 세입ㆍ세출 예산서 / 기금운용계획",
+    "2025년도 제3회 추경예산 일반 및 특별회계 세입ㆍ세출 예산서 / 기금운용계획"
+   ],
+   "BUDLK": "https://www.chungju.go.kr/www/selectBbsNttList.do?bbsNo=49&key=441"
+  },
+  "4313000": {
+   "이름": "충북제천시",
+   "주소": "https://www.jecheon.go.kr/www/selectBbsNttList.do?bbsNo=3075&key=50613",
+   "어떻게": "BUDLK",
+   "점수": 26,
+   "근거": [
+    "예산서공개2025",
+    "예산서공개2026",
+    "2025년도 제4회 제천시 하수도 지방직영기업 특별회계 추가경정예산서",
+    "2025년도 제4회 추가경정예산서"
+   ],
+   "BUDLK": "https://www.jecheon.go.kr/www/selectBbsNttList.do?bbsNo=3075&key=50613"
+  },
+  "4314000": {
+   "이름": "충북청주시",
+   "주소": "https://www.cheongju.go.kr/www/contents.do?key=6923",
+   "어떻게": "BUDLK",
+   "점수": 7,
+   "근거": [
+    "예산서보기",
+    "세입세출예산서",
+    "세입세출예산서(구 청주시)",
+    "세입세출예산서(구 청원군)"
+   ],
+   "BUDLK": "https://www.cheongju.go.kr/www/contents.do?key=6923"
+  },
+  "4372000": {
+   "이름": "충북보은군",
+   "주소": "https://www.boeun.go.kr/www/prg.do?key=174&prgId=yesan&ctsId=2025_2",
+   "어떻게": "BUDLK",
+   "점수": 5,
+   "근거": [
+    "세입예산서(일반+특별)",
+    "세입예산서(일반)",
+    "세입예산서(특별)",
+    "세출예산서(일반+특별)"
+   ],
+   "BUDLK": "https://www.boeun.go.kr/www/prg.do?key=174&prgId=yesan&ctsId=2025_2"
+  },
+  "4373000": {
+   "이름": "충북옥천군",
+   "주소": "https://www.oc.go.kr/www/selectTnBudgetSttusListU.do?key=158",
+   "어떻게": "BUDLK",
+   "점수": 8,
+   "근거": [
+    "세입예산사업명세서(총괄)",
+    "세출예산사업명세서(총괄)",
+    "기획예산담당관（세입예산서）",
+    "기획예산담당관（세출예산서）"
+   ],
+   "BUDLK": "https://www.oc.go.kr/www/selectTnBudgetSttusListU.do?key=158"
+  },
+  "4374000": {
+   "이름": "충북영동군",
+   "주소": "",
+   "어떻게": "못 찾음",
+   "점수": 1,
+   "근거": [
+    "세입세출예산서"
+   ],
+   "BUDLK": "https://www.yd21.go.kr/kr/html/sub03/03020301.html",
+   "본": [
+    "https://www.yd21.go.kr/kr/html/sub03/03020301.html",
+    "https://www.yd21.go.kr/kr/html/sub03/03020301.html"
+   ],
+   "메모": "예산공개 화면에 글이 안 보임"
+  },
+  "4375000": {
+   "이름": "충북진천군",
+   "주소": "https://www.jincheon.go.kr/home/sub.do?menukey=4269",
+   "어떻게": "메뉴",
+   "점수": 14,
+   "근거": [
+    "세입세출예산서(2026년)"
+   ],
+   "BUDLK": "https://www.jincheon.go.kr/home/sub.do?menukey=4130",
+   "메뉴글": "세입세출예산서"
+  },
+  "4376000": {
+   "이름": "충북괴산군",
+   "주소": "https://www.goesan.go.kr/www/selectBbsNttList.do?bbsNo=199&key=55",
+   "어떻게": "BUDLK",
+   "점수": 23,
+   "근거": [
+    "2026년 제2회 추경 세입세출예산서",
+    "2026년 제1회 추경 세입세출예산서",
+    "2026년 본예산 세입세출예산서",
+    "2025년 제3회 추경 세입세출예산서"
+   ],
+   "BUDLK": "https://www.goesan.go.kr/www/selectBbsNttList.do?bbsNo=199&key=55"
+  },
+  "4377000": {
+   "이름": "충북음성군",
+   "주소": "https://www.eumseong.go.kr/www/contents.do?key=2063",
+   "어떻게": "메뉴",
+   "점수": 9,
+   "근거": [
+    "세입세출예산서 2026년 2025년 2024년 2023년 2022년 2021년 2020년 2019년 2018년 2017년 2016년"
+   ],
+   "BUDLK": "https://www.eumseong.go.kr/www/contents.do?key=1863",
+   "메뉴글": "세입세출예산서"
+  },
+  "4378000": {
+   "이름": "충북단양군",
+   "주소": "https://www.danyang.go.kr/dy21/740",
+   "어떻게": "BUDLK",
+   "점수": 23,
+   "근거": [
+    "2026년도 제1회 추가경정 예산서",
+    "2026년도 본예산서",
+    "2025년도 제3회 추가경정 예산서",
+    "2025년도 제2회 추가경정 예산서"
+   ],
+   "BUDLK": "https://www.danyang.go.kr/dy21/740"
+  },
+  "4379000": {
+   "이름": "충북증평군",
+   "주소": "https://www.jp.go.kr/kor/prog/yesanInfo/sub01_05_04/list.do",
+   "어떻게": "BUDLK",
+   "점수": 5,
+   "근거": [
+    "세입예산서 세입예산서",
+    "세입예산서 파일",
+    "세출예산서 세출예산서",
+    "세출예산서 파일"
+   ],
+   "BUDLK": "http://www.jp.go.kr/kor/prog/yesanInfo/sub01_05_04/list.do"
+  },
+  "4400000": {
+   "이름": "충남본청",
+   "주소": "https://www.chungnam.go.kr/finance/main/contents.do?menuNo=2300154",
+   "어떻게": "메뉴",
+   "점수": 26,
+   "근거": [
+    "2026년 본예산(전체)",
+    "세입세출예산서 2026년",
+    "2026년 본예산(전체) 다운로드",
+    "2026년 1회추경 예산서 다운로드"
+   ],
+   "BUDLK": "https://www.chungnam.go.kr/finance/main/contents.do?menuNo=2300102",
+   "메뉴글": "세입세출예산서"
+  },
+  "4411000": {
+   "이름": "충남천안시",
+   "주소": "https://www.cheonan.go.kr/prog/caBgtplnRls/kor/sub03_06_01/list.do",
+   "어떻게": "메뉴",
+   "점수": 8,
+   "근거": [
+    "세입세출예산서",
+    "세입예산서 자료 받기",
+    "세출예산서 자료 받기",
+    "세입세출예산 사업명세서"
+   ],
+   "BUDLK": "https://www.cheonan.go.kr/prog/yesanInfo/kor/sub03_06_01/list.do?year=2024",
+   "메뉴글": "예산서"
+  },
+  "4412000": {
+   "이름": "충남공주시",
+   "주소": "https://www.gongju.go.kr/prog/yesanInfo/YESAN01/kr/sub02_19_02/list.do",
+   "어떻게": "BUDLK",
+   "점수": 8,
+   "근거": [
+    "2. 세출예산(일반회계)",
+    "2-2. 세출예산(수질개선사업)",
+    "2-3. 세출예산(주차장사업)",
+    "2-4. 세출예산(미집행도시계획시설용지보상사업)"
+   ],
+   "BUDLK": "https://www.gongju.go.kr/prog/yesanInfo/YESAN01/kr/sub02_19_02/list.do"
+  },
+  "4413000": {
+   "이름": "충남보령시",
+   "주소": "https://www.brcn.go.kr/kor/sub01_03_01_01_76.do",
+   "어떻게": "BUDLK",
+   "점수": 8,
+   "근거": [
+    "세입예산 사업명세서 ( )",
+    "기획감사실 세출예산 사업명세서 ( )",
+    "홍보미디어실 세출예산 사업명세서 ( )",
+    "신산업전략과 사업명세서 ( )"
+   ],
+   "BUDLK": "https://www.brcn.go.kr/kor/sub01_03_01_01_76.do"
+  },
+  "4414000": {
+   "이름": "충남아산시",
+   "주소": "https://www.asan.go.kr/main/cms/?no=65",
+   "어떻게": "BUDLK",
+   "점수": 23,
+   "근거": [
+    "2026년도 일반 및 특별회계 세입세출예산(제1회추가경정)",
+    "2026년도 일반 및 특별회계 세입세출예산(본예산)",
+    "2025년도 일반 및 특별회계 세입세출예산(제3회추가경정)",
+    "2025년도 일반 및 특별회계 세입세출예산(제2회추가경정)"
+   ],
+   "BUDLK": "https://www.asan.go.kr/main/cms/?no=65"
+  },
+  "4415000": {
+   "이름": "충남서산시",
+   "주소": "https://www.seosan.go.kr/www/contents.do?key=9390",
+   "어떻게": "BUDLK",
+   "점수": 5,
+   "근거": [
+    "세입예산서",
+    "세출예산서",
+    "기타세입예산서",
+    "기타세출예산서"
+   ],
+   "BUDLK": "https://www.seosan.go.kr/www/contents.do?key=9390"
+  },
+  "4416000": {
+   "이름": "충남논산시",
+   "주소": "https://www.nonsan.go.kr/kor/html/sub03/030502.html",
+   "어떻게": "BUDLK",
+   "점수": 13,
+   "근거": [
+    "2026년 본예산 예산서 첨부파일",
+    "2026년 세출예산 사업명세서"
+   ],
+   "BUDLK": "https://www.nonsan.go.kr/kor/html/sub03/030502.html"
+  },
+  "4417000": {
+   "이름": "충남계룡시",
+   "주소": "https://gyeryong.go.kr/kr/html/sub02/020301.html?list_fyr=2024&list_cl=3",
+   "어떻게": "BUDLK",
+   "점수": 5,
+   "근거": [
+    "세입세출예산서",
+    "세입예산사업명세서"
+   ],
+   "BUDLK": "https://gyeryong.go.kr/kr/html/sub02/020301.html?list_fyr=2024&list_cl=3"
+  },
+  "4418000": {
+   "이름": "충남당진시",
+   "주소": "https://www.dangjin.go.kr/prog/yesanInfo/kor/sub03_03_01/list.do",
+   "어떻게": "메뉴",
+   "점수": 8,
+   "근거": [
+    "세입예산서 첨부",
+    "세입예산사업명세서 첨부",
+    "세출예산서(총괄) 첨부",
+    "세출예산사업명세서(일반회계) 첨부"
+   ],
+   "BUDLK": "https://www.dangjin.go.kr/prog/yesanInfo/kor/sub03_04_01/list.do",
+   "메뉴글": "예산서 공개"
+  },
+  "4471000": {
+   "이름": "충남금산군",
+   "주소": "https://www.geumsan.go.kr/kr/html/sub02/020401.html",
+   "어떻게": "BUDLK",
+   "점수": 8,
+   "근거": [
+    "2026 예산서"
+   ],
+   "BUDLK": "https://www.geumsan.go.kr/kr/html/sub02/020401.html"
+  },
+  "4473000": {
+   "이름": "충남부여군",
+   "주소": "https://www.buyeo.go.kr/html/kr/service/service_010302.html",
+   "어떻게": "BUDLK",
+   "점수": 8,
+   "근거": [
+    "세입예산서(전체) 받기",
+    "세입예산서(일반) 받기",
+    "세입예산서(특별) 받기",
+    "세출예산서(전체) 받기"
+   ],
+   "BUDLK": "https://www.buyeo.go.kr/html/kr/service/service_010302.html"
+  },
+  "4474000": {
+   "이름": "충남서천군",
+   "주소": "https://www.seocheon.go.kr/prog/korBdgdocRls/kor/sub02_06_01/list.do",
+   "어떻게": "메뉴",
+   "점수": 23,
+   "근거": [
+    "2026년 제2회 추가경정예산서",
+    "2026년 제1회 추가경정예산서",
+    "2026년도 본예산서",
+    "2025년도 제3회 추가경정예산서"
+   ],
+   "BUDLK": "https://www.seocheon.go.kr/prog/yesanInfo/sub01_08_02/list.do",
+   "메뉴글": "예산공개"
+  },
+  "4475000": {
+   "이름": "충남청양군",
+   "주소": "https://www.cheongyang.go.kr/kor/sub01_06_01_01.do",
+   "어떻게": "BUDLK",
+   "점수": 11,
+   "근거": [
+    "2026 청양군 본예산 공개",
+    "2025 청양군 본예산 공개"
+   ],
+   "BUDLK": "https://www.cheongyang.go.kr/kor/sub01_06_01_01.do"
+  },
+  "4476000": {
+   "이름": "충남홍성군",
+   "주소": "https://www.hongseong.go.kr/prog/yesanInfo/YESAN01/kor/sub01_0802/list.do",
+   "어떻게": "BUDLK",
+   "점수": 23,
+   "근거": [
+    "2026년 제1회 추경예산서",
+    "2025년 제1회 추경예산서",
+    "2025년 제2회 추경예산서",
+    "2025년 제3회 추경예산서"
+   ],
+   "BUDLK": "https://www.hongseong.go.kr/prog/yesanInfo/YESAN01/kor/sub01_0802/list.do"
+  },
+  "4477000": {
+   "이름": "충남예산군",
+   "주소": "https://www.yesan.go.kr/prog/bdgtpr/kor/sub02_04_01/list.do",
+   "어떻게": "BUDLK",
+   "점수": 5,
+   "근거": [
+    "세출예산 사업별 세부설명서",
+    "2023년도 제1회 추경예산서",
+    "2023년도 제2회 추가경정예산서",
+    "2023년도 제3회 추가경정예산서"
+   ],
+   "BUDLK": "https://www.yesan.go.kr/prog/bdgtpr/kor/sub02_04_01/list.do"
+  },
+  "4478000": {
+   "이름": "충남태안군",
+   "주소": "https://www.taean.go.kr/prog/yesanInfo/kor/sub04_04_04/list.do",
+   "어떻게": "BUDLK",
+   "점수": 11,
+   "근거": [
+    "2026년 본예산 세입세출 예산서"
+   ],
+   "BUDLK": "https://www.taean.go.kr/prog/yesanInfo/kor/sub04_04_04/list.do"
+  },
+  "4500000": {
+   "이름": "전북본청",
+   "주소": "https://www.jeonbuk.go.kr/index.jeonbuk?menuCd=DOM_000000103001004000",
+   "어떻게": "사람",
+   "점수": null,
+   "근거": [],
+   "BUDLK": "https://www.jeonbuk.go.kr/index.jeonbuk?menuCd=DOM_000000103001004000",
+   "메모": "예산공개 — 해마다 칸(2026 = …004057) (Claude 확인 2026-11-02)"
+  },
+  "4511000": {
+   "이름": "전북전주시",
+   "주소": "https://www.jeonju.go.kr/index.9is?contentUid=9be517a7914528ce01943f76e4f071dd&subPath=",
+   "어떻게": "BUDLK",
+   "점수": 8,
+   "근거": [
+    "세입예산서(일반)_총괄",
+    "세출예산서(일반)_총괄",
+    "세입예산서(특별)_총괄",
+    "세출예산서(특별)_총괄"
+   ],
+   "BUDLK": "https://www.jeonju.go.kr/index.9is?contentUid=9be517a7914528ce01943f76e4f071dd&subPath="
+  },
+  "4512000": {
+   "이름": "전북군산시",
+   "주소": "https://www.gunsan.go.kr/main/m2809",
+   "어떻게": "BUDLK",
+   "점수": 5,
+   "근거": [
+    "세입 예산 세입예산서(일반회계)",
+    "세입예산서(특별회계)",
+    "세출 예산 세출예산서(일반회계)",
+    "세출예산서(특별회계)"
+   ],
+   "BUDLK": "https://www.gunsan.go.kr/main/m2809"
+  },
+  "4513000": {
+   "이름": "전북익산시",
+   "주소": "",
+   "어떻게": "못 찾음",
+   "점수": 0,
+   "근거": [],
+   "BUDLK": "https://www.iksan.go.kr/index.iksan?menuCd=DOM_000000901001065000&myear=2025",
+   "본": [
+    "https://www.iksan.go.kr/index.iksan?menuCd=DOM_000000901001065000&myear=2025"
+   ],
+   "메모": "BUDLK 가 404 — 주소가 바뀐 듯"
+  },
+  "4514000": {
+   "이름": "전북정읍시",
+   "주소": "https://www.jeongeup.go.kr/index.jeongeup?menuCd=DOM_000000105005001096&cpath=",
+   "어떻게": "메뉴",
+   "점수": 8,
+   "근거": [
+    "정읍시예산서",
+    "2008년 예산서"
+   ],
+   "BUDLK": "https://www.jeongeup.go.kr/index.jeongeup?menuCd=DOM_000000105005001089&cpath=",
+   "메뉴글": "예산서"
+  },
+  "4515000": {
+   "이름": "전북남원시",
+   "주소": "https://www.namwon.go.kr/index.do?menuUid=9be51b0e9b71d773019b7c4554216750",
+   "어떻게": "메뉴",
+   "점수": 8,
+   "근거": [
+    "일반회계 세입예산사업명세서",
+    "일반회계 세출예산사업명세서",
+    "세입·세출예산서",
+    "세입·세출예산 사업명세서"
+   ],
+   "BUDLK": "https://www.namwon.go.kr/index.do?menuUid=ff8080818ec227cc018eda83dbfa0525",
+   "메뉴글": "예산공개"
+  },
+  "4516000": {
+   "이름": "전북김제시",
+   "주소": "https://www.gimje.go.kr/index.gimje?menuCd=DOM_000000102003001012&cpath=",
+   "어떻게": "BUDLK",
+   "점수": 6,
+   "근거": [],
+   "BUDLK": "https://www.gimje.go.kr/index.gimje?menuCd=DOM_000000102003001012&cpath="
+  },
+  "4571000": {
+   "이름": "전북완주군",
+   "주소": "https://www.wanju.go.kr/index.9is?contentUid=4028a6029401e6fd01940587a23a515d&subPath=",
+   "어떻게": "BUDLK",
+   "점수": 7,
+   "근거": [
+    "세출예산view"
+   ],
+   "BUDLK": "https://www.wanju.go.kr/index.9is?contentUid=4028a6029401e6fd01940587a23a515d&subPath="
+  },
+  "4572000": {
+   "이름": "전북진안군",
+   "주소": "https://www.jinan.go.kr/index.jinan?menuCd=DOM_000000106005034000",
+   "어떻게": "BUDLK",
+   "점수": 5,
+   "근거": [
+    "세입예산사업명세서",
+    "세입예산사업명세서 다운로드 바로보기"
+   ],
+   "BUDLK": "https://www.jinan.go.kr/index.jinan?menuCd=DOM_000000106005034000"
+  },
+  "4573000": {
+   "이름": "전북무주군",
+   "주소": "https://www.muju.go.kr/index.9is?contentUid=4028a6d2928a60a5019b8b88805f5a6d&subPath=",
+   "어떻게": "메뉴",
+   "점수": 11,
+   "근거": [
+    "세입예산서(전체)",
+    "세입예산서(일반)",
+    "세입예산서(특별)",
+    "세출예산서(전체)"
+   ],
+   "BUDLK": "https://www.muju.go.kr/index.9is?contentUid=ff8080817dd5b384017e0a7c4f573cdc&subPath=",
+   "메뉴글": "예산서"
+  },
+  "4574000": {
+   "이름": "전북장수군",
+   "주소": "https://www.jangsu.go.kr/index.jangsu?menuCd=DOM_000000105001001000",
+   "어떻게": "BUDLK",
+   "점수": 11,
+   "근거": [
+    "세입예산서 일반+특별회계 일반회계 특별회계",
+    "세출예산서 일반+특별회계 일반회계 특별회계",
+    "세입예산 사업명세서 세입예산 사업명세서",
+    "부서별 세출예산 사업명세서 기획조정실 행정지원과"
+   ],
+   "BUDLK": "https://www.jangsu.go.kr/index.jangsu?menuCd=DOM_000000105001001000"
+  },
+  "4575000": {
+   "이름": "전북임실군",
+   "주소": "https://www.imsil.go.kr/index.imsil?menuCd=DOM_000000104004001045",
+   "어떻게": "BUDLK",
+   "점수": 11,
+   "근거": [
+    "세입예산서(일반)",
+    "세출예산서(일반)",
+    "세입예산사업명세서(일반)",
+    "세입예산서(일반) 다운로드"
+   ],
+   "BUDLK": "https://www.imsil.go.kr/index.imsil?menuCd=DOM_000000104004001045"
+  },
+  "4576000": {
+   "이름": "전북순창군",
+   "주소": "https://www.sunchang.go.kr/index.do?menuUid=4028a6f09f4b44cb01a0a3cbea494776",
+   "어떻게": "메뉴",
+   "점수": 8,
+   "근거": [
+    "세입예산사업명세서(일반)",
+    "세입예산사업명세서(일반)바로보기"
+   ],
+   "BUDLK": "https://www.sunchang.go.kr/index.sunchang?menuCd=DOM_000000104001001000",
+   "메뉴글": "예산서"
+  },
+  "4577000": {
+   "이름": "전북고창군",
+   "주소": "https://www.gochang.go.kr/board/list.gochang?menuCd=DOM_000000103003001000&boardId=BBS_0000147&categoryCode2=A01&categoryCode1=V&contentsSid=302",
+   "어떻게": "BUDLK",
+   "점수": 5,
+   "근거": [
+    "15.세입예산서(일반,45-46). 다운",
+    "17.세입예산서(기타,65). 다운",
+    "16.세출예산서(일반,47-62). 다운",
+    "18.세출예산서(기타,66). 다운"
+   ],
+   "BUDLK": "https://www.gochang.go.kr/index.gochang?menuCd=DOM_000000103003001000"
+  },
+  "4578000": {
+   "이름": "전북부안군",
+   "주소": "https://www.buan.go.kr/index.buan?menuCd=DOM_000000105006003000",
+   "어떻게": "BUDLK",
+   "점수": 4,
+   "근거": [
+    "세입예산사업명세서(일반회계)보기"
+   ],
+   "BUDLK": "https://www.buan.go.kr/index.buan?menuCd=DOM_000000105006003000"
+  },
+  "4600000": {
+   "이름": "전남본청",
+   "주소": "https://www.jeonnam.go.kr/contentsView.do?menuId=jeonnam0305031200",
+   "어떻게": "사람",
+   "점수": null,
+   "근거": [],
+   "BUDLK": "http://budget.jeonnam.go.kr/new/budget/2024/",
+   "메모": "메뉴 「예산서」(세입세출 예산) (Claude 확인 2026-11-02)"
+  },
+  "4611000": {
+   "이름": "전남목포시",
+   "주소": "https://www.mokpo.go.kr/www/open_data/finance/estimate_open",
+   "어떻게": "메뉴",
+   "점수": 5,
+   "근거": [
+    "본예산 세입예산사업명세서",
+    "세입예산사업명세서"
+   ],
+   "BUDLK": "https://www.mokpo.go.kr/www/open_data/finance/estimate_open/2024/bon",
+   "메뉴글": "예산공개"
+  },
+  "4612000": {
+   "이름": "전남여수시",
+   "주소": "https://www.yeosu.go.kr/www/pubinfo/budget/document",
+   "어떻게": "BUDLK",
+   "점수": 20,
+   "근거": [
+    "2026년 예산서 공개",
+    "2026년 예산서 공개(선택됨)",
+    "2025년 예산서 공개"
+   ],
+   "BUDLK": "https://www.yeosu.go.kr/www/pubinfo/budget/document"
+  },
+  "4613000": {
+   "이름": "전남순천시",
+   "주소": "https://www.suncheon.go.kr/kr/open/0006/0014",
+   "어떻게": "사람",
+   "점수": null,
+   "근거": [],
+   "BUDLK": "https://www.suncheon.go.kr/kr/open/0006/0014/0022/0001/",
+   "메모": "예산안내 → 2026 본예산 화면으로 넘어간다(세출예산서(전체) 등). BUDLK 는 2024 화면 (Claude 확인 2026-11-02)"
+  },
+  "4614000": {
+   "이름": "전남나주시",
+   "주소": "https://www.naju.go.kr/www/open_data/budget/budget",
+   "어떻게": "BUDLK",
+   "점수": 8,
+   "근거": [
+    "세입예산서>세입예산서>전체(3-1. 세입예산서(전체). )",
+    "세입예산서>세입예산서>일반회계(3-2. 세입예산서(일반). )",
+    "세입예산서>세입예산서>기타특별회계(3-3. 세입예산서(기타). )",
+    "세출예산서>세출예산서>전체(4-1. 세출예산서(전체). )"
+   ],
+   "BUDLK": "https://www.naju.go.kr/www/open_data/budget/budget"
+  },
+  "4615000": {
+   "이름": "전남광양시",
+   "주소": "https://gwangyang.go.kr/menu.es?mid=a11202016101",
+   "어떻게": "BUDLK",
+   "점수": 26,
+   "근거": [
+    "2026. 11. 02 분야별정보 > 재정정보 > 예산서 > 2025년 > 2025년 본예산서",
+    "분야별정보 > 재정정보 > 예산서 > 2025년 > 2025년 본예산서",
+    "2025년 본예산서",
+    "2025년 제1회 추경예산서"
+   ],
+   "BUDLK": "https://gwangyang.go.kr/menu.es?mid=a11202016101"
+  },
+  "4671000": {
+   "이름": "전남담양군",
+   "주소": "https://www.damyang.go.kr/menu/goToContentsPage?contentsSid=136&domainId=DOM_0000001&menuCd=DOM_000000190005003001&activeSid=189&viewId=ie0301_2024",
+   "어떻게": "BUDLK",
+   "점수": 5,
+   "근거": [
+    "세입 예산 사업명세서",
+    "세출 예산 사업명세서"
+   ],
+   "BUDLK": "https://www.damyang.go.kr/menu/goToContentsPage?contentsSid=136&domainId=DOM_0000001&menuCd=DOM_000000190005003001&activeSid=189&viewId=ie0301_2024"
+  },
+  "4672000": {
+   "이름": "전남곡성군",
+   "주소": "https://www.gokseong.go.kr/kr/subPage.do?menuNo=102004002001",
+   "어떻게": "BUDLK",
+   "점수": 11,
+   "근거": [
+    "세입예산서 일반회계+특별회계",
+    "세출예산서 일반회계+특별회계",
+    "세입예산사업명세서 일반회계",
+    "세출예산사업명세서 일반회계"
+   ],
+   "BUDLK": "https://www.gokseong.go.kr/kr/subPage.do?menuNo=102004002001"
+  },
+  "4673000": {
+   "이름": "전남구례군",
+   "주소": "https://www.gurye.go.kr/board/list.do?bbsId=BBS_000000000000180&menuNo=115002001000",
+   "어떻게": "BUDLK",
+   "점수": 19,
+   "근거": [
+    "2026년도 본예산",
+    "2025년도 본예산",
+    "2026년도 본예산 기획예산실 2025-12-22",
+    "2025년도 본예산 기획예산실 2024-12-29"
+   ],
+   "BUDLK": "https://www.gurye.go.kr/board/list.do?bbsId=BBS_000000000000180&menuNo=115002001000"
+  },
+  "4674000": {
+   "이름": "전남고흥군",
+   "주소": "https://www.goheung.go.kr/contentsView.do?pageId=www681",
+   "어떻게": "사람",
+   "점수": null,
+   "근거": [],
+   "BUDLK": "https://www.goheung.go.kr/contentsView.do?pageId=www625",
+   "메모": "세입세출예산 — 2026년 화면. BUDLK 는 2024 화면 (Claude 확인 2026-11-02)"
+  },
+  "4675000": {
+   "이름": "전남보성군",
+   "주소": "https://www.boseong.go.kr/www/open_data/budget/budget_bill",
+   "어떻게": "BUDLK",
+   "점수": 11,
+   "근거": [
+    "본예산 세출예산총괄(기능별) 새창",
+    "1회추경 세출예산총괄(기능별) 새창",
+    "본예산 세출예산총괄(조직별) 새창",
+    "1회추경 세출예산총괄(조직별) 새창"
+   ],
+   "BUDLK": "https://www.boseong.go.kr/www/open_data/budget/budget_bill"
+  },
+  "4676000": {
+   "이름": "전남화순군",
+   "주소": "https://www.hwasun.go.kr/contents.do?S=S01&M=020408000000",
+   "어떻게": "BUDLK",
+   "점수": 4,
+   "근거": [
+    "예산서공개"
+   ],
+   "BUDLK": "https://www.hwasun.go.kr/contents.do?S=S01&M=020408000000"
+  },
+  "4677000": {
+   "이름": "전남장흥군",
+   "주소": "https://www.jangheung.go.kr/www/open_data/bid_budget/current_state",
+   "어떻게": "BUDLK",
+   "점수": 7,
+   "근거": [
+    "세입예산서",
+    "세출예산서",
+    "세입예산서사업명세서",
+    "세출예산 사업명세서"
+   ],
+   "BUDLK": "https://www.jangheung.go.kr/www/open_data/bid_budget/current_state"
+  },
+  "4678000": {
+   "이름": "전남강진군",
+   "주소": "https://www.gangjin.go.kr/www/open_information/finance/budget",
+   "어떻게": "BUDLK",
+   "점수": 8,
+   "근거": [
+    "일반회계>세출예산>기획홍보과(21-기획홍보과. )",
+    "일반회계>세출예산>인구정책과(22-인구정책과. )",
+    "일반회계>세출예산>세무회계과(23-세무회계과. )",
+    "일반회계>세출예산>총무과(24-총무과. )"
+   ],
+   "BUDLK": "https://www.gangjin.go.kr/www/open_information/finance/budget"
+  },
+  "4679000": {
+   "이름": "전남해남군",
+   "주소": "https://www.haenam.go.kr/index.9is?contentUid=8ae590de9a80686d019b44a9131a0daf",
+   "어떻게": "메뉴",
+   "점수": 14,
+   "근거": [
+    "2026년 세입세출예산",
+    "2025년 세입세출예산"
+   ],
+   "BUDLK": "https://www.haenam.go.kr/index.9is?contentUid=8ae590de8c688e5c018c7b612df56f09",
+   "메뉴글": "예산공개"
+  },
+  "4680000": {
+   "이름": "전남영암군",
+   "주소": "https://www.yeongam.go.kr/home/www/open_information/open_information_05/yeongam.go",
+   "어떻게": "BUDLK",
+   "점수": 14,
+   "근거": [
+    "2026 세입세출예산"
+   ],
+   "BUDLK": "https://www.yeongam.go.kr/home/www/open_information/open_information_05/yeongam.go"
+  },
+  "4681000": {
+   "이름": "전남무안군",
+   "주소": "https://www.muan.go.kr/www/openmuan/budget/saeipchul",
+   "어떻게": "메뉴",
+   "점수": 8,
+   "근거": [
+    "세입예산서>세입예산서>세입예산서(5. 세입예산서. )",
+    "세출예산서>세출예산서>세출예산서(6. 세출예산서. )",
+    "세출예산사업명세서>세출예산사업명세서>기획실(13-1. 기획실(세출예산명세서). )",
+    "세출예산사업명세서>세출예산사업명세서>신도시지원단(13-2. 신도시지원단(세출예산명세서). )"
+   ],
+   "BUDLK": "https://www.muan.go.kr/www/openmuan/budget/saeipchul",
+   "메뉴글": "세입세출예산"
+  },
+  "4682000": {
+   "이름": "전남함평군",
+   "주소": "https://www.hampyeong.go.kr/contentsView.do?pageId=www35",
+   "어떻게": "BUDLK",
+   "점수": 14,
+   "근거": [
+    "2026년 2026년 본예산 2026년 1회 추경 2026년 2회 추경 2026년 3회 추경",
+    "2026년 본예산",
+    "2025년 본예산"
+   ],
+   "BUDLK": "https://www.hampyeong.go.kr/contentsView.do?pageId=www35"
+  },
+  "4683000": {
+   "이름": "전남영광군",
+   "주소": "https://www.yeonggwang.go.kr/subpage/?site=headquarter_new&mn=15423",
+   "어떻게": "BUDLK",
+   "점수": 11,
+   "근거": [
+    "세입예산서 세입예산서",
+    "세출예산서 세출예산서",
+    "일반회계 세입 예산 사업 명세서 세입예산 사업명세서",
+    "세출 예산 사업 명세서 기획예산실"
+   ],
+   "BUDLK": "https://www.yeonggwang.go.kr/subpage/?site=headquarter_new&mn=15423"
+  },
+  "4684000": {
+   "이름": "전남장성군",
+   "주소": "https://www.jangseong.go.kr/home/www/news/budget_09/budget_09_20",
+   "어떻게": "메뉴",
+   "점수": 4,
+   "근거": [
+    "세입예산 사업명세서"
+   ],
+   "BUDLK": "https://www.jangseong.go.kr/home/www/news/budget/document_17",
+   "메뉴글": "본예산"
+  },
+  "4685000": {
+   "이름": "전남완도군",
+   "주소": "https://www.wando.go.kr/wando/sub.cs?m=402",
+   "어떻게": "사람",
+   "점수": null,
+   "근거": [],
+   "BUDLK": "https://www.wando.go.kr/wando/sub.cs?m=1330",
+   "메모": "예산공개 → 2026 본예산 화면으로 넘어간다. BUDLK 는 2025 화면 (Claude 확인 2026-11-02)"
+  },
+  "4686000": {
+   "이름": "전남진도군",
+   "주소": "https://www.jindo.go.kr/home/sub.cs?m=912",
+   "어떻게": "메뉴",
+   "점수": 8,
+   "근거": [
+    "세입예산사업명세서 일반+특별",
+    "세입예산서 일반+특별",
+    "세입예산사업명세서 일반+특별 세입예산서 일반+특별 일반 특별 세출예산서 일반+특별 일반 특별 세출예산내역서 기획홍보실 인구정책실 안전생활지원과",
+    "세출예산서 일반+특별"
+   ],
+   "BUDLK": "https://www.jindo.go.kr/home/sub.cs?m=871",
+   "메뉴글": "예산서공개"
+  },
+  "4687000": {
+   "이름": "전남신안군",
+   "주소": "https://www.shinan.go.kr/home/www/gov30/gov30_09_01/gov30_09_01_06/page.wscms",
+   "어떻게": "BUDLK",
+   "점수": 20,
+   "근거": [
+    "2026년 예산서",
+    "2025년 예산서",
+    "이 QR Code는 『2026년 예산서』의 정보를 담고 있습니다."
+   ],
+   "BUDLK": "https://www.shinan.go.kr/home/www/gov30/gov30_09_01/gov30_09_01_06/page.wscms"
+  },
+  "4700000": {
+   "이름": "경북본청",
+   "주소": "",
+   "어떻게": "못 찾음",
+   "점수": 0,
+   "근거": [],
+   "BUDLK": "https://www.gb.go.kr/Main/open_contents/section/finace/page.do?mnu_uid=2620&LARGE_CODE=330&MEDIUM_CODE=20&SMALL_CODE=10&mnu_order=3",
+   "본": [
+    "https://www.gb.go.kr/Main/open_contents/section/finace/page.do?mnu_uid=2620&LARGE_CODE=330&MEDIUM_CODE=20&SMALL_CODE=10&mnu_order=3"
+   ],
+   "메모": "화면이 빈 채로 열림"
+  },
+  "4711000": {
+   "이름": "경북포항시",
+   "주소": "https://www.pohang.go.kr/portal/board/post/list.do?bcIdx=581&mid=0313010000&token=1733105605373",
+   "어떻게": "BUDLK",
+   "점수": 20,
+   "근거": [
+    "2026년 제2회 추가경정예산 세출예산 사업명세서(기타특별회계)",
+    "2026년 제2회 추가경정예산 세입예산 사업명세서(기타특별회계)",
+    "2026년 제2회 추가경정예산 세출예산 사업명세서(일반회계)-남북구(본청, 읍면동)",
+    "2026년 제2회 추가경정예산 세출예산 사업명세서(일반회계)-도시안전주택국, 해양수산국, 관광컨벤션도시추진본부"
+   ],
+   "BUDLK": "https://www.pohang.go.kr/portal/board/post/list.do?bcIdx=581&mid=0313010000&token=1733105605373"
+  },
+  "4712000": {
+   "이름": "경북경주시",
+   "주소": "https://www.gyeongju.go.kr/open_content/ko/page.do?mnu_uid=628&",
+   "어떻게": "BUDLK",
+   "점수": 26,
+   "근거": [
+    "2026년 제1회 추경예산서",
+    "2026년 예산서",
+    "2025년도 제3회 추경예산서",
+    "2025년도 제2회 추경예산서"
+   ],
+   "BUDLK": "https://www.gyeongju.go.kr/open_content/ko/page.do?mnu_uid=628&"
+  },
+  "4713000": {
+   "이름": "경북김천시",
+   "주소": "https://www.gc.go.kr/portal/contents.do?mId=1205010000",
+   "어떻게": "BUDLK",
+   "점수": 11,
+   "근거": [
+    "세입예산서(일반회계)",
+    "세입예산서(기타특별)",
+    "세입예산사업명세서(일반회계)",
+    "세출예산서(일반회계)"
+   ],
+   "BUDLK": "https://www.gc.go.kr/portal/contents.do?mId=1205010000"
+  },
+  "4714000": {
+   "이름": "경북안동시",
+   "주소": "https://www.andong.go.kr/portal/inquiry/selectBudget.do?mId=0501010000",
+   "어떻게": "사람",
+   "점수": null,
+   "근거": [],
+   "BUDLK": "https://www.andong.go.kr/portal/inquiry/selectBudget.do?mId=0501010000",
+   "메모": "BUDLK 가 맞다 — 「세입예산서 일반 + 기타」「세출예산서 일반 + 기타」, 해는 화면 안 칸(#ye2026_…)으로 고른다 (Claude 확인 2026-11-02)"
+  },
+  "4715000": {
+   "이름": "경북구미시",
+   "주소": "https://www.gumi.go.kr/portal/contents.do?mid=0303020000",
+   "어떻게": "BUDLK",
+   "점수": 23,
+   "근거": [
+    "2026년 1회 추경예산서",
+    "2026년 세입세출예산서",
+    "2025년 2회 추경예산서",
+    "2025년 1회 추경예산서"
+   ],
+   "BUDLK": "https://www.gumi.go.kr/portal/contents.do?mid=0303020000"
+  },
+  "4716000": {
+   "이름": "경북영주시",
+   "주소": "https://www.yeongju.go.kr/open_content/main/page.do?mnu_uid=4047&",
+   "어떻게": "BUDLK",
+   "점수": 8,
+   "근거": [
+    "세입예산서",
+    "세출예산서",
+    "세입예산사업명세서",
+    "세입예산서 PDF 다운로드"
+   ],
+   "BUDLK": "https://www.yeongju.go.kr/open_content/main/page.do?mnu_uid=4047&"
+  },
+  "4717000": {
+   "이름": "경북영천시",
+   "주소": "https://www.yc.go.kr/portal/contents/budgetList.do?mId=0303010000",
+   "어떻게": "BUDLK",
+   "점수": 5,
+   "근거": [
+    "세입예산사업명세서",
+    "상수도사업 특별회계 모바일환경에서는 좌우로 이동하여 내용(표)을 보실 수 있습니다. 예산총괄표 세입예산서 세출예산서",
+    "세입예산서",
+    "세출예산서"
+   ],
+   "BUDLK": "https://www.yc.go.kr/portal/contents/budgetList.do?mId=0303010000"
+  },
+  "4718000": {
+   "이름": "경북상주시",
+   "주소": "https://www.sangju.go.kr/page/10677/10387.tc",
+   "어떻게": "BUDLK",
+   "점수": 8,
+   "근거": [
+    "세입세출예산서",
+    "상수도특별회계 수입예산서",
+    "상수도특별회계 지출예산서",
+    "하수도특별회계 수입예산서"
+   ],
+   "BUDLK": "https://www.sangju.go.kr/page/10677/10387.tc"
+  },
+  "4719000": {
+   "이름": "경북문경시",
+   "주소": "https://www.gbmg.go.kr/portal/contents.do?mId=0202011400",
+   "어떻게": "BUDLK",
+   "점수": 5,
+   "근거": [
+    "세입예산사업명세서",
+    "세출예산사업명세서(기획예산실)",
+    "세출예산사업명세서(정책기획단)",
+    "세출예산사업명세서(총무과)"
+   ],
+   "BUDLK": "https://www.gbmg.go.kr/portal/contents.do?mId=0202011400"
+  },
+  "4720000": {
+   "이름": "경북경산시",
+   "주소": "https://www.gbgs.go.kr/open_content/ko/page.do?mnu_uid=2171&",
+   "어떻게": "BUDLK",
+   "점수": 5,
+   "근거": [
+    "일반회계 세입예산서 본예산",
+    "일반회계 세입예산서 1차추경",
+    "일반회계 세입예산서 2차추경",
+    "일반회계 세입예산서 3차추경"
+   ],
+   "BUDLK": "https://www.gbgs.go.kr/open_content/ko/page.do?mnu_uid=2171&"
+  },
+  "4772000": {
+   "이름": "경북의성군",
+   "주소": "https://www.usc.go.kr/ko/page.do?mnu_uid=170&",
+   "어떻게": "BUDLK",
+   "점수": 14,
+   "근거": [
+    "2026년 예산서",
+    "2025년 예산서"
+   ],
+   "BUDLK": "https://www.usc.go.kr/ko/page.do?mnu_uid=170&"
+  },
+  "4773000": {
+   "이름": "경북청송군",
+   "주소": "https://www.cs.go.kr/openData/00003034/00007891.web",
+   "어떻게": "BUDLK",
+   "점수": 26,
+   "근거": [
+    "2025년도예산서",
+    "2025년도1차추경예산서",
+    "2025년도2차추경예산서",
+    "2025년도3차추경예산서"
+   ],
+   "BUDLK": "https://www.cs.go.kr/openData/00003034/00007891.web"
+  },
+  "4774000": {
+   "이름": "경북영양군",
+   "주소": "https://www.yyg.go.kr/www/organization/finance_info/revenues_expenditure",
+   "어떻게": "BUDLK",
+   "점수": 11,
+   "근거": [
+    "세입예산서(전체) 본예산 (새창)",
+    "세입예산서(일반회계) 본예산 (새창)",
+    "세입예산서(특별회계) 본예산 (새창)",
+    "세출예산서(전체) 본예산 (새창)"
+   ],
+   "BUDLK": "https://www.yyg.go.kr/www/organization/finance_info/revenues_expenditure"
+  },
+  "4775000": {
+   "이름": "경북영덕군",
+   "주소": "https://www.yd.go.kr/?page_id=907",
+   "어떻게": "BUDLK",
+   "점수": 17,
+   "근거": [
+    "2026년 제2회 추가경정예산서",
+    "2026년 제1회 추가경정예산서",
+    "2025년 제2회 추가경정예산서",
+    "2025년 제1회 추가경정예산서"
+   ],
+   "BUDLK": "https://www.yd.go.kr/?page_id=907"
+  },
+  "4776000": {
+   "이름": "경북청도군",
+   "주소": "https://www.cheongdo.go.kr/budget/contents.do?mid=0319010000",
+   "어떻게": "메뉴",
+   "점수": 11,
+   "근거": [
+    "예산서공개",
+    "세입예산서(일반특별) 바로보기 세입예산서(일반특별) 다운로드",
+    "세입예산서(일반특별) 바로보기",
+    "세입예산서(일반특별) 다운로드"
+   ],
+   "BUDLK": "https://www.cheongdo.go.kr/budget/contents.do?mid=0317010000",
+   "메뉴글": "예산서공개"
+  },
+  "4777000": {
+   "이름": "경북고령군",
+   "주소": "https://www.goryeong.go.kr/budget/boardList.do?BRD_ID=a1_budget&IDX=9",
+   "어떻게": "BUDLK",
+   "점수": 5,
+   "근거": [
+    "세입예산서(전체)",
+    "세입예산서(일반회계)",
+    "세입예산서(특별회계)",
+    "세입예산사업명세서"
+   ],
+   "BUDLK": "http://www.goryeong.go.kr/budget/boardList.do?BRD_ID=a1_budget&IDX=9"
+  },
+  "4778000": {
+   "이름": "경북성주군",
+   "주소": "https://www.sj.go.kr/page.do?mnu_uid=1199&",
+   "어떻게": "BUDLK",
+   "점수": 7,
+   "근거": [
+    "세입예산사업명세서(일반회계)",
+    "세출예산사업명세서(일반회계)",
+    "세입예산사업명세서(특별회계)",
+    "세출예산사업명세서(특별회계)"
+   ],
+   "BUDLK": "https://www.sj.go.kr/page.do?mnu_uid=1199&"
+  },
+  "4779000": {
+   "이름": "경북칠곡군",
+   "주소": "https://www.chilgok.go.kr/portal/contents.do?mId=0307020100",
+   "어떻게": "BUDLK",
+   "점수": 14,
+   "근거": [
+    "2026년 본예산",
+    "2025년 본예산"
+   ],
+   "BUDLK": "https://www.chilgok.go.kr/portal/contents.do?mId=0307020100"
+  },
+  "4780000": {
+   "이름": "경북예천군",
+   "주소": "https://www.ycg.kr/open.content/ko/administrative/budget/list/2024/2024.3/",
+   "어떻게": "BUDLK",
+   "점수": 5,
+   "근거": [
+    "세입예산서(전체)",
+    "세입예산서(일반)",
+    "세입예산서(기타특별)",
+    "세출예산서(전체)"
+   ],
+   "BUDLK": "https://www.ycg.kr/open.content/ko/administrative/budget/list/2024/2024.3/"
+  },
+  "4781000": {
+   "이름": "경북봉화군",
+   "주소": "https://www.bonghwa.go.kr/depart/contents.do?mid=0601010000",
+   "어떻게": "사람",
+   "점수": null,
+   "근거": [],
+   "BUDLK": "https://www.bonghwa.go.kr/open.content/ko/news/budget.info/year/",
+   "메모": "당해년도 예산정보 — 세출예산서(일반) 등. BUDLK 는 첫 화면으로 튕김 (Claude 확인 2026-11-02)"
+  },
+  "4782000": {
+   "이름": "경북울진군",
+   "주소": "https://www.uljin.go.kr/index.uljin?menuCd=DOM_000000103006001000",
+   "어떻게": "BUDLK",
+   "점수": 17,
+   "근거": [
+    "2026년 예산서",
+    "2025년 예산서"
+   ],
+   "BUDLK": "https://www.uljin.go.kr/index.uljin?menuCd=DOM_000000103006001000"
+  },
+  "4783000": {
+   "이름": "경북울릉군",
+   "주소": "https://www.ulleung.go.kr/ko/page.do?mnu_uid=553&",
+   "어떻게": "BUDLK",
+   "점수": 11,
+   "근거": [
+    "세입예산서-특별회계",
+    "세입예산서(일반회계)",
+    "세입예산서(특별회계)",
+    "세출예산서(총괄)"
+   ],
+   "BUDLK": "https://www.ulleung.go.kr/ko/page.do?mnu_uid=553&"
+  },
+  "4800000": {
+   "이름": "경남본청",
+   "주소": "https://www.gyeongnam.go.kr/index.gyeong?menuCd=DOM_000000138003005001",
+   "어떻게": "BUDLK",
+   "점수": 20,
+   "근거": [
+    "2026년도 예산서 다운받기",
+    "2026년도 1회 추경 세입세출예산서 다운받기",
+    "2026년도 2회 추경 세입세출예산서 다운받기",
+    "2026년도 3회 추경 세입세출예산서 다운받기"
+   ],
+   "BUDLK": "https://www.gyeongnam.go.kr/index.gyeong?menuCd=DOM_000000138003005001"
+  },
+  "4811000": {
+   "이름": "경남창원시",
+   "주소": "https://www.changwon.go.kr/cwportal/10312/10569/14993.web",
+   "어떻게": "BUDLK",
+   "점수": 5,
+   "근거": [
+    "세입 세입예산 사업명세서",
+    "세입예산 사업명세서"
+   ],
+   "BUDLK": "https://www.changwon.go.kr/cwportal/10312/10569/14993.web"
+  },
+  "4813000": {
+   "이름": "경남진주시",
+   "주소": "https://www.jinju.go.kr/00133/00443/00499.web",
+   "어떻게": "BUDLK",
+   "점수": 8,
+   "근거": [
+    "세부사업별예산현액 및 지출액",
+    "아래 예산서는 PDF문서로 제공하고 있습니다."
+   ],
+   "BUDLK": "https://www.jinju.go.kr/00133/00443/00499.web"
+  },
+  "4815000": {
+   "이름": "경남통영시",
+   "주소": "",
+   "어떻게": "못 찾음",
+   "점수": 0,
+   "근거": [],
+   "BUDLK": "https://www.tongyeong.go.kr/00681/00682/00683.web",
+   "본": [
+    "https://www.tongyeong.go.kr/tracer/info.jsp"
+   ],
+   "메모": "「개발자도구 감지」 화면으로 튕겨 봇이 못 봄"
+  },
+  "4816000": {
+   "이름": "경남사천시",
+   "주소": "https://www.sacheon.go.kr/minwon/00086/05009.web",
+   "어떻게": "BUDLK",
+   "점수": 8,
+   "근거": [
+    "세입세출예산 운용정보공개",
+    "세부사업별 예산현액 및 지출액"
+   ],
+   "BUDLK": "https://www.sacheon.go.kr/minwon/00086/05009.web"
+  },
+  "4817000": {
+   "이름": "경남김해시",
+   "주소": "https://www.gimhae.go.kr/00761/00745/00746.web",
+   "어떻게": "BUDLK",
+   "점수": 7,
+   "근거": [
+    "예산서공개"
+   ],
+   "BUDLK": "https://www.gimhae.go.kr/00761/00745/00746.web"
+  },
+  "4818000": {
+   "이름": "경남밀양시",
+   "주소": "https://www.miryang.go.kr/web/index.do?mnNo=30301190100",
+   "어떻게": "BUDLK",
+   "점수": 6,
+   "근거": [],
+   "BUDLK": "https://www.miryang.go.kr/web/index.do?mnNo=30301190100"
+  },
+  "4819000": {
+   "이름": "경남거제시",
+   "주소": "https://www.geoje.go.kr/yesan/index.geoje?menuCd=DOM_000009301001000000",
+   "어떻게": "사람",
+   "점수": null,
+   "근거": [],
+   "BUDLK": "https://www.geoje.go.kr/yesan/index.geoje?menuCd=DOM_000009301001017001",
+   "메모": "예산현황 → 2026 본예산으로 넘어간다. BUDLK 는 2025 화면 (Claude 확인 2026-11-02)"
+  },
+  "4820000": {
+   "이름": "경남양산시",
+   "주소": "https://www.yangsan.go.kr/portal/selectContents.do?mid=0402020000&token=1732781586464",
+   "어떻게": "BUDLK",
+   "점수": 23,
+   "근거": [
+    "2026년 2회 추가경정예산서",
+    "2026년 2회추경 예산서",
+    "2026년 1회추경 예산서",
+    "2026년 본예산서"
+   ],
+   "BUDLK": "https://www.yangsan.go.kr/portal/selectContents.do?mid=0402020000&token=1732781586464"
+  },
+  "4871000": {
+   "이름": "경남의령군",
+   "주소": "https://www.uiryeong.go.kr/board/list.uiryeong?boardId=BBS_0000249&menuCd=DOM_000000202004002000&contentsSid=132",
+   "어떻게": "BUDLK",
+   "점수": 11,
+   "근거": [
+    "2026년 예산서"
+   ],
+   "BUDLK": "https://www.uiryeong.go.kr/board/list.uiryeong?boardId=BBS_0000249&menuCd=DOM_000000202004002000&contentsSid=132"
+  },
+  "4872000": {
+   "이름": "경남함안군",
+   "주소": "https://www.haman.go.kr/00099/00190/03613.web",
+   "어떻게": "BUDLK",
+   "점수": 20,
+   "근거": [
+    "2025년본예산예산서",
+    "2025년도1회추가경정예산서",
+    "2025년도2회추가경정예산서"
+   ],
+   "BUDLK": "https://www.haman.go.kr/00099/00190/03613.web"
+  },
+  "4873000": {
+   "이름": "경남창녕군",
+   "주소": "https://www.cng.go.kr/00002/00138/03842.web",
+   "어떻게": "BUDLK",
+   "점수": 17,
+   "근거": [
+    "2026년 예산서",
+    "2025년 예산서"
+   ],
+   "BUDLK": "https://www.cng.go.kr/00002/00138/03842.web"
+  },
+  "4874000": {
+   "이름": "경남고성군",
+   "주소": "https://www.goseong.go.kr/index.goseong?menuCd=DOM_000000112000000000&cpath=",
+   "어떻게": "BUDLK",
+   "점수": 12,
+   "근거": [
+    "제 1 조 2026년도 세입·세출 예산총액 및 회계별로 일시 차입할 수 있는 최고액은 다음과 같다."
+   ],
+   "BUDLK": "https://www.goseong.go.kr/index.goseong?menuCd=DOM_000000112000000000&cpath="
+  },
+  "4875000": {
+   "이름": "경남남해군",
+   "주소": "https://www.namhae.go.kr/portal/Index.do?c=WW0304021920",
+   "어떻게": "BUDLK",
+   "점수": 20,
+   "근거": [
+    "올해 예산서 2026년 예산서",
+    "2026년 예산서",
+    "2025년 예산서"
+   ],
+   "BUDLK": "https://www.namhae.go.kr/portal/Index.do?c=WW0304021920"
+  },
+  "4876000": {
+   "이름": "경남하동군",
+   "주소": "https://www.hadong.go.kr/05194/00123.web",
+   "어떻게": "BUDLK",
+   "점수": 7,
+   "근거": [
+    "세부사업별 예산현액 및 지출액"
+   ],
+   "BUDLK": "https://www.hadong.go.kr/opendata/00121/00123.web"
+  },
+  "4877000": {
+   "이름": "경남산청군",
+   "주소": "https://www.sancheong.go.kr/www/contents.do?key=2345&subKey=6760",
+   "어떻게": "BUDLK",
+   "점수": 5,
+   "근거": [
+    "세입예산서 총괄 다운로드 또는",
+    "세입예산서 일반회계 다운로드 또는",
+    "세출예산서 총괄 다운로드 또는",
+    "세출예산서 일반회계 다운로드 또는"
+   ],
+   "BUDLK": "https://www.sancheong.go.kr/www/contents.do?key=2345&subKey=6760"
+  },
+  "4878000": {
+   "이름": "경남함양군",
+   "주소": "https://www.hygn.go.kr/00430/00586/06499.web",
+   "어떻게": "BUDLK",
+   "점수": 8,
+   "근거": [
+    "세입예산서 예산총칙 전체",
+    "세입예산서 예산총칙 일반회계",
+    "세입예산서 예산총칙 특별회계",
+    "세입예산사업명세서 예산규모 전체"
+   ],
+   "BUDLK": "https://www.hygn.go.kr/00430/00586/06499.web"
+  },
+  "4879000": {
+   "이름": "경남거창군",
+   "주소": "https://www.geochang.go.kr/00203/00205/03514.web",
+   "어떻게": "BUDLK",
+   "점수": 17,
+   "근거": [
+    "2025년 예산서",
+    "2026년 예산서"
+   ],
+   "BUDLK": "https://www.geochang.go.kr/00203/00205/03514.web"
+  },
+  "4880000": {
+   "이름": "경남합천군",
+   "주소": "https://www.hc.go.kr/04959/04965/09734.web",
+   "어떻게": "BUDLK",
+   "점수": 10,
+   "근거": [
+    "세입예산서",
+    "세입예산사업명세서",
+    "세입예산서 세입총괄표 기능별 세출총괄표 조직별 세출총괄표 성질별 세출총괄표 세입예산사업명세서 의회사무과 기획예산담당관 기획예산담당관 행정복지국",
+    "세입예산사업명세서 공영개발사업 특별회계"
+   ],
+   "BUDLK": "https://www.hc.go.kr/04959/04965/09734.web"
+  },
+  "4900000": {
+   "이름": "제주본청",
+   "주소": "https://www.jeju.go.kr/finance/budget/2015.htm",
+   "어떻게": "BUDLK",
+   "점수": 20,
+   "근거": [
+    "176 2026년도 제2회 추가경정예산서(일반및기타특별회계) 2 예산담당관 2026-08-26 627",
+    "175 2026년도 제1회 추가경정예산서(일반및기타특별회계) 2 예산담당관 2026-05-21 1312",
+    "168 2026년도 예산서(일반 및 기타특별회계) 4 예산담당관 2026-01-08 6928",
+    "2026년도 제2회 추가경정예산서(일반및기타특별회계)"
+   ],
+   "BUDLK": "https://www.jeju.go.kr/finance/budget/2015.htm"
+  }
+ }
+}

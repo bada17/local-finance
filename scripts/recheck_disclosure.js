@@ -27,7 +27,7 @@ const os = require('os');
 
 const ROOT = path.dirname(__dirname);
 const OUT = path.join(ROOT, 'data', 'disclosure_dom.json');
-const PORT = 9333;
+const PORT = +process.env.CDP_PORT || 9333;   // 다른 대화의 크롬과 겹치면 CDP_PORT 로 바꾼다
 const 한번에 = 4;            // 탭 넷이면 243곳에 5분쯤
 const 기다림 = 14000;        // 한 곳에 최대 14초
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 ' +
