@@ -6,7 +6,7 @@
 #
 # ⚠️ 키가 없으면 한 쪽에 5줄로 잘린다 — 그래서 봇(openfiscal.yml)이 Secrets 키로 돈다. 서비스마다 하루 1,000번.
 # ⚠️ 응답이 JSON 을 한 번 더 문자열로 싼 꼴로 온다(「"{\"OPFI167\":…}"」) — 두 번 푼다.
-# ⚠️ 「없음」 107종은 그 이름으로 등록된 서비스가 없다(ERROR-310, 2026-09-21) — 키 문제가 아니라 안 부른다.
+# ⚠️ 「없음」 107종은 그 이름으로 등록된 서비스가 없다(ERROR-310, 2026-09-21, 11-02 dsId 로도 다시 봄) — 키 문제가 아니라 안 부른다.
 # 회계연도(ACNT_YR)가 꼭 있어야 하는 47종은 2007 년부터 올해까지 해마다 부른다(「…추이」도 해를 받아 그해 줄만 준다).
 # 전부 중앙정부 총량이다 — 자치단체로 안 쪼개진다(지방교부세·국고보조 총량처럼 견줄 거리로 쓴다).
 # 결과: data/openfiscal/<코드>.json.gz {만든날, 이름, 분류, 설명, 칸, 줄}
@@ -66,10 +66,15 @@ def main():
         if 필수 not in ([], ['ACNT_YR']):
             print(f'{x["code"]} 건너뜀 — 필수 인자 {필수}', flush=True)
             continue
+        # 서비스 이름은 대개 code(OPFI167)로 되지만 dsId(VW_OPFI169)로만 답하는 것이 있다 — 지방정부부채추이·중앙정부결산·국유재산 등 22종(2026-11-02).
+        #   code 로 「서비스 없음(ERROR-310)」이면 dsId 로 부른다. 「없음」 107종은 dsId 로도 310 이다
+        이름 = x['code']
         try:
-            줄 = [] if 필수 else 다받기(x['code'], 키, {})
+            if x.get('dsId') and x['dsId'] != 이름 and 부르기(이름, 키, {}, 1)[2] == 'ERROR-310':
+                이름 = x['dsId']
+            줄 = [] if 필수 else 다받기(이름, 키, {})
             if not 줄:   # 목록엔 필수 인자가 없어도 회계연도를 줘야 답하는 것이 있다(OPFI165 16대분야별 재원배분, 2026-11-02)
-                줄 = [r for 해 in range(2007, date.today().year + 1) for r in 다받기(x['code'], 키, {'ACNT_YR': 해})]
+                줄 = [r for 해 in range(2007, date.today().year + 1) for r in 다받기(이름, 키, {'ACNT_YR': 해})]
         except RuntimeError as e:
             틀림.append(str(e))
             print(f'⚠️ {e}', flush=True)
