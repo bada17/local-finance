@@ -397,40 +397,48 @@ const 표 = (머리, 줄, 숫자칸 = []) => `<div class="scroll"><table><tr>${�
 // 봇의 가름 → 화면 이름(차례도 이대로)
 const 이름 = {
   '있음(올해)': '찾음 — 올해 것', '있음(지난해만)': '찾음 — 지난해 것만', '있음(해 모름)': '찾음 — 몇 년 것인지 모름',
-  '관련 글만': '관련 글만 — 교육·조례·용역 따위', '없음': '못 찾음', '못 봄': '못 들어감 — 게시판·검색이 막힘',
+  '관련 글만': '관련 글만 — 교육·조례·용역 따위', '없음': '못 찾음', '못 봄': '덜 봄 — 예산서 게시판을 끝까지 못 읽음',
 };
 const 차례 = Object.keys(이름);
-let D, 곳;
+let D, 곳, 손;   // 손 = data/climate_hand.json — 사람이 원문을 열어 확인한 것, 「가름」이 있으면 봇보다 앞선다
+const 판정 = (cd, x) => 손.곳[cd]?.가름 || x.가름;
+const 링크 = s => /^https?:\/\//.test(s.주소)
+  ? `<a href="${esc(s.주소)}" target="_blank" rel="noopener">${esc(s.제목.replace(/\s+/g, ' ').slice(0, 70))}</a>` : esc(s.제목);
 
-function 근거(x) {
-  const a = x.게시판_찾음.map(t => `게시판 「${esc(t)}」`);
-  const b = x.검색.slice(0, 3).map(s => /^https?:\/\//.test(s.주소)
-    ? `<a href="${esc(s.주소)}" target="_blank" rel="noopener">${esc(s.제목.replace(/\s+/g, ' ').slice(0, 70))}</a>` : esc(s.제목));
-  return [...a, ...b].join('<br>') || '<small>—</small>';
+function 근거(cd, x) {
+  const h = 손.곳[cd];
+  const 만듦 = 손.만듦.includes(cd) ? '보고서: 2025회계연도에 만듦' : 손.안만듦.includes(cd) ? '보고서: 만들지 않음' : '';
+  const a = h ? [`<small>확인(${esc(h.본날)}): ${esc(h.메모)}</small>`, ...h.근거.map(링크)] : [];
+  const b = x.게시판_찾음.map(t => `게시판 「${esc(t)}」`);
+  const c = (Array.isArray(x.검색) ? x.검색 : []).slice(0, 3).map(링크);   // 검색이 둘 다 막히면 봇이 「막힘」 글자를 쓴다
+  return [...(만듦 ? [`<small>${만듦}</small>`] : []), ...a, ...b, ...c].join('<br>') || '<small>—</small>';
 }
 
 function 그리기() {
   const sido = $('sido').value, ga = $('ga').value, q = $('q').value.trim();
   const 줄 = Object.entries(D.곳).filter(([cd, x]) => (!sido || 곳[cd]?.시도 === sido) && (!q || x.이름.includes(q)));
   const 셈 = {};
-  줄.forEach(([, x]) => 셈[x.가름] = (셈[x.가름] || 0) + 1);
+  줄.forEach(([cd, x]) => 셈[판정(cd, x)] = (셈[판정(cd, x)] || 0) + 1);
   let h = `<h2>판정별</h2>` + 표(['판정', '곳'], 차례.filter(k => 셈[k]).map(k => [esc(이름[k]), 셈[k]]), [1]);
-  const 보일 = 줄.filter(([, x]) => !ga || x.가름 === ga)
-    .sort((a, b) => 차례.indexOf(a[1].가름) - 차례.indexOf(b[1].가름) || (곳[a[0]]?.갈래 === '광역' ? -1 : 0) - (곳[b[0]]?.갈래 === '광역' ? -1 : 0));
-  h += `<h2>곳마다</h2><p><small>근거는 봇이 본 게시판 글 이름과 검색 결과 앞의 셋입니다. 눌러서 원문을 확인해 주세요.</small></p>` +
+  const 광역먼저 = cd => 곳[cd]?.갈래 === '광역' ? 0 : 1;
+  const 보일 = 줄.filter(([cd, x]) => !ga || 판정(cd, x) === ga)
+    .sort((a, b) => 차례.indexOf(판정(...a)) - 차례.indexOf(판정(...b)) || 광역먼저(a[0]) - 광역먼저(b[0]));
+  h += `<h2>곳마다</h2><p><small>근거는 사람이 원문을 열어 확인한 것(「확인」)이 먼저, 그다음 봇이 본 게시판 글 이름과 검색 결과 앞의 셋입니다. 눌러서 원문을 확인해 주세요.</small></p>` +
     표(['곳', '판정', '근거', '본 날'], 보일.map(([cd, x]) =>
-      [esc(x.이름), esc(이름[x.가름] || x.가름), 근거(x), esc(x.본날)]));
+      [esc(x.이름), esc(이름[판정(cd, x)] || 판정(cd, x)), 근거(cd, x), esc(손.곳[cd]?.본날 || x.본날)]));
   $('out').innerHTML = h;
 }
 
-Promise.all([fetch('data/climate_budget.json'), fetch('data/loc/index.json')].map(p => p.then(r => r.json()))).then(([d, loc]) => {
+Promise.all(['data/climate_budget.json', 'data/climate_hand.json', 'data/loc/index.json'].map(u => fetch(u).then(r => r.json()))).then(([d, hand, loc]) => {
   D = d;
+  손 = hand;
   곳 = Object.fromEntries(loc.곳.map(x => [x.cd, x]));
   $('sido').innerHTML += [...new Set(loc.곳.map(x => x.시도))].map(s => `<option>${esc(s)}</option>`).join('');
   $('ga').innerHTML += 차례.map(k => `<option value="${esc(k)}">${esc(이름[k])}</option>`).join('');
-  $('basis').innerHTML = `온실가스감축인지 예산서(기후예산서)를 <b>누리집에 공개했는지</b> 243곳을 봇으로 봤다(${esc(d.만든날)}까지).
+  $('basis').innerHTML = `온실가스감축인지 예산서(기후예산서)를 <b>누리집에 공개했는지</b> 243곳을 봇으로 봤다(${esc(d.만든날)}까지). 광역 몇 곳은 사람이 원문을 열어 고쳤다.
     보는 곳은 둘 — 예산서 게시판의 글·파일 이름, 그리고 웹 검색(네이버·DuckDuckGo 에 「site:그 누리집 온실가스감축인지 예산서」).
-    <b>「못 찾음」은 없다는 뜻이 아니다</b> — 검색이 긁지 못한 파일은 잡히지 않는다. 보도(경북매일, 2026-09)로는 광역 10곳이 만드는데 여기서는 2곳만 찾았다.
+    <b>「못 찾음」은 없다는 뜻이 아니다</b> — 검색이 긁지 못한 파일은 잡히지 않는다.
+    다만 <a href="${esc(hand.보고서.주소)}" target="_blank" rel="noopener">기후재정포럼 보고서</a>(2026-09)로는 2025회계연도에 광역 17곳 가운데 10곳이 만들었고, <b>그 가운데 밖에 공개한 곳은 서울·전북·경남 셋뿐</b>이었다 — 만들고도 안 올린 곳이 많다.
     지방재정법에는 이 예산서를 만들라는 조항이 없다(탄소중립기본법 24조는 「관계 법률에서 정하는 바에 따라」) — 그래서 만들었나가 아니라 공개했나를 본다.`;
   ['sido', 'ga'].forEach(k => $(k).onchange = 그리기);
   $('q').oninput = 그리기;
