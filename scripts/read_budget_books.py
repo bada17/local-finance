@@ -12,7 +12,10 @@
 # 결과: data/예산서/<코드>.json.gz(세부사업 전부, 깃 무시) · data/budget_books.json(곳마다 요약, 저장소)
 # 원본 PDF 는 캐시(%LOCALAPPDATA%\local-finance-files\예산서)에만.
 # ⚠️ 국내 PC 에서 돌린다 — 지자체 누리집은 해외(깃허브 러너)를 막는 곳이 많다.
-import gzip, hashlib, json, os, re, subprocess, sys, collections, datetime, urllib.request, urllib.parse
+# 🩺 2026-11-02 「0개로 읽힘」 51곳을 열어 봄: 48곳은 꼴이 아니라 **파일을 잘못 고른 것**(100쪽 아래, 27곳은 세입 「장ㆍ관ㆍ항ㆍ목」·조직별 요약)
+#    — 진짜 사업예산서가 후보 다섯 안에 없다. 고칠 곳은 읽기가 아니라 고르기(후보[:5]·점수). 글자 없는 그림 PDF 3곳(금천·양양·전북본청, 청주도),
+#    서울본청(1,858쪽)만 꼴이 다르다. 압축은 안의 PDF 를 묶어 읽는다(부안 0.0%) — 청주는 그림 PDF 2,384쪽(1.8GB)이라 캐시에서 지웠다.
+import gzip, hashlib, io, json, os, re, subprocess, sys, collections, datetime, urllib.request, urllib.parse, zipfile
 import pymupdf
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -32,7 +35,8 @@ def 고르기(곳, 해):
     후보 += [(f, g.get('주소') or e.get('주소')) for g in e.get('들어간글', []) for f in g.get('파일', [])]
     def 점수(f):
         t = f['이름']
-        if re.search(r'성인지|기금|성과|결산|중기|의견서|주민참여|총칙|규모|총괄|세입|리플릿|안내|점자|음성', t):
+        # 엑셀·재정공시 별첨은 예산서가 아니다(광명·의왕·하남·김포가 「세출」로 골라졌다, 11-02)
+        if re.search(r'성인지|기금|성과|결산|중기|의견서|주민참여|총칙|규모|총괄|세입|리플릿|안내|점자|음성|재정공시|\.(xlsx?|csv)$', t):
             return -1
         s = 30 if 뜻.search(t) else 20 if re.search(r'세부내역|전체|예산서', t) else 10 if re.search(r'일반회계|세출', t) else -1
         return s + (str(해) in t) * 2 + (not re.search(r'추경|추가경정|제\s*\d\s*회', t))
@@ -69,10 +73,24 @@ def 받기(cd, f, 바탕):
             몸 = r.read()
     except Exception as e:
         return None, f'못 받음 {str(e)[:60]}'
+    if 몸.startswith(b'PK'):   # 압축(청주 「예산서보기」·부안 「전체파일 다운」) — 엑셀도 PK 라 안에 PDF 가 없으면 그대로 둔다
+        몸 = 압축풀기(몸)
     if not 몸.startswith(b'%PDF'):
         return None, '피디에프 아님(' + ('웹 화면' if b'<html' in 몸[:2000].lower() else 몸[:8].hex()) + ')'
     open(자리, 'wb').write(몸)
     return 자리, ''
+
+
+def 압축풀기(몸):
+    # ponytail: 안의 PDF 를 이름 차례로 다 묶는다 — 세입·총괄 장도 섞이지만 읽기는 통계목 꼴만 줍고 행사 넷만 더한다
+    with zipfile.ZipFile(io.BytesIO(몸)) as z:
+        이름들 = sorted(n for n in z.namelist() if n.lower().endswith('.pdf'))
+        if not 이름들:
+            return 몸
+        책 = pymupdf.open()
+        for n in 이름들:
+            책.insert_pdf(pymupdf.open(stream=z.read(n), filetype='pdf'))
+        return 책.tobytes()
 
 
 def 읽기(자리):
