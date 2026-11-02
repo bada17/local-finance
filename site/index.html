@@ -745,7 +745,7 @@ function 그리기() {
         <div class="stats"><div class="stat"><div class="k">쓴 돈</div><div class="v">${돈(집[1])}</div>
           <div class="meter" aria-hidden="true"><i style="width:${Math.min(100, 집[1] / 집[0] * 100)}%"></i></div>
           <div class="rk">예산 ${돈(집[0])} 가운데 ${퍼(집[1] / 집[0] * 100, 0)}</div></div></div>
-        ${큰.length ? `<h4 style="margin-top:22px">${esc(짧은이름(i))} 돈을 가장 많이 넣은 사업 다섯</h4>        ${막대(큰.map(r => [r[0], r[3], r[1] ? r[2] / r[1] * 100 : null]), 돈)}` : ''}
+        ${큰.length ? `<h4 style="margin-top:22px">${esc(짧은이름(i))} 돈을 가장 많이 넣은 사업 다섯</h4>        ${막대(큰.map(r => [r[0], r[3], null]), 돈)}` : ''}
       </div>`;
   // 「누가 정한 돈인가」는 다듬을 거리라 숨겼다(2026-10-26 사용자 「일단 주석처리」)
   /*

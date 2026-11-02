@@ -30,6 +30,7 @@ import sys
 from datetime import date
 
 from build_grants import 시도줄임
+from fetch_bizno import 업체들
 
 try:
     sys.stdout.reconfigure(encoding='utf-8', errors='replace')
@@ -88,6 +89,7 @@ def main():
     계약 = {}                  # 원계약(없으면 계약번호 뺀 칸들) → (날, cd, 금액, 법, 사유, 동네칸번호, 업체번호, 계약명, 차수)
     사유꼴 = collections.defaultdict(collections.Counter)   # 법 → {사유: 건수}
     못붙임 = collections.Counter()
+    원이름 = {}   # 사업자번호 → 계약 원자료(corpList)의 업체 이름
     for f in 파일:
         표 = 읽기(f)
         k = {n: j for j, n in enumerate(표['칸'])}
@@ -107,6 +109,9 @@ def main():
                 continue
             날 = r[k['날']] or ''
             번호 = (r[k['업체']] or [None])[0]     # ponytail: 공동수급은 첫 업체 하나로 — 몫을 나누려면 업체마다 금액 칸이 필요
+            if '원자료' in k:   # 조달업체 등록 목록에 없는 번호(서울시 상위 열 곳 중 둘, 11-02)도 계약 원자료 corpList 에 이름이 온다
+                for 이름, _, 번 in 업체들(r[k['원자료']]):
+                    원이름.setdefault(번, 이름)
             u = 업체곳.get(번호)
             칸 = 3 if not u else 0 if (u == cd or (cd in 광역 and 시도of[u] == 시도of[cd])) else 1 if 시도of[u] == 시도of[cd] else 2
             if 금액 <= 0:                         # 감액 변경으로 보이는 음수·0원 줄(2025 년 29줄)
@@ -164,7 +169,7 @@ def main():
         with open(os.path.join(곳폴더, f'{cd}.json'), 'w', encoding='utf-8') as f:
             json.dump({'해': 업체해, '분포칸': 분포칸, '분포': 분포,
                        '칸': ['이름', '있는 곳', '건수', '2천만원 이하 사유 건수', '계약 [날, 금액, 계약명, 사유번호]'],
-                       '업체': [[*업체이름.get(b, ['이름 못 찾음', '']), len(줄),
+                       '업체': [[업체이름.get(b, [''])[0] or 원이름.get(b) or f'사업자번호 {b}', 업체이름.get(b, ['', ''])[1], len(줄),
                                sum(1 for x in 줄 if x[3].startswith('추정가격 2천만원 이하')),
                                [[x[0], x[1], x[2], 법번호[x[3]]] for x in sorted(sorted(줄, key=lambda x: -x[1])[:계약N])]] for b, 줄 in 위]},
                       f, ensure_ascii=False, separators=(',', ':'))

@@ -5,7 +5,7 @@ name: 국고보조 받은 곳
 
 on:
   schedule:
-    - cron: '0 18 * * *'         # 한국 시간 새벽 3시
+    - cron: '0 0,6,12,18 * * *'  # 6시간마다(한국 3·9·15·21시) — 하루 한 번이면 5년치 상세에 3~4주라 늘렸다(2026-11-02). 겹치면 concurrency 가 줄 세운다
   workflow_dispatch:
 
 concurrency:

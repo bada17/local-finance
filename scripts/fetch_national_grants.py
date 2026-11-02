@@ -19,6 +19,7 @@
 # 결과: data/national_grants/<해>.json.gz (목록) · data/national_grants/상세_<해>.json.gz ({열쇠: 상세})
 
 import gzip, http.cookiejar, json, os, re, sys, time, urllib.parse, urllib.request
+from concurrent.futures import ThreadPoolExecutor
 from datetime import date
 
 try:
@@ -169,21 +170,28 @@ def main():
                 할일.append((x.get('excInsttId') in 아는곳, 해, x))
     할일.sort(key=lambda t: t[0])   # 주소 모르는 곳 먼저(안정 정렬이라 해 차례는 그대로)
     print(f'상세 남은 것 {len(할일):,}건', flush=True)
-    for n, (_, 해, x) in enumerate(할일):
+
+    def 하나(t):
+        _, 해, x = t
         if 끝시각 and time.time() > 끝시각:
-            print('시간이 다 돼 멈춘다 — 다시 부르면 이어 받는다', flush=True)
-            break
+            return 해, x, None
         d = 상세(x)
-        if d is None:
-            continue
-        상세들[해][열쇠(x)] = d
-        if d.get('주소'):
-            아는곳.add(x.get('excInsttId'))
-        if n % 200 == 199:
-            for h, dd in 상세들.items():
-                쓰기(os.path.join(OUT, f'상세_{h}.json.gz'), dd)
-            print(f'   상세 {n + 1:,}/{len(할일):,} · 주소 아는 곳 {len(아는곳):,}', flush=True)
         time.sleep(0.2)
+        return 해, x, d
+    # 셋이 나눠 부른다(2026-11-02 사용자 「봇도 다 잘 돌려야지」) — 한 줄씩이면 한 줄 1.45초, 5년치에 3~4주였다. 누리집에 무리 안 가게 셋까지만
+    with ThreadPoolExecutor(3) as 일꾼:
+        for n, (해, x, d) in enumerate(일꾼.map(하나, 할일)):
+            if d is None:
+                continue
+            상세들[해][열쇠(x)] = d
+            if d.get('주소'):
+                아는곳.add(x.get('excInsttId'))
+            if n % 200 == 199:
+                for h, dd in 상세들.items():
+                    쓰기(os.path.join(OUT, f'상세_{h}.json.gz'), dd)
+                print(f'   상세 {n + 1:,}/{len(할일):,} · 주소 아는 곳 {len(아는곳):,}', flush=True)
+    if 끝시각 and time.time() > 끝시각:
+        print('시간이 다 돼 멈춘다 — 다시 부르면 이어 받는다', flush=True)
     for h, dd in 상세들.items():
         쓰기(os.path.join(OUT, f'상세_{h}.json.gz'), dd)
     print('끝', {h: len(dd) for h, dd in 상세들.items()}, flush=True)
