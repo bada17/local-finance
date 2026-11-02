@@ -1,0 +1,68 @@
+[
+  {
+    "part": "쓰나",
+    "width": 360,
+    "scrollWidth": 360,
+    "background": "rgb(255, 247, 230)",
+    "ink": "#4f3f35",
+    "accent": "#e07a5f",
+    "title": "'Jua','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif",
+    "body": "'Pretendard Variable','Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif",
+    "juaFaces": 88
+  },
+  {
+    "part": "쓰나",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "background": "rgb(255, 247, 230)",
+    "ink": "#4f3f35",
+    "accent": "#e07a5f",
+    "title": "'Jua','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif",
+    "body": "'Pretendard Variable','Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif",
+    "juaFaces": 88
+  },
+  {
+    "part": "오나",
+    "width": 360,
+    "scrollWidth": 360,
+    "background": "rgb(255, 247, 230)",
+    "ink": "#4f3f35",
+    "accent": "#e07a5f",
+    "title": "'Jua','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif",
+    "body": "'Pretendard Variable','Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif",
+    "juaFaces": 88
+  },
+  {
+    "part": "오나",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "background": "rgb(255, 247, 230)",
+    "ink": "#4f3f35",
+    "accent": "#e07a5f",
+    "title": "'Jua','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif",
+    "body": "'Pretendard Variable','Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif",
+    "juaFaces": 88
+  },
+  {
+    "part": null,
+    "width": 360,
+    "scrollWidth": 360,
+    "background": "rgb(255, 255, 255)",
+    "ink": "#0b1e28",
+    "accent": "#00afec",
+    "title": "'GmarketSans',Pretendard,sans-serif",
+    "body": "'Pretendard Variable',Pretendard,'Noto Sans KR',system-ui,sans-serif",
+    "juaFaces": 0
+  },
+  {
+    "part": null,
+    "width": 1280,
+    "scrollWidth": 1280,
+    "background": "rgb(255, 255, 255)",
+    "ink": "#0b1e28",
+    "accent": "#00afec",
+    "title": "'GmarketSans',Pretendard,sans-serif",
+    "body": "'Pretendard Variable',Pretendard,'Noto Sans KR',system-ui,sans-serif",
+    "juaFaces": 0
+  }
+]

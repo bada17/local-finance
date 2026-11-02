@@ -1,0 +1,62 @@
+[
+  {
+    "part": "쓰나",
+    "width": 360,
+    "scrollWidth": 360,
+    "background": "rgb(255, 255, 255)",
+    "ink": "#0b1e28",
+    "accent": "#00afec",
+    "title": "'GmarketSans',Pretendard,sans-serif",
+    "body": "'Pretendard Variable',Pretendard,'Noto Sans KR',system-ui,sans-serif"
+  },
+  {
+    "part": "쓰나",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "background": "rgb(255, 255, 255)",
+    "ink": "#0b1e28",
+    "accent": "#00afec",
+    "title": "'GmarketSans',Pretendard,sans-serif",
+    "body": "'Pretendard Variable',Pretendard,'Noto Sans KR',system-ui,sans-serif"
+  },
+  {
+    "part": "오나",
+    "width": 360,
+    "scrollWidth": 360,
+    "background": "rgb(255, 255, 255)",
+    "ink": "#0b1e28",
+    "accent": "#00afec",
+    "title": "'GmarketSans',Pretendard,sans-serif",
+    "body": "'Pretendard Variable',Pretendard,'Noto Sans KR',system-ui,sans-serif"
+  },
+  {
+    "part": "오나",
+    "width": 1280,
+    "scrollWidth": 1280,
+    "background": "rgb(255, 255, 255)",
+    "ink": "#0b1e28",
+    "accent": "#00afec",
+    "title": "'GmarketSans',Pretendard,sans-serif",
+    "body": "'Pretendard Variable',Pretendard,'Noto Sans KR',system-ui,sans-serif"
+  },
+  {
+    "part": null,
+    "width": 360,
+    "scrollWidth": 360,
+    "background": "rgb(255, 255, 255)",
+    "ink": "#0b1e28",
+    "accent": "#00afec",
+    "title": "'GmarketSans',Pretendard,sans-serif",
+    "body": "'Pretendard Variable',Pretendard,'Noto Sans KR',system-ui,sans-serif"
+  },
+  {
+    "part": null,
+    "width": 1280,
+    "scrollWidth": 1280,
+    "background": "rgb(255, 255, 255)",
+    "ink": "#0b1e28",
+    "accent": "#00afec",
+    "title": "'GmarketSans',Pretendard,sans-serif",
+    "body": "'Pretendard Variable',Pretendard,'Noto Sans KR',system-ui,sans-serif"
+  }
+]
