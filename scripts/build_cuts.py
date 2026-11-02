@@ -8,6 +8,7 @@
 #   · 사유는 띄어쓰기만 다른 이름이 섞여 있다(법령위반 과다지출 / 법령위반과다지출) — 빈칸을 지워 묶는다.
 #     투자심사를 안 받은 것은 이름이 넷(재정투융자미심사·재정투자미심사·투융자미심사·투자미심사)이라 하나로.
 #   · 사유 「N/A」 143건 — 빈 사유로 둔다(내역은 있다).
+# 사람이 찾아 확인한 것(어느 감사·무엇·그 뒤)은 data/cuts_hand.json — 맞는 건의 7번째 칸 「손」으로 붙인다(없으면 6칸).
 # 우리 동네(build_town.py)도 이 파일을 읽어 곳마다 한 줄을 만든다 — 이것을 먼저 굽는다.
 
 import collections
@@ -51,8 +52,15 @@ def main():
         글 = 같은내역.get(글, 글) or f'#{id(x)}'
         차례[(x[0], x[1], 글)] += 1
         x.append(일.setdefault((x[1], 글, 차례[(x[0], x[1], 글)]), len(일)))
+    손 = json.load(open(os.path.join(ROOT, 'data', 'cuts_hand.json'), encoding='utf-8'))['건']
+    for h in 손:
+        맞는 = [x for x in 건 if x[0] == h['해'] and x[1] == h['코드'] and x[4] == h['내역'].strip()]
+        if len(맞는) != 1:
+            print(f"⚠️ cuts_hand.json 이 원자료 {len(맞는)}건과 맞음(1건이어야): {h['해']} {h['코드']} {h['내역']}")
+            continue
+        맞는[0].append({k: v for k, v in h.items() if k not in ('해', '코드', '내역', '본날')})
     out = {'받은날': d['만든날'], '출처': '지방재정365 지방교부세 감액현황(LLBSR)',
-           '칸': ['해', '코드', '금액', '사유', '내역', '일'], '건': 건, '이름': 이름, '지금번호': 지금번호}
+           '칸': ['해', '코드', '금액', '사유', '내역', '일', '손'], '건': 건, '이름': 이름, '지금번호': 지금번호}
     path = os.path.join(ROOT, 'site', 'data', 'cuts.json')
     with open(path, 'w', encoding='utf-8') as f:
         json.dump(out, f, ensure_ascii=False, separators=(',', ':'))

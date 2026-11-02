@@ -396,6 +396,9 @@ const 돈 = v => v >= 1e8 ? (v / 1e8).toLocaleString(undefined, {maximumFraction
 const 표 = (머리, 줄, 숫자칸 = []) => `<div class="scroll"><table><tr>${머리.map(h => `<th>${h}</th>`).join('')}</tr>${줄.map(r =>
   `<tr>${r.map((v, k) => `<td${숫자칸.includes(k) ? ' class="n"' : ''}>${v}</td>`).join('')}</tr>`).join('')}</table></div>`;
 let D;
+// 7번째 칸 「손」 = data/cuts_hand.json — 우리가 기사·회의록으로 찾아본 것(어느 감사·무엇·그 뒤). 행안부가 밝힌 연결은 아니다. 큰 건에만 있다.
+const 손글 = 손 => !손 ? '' : `<br><small>${손.확인 === '찾음' ? `우리가 찾아본 출처: <b>${esc(손.감사)}</b> — ${esc(손.무엇)} <b>그 뒤</b> ${esc(손.뒤)}`
+  : `<b>출처 못 찾음</b> — ${esc(손.메모)}`} ${손.근거.map(g => `<a href="${esc(g.주소)}" target="_blank" rel="noopener">${esc(g.제목)}</a>`).join(' · ')}</small>`;
 
 function 그리기() {
   const from = +$('from').value, sido = $('sido').value, q = $('q').value.trim();
@@ -424,7 +427,7 @@ function 그리기() {
       [`<a href="?cd=${c}">${esc(이름(c))}</a>`, `${v[0].size}가지`, v[1], 돈(v[2]), v[3]]), [1, 2, 3, 4]);
 
   h += `<h2>건마다</h2>` + 표(['해', '곳', '깎인 돈', '사유', '위반 지출 내역'],
-    건.map(([해, c, 금, 사, 내]) => [해, esc(이름(c)), 돈(금), esc(사), esc(내)]), [0, 2]);
+    건.map(([해, c, 금, 사, 내, , 손]) => [해, esc(이름(c)), 돈(금), esc(사), esc(내) + 손글(손)]), [0, 2]);
   $('out').innerHTML = h;
 }
 
@@ -435,7 +438,7 @@ fetch('data/cuts.json').then(r => r.json()).then(d => {
   $('from').innerHTML = 해들.map(y => `<option${y === 2020 ? ' selected' : ''}>${y}</option>`).join('');
   $('sido').innerHTML += [...new Set(Object.values(d.이름).map(x => x[1]))].map(s => `<option>${esc(s)}</option>`).join('');
   $('basis').innerHTML = `${esc(d.출처)}, ${esc(d.받은날)}에 받음. 법을 어겨 쓰거나 걷을 세금을 안 걷은 자치단체에 행정안전부가 교부세를 깎은 기록이다.
-    <b>「해」는 깎인 해</b>다 — 감사에서 걸린 해는 그 전이고, <b>그 뒤에 고쳤는지는 자료에 없다.</b> 같은 해 같은 곳의 여러 건은 건마다 따로 적혀 있고 금액은 건마다 더했다.
+    <b>「해」는 깎인 해</b>다 — 감사에서 걸린 해는 그 전이고, <b>그 뒤에 고쳤는지는 자료에 없다.</b> 2026년 큰 10건은 어느 감사에서 나왔는지·그 뒤를 우리가 기사·회의록으로 찾아보고 내역 밑에 붙였다 — 행안부가 밝힌 연결은 아니다(감액과 감사를 잇는 원본은 정보공개청구로 받을 것). 같은 해 같은 곳의 여러 건은 건마다 따로 적혀 있고 금액은 건마다 더했다.
     처음에는 2020년부터 보인다(2012~2019는 해마다 100곳 안팎이 깎여 결이 다르다).`;
   ['from', 'sido'].forEach(k => $(k).onchange = 그리기);
   $('q').oninput = 그리기;
