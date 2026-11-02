@@ -3,7 +3,7 @@
 name: 열린재정 받기
 on:
   schedule:
-    - cron: '0 3 2 * *'          # 매달 2일 한국 시간 12시
+    - cron: '0 3 28 * *'         # 매달 28일 한국 시간 12시 — 1일 달마다 굽기(데이터 지도)가 새 것을 읽게 그 앞에
   workflow_dispatch:
 permissions:
   contents: write
