@@ -12,6 +12,7 @@
 # 결과: data/openfiscal/<코드>.json.gz {만든날, 이름, 분류, 설명, 칸, 줄}
 
 import gzip, json, os, sys, time, urllib.parse, urllib.request
+import xml.etree.ElementTree as ET
 from datetime import date
 
 import keys
@@ -27,13 +28,24 @@ UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like 
 쪽 = 1000
 
 
+def 받기(코드, q):
+    return urllib.request.urlopen(urllib.request.Request(
+        f'https://openapi.openfiscaldata.go.kr/{코드}?{q}', headers={'User-Agent': UA}), timeout=120).read()
+
+
 def 부르기(코드, 키, 인자, 몇째):
     q = urllib.parse.urlencode({'Key': 키, 'Type': 'json', 'pIndex': 몇째, 'pSize': 쪽, **인자})
     for n in range(4):
         try:
-            s = json.loads(urllib.request.urlopen(urllib.request.Request(
-                f'https://openapi.openfiscaldata.go.kr/{코드}?{q}', headers={'User-Agent': UA}), timeout=120).read().decode('utf-8'))
-            s = json.loads(s) if isinstance(s, str) else s
+            s = json.loads(받기(코드, q).decode('utf-8'))
+            try:
+                s = json.loads(s) if isinstance(s, str) else s
+            except json.JSONDecodeError:
+                # 큰 쪽에서 JSON 이 깨져 오는 것이 있다(VW_OPFI372·376·377·383 「Expecting ','」, 2026-11-02) — 같은 것을 XML 로 받는다.
+                #   ponytail: XML 은 숫자도 글자로 온다 — 쓸 때 숫자로 바꿀 것
+                t = ET.fromstring(받기(코드, q.replace('Type=json', 'Type=xml')))
+                return int(t.findtext('head/list_total_count') or 0), [{c.tag: c.text for c in r} for r in t.findall('row')], \
+                    t.findtext('head/RESULT/CODE') or t.findtext('RESULT/CODE') or '?'
             if 코드 not in s:      # {"RESULT": {"CODE": "INFO-200", …}} — 그 해 자료 없음
                 return 0, [], (s.get('RESULT') or {}).get('CODE', '?')
             머리, 몸 = s[코드][0]['head'], s[코드][1]['row']
