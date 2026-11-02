@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="color-scheme" content="light">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'">
+  <title>전국 무인 회수기 계약 · 숫자 확정 전 시안</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="./style.css">
+  <script type="module" src="./app.mjs"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">본문으로 바로가기</a>
+  <div class="draft-banner">
+    <div class="page-width banner-inner">
+      <strong>숫자 확정 전 시안</strong>
+      <span>계약명으로 찾은 자료입니다. 누락과 오분류를 확인하고 있습니다.</span>
+    </div>
+  </div>
+  <header class="page-width masthead">
+    <div>
+      <div class="brand"><span class="brand-mark" aria-hidden="true">↗</span> 지방재정 <span class="brand-divider">/</span> 계약 탐색</div>
+      <h1>전국 무인 회수기 계약<span class="title-dot">.</span></h1>
+      <p>어느 지역이, 어떤 업체와 계약했을까.</p>
+    </div>
+    <div class="masthead-meta"><span id="period">자료를 읽고 있습니다</span><a href="#reading-notes">자료와 읽는 법 ↗</a></div>
+  </header>
+  <div class="navigation-wrap">
+    <nav class="page-width navigation" aria-label="탐색 화면">
+      <button type="button" class="nav-tab active" data-view="overview" aria-current="page">전국 요약</button>
+      <button type="button" class="nav-tab" data-view="regions">지역별</button>
+      <button type="button" class="nav-tab" data-view="vendors">업체별</button>
+      <button type="button" class="nav-tab" data-view="contracts">계약 목록</button>
+      <span class="nav-caption">페트 · 캔 · 종이팩</span>
+    </nav>
+  </div>
+  <main id="main" class="page-width">
+    <section class="filter-panel" aria-label="전체 화면에 적용하는 조건">
+      <div class="filter-fields">
+        <label>계약한 해<select id="year"><option value="">전체</option></select></label>
+        <label>갈래<select id="category"><option value="">전체</option></select></label>
+        <label>품목<select id="item"><option value="">전체</option></select></label>
+        <label class="search-field">검색<input id="query" type="search" placeholder="지자체·업체·계약명 검색" autocomplete="off"></label>
+        <button type="button" id="reset" class="reset-button">초기화 ↺</button>
+      </div>
+      <div class="filter-bottom">
+        <span id="filter-description">이름 거르기에 걸린 계약만 보고 있습니다.</span>
+        <label class="possible-switch"><input id="include-possible" type="checkbox" role="switch"><span class="switch-track" aria-hidden="true"></span><span>‘놓쳤을 수 있음’ 포함 <span id="possible-count" class="muted"></span></span></label>
+      </div>
+    </section>
+    <div id="load-status" class="load-state" role="status">계약 자료를 불러오고 있습니다…</div>
+    <div id="app" hidden></div>
+    <details id="reading-notes" class="reading-notes">
+      <summary>숫자를 읽기 전에 <span>자료의 범위와 주의사항</span></summary>
+      <div id="notes-content"></div>
+    </details>
+    <footer><span>전국 무인 회수기 계약 <span class="muted">/ 탐색 화면 시안</span></span><span>출처: 지방재정365 계약현황(WCEGCF) · <a href="./data.json">시안 자료 JSON ↗</a></span></footer>
+  </main>
+  <dialog id="detail-dialog" aria-labelledby="detail-title">
+    <div class="dialog-top"><span id="detail-eyebrow">계약 상세</span><button type="button" id="close-dialog" class="close-button" aria-label="상세 닫기">닫기 ×</button></div>
+    <div id="dialog-content"></div>
+  </dialog>
+</body>
+</html>
