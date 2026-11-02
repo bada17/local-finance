@@ -1,0 +1,29 @@
+# 열린재정 OpenAPI 87종을 받아 저장소 data/openfiscal/ 에 올린다(scripts/fetch_openfiscal.py) — 키는 Secrets OPENFISCAL_KEY.
+# 중앙정부 총량이라 작다. 달마다 한 번이면 된다(통계 갱신 주기가 해·분기 단위).
+name: 열린재정 받기
+on:
+  schedule:
+    - cron: '0 3 2 * *'          # 매달 2일 한국 시간 12시
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: openfiscal
+  cancel-in-progress: false
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: 받기
+        env:
+          OPENFISCAL_KEY: ${{ secrets.OPENFISCAL_KEY }}
+          PYTHONUNBUFFERED: '1'
+        run: python scripts/fetch_openfiscal.py
+      - name: 올리기
+        if: ${{ !cancelled() }}
+        run: sh scripts/bot_push.sh "열린재정 받기 $(date -u +%Y-%m-%d)" data/openfiscal
