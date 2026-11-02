@@ -63,17 +63,20 @@ def main():
     틀림 = []
     for x in 목록:
         필수 = [r['id'] for r in x.get('req', []) if '필수' in (r.get('type') or '')]
+        if 필수 not in ([], ['ACNT_YR']):
+            print(f'{x["code"]} 건너뜀 — 필수 인자 {필수}', flush=True)
+            continue
         try:
-            if not 필수:
-                줄 = 다받기(x['code'], 키, {})
-            elif 필수 == ['ACNT_YR']:
+            줄 = [] if 필수 else 다받기(x['code'], 키, {})
+            if not 줄:   # 목록엔 필수 인자가 없어도 회계연도를 줘야 답하는 것이 있다(OPFI165 16대분야별 재원배분, 2026-11-02)
                 줄 = [r for 해 in range(2007, date.today().year + 1) for r in 다받기(x['code'], 키, {'ACNT_YR': 해})]
-            else:
-                print(f'{x["code"]} 건너뜀 — 필수 인자 {필수}', flush=True)
-                continue
         except RuntimeError as e:
             틀림.append(str(e))
             print(f'⚠️ {e}', flush=True)
+            continue
+        if not 줄:   # 9월엔 되던 것이 ERROR-310(서비스 없음)으로 바뀐 것이 있다(OPFI169 지방정부부채추이 등, 11-02) — 빈 파일은 안 남긴다
+            틀림.append(f'{x["code"]} {x["odtNm"]} 0줄')
+            print(f'⚠️ {x["code"]} {x["odtNm"]} 0줄', flush=True)
             continue
         with gzip.open(os.path.join(OUT, f'{x["code"]}.json.gz'), 'wt', encoding='utf-8') as f:
             json.dump({'만든날': date.today().isoformat(), '이름': x['odtNm'], '분류': x.get('cls'), '설명': x.get('epl'),

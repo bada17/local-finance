@@ -284,9 +284,12 @@ def 자료훑기():
 
     if 있나('data/openfiscal_198.json'):
         목록 = js('data/openfiscal_198.json')
-        표['열린재정'] = {'이름': f'열린재정 {len(목록)}종(목록·명세)', '있다': True, '출처': '열린재정 OpenAPI',
-                      '언제': '목록 조사 자료 · 실적 연도는 개별 확인', '얼마나': f'{len(목록)}종 · 실제 수치 전수 수집 아님',
-                      '어디': ['data/openfiscal_198.json'], '칸': ['중앙정부 총량'], '다시': ''}
+        받은 = len(glob.glob(os.path.join(ROOT, 'data', 'openfiscal', '*.json.gz')))   # 2026-11-02 부터 openfiscal.yml 이 받는다
+        표['열린재정'] = {'이름': f'열린재정 {len(목록)}종' + (f'(받은 것 {받은}종)' if 받은 else '(목록·명세)'), '있다': True, '출처': '열린재정 OpenAPI',
+                      '언제': '달마다(openfiscal.yml)' if 받은 else '목록 조사 자료 · 실적 연도는 개별 확인',
+                      '얼마나': f'{len(목록)}종 중 {받은}종 받음 · 107종은 등록 안 된 서비스(ERROR-310)' if 받은 else f'{len(목록)}종 · 실제 수치 전수 수집 아님',
+                      '어디': ['data/openfiscal_198.json'] + (['data/openfiscal/'] if 받은 else []), '칸': ['중앙정부 총량'],
+                      '다시': 'python scripts/fetch_openfiscal.py' if 받은 else ''}
 
     없는것 = {
         # 2026-10-15 더함 — 9-30 뒤에 받은 것. 파일이 있으면 아래 고리가 「가진 자료」로 옮긴다
@@ -435,8 +438,9 @@ def 전수(자료=None, 없는것=None):
                       '갈래': it.get('cls') or it.get('cat') or it.get('갈래') or '중앙정부',
                       '설명': it.get('epl', ''),
                       '해': '', '최신': '', '곳수': None,
-                      '상태': '아직 안 씀',
-                      '까닭': '중앙정부 총량이라 자치단체로 안 쪼개진다'})
+                      '상태': '받아 둠' if 있나(f'data/openfiscal/{코드}.json.gz') else '아직 안 씀',
+                      '까닭': '그 이름으로 등록된 서비스가 없다(ERROR-310)' if it.get('stat') == '없음'
+                              else '중앙정부 총량이라 자치단체로 안 쪼개진다'})
 
     if 자료 is None:
         자료, 없는것 = 자료훑기()
@@ -667,7 +671,7 @@ def 켜재기(q, 자료, 없는것):
         있 = 받았 or bool(없는것.get(k, {}).get('어디있나'))
         낸 = bool(파일들(낼자리.get(k, [])))
         켜.append({'열쇠': k, '있나': 있, '받았나': 받았, '올렸나': 낸,
-                   '목록뿐': k in ('열린재정', '자료지도'),
+                   '목록뿐': k == '자료지도' or (k == '열린재정' and not glob.glob(os.path.join(ROOT, 'data', 'openfiscal', '*.json.gz'))),
                    '일부': k == 'CLIK' and not all(r['완료'] for r in 의정현황()),
                    '진행': 의정현황() if k == 'CLIK' else [],
                    '수집위치': 받을자리.get(k, []), '화면위치': 낼자리.get(k, [])})
