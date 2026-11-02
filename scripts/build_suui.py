@@ -90,6 +90,7 @@ def main():
     사유꼴 = collections.defaultdict(collections.Counter)   # 법 → {사유: 건수}
     못붙임 = collections.Counter()
     원이름 = {}   # 사업자번호 → 계약 원자료(corpList)의 업체 이름
+    새서명 = set()   # 원계약 칸 있는 줄의 (곳, 날, 금액, 업체) — 아래에서 옛 꼴 짝꿍을 거른다
     for f in 파일:
         표 = 읽기(f)
         k = {n: j for j, n in enumerate(표['칸'])}
@@ -118,6 +119,8 @@ def main():
                 continue
             원 = r[k['원계약']] if '원계약' in k else None
             차 = r[k['차수']] if 원 else -1
+            if 원:
+                새서명.add((cd, 날, 금액, 번호))   # 차수마다 다 — 옛 꼴 짝꿍이 0차 날짜일 수도 있다
             키 = ('#', 원) if 원 else (r[k['기관']], 날, r[k['갈래']], 금액, r[k['총액']], 법, 사유, tuple(r[k['업체']] or ()), r[k['건']])   # 없으면 계약번호만 뺀 전부
             옛 = 계약.get(키)
             if 옛 and (옛[-1], 옛[0]) > (차, 날):
@@ -125,6 +128,12 @@ def main():
             건 = r[k['건']] or (r[k['원자료']].get('cnstwkNm') if '원자료' in k else None)   # 공사 이름은 cnstwkNm(2026-10-26 전 파일엔 빔)
             계약[키] = (날, cd, 금액, sys.intern(법), sys.intern(사유), 칸, 번호, 건, 차)
 
+    # 옛 꼴 줄(원계약 칸 없음)이 새 꼴 줄과 곳·날·금액·업체가 같으면 같은 계약이다 — 2026 옛 꼴 파일에 고쳐 다시 올린 2025 계약이
+    #   원계약 없이 또 있었다(2025 날짜 계약 5만 2천여 건이 새 꼴 1줄 + 옛 꼴 1~4줄, 2026-11-02 원자료로 셈. 서울연구원 「서울공공주택 공급관리」 두 줄).
+    #   계약명은 안 본다 — 옛 꼴 공사는 이름이 비어 온다. ponytail: 같은 날 같은 금액을 같은 업체와 따로 맺은 옛 꼴 계약도 빠진다.
+    #   2026 다시 받기(suui-refetch)가 끝나면 옛 꼴은 2024 뿐이라 이 거름은 거의 할 일이 없다
+    for 키 in [키 for 키, v in 계약.items() if 키[0] != '#' and (v[1], v[0], v[2], v[6]) in 새서명]:
+        del 계약[키]
     법이름 = {법: c.most_common(1)[0][0] for 법, c in 사유꼴.items()}
     셈 = collections.defaultdict(lambda: {'건수': 0, '금액': 0, '법': collections.Counter(), '법건': collections.Counter(), '동네': [0, 0, 0, 0]})   # 동네 = 건수
     첫날, 끝날 = min(x[0] for x in 계약.values() if x[0]), max(x[0] for x in 계약.values())
