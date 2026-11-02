@@ -27,15 +27,17 @@ UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/130 Sa
 행사 = {'201-03': '행사운영비', '301-11': '행사실비지원금', '307-04': '민간행사사업보조', '401-04': '행사관련시설비'}
 
 
+def 다른해(t, 해):
+    해들 = set(re.findall(r'(?<!\d)20\d{2}(?!\d)', t or ''))
+    return bool(해들) and str(해) not in 해들
+
+
 def 고르기(곳, 해):
     # 이름이 「사업예산서」가 아니어도 후보로 — 통째 예산서(「2026년 예산서」·「전체 파일」), 장으로 쪼갠 곳의 「일반회계」 장.
     #   어느 것이 맞는지는 읽어 보고 공식 숫자와 견줘 고른다(main)
     e = 곳.get('예산') or {}
     후보 = [(f, e.get('끝주소') or e.get('주소'), '') for f in e.get('파일', [])]
     후보 += [(f, g.get('주소') or e.get('주소'), g.get('글', '')) for g in e.get('들어간글', []) for f in g.get('파일', [])]
-    def 다른해(t):
-        해들 = set(re.findall(r'(?<!\d)20\d{2}(?!\d)', t or ''))
-        return bool(해들) and str(해) not in 해들
     def 점수(f):
         t = f['이름']
         # 엑셀·재정공시 별첨은 예산서가 아니다(광명·의왕·하남·김포가 「세출」로 골라졌다, 11-02)
@@ -46,7 +48,7 @@ def 고르기(곳, 해):
         s = 30 if 뜻.search(t) else 20 if re.search(r'세부내역|전체|예산서', t) else 10 if re.search(r'일반회계|세출', t) else -1
         return s + (str(해) in t) * 2 + (not re.search(r'추경|추가경정|제\s*\d\s*회', t))
     return [(f, 바탕) for f, 바탕, 글 in sorted(후보, key=lambda fb: -점수(fb[0]))
-            if 점수(f) > 0 and not 다른해(f['이름']) and not 다른해(글)]
+            if 점수(f) > 0 and not 다른해(f['이름'], 해) and not 다른해(글, 해)]
 
 
 def 누를것(f):
@@ -54,26 +56,54 @@ def 누를것(f):
     return not 주소 or 주소.lower().startswith('javascript') or 주소.startswith('#') or not re.match(r'^(https?:)?/|^[\w./-]+(\?|$)', 주소)
 
 
-def 분할파일(곳, 후보, 해):
-    """같은 해의 일반회계 부서별 세출 사업명세서 직접 링크만 묶는다."""
+def 분할파일(곳, 해):
+    """같은 해 한 화면(글)에 부서별로 쪼개 올린 일반회계 세출 사업명세서 후보.
+    부서 이름만 붙은 곳이 있어(계룡 「본청(전략기획감사실~상하수도과)」) 이름으로는 아닌 것만 걸러 내고,
+    맞는지는 받아서 첫 쪽으로 본다(세출명세)."""
     e = 곳.get('예산') or {}
-    if not any(str(해) in (e.get(k) or '') for k in ('주소', '끝주소', '제목')) and not any(
-            str(해) in (f['이름'] + f['주소']) for f, _ in 후보):
-        return []
-    묶음, 본 = [], set()
-    for f, 바탕 in 후보:
-        이름 = f['이름']
-        if not re.search(r'세출예산사업명세서\([^)]+\)', 이름) or re.search(r'세입|특별회계|공기업|기금', 이름):
+    묶음들 = [(e.get('끝주소') or e.get('주소') or '', e.get('제목') or '', e.get('파일', []))]
+    묶음들 += [(g.get('주소') or e.get('주소') or '', g.get('글', ''), g.get('파일', [])) for g in e.get('들어간글', [])]
+    for 바탕, 글, 파일들 in 묶음들:
+        if 다른해(글, 해) or re.search(r'추경|추가경정|제\s*\d\s*회', 글):
             continue
-        if 누를것(f) or f['주소'] in 본:
+        고른 = [f for f in 파일들 if not 다른해(f['이름'], 해) and not ('세입' in f['이름'] and '세출' not in f['이름'])
+                and not re.search(r'총괄|총칙|규모|기금|성인지|성과|결산|중기|특별|공기업|기능별|조직별|성질별|\.(xlsx?|csv|hwpx?)$', f['이름'])]
+        if not any(str(해) in s for s in [바탕, 글] + [f['이름'] + f['주소'] for f in 고른]):
             continue
-        본.add(f['주소'])
-        묶음.append((f, 바탕))
-    return 묶음 if 3 <= len(묶음) <= 60 else []
+        # 같은 파일을 받기·보기 단추로 두 번 거는 곳(부산 서구)은 바로 받는 쪽만, 누르는 단추뿐인 곳(대구본청 #none)은 이름으로 가른다
+        고른 = [f for f in 고른 if not 누를것(f)] or 고른
+        묶음 = list({(f['이름'] if 누를것(f) else f['주소']): (f, 바탕) for f in 고른}.values())
+        if 2 <= len(묶음) <= 80:
+            return 묶음
+    return []
+
+
+def 세출명세(자리):
+    # 첫 쪽 머리에 「세출예산사업명세서」가 찍히고 특별회계가 아니면 일반회계 세출 사업명세서 — 대구본청·계룡·부산 서구가 이 꼴
+    t = re.sub(r'\s', '', pymupdf.open(자리)[0].get_text())[:300]
+    return '세출예산사업명세서' in t and '특별회계' not in t
+
+
+def 누르기(일):
+    # 누르는 단추 파일은 크롬으로 받는다(click_budget_books.js) — 일 = [(코드, 파일, 바탕)]
+    일감 = [{'바탕': b, '이름': f['이름'], '주소': f['주소'], '자리': 누른자리(cd, f, b)} for cd, f, b in 일]
+    if not 일감:
+        return
+    일감파일 = os.path.join(캐시, '일감.json')
+    json.dump(일감, open(일감파일, 'w', encoding='utf-8'), ensure_ascii=False)
+    print(f'누르기 {len(일감)}개 — 크롬으로 받는다', flush=True)
+    subprocess.run(['node', os.path.join(ROOT, 'scripts', 'click_budget_books.js'), 일감파일])
+
+
+def 눌러받은(cd, f, 바탕):
+    자리 = 누른자리(cd, f, 바탕)
+    return 자리 if os.path.exists(자리) and open(자리, 'rb').read(4) == b'%PDF' else None
 
 
 def 누른자리(cd, f, 바탕):
-    return os.path.join(캐시, f'{cd}_c{hashlib.sha1((바탕 + f["주소"]).encode()).hexdigest()[:10]}.pdf')
+    # 주소가 「#」뿐인 단추(대구본청 #none 60여 개, 문경 #)는 이름으로 가른다 — 안 그러면 한 자리에 덮어써 다 같은 파일이 된다
+    열쇠 = 바탕 + f['주소'] + (f['이름'] if not f['주소'] or f['주소'].startswith('#') else '')
+    return os.path.join(캐시, f'{cd}_c{hashlib.sha1(열쇠.encode()).hexdigest()[:10]}.pdf')
 
 
 def 받기(cd, f, 바탕):
@@ -165,14 +195,9 @@ def main():
     # 올해 것을 공식과 1% 안으로 읽은 곳은 건너뛴다(곳을 콕 집으면 다시)
     if not sys.argv[1:]:
         곳들 = [x for x in 곳들 if not (요약.get(x['laf_cd'], {}).get('해') == 해 and abs(요약[x['laf_cd']].get('차이') or 100) < 1)]
-    # 누르는 단추 파일은 크롬으로 한꺼번에 먼저 받는다(click_budget_books.js)
-    일감 = [{'바탕': b, '이름': f['이름'], '주소': f['주소'], '자리': 누른자리(x['laf_cd'], f, b)}
-            for x in 곳들 for f, b in 고르기(x, 해)[:5] if 누를것(f) and b and not os.path.exists(누른자리(x['laf_cd'], f, b))]
-    if 일감:
-        일감파일 = os.path.join(캐시, '일감.json')
-        json.dump(일감, open(일감파일, 'w', encoding='utf-8'), ensure_ascii=False)
-        print(f'누르기 {len(일감)}개 — 크롬으로 받는다', flush=True)
-        subprocess.run(['node', os.path.join(ROOT, 'scripts', 'click_budget_books.js'), 일감파일])
+    # 후보 다섯의 누르는 단추는 한꺼번에 먼저 받는다
+    누르기([(x['laf_cd'], f, b) for x in 곳들 for f, b in 고르기(x, 해)[:5]
+           if 누를것(f) and b and not os.path.exists(누른자리(x['laf_cd'], f, b))])
     for 곳 in 곳들:
         cd, 줄 = 곳['laf_cd'], {'이름': 곳['이름'], '해': 해}
         후보 = 고르기(곳, 해)
@@ -199,33 +224,38 @@ def main():
                                     공식_천원=round(맞 / 1000) if 맞 else None, 차이=차이), 사업, f['이름'])
             if 가장 and 가장[0] < 1:
                 break
-        묶음 = 분할파일(곳, 후보, 해) if not 가장 or 가장[0] >= 1 else []
+        묶음 = 분할파일(곳, 해) if not 가장 or 가장[0] >= 1 else []
         if 묶음:
-            전부, 실패 = [], ''
-            for f, 바탕 in 묶음:
-                자리, 까닭 = 받기(cd, f, 바탕)
-                if not 자리:
-                    실패 = 까닭
-                    break
+            # 바로 못 받은 것(계룡은 주소가 있어도 「방문자 세션」이 없다고 403)은 크롬으로 눌러 받는다
+            받음 = [(f, 바탕, 받기(cd, f, 바탕)[0]) for f, 바탕 in 묶음]
+            누르기([(cd, f, 바탕) for f, 바탕, 자리 in 받음 if not 자리 and not 눌러받은(cd, f, 바탕)])
+            전부, 쓴, 본 = [], 0, set()
+            for f, 바탕, 자리 in 받음:
+                자리 = 자리 or 눌러받은(cd, f, 바탕)
                 try:
+                    if not 자리 or not 세출명세(자리):
+                        continue
+                    # 같은 PDF 를 다른 주소로 두 번 거는 곳(부산 서구 「총무과 문화관광과」 줄 이름 + 「(총무과)」) — 한 번만 센다
+                    지문 = hashlib.sha1(open(자리, 'rb').read()).hexdigest()
+                    if 지문 in 본:
+                        continue
+                    본.add(지문)
                     _, 사업 = 읽기(자리)
-                except Exception as e:
-                    실패 = f'못 읽음 {str(e)[:60]}'
-                    break
-                if not 사업:
-                    실패 = '세부사업 0개'
-                    break
-                전부.extend([{**x, '파일': f['이름'][:80]} for x in 사업])
-            if not 실패:
+                except Exception:
+                    continue
+                if 사업:
+                    쓴 += 1
+                    전부.extend([{**x, '파일': f['이름'][:80]} for x in 사업])
+            if 쓴 >= 2:
                 합 = sum(v for x in 전부 for k, v in x['목'].items() if k in 행사)
                 차이 = round((합 * 1000 - 맞) / 맞 * 100, 2) if 맞 else None
                 어긋남 = abs(차이) if 차이 is not None else (0 if len(전부) >= 100 else 100)
                 if not 가장 or 어긋남 < 가장[0]:
-                    이름 = f'세출예산사업명세서 {len(묶음)}개 파일'
-                    가장 = (어긋남, dict(파일=이름, 분할파일=len(묶음), 까닭='', 세부사업=len(전부),
+                    이름 = f'세출예산사업명세서 {쓴}개 파일'
+                    가장 = (어긋남, dict(파일=이름, 분할파일=쓴, 까닭='', 세부사업=len(전부),
                                         행사축제_천원=합, 공식_천원=round(맞 / 1000) if 맞 else None, 차이=차이), 전부, 이름)
             elif not 가장:
-                줄['까닭'] = f'분할파일 못 읽음: {실패}'
+                줄['까닭'] = f'분할파일 못 읽음({쓴}/{len(묶음)})'
         if 가장:
             줄.update(가장[1])
             json.dump({'해': 해, '파일': 가장[3], '사업': 가장[2]}, gzip.open(os.path.join(OUT, f'{cd}.json.gz'), 'wt', encoding='utf-8'), ensure_ascii=False)

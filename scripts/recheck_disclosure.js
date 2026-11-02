@@ -53,7 +53,7 @@ const 크롬자리 = [
 // 페이지 안에서 도는 긁개 — 붙은 파일과 올린 날짜를 찾는다
 const 긁개 = String.raw`(() => {
   const EXT = /\.(hwpx?|xlsx?|csv|pdfa?|docx?|pptx?|zip)(\?|$|["'\s])/i;
-  const 내려받기 = /download|filedown|file_down|atchfile|fileid|attach|getfile|cmmn\/fms/i;
+  const 내려받기 = /download|filedown|file_down|atchfile|file_?id|attach|getfile|cmmn\/fms/i;   // file_id = 계룡 /_prog/dn00/?file_id=
   const 파일 = [];
   const 본 = new Set();
   const 담기 = (이름, 주소) => {
@@ -65,7 +65,9 @@ const 긁개 = String.raw`(() => {
   for (const a of document.querySelectorAll('a,button')) {
     const t = a.textContent || '';
     const h = a.getAttribute('href') || '';
-    const oc = (a.getAttribute('onclick') || '') + (a.getAttribute('data-href') || '');
+    // 대구본청 — <a class="filedownload" href="#none" fileName="2026_본예산_2_세출예산사업명세서_1_공보관.pdf">공보관</a>
+    const fa = a.getAttribute('filename') || '';
+    const oc = (a.getAttribute('onclick') || '') + (a.getAttribute('data-href') || '') + fa;
     // 글자 없는 내려받기 링크(그림 단추, 종로구)와 자바스크립트 내려받기(JeKongsiDown(…), 화성시)도 본다 —
     // 이름은 아래에서 옆 글자로 찾고, 옆에도 한글 이름이 없으면 담지 않는다.
     const 글없는내려받기 = ((내려받기.test(h) || 내려받기.test(oc) || /down\s*\(/i.test(h + oc)) && t.trim().length <= 3)
@@ -73,7 +75,7 @@ const 긁개 = String.raw`(() => {
     // onclick 안에만 파일 이름이 있는 곳도 본다 — downFile('예산총칙.pdf',…)(연제), goFileOld2('00.pdf',…)(양산), 2026-10-20
     if (EXT.test(t) || EXT.test(h) || EXT.test(oc) || ((내려받기.test(h) || 내려받기.test(oc)) && t.trim().length > 3) || 글없는내려받기) {
       // 링크 글자에 「다운로드」·「바로보기」가 덧붙는 곳이 많다 — 이름만 남긴다
-      let nm = t.replace(/\s*(다운로드|내려받기|바로보기|미리보기|새창열림|down|download)\s*$/gi, '').trim();
+      let nm = fa || t.replace(/\s*(다운로드|내려받기|바로보기|미리보기|새창열림|down|download)\s*$/gi, '').trim();
       if (!nm && EXT.test(h)) nm = decodeURIComponent((h.split(/[?#]/)[0].split('/').pop() || ''));
       // 링크 글자가 「다운로드」·해시뿐이면 **옆 글자**에서 이름을 찾는다(2026-09-29) —
       // 파일 이름은 뜻이 없어도 같은 줄(표의 한 줄·목록 한 칸)에 「1. 세입·세출 운용상황」처럼 적어 둔 곳이 많다.

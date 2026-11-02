@@ -15,7 +15,9 @@ const 찾개 = (주소, 이름) => `(() => {
     const h = a.getAttribute('href') || '', oc = (a.getAttribute('onclick') || '') + (a.getAttribute('data-href') || '');
     return (h || oc).slice(0, 160) === ${JSON.stringify(주소)};
   });
-  const 줄 = 맞.find(([a]) => 열쇠((a.closest('tr,li,dd') || a.parentElement || a).innerText).includes(이름));
+  // 대구본청은 href="#none" 단추 60여 개가 fileName 속성으로만 갈린다 — 그것부터 맞춘다
+  const 줄 = 맞.find(([a]) => a.getAttribute('filename') === ${JSON.stringify(이름)})
+    || 맞.find(([a]) => 열쇠((a.closest('tr,li,dd') || a.parentElement || a).innerText).includes(이름));
   return (줄 || 맞[0] || [null, -1])[1];
 })()`;
 

@@ -47,9 +47,20 @@ class BudgetBookSelectionTest(unittest.TestCase):
         ]
         place = {'예산': {'주소': 'https://example.go.kr/budget', '제목': '2026년 본예산',
                           '파일': files, '들어간글': []}}
-        group = 분할파일(place, 고르기(place, 2026), 2026)
+        group = 분할파일(place, 2026)
         self.assertEqual([f['주소'] for f, _ in group],
                          ['/2026/기획과.pdf', '/2026/문화과.pdf', '/2026/복지과.pdf'])
+
+    def test_department_names_and_click_only_buttons_are_split_candidates(self):
+        # 계룡: 부서 이름만 붙은 그림 단추 / 대구본청: href="#none" 단추가 fileName 으로만 갈린다
+        files = [{'이름': n, '주소': f'/_prog/dn00/?file_id={i}'} for i, n in enumerate(
+            ['세입예산사업명세서', '조직별 세출총괄표', '의회사무과', '본청(전략기획감사실~상하수도과)', '면동(두마면~금암동)'])]
+        place = {'예산': {'주소': 'https://gyeryong.go.kr/budget?list_fyr=2026', '파일': files, '들어간글': []}}
+        self.assertEqual([f['이름'] for f, _ in 분할파일(place, 2026)],
+                         ['의회사무과', '본청(전략기획감사실~상하수도과)', '면동(두마면~금암동)'])
+        files = [{'이름': f'2026_본예산_2_세출예산사업명세서_{i}_{n}.pdf', '주소': '#none'} for i, n in enumerate(['공보관', '행정국'])]
+        place = {'예산': {'주소': 'https://jumin.daegu.go.kr/budget', '파일': files, '들어간글': []}}
+        self.assertEqual(len(분할파일(place, 2026)), 2)
 
 
 if __name__ == '__main__':
