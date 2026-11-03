@@ -1,12 +1,19 @@
 # 국고보조금 받은 곳 — e나라도움 보조사업자 정보공시(bojo.go.kr) 최근 5년 목록과 상세(주소·국비/지방비/자부담)를 날마다 이어 받는다
 # (2026-10-26 사용자 「수집봇 만들어서 해봐. 최근 5년만 먼저」). 보탬e(fetch_grants.py)는 지방비 보조뿐이라 국비가 섞인 보조가 빠져 있었다.
-# 하루 290분까지 받고 멈춘다 — 다음 날 안 받은 줄부터 잇는다. 받은 것은 R2(국고보조/)에 둔다.
+# 한 번에 290분까지 받고 멈춘다 — 다음 번에 안 받은 줄부터 잇는다. 받은 것은 R2(국고보조/)에 둔다.
+# ⭐ 시간이 다 돼 멈췄으면 끝에서 자기를 다시 부른다(2026-11-03) — 6시간 예약이 깃허브에서 통째로 빠져(11-03 새벽 두 번)
+#    남은 것이 있는데 쉬었다. 다 받으면 시간 전에 끝나므로 고리가 저절로 멈추고 아래 예약만 남는다.
+#    고리가 끊기면(실패 등) bot-watch.yml 지킴이가 7시간 안 돈 것을 보고 다시 부른다.
 name: 국고보조 받은 곳
 
 on:
   schedule:
-    - cron: '0 0,6,12,18 * * *'  # 6시간마다(한국 3·9·15·21시) — 하루 한 번이면 5년치 상세에 3~4주라 늘렸다(2026-11-02). 겹치면 concurrency 가 줄 세운다
+    - cron: '17 0,6,12,18 * * *'  # 6시간마다(한국 3·9·15·21시 17분) — 정각은 깃허브가 붐벼 예약이 잘 빠진다(2026-11-03). 겹치면 concurrency 가 줄 세운다
   workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: write   # 끝에서 자기를 다시 부르기
 
 concurrency:
   group: national-grants
@@ -33,7 +40,10 @@ jobs:
         name: 목록·상세 받기
         timeout-minutes: 310
         continue-on-error: true
-        run: python -u scripts/fetch_national_grants.py --시간 290
+        shell: bash   # pipefail — 스크립트가 죽으면 여기서 빨갛게 멈추고 다시 부르지 않는다(헛도는 고리 막기)
+        run: |
+          python -u scripts/fetch_national_grants.py --시간 290 | tee fetch.log
+          if grep -q '시간이 다 돼 멈춘다' fetch.log; then echo more=1 >> "$GITHUB_OUTPUT"; fi
       - name: R2 로 올리기
         if: ${{ !cancelled() }}
         run: sh scripts/r2_sync.sh up data/national_grants 국고보조
@@ -49,3 +59,9 @@ jobs:
               상 = json.load(gzip.open(q, 'rt', encoding='utf-8')) if os.path.exists(q) else {}
               print(f'{해}: 목록 {len(줄):,}줄 · 상세 {len(상):,} · 주소 있는 것 {sum(1 for v in 상.values() if v.get("주소")):,}')
           PY
+      # 새 실행은 이 실행이 끝난 뒤에 시작한다(concurrency 가 줄 세움) — R2 올리기가 먼저 끝난다
+      - name: 남았으면 이어 부르기
+        if: ${{ !cancelled() && steps.fetch.outputs.more == '1' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run national-grants.yml --ref ${{ github.ref_name }}

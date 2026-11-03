@@ -1,0 +1,37 @@
+# 봇 지킴이 — 예약이 깃허브에서 빠져도 봇이 쉬지 않게, 한 시간마다 보고 안 돈 봇을 손으로 돌리듯 부른다.
+# 2026-11-03 새벽 날마다 수집(5:20)·국회 알림(5:50)·국고보조(3시) 예약이 대기 0·깃허브 정상인데도 아예 안 떴다.
+# 평소엔 예약이 3시간쯤 늦게 뜬다 — 그보다 더 늦으면 빠진 것으로 본다.
+# 늦게 뜬 예약과 겹쳐 한 번 더 돌아도 괜찮다: concurrency 가 줄 세우고, CLIK 은 하루 호출 수를 상태.json 으로 세며,
+# 알림은 새것만 보낸다. 지킴이 예약도 빠질 수 있지만 하루 스물네 번이라 몇 번 빠져도 된다. 정각은 붐벼서 37분.
+name: 봇 지킴이
+
+on:
+  schedule:
+    - cron: '37 * * * *'
+  workflow_dispatch:
+
+permissions:
+  actions: write
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - run: |
+          last() { date -d "$(gh run list -w "$1" -L 1 --json createdAt -q '.[0].createdAt // "1970-01-01T00:00:00Z"')" +%s; }
+          busy() { [ -n "$(gh run list -w "$1" -L 5 --json status -q '.[] | select(.status != "completed") | .status')" ]; }
+          kick() { echo "▶ $1 — $2"; gh workflow run "$1" --ref main; }
+          now=$(date +%s)
+          kst5=$(TZ=KST-9 date -d '05:00' +%s)   # 오늘 한국 시간 새벽 5시(시간대 자료 없이도 되는 꼴)
+
+          # 날마다 — 5시 뒤로 한 번도 안 돌았는데 9시 반(국회는 10시)이 지났으면
+          if [ $now -gt $((kst5 + 16200)) ] && [ $(last daily.yml) -lt $kst5 ] && ! busy daily.yml; then kick daily.yml '오늘 예약이 안 떴다'; fi
+          if [ $now -gt $((kst5 + 18000)) ] && [ $(last assembly.yml) -lt $kst5 ] && ! busy assembly.yml; then kick assembly.yml '오늘 예약이 안 떴다'; fi
+
+          # 국고보조 — 남았으면 스스로 이어 부른다(national-grants.yml 끝). 그 고리가 끊기고 6시간 예약도 빠졌을 때만
+          if [ $((now - $(last national-grants.yml))) -gt 25200 ] && ! busy national-grants.yml; then kick national-grants.yml '7시간 넘게 안 돌았다'; fi
+          echo 끝
