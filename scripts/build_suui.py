@@ -91,6 +91,7 @@ def main():
     못붙임 = collections.Counter()
     원이름 = {}   # 사업자번호 → 계약 원자료(corpList)의 업체 이름
     새서명 = set()   # 원계약 칸 있는 줄의 (곳, 날, 금액, 업체) — 아래에서 옛 꼴 짝꿍을 거른다
+    처음 = {}        # 원계약 → 처음 맺은 날
     for f in 파일:
         표 = 읽기(f)
         k = {n: j for j, n in enumerate(표['칸'])}
@@ -122,6 +123,8 @@ def main():
             if 원:
                 새서명.add((cd, 날, 금액, 번호))   # 차수마다 다 — 옛 꼴 짝꿍이 0차 날짜일 수도 있다
             키 = ('#', 원) if 원 else (r[k['기관']], 날, r[k['갈래']], 금액, r[k['총액']], 법, 사유, tuple(r[k['업체']] or ()), r[k['건']])   # 없으면 계약번호만 뺀 전부
+            if 원 and 날:
+                처음[키] = min(처음.get(키, 날), 날)
             옛 = 계약.get(키)
             if 옛 and (옛[-1], 옛[0]) > (차, 날):
                 continue
@@ -134,6 +137,11 @@ def main():
     #   2026 다시 받기(suui-refetch)가 끝나면 옛 꼴은 2024 뿐이라 이 거름은 거의 할 일이 없다
     for 키 in [키 for 키, v in 계약.items() if 키[0] != '#' and (v[1], v[0], v[2], v[6]) in 새서명]:
         del 계약[키]
+    # ⭐ 해는 처음 맺은 날로 센다 — 금액·사유는 마지막 차수 그대로. 마지막 차수 날을 쓰면 2025 에 맺고 2026 에 고친 계약이 2026 으로 넘어갔다
+    #    (2026-11-04: 2025 건수 0.69배·금액 0.91배인데 2026 은 0.88배·1.38배 — 22달 다 채우고 지방재정365 와 견줌)
+    for 키, 날 in 처음.items():
+        if 키 in 계약:
+            계약[키] = (날, *계약[키][1:])
     법이름 = {법: c.most_common(1)[0][0] for 법, c in 사유꼴.items()}
     셈 = collections.defaultdict(lambda: {'건수': 0, '금액': 0, '법': collections.Counter(), '법건': collections.Counter(), '동네': [0, 0, 0, 0]})   # 동네 = 건수
     첫날, 끝날 = min(x[0] for x in 계약.values() if x[0]), max(x[0] for x in 계약.values())
