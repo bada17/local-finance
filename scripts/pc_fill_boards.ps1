@@ -7,21 +7,25 @@ param([switch]$등록)
 $repo = Split-Path -Parent $PSScriptRoot
 if ($등록) {
   # 매달 3일 10시. 그때 PC 가 꺼져 있었으면 켜질 때 돈다(StartWhenAvailable)
+  # ⚠️ 시작은 전원이 꽂혀 있을 때지만, 돌다가 코드를 뽑아도 멈추지 않게 한다 — 2026-11-03 15:13 노트북 코드를 뽑자 4시간째에 끊겼다
   schtasks /Create /F /TN 'local-finance-boards' /SC MONTHLY /D 3 /ST 10:00 /TR "powershell.exe -NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" | Out-Null
-  $s = New-ScheduledTaskSettingsSet -StartWhenAvailable -ExecutionTimeLimit (New-TimeSpan -Hours 10)
+  $s = New-ScheduledTaskSettingsSet -StartWhenAvailable -DontStopIfGoingOnBatteries -ExecutionTimeLimit (New-TimeSpan -Hours 10)
   Set-ScheduledTask -TaskName 'local-finance-boards' -Settings $s | Out-Null
   Write-Output '등록함 — 작업 스케줄러 local-finance-boards, 매달 3일 10시'
   return
 }
 Set-Location $repo
 Start-Transcript -Path (Join-Path $env:TEMP 'local-finance-boards.log') -Append | Out-Null
+$결과 = 'data/board_posts.json', 'data/board_posts_council.json', 'data/post_files.json', 'data/post_read.json', 'data/expense_rows.json.gz', 'data/expense_summary.json', 'data/trip_reports.json'
+# 지난번에 끊겨 안 올라간 결과가 남아 있으면 pull 이 막혀 옛 자료로 돈다 — 버리고 봇 결과부터(못 읽은 것은 어차피 다시 본다)
+git restore -- $결과
 git pull --rebase -q
 if (Test-Path 'data\board_posts.json') {
   node scripts/fetch_boards.js --실패만
   node scripts/fetch_boards.js --의회 --실패만
   node scripts/fetch_post_files.js
   python scripts/read_post_files.py
-  git add data/board_posts.json data/board_posts_council.json data/post_files.json data/post_read.json data/expense_rows.json.gz data/expense_summary.json data/trip_reports.json
+  git add -- $결과
   git diff --cached --quiet
   if ($LASTEXITCODE -ne 0) {
     git commit -q -m "누리집 게시판 — 봇이 못 읽은 곳을 PC 에서 메움 · 글 안 파일 읽기 $(Get-Date -Format yyyy-MM-dd)"
