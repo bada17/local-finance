@@ -6,7 +6,7 @@ param([switch]$등록)
 $repo = Split-Path -Parent $PSScriptRoot
 if ($등록) {
   # 3월·10월 10일 10시. 그때 PC 가 꺼져 있었으면 켜질 때 돈다(StartWhenAvailable)
-  schtasks /Create /F /TN 'local-finance-disclosure' /SC MONTHLY /M MAR,OCT /D 10 /ST 10:00 /TR "powershell.exe -NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" | Out-Null
+  schtasks /Create /F /TN 'local-finance-disclosure' /SC MONTHLY /M MAR,OCT /D 10 /ST 10:00 /TR "powershell.exe -NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File `"$PSCommandPath`"" | Out-Null
   $s = New-ScheduledTaskSettingsSet -StartWhenAvailable -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -ExecutionTimeLimit (New-TimeSpan -Hours 5)   # 전원과 상관없이(pc_fill_boards.ps1)
   Set-ScheduledTask -TaskName 'local-finance-disclosure' -Settings $s | Out-Null
   Write-Output '등록함 — 작업 스케줄러 local-finance-disclosure, 3월·10월 10일 10시'

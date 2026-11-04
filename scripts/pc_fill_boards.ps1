@@ -8,7 +8,7 @@ $repo = Split-Path -Parent $PSScriptRoot
 if ($등록) {
   # 매달 3일 10시. 그때 PC 가 꺼져 있었으면 켜질 때 돈다(StartWhenAvailable)
   # ⚠️ 전원과 상관없이 돈다(2026-11-04 사용자) — 2026-11-03 15:13 노트북 코드를 뽑자 4시간째에 끊겼다
-  schtasks /Create /F /TN 'local-finance-boards' /SC MONTHLY /D 3 /ST 10:00 /TR "powershell.exe -NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" | Out-Null
+  schtasks /Create /F /TN 'local-finance-boards' /SC MONTHLY /D 3 /ST 10:00 /TR "powershell.exe -NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File `"$PSCommandPath`"" | Out-Null
   $s = New-ScheduledTaskSettingsSet -StartWhenAvailable -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -ExecutionTimeLimit (New-TimeSpan -Hours 10)
   Set-ScheduledTask -TaskName 'local-finance-boards' -Settings $s | Out-Null
   Write-Output '등록함 — 작업 스케줄러 local-finance-boards, 매달 3일 10시'
