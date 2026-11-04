@@ -367,7 +367,9 @@ async function load() {
       if (id === 'year') values.sort();
       $(`#${id}`).innerHTML = `<option value="">전체</option>${values.map(value => `<option value="${escape(value)}">${escape(value)}${id === 'year' ? '년' : ''}</option>`).join('')}`;
     }
-    $('#possible-count').textContent = `(${n(data.rows.filter(r => r.상태 === '놓쳤을 수 있음').length)}건)`;
+    const possibleCount = data.rows.filter(r => r.상태 === '놓쳤을 수 있음').length;
+    $('#possible-count').textContent = `(${n(possibleCount)}건)`;
+    $('#include-possible').closest('.possible-switch').style.display = possibleCount ? '' : 'none';
     $('#notes-content').innerHTML = `<p>${escape(description)}</p><ul>${data.meta.주의.map(note => `<li>${escape(note)}</li>`).join('')}<li>‘걸림’은 계약명으로 찾았다는 뜻이며, 검증을 마쳤다는 뜻이 아닙니다. 건수는 계약 수이며 회수기 대수가 아닙니다.</li><li>모든 금액·건수·몫은 현재 조건에 포함되는 원자료 행에서 계산합니다. 업체 묶음의 몫은 시장점유율이 아닙니다.</li><li>지자체는 코드로 중복을 제거합니다. 지도에 연결되지 않는 지역도 목록과 합계에는 포함합니다. ‘전남광주’는 원자료 표기를 보존해 별도 집계합니다.</li><li>경계 기준: ${map ? escape(map.source) : '지도 파일을 읽지 못했습니다.'}.</li></ul><p class="source-note">출처: 지방재정365 계약현황(WCEGCF), 수록 기간 ${escape(period.start)}~${escape(period.end)}.<br>원자료 합산의 정확성과 회수기 계약 분류의 확실성은 별개입니다. 숫자는 확정 전입니다. [신뢰도 보통]</p>`;
     render();
     $('#load-status').hidden = true;
