@@ -80,7 +80,7 @@ jobs:
       steps: ${{ toJSON(steps) }}   # 맨 끝 「알림」이 단계마다의 실패를 본다
     timeout-minutes: 120
     # ⚠️ 단계마다 시간 제한을 둔다 — 한 단계가 멈춰도 뒤의 낱말 알림·올리기는 돈다(2026-10-19: CLIK 받기가
-    #    2시간을 다 써서 일 전체가 잘렸다). 평소 걸리는 시간: 받기 30초 · 알림 30초 · 상세 15분 안팎.
+    #    2시간을 다 써서 일 전체가 잘렸다). 평소 걸리는 시간: 받기 5분(빠진 것 메우는 날은 30분까지) · 알림 30초 · 상세 15분 안팎.
     env:
       PYTHONUNBUFFERED: '1'   # 로그가 그때그때 찍히게 — 잘렸을 때 어디서 멈췄는지 보인다
     steps:
@@ -93,7 +93,7 @@ jobs:
         env:
           CLIK_KEY: ${{ secrets.CLIK_KEY }}
         continue-on-error: true
-        timeout-minutes: 20
+        timeout-minutes: 45
         run: python scripts/fetch_clik.py --limit 900
       - run: pip install -q holidays   # 주말·공휴일엔 알림 안 보냄(watch_clik.보내는날)
       # 낱말 알림(노들섬 · 서울시의회 등) — 낱말 하나에 2회. 상세가 남은 한도를 다 쓰므로 그보다 먼저.
