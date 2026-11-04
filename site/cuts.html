@@ -396,9 +396,6 @@ const 돈 = v => v >= 1e8 ? (v / 1e8).toLocaleString(undefined, {maximumFraction
 const 표 = (머리, 줄, 숫자칸 = []) => `<div class="scroll"><table><tr>${머리.map(h => `<th>${h}</th>`).join('')}</tr>${줄.map(r =>
   `<tr>${r.map((v, k) => `<td${숫자칸.includes(k) ? ' class="n"' : ''}>${v}</td>`).join('')}</tr>`).join('')}</table></div>`;
 let D;
-// 7번째 칸 「손」 = data/cuts_hand.json — 우리가 기사·회의록으로 찾아본 것(어느 감사·무엇·그 뒤). 행안부가 밝힌 연결은 아니다. 큰 건에만 있다.
-const 손글 = 손 => !손 ? '' : `<br><small>${손.확인 === '찾음' ? `우리가 찾아본 출처: <b>${esc(손.감사)}</b> — ${esc(손.무엇)} <b>그 뒤</b> ${esc(손.뒤)}`
-  : `<b>출처 못 찾음</b> — ${esc(손.메모)}`} ${손.근거.map(g => `<a href="${esc(g.주소)}" target="_blank" rel="noopener">${esc(g.제목)}</a>`).join(' · ')}</small>`;
 
 function 그리기() {
   const from = +$('from').value, sido = $('sido').value, q = $('q').value.trim();
@@ -427,7 +424,7 @@ function 그리기() {
       [`<a href="?cd=${c}">${esc(이름(c))}</a>`, `${v[0].size}가지`, v[1], 돈(v[2]), v[3]]), [1, 2, 3, 4]);
 
   h += `<h2>건마다</h2>` + 표(['해', '곳', '깎인 돈', '사유', '위반 지출 내역'],
-    건.map(([해, c, 금, 사, 내, , 손]) => [해, esc(이름(c)), 돈(금), esc(사), esc(내) + 손글(손)]), [0, 2]);
+    건.map(([해, c, 금, 사, 내]) => [해, esc(이름(c)), 돈(금), esc(사), esc(내)]), [0, 2]);
   $('out').innerHTML = h;
 }
 
