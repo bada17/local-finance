@@ -782,6 +782,7 @@ function 그리기() {
         </div>
         ${계[9] ? `<h4 style="margin-top:22px">무엇을 수의계약으로 맺었나</h4>        ${막대(Object.entries(계[9]).sort((x, y) => y[1][1] - x[1][1]).map(([n, [k, v]]) => [`${n} ${k.toLocaleString()}건`, v, 계[6] ? v / 계[6] * 100 : null]), 돈)}` : ''}
         ${수 ? `<h4 style="margin-top:22px">왜 수의계약으로 했나 — 법에 적힌 근거</h4>
+        <p class="note" style="margin:0 0 10px">나라장터에 올라온 계약 기준입니다.</p>
         ${막대(수[2].map(([b, n]) => [사유말(b), n, 수[0] ? n / 수[0] * 100 : null]), () => '')}
         <div id="suuiUp"></div>` : ''}
       </div></div>`;
