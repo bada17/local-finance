@@ -551,6 +551,7 @@
 "57355",
 "57356",
 "57359",
+"57360",
 "57366",
 "57370",
 "57371",
@@ -584,6 +585,7 @@
 "57511",
 "57512",
 "57521",
+"57530",
 "57534",
 "57536",
 "57539",
@@ -1299,6 +1301,17 @@
 "낱말": "미래대응기금",
 "횟수": 1,
 "보냄": true
+},
+{
+"갈래": "국정감사",
+"날짜": "2026-10-07",
+"제목": "제22대 제439회 개회식 교육위원회 (국정감사 회의록)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57360",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57360&type=summary",
+"번호": "57360",
+"낱말": "미래대응기금",
+"횟수": 6,
+"보냄": true
 }
 ],
 "의안": {
@@ -1333,5 +1346,5 @@
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199262&searchNoSeq=20261026199262"
 ],
 "본문": "html",
-"마지막성공": "2026-11-03"
+"마지막성공": "2026-11-04"
 }
