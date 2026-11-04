@@ -40,7 +40,12 @@ def 하루(day, key):
         return None, False
     try:
         rows, total = fetch('WCEGCF', {'smz_ctrt_ymd': day}, key)
-    except SystemExit:
+    except SystemExit as e:
+        # ⚠️ fetch 는 시간 초과도 SystemExit 로 올린다. 그것까지 「계약 없는 날」로 읽어
+        #    평일 파일이 0줄로 굳었다(2026-10-21, 20261020 — 실제로는 3,820줄). 파일이 없어야 다음 날 다시 받는다.
+        if 'INFO-200' not in str(e):
+            print(f'  {day} 못 받음 — 저장 안 함: {str(e)[:120]}')
+            return None, True
         rows, total = [], 0      # INFO-200 — 그날은 계약이 없다
     if total and len(rows) != total:
         print(f'  {day} {len(rows)}/{total} 덜 받았다 — 저장 안 함')
@@ -73,13 +78,17 @@ def main():
     끝 = date(int(까지[:4]), int(까지[4:6]), int(까지[6:]))
     print(f'계약 채우기 {부터} ~ {까지}' + (f' · 이번엔 {limit}일까지' if limit else ''))
 
-    부른날 = 건너뛴날 = 0
+    부른날 = 건너뛴날 = 내리실패 = 0
     행 = 0
     시각 = time.time()
     while d <= 끝:
         day = d.strftime('%Y%m%d')
         n, 불렀나 = 하루(day, key)
         if 불렀나:
+            내리실패 = 내리실패 + 1 if n is None else 0
+            if 내리실패 >= 3:        # 한 번 실패에 6분씩 걸린다 — 서버가 죽었으면 내일 다시
+                print(f'  세 날 내리 못 받았다. {day} 에서 멈춘다')
+                break
             부른날 += 1
             행 += n or 0
             if 부른날 % 20 == 0:

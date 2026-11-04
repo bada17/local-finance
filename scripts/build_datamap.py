@@ -252,7 +252,7 @@ def 자료훑기():
         표['계약'] = {'이름': '계약 원본', '있다': True, '출처': '지방재정365 WCEGCF',
                     '언제': f"{cs['범위']['첫날']}~{cs['범위']['끝날']}",
                     '얼마나': f'{건:,}건 · {보기좋게(총)}({수}일)',
-                    '어디': ['data/contracts/<날짜>.json.gz', 'data/contracts_summary.json',
+                    '어디': ['data/contracts/<날짜>.json.gz', 'data/contracts_late/<받은 날>.json.gz', 'data/contracts_summary.json',
                            'site/data/contracts/<코드>.json'],
                     '칸': ['계약명', '계약방법', '계약종류', '업체명', '계약금액', '하도급유무', '계약일자',
                           '수의계약 금액 비중', '상위 5개 업체 몫', '거래 업체 수'],

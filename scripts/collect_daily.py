@@ -12,6 +12,7 @@
 #                          원본이 필요하면 fetch_lofin.py 로 8분이면 다시 받는다.
 #
 # ⚠️ 한 번 실패했다고 지난 파일을 지우지 말 것. 못 받은 것은 없어졌다는 뜻이 아니다.
+# ⚠️ 어제 계약의 절반쯤은 아직 안 올라와 있다 — 늦게 오는 줄은 refresh_contracts.py 가 다시 받는다.
 
 import gzip
 import json

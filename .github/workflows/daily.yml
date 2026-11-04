@@ -67,10 +67,20 @@ jobs:
           LOFIN_KEY: ${{ secrets.LOFIN_KEY }}
         run: python scripts/backfill_contracts.py --limit 30
 
+      # 지자체는 계약을 며칠~몇 달 뒤에 올리고, 올린 뒤에도 고친다(2026-11-04 실측: 저장본이 9월 35%·10월 48% 모자랐다).
+      # 최근 120일은 날마다, 그보다 옛 날짜는 30일에 한 번 다시 받아 변경분만 data/contracts_late 에 쌓는다. 하루 150일쯤.
+      - name: 늦게 올라온 계약 다시 받기
+        id: late
+        if: ${{ !cancelled() }}
+        timeout-minutes: 70
+        env:
+          LOFIN_KEY: ${{ secrets.LOFIN_KEY }}
+        run: python -u scripts/refresh_contracts.py --분 60
+
       - name: 올리기
         id: push1
         if: ${{ !cancelled() }}
-        run: sh scripts/bot_push.sh "날마다 수집 · 지방재정365 $(date -u +%Y-%m-%d)" data/contracts data/spending
+        run: sh scripts/bot_push.sh "날마다 수집 · 지방재정365 $(date -u +%Y-%m-%d)" data/contracts data/contracts_late data/spending
 
   # 지방의정포털 CLIK — 하루 1,000회 한도. Secrets 에 CLIK_KEY 가 없으면 그냥 건너뛴다.
   # ⚠️ 날짜별 호출 수는 data/clik/상태.json 에 쌓인다. 손으로도 돌릴 거면 **먼저 pull 할 것**.

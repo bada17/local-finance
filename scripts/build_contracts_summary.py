@@ -70,6 +70,9 @@ try:
 except AttributeError:
     pass
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from refresh_contracts import 늦은줄읽기, 합친하루  # noqa: E402
+
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 IN = os.path.join(ROOT, 'data', 'contracts')
 OUT = os.path.join(ROOT, 'data', 'contracts_summary.json')
@@ -167,9 +170,10 @@ def main():
     수상한줄 = []
     금액없음 = 0
 
+    늦은 = 늦은줄읽기(ROOT)                          # 늦게 올라오거나 고쳐진 줄 — refresh_contracts.py
     for i, f in enumerate(files, 1):
         try:
-            rows = json.load(gzip.open(f, 'rt', encoding='utf-8'))
+            rows = 합친하루(os.path.basename(f)[:8], 늦은, ROOT)
         except Exception as e:                      # 빈 날·깨진 파일은 건너뛴다
             버린것 += 1
             print(f'   건너뜀 {os.path.basename(f)} — {e}')
