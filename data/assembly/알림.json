@@ -557,12 +557,14 @@
 "57371",
 "57372",
 "57373",
+"57375",
 "57383",
 "57385",
 "57386",
 "57389",
 "57390",
 "57391",
+"57398",
 "57419",
 "57426",
 "57431",
@@ -573,6 +575,7 @@
 "57451",
 "57452",
 "57453",
+"57454",
 "57462",
 "57470",
 "57471",
@@ -620,8 +623,11 @@
 "57595",
 "57611",
 "57612",
+"57613",
 "57614",
-"57630"
+"57630",
+"57650",
+"57651"
 ],
 "찾은것": [
 {
@@ -1312,6 +1318,69 @@
 "낱말": "미래대응기금",
 "횟수": 6,
 "보냄": true
+},
+{
+"갈래": "예결특위",
+"날짜": "2026-11-04",
+"제목": "제22대 제439회 제3차 예산결산특별위원회 (예산결산특별위원회 회의록)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57651",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57651&type=summary",
+"번호": "57651",
+"낱말": "미래대응기금",
+"횟수": 145,
+"보냄": true
+},
+{
+"갈래": "본회의",
+"날짜": "2026-11-02",
+"제목": "제22대 제439회 제11차 국회본회의 (2026년 11월 02일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57650",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57650&type=summary",
+"번호": "57650",
+"낱말": "미래대응기금",
+"횟수": 3,
+"보냄": true
+},
+{
+"갈래": "국정감사",
+"날짜": "2026-10-22",
+"제목": "제22대 제439회 개회식 재정경제기획위원회 (국정감사 회의록)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57398",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57398&type=summary",
+"번호": "57398",
+"낱말": "미래대응기금",
+"횟수": 19,
+"보냄": true
+},
+{
+"갈래": "보도자료",
+"날짜": "2026-11-03",
+"번호": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199679&searchNoSeq=20261103199679",
+"제목": "[노정현 수석대변인 브리핑] 지방재정 보장 없이 '모두의 성장' 불가능! 미래대응기금 편법 편성 바로잡아야!",
+"보기": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199679&searchNoSeq=20261103199679",
+"낱말": "미래대응기금",
+"횟수": 1,
+"보냄": true
+},
+{
+"갈래": "보도자료",
+"날짜": "2026-11-02",
+"번호": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199609&searchNoSeq=20261102199609",
+"제목": "김종훈 진보당 대표, 김민석 더불어민주당 대표 만나 미래대응기금 6대 요구안 전달, 초광역특구법 우려 표명",
+"보기": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199609&searchNoSeq=20261102199609",
+"낱말": "미래대응기금",
+"횟수": 1,
+"보냄": true
+},
+{
+"갈래": "보도자료",
+"날짜": "2026-11-01",
+"번호": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199561&searchNoSeq=20261101199561",
+"제목": "[전은수 원내대변인] 한은 총재 발언까지 비틀어 미래대응기금 흠집 내는 국민의힘, 미래세대에 미안해야 할 쪽은 누구입니까",
+"보기": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199561&searchNoSeq=20261101199561",
+"낱말": "미래대응기금",
+"횟수": 1,
+"보냄": true
 }
 ],
 "의안": {
@@ -1343,8 +1412,11 @@
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=198809&searchNoSeq=20261008198809",
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199027&searchNoSeq=20261022199027",
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199046&searchNoSeq=20261006199046",
-"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199262&searchNoSeq=20261026199262"
+"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199262&searchNoSeq=20261026199262",
+"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199561&searchNoSeq=20261101199561",
+"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199609&searchNoSeq=20261102199609",
+"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199679&searchNoSeq=20261103199679"
 ],
 "본문": "html",
-"마지막성공": "2026-11-04"
+"마지막성공": "2026-11-05"
 }
