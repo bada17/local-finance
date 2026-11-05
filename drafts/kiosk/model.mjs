@@ -2,6 +2,7 @@ export function selectRows(rows, filters = {}) {
   const query = (filters.query || '').trim().toLocaleLowerCase('ko');
   return rows.filter(row =>
     (filters.includePossible || row.상태 === '걸림') &&
+    (filters.category === '임차' || row.갈래 !== '임차') &&
     (!filters.year || row.해 === filters.year) &&
     (!filters.category || row.갈래 === filters.category) &&
     (!filters.item || row.품목 === filters.item) &&

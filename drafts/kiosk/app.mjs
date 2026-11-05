@@ -54,12 +54,14 @@ function replaceContent(root, html) {
 
 function summaryMetrics(rows) {
   const s = summarize(rows);
+  const leases = state.category ? [] : filtered({ category: '임차' });
+  const ls = summarize(leases);
   return `<div class="scope-line"><span class="scope-label">전국에서 찾은 계약</span><span class="scope-period">${escape(filtersDescription())} · ${state.includePossible ? '추가 확인 대상 포함' : '이름 거르기에 걸린 계약'}</span></div>
   <div class="metrics" aria-label="현재 조건의 전국 요약">
     <div class="metric"><div class="metric-label">계약 건수</div><div class="metric-value"><strong class="number" data-summary="count">${n(s.count)}</strong><span>건</span></div><div class="metric-note">계약 한 줄을 한 건으로 계산</div></div>
-    <div class="metric metric-amount"><div class="metric-label">계약금액 합계</div><div class="metric-value"><strong class="number" data-summary="amount">${n(Math.round(s.amount / 100000000 * 10) / 10)}</strong><span>억 원</span></div><div class="metric-note">${won(s.amount)} · 실제 지출액과 다를 수 있음</div></div>
+    <div class="metric metric-amount"><div class="metric-label">${state.category === '임차' ? '임차 별도 금액' : '계약금액 합계 · 임차 제외'}</div><div class="metric-value"><strong class="number" data-summary="amount">${n(Math.round(s.amount / 100000000 * 10) / 10)}</strong><span>억 원</span></div><div class="metric-note">${won(s.amount)} · 실제 지출액과 다를 수 있음</div></div>
     <div class="metric"><div class="metric-label">계약이 있는 지자체</div><div class="metric-value"><strong class="number" data-summary="municipalities">${n(s.municipalities)}</strong><span>곳</span></div><div class="metric-note">지자체 코드를 기준으로 중복 제외</div></div>
-  </div><p class="confidence">원자료 합산 기준 [신뢰도 높음] · 회수기 계약 범위는 검토 중</p>`;
+  </div>${leases.length ? `<p class="lease-separate">임차는 별도: ${n(ls.count)}건 · ${won(ls.amount)}. 위 합계와 지역·업체 비교에서 제외합니다. <button type="button" class="table-link" data-lease-view>임차 계약 보기 ↗</button></p>` : ''}<p class="confidence">원자료 합산 기준 [신뢰도 높음] · 회수기 계약 범위는 검토 중</p>`;
 }
 
 function annualChart(rows) {
@@ -100,7 +102,7 @@ function annualChart(rows) {
 }
 
 function annualPanel(rows) {
-  const categories = ['설치', '유지관리', '임차', '기타'].map(key => ({ key, ...summarize(rows.filter(r => r.갈래 === key)) }));
+  const categories = ['설치', '설치·부대', '유지관리', '프로그램'].map(key => ({ key, ...summarize(rows.filter(r => r.갈래 === key)) }));
   return `<section class="panel annual-panel panel-inner" aria-labelledby="annual-title">
     <div class="panel-heading"><h2 id="annual-title">설치와 유지관리, 해마다 나란히</h2><div class="segmented" aria-label="차트 기준"><button type="button" data-metric="amount" class="${state.metric === 'amount' ? 'active' : ''}" aria-pressed="${state.metric === 'amount'}">금액</button><button type="button" data-metric="count" class="${state.metric === 'count' ? 'active' : ''}" aria-pressed="${state.metric === 'count'}">건수</button></div></div>
     <p class="panel-subtitle">계약한 해 기준입니다. 막대를 누르면 그 해의 계약만 볼 수 있어요.</p>
@@ -167,6 +169,7 @@ function vendorPreview(rows) {
 }
 
 function renderOverview(rows) {
+  if (state.category === '임차') return `${summaryMetrics(rows)}<p class="dialog-note">임차는 구입·유지 합계 및 비교에서 분리한 별도 목록입니다.</p>${contractTable(rows)}`;
   return `${summaryMetrics(rows)}${attention()}${annualPanel(rows)}<div class="explore-grid">${regionPreview(rows)}${vendorPreview(rows)}</div>`;
 }
 
@@ -214,7 +217,48 @@ function renderVendors(rows) {
 function contractTable(rows, page = state.page, kind = 'main') {
   const sorted = [...rows].sort((a, b) => b.날.localeCompare(a.날) || b.금액 - a.금액);
   const shown = sorted.slice((page - 1) * pageSize, page * pageSize);
-  return `<div class="table-scroll"><table class="data-table contracts-table"><caption class="sr-only">계약 원자료 목록 · 계약일 내림차순</caption><thead><tr><th>계약한 날</th><th>지자체 / 계약명</th><th>업체</th><th>갈래 / 품목</th><th class="numeric">계약금액(원)</th><th>방법 / 상태</th></tr></thead><tbody>${shown.map(r => `<tr><td class="date number">${escape(r.날)}<span class="table-sub">계약한 해 ${escape(r.해)}</span></td><td class="contract-title"><button type="button" class="table-link" data-town="${escape(r.코드)}">${escape(r.지자체)} ↗</button><div class="contract-name">${escape(r.계약명)}</div><span class="table-sub">지자체 코드 ${escape(r.코드)}</span></td><td>${escape(r.업체)}<span class="table-sub">묶음: <button type="button" class="table-link" data-vendor="${escape(r.업체묶음)}">${escape(r.업체묶음)}</button></span></td><td>${tag(r.갈래)}<span class="table-sub">${escape(r.품목)}</span></td><td class="numeric number">${n(r.금액)}</td><td>${escape(r.방법)}<span class="table-sub">${r.상태 === '놓쳤을 수 있음' ? '<span class="tag possible">놓쳤을 수 있음</span>' : '걸림'}</span></td></tr>`).join('')}</tbody></table></div>${rows.length ? '' : empty()}${pagination(rows.length, page, kind)}`;
+  return `<div class="table-scroll"><table class="data-table contracts-table"><caption class="sr-only">계약 원자료 목록 · 계약일 내림차순</caption><thead><tr><th>계약한 날</th><th>지자체 / 계약명</th><th>업체</th><th>갈래 / 품목</th><th class="numeric">계약금액(원)</th><th>방법 / 상태</th></tr></thead><tbody>${shown.map(r => `<tr><td class="date number">${escape(r.날)}<span class="table-sub">계약한 해 ${escape(r.해)}</span></td><td class="contract-title"><button type="button" class="table-link" data-town="${escape(r.코드)}">${escape(r.지자체)} ↗</button><div class="contract-name">${escape(r.계약명)}</div>${contractFacts(r)}<span class="table-sub">지자체 코드 ${escape(r.코드)} · 원부 ${escape(r.계약원부번호)}</span></td><td>${escape(r.업체)}<span class="table-sub">묶음: <button type="button" class="table-link" data-vendor="${escape(r.업체묶음)}">${escape(r.업체묶음)}</button></span></td><td>${tag(r.갈래)}<span class="table-sub">${escape(r.품목)}</span></td><td class="numeric number">${n(r.금액)}</td><td>${escape(r.방법)}<span class="table-sub">${r.상태 === '놓쳤을 수 있음' ? '<span class="tag possible">놓쳤을 수 있음</span>' : '걸림'}</span></td></tr>`).join('')}</tbody></table></div>${rows.length ? '' : empty()}${pagination(rows.length, page, kind)}`;
+}
+
+function contractFacts(r) {
+  return `<div class="contract-facts">${r.갈래 === '설치' ? `<p>계약으로 확인된 구입 대수: ${r.구입대수 == null ? '미확인' : `${r.대수어림 ? '약 ' : ''}${n(r.구입대수)}대`}</p>` : ''}${r.계약기간 ? `<p>계약 기간: ${escape(r.계약기간)}</p>` : ''}${r.임차종류 ? `<p>임차 종류: ${escape(r.임차종류)}</p>` : ''}${r.월유지비 != null ? `<p>한 달 유지비: ${won(r.월유지비)} <small>(30일 환산 · ${n(r.월환산일수)}일 · ${escape(r.월환산기준)})</small></p>` : ''}${r.대당월유지비 != null ? `<p>1대당 한 달 유지비: ${won(r.대당월유지비)} <small>(해당 계약일까지 확인된 구입 ${n(r.월유지비구입대수)}대 기준)</small></p>` : ''}${r.특이사항 ? `<p class="contract-caution">${escape(r.특이사항)}</p>` : ''}</div>`;
+}
+
+function townStory(code) {
+  const t = data.towns?.[code];
+  if (!t) return '';
+  const all = data.rows.filter(r => r.코드 === code && r.상태 === '걸림');
+  const buy = all.filter(r => r.갈래 === '설치');
+  const extra = all.filter(r => r.갈래 === '설치·부대');
+  const leases = all.filter(r => r.갈래 === '임차');
+  const running = all.filter(r => ['유지관리', '프로그램'].includes(r.갈래));
+  const units = t['계약으로 확인된 구입 대수'];
+  const money = rows => summarize(rows).amount;
+  const cell = (label, value) => `<div><dt>${label}</dt><dd>${value}</dd></div>`;
+  const timeline = all.filter(r => r.갈래 !== '임차').sort((a,b) => a.날.localeCompare(b.날));
+  const sheetURL = 'https://docs.google.com/spreadsheets/d/1YPwfEwLxxSpmjMz24Lir3v_eVnH-h7U8cpbdB-NUDI8/edit#gid=3';
+  return `<section class="town-story" aria-label="곳별 구입과 유지 계약 연결">
+    <h3>얼마에 몇 대를 샀고, 그 뒤 누구에게 얼마가 계약됐나</h3>
+    <p class="story-scope">이곳 전체 계약 · 2015-01-01~2026-10-31 · 임차 별도. 아래 연결은 검색·연도·업체 필터와 관계없이 이곳의 전체 기간을 보여 줍니다.</p>
+    ${buy.length ? `<p class="purchase-line">회수기 구입 ${shortMoney(money(buy))} 원${units ? `에 ${t['구입 대수 어림 여부'] ? '약 ' : ''}${n(Number(units))}대` : ''}. 설치·부대 ${shortMoney(money(extra))} 원을 더한 합계는 ${shortMoney(Number(t['설치·공사(원)']))} 원입니다.</p>` : ''}
+    <dl class="story-metrics">
+      ${cell('회수기 구입', buy.length ? `${won(money(buy))} · ${n(buy.length)}건` : '표에 구입 계약 없음')}
+      ${cell('계약으로 확인된 구입 대수', units ? `${t['구입 대수 어림 여부'] ? '약 ' : ''}${n(Number(units))}대 <small>구입 ${escape(t['구입 계약 수'])}건 중 ${escape(t['대수 확인 구입 계약 수'])}건의 수량${t['구입 대수 어림 여부'] ? ' · 어림 포함' : ''}</small>` : '미확인')}
+      ${cell('설치·부대', `${won(money(extra))} · ${n(extra.length)}건`)}
+      ${cell('구입 + 설치·부대 합계', won(Number(t['설치·공사(원)'])))}
+      ${cell('유지관리·운영 · 프로그램 포함', won(Number(t['유지관리·운영(원)'])))}
+      ${t['유지÷설치(배)'] !== '' ? cell('유지비 ÷ 구입·부대비', `${escape(t['유지÷설치(배)'])}배`) : ''}
+      ${t['설치 뒤 햇수(2026-10-31)'] !== '' ? cell('첫 구입 계약부터 지난 햇수', `${escape(t['설치 뒤 햇수(2026-10-31)'])}년 <small>${escape(t['첫 구입 계약일'])}~2026-10-31</small>`) : ''}
+      ${t['유지관리 중 설치 업체 몫(%)'] !== '' ? cell('설치 업체의 유지 몫', `${escape(t['유지관리 중 설치 업체 몫(%)'])}%`) : ''}
+      ${t['첫 유지 계약까지(일)'] !== '' ? cell('첫 구입 → 첫 유지 계약', `${n(Number(t['첫 유지 계약까지(일)']))}일 <small>${escape(t['첫 구입 계약일'])} → ${escape(t['첫 유지 계약일'])}</small>`) : ''}
+    </dl>
+    <p class="story-note">배수와 설치 업체의 유지 몫은 <a href="${sheetURL}" target="_blank" rel="noopener noreferrer">지자체별 탭</a> 값을 그대로 표시합니다. 전주처럼 운영비가 기계값에 묶인 곳은 배수가 작게 나옵니다. 햇수의 시작은 실제 가동일이 아니라 첫 구입 계약일입니다.</p>
+    ${!running.length ? '<p class="no-upkeep">표에 유지 계약 없음</p>' : ''}
+    <h3>구입부터 유지 계약까지 · 계약일 순서</h3>
+    <p class="story-note">계약일·계약 기간·업체·계약금액을 이었습니다. 한 달 유지비는 금액÷같은 기준의 일수×30으로 환산한 값이며 실제 월별 지급액이 아닙니다. 일회성 수리와 기간 미확인은 월액을 비웁니다. 1대당 월액은 해당 계약일까지 대수가 모두 확인된 누적 구입 대수 기준이며 현재 가동 대수와 다릅니다.</p>
+    <ol class="contract-timeline">${timeline.map(r => `<li><div class="timeline-date number">${escape(r.날)} ${tag(r.갈래 === '설치' ? '구입' : r.갈래)}</div><div><strong>${escape(r.계약명)}</strong><p>${escape(r.업체)} · <span class="number">${won(r.금액)}</span></p>${contractFacts(r)}<small class="muted">원부 ${escape(r.계약원부번호)}</small></div></li>`).join('')}</ol>
+    ${leases.length ? `<details class="lease-separate"><summary>임차 별도 · ${n(leases.length)}건 · ${won(money(leases))}</summary><p>위 구입·유지 합계와 배수 비교에서 제외했습니다. 종류는 계약명으로 구분했습니다.</p>${leases.map(r=>`<article class="lease-contract"><strong>${escape(r.날)} · ${escape(r.계약명)}</strong><p>${escape(r.업체)} · ${won(r.금액)}</p>${contractFacts(r)}</article>`).join('')}</details>` : ''}
+  </section>`;
 }
 
 function renderContracts(rows) {
@@ -226,7 +270,7 @@ function renderContracts(rows) {
 
 function render() {
   const rows = filtered();
-  replaceContent($('#app'), ({ overview: renderOverview, regions: renderRegions, vendors: renderVendors, contracts: renderContracts })[state.view](rows));
+  replaceContent($('#app'), state.category === '임차' ? renderOverview(rows) : ({ overview: renderOverview, regions: renderRegions, vendors: renderVendors, contracts: renderContracts })[state.view](rows));
   document.querySelectorAll('.nav-tab').forEach(button => {
     const current = button.dataset.view === state.view;
     button.classList.toggle('active', current);
@@ -259,7 +303,7 @@ function renderDetail() {
   replaceContent($('#dialog-content'), `<header class="detail-header"><h2 id="detail-title" tabindex="-1">${escape(name)}</h2><p>${escape(filtersDescription())} · ${state.includePossible ? '추가 확인 대상 포함' : '‘걸림’ 상태만 집계'}${detail.vendor ? ` · 업체묶음 ${escape(detail.vendor)}` : ''}</p></header>
     <div class="detail-metrics"><div>계약금액 합계<strong>${shortMoney(s.amount)} 원</strong></div><div>계약 건수<strong>${n(s.count)}건</strong></div><div>${detail.type === 'vendor' ? '계약한 지자체' : '계약한 업체묶음'}<strong>${n(detail.type === 'vendor' ? s.municipalities : s.vendors)}곳</strong></div></div>
     <p class="dialog-note">정확한 합계 ${won(s.amount)} · 계약한 해 기준 · ${period.endYear}년은 ${period.endMonth}월까지<br>원자료 합산 기준 [신뢰도 높음] · 회수기 계약 범위는 검토 중</p>
-    ${detail.type === 'vendor' ? `<h3 class="dialog-section">어느 지자체와 계약했을까</h3><div class="dialog-town-table">${townTable(rows, detail.key, true)}</div><p class="dialog-note">금액 몫은 이 업체묶음의 현재 조건 계약금액 합계 기준입니다.</p>` : `${detail.vendor ? `<div class="dialog-context">${escape(detail.vendor)}와 맺은 계약만 보고 있습니다. <button type="button" class="table-link" data-town-all="${escape(detail.key)}">이 지자체의 모든 업체 계약 보기 ↗</button></div>` : ''}${contractTable(rows, state.detailPage, 'detail')}`}
+    ${detail.type === 'vendor' ? `<h3 class="dialog-section">어느 지자체와 계약했을까</h3><div class="dialog-town-table">${townTable(rows, detail.key, true)}</div><p class="dialog-note">금액 몫은 이 업체묶음의 현재 조건 계약금액 합계 기준입니다.</p>` : `${townStory(detail.key)}${detail.vendor ? `<div class="dialog-context">${escape(detail.vendor)}와 맺은 계약만 보고 있습니다. <button type="button" class="table-link" data-town-all="${escape(detail.key)}">이 지자체의 모든 업체 계약 보기 ↗</button></div>` : ''}<h3 class="dialog-section">현재 필터에 맞는 원자료 · 최신순</h3>${contractTable(rows, state.detailPage, 'detail')}`}
     <p class="dialog-note">‘수의’ 표기에 조달청 구매가 섞여 있습니다. 계약방법만으로 수의계약 여부를 단정하지 마세요.</p>`);
 }
 
@@ -283,6 +327,11 @@ function navigate(view) {
 }
 
 document.addEventListener('click', event => {
+  if (event.target.closest('[data-lease-view]')) {
+    $('#category').value = '임차';
+    updateFilters();
+    return;
+  }
   const target = event.target.closest('[data-view],[data-region],[data-town],[data-vendor],[data-metric],[data-year],[data-paging],[data-town-all]');
   if (!target || !data) return;
   if (target.hasAttribute('data-view')) navigate(target.dataset.view);
@@ -374,6 +423,7 @@ async function load() {
     render();
     $('#load-status').hidden = true;
     $('#app').hidden = false;
+    openLinkedTown();
   } catch {
     $('#load-status').className = 'load-state error';
     $('#load-status').innerHTML = '자료를 불러오지 못했습니다. 로컬 미리보기 서버에서 열었는지 확인해 주세요.<button type="button" id="retry">다시 불러오기 ↻</button>';
@@ -382,4 +432,9 @@ async function load() {
 }
 
 load();
+function openLinkedTown() {
+  const town = new URLSearchParams(location.hash.slice(1)).get('town');
+  if (town && data?.towns?.[town]) openDetail('town', town);
+}
+window.addEventListener('hashchange', openLinkedTown);
 window.matchMedia('(max-width: 480px)').addEventListener('change', () => { if (data && period) render(); });
