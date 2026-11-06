@@ -564,13 +564,16 @@
 "57389",
 "57390",
 "57391",
+"57392",
 "57398",
 "57419",
 "57426",
 "57431",
 "57433",
 "57434",
+"57435",
 "57438",
+"57444",
 "57450",
 "57451",
 "57452",
@@ -627,7 +630,9 @@
 "57614",
 "57630",
 "57650",
-"57651"
+"57651",
+"57690",
+"57693"
 ],
 "찾은것": [
 {
@@ -1381,6 +1386,39 @@
 "낱말": "미래대응기금",
 "횟수": 1,
 "보냄": true
+},
+{
+"갈래": "예결특위",
+"날짜": "2026-11-05",
+"제목": "제22대 제439회 제4차 예산결산특별위원회 (예산결산특별위원회 회의록)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57693",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57693&type=summary",
+"번호": "57693",
+"낱말": "미래대응기금",
+"횟수": 96,
+"보냄": true
+},
+{
+"갈래": "위원회",
+"날짜": "2026-11-03",
+"제목": "제22대 제439회 제5차 국회운영위원회 (2026년 11월 03일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57690",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57690&type=summary",
+"번호": "57690",
+"낱말": "미래대응기금",
+"횟수": 1,
+"보냄": true
+},
+{
+"갈래": "국정감사",
+"날짜": "2026-10-07",
+"제목": "제22대 제439회 개회식 산업통상자원중소벤처기업위원회 (국정감사 회의록)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57435",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57435&type=summary",
+"번호": "57435",
+"낱말": "미래대응기금",
+"횟수": 2,
+"보냄": true
 }
 ],
 "의안": {
@@ -1418,5 +1456,5 @@
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199679&searchNoSeq=20261103199679"
 ],
 "본문": "html",
-"마지막성공": "2026-11-05"
+"마지막성공": "2026-11-06"
 }
