@@ -21,8 +21,14 @@ export AWS_REQUEST_CHECKSUM_CALCULATION=when_required AWS_RESPONSE_CHECKSUM_VALI
 ep="https://$R2_ACCOUNT_ID.r2.cloudflarestorage.com"
 mkdir -p "$src"
 case $dir in
-  down) aws s3 sync "s3://$R2_BUCKET/$dst" "$src" --endpoint-url "$ep" --only-show-errors ;;
-  up)   aws s3 sync "$src" "s3://$R2_BUCKET/$dst" --endpoint-url "$ep" --only-show-errors ;;
+  down) from="s3://$R2_BUCKET/$dst"; to=$src ;;
+  up)   from=$src; to="s3://$R2_BUCKET/$dst" ;;
   *) echo "down 또는 up"; exit 1 ;;
 esac
+# 가끔 시간 초과로 한 파일이 실패한다(2026-11-05 국고보조 상세_2025). sync 는 안 맞는 파일만 다시 하므로 세 번까지 해 본다.
+for n in 1 2 3; do
+  aws s3 sync "$from" "$to" --endpoint-url "$ep" --only-show-errors && break
+  [ "$n" -lt 3 ] || exit 1
+  echo "R2 $dir 실패 — 다시 해 본다 ($n)"; sleep $((n * 30))
+done
 echo "R2 $dir — $src ($(ls "$src" | wc -l)개 파일)"

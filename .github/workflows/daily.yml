@@ -21,14 +21,41 @@ on:
 
 permissions:
   contents: write
+  actions: read     # gate 가 오늘 돈 실행을 본다
 
 concurrency:
   group: daily-collect
   cancel-in-progress: false
 
 jobs:
+  # ⭐ 지킴이가 먼저 돌린 날 늦게 뜬 예약은 건너뛴다(2026-11-05: 09:31 지킴이 실행이 다 받은 뒤 09:54 예약이 또 돌아
+  #    다시 받기 12분·CLIK 60회를 버리고, 올리기에서 같은 날 파일이 부딪혀 빨간불).
+  #    concurrency 가 줄 세우므로 여기 올 땐 앞 실행이 끝나 있다. 앞 실행이 실패했으면 그대로 돌고, 손으로 부른 실행은 늘 돈다.
+  # ⚠️ 이 문이 고장 나도 수집은 돈다(아래 갈래들의 `!= 'false'`) — 계약은 제일 중요한 일감이다.
+  gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      go: ${{ steps.check.outputs.go }}
+    steps:
+      - id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          EVENT: ${{ github.event_name }}
+        run: |
+          go=true
+          if [ "$EVENT" = schedule ]; then
+            kst5=$(date -u -d "@$(TZ=KST-9 date -d '05:00' +%s)" +%FT%TZ)   # 오늘 한국 시간 새벽 5시
+            n=$(gh run list -w daily.yml -L 5 --json conclusion,createdAt -q "[.[] | select(.conclusion == \"success\" and .createdAt >= \"$kst5\")] | length") || n=0
+            if [ "${n:-0}" != 0 ]; then go=false; echo '오늘 이미 돌았다 — 건너뛴다'; fi
+          fi
+          echo "go=$go" >> "$GITHUB_OUTPUT"
+
   # 지방재정365 — 계약·세출. 제일 중요한 갈래다(계약은 그날 안 받으면 소급이 안 된다).
   lofin:
+    needs: gate
+    if: ${{ !cancelled() && needs.gate.outputs.go != 'false' }}
     runs-on: ubuntu-latest
     outputs:
       steps: ${{ toJSON(steps) }}   # 맨 끝 「알림」이 단계마다의 실패를 본다
@@ -85,6 +112,8 @@ jobs:
   # 지방의정포털 CLIK — 하루 1,000회 한도. Secrets 에 CLIK_KEY 가 없으면 그냥 건너뛴다.
   # ⚠️ 날짜별 호출 수는 data/clik/상태.json 에 쌓인다. 손으로도 돌릴 거면 **먼저 pull 할 것**.
   clik:
+    needs: gate
+    if: ${{ !cancelled() && needs.gate.outputs.go != 'false' }}
     runs-on: ubuntu-latest
     outputs:
       steps: ${{ toJSON(steps) }}   # 맨 끝 「알림」이 단계마다의 실패를 본다
@@ -153,6 +182,8 @@ jobs:
 
   # 중앙투자심사 결과 — 한 해 4~8회 올라오는 한글 파일. 키가 없고 1분이면 끝나서 날마다 통째로 다시 읽는다.
   review:
+    needs: gate
+    if: ${{ !cancelled() && needs.gate.outputs.go != 'false' }}
     runs-on: ubuntu-latest
     outputs:
       steps: ${{ toJSON(steps) }}   # 맨 끝 「알림」이 단계마다의 실패를 본다
@@ -175,6 +206,8 @@ jobs:
   # 나라장터 「업체명 → 사업자번호」 — 빈 달을 날마다 조금씩 메운다. 급하지 않은 갈래다.
   # 스크립트가 스스로 50분에서 멈춘다(달 파일은 한 달 끝날 때마다 쓴다). 아래 70분은 뒷받침.
   bizno:
+    needs: gate
+    if: ${{ !cancelled() && needs.gate.outputs.go != 'false' }}
     runs-on: ubuntu-latest
     outputs:
       steps: ${{ toJSON(steps) }}   # 맨 끝 「알림」이 단계마다의 실패를 본다
@@ -220,8 +253,8 @@ jobs:
 
   # 실패 알림 — continue-on-error 로 「초록」인 단계 실패까지 텔레그램 한 통(scripts/notify_fail.py)
   alert:
-    needs: [lofin, clik, review, bizno]
-    if: ${{ always() }}
+    needs: [gate, lofin, clik, review, bizno]
+    if: ${{ always() && needs.gate.outputs.go != 'false' }}
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
