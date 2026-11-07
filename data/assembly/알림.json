@@ -590,6 +590,7 @@
 "57510",
 "57511",
 "57512",
+"57520",
 "57521",
 "57530",
 "57534",
@@ -631,6 +632,7 @@
 "57630",
 "57650",
 "57651",
+"57680",
 "57690",
 "57693"
 ],
@@ -1419,6 +1421,37 @@
 "낱말": "미래대응기금",
 "횟수": 2,
 "보냄": true
+},
+{
+"갈래": "예결특위",
+"날짜": "2026-11-06",
+"제목": "제22대 제439회 제5차 예산결산특별위원회 (예산결산특별위원회 회의록)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57680",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57680&type=summary",
+"번호": "57680",
+"낱말": "미래대응기금",
+"횟수": 27,
+"보냄": false
+},
+{
+"갈래": "보도자료",
+"날짜": "2026-11-06",
+"번호": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199875&searchNoSeq=20261106199875",
+"제목": "미래대응기금 지방교부세 산정방식 수정해야",
+"보기": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199875&searchNoSeq=20261106199875",
+"낱말": "미래대응기금",
+"횟수": 1,
+"보냄": false
+},
+{
+"갈래": "보도자료",
+"날짜": "2026-11-05",
+"번호": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199859&searchNoSeq=20261105199859",
+"제목": "미래대응기금 지역의 새로운 성장동력으로 이어져야",
+"보기": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199859&searchNoSeq=20261105199859",
+"낱말": "미래대응기금",
+"횟수": 1,
+"보냄": false
 }
 ],
 "의안": {
@@ -1453,8 +1486,10 @@
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199262&searchNoSeq=20261026199262",
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199561&searchNoSeq=20261101199561",
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199609&searchNoSeq=20261102199609",
-"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199679&searchNoSeq=20261103199679"
+"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199679&searchNoSeq=20261103199679",
+"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199859&searchNoSeq=20261105199859",
+"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199875&searchNoSeq=20261106199875"
 ],
 "본문": "html",
-"마지막성공": "2026-11-06"
+"마지막성공": "2026-11-07"
 }
