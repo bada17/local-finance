@@ -26,3 +26,6 @@ data/bizno/
 data/vendors/
 data/datagokr_file_list.json.gz
 data/datagokr_api_list.json.gz
+
+# 보탬e 지방보조금 원본도 R2(보탬e/)에 — 받은 곳에 사람 이름이 섞인다(2026-11-09). 달마다 굽기가 내려받아 쓰고 다시 올린다
+data/grants/
