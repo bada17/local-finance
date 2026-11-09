@@ -5,7 +5,7 @@ name: 페이지 올리기
 on:
   push:
     branches: [main]
-    paths: ['site/**', 'drafts/kiosk/**', '.github/workflows/pages.yml']
+    paths: ['site/**', '.github/workflows/pages.yml']
   workflow_dispatch:
 
 permissions:
@@ -26,8 +26,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - uses: actions/configure-pages@v6
-      # 무인 회수기 계약 화면(GPT 시안, 숫자 확정 전) — drafts/kiosk 를 /kiosk/ 로 같이 올린다. 메뉴엔 안 붙임
-      - run: mkdir -p site/kiosk && cp drafts/kiosk/{index.html,app.mjs,model.mjs,style.css,data.json,map.json} site/kiosk/
+      # 무인 회수기 화면(/kiosk/)은 2026-11-09 비공개 저장소 bada17/pet-recovery 로 떼어 냈다 — 웹에 안 올린다
       - uses: actions/upload-pages-artifact@v5
         with:
           path: site
