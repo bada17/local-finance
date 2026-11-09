@@ -786,7 +786,7 @@ function 그리기() {
         ${막대(수[2].map(([b, n]) => [사유말(b), n, 수[0] ? n / 수[0] * 100 : null]), () => '')}
         <div id="suuiUp"></div>` : ''}
       </div></div>`;
-  h += `<div id="grantUp"></div>`;
+  h += `<div id="grantUp"></div><div id="flowUp"></div>`;
 
   // 결과 묶음(세 줄 카드 · 두 가지 질문)은 통째로 숨겼다(2026-10-20 사용자 「둘 다 일단 주석처리」) —
   //   「많으면 문제」라는 잣대 없이 순위만 내걸고, 「몰아주나」 밑에 업체 실명이 붙어서. 잣대를 정하면 되살린다.
@@ -878,6 +878,28 @@ function 그리기() {
         <h4 style="margin-top:22px">많이 받은 열 곳</h4>
         ${y.받은곳.slice(0, 10).map(([이름, 금, 건, 업]) => `<details class="vend"><summary><b>${이름 === '비공개기관' ? '이름을 가린 곳' : esc(가림(이름, 업))}</b> ${돈(금)}</summary>
           <ul><li>${esc(업)}${건 > 1 ? ` 등 ${건.toLocaleString()}건` : ''}</li></ul></details>`).join('')}
+      </div></div>`;
+  }).catch(() => {});
+
+  // 나랏돈(국고보조)이 어떤 길로 왔나 — 기초만(2026-11-09, scripts/build_grants_flow.py). ⚠️ ②와 ③-구청은 같은 돈 — 더하지 않는다
+  fetch('data/grants_flow_2024.json').then(r => r.ok ? r.json() : null).then(F => {
+    const el = $('flowUp'), v = F && F.곳[cd]; if (!el || !v || 곳[i][0] !== cd) return;
+    const 칸 = k => (v['③'][k] || {국비: 0, 줄: 0});
+    const 줄 = (k, 말, 풀이) => `<div class="stat"><div class="k">${말}</div><div class="v">${돈(칸(k).국비)}</div><div class="rk">${칸(k).줄.toLocaleString()}건 · ${풀이}</div></div>`;
+    el.innerHTML = `<div class="grp"><h3>${F.해}년 나랏돈은 어떤 길로 왔나 <span class="chip done">결과</span></h3>
+      <div class="blk"><h4>${짧은이름(i)}이 받은 돈</h4>
+        <div class="stats">
+          <div class="stat"><div class="k">교부세 등(쓸 곳 안 정한 돈)</div><div class="v">${돈(v['①'].교부세등 + v['①'].조정교부금등)}</div><div class="rk">정부 ${돈(v['①'].교부세등)} · 시·도 조정교부금 ${돈(v['①'].조정교부금등)}</div></div>
+          <div class="stat"><div class="k">국고보조금(쓸 곳 정한 돈)</div><div class="v">${돈(v['②'].국고보조금등)}</div><div class="rk">결산서 세입</div></div>
+        </div>
+        <h4 style="margin-top:22px">${짧은이름(i)}에 주소를 둔 단체가 받은 국고보조금</h4>
+        <div class="stats">
+          ${줄('ⓑ', '구청·시청·군청을 거쳐', '위 국고보조금 안에 든 돈')}
+          ${줄('ⓒ', '시·도를 거쳐', '시·도 몫')}
+          ${줄('ⓐ', '정부가 단체에 바로', '주소만 여기 — 이 동네 몫이란 뜻은 아님')}
+          ${줄('ⓓ다른지역', '다른 지역 사업', '사업 이름에 다른 지역')}
+        </div>
+        <p class="note">e나라도움 보조사업자 공시와 지방재정365 세부사업 국비를 사업 이름으로 이었습니다. 위 칸들은 서로 더하지 않습니다.</p>
       </div></div>`;
   }).catch(() => {});
 }
