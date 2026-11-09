@@ -789,7 +789,7 @@ const 보조금캐시 = {};
 async function 보조금데이터(cd){
   if (!(cd in 보조금캐시)) {
     try {
-      const r = await fetch(`data/grants/${cd}.json`);
+      const r = await fetch(`data/grants/${cd}.json?privacy=1`);
       보조금캐시[cd] = r.ok ? await r.json() : null;
     } catch (e) { 보조금캐시[cd] = null; }
   }
@@ -798,23 +798,25 @@ async function 보조금데이터(cd){
 
 /* 보탬e 지방보조금 — 해를 박지 않는다. 받아 둔 마지막 해를 보여준다. */
 function 보조금칸(g){
-  if (!g) return `<h2>③ 보조금을 받아 간 곳</h2>
-    <p class="basis">이 자치단체의 보조금 자료가 없다. <code>data/grants/${지금곳}.json</code> 이 없다.</p>`;
+  if (g?.가림완료 !== true) return `<h2>③ 보조금을 받아 간 곳</h2>
+    <p class="basis">이 자치단체의 공개용 보조금 자료가 없습니다.</p>`;
   const 해 = Object.keys(g.해).sort().pop();
   const y = g.해[해];
-  const 줄 = y.받은곳.map(([이름, 금액, 건수, 사업], i) => `<tr>
+  const 받은곳 = y.받은곳;
+  const 상위 = y.상위몫;
+  const 줄 = 받은곳.map(([이름, 금액, 건수, 사업], i) => `<tr>
       <td class="yr">${i + 1}</td>
-      <td>${이름 === '비공개기관' ? `<span class="dim">비공개기관</span> <span class="tag">이름을 가렸다</span>` : 이름}</td>
+      <td>${글막기(이름)}</td>
       <td>${돈(금액)}<span class="raw">${n0(금액)}</span></td>
       <td>${n1(y.금액 ? 금액 / y.금액 * 100 : 0)}%</td>
       <td>${n0(건수)}</td>
-      <td class="dim">${사업}</td>
+      <td class="dim">${사업 ? 글막기(사업) : '—'}</td>
     </tr>`);
-  return `<h2>③ 보조금을 받아 간 곳<small>${해}년 사업(${y.공시끝날}까지 공시된 것) · ${n0(y.받은곳수)}곳이 ${n0(y.건수)}건 ${돈(y.금액)}.
-      상위 5곳이 ${n1(y.금액 ? y.상위몫 / y.금액 * 100 : 0)}%</small></h2>
-    <p class="basis">계약과 달리 <b>보조금은 받는 쪽 이름이 나온다.</b> 보탬e 지방보조금 공시를
-      받는 쪽(보탬e 기관 번호)별로 묶었다. 「가장 큰 사업」은 그 곳이 받은 것 가운데 금액이 제일 큰 사업이다.
-      ${y.비공개건수 ? `⚠️ <b>받는 쪽을 「비공개기관」으로 가린 것이 ${n0(y.비공개건수)}건 ${돈(y.비공개금액)}</b>
+  return `<h2>③ 보조금을 받아 간 곳<small>${글막기(해)}년 사업(${글막기(y.공시끝날)}까지 공시) · 전체 ${n0(y.건수)}건 ${돈(y.금액)}.
+      ${상위 && y.금액 ? `수혜처가 확인된 곳 중 상위 ${Math.min(5, 받은곳.length)}곳이 전체 금액의 ${n1(상위 / y.금액 * 100)}%` : ''}</small></h2>
+    <p class="basis">보탬e 지방보조금 공시를 받는 쪽(보탬e 기관 번호)별로 묶었다. 개인으로 보이는 이름은 가렸다.
+      「가장 큰 사업」은 그 곳이 받은 것 가운데 금액이 제일 큰 사업이다.
+      ${y.비공개건수 ? `<b>공시에서 받는 곳을 가린 것은 ${n0(y.비공개건수)}건 ${돈(y.비공개금액)}</b>
       (${n1(y.금액 ? y.비공개금액 / y.금액 * 100 : 0)}%)이다.` : ''}</p>
     ${table(['', '받은 곳', '금액', '몫', '건수', '가장 큰 사업'], 줄)}`;
 }
