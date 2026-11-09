@@ -35,7 +35,10 @@ OUT = os.path.join(ROOT, 'site', 'data', 'grants')
 # 보탬e 이름이 화면 목록과 다른 곳 — 인천 서구는 2026년 서해구로 이름이 바뀌었다
 딴이름 = {'인천서해구': '인천서구'}
 
-# 원자료에는 개인·단체 구분이 없다. 사업명에 이름이 들어가거나 '운영'으로 적혀도 기관의 근거가 되지 않는다.
+# 원자료에는 개인·단체 구분이 없다 — 이름 꼴(성+한두 글자)로 가른다.
+# 다만 사업명이 시설 운영·종사자 인건비면 받은 곳은 시설로 보고 이름을 둔다(2026-10-26 옛 화면 규칙, 11-09 사용자 「일단 해」).
+#   ponytail: 낱말 어림 — 개인이 운영하는 시설 이름이 운영자 이름과 같으면 드러난다. 이름 앞에 「개인」이 붙으면 늘 가린다
+시설사업 = re.compile(r'(복지|거주|요양|재활|양육|양로|보호)시설|운영|종사자|인건비|임금|병동|위탁|보호')
 성씨 = '김이박최정강조윤장임한오서신권황안송류전홍고문양손배백허유남심노하곽성차주우구민나진지엄채원천방공현함변염여추도소석선설마길연위표명기반왕금옥육인맹제모탁국어은편용예경봉사부가복태목형피두감음빈동온호범좌팽승간상갈견당화창'
 사람이름꼴 = re.compile(rf'(남궁|황보|제갈|선우|독고|사공|서문|[{성씨}])[가-힣]{{1,2}}')
 이름구분 = re.compile(r'[()[\],./:·–—-]+')
@@ -47,14 +50,26 @@ def 붙인글(문구):
     return ''.join(unicodedata.normalize('NFKC', 문구).split())
 
 
-def 이름에서개인찾기(이름):
+def 이름에서개인찾기(이름, 사업=''):
     이름 = 붙인글(이름)
     if 이름 in 확인한기관:
         return None
-    if 이름.startswith('개인'):
-        이름 = 이름.removeprefix('개인').lstrip('([:·-')
+    개인 = 이름.startswith('개인')
+    if 개인:
+        이름 = 이름.removeprefix('개인').lstrip('()[:·-')
+    elif 시설사업.search(붙인글(사업)):
+        return None
     앞말 = 이름구분.split(이름, maxsplit=1)[0]
+    if not 개인 and 이름[len(앞말):len(앞말) + 1] == ')':   # 「사복)」「재)」 — 법인 줄임말
+        return None
     return 사람이름꼴.fullmatch(앞말) if 앞말 not in 확인한기관 else None
+
+
+def 별칭식(별칭들):
+    # 앞뒤가 한글이 아닐 때만 — 「노인회」를 가렸다고 「대한노인회 ○○지회」까지 가리지 않게(2026-11-09, 낱말 중간을 뒤지면 1,197억이 가려졌다)
+    if not 별칭들:
+        return None
+    return re.compile(r'(?<![가-힣])(?:' + '|'.join(map(re.escape, sorted(별칭들, key=len, reverse=True))) + r')(?![가-힣])')
 
 
 def 화면이름(광역, 곳):
@@ -95,7 +110,7 @@ def main():
                 continue
             기관ID = r.get('pfmInstId')
             열쇠 = ('ID', 기관ID) if 기관ID else ('이름', 이름)
-            if 찾음 := 이름에서개인찾기(이름):
+            if 찾음 := 이름에서개인찾기(이름, r.get('pfmBizNm') or ''):
                 가릴낱말.add(찾음[0])
                 가린이름 = 찾음[1] + '**'
                 전에 = 가릴곳.setdefault(열쇠, 가린이름)
@@ -114,14 +129,10 @@ def main():
     # 개인으로 보이는 곳의 모든 별칭을 모아 다른 곳의 이름·사업명에 반복되어도 가린다.
     가릴별칭 = 가릴낱말 | {붙인글(이름) for 해들 in 곳별.values() for y in 해들.values()
                         for 열쇠, b in y['받은곳'].items() if 열쇠 in 가릴곳 for 이름 in b['이름꼴']}
-    긴별칭 = [re.escape(s) for s in sorted(가릴별칭) if len(s) > 2]
-    짧은별칭 = [re.escape(s) for s in sorted(가릴별칭) if len(s) <= 2]
-    긴문구 = re.compile('|'.join(긴별칭)) if 긴별칭 else None
-    짧은문구 = re.compile(r'(?<![가-힣])(?:' + '|'.join(짧은별칭) + r')(?![가-힣])') if 짧은별칭 else None
+    문구 = 별칭식(가릴별칭)
 
     def 별칭있음(글):
-        return (긴문구 and 긴문구.search(붙인글(글))) or (
-            짧은문구 and 짧은문구.search(unicodedata.normalize('NFKC', 글)))
+        return 문구 and 문구.search(unicodedata.normalize('NFKC', 글))
 
     os.makedirs(OUT, exist_ok=True)
     for cd, 해들 in 곳별.items():
@@ -147,5 +158,18 @@ def main():
     print(f'적음: site/data/grants/ {len(곳별)}곳')
 
 
+def 스스로검사():   # python scripts/build_grants.py --selftest (지어낸 이름)
+    assert 이름에서개인찾기('홍길동', '마을 축제')
+    assert 이름에서개인찾기('홍길동(홍길동농장)', '친환경 농자재')
+    assert not 이름에서개인찾기('홍길원', '아동복지시설 종사자 인건비')
+    assert 이름에서개인찾기('개인(홍길동)', '시설 운영')
+    assert not 이름에서개인찾기('사복)행복재활원', '프로그램 지원')
+    assert not 이름에서개인찾기('한국문화예술교육진흥원', '')
+    식 = 별칭식({'노인회', '홍길동'})
+    assert not 식.search('대한노인회 마포구지회')
+    assert 식.search('농장(홍길동)') and 식.search('홍길동 가옥 보수')
+    print('가림 규칙 검사 통과')
+
+
 if __name__ == '__main__':
-    main()
+    스스로검사() if '--selftest' in sys.argv else main()
