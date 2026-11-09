@@ -51,6 +51,14 @@ jobs:
             n=0; for f in $(cd "$1" && find . -type f); do cmp "$1/$f" "/tmp/back/$f"; n=$((n + 1)); done   # 사업자번호엔 일/ 아래 하루치가 있다
             echo "$2: $n 개 다 같다"
           done
+      # 2026-11-09 보탬e 지방보조금 원본(받은 곳 실명 섞임) — 저장소에서 빼기 전에 한 번(빠진 뒤엔 건너뜀)
+      - name: 보탬e 원본 올리기
+        run: |
+          [ -n "$(git ls-files data/grants | head -1)" ] || { echo '저장소에 보탬e 원본이 없다 — 건너뜀'; exit 0; }
+          sh scripts/r2_sync.sh up data/grants 보탬e
+          rm -rf /tmp/back && sh scripts/r2_sync.sh down /tmp/back 보탬e
+          n=0; for f in data/grants/*.json.gz; do cmp "$f" "/tmp/back/$(basename "$f")"; n=$((n + 1)); done
+          echo "보탬e: $n 개 다 같다"
       - name: 계약 원본 올리기
         run: |
           gh release view contracts-move > /dev/null 2>&1 || { echo '릴리스 contracts-move 없음 — 건너뜀'; exit 0; }

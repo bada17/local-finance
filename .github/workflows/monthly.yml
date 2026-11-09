@@ -56,7 +56,20 @@ jobs:
       - { id: indicators, name: 지표,       continue-on-error: true, run: python fetch_indicators.py }
       - { id: series,     name: 5년 추이,   continue-on-error: true, run: python fetch_series.py }
       - { id: revenue,    name: 세입 43종,  continue-on-error: true, run: python fetch_revenue.py }
-      - { id: grants,     name: 지방보조금, continue-on-error: true, run: python fetch_grants.py }
+      # 보탬e 지방보조금 원본은 R2(보탬e/)에만 있다(2026-11-09 — 받은 곳에 사람 이름이 섞여 공개 저장소에서 뺌).
+      #   못 받으면 받기·올리기·굽기를 다 건너뛴다 — 지난달 site/data/grants 가 그대로 남는다
+      - id: r2down_grants
+        name: 지방보조금 원본 — R2 에서 내려받기
+        continue-on-error: true
+        working-directory: .
+        run: sh scripts/r2_sync.sh down data/grants 보탬e && test "$(ls data/grants/*.json.gz | wc -l)" -ge 2
+      - { id: grants,     name: 지방보조금, if: "steps.r2down_grants.outcome == 'success'", continue-on-error: true, run: python fetch_grants.py }
+      - id: r2up_grants
+        name: 지방보조금 원본 — R2 로 올리기
+        if: ${{ !cancelled() && steps.r2down_grants.outcome == 'success' }}
+        continue-on-error: true
+        working-directory: .
+        run: sh scripts/r2_sync.sh up data/grants 보탬e
       - { id: cleaneye,   name: 지방공기업, continue-on-error: true, run: python fetch_cleaneye.py }
       - { id: edu,        name: 교육청,     continue-on-error: true, run: python fetch_edu.py }
       - { id: items,      name: 재료표 API 12종, continue-on-error: true, run: python fetch_items.py }
@@ -96,7 +109,7 @@ jobs:
       - { id: contracts,  name: 계약 요약(전수),  if: "steps.r2down_big.outcome == 'success'", continue-on-error: true, run: python build_contracts_summary.py }
       - { id: model,      name: 자치단체별 지표,  continue-on-error: true, run: python build_model_data.py --all }
       - { id: ongoing,    name: 진행 중인 사업,   continue-on-error: true, run: python build_ongoing.py --all }
-      - { id: b_grants,   name: 보조금 화면 자료, continue-on-error: true, run: python build_grants.py }
+      - { id: b_grants,   name: 보조금 화면 자료, if: "steps.r2down_grants.outcome == 'success'", continue-on-error: true, run: python build_grants.py }
       - { id: b_revenue,  name: 세입 판,          continue-on-error: true, run: python build_revenue.py }
       - { id: dashboard,  name: 대시보드,         continue-on-error: true, run: python build_dashboard.py }
       - { id: b_clik,     name: 지방의회,         continue-on-error: true, run: python build_clik.py }
@@ -122,7 +135,7 @@ jobs:
         working-directory: .
         run: >-
           sh scripts/bot_push.sh "달마다 화면 굽기 $(date -u +%Y-%m)"
-          site data/indicators data/series.json data/revenue data/grants data/cleaneye data/edu data/items data/subsidy_contracts.json.gz data/contracts_summary.json
+          site data/indicators data/series.json data/revenue data/cleaneye data/edu data/items data/subsidy_contracts.json.gz data/contracts_summary.json
 
       - id: pages
         name: 페이지 다시 올리기
