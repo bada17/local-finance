@@ -59,7 +59,7 @@
   @media (max-width:640px){ .wrap{padding-inline:16px} }
   h1,h2,h3,.t{font-family:var(--title); font-weight:700; letter-spacing:-.022em; line-height:1.35}
   :focus-visible{outline:2px solid var(--deep); outline-offset:2px}
-  .tbd{display:inline-flex; align-items:center; gap:4px; border-radius:999px; font:600 12px var(--body); padding:2px 10px; color:var(--flag); background:var(--flag-bg); border:1px solid var(--flag-line)}
+  .tbd{display:inline-flex; align-items:center; gap:4px; border-radius:999px; font:600 12px var(--body); padding:2px 10px; color:var(--deep); background:var(--tint); border:1px solid var(--line)}
   .btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; border-radius:999px; font:700 15px var(--button); padding:12px 22px; border:1px solid var(--deep); background:var(--deep); color:var(--on-deep); cursor:pointer; white-space:nowrap; text-decoration:none}
   .btn.line{background:transparent; color:var(--deep)}
   .btn.sky{background:var(--brand); border-color:var(--brand); color:var(--navy)}
@@ -107,18 +107,25 @@
   .sec-hd h2{font-size:clamp(24px,3vw,32px); margin:0}
   .sec-hd p{margin:6px 0 0; color:var(--soft)}
 
-  /* 두 쪽 — 머리 밑 바로 가기 · 쪽 머리 · 해 묶음 · 덩이 (2026-10-20 배치) */
-  .jump{display:grid; grid-template-columns:1fr 1fr; border-bottom:1px solid var(--line)}
-  .jump a{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:20px 0; text-decoration:none; color:var(--ink); font:700 18px var(--title)}
+  /* 머리 밑 바로 가기 · 쪽 머리 · 해 묶음 · 덩이 */
+  .jump{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); border-bottom:1px solid var(--line)}
+  .jump a{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:20px 16px 20px 0; text-decoration:none; color:var(--ink); font:700 18px var(--title)}
   .jump a + a{padding-left:24px; border-left:1px solid var(--line)}
   .jump a small{display:block; font:400 14px var(--body); color:var(--soft); margin-top:2px; letter-spacing:0}
   .jump i{font-size:22px; color:var(--deep); flex:none}
   .jump a:hover span{color:var(--deep)}
-  @media (max-width:560px){ .jump{grid-template-columns:1fr} .jump a + a{padding-left:0; border-left:0; border-top:1px solid var(--line)} }
+  @media (max-width:640px){ .jump{grid-template-columns:1fr} .jump a{padding-right:0} .jump a + a{padding-left:0; border-left:0; border-top:1px solid var(--line)} }
   section.part{padding:64px 0 8px; scroll-margin-top:68px}
   .part-hd{display:flex; align-items:baseline; gap:14px; padding-bottom:16px; border-bottom:2px solid var(--ink)}
   .part-hd .no{font:700 16px var(--title); color:var(--deep)}
   .part-hd h2{font-size:clamp(28px,3.6vw,40px); margin:0}
+  #나간곳{scroll-margin-top:68px}
+  .town-stage{padding:0; margin-top:56px; scroll-margin-top:68px}
+  .town-stage > .grp{padding-top:24px}
+  #grantUp:empty, #flowOutside:empty{display:none}
+  #flowOutside{padding:clamp(16px,3vw,32px); background:var(--band); border-top:1px solid var(--line)}
+  #flowOutside h2{font-size:clamp(20px,2.6vw,28px); margin:0}
+  #flowOutside .desc{margin:4px 0 16px; color:var(--soft)}
   .grp{padding-top:44px}
   .grp > h3{display:flex; align-items:center; gap:10px; flex-wrap:wrap; font-size:22px; margin:0 0 18px}
   .chip{display:inline-flex; font:700 12px var(--body); letter-spacing:0; padding:3px 10px; border-radius:999px; background:var(--tint); color:var(--deep)}
@@ -149,7 +156,7 @@
   .stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:var(--corner); overflow:hidden}
   .stat{background:var(--card); padding:20px 22px; display:flex; flex-direction:column; gap:4px}
   .stat .k{font-size:14px; font-weight:600; color:var(--soft)}
-  .stat .v{font:800 30px/1.2 var(--body); letter-spacing:-.03em}
+  .stat .v{font:800 30px/1.2 var(--body); letter-spacing:-.03em; font-variant-numeric:tabular-nums}
   .stat.big .v{font-size:clamp(36px,4.4vw,52px)}
   .stat .rk{font-size:13px; color:var(--soft)}
   .stat .meter{height:6px; background:var(--paper); margin:6px 0 4px; border-radius:3px; overflow:hidden}
@@ -247,13 +254,8 @@
   @media (prefers-reduced-motion:reduce){ .reveal{opacity:1; transform:none; transition:none} .map svg.town{animation:none} html{scroll-behavior:auto} }
   .loading{padding:160px 0; color:var(--soft)}
   :root[data-part]{
-    --brand:#e07a5f; --deep:#b4583f; --tint:#fff0e5; --band:#fff3e2; --navy:#4f3f35;
-    --ink:#4f3f35; --soft:#7a6655; --faint:#9a8675; --line:#ecdcbc; --paper:#fff7e6;
-    --flag:#b4583f; --flag-bg:#fff0e5; --flag-line:#edc2b5;
-    --ground:#fff7e6; --card:#fffcf3; --on-navy:#fffaf0; --on-deep:#fffaf0;
     --title:'Jua','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;
-    --body:'Pretendard Variable','Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;
-    --button:var(--title); --corner:18px; --corner-small:12px;
+    --button:var(--title);
   }
   /* 게임 안(?part=) — 머리 띠·동네 이름 머리·바로가기·다른 쪽·공통 하단(후원 띠)·작업대 링크는 감춘다. 동네는 게임이 고른다 */
   [data-part] header.top, [data-part] .hero, [data-part] .jump, [data-part] #ah-foot, [data-part] .links,
@@ -664,8 +666,7 @@ function 그리기() {
     <div class="map" role="img" aria-label="${esc(D.이름[i])} 모양">${모양(cd)}${점}</div>
   </div></div>`;
 
-  // 짜임(2026-10-19 사용자 「너가 말한 안으로 가자」): 머리(이름·인구) → 「돈이 어디서 오나」 → 「돈을 어디에 쓰나」.
-  // 쪽마다 감시 거리 · 올해 계획 · 실제 결과, 연도는 묶음 제목에. 게임 「마을 곳간」은 오나, 「지방정부 예산」은 쓰나 쪽을 띄운다.
+  // 들어온 돈 → 쓴 돈 → 나간 곳 → 참고. 게임 「마을 곳간」은 오나, 「지방정부 예산」은 나간 곳까지 포함한 쓰나 쪽을 띄운다.
   // 2026-10-20 배치(사용자 「일단 애들 다 배치해봐」): 맨 표를 숫자 칸(.stat)·막대(.bar)로 바꿨다. 담긴 내용·차례는 그대로.
   // 2025년 최종예산(추경 뒤) 자립도·자주도 줄은 뺐다 — 계획(올해)도 결과(결산)도 아닌 해라 섞인다. 표(finance.html)엔 있다
   // 숫자 칸 하나 — 묶음(해·기준)과 다른 자료면 작게 해·기준을 단다. 바늘(%)은 0~100 막대
@@ -686,14 +687,15 @@ function 그리기() {
     return `<div class="bars">${칸들.map((칸, k) => { const 아래 = 속[줄들[k][0]];
       return 아래 ? `<details class="sub"><summary>${칸}</summary>${막대(아래.map(([n, v]) => [n, v, 줄들[k][1] ? v / 줄들[k][1] * 100 : null]), 돈)}</details>` : 칸; }).join('')}</div>`; };
 
-  h += `<div class="wrap"><nav class="jump" aria-label="이 페이지 두 쪽">
-    <a href="#오나"><span>돈이 어디서 오나<small>세금, 나라와 시·도에서 받는 돈, 빌린 돈</small></span><i class="ph ph-arrow-down"></i></a>
-    <a href="#쓰나"><span>돈을 어디에 쓰나<small>분야마다 얼마를 짰는지</small></span><i class="ph ph-arrow-down"></i></a>
+  h += `<div class="wrap"><nav class="jump" aria-label="동네 살림 바로가기">
+    <a href="#오나"><span>들어온 돈<small>세금 · 위에서 받은 돈 · 빚</small></span><i class="ph ph-arrow-down"></i></a>
+    <a href="#쓰나"><span>쓴 돈<small>분야별 예산 · 집행</small></span><i class="ph ph-arrow-down"></i></a>
+    <a href="#나간곳"><span>나간 곳<small>보조금 · 계약</small></span><i class="ph ph-arrow-down"></i></a>
   </nav></div>`;
 
   // ── 돈이 어디서 오나 ── 교부세가 깎인 기록은 뺐다(2026-10-26 사용자, cuts.html 은 작업대에 그대로)
   h += `<section id="오나" class="part"><div class="wrap">
-    <div class="part-hd"><span class="no">01</span><h2>돈이 어디서 오나</h2></div>
+    <div class="part-hd"><span class="no">01</span><h2>들어온 돈</h2></div>
 
     <div class="grp"><h3>${D.예산연도}년 계획 <span class="chip">예산</span></h3>
       <div class="stats">
@@ -727,11 +729,12 @@ function 그리기() {
             return `<div class="stat"><div class="k">${x.연도}년 말 남은 빚</div><div class="v">${금 ? 돈(금) : '없음'}</div>${금 ? `<div class="rk">그해 예산의 ${퍼(x.비율[i])}</div>` : ''}</div>`; })()}
         </div></div>
     </div>
+    <div id="flowIncome"></div>
   </div></section>`;
 
   // ── 돈을 어디에 쓰나 ── 올해 계획 → 결과(세 줄 카드 · 두 가지 질문)
   h += `<section id="쓰나" class="part"><div class="wrap">
-    <div class="part-hd"><span class="no">02</span><h2>돈을 어디에 쓰나</h2></div>
+    <div class="part-hd"><span class="no">02</span><h2>쓴 돈</h2></div>
     <div class="grp"><h3>${D.예산연도}년 계획 <span class="chip">예산</span></h3>
       <div class="stats">
         <div class="stat big"><div class="k">예산 총액</div><div class="v">${돈(지['세출예산 총액'].금액[i])}</div>
@@ -765,7 +768,7 @@ function 그리기() {
                    const 합 = 줄.reduce((s, r) => s + r[1], 0); return 막대(줄.map(([n, v]) => [n, v, 합 ? v / 합 * 100 : null]), 돈); })()}` : ''}
       </div>`;
   */
-  h += `</div>`;
+  h += `</div><div id="나간곳"><section class="town-stage" id="grantUp"></section>`;
 
   // 수의계약(2026-10-16 사용자 답 4) — 「경쟁 없이」는 1인 견적만. 순위는 안 붙인다. 업체 이름은 공개된 것이라 싣는다(2026-10-26 사용자)
   //   「어디 업체와 맺었나」(주소로 가른 동네 몫)는 뺐다(2026-10-26 사용자 「필요없을듯」) — suui.json 엔 남아 있다
@@ -773,7 +776,9 @@ function 그리기() {
   //   사유는 나라장터 비율만 낸다 — 2026-11-04 원계약 하나로 다시 세니 2025 금액은 지방재정365 의 1.05배로 맞지만 건수는 0.72배, 곳마다 10~90% 0.39~1.11.
   //   ponytail: 빠진 것은 소액에 몰렸다(365 물품·용역 2,200만 이하 54% ↔ 나라장터 「2천만원 이하」 45%) — 곳마다 나라장터에 올라온 계약 안의 비율이다
   const 수 = D.수의 && D.수의[i], 건 = v => v.toLocaleString() + '건';
-  if (계) h += `<div class="grp"><h3>${D.계약해}년 계약 <span class="chip done">결과</span></h3>
+  if (계) h += `<section class="town-stage">
+    <div class="part-hd"><span class="no">04</span><h2>나간 곳 ② 업체와 맺은 계약</h2></div>
+    <div class="grp"><h3>${D.계약해}년 계약 <span class="chip done">결과</span></h3>
       <div class="blk"><h4>수의계약</h4>
         <div class="stats">
           <div class="stat"><div class="k">수의계약</div><div class="v">${돈(계[6])}</div><div class="rk">계약 ${돈(계[4])} 가운데 ${퍼(계[3], 0)} · ${계[1].toLocaleString()}건</div></div>
@@ -785,8 +790,8 @@ function 그리기() {
         <p class="note" style="margin:0 0 10px">나라장터에 올라온 계약 기준입니다.</p>
         ${막대(수[2].map(([b, n]) => [사유말(b), n, 수[0] ? n / 수[0] * 100 : null]), () => '')}
         <div id="suuiUp"></div>` : ''}
-      </div></div>`;
-  h += `<div id="grantUp"></div><div id="flowUp"></div>`;
+      </div></div></section>`;
+  h += `</div><section class="town-stage" id="flowOutside"></section>`;
 
   // 결과 묶음(세 줄 카드 · 두 가지 질문)은 통째로 숨겼다(2026-10-20 사용자 「둘 다 일단 주석처리」) —
   //   「많으면 문제」라는 잣대 없이 순위만 내걸고, 「몰아주나」 밑에 업체 실명이 붙어서. 잣대를 정하면 되살린다.
@@ -835,6 +840,7 @@ function 그리기() {
     <p>자료:지방재정365(공공누리 1유형) 지표 ${D.결산연도} 결산·${D.예산연도} 예산, 세부사업별 세출현황(${D.진행기준.slice(0, 4)}년 ${진행날()} 기준), 계약현황 ${D.계약해}년(우리가 건별로 셈) · 보탬e 지방보조금 공시. 「몇 위」는 같은 갈래(광역·시·군·구)끼리 반올림하기 전 비율로 견준 것이고, 비율의 분모는 지방재정365가 지표마다 정한 것 그대로입니다. 「일반회계 주민 1명당」은 지방재정365 「1인당 세출예산액」(일반회계 ÷ 인구)이고, 인구도 그 지표가 쓴 ${D.예산연도} 예산의 인구입니다.</p>
     <p class="links"><a href="finance.html#${cd}">자치단체별 숫자 전부</a> · <a href="work.html">작업대(검증 중인 화면들)</a></p>
     <p>지도: ${esc(S.출처)}</p>
+    <p>나랏돈 길: e나라도움 보조사업자 공시와 지방재정365 세부사업 국비를 사업 이름으로 연결했습니다.</p>
     <p><span class="tbd">시험판</span> 다듬는 중인 화면입니다. 숫자는 달마다 새 자료로 다시 굽습니다(${esc(D.만든날)} 구움).</p>
   </details></div></footer>`;
 
@@ -864,42 +870,52 @@ function 그리기() {
     if ((업 || '').includes(n) || /(복지|거주|요양|재활|양육|양로|보호)\s*시설|운영|종사자|인건비|병동|위탁|보호/.test(업 || '')) return n;
     return n.slice(0, 두성 ? 2 : 1) + '**';
   };
-  fetch(`data/grants/${cd}.json`).then(r => r.ok ? r.json() : null).then(g => {
-    const el = $('grantUp'); if (!g || !el || 곳[i][0] !== cd) return;
-    const 해 = Object.keys(g.해).sort().pop(), y = g.해[해];
-    if (!y.금액) return;
-    el.innerHTML = `<div class="grp"><h3>${해}년 보조금 <span class="chip done">결과</span></h3>
-      <div class="blk"><h4>누가 보조금을 받았나</h4>
-        <div class="stats">
-          <div class="stat"><div class="k">지방보조금</div><div class="v">${돈(y.금액)}</div><div class="rk">${y.받은곳수.toLocaleString()}곳 · ${y.건수.toLocaleString()}건</div></div>
-          <div class="stat"><div class="k">많이 받은 다섯 곳</div><div class="v">${퍼(y.상위몫 / y.금액 * 100, 0)}</div><div class="rk">보조금 ${돈(y.상위몫)}</div></div>
-          ${y.비공개건수 ? `<div class="stat"><div class="k">받은 곳을 가린 것</div><div class="v">${돈(y.비공개금액)}</div><div class="rk">보조금의 ${퍼(y.비공개금액 / y.금액 * 100)} · ${y.비공개건수.toLocaleString()}건</div></div>` : ''}
-        </div>
-        <h4 style="margin-top:22px">많이 받은 열 곳</h4>
-        ${y.받은곳.slice(0, 10).map(([이름, 금, 건, 업]) => `<details class="vend"><summary><b>${이름 === '비공개기관' ? '이름을 가린 곳' : esc(가림(이름, 업))}</b> ${돈(금)}</summary>
-          <ul><li>${esc(업)}${건 > 1 ? ` 등 ${건.toLocaleString()}건` : ''}</li></ul></details>`).join('')}
-      </div></div>`;
-  }).catch(() => {});
+  const 읽기 = url => fetch(url).then(r => r.ok ? r.json() : null).catch(() => null);
+  const 청 = {구: '구청', 시: '시청', 군: '군청'}[c[3]];
+  // 인천 동구는 개편 전후의 단체 보조사업을 나눌 수 없어 나랏돈 칸에서 제외한다.
+  const flow = 청 && cd !== '2812000' ? 읽기('data/grants_flow_2024.json') : null;
+  Promise.all([읽기(`data/grants/${cd}.json`), flow]).then(([g, F]) => {
+    if (곳[i][0] !== cd) return;
+    const 해 = Object.keys(g?.해 || {}).sort().pop(), y = g?.해?.[해];
+    const v = F?.곳?.[cd];
+    if (!y?.금액 && !v) return;
+    const 보탬해 = `<span class="chip">${esc(해)}년</span>`;
+    const 나랏해 = `<span class="chip">${esc(F?.해)}년 결산</span>`;
+    const 돈칸 = (이름, 금액, 풀이) => `<div class="stat"><div class="k">${이름} ${나랏해}</div>
+      <div class="v">${돈(금액)}</div><div class="rk">${풀이}</div></div>`;
+    const 길칸 = (k, 이름, 풀이) => {
+      const {국비 = 0, 줄 = 0} = v['③'][k] || {};
+      return 돈칸(이름, 국비, `${줄.toLocaleString()}건 · ${풀이}`);
+    };
 
-  // 나랏돈(국고보조)이 어떤 길로 왔나 — 기초만(2026-11-09, scripts/build_grants_flow.py). ⚠️ ②와 ③-구청은 같은 돈 — 더하지 않는다
-  fetch('data/grants_flow_2024.json').then(r => r.ok ? r.json() : null).then(F => {
-    const el = $('flowUp'), v = F && F.곳[cd]; if (!el || !v || 곳[i][0] !== cd) return;
-    const 칸 = k => (v['③'][k] || {국비: 0, 줄: 0});
-    const 줄 = (k, 말, 풀이) => `<div class="stat"><div class="k">${말}</div><div class="v">${돈(칸(k).국비)}</div><div class="rk">${칸(k).줄.toLocaleString()}건 · ${풀이}</div></div>`;
-    el.innerHTML = `<div class="grp"><h3>${F.해}년 나랏돈은 어떤 길로 왔나 <span class="chip done">결과</span></h3>
-      <div class="blk"><h4>${짧은이름(i)}이 받은 돈</h4>
+    if (v) {
+      $('flowIncome').innerHTML = `<div class="grp"><h3>위에서 받은 돈</h3>
         <div class="stats">
-          <div class="stat"><div class="k">교부세 등(쓸 곳 안 정한 돈)</div><div class="v">${돈(v['①'].교부세등 + v['①'].조정교부금등)}</div><div class="rk">정부 ${돈(v['①'].교부세등)} · 시·도 조정교부금 ${돈(v['①'].조정교부금등)}</div></div>
-          <div class="stat"><div class="k">국고보조금(쓸 곳 정한 돈)</div><div class="v">${돈(v['②'].국고보조금등)}</div><div class="rk">결산서 세입</div></div>
-        </div>
-        <h4 style="margin-top:22px">${짧은이름(i)}에 주소를 둔 단체가 받은 국고보조금</h4>
+          ${돈칸('교부세 등(쓸 곳 안 정한 돈)', v['①'].교부세등 + v['①'].조정교부금등,
+            `정부 ${돈(v['①'].교부세등)} · 시·도 조정교부금 ${돈(v['①'].조정교부금등)}`)}
+          ${돈칸('국고보조금(쓸 곳 정한 돈)', v['②'].국고보조금등, '결산서 세입')}
+        </div></div>`;
+      $('flowOutside').innerHTML = `<h2>참고: ${청} 밖 돈</h2>
+        <p class="desc">이 동네 예산이 아닙니다.</p>
         <div class="stats">
-          ${줄('ⓑ', '구청·시청·군청을 거쳐', '위 국고보조금 안에 든 돈')}
-          ${줄('ⓒ', '시·도를 거쳐', '시·도 몫')}
-          ${줄('ⓐ', '정부가 단체에 바로', '주소만 여기 — 이 동네 몫이란 뜻은 아님')}
-          ${줄('ⓓ다른지역', '다른 지역 사업', '사업 이름에 다른 지역')}
+          ${길칸('ⓒ', '시·도를 거쳐', '시·도 몫')}
+          ${길칸('ⓐ', '정부가 단체에 바로', '주소만 여기 — 이 동네 몫이란 뜻은 아님')}
+          ${길칸('ⓓ다른지역', '다른 지역 사업', '사업 이름에 다른 지역')}
+        </div>`;
+    }
+
+    $('grantUp').innerHTML = `<div class="part-hd"><span class="no">03</span><h2>나간 곳 ① 단체에 준 보조금</h2></div>
+      <div class="grp"><h3>누가 보조금을 받았나</h3>
+      <div class="blk">
+        <div class="stats">
+          ${y?.금액 ? `<div class="stat"><div class="k">지방보조금 ${보탬해}</div><div class="v">${돈(y.금액)}</div><div class="rk">보탬e · ${y.받은곳수.toLocaleString()}곳 · ${y.건수.toLocaleString()}건</div></div>
+          <div class="stat"><div class="k">많이 받은 다섯 곳 ${보탬해}</div><div class="v">${퍼(y.상위몫 / y.금액 * 100, 0)}</div><div class="rk">보조금 ${돈(y.상위몫)}</div></div>
+          ${y.비공개건수 ? `<div class="stat"><div class="k">받은 곳을 가린 것 ${보탬해}</div><div class="v">${돈(y.비공개금액)}</div><div class="rk">보조금의 ${퍼(y.비공개금액 / y.금액 * 100)} · ${y.비공개건수.toLocaleString()}건</div></div>` : ''}` : ''}
+          ${v ? 길칸('ⓑ', `${청}을 거친 국고보조금`, '들어온 돈의 국고보조금 안에 든 돈') : ''}
         </div>
-        <p class="note">e나라도움 보조사업자 공시와 지방재정365 세부사업 국비를 사업 이름으로 이었습니다. 위 칸들은 서로 더하지 않습니다.</p>
+        ${y?.금액 ? `<h4 style="margin-top:22px">많이 받은 열 곳 <span class="chip">보탬e · ${esc(해)}년</span></h4>
+        ${y.받은곳.slice(0, 10).map(([이름, 금, 건, 업]) => `<details class="vend"><summary><b>${이름 === '비공개기관' ? '이름을 가린 곳' : esc(가림(이름, 업))}</b> ${돈(금)}</summary>
+          <ul><li>${esc(업)}${건 > 1 ? ` 등 ${건.toLocaleString()}건` : ''}</li></ul></details>`).join('')}` : ''}
       </div></div>`;
   }).catch(() => {});
 }
