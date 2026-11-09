@@ -14,6 +14,7 @@
 # ⚠️ 키가 하나라도 없으면 **실패로 끝낸다.** 조용히 넘어가면 수집기가 「받은 것이 없다」고 보고
 #    처음부터 다시 받아 하루 한도를 날린다. 그래서 워크플로는 down 이 성공했을 때만 수집기를 돌린다.
 set -e
+command -v aws > /dev/null || aws() { python -m awscli "$@"; }   # PC — pip 로 깐 aws 가 PATH 에 없을 때(2026-11-09)
 dir=$1; src=$2; dst=$3
 [ -n "${R2_BUCKET:-}" ] || [ ! -f .env ] || eval "$(grep -E '^R2_[A-Z_]+=' .env | sed 's/\r$//; s/^/export /')"
 for v in R2_ACCOUNT_ID R2_ACCESS_KEY_ID R2_SECRET_ACCESS_KEY R2_BUCKET; do
