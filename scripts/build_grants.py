@@ -5,9 +5,8 @@
 # ⑥ 「누가 받아 갔나」 판의 **보조금 칸**이 이걸 읽는다. 계약 칸(build_contracts_summary.py)과 짝이다.
 # ⚠️ 보탬e 곳코드(6110000 등 행정표준코드)와 화면의 곳코드(1100000 등 지방재정365)가 **다르다.**
 #    이름으로 잇는다 — 「중구」가 6곳이라 **시도를 붙여서** 맞춘다(시도 없이 세면 243곳이 222곳이 된다).
-# ⚠️ 받는 쪽은 **보탬e 기관 ID(pfmInstId)로** 묶는다. 같은 ID 에 이름이 여럿이면 금액이 큰 이름을 쓴다.
-#    「비공개기관」은 지우지 않고 한 줄로 따로 센다 — **얼마나 가렸나**도 세어야 할 숫자다.
-# ✔ 받은 쪽이 개인이어도 그대로 띄운다(2026-09-22 사용자 결정 — 보고 나서 다시 정한다).
+# 받는 쪽은 보탬e 기관 ID(pfmInstId)로 묶는다. 같은 ID의 공개 이름이 여럿이면 금액이 큰 이름을 쓴다.
+# 원자료에서 받은 곳을 가린 건은 전체와 비공개 합계에만 넣고, 개인으로 보이는 이름은 공개 파일에서 가린다.
 # ⭐ 해를 박지 않는다. data/grants/ 에 있는 해를 전부 굽는다.
 
 import collections
@@ -15,7 +14,9 @@ import glob
 import gzip
 import json
 import os
+import re
 import sys
+import unicodedata
 
 try:
     sys.stdout.reconfigure(encoding='utf-8', errors='replace')
@@ -34,6 +35,27 @@ OUT = os.path.join(ROOT, 'site', 'data', 'grants')
 # 보탬e 이름이 화면 목록과 다른 곳 — 인천 서구는 2026년 서해구로 이름이 바뀌었다
 딴이름 = {'인천서해구': '인천서구'}
 
+# 원자료에는 개인·단체 구분이 없다. 사업명에 이름이 들어가거나 '운영'으로 적혀도 기관의 근거가 되지 않는다.
+성씨 = '김이박최정강조윤장임한오서신권황안송류전홍고문양손배백허유남심노하곽성차주우구민나진지엄채원천방공현함변염여추도소석선설마길연위표명기반왕금옥육인맹제모탁국어은편용예경봉사부가복태목형피두감음빈동온호범좌팽승간상갈견당화창'
+사람이름꼴 = re.compile(rf'(남궁|황보|제갈|선우|독고|사공|서문|[{성씨}])[가-힣]{{1,2}}')
+이름구분 = re.compile(r'[()[\],./:·–—-]+')
+확인한기관 = {'백양사', '동산원'}
+숨김표시 = '이름을 가린 곳'
+
+
+def 붙인글(문구):
+    return ''.join(unicodedata.normalize('NFKC', 문구).split())
+
+
+def 이름에서개인찾기(이름):
+    이름 = 붙인글(이름)
+    if 이름 in 확인한기관:
+        return None
+    if 이름.startswith('개인'):
+        이름 = 이름.removeprefix('개인').lstrip('([:·-')
+    앞말 = 이름구분.split(이름, maxsplit=1)[0]
+    return 사람이름꼴.fullmatch(앞말) if 앞말 not in 확인한기관 else None
+
 
 def 화면이름(광역, 곳):
     시도 = 시도줄임[광역]
@@ -42,14 +64,19 @@ def 화면이름(광역, 곳):
 
 
 def main():
-    idx = json.load(open(os.path.join(ROOT, 'site', 'data', 'loc', 'index.json'), encoding='utf-8'))
+    with open(os.path.join(ROOT, 'site', 'data', 'loc', 'index.json'), encoding='utf-8') as f:
+        idx = json.load(f)
     코드찾기 = {x['이름']: x['cd'] for x in idx['곳']}
 
     곳별 = collections.defaultdict(dict)       # 코드 → 해 → 묶음
+    가릴곳 = {}                               # 받은 곳의 식별자 → 공개용 이름
+    가릴낱말 = set()
     못맞춤 = set()
     for 파일 in sorted(glob.glob(os.path.join(ROOT, 'data', 'grants', '*.json.gz'))):
         해 = os.path.basename(파일)[:4]
-        for r in json.load(gzip.open(파일, 'rt', encoding='utf-8')):
+        with gzip.open(파일, 'rt', encoding='utf-8') as f:
+            자료 = json.load(f)
+        for r in 자료:
             n = 화면이름(r['_광역'], r['_곳'])
             cd = 코드찾기.get(n)
             if not cd:
@@ -62,10 +89,18 @@ def main():
             y['건수'] += 1
             y['공시끝날'] = max(y['공시끝날'], r.get('pbaYmd') or '')
             이름 = (r.get('pfmInstNm') or '').strip()
-            if 이름 == '비공개기관':
+            if not 이름 or 이름 == '비공개기관':
                 y['비공개금액'] += 금액
                 y['비공개건수'] += 1
-            열쇠 = '비공개' if 이름 == '비공개기관' else (r.get('pfmInstId') or 이름)
+                continue
+            기관ID = r.get('pfmInstId')
+            열쇠 = ('ID', 기관ID) if 기관ID else ('이름', 이름)
+            if 찾음 := 이름에서개인찾기(이름):
+                가릴낱말.add(찾음[0])
+                가린이름 = 찾음[1] + '**'
+                전에 = 가릴곳.setdefault(열쇠, 가린이름)
+                if 전에 != 가린이름:
+                    가릴곳[열쇠] = 숨김표시
             b = y['받은곳'].setdefault(열쇠, {'이름꼴': collections.Counter(), '금액': 0, '건수': 0,
                                            '사업': collections.Counter()})
             b['이름꼴'][이름] += 금액
@@ -76,15 +111,36 @@ def main():
     if 못맞춤:
         raise SystemExit(f'화면 목록과 못 맞춘 곳 {len(못맞춤)} — {sorted(못맞춤)}')
 
+    # 개인으로 보이는 곳의 모든 별칭을 모아 다른 곳의 이름·사업명에 반복되어도 가린다.
+    가릴별칭 = 가릴낱말 | {붙인글(이름) for 해들 in 곳별.values() for y in 해들.values()
+                        for 열쇠, b in y['받은곳'].items() if 열쇠 in 가릴곳 for 이름 in b['이름꼴']}
+    긴별칭 = [re.escape(s) for s in sorted(가릴별칭) if len(s) > 2]
+    짧은별칭 = [re.escape(s) for s in sorted(가릴별칭) if len(s) <= 2]
+    긴문구 = re.compile('|'.join(긴별칭)) if 긴별칭 else None
+    짧은문구 = re.compile(r'(?<![가-힣])(?:' + '|'.join(짧은별칭) + r')(?![가-힣])') if 짧은별칭 else None
+
+    def 별칭있음(글):
+        return (긴문구 and 긴문구.search(붙인글(글))) or (
+            짧은문구 and 짧은문구.search(unicodedata.normalize('NFKC', 글)))
+
     os.makedirs(OUT, exist_ok=True)
     for cd, 해들 in 곳별.items():
-        낼 = {'laf_cd': cd, '칸': ['받은 곳', '금액', '건수', '가장 큰 사업'], '해': {}}
+        낼 = {'laf_cd': cd, '가림완료': True, '칸': ['받은 곳', '금액', '건수', '가장 큰 사업'], '해': {}}
         for 해, y in 해들.items():
-            줄 = sorted(y.pop('받은곳').values(), key=lambda b: -b['금액'])
+            줄 = sorted(y['받은곳'].items(), key=lambda item: -item[1]['금액'])
             y['받은곳수'] = len(줄)
-            y['받은곳'] = [[b['이름꼴'].most_common(1)[0][0], b['금액'], b['건수'],
-                          b['사업'].most_common(1)[0][0]] for b in 줄[:상위]]
-            y['상위몫'] = sum(b['금액'] for b in 줄[:5])
+            y['받은곳'] = []
+            for 열쇠, b in 줄[:상위]:
+                이름 = b['이름꼴'].most_common(1)[0][0]
+                사업 = b['사업'].most_common(1)[0][0]
+                if 열쇠 in 가릴곳:
+                    이름, 사업 = 가릴곳[열쇠], ''
+                elif 별칭있음(이름):
+                    이름, 사업 = 숨김표시, ''
+                elif 별칭있음(사업):
+                    사업 = ''
+                y['받은곳'].append([이름, b['금액'], b['건수'], 사업])
+            y['상위몫'] = sum(b['금액'] for _, b in 줄[:5])
             낼['해'][해] = y
         with open(os.path.join(OUT, f'{cd}.json'), 'w', encoding='utf-8') as f:
             json.dump(낼, f, ensure_ascii=False, separators=(',', ':'))
