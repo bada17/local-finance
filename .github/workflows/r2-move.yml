@@ -39,6 +39,18 @@ jobs:
           for f in data/수의계약/*.json.gz; do cmp "$f" "/tmp/back/$(basename "$f")"; done
           echo '같다 — 다 올라갔다'
           gh release delete suui-move -y
+      # 2026-11-09 저장소 다이어트 — 저장소에 있던 큰 자료를 그대로 R2 로. 저장소에서 빼기 전에 한 번 돌린다(빠진 뒤엔 건너뜀).
+      - name: 저장소 큰 자료 올리기
+        run: |
+          [ -n "$(git ls-files data/contracts | head -1)" ] || { echo '저장소에 계약 원본이 없다 — 건너뜀'; exit 0; }
+          mkdir -p /tmp/dg && cp data/datagokr_file_list.json.gz data/datagokr_api_list.json.gz /tmp/dg/
+          for p in 'data/contracts 최근계약' 'data/bizno 사업자번호' 'data/vendors 조달업체' '/tmp/dg 공공데이터목록'; do
+            set -- $p
+            sh scripts/r2_sync.sh up "$1" "$2"
+            rm -rf /tmp/back && sh scripts/r2_sync.sh down /tmp/back "$2"
+            n=0; for f in $(cd "$1" && find . -type f); do cmp "$1/$f" "/tmp/back/$f"; n=$((n + 1)); done   # 사업자번호엔 일/ 아래 하루치가 있다
+            echo "$2: $n 개 다 같다"
+          done
       - name: 계약 원본 올리기
         run: |
           gh release view contracts-move > /dev/null 2>&1 || { echo '릴리스 contracts-move 없음 — 건너뜀'; exit 0; }

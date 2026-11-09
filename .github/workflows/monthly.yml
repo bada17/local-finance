@@ -37,6 +37,10 @@ jobs:
       LOFIN_KEY: ${{ secrets.LOFIN_KEY }}
       DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}
       EDU_ALIMI_KEY: ${{ secrets.EDU_ALIMI_KEY }}
+      R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+      R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+      R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+      R2_BUCKET: ${{ secrets.R2_BUCKET }}
       PYTHONUNBUFFERED: '1'
     defaults:
       run:
@@ -57,7 +61,24 @@ jobs:
       - { id: edu,        name: 교육청,     continue-on-error: true, run: python fetch_edu.py }
       - { id: items,      name: 재료표 API 12종, continue-on-error: true, run: python fetch_items.py }
       - { id: subsidy,    name: 국고보조 수의계약, continue-on-error: true, run: python fetch_subsidy_contracts.py }   # 한 해 한 번 새 파일, 같으면 건너뜀
-      - { id: vendors,    name: 조달업체 등록,  continue-on-error: true, run: python fetch_vendors.py }   # 빈 해 + 올해만 다시(2026-10-16)
+      # 계약 원본·사업자번호 사전·조달업체는 R2 에만 있다(2026-11-09 저장소 다이어트) — 계약 요약·조달업체·수의 사유 굽기가 읽는다.
+      # ⚠️ 하나라도 못 받으면 조달업체 받기와 계약 요약 굽기를 건너뛴다 — 반쪽 자료로 구우면 지난달 화면보다 나빠진다
+      - id: r2down_big
+        name: 계약·사업자번호·조달업체 — R2 에서 내려받기
+        continue-on-error: true
+        working-directory: .
+        run: |
+          sh scripts/r2_sync.sh down data/contracts 최근계약
+          sh scripts/r2_sync.sh down data/bizno 사업자번호
+          sh scripts/r2_sync.sh down data/vendors 조달업체
+          test "$(ls data/contracts | wc -l)" -gt 1000 && test "$(ls data/bizno | wc -l)" -gt 30 && test "$(ls data/vendors | wc -l)" -gt 30
+      - { id: vendors,    name: 조달업체 등록,  if: "steps.r2down_big.outcome == 'success'", continue-on-error: true, run: python fetch_vendors.py }   # 빈 해 + 올해만 다시(2026-10-16)
+      - id: r2up_vendors
+        name: 조달업체 — R2 로 올리기
+        if: ${{ !cancelled() && steps.r2down_big.outcome == 'success' }}
+        continue-on-error: true
+        working-directory: .
+        run: sh scripts/r2_sync.sh up data/vendors 조달업체
       # 지자체 수의계약 사유는 R2 에만 있다(2026-10-26 지난 21달 옮김) — 내려받아 suui(아래 굽기)가 읽는다. 실패하면 지난달 suui.json 이 그대로 남는다
       - id: r2down_suui
         name: 수의계약 사유 — R2 에서 내려받기
@@ -72,7 +93,7 @@ jobs:
 
       # ── 굽기 ──
       - { id: footer,     name: 홈페이지 공통 하단, continue-on-error: true, run: python port_footer.py }   # 템플릿에 먼저 — 아래 굽기가 그대로 옮긴다
-      - { id: contracts,  name: 계약 요약(전수),  continue-on-error: true, run: python build_contracts_summary.py }
+      - { id: contracts,  name: 계약 요약(전수),  if: "steps.r2down_big.outcome == 'success'", continue-on-error: true, run: python build_contracts_summary.py }
       - { id: model,      name: 자치단체별 지표,  continue-on-error: true, run: python build_model_data.py --all }
       - { id: ongoing,    name: 진행 중인 사업,   continue-on-error: true, run: python build_ongoing.py --all }
       - { id: b_grants,   name: 보조금 화면 자료, continue-on-error: true, run: python build_grants.py }
@@ -81,7 +102,7 @@ jobs:
       - { id: b_clik,     name: 지방의회,         continue-on-error: true, run: python build_clik.py }
       - { id: side,       name: 해마다 나란히,    continue-on-error: true, run: python build_side.py }   # 시황판보다 먼저 — 시황판이 이걸 읽는다
       - { id: cuts,       name: 교부세 감액,       continue-on-error: true, run: python build_cuts.py }    # 우리 동네가 읽는다 — 그 앞에
-      - { id: suui,       name: 수의계약 사유,     continue-on-error: true, run: python build_suui.py }   # 우리 동네가 읽는다 — 그 앞에
+      - { id: suui,       name: 수의계약 사유,     if: "steps.r2down_big.outcome == 'success'", continue-on-error: true, run: python build_suui.py }   # 우리 동네가 읽는다 — 그 앞에
       - { id: town,       name: 우리 동네(첫 화면), continue-on-error: true, run: python build_town.py }   # 계약·진행·대시보드·나란히를 읽는다 — 그 뒤에
       - { id: board,      name: 시황판,           continue-on-error: true, run: python build_board.py }
       - { id: b_edu,      name: 교육청 화면,      continue-on-error: true, run: python build_edu_page.py }
@@ -101,7 +122,7 @@ jobs:
         working-directory: .
         run: >-
           sh scripts/bot_push.sh "달마다 화면 굽기 $(date -u +%Y-%m)"
-          site data/indicators data/series.json data/revenue data/grants data/cleaneye data/edu data/items data/subsidy_contracts.json.gz data/contracts_summary.json data/vendors
+          site data/indicators data/series.json data/revenue data/grants data/cleaneye data/edu data/items data/subsidy_contracts.json.gz data/contracts_summary.json
 
       - id: pages
         name: 페이지 다시 올리기

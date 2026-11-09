@@ -60,11 +60,27 @@ jobs:
     outputs:
       steps: ${{ toJSON(steps) }}   # 맨 끝 「알림」이 단계마다의 실패를 본다
     timeout-minutes: 120
+    env:
+      R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+      R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+      R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+      R2_BUCKET: ${{ secrets.R2_BUCKET }}
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
+
+      # 계약 원본(2024~)은 저장소가 아니라 R2(최근계약/)에 둔다(2026-11-09 저장소 다이어트).
+      # ⚠️ 내려받기가 안 되면 이어 받기·다시 받기는 건너뛴다 — 받아 둔 것이 없다고 보고 통째로 다시 받거나
+      #    모든 줄을 「고쳐진 줄」로 쌓는다. 어제 몫 받기(collect)는 그래도 돈다 — 제일 중요한 일감이다.
+      - name: 계약 원본 — R2 에서 내려받기
+        id: r2down_c
+        continue-on-error: true
+        # 빈 R2 도 「성공」이라 파일 수로 한 번 더 본다(2024-01-01 부터 날마다 한 파일 — 11-09 에 1,043개)
+        run: |
+          sh scripts/r2_sync.sh down data/contracts 최근계약
+          test "$(ls data/contracts | wc -l)" -gt 1000 || { echo '계약 원본이 너무 적다 — R2 가 비었나'; exit 1; }
 
       # 어떤 키가 Secrets 에 들어와 있나를 로그에 남긴다. 키 값은 안 찍는다(길이만).
       # ⚠️ 봇은 .env 를 못 본다 — Secrets 에 없으면 그 수집은 그냥 안 돈다.
@@ -89,7 +105,7 @@ jobs:
       # 지난날이 비어 있으면 하루에 30일씩만 조금씩 메운다 — 일일 트래픽 제한이 실측되지 않았다.
       - name: 못 채운 날 이어 받기
         id: backfill
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && steps.r2down_c.outcome == 'success' }}
         env:
           LOFIN_KEY: ${{ secrets.LOFIN_KEY }}
         run: python scripts/backfill_contracts.py --limit 30
@@ -98,16 +114,22 @@ jobs:
       # 최근 120일은 날마다, 그보다 옛 날짜는 30일에 한 번 다시 받아 변경분만 data/contracts_late 에 쌓는다. 하루 150일쯤.
       - name: 늦게 올라온 계약 다시 받기
         id: late
-        if: ${{ !cancelled() }}
+        if: ${{ !cancelled() && steps.r2down_c.outcome == 'success' }}
         timeout-minutes: 70
         env:
           LOFIN_KEY: ${{ secrets.LOFIN_KEY }}
         run: python -u scripts/refresh_contracts.py --분 60
 
+      # 올리기가 세 번 다 실패하면 그날 받은 파일은 R2 에 없다 → 다음 날 「못 채운 날 이어 받기」가 다시 받는다
+      - name: 계약 원본 — R2 로 올리기
+        id: r2up_c
+        if: ${{ !cancelled() }}
+        run: sh scripts/r2_sync.sh up data/contracts 최근계약
+
       - name: 올리기
         id: push1
         if: ${{ !cancelled() }}
-        run: sh scripts/bot_push.sh "날마다 수집 · 지방재정365 $(date -u +%Y-%m-%d)" data/contracts data/contracts_late data/spending
+        run: sh scripts/bot_push.sh "날마다 수집 · 지방재정365 $(date -u +%Y-%m-%d)" data/contracts_late data/spending
 
   # 지방의정포털 CLIK — 하루 1,000회 한도. Secrets 에 CLIK_KEY 가 없으면 그냥 건너뛴다.
   # ⚠️ 날짜별 호출 수는 data/clik/상태.json 에 쌓인다. 손으로도 돌릴 거면 **먼저 pull 할 것**.
@@ -212,11 +234,25 @@ jobs:
     outputs:
       steps: ${{ toJSON(steps) }}   # 맨 끝 「알림」이 단계마다의 실패를 본다
     timeout-minutes: 180
+    env:
+      R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+      R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+      R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+      R2_BUCKET: ${{ secrets.R2_BUCKET }}
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
+      # 사업자번호 사전도 R2(사업자번호/)에 둔다(2026-11-09 저장소 다이어트). 계약 원본은 「첫 달」을 알려고만 받는다.
+      # ⚠️ 사전 내려받기가 안 되면 사업자번호 받기를 건너뛴다 — 받은 달이 없다고 보고 처음부터 받아 한도를 날린다.
+      - name: 사업자번호 사전 — R2 에서 내려받기
+        id: r2down_bizno
+        continue-on-error: true
+        run: |
+          sh scripts/r2_sync.sh down data/bizno 사업자번호
+          sh scripts/r2_sync.sh down data/contracts 최근계약
+          test "$(ls data/bizno | wc -l)" -gt 30 || { echo '사업자번호 사전이 너무 적다 — R2 가 비었나'; exit 1; }
       # 지자체 수의계약 사유(data/수의계약)는 저장소가 아니라 R2(수의계약/)에 쌓는다(2026-10-16) — CLIK 상세와 같다.
       # ⚠️ 내려받기가 실패하면 `--사유끔` — 받은 사유가 없다고 보고 지난 달을 전부 다시 받아 한도를 날리지 않게.
       - name: 수의계약 사유 — R2 에서 내려받기
@@ -232,6 +268,7 @@ jobs:
       # 한 달 ≈ 60분이라 빈 18달(2025-02~2026-07)은 1주쯤에 찬다. -u: 잘려도 로그가 남게
       - name: 사업자번호 받기
         id: bizno
+        if: ${{ steps.r2down_bizno.outcome == 'success' }}
         timeout-minutes: 165
         env:
           DATA_GO_KR_KEY: ${{ secrets.DATA_GO_KR_KEY }}
@@ -246,10 +283,10 @@ jobs:
           R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
           R2_BUCKET: ${{ secrets.R2_BUCKET }}
         run: sh scripts/r2_sync.sh up data/수의계약 수의계약
-      - name: 올리기
-        id: push4
-        if: ${{ !cancelled() }}
-        run: sh scripts/bot_push.sh "날마다 수집 · 사업자번호 $(date -u +%Y-%m-%d)" data/bizno
+      - name: 사업자번호 사전 — R2 로 올리기
+        id: r2up_bizno
+        if: ${{ !cancelled() && steps.r2down_bizno.outcome == 'success' }}
+        run: sh scripts/r2_sync.sh up data/bizno 사업자번호
 
   # 실패 알림 — continue-on-error 로 「초록」인 단계 실패까지 텔레그램 한 통(scripts/notify_fail.py)
   alert:
