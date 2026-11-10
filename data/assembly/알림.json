@@ -586,6 +586,7 @@
 "57473",
 "57485",
 "57486",
+"57487",
 "57488",
 "57510",
 "57511",
@@ -634,8 +635,11 @@
 "57650",
 "57651",
 "57670",
+"57673",
 "57676",
+"57678",
 "57680",
+"57681",
 "57690",
 "57691",
 "57693",
@@ -1458,6 +1462,39 @@
 "낱말": "미래대응기금",
 "횟수": 1,
 "보냄": true
+},
+{
+"갈래": "예결특위",
+"날짜": "2026-11-10",
+"제목": "제22대 제439회 제7차 예산결산특별위원회 (예산결산특별위원회 회의록)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57678",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57678&type=summary",
+"번호": "57678",
+"낱말": "미래대응기금",
+"횟수": 1,
+"보냄": true
+},
+{
+"갈래": "예결특위",
+"날짜": "2026-11-09",
+"제목": "제22대 제439회 제6차 예산결산특별위원회 (예산결산특별위원회 회의록)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57681",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57681&type=summary",
+"번호": "57681",
+"낱말": "미래대응기금",
+"횟수": 92,
+"보냄": true
+},
+{
+"갈래": "공청회",
+"날짜": "2026-11-03",
+"제목": "제22대 제439회 제8차 재정경제기획위원회 (상임위원회 공청회 회의록)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57673",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57673&type=summary",
+"번호": "57673",
+"낱말": "미래대응기금",
+"횟수": 163,
+"보냄": true
 }
 ],
 "의안": {
@@ -1497,5 +1534,5 @@
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199875&searchNoSeq=20261106199875"
 ],
 "본문": "html",
-"마지막성공": "2026-11-09"
+"마지막성공": "2026-11-10"
 }
