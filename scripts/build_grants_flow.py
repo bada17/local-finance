@@ -835,6 +835,13 @@ for c in 기초:
                     '국비': round(f(x, '상세_gsamt')), '지방비': round(f(x, '상세_lsamt'))})
     결과[c['cd']]['꼬리표'] = dict(sorted(표.items(), key=lambda kv: -kv[1]['국비']))
     assert sum(v['줄'] for v in 표.values()) == 결과[c['cd']]['주소줄']
+# 굽기 끝 검사(11-11) — ① 어떤 장부 사업(같은 이름 묶음)에도 붙인 국비가 장부 국비를 넘지 않는다 ② 공개 예시 글에 받은 곳 이름이 없다
+넘친장부 = [(cd, k) for key, v in 붙인국비.items() if len(key) == 2 for cd, k in [key]
+            if cd in 가 and 사업묶음(cd).get(k) and v > 사업묶음(cd)[k] + 1e6]
+assert not 넘친장부, f'장부 넘침 {len(넘친장부)}곳'
+_예 = [t for v in 결과.values() for w in v['대조'].values() for 예 in w['예'] for t in 예[:2]
+      if t and t != '[비공개]' and len(t) >= 3 and 이름포함(t)]
+assert not _예, f'예시 글에 받은 곳 이름 {len(_예)}개'
 with gzip.open(os.path.join(ROOT, 'data', 'raw', f'grants_flow_{해}_rows.json.gz'), 'wt', encoding='utf-8') as _f:
     json.dump(줄파일, _f, ensure_ascii=False)
 
