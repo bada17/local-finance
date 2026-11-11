@@ -136,7 +136,11 @@ const 긁개 = String.raw`(() => {
   let 날짜 = '';
   const d = 글.match(/(등록일|작성일|게시일|공시일|수정일|등록\s*일자)\s*[:：]?\s*(20\d{2}[-.\/]\s?\d{1,2}[-.\/]\s?\d{1,2})/);
   if (d) 날짜 = d[2].replace(/\s/g, '');
+  // 이 화면이 무엇인가의 근거 — 제목줄과 「홈 > 행정정보 > …」 위치 표시(2026-11-11, 곳 꼬리표에 그대로 옮긴다)
+  const 머리말 = [...new Set([...document.querySelectorAll('h1,h2,h3,h4,.location,.breadcrumb,#location,.path,.navi,.page_location')]
+    .map(e => (e.innerText || '').replace(/\s+/g, ' ').trim()).filter(s => s.length >= 2 && s.length <= 80))].slice(0, 12);
   return JSON.stringify({
+    머리말,
     제목: (document.title || '').replace(/\s+/g, ' ').trim().slice(0, 80),
     주소: location.href.slice(0, 200),
     파일: 파일.slice(0, 200),
@@ -241,6 +245,7 @@ async function 한곳(탭, 곳) {
   //    ⚠️ 두 겹 이상 들어가지 않는다 — 어디를 본 것인지 알 수 없게 된다.
   //    후보는 셋까지 차례로 본다(2026-09-29 — 첫 후보가 공지 글인 곳이 있었다). 건지면 멈춘다.
   let 들어간주소 = '';
+  const 첫화면 = 값 ? { 제목: 값.제목, 머리말: 값.머리말 } : null;   // 한 겹 들어가도 받은 주소가 무슨 화면이었는지 남긴다
   const 후보들 = 값 && !값.파일.some(f => 뜻있나(f.이름)) && 값.후보 ? 값.후보.slice(0, 3) : [];
   for (const [k, 갈곳] of 후보들.entries()) {
     if (갈곳.번째 >= 0) {
@@ -277,6 +282,8 @@ async function 한곳(탭, 곳) {
     laf_cd: 곳.laf_cd, 이름: 곳.이름,
     코드, 실패: 실패 || '',
     제목: 값 ? 값.제목 : '',
+    머리말: 값 ? 값.머리말 : [],
+    ...(들어간주소 && 첫화면 ? { 첫화면 } : {}),
     끝주소: 값 ? 값.주소 : '',
     파일: 값 ? 값.파일 : [],
     날짜: 값 ? 값.날짜 : '',

@@ -8,7 +8,8 @@ const { 크롬자리, 크롬띄우기, 붙을때까지, 탭열기 } = require('.
 const { 브라우저붙기, 파일받기, 기다리기, 값, 캐시 } = require('./fetch_post_files.js');
 
 const 찾개 = (주소, 이름) => `(() => {
-  const 열쇠 = s => (s || '').replace(/\s+/g, '');
+  // 이름은 한글·숫자만 남기고 단추 말(첨부·파일·다운로드·바로보기 …)을 뗀다 — 긁개가 이름에서 「다운로드·pdf」를 벗겨 적어서(포항 「첨부 (01. 전체 . )」)
+  const 열쇠 = s => (s || '').replace(/첨부|파일|다운로드|다운받기|내려받기|바로\\s*보기|미리\\s*보기|새\\s*창|열림|download/gi, '').replace(/[^가-힣0-9]/g, '');
   const 이름 = 열쇠(${JSON.stringify(이름)}).slice(0, 8);
   const 다 = [...document.querySelectorAll('a,button,input[type=button]')];
   const 맞 = 다.map((a, i) => [a, i]).filter(([a]) => {
@@ -16,8 +17,13 @@ const 찾개 = (주소, 이름) => `(() => {
     return (h || oc).slice(0, 160) === ${JSON.stringify(주소)};
   });
   // 대구본청은 href="#none" 단추 60여 개가 fileName 속성으로만 갈린다 — 그것부터 맞춘다
-  const 줄 = 맞.find(([a]) => a.getAttribute('filename') === ${JSON.stringify(이름)})
-    || 맞.find(([a]) => 열쇠((a.closest('tr,li,dd') || a.parentElement || a).innerText).includes(이름));
+  const 붙음 = 맞.find(([a]) => a.getAttribute('filename') === ${JSON.stringify(이름)});
+  if (붙음) return 붙음[1];
+  const 줄들 = 이름 ? 맞.filter(([a]) => 열쇠((a.closest('tr,li,dd') || a.parentElement || a).innerText + ' ' + (a.title || '')).includes(이름)) : [];
+  // 같은 줄에 「바로보기(새 창 뷰어)」와 「내려받기」가 같이 있다(경산 openViewFiles·openDownloadFiles, 칠곡 바로보기·다운받기) — 내려받기를 고른다
+  const 글 = a => (a.title || '') + ' ' + (a.getAttribute('onclick') || '') + ' ' + (a.className || '') + ' ' + (a.innerText || '');
+  const 받기형 = ([a]) => /down|다운|내려받|hwp|pdf|xls/i.test(글(a)) && !/view|바로\\s*보기|미리\\s*보기|뷰어/i.test(글(a));
+  const 줄 = 줄들.find(받기형) || 줄들[0];
   return (줄 || 맞[0] || [null, -1])[1];
 })()`;
 
