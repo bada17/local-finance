@@ -58,7 +58,7 @@ f = lambda x, k: float(x.get(k) or 0)
 def 짧은지명(글, 시도, 내줄기):
     t = ' ' + (글 or '')
     for s in 시도이름:
-        if s not in (시도, '경기') and re.search(r'(?<![가-힣])' + s + r'(?!(도|시|권|형|산|원|주|대|남|북))', t): return s
+        if s not in (시도, '경기') and re.search(r'(?<![가-힣])' + s + r'(?!(도|시|권|형|산|원|주|대|남|북|사))', t): return s   # 「대전사」(절)
     if 시도 != '제주' and re.search(r'서귀포|제주시', t): return '제주'
     for k in 홑줄기:
         if k != 내줄기 and re.search(r'(?<![가-힣])' + k + r'(시|군|구)?(?![가-힣])', t): return k
@@ -427,35 +427,69 @@ def _마저잇기(c, 광, x):
 # 보탬e(지자체가 단체에 준 보조금 공시)에 같은 받은 곳·같은 사업이 한 지자체에만 있으면 그 지자체를 거친 것으로 본다.
 # 주소로 지자체를 고르지 않고 전국 보탬e 에서 찾는다(11-11 사용자 「주소로는 어느 지역 사업인지 확인할 수 없다」).
 # 원본은 R2 돈길/botem_<해>.json.gz → data/raw/(받은 곳 이름이 있어 저장소에 안 둠) — 없으면 건너뛴다.
-보탬e = defaultdict(list)
-_p = os.path.join(ROOT, 'data', 'raw', f'botem_{해}.json.gz')
-if os.path.exists(_p):
-    _줄임 = {full: s for s, fulls in 시도이름.items() for full in fulls}
-    _역 = {v: k for k, v in 곳이름.items()}
+# 다음 해 보탬e 도 본다 — 같은 단체가 같은 사업을 해마다 받는 일이 많다(센터 운영·인력 배치). 해가 달라 「약」.
+보탬e = {}
+_줄임 = {full: s for s, fulls in 시도이름.items() for full in fulls}
+_역 = {v: k for k, v in 곳이름.items()}
+for _해 in (해, str(int(해) + 1)):
+    _p = os.path.join(ROOT, 'data', 'raw', f'botem_{_해}.json.gz')
+    if not os.path.exists(_p):
+        print(f'botem_{_해}.json.gz 없음 — 그 해 보탬e 잇기 건너뜀'); continue
+    보탬e[_해] = defaultdict(list)
     for r in json.load(gzip.open(_p, 'rt', encoding='utf-8')):
         _곳 = _줄임.get(r['_광역'], r['_광역']) + ('본청' if r['_곳'] == r['_광역'] else r['_곳'])
         r['_cd'] = _역.get({'인천서해구': '인천서구'}.get(_곳, _곳))
-        보탬e[이름정규화(법인표기.sub('', r.get('pfmInstNm') or ''))].append(r)
-else:
-    print(f'botem_{해}.json.gz 없음 — 보탬e 잇기 건너뜀')
+        보탬e[_해][이름정규화(법인표기.sub('', r.get('pfmInstNm') or ''))].append(r)
 
-def 보탬e잇기(c, 광, x):
+def 보탬e잇기(c, 광, x, _해=해):
     z = 조각((x.get('ddtlbzNm') or '') + ' ' + (x.get('dtlbzNm') or ''))
-    맞 = [r for r in 보탬e.get(이름정규화(법인표기.sub('', x.get('excInsttNm') or '')), ())
+    맞 = [r for r in 보탬e.get(_해, {}).get(이름정규화(법인표기.sub('', x.get('excInsttNm') or '')), ())
          if r['_cd'] and len(조각(r.get('pfmBizNm') or '') & z) >= 2]
     곳들 = {r['_cd'] for r in 맞}
     if len(곳들) != 1:
         return None   # 없거나 여러 곳이면 모른다
     대상 = 곳들.pop()
     교부 = sum(float(r.get('bizctSbatAmt') or 0) for r in 맞)
-    방법 = '중 — 보탬e 같은 받은 곳·사업' if 교부 >= f(x, '상세_gsamt') - 1 else '약 — 보탬e 같은 받은 곳·사업(교부액이 국비보다 작음)'
-    return ('ⓑ3' if 대상 == c['cd'] else 'ⓒ3' if 대상 == 광 else 'ⓓ다른지역3'), 방법, f'보탬e · {곳이름[대상]}'
+    if _해 != 해:
+        방법 = '약 — 다음 해 보탬e 같은 받은 곳·사업'
+    else:
+        방법 = '중 — 보탬e 같은 받은 곳·사업' if 교부 >= f(x, '상세_gsamt') - 1 else '약 — 보탬e 같은 받은 곳·사업(교부액이 국비보다 작음)'
+    return ('ⓑ3' if 대상 == c['cd'] else 'ⓒ3' if 대상 == 광 else 'ⓓ다른지역3'), 방법, f'보탬e {_해} · {곳이름[대상]}'
+
+# 이미 이어진 줄에서 배운 「부처 사업 → 장부 사업 이름」 짝(두 번 넘게 이어진 짝만). 아래 장부 한도 검사 뒤에 채운다.
+#   예: 「문화재보수정비(일반)」이 여러 곳에서 「국가지정유산 보수정비」에 이어졌으면 모름 줄도 그 이름의 장부를 찾는다.
+배운이름 = defaultdict(Counter)
+def 배운이름잇기(c, 광, x):
+    배운 = 배운이름.get(x.get('dtlbzNm'))
+    if not 배운:
+        return None
+    국비, 후보 = f(x, '상세_gsamt'), []
+    z = 조각((x.get('ddtlbzNm') or '') + ' ' + (x.get('dtlbzNm') or ''))
+    for 대상 in (c['cd'], 광):
+        묶음 = 사업묶음(대상) if 대상 in 가 else {}
+        for 이름, 번 in 배운.most_common():   # 공시 사업 이름과 겹치는 말이 없는 짝은 안 쓴다(생활체육지도자 → 체육대축전 운영)
+            if 번 >= 2 and 이름 in 묶음 and 조각(이름) & z and 붙인국비[대상, 이름] + 국비 <= 묶음[이름] + 1e6:
+                후보.append((대상, 이름)); break
+    if len(후보) == 2:   # 기초·광역 장부 둘 다 되면 이 시·도에서 그 부처 사업이 주로 간 길로(80% 넘을 때만)
+        길 = 대표경로(시도부처경로[c['시도'], 부처사업키(x)])
+        후보 = [후보[0]] if 길 == 'ⓑ' else [후보[1]] if 길 == 'ⓒ' else []
+    if len(후보) != 1:
+        return None
+    대상, 이름 = 후보[0]
+    붙인국비[대상, 이름] += 국비
+    return ('ⓑ3' if 대상 == c['cd'] else 'ⓒ3'), '중 — 다른 곳에서 이어진 장부 이름', 이름
 
 # 장부 사업 하나(같은 이름 묶음)에 붙인 공시 국비가 그 장부 국비를 넘으면 붙이지 않고 주소 추정으로 돌린다.
 # 앞 단계(ⓑ·ⓒ·ⓑ2·ⓒ2)가 같은 장부에 먼저 붙인 돈도 센다 — 광역 장부는 그 시·도 기초 모두가 나눠 쓴다.
 붙인국비 = Counter()
 붙임후보 = defaultdict(list)   # (장부, 사업 이름) → [(곳, 칸, 줄, 방법)] — ⓒ·ⓑ2·ⓒ2, 아래 장부 한도에서 본다
 def 마저잇기(c, 광, x):
+    # 장부 한도에서 빠져 돌아온 줄은 「사업 이름에 다른 지역」 검사(다시잇기 ①⑦)를 안 거쳤다 — 먼저 본다
+    내줄기 = re.sub(r'(시|군|구)$', '', c['이름'][len(c['시도']):])
+    글 = (x.get('ddtlbzNm') or '') + ' ' + (x.get('dtlbzNm') or '')
+    지명 = 짧은지명(글, c['시도'], 내줄기) or 앞머리지명(글, 내줄기)
+    if 지명:
+        return 'ⓓ다른지역3', '중 — 사업 이름에 다른 지역', 지명
     경로, 방법, 근거 = _마저잇기(c, 광, x)
     대상 = {'ⓑ3': c['cd'], 'ⓒ3': 광}.get(경로)
     열쇠 = (대상, n(근거))
@@ -466,7 +500,8 @@ def 마저잇기(c, 광, x):
         else:
             붙인국비[열쇠] += f(x, '상세_gsamt')
     if 경로 == 'ⓓ지역모름3':
-        return 보탬e잇기(c, 광, x) or (경로, 방법, 근거)
+        return (배운이름잇기(c, 광, x) or 보탬e잇기(c, 광, x) or 보탬e잇기(c, 광, x, str(int(해) + 1))
+                or (경로, 방법, 근거))
     return 경로, 방법, 근거
 
 받은곳이름 = set()
@@ -525,13 +560,16 @@ for c in 기초:
     g = [x for 앞 in 시도이름[시도] for 뒤 in 옛이름.get(c['cd'], [이름]) for x in 주소별.get((앞, 뒤), [])]
     광 = 광역코드[시도]
     줄기 = re.sub(r'(시|군|구)$', '', 이름)
-    묶 = defaultdict(list); 후보 = defaultdict(list)
+    묶 = defaultdict(list); 후보 = defaultdict(list); 첫지명 = 0
     for x in g:
         if f(x, '상세_lsamt') == 0: 묶['ⓐ'].append((x, None)); continue
         받은곳 = x.get('excInsttNm') or ''
         if re.search(r'(초등|중|고등|공업고등|마이스터고등|특수)?학교$', 받은곳) and '대학교' not in 받은곳: 묶['교육청'].append((x, None)); continue
         남 = set(지역식.findall((x.get('dtlbzNm') or '') + ' ' + (x.get('ddtlbzNm') or ''))) - {이름} - set(시도이름[시도])
         if 남: 묶['ⓓ다른지역'].append((x, None)); continue
+        # 줄임 지명도(「…(평창군)」「(경남 함안군)」「- 김포시」) — 11-11 첫 대조에서 1,018줄 2,090억이 이 곳·광역 장부에 붙어 있었다
+        if 해 == '2024' and 짧은지명((x.get('ddtlbzNm') or '') + ' ' + (x.get('dtlbzNm') or ''), 시도, 줄기):
+            묶['ⓓ다른지역'].append((x, None)); 첫지명 += 1; continue
         광기관 = re.search(광역기관[시도], 받은곳)
         k = None if 광기관 else 짝(x, c['cd'])
         if k: 후보[k].append(x); continue
@@ -553,6 +591,7 @@ for c in 기초:
         판['같음' if abs(담 - 사업묶음(c['cd'])[k]) < 1e6 else '작음'] += 1
     사업 = 후보
     큰 = [[공개예(x.get('ddtlbzNm'), x), round(f(x, '상세_gsamt'))] for x in sorted(넘침, key=lambda x: -f(x, '상세_gsamt'))]
+    판['첫 대조 줄임 지명 → 다른 지역'] = 첫지명
     판['넘쳐 옮긴 줄'] = len(넘침); 판['넘친 국비'] = round(sum(f(x, '상세_gsamt') for x in 넘침))
     다시, 짝들 = 다시잇기(c, 광, [x for x, _ in 묶.pop('ⓓ', [])])
     대조 = {}
@@ -565,7 +604,7 @@ for c in 기초:
         if 묶.get('ⓓ'):
             미해결[c['cd']] = [x for x, _ in 묶['ⓓ']]
         for x, k in 묶.get('ⓑ', ()):   # 첫 대조 ⓑ 는 위에서 이미 기초 장부 한도 안에 담았다
-            붙인국비[c['cd'], k] += f(x, '상세_gsamt')
+            붙인국비[c['cd'], k] += f(x, '상세_gsamt'); 배운이름[x.get('dtlbzNm')][k] += 1
         for 칸, 장부 in (('ⓒ', 광), ('ⓑ2', c['cd']), ('ⓒ2', 광)):
             for x, k in 묶.get(칸, ()):
                 열쇠 = k if 칸 == 'ⓒ' else n(짝들.get(id(x)))
@@ -598,7 +637,10 @@ if 해 == '2024':
         한도 = 사업묶음(장부).get(열쇠) if 열쇠 and 장부 in 가 else None
         for cd, 칸, x, 방법 in sorted(xs, key=lambda t: (순위.get(t[3], 1), f(t[2], '상세_gsamt'))):
             if not 한도 or 붙인국비[장부, 열쇠] + f(x, '상세_gsamt') <= 한도 + 1e6:
-                붙인국비[장부, 열쇠] += f(x, '상세_gsamt'); continue
+                붙인국비[장부, 열쇠] += f(x, '상세_gsamt')
+                if 열쇠 and not (방법 or '').startswith('⑤'):   # 이름만 맞춘 줄(⑤)에선 안 배운다
+                    배운이름[x.get('dtlbzNm')][열쇠] += 1
+                continue
             뺀줄.add(id(x)); 미해결.setdefault(cd, []).append(x)
             검 = 결과[cd]['검사']
             검['장부 넘쳐 뺀 줄'] = 검.get('장부 넘쳐 뺀 줄', 0) + 1
