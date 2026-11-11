@@ -32,6 +32,16 @@ jobs:
           if [ $now -gt $((kst5 + 16200)) ] && [ $(last daily.yml) -lt $kst5 ] && ! busy daily.yml; then kick daily.yml '오늘 예약이 안 떴다'; fi
           if [ $now -gt $((kst5 + 18000)) ] && [ $(last assembly.yml) -lt $kst5 ] && ! busy assembly.yml; then kick assembly.yml '오늘 예약이 안 떴다'; fi
 
+          # 날마다 — 오늘 실행이 빨간불이면 한 시간 뒤 실패한 갈래만 다시 돌린다(한 실행에 세 번까지).
+          # 2026-11-10 지방재정365 가 낮에 30분쯤 응답이 없어 두 번 다 실패했는데, 위 줄은 「돌긴 돌았다」고 다시 안 불렀다.
+          # 통째로 다시 부르지 않고 --failed 로 — 성공한 CLIK 갈래가 하루 한도를 또 쓰지 않게.
+          read -r id st cc at up <<EOF
+          $(gh run list -w daily.yml -L 1 --json databaseId,status,conclusion,attempt,updatedAt -q '.[0] | "\(.databaseId) \(.status) \(.conclusion) \(.attempt) \(.updatedAt)"')
+          EOF
+          if [ -n "$id" ] && [ $(last daily.yml) -ge $kst5 ] && [ "$st" = completed ] && [ "$cc" = failure ] && [ "$at" -lt 3 ] && [ $((now - $(date -d "$up" +%s))) -gt 3600 ]; then
+            echo "▶ daily.yml — 오늘 실행 $id 실패(시도 $at), 실패한 갈래만 다시"; gh run rerun "$id" --failed
+          fi
+
           # 국고보조 — 남았으면 스스로 이어 부른다(national-grants.yml 끝). 그 고리가 끊기고 주간 예약도 빠졌을 때만
           if [ $((now - $(last national-grants.yml))) -gt 691200 ] && ! busy national-grants.yml; then kick national-grants.yml '8일 넘게 안 돌았다'; fi
           echo 끝
