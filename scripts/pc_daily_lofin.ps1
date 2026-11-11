@@ -3,9 +3,9 @@
 #   daily.yml 의 lofin·review 갈래를 그대로 옮겼다(그쪽은 if: false). 계약 원본은 R2 에 있는데 이 PC 키는 읽기 전용이라
 #   바뀐 파일을 임시 릴리스 contracts-pc 에 <날>.tar.gz 로 붙이고 r2-move.yml 을 부른다(봇이 올리고 견주고 지운다).
 #   결과는 data/pc_daily.json 에 남기고 올린다 — 봇 지킴이가 오후 2시에 보고 없거나 실패면 텔레그램(이 PC 엔 텔레그램 키가 없다).
-#   등록: powershell -File scripts\pc_daily_lofin.ps1 -등록     손으로: powershell -File scripts\pc_daily_lofin.ps1
+#   등록: powershell -ExecutionPolicy Bypass -File scripts\pc_daily_lofin.ps1 -Register(또는 -등록)     손으로: powershell -File scripts\pc_daily_lofin.ps1
 # 기록: %TEMP%\local-finance-daily.log
-param([switch]$등록)
+param([Alias('Register')][switch]$등록)   # 콘솔에 한글이 깨질 때는 -Register (2026-11-11)
 $repo = Split-Path -Parent $PSScriptRoot
 if ($등록) {
   schtasks /Create /F /TN 'local-finance-daily' /SC DAILY /ST 09:00 /TR "powershell.exe -NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File `"$PSCommandPath`"" | Out-Null
