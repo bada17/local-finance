@@ -31,6 +31,7 @@ jobs:
       - name: 가계부(세부사업 세출) 전국
         run: |
           sh scripts/r2_sync.sh down data/raw 가계부 || true
+          sh scripts/r2_sync.sh down data/raw 돈길 || true   # 보탬e 원본(지역 모름 잇기) — r2-move.yml 「돈길 원본 올리기」
           [ -f "data/raw/QWGJK__exe_ymd-${Y}1231_fyr-${Y}.json" ] || { python scripts/fetch_lofin.py QWGJK fyr=$Y exe_ymd=${Y}1231 | tail -3; sh scripts/r2_sync.sh up data/raw 가계부; }
       - run: python scripts/build_grants_flow.py $Y
       - run: sh scripts/bot_push.sh "국고보조 돈길 굽기 · $Y" data/grants_flow_$Y.json

@@ -83,3 +83,14 @@ jobs:
           for f in /tmp/pcc/*; do cmp "$f" "/tmp/back/$(basename "$f")"; done
           echo "같다 — $(ls /tmp/pcc | wc -l)개 다 올라갔다"
           gh release delete contracts-pc -y
+      # 2026-11-11 국고보조 돈길 — 보탬e 2024(받은 곳 실명 섞임)를 「지역 모름」 잇기에 쓴다. 화면용 보탬e/ 와 섞이지 않게 돈길/ 로
+      #   gh release create dongil-move data/raw/botem_<해>.json.gz --draft --title "R2 로 옮길 것(잠깐)" --notes "봇이 옮기고 지운다"
+      - name: 돈길 원본 올리기
+        run: |
+          gh release view dongil-move > /dev/null 2>&1 || { echo '릴리스 dongil-move 없음 — 건너뜀'; exit 0; }
+          gh release download dongil-move -D /tmp/dongil
+          sh scripts/r2_sync.sh up /tmp/dongil 돈길
+          rm -rf /tmp/back && sh scripts/r2_sync.sh down /tmp/back 돈길
+          for f in /tmp/dongil/*; do cmp "$f" "/tmp/back/$(basename "$f")"; done
+          echo "같다 — $(ls /tmp/dongil | wc -l)개 다 올라갔다"
+          gh release delete dongil-move -y

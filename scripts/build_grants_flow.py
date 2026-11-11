@@ -424,6 +424,33 @@ def _마저잇기(c, 광, x):
         return 경로, 방법, 장부['dbiz_nm']
     return 경로, 방법, '장부 근거 없음'
 
+# 보탬e(지자체가 단체에 준 보조금 공시)에 같은 받은 곳·같은 사업이 한 지자체에만 있으면 그 지자체를 거친 것으로 본다.
+# 주소로 지자체를 고르지 않고 전국 보탬e 에서 찾는다(11-11 사용자 「주소로는 어느 지역 사업인지 확인할 수 없다」).
+# 원본은 R2 돈길/botem_<해>.json.gz → data/raw/(받은 곳 이름이 있어 저장소에 안 둠) — 없으면 건너뛴다.
+보탬e = defaultdict(list)
+_p = os.path.join(ROOT, 'data', 'raw', f'botem_{해}.json.gz')
+if os.path.exists(_p):
+    _줄임 = {full: s for s, fulls in 시도이름.items() for full in fulls}
+    _역 = {v: k for k, v in 곳이름.items()}
+    for r in json.load(gzip.open(_p, 'rt', encoding='utf-8')):
+        _곳 = _줄임.get(r['_광역'], r['_광역']) + ('본청' if r['_곳'] == r['_광역'] else r['_곳'])
+        r['_cd'] = _역.get({'인천서해구': '인천서구'}.get(_곳, _곳))
+        보탬e[이름정규화(법인표기.sub('', r.get('pfmInstNm') or ''))].append(r)
+else:
+    print(f'botem_{해}.json.gz 없음 — 보탬e 잇기 건너뜀')
+
+def 보탬e잇기(c, 광, x):
+    z = 조각((x.get('ddtlbzNm') or '') + ' ' + (x.get('dtlbzNm') or ''))
+    맞 = [r for r in 보탬e.get(이름정규화(법인표기.sub('', x.get('excInsttNm') or '')), ())
+         if r['_cd'] and len(조각(r.get('pfmBizNm') or '') & z) >= 2]
+    곳들 = {r['_cd'] for r in 맞}
+    if len(곳들) != 1:
+        return None   # 없거나 여러 곳이면 모른다
+    대상 = 곳들.pop()
+    교부 = sum(float(r.get('bizctSbatAmt') or 0) for r in 맞)
+    방법 = '중 — 보탬e 같은 받은 곳·사업' if 교부 >= f(x, '상세_gsamt') - 1 else '약 — 보탬e 같은 받은 곳·사업(교부액이 국비보다 작음)'
+    return ('ⓑ3' if 대상 == c['cd'] else 'ⓒ3' if 대상 == 광 else 'ⓓ다른지역3'), 방법, f'보탬e · {곳이름[대상]}'
+
 # 장부 사업 하나(같은 이름 묶음)에 붙인 공시 국비가 그 장부 국비를 넘으면 붙이지 않고 주소 추정으로 돌린다.
 # 앞 단계(ⓑ·ⓒ·ⓑ2·ⓒ2)가 같은 장부에 먼저 붙인 돈도 센다 — 광역 장부는 그 시·도 기초 모두가 나눠 쓴다.
 붙인국비 = Counter()
@@ -434,8 +461,11 @@ def 마저잇기(c, 광, x):
     한도 = 사업묶음(대상).get(열쇠[1]) if 대상 in 가 else None
     if 한도:
         if 붙인국비[열쇠] + f(x, '상세_gsamt') > 한도 + 1e6:
-            return 'ⓓ지역모름3', '모름 — 장부 금액 넘침', '장부 근거 없음'
-        붙인국비[열쇠] += f(x, '상세_gsamt')
+            경로, 방법, 근거 = 'ⓓ지역모름3', '모름 — 장부 금액 넘침', '장부 근거 없음'
+        else:
+            붙인국비[열쇠] += f(x, '상세_gsamt')
+    if 경로 == 'ⓓ지역모름3':
+        return 보탬e잇기(c, 광, x) or (경로, 방법, 근거)
     return 경로, 방법, 근거
 
 받은곳이름 = set()
