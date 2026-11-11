@@ -598,8 +598,27 @@ def 마저잇기(c, 광, x):
             return 이음
         if x.get('dtlbzNm') in 사업묶음장부:   # 원문으로 지자체를 거치는 사업은 확인했는데 장부 금액이 다 찼다(재위탁 중복·이월 의심)
             return 'ⓓ지자체거침장부모자람3', '모름 — 원문상 지자체 거침, 장부 금액 모자람', 사업묶음장부[x.get('dtlbzNm')][1]
-        return 경로, 방법, 근거
+        return 경로, 모름까닭(c, 광, x, 방법), 근거
     return 경로, 방법, 근거
+
+# 「모름」 꼬리표 — 왜 못 이었나(11-11 사용자 「다 꼬리표를 잘 붙여놔. 그래야 알 수 있지」)
+def 모름까닭(c, 광, x, 방법):
+    if '금액 넘침' in 방법:
+        return '모름 — 장부 사업 찾았으나 금액 다 참'
+    if re.search(r'^(\(?(사|재|주|사단법인|재단법인)\)?\s*)?(한국|대한|전국|국립|국제)', x.get('excInsttNm') or ''):
+        return '모름 — 받은 곳이 전국 단체(지역 사업인지 모름)'
+    배 = 배운이름.get(x.get('dtlbzNm'))
+    if not 배:
+        return '모름 — 이 부처 사업이 어느 가계부에도 안 이어짐'
+    쓸 = [nm for nm, 번 in 배.items() if 번 >= 2]
+    if not 쓸:
+        return '모름 — 다른 곳에서 이어진 예가 한 번뿐'
+    있 = [(cd, nm) for cd in (c['cd'], 광) if cd in 가 for nm in 쓸 if nm in 사업묶음(cd)]
+    if not 있:
+        return '모름 — 이 곳·시도 가계부에 그 사업 이름 없음'
+    if any(붙인국비[cd, nm] + f(x, '상세_gsamt') <= 사업묶음(cd)[nm] + 1e6 for cd, nm in 있):
+        return '모름 — 장부에 같은 사업 있으나 공시 이름과 겹치는 말 없음'
+    return '모름 — 장부 사업 찾았으나 금액 다 참'
 
 받은곳이름 = set()
 for x in 줄:
@@ -652,6 +671,7 @@ def 대조기록(대조, x, 방법, 근거, 경로=None):
         d['예'].append(예)
 
 결과 = {}
+꼬리표 = {}; 곳줄 = {}; 넘친줄 = set()
 for c in 기초:
     시도, 이름 = c['시도'], c['이름'][len(c['시도']):]
     g = [x for 앞 in 시도이름[시도] for 뒤 in 옛이름.get(c['cd'], [이름]) for x in 주소별.get((앞, 뒤), [])]
@@ -666,7 +686,7 @@ for c in 기초:
         if 남: 묶['ⓓ다른지역'].append((x, None)); continue
         # 줄임 지명도(「…(평창군)」「(경남 함안군)」「- 김포시」) — 11-11 첫 대조에서 1,018줄 2,090억이 이 곳·광역 장부에 붙어 있었다
         if 짧은지명((x.get('ddtlbzNm') or '') + ' ' + (x.get('dtlbzNm') or ''), 시도, 줄기):
-            묶['ⓓ다른지역'].append((x, None)); 첫지명 += 1; continue
+            묶['ⓓ다른지역'].append((x, '줄임')); 첫지명 += 1; continue
         광기관 = re.search(광역기관[시도], 받은곳)
         k = None if 광기관 else 짝(x, c['cd'])
         if k: 후보[k].append(x); continue
@@ -684,7 +704,7 @@ for c in 기초:
                 담 += f(x, '상세_gsamt'); 묶['ⓑ'].append((x, k))
             else:
                 k2 = 짝(x, 광)
-                묶['ⓒ' if k2 else 'ⓓ'].append((x, k2)); 넘침.append(x)
+                묶['ⓒ' if k2 else 'ⓓ'].append((x, k2)); 넘침.append(x); 넘친줄.add(id(x))
         판['같음' if abs(담 - 사업묶음(c['cd'])[k]) < 1e6 else '작음'] += 1
     사업 = 후보
     큰 = [[공개예(x.get('ddtlbzNm'), x), round(f(x, '상세_gsamt'))] for x in sorted(넘침, key=lambda x: -f(x, '상세_gsamt'))]
@@ -710,6 +730,15 @@ for c in 기초:
             키 = 부처사업키(x)
             부처경로[키][경로] += 1
             시도부처경로[c['시도'], 키][경로] += 1
+    # 꼬리표 — 줄마다 어느 칸에 왜 갔나(뒤 마저잇기가 덮어쓴다)
+    첫 = {'ⓐ': '첫 대조 — 지방비 0', '교육청': '첫 대조 — 받은 곳이 학교', 'ⓑ': '첫 대조 — 이 곳 장부 같은 이름'}
+    for 칸, xs in 묶.items():
+        for x, k in xs:
+            if 칸 in 첫: 꼬리표[id(x)] = (칸, 첫[칸], k)
+            elif 칸 == 'ⓓ다른지역': 꼬리표[id(x)] = (칸, '첫 대조 — 사업명에 다른 지역(' + ('줄임 지명)' if k == '줄임' else '전체 지명)'), None)
+            elif 칸 == 'ⓒ': 꼬리표[id(x)] = (칸, '첫 대조 — 이 곳 장부 넘쳐 광역 장부로' if id(x) in 넘친줄 else '첫 대조 — 광역 장부 같은 이름', k)
+            else: 꼬리표[id(x)] = (칸, k, 짝들.get(id(x)))   # ⓑ2·ⓒ2·ⓓ다른지역2 — k 가 다시잇기 방법
+    곳줄[c['cd']] = g
     세 = 세입.get(c['cd'], {})
     결과[c['cd']] = {
         '이름': c['이름'], '시도': 시도,
@@ -756,8 +785,24 @@ for c in 기초:
     곳결과['③'].pop('ⓓ', None)
     for x in 미해결[cd]:
         경로, 방법, 근거 = 마저잇기(c, 광, x)
+        꼬리표[id(x)] = (경로, 방법, 근거)
         대조기록(곳결과['대조'], x, 방법, 근거, 경로)
         집계기록(곳결과['③'].setdefault(경로, 빈집계()), x)
+
+# 곳마다 꼬리표 합계(공개) · 줄마다 꼬리표(data/raw, 저장소 밖 — 받은 곳 이름은 안 넣는다)
+줄파일 = []
+for c in 기초:
+    표 = {}
+    for x in 곳줄[c['cd']]:
+        경로, 방법, 근거 = 꼬리표[id(x)]
+        집계기록(표.setdefault(f'{경로} · {방법}', 빈집계()), x)
+        줄파일.append({'열쇠': '|'.join(str(x.get(k, '')) for k in ('bsnsyear', 'excInsttId', 'ddtlbzId', 'dtlbzId', 'hwipnBassId')), '곳': c['cd'], '경로': 경로, '꼬리표': 방법, '근거': 공개예(근거, x),
+                    '부처사업': x.get('dtlbzNm'), '세부사업': 공개예(x.get('ddtlbzNm'), x),
+                    '국비': round(f(x, '상세_gsamt')), '지방비': round(f(x, '상세_lsamt'))})
+    결과[c['cd']]['꼬리표'] = dict(sorted(표.items(), key=lambda kv: -kv[1]['국비']))
+    assert sum(v['줄'] for v in 표.values()) == 결과[c['cd']]['주소줄']
+with gzip.open(os.path.join(ROOT, 'data', 'raw', f'grants_flow_{해}_rows.json.gz'), 'wt', encoding='utf-8') as _f:
+    json.dump(줄파일, _f, ensure_ascii=False)
 
 공시결과 = {'해': 해, '곳': 결과}
 공시결과['③금액기준'] = 'e나라도움 교부신청서 총사업비의 국고보조금·지자체부담금'
