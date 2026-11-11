@@ -5,7 +5,7 @@
 # 칸 ① 교부세 등(지방교부세+지방소멸대응기금)·조정교부금 — 지방재정365 세입결산(FIACRV) 2단계. 결산서 원문과 원 단위까지 같음(마포·태백·순창·대구 확인)
 #    ② 국고보조금 — 같은 세입결산 51000. 사업별은 지방재정365 세부사업 세출(QWGJK) 국비 칸(bdg_ntep, 예산현액)
 #    ③ 단체가 받은 국고보조 — e나라도움 보조사업자 공시(R2 국고보조/), 받은 곳 주소가 이 곳인 줄. 줄마다 거친 곳 하나만:
-#       ⓐ 지방비 0 = 정부가 단체에 바로(주소만 이 곳, 「이 곳 몫」 아님)
+#       ⓐ 공시 지자체부담금 0. 실제 교부기관은 별도 증빙으로 확인
 #       ⓑ 이 지자체 가계부의 같은 이름 사업 = 이 지자체를 거침(② 안에 든 돈 — 더하지 않는다)
 #       ⓒ 광역 가계부의 같은 이름 사업 = 광역을 거침(광역 몫 — 이 곳 합계에 넣지 않는다)
 #       ⓓ 못 이음(다른 지역 돈·이름이 다른 사업) · 학교 = 교육청(따로 본다)
@@ -13,7 +13,7 @@
 # 검사 — ⓑ 를 사업마다 모아 「공시 국비 합 > 가계부 국비」면 뻥튀기 의심으로 센다.
 # ⚠️ 받은 곳 이름은 찍지 않는다(로그가 공개). 사업명·건수·금액만.
 # 결과: data/grants_flow_<해>.json (곳마다 요약)
-import gzip, json, os, re, sys
+import gzip, json, os, re, sys, unicodedata
 from collections import Counter, defaultdict
 
 sys.stdout.reconfigure(encoding='utf-8')
@@ -65,6 +65,44 @@ def 짧은지명(글, 시도, 내줄기):
 def 앞머리지명(글, 내줄기):
     m = [k for k in 홑줄기 if k != 내줄기 and re.search(r'(?<![가-힣])' + k, 글 or '')]
     return m[0] if len(m) == 1 else None
+def 대표경로(표):
+    전체 = sum(표.values())
+    if 전체 >= 10:
+        for 경로 in ('ⓑ', 'ⓒ'):
+            if 표.get(경로, 0) * 5 >= 전체 * 4:
+                return 경로
+
+def 마지막경로(기초점, 광역점):
+    if 기초점 > 광역점:
+        return 'ⓑ3', '약 — 이름 일부'
+    if 광역점 > 기초점:
+        return 'ⓒ3', '약 — 이름 일부'
+    return 'ⓑ3', '약 — 주소만'
+
+def 체전종류(해, 부처사업, 세부사업, 내용=''):
+    if 해 != '2024':
+        return None
+    제목 = re.sub(r'[\s()]', '', 세부사업)
+    근거 = 제목 + ' ' + re.sub(r'[\s()]', '', 내용)
+    if 부처사업 == '전국체전 지원' and re.search(r'105회.*전국체(?:전|육대회)', 제목):
+        if re.search(r'경기운영|운영비|운영요원|심판|경기방식|개[·ㆍ]?폐회식|개회식|폐회식|대회운영|도핑|D-100일', 근거):
+            return '전국체전'
+    if 부처사업.startswith('장애인전국체전 및 국제대회지원') and re.search(r'44회.*전국장애인체(?:전|육대회)', 제목):
+        if re.search(r'경기운영|운영비|운영요원|심판|프레대회|사전대회|행정보조', 근거):
+            return '전국장애인체전'
+
+def 이름정규화(이름):
+    return re.sub(r'[^가-힣a-z0-9]', '', unicodedata.normalize('NFKC', 이름 or '').casefold())
+
+법인표기 = re.compile(
+    r'^\s*(?:\((?:주|사|재)\)|사단법인|재단법인|사회복지법인|학교법인|의료법인|주식회사|유한회사|농업회사법인|영농조합법인)\s*'
+    r'|\s*(?:\((?:주|사|재)\)|주식회사|유한회사)\s*$'
+)
+
+def 수령인이름표기(이름):
+    원문 = unicodedata.normalize('NFKC', 이름 or '')
+    return {이름정규화(원문), 이름정규화(법인표기.sub('', 원문))} - {''}
+
 if '--selftest' in sys.argv:
     assert 짧은지명('2024년 충남어촌특화지원센터 운영', '서울', '금천') == '충남'
     assert 짧은지명('제105회 전국체육대회 경기운영비', '경남', '창원') is None
@@ -75,6 +113,19 @@ if '--selftest' in sys.argv:
     assert 짧은지명('2024년 충남 일자리사업 역량 강화 지원', '충남', '예산') is None
     assert len(조각('노인일자리 및 사회활동지원') & 조각('노인일자리사업')) >= 2
     assert not 조각('장애인 집합 정보화교육') & 조각('자치단체 명예축산물위생감시원 운영 수당')
+    assert 대표경로(Counter({'ⓑ': 8, 'ⓒ': 1, 'ⓓ다른지역': 1})) == 'ⓑ'
+    assert 대표경로(Counter({'ⓑ': 7, 'ⓒ': 1, 'ⓓ다른지역': 2})) is None
+    assert 대표경로(Counter({'ⓒ': 9})) is None
+    assert 마지막경로(0, 1) == ('ⓒ3', '약 — 이름 일부')
+    assert 마지막경로(2, 1) == ('ⓑ3', '약 — 이름 일부')
+    assert 마지막경로(2, 2) == ('ⓑ3', '약 — 주소만')
+    assert 체전종류('2024', '전국체전 지원', '제105회 전국체육대회 경기운영비') == '전국체전'
+    assert 체전종류('2024', '장애인전국체전 및 국제대회지원(자치단체경상보조)', '제44회 전국장애인체육대회 심판 피복비') == '전국장애인체전'
+    assert 체전종류('2024', '전국체전 지원', '제105회 전국체육대회 선수단 참가비') is None
+    assert 체전종류('2025', '전국체전 지원', '제105회 전국체육대회 경기운영비') is None
+    assert 이름정규화('㈜예시') == 이름정규화('(주)예시')
+    assert 수령인이름표기('㈜가상기관') == {'주가상기관', '가상기관'}
+    assert 수령인이름표기('사단법인 가상기관') == {'사단법인가상기관', '가상기관'}
     print('selftest ok'); sys.exit()
 
 # 세입결산
@@ -170,6 +221,256 @@ def 다시잇기(c, 광, rows):
             out['ⓓ'].append((x, None))
     return out, 짝
 
+
+# 2024년 일곱 방법 뒤의 미해결분만 다시 본다. 기존 칸의 판정은 경로 집계에만 쓴다.
+비교경로 = {'ⓑ': 'ⓑ', 'ⓑ2': 'ⓑ', 'ⓒ': 'ⓒ', 'ⓒ2': 'ⓒ', 'ⓓ다른지역': 'ⓓ다른지역', 'ⓓ다른지역2': 'ⓓ다른지역'}
+부처경로 = defaultdict(Counter)
+시도부처경로 = defaultdict(Counter)
+미해결 = {}
+교부경로미확인 = 'ⓓ교부경로미확인3'
+
+def 부처사업키(x):
+    return x.get('jrsdCode'), x.get('dtlbzNm')
+
+def 이름근거(장부목록, 조각들, 조건=None):
+    최고점, 장부 = 0, None
+    for 낱말, y in 장부목록:
+        if 조건 is None or 조건(y):
+            점 = len(낱말 & 조각들)
+            if 점 > 최고점:
+                최고점, 장부 = 점, y
+    return 최고점, 장부
+
+# 마지막 이름 대조에서는 지명과 여러 분야에 공통인 표현을 점수에서 뺀다.
+공통사업말 = re.compile('사회적|스마트|맞춤형|서비스|문화재|종합정비|정비|보수|보험료|보상비|인건비|대표|시설|지방자치|고도화|네트워크|수산물|교육훈련|글로벌|아카데미|우리마을|유적지|지역|디지털|대한민국|국제|축산분야|통합돌봄|긴급돌봄|찾아가는|공공사회복지|요양보호사|지방의료원|생활폐기물')
+def 마지막이름조각(이름):
+    이름 = re.sub(r'(?:동|서|남|북)(?:서울|부산|대구|인천|광주|대전|울산|제주)', ' ', 이름)
+    이름 = 흔한말.sub(' ', 공통사업말.sub(' ', 지역식.sub(' ', 이름)))
+    return {낱말[i:i + 5] for 낱말 in re.findall(r'[가-힣]+', 이름) for i in range(len(낱말) - 4)}
+
+마지막장부조각 = {
+    cd: [(마지막이름조각(y['dbiz_nm']), y) for y in ys]
+    for cd, ys in 가.items()
+} if 해 == '2024' else {}
+
+def 집행장소(세부사업, 본문):
+    장소들 = re.findall(r'(?:사업\s*(?:장소|대상지|위치)|사업장\s*소재지|위\s*치)\s*[:：]\s*([^\r\n]{1,100})', 본문)
+    # 시·도와 시·군·구가 붙은 소재지만 쓴다. 두 곳 이상이면 하나로 정하지 않는다.
+    # 정식 시·도+시군구가 붙은 사업명도 장소 단서로 쓴다.
+    장소들 = [n(장소) for 장소 in 장소들]
+    사업지명 = n(세부사업)
+    지역들 = set()
+    for p in 기초:
+        시도 = p['시도']
+        시군구 = p['이름'][len(시도):]
+        주소들 = [n(s + 시군구) for s in [시도, *시도이름[시도]]]
+        if any(주소 in 사업지명 for 주소 in 주소들):
+            지역들.add(p['cd'])
+        if len(시군구) >= 3 and 줄기수[시군구[:-1]] == 1:
+            주소들.append(시군구)
+        if any(주소 in 장소 for 주소 in 주소들 for 장소 in 장소들):
+            지역들.add(p['cd'])
+    return next(iter(지역들)) if len(지역들) == 1 else None
+
+def 마저잇기(c, 광, x):
+    cd = c['cd']
+    부처사업, 세부사업 = x.get('dtlbzNm') or '', x.get('ddtlbzNm') or ''
+    제목조각 = 조각(세부사업 + ' ' + 부처사업)
+    내용 = x.get('상세_bsnsCn') or ''
+    받은곳 = x.get('excInsttNm') or ''
+    칸 = lambda 대상: 'ⓑ3' if 대상 == cd else 'ⓒ3' if 대상 == 광 else 'ⓓ다른지역3'
+
+    종류 = 체전종류(해, 부처사업, 세부사업, 내용)
+    # 공시 제목의 106회와 달리 본문 및 사업기간은 2024년 제105회에 해당한다.
+    회차차이 = (부처사업 == '전국체전 지원' and '106회' in 세부사업 and '105회' in 내용
+              and re.findall(r'\d{4}', x.get('상세_bsnsDe') or '') == ['2024', '2024'])
+    if 회차차이:
+        종류 = '전국체전'
+    if 종류:
+        # 개최지와 주관은 공식 대회 기록에서 확인된다. 교부 경로는 별도 증빙이 필요하다.
+        if 회차차이:
+            방법 = '약 — 전국체전 공시 회차 상충'
+        elif 종류 == '전국장애인체전':
+            방법 = '약 — 제44회 전국장애인체전 교부 경로 미확인'
+        else:
+            방법 = '약 — 제105회 전국체전 교부 경로 미확인'
+        return 교부경로미확인, 방법, 종류 + ' · 경남 개최 기록'
+
+    if 부처사업.startswith('문화재보수정비'):
+        보수 = re.compile(r'보수|정비|보존|수장고|보호')
+        국가 = re.compile(r'국가\s*지정|국보|보물|사적|천연기념물|국가민속문화')
+        시도 = re.compile(r'시[·ㆍ]?도\s*지정|도\s*지정|시\s*지정|유형문화재|문화재자료')
+        본문 = 세부사업 + ' ' + (x.get('상세_bsnsCn') or '') + ' ' + (x.get('상세_bsnsPurpsCn') or '')
+        국가등급, 시도등급 = bool(국가.search(본문)), bool(시도.search(본문))
+        등급 = (국가 if 국가등급 else 시도) if 국가등급 != 시도등급 else None
+        대상조각 = 조각(re.sub(r'문화재|보수|정비|보존|설계|건립|공사', ' ', 세부사업))
+        def 보수장부(y):
+            제목 = y['dbiz_nm']
+            등급일치 = 등급 is None or 등급.search(제목) or not (국가.search(제목) or 시도.search(제목))
+            return bool(보수.search(제목)) and 등급일치
+        후보 = [(대상, 이름근거(장부조각.get(대상, ()), 대상조각, 보수장부))
+              for 대상 in (cd, 광)]
+        후보.sort(key=lambda v: -v[1][0])
+        대상, (점, 장부) = 후보[0]
+        if (점 >= 2 and 점 > 후보[1][1][0]
+                and f(장부, 'bdg_ntep') >= f(x, '상세_gsamt') and 지방비(장부) >= f(x, '상세_lsamt')):
+            return 칸(대상), '중 — 문화재 대상·등급과 보수 장부', 장부['dbiz_nm']
+        if 등급:
+            등급장부 = [(대상, y) for 대상 in (cd, 광) for y in 가[대상]
+                    if 등급.search(y['dbiz_nm']) and 보수.search(y['dbiz_nm'])
+                    and f(y, 'bdg_ntep') >= f(x, '상세_gsamt') and 지방비(y) >= f(x, '상세_lsamt')]
+            if len({대상 for 대상, _ in 등급장부}) == 1:
+                대상, 장부 = 등급장부[0]
+                return 칸(대상), '중 — 문화재 대상·등급과 보수 장부', 장부['dbiz_nm']
+
+    if 부처사업 in ('새일센터 지정운영', '가족센터 운영'):
+        중심 = '새일|여성새로일하기' if 부처사업.startswith('새일') else '가족센터|건강가정.*다문화가족'
+        범위 = n(받은곳 + ' ' + 세부사업)
+        광역명 = '|'.join(map(re.escape, [c['시도'], *(n(s) for s in 시도이름[c['시도']])]))
+        시군구 = n(c['이름'][len(c['시도']):])
+        기초명 = re.escape(시군구[:-1]) + '(?:시|군|구)?' if len(시군구) >= 3 else re.escape(시군구)
+        광역거점 = re.search(rf'(?:광역(?:거점)?|(?:{광역명}))(?:{중심})', 범위)
+        기초센터 = re.search(rf'{기초명}(?:{중심})', 범위)
+        if bool(광역거점) != bool(기초센터):
+            대상 = 광 if 광역거점 else cd
+            장부 = [y for y in 가[대상] if re.search(중심, n(y['dbiz_nm']))]
+            if 장부:
+                y = max(장부, key=lambda y: len(조각(y['dbiz_nm']) & 제목조각))
+                return 칸(대상), '중 — 센터 관할과 장부', y['dbiz_nm']
+        if not (광역거점 and 기초센터):
+            # 센터 이름에 시군구가 있어도 같은 사업이 기초 장부에 없으면 시도 경로를 확인한다.
+            # 앞의 이름 단서를 뒷받침하는 장부가 없을 때만 기존 교부 패턴과 두 재원을 대조한다.
+            시도센터경로 = 대표경로(시도부처경로[c['시도'], 부처사업키(x)])
+            if 시도센터경로:
+                대상 = cd if 시도센터경로 == 'ⓑ' else 광
+                장부 = [y for y in 가[대상] if re.search(중심, n(y['dbiz_nm']))
+                        and f(y, 'bdg_ntep') >= f(x, '상세_gsamt') and 지방비(y) >= f(x, '상세_lsamt')]
+                if 장부:
+                    y = max(장부, key=lambda y: len(조각(y['dbiz_nm']) & 제목조각))
+                    return 칸(대상), '중 — 센터 관할과 장부', y['dbiz_nm']
+
+    # 국회예산정책처 2023 결산 분석에서 확인한 이월사업의 마지막 간접보조 지자체.
+    # https://www.nabo.go.kr/board/file/down.do?fid=33318084
+    if 부처사업 == '천연물안전관리원 구축' and '양산시' in 내용 and '천연물안전관리원' in 세부사업:
+        양산 = next(p['cd'] for p in 기초 if p['이름'] == '경남양산시')
+        return 칸(양산), '중 — 전년도 결산서의 교부 경로', '2023회계연도 결산 · 경남양산시'
+
+    # 문화체육관광부의 스마트 관광도시 선정과 대회 주최 측의 2024년 개최 요강.
+    # https://mcst.go.kr/servlets/eduport/front/upload/UplDownloadFile?pPath=0302000000&pRealName=20230308091113924783.pdf
+    # https://www.kbaduk.or.kr/bbs/view/competition/domestic/982/www.kbaduk.or.kr
+    if 부처사업 == '스마트관광 기반 조성' and '통영스마트관광' in n(세부사업):
+        return 교부경로미확인, '약 — 공모 선정·개최지 확인', '경남통영시 스마트관광도시 공모 선정'
+    if 부처사업.startswith('지역스포츠산업지원') and '제3회1004섬신안전국아마바둑대회' in re.sub(r'\s+', '', 세부사업):
+        return 교부경로미확인, '약 — 공모 선정·개최지 확인', '전남신안군 전국 아마바둑대회 개최'
+
+    if re.search(r'공단|공사|협회|진흥원', 받은곳) or '급식관리지원센터' in 부처사업:
+        대상 = 집행장소(세부사업, 내용)
+        if 대상 and 대상 != cd:
+            점, 장부 = 이름근거(장부조각.get(대상, ()), 제목조각)
+            if 점 >= 2 and f(장부, 'bdg_ntep') >= f(x, '상세_gsamt') and 지방비(장부) >= f(x, '상세_lsamt'):
+                return 칸(대상), '중 — 공시 사업장소와 장부', 장부['dbiz_nm']
+
+    # 공시의 업무와 장부 항목이 같은 표현으로 확인되고 두 재원 모두 수용 가능한 곳.
+    이름변형 = {
+        '청소년지도사 배치지원': (r'청소년지도사', r'청소년.*지도사'),
+        '청소년상담복지센터 운영지원': (r'청소년안전망|청소년상담복지센터', r'청소년안전망|청소년상담복지센터'),
+        '생활체육지도자 활동 지원': (r'생활체육지도자|일반지도자|어르신지도자', r'생활체육지도자|체육지도자'),
+        '학교 밖 청소년 급식지원': (r'급식', r'학교밖청소년.*급식'),
+    }
+    if (부처사업 == '생활체육지도자 활동 지원' and c['시도'] == '서울'
+            and re.search(r'서울시민(?:체육)?대축전', n(세부사업))
+            and any(n(y['dbiz_nm']) == '서울시민체육대축전운영' for y in 가[광])):
+        return 칸(광), '중 — 세부 업무와 장부 항목', '서울시민 체육대축전 운영'
+    if 부처사업 in 이름변형:
+        공시식, 장부식 = 이름변형[부처사업]
+        if re.search(공시식, n(세부사업 + ' ' + 내용)):
+            후보 = [(대상, y) for 대상 in (cd, 광) for y in 가[대상]
+                    if re.search(장부식, n(y['dbiz_nm']))
+                    and f(y, 'bdg_ntep') >= f(x, '상세_gsamt') and 지방비(y) >= f(x, '상세_lsamt')]
+            if len({대상 for 대상, _ in 후보}) == 1:
+                대상, 장부 = 후보[0]
+                return 칸(대상), '중 — 세부 업무와 장부 항목', 장부['dbiz_nm']
+
+    기관, 사업 = 부처사업키(x)
+    경로 = 대표경로(부처경로[(기관, 사업)]) if 기관 and 사업 else None
+    시도표 = 시도부처경로[c['시도'], (기관, 사업)]
+    시도일치 = 경로 and 시도표[경로] > 0 and 시도표[경로] * 2 >= sum(시도표.values())
+    # 이 사업은 광역 공모 근거와 2024년 공시의 압도적인 광역 비중이 함께 있다.
+    # https://www.moel.go.kr/local/jeonju/news/notice/noticeView.do?bbs_seq=20231201048
+    광역공모 = False
+    if 경로 == 'ⓒ' and 부처사업 == '지역산업맞춤형 자치단체 지원 사업(경상보조)':
+        광역정식명 = '|'.join(map(re.escape, 시도이름[c['시도']]))
+        공동재원 = re.search(rf'고용노동부[^\n]{{0,24}}(?:{광역정식명})|(?:{광역정식명})[^\n]{{0,24}}고용노동부', 내용)
+        # 울산시의 자동차·석유화학 상생협약 선정과 세부 지원사업 모집 공고.
+        # https://www.bizinfo.go.kr/sii/siia/selectSIIA200Detail.do?pblancId=PBLN_000000000099628
+        # https://www.ulsan.go.kr/u/rep/bbs/view.do?bbsId=BBS_0000000000000027&dataId=164326&mId=001004003001000000
+        울산상생 = (c['시도'] == '울산' and '울산' in 내용
+                   and re.search(r'(자동차부품|석유화학)업종.*(일자리채움|도약장려금|복지|계속고용)', n(세부사업)))
+        광역공모 = 공동재원 or 울산상생 or re.search(r'지역혁신프로젝트|지역주도이중구조|지역체감형일자리', n(세부사업))
+    기초경로충돌 = 경로 == 'ⓑ' and re.search(r'^(시도형|광역형)', n(세부사업))
+    if (시도일치 or 광역공모) and not 기초경로충돌:
+        대상 = cd if 경로 == 'ⓑ' else 광
+        return 칸(대상), '중 — 같은 부처 사업의 주된 경로', 곳이름[대상]
+
+    조각들 = 마지막이름조각(세부사업 + ' ' + 부처사업)
+    기초점, 기초장부 = 이름근거(마지막장부조각.get(cd, ()), 조각들)
+    광역점, 광역장부 = 이름근거(마지막장부조각.get(광, ()), 조각들)
+    경로, 방법 = 마지막경로(기초점, 광역점)
+    if 방법 == '약 — 이름 일부':
+        장부 = 기초장부 if 경로 == 'ⓑ3' else 광역장부
+        return 경로, 방법, 장부['dbiz_nm']
+    return 경로, 방법, '수령지 관할 기초'
+
+받은곳이름 = set()
+for x in 줄:
+    받은곳이름.update(수령인이름표기(x.get('excInsttNm')))
+for d in 상.values():
+    if d:
+        for 필드 in ('excInsttNm', 'insttNm'):
+            받은곳이름.update(수령인이름표기(d.get(필드)))
+이름길이 = sorted({len(이름) for 이름 in 받은곳이름 if len(이름) >= 3})
+
+def 이름포함(글):
+    글 = unicodedata.normalize('NFKC', 글).casefold()
+    이름 = 이름정규화(글)
+    if 이름 in 받은곳이름 or any(낱말 in 받은곳이름 for 낱말 in re.findall(r'[가-힣a-z0-9]+', 글)):
+        return True
+    return any(
+        이름[i:i + 길이] in 받은곳이름
+        for 길이 in 이름길이 if 길이 <= len(이름)
+        for i in range(len(이름) - 길이 + 1)
+    )
+
+def 공개예(글, x, 길이=40):
+    글 = str(글 or '')
+    이름 = 이름정규화(글)
+    수령인 = set().union(*(수령인이름표기(x.get(k)) for k in ('excInsttNm', '상세_excInsttNm', '상세_insttNm')))
+    표시 = 글[:길이]
+    if (any(이름값 in 이름 for 이름값 in 수령인) or 이름포함(글)
+            or (표시 != 글 and 이름포함(표시))):
+        return '[비공개]'
+    return 표시
+
+def 빈집계():
+    return {'줄': 0, '국비': 0, '지방비': 0}
+
+def 집계기록(집계, x):
+    집계['줄'] += 1
+    집계['국비'] += round(f(x, '상세_gsamt'))
+    집계['지방비'] += round(f(x, '상세_lsamt'))
+
+def 대조기록(대조, x, 방법, 근거, 경로=None):
+    d = 대조.setdefault(방법, {**빈집계(), '예': []})
+    집계기록(d, x)
+    if 경로:
+        경로집계 = d.setdefault('경로', {}).setdefault(경로, 빈집계())
+        집계기록(경로집계, x)
+    if len(d['예']) < 3:
+        예 = [공개예(x.get('ddtlbzNm'), x), 공개예(근거, x)]
+        if 경로:
+            예.append(경로)
+        d['예'].append(예)
+
 결과 = {}
 for c in 기초:
     시도, 이름 = c['시도'], c['이름'][len(c['시도']):]
@@ -203,16 +504,23 @@ for c in 기초:
                 묶['ⓒ' if k2 else 'ⓓ'].append((x, k2)); 넘침.append(x)
         판['같음' if abs(담 - 사업묶음(c['cd'])[k]) < 1e6 else '작음'] += 1
     사업 = 후보
-    큰 = [[(x.get('ddtlbzNm') or '')[:40], round(f(x, '상세_gsamt'))] for x in sorted(넘침, key=lambda x: -f(x, '상세_gsamt'))]
+    큰 = [[공개예(x.get('ddtlbzNm'), x), round(f(x, '상세_gsamt'))] for x in sorted(넘침, key=lambda x: -f(x, '상세_gsamt'))]
     판['넘쳐 옮긴 줄'] = len(넘침); 판['넘친 국비'] = round(sum(f(x, '상세_gsamt') for x in 넘침))
     다시, 짝들 = 다시잇기(c, 광, [x for x, _ in 묶.pop('ⓓ', [])])
-    대조 = defaultdict(lambda: {'줄': 0, '국비': 0, '지방비': 0, '예': []})   # 예 = [공시 사업, 이어진 장부 사업·지명] — 사람이 맞나 보라고. 받은 곳 이름은 안 넣는다
+    대조 = {}
     for k, v in 다시.items():
         묶[k] += v
         for x, 방법 in v:
             if 방법:
-                d = 대조[방법]; d['줄'] += 1; d['국비'] += round(f(x, '상세_gsamt')); d['지방비'] += round(f(x, '상세_lsamt'))
-                if len(d['예']) < 3: d['예'].append([(x.get('ddtlbzNm') or '')[:40], str(짝들.get(id(x), ''))[:40]])
+                대조기록(대조, x, 방법, 짝들.get(id(x)))
+    if 해 == '2024':
+        if 묶.get('ⓓ'):
+            미해결[c['cd']] = [x for x, _ in 묶['ⓓ']]
+        for 칸, 경로 in 비교경로.items():
+            for x, _ in 묶.get(칸, ()):
+                키 = 부처사업키(x)
+                부처경로[키][경로] += 1
+                시도부처경로[c['시도'], 키][경로] += 1
     세 = 세입.get(c['cd'], {})
     결과[c['cd']] = {
         '이름': c['이름'], '시도': 시도,
@@ -224,7 +532,26 @@ for c in 기초:
         '주소줄': len(g),
     }
 
-json.dump({'해': 해, '곳': 결과}, open(os.path.join(ROOT, 'data', f'grants_flow_{해}.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+if 해 == '2024':
+    for c in 기초:
+        cd, 광 = c['cd'], 광역코드[c['시도']]
+        if cd not in 미해결:
+            continue
+        곳결과 = 결과[cd]
+        곳결과['③'].pop('ⓓ')
+        for x in 미해결[cd]:
+            경로, 방법, 근거 = 마저잇기(c, 광, x)
+            대조기록(곳결과['대조'], x, 방법, 근거, 경로)
+            집계기록(곳결과['③'].setdefault(경로, 빈집계()), x)
+
+공시결과 = {'해': 해, '곳': 결과}
+if 해 == '2024':
+    공시결과['③금액기준'] = 'e나라도움 교부신청서 총사업비의 국고보조금·지자체부담금'
+    공시결과['③경로기준'] = {
+        'ⓐ': '교부신청서의 지자체부담금 0',
+        교부경로미확인: '개최·선정 근거 확인, 교부 경로 미확인',
+    }
+json.dump(공시결과, open(os.path.join(ROOT, 'data', f'grants_flow_{해}.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
 
 # 요약
 억 = lambda v: f'{v / 1e8:,.0f}'
@@ -238,7 +565,7 @@ for v in 결과.values():
 print('③ 전체:', {k: f'{줄합[k]:,}줄 {억(합[k])}억' for k in sorted(합)})
 대합 = defaultdict(Counter)
 for v in 결과.values():
-    for k, w in v['대조'].items(): 대합[k].update({a: b for a, b in w.items() if a != '예'})
+    for k, w in v['대조'].items(): 대합[k].update({a: b for a, b in w.items() if a in ('줄', '국비', '지방비')})
 print('못 이음 다시 잇기:', {k: f"{w['줄']:,}줄 국비+지방비 {억(w['국비'] + w['지방비'])}억" for k, w in sorted(대합.items())})
 검 = Counter()
 for v in 결과.values():
@@ -249,7 +576,5 @@ print('넘친 국비가 큰 곳:')
 for v in 나쁜:
     b = v['③'].get('ⓑ', {'줄': 0})
     print(f"  {v['이름']}: ⓑ {b['줄']}줄 · 사업 {v['검사']['사업']} · 같음 {v['검사'].get('같음', 0)} · 넘친 줄 {v['검사'].get('넘쳐 옮긴 줄', 0)} ({v['검사'].get('넘친 국비', 0) / 1e8:,.1f}억) · 예 {v['검사']['넘친줄예'][:2]}")
-인천 = Counter(k[1] for k in 주소별 if k[0] == '인천광역시')
-print('인천 주소 둘째 낱말:', dict(인천))
 비율순 = sorted(결과.values(), key=lambda v: v['③'].get('ⓑ', {'국비': 0})['국비'] / max(1, v['②']['국고보조금등']))
 print('② 대비 ⓑ 비율(낮은/높은 곳):', [(v['이름'], f"{v['③'].get('ⓑ', {'국비': 0})['국비'] / max(1, v['②']['국고보조금등']):.1%}") for v in 비율순[:3] + 비율순[-3:]])
