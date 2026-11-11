@@ -70,3 +70,16 @@ jobs:
           for f in data/contracts_old/*.json.gz; do cmp "$f" "/tmp/back/$(basename "$f")"; done
           echo '같다 — 다 올라갔다'
           gh release delete contracts-move -y
+      # 2026-11-11 지방재정365 가 해외 서버를 막아 날마다 계약 수집을 PC 에서 돌린다(scripts/pc_daily_lofin.ps1).
+      #   PC 키는 읽기 전용이라 바뀐 계약 원본을 날마다 임시 릴리스 contracts-pc 에 <날>.tar.gz 로 붙이고 이 봇을 부른다.
+      #   전날 것이 남아 있으면 같이 옮긴다(날 순서로 풀어 새것이 이긴다).
+      - name: PC 날마다 계약 원본 올리기
+        run: |
+          gh release view contracts-pc > /dev/null 2>&1 || { echo '릴리스 contracts-pc 없음 — 건너뜀'; exit 0; }
+          gh release download contracts-pc -D /tmp/pc
+          mkdir -p /tmp/pcc && for t in $(ls /tmp/pc/*.tar.gz | sort); do tar -xzf "$t" -C /tmp/pcc; done
+          sh scripts/r2_sync.sh up /tmp/pcc 최근계약
+          rm -rf /tmp/back && sh scripts/r2_sync.sh down /tmp/back 최근계약
+          for f in /tmp/pcc/*; do cmp "$f" "/tmp/back/$(basename "$f")"; done
+          echo "같다 — $(ls /tmp/pcc | wc -l)개 다 올라갔다"
+          gh release delete contracts-pc -y

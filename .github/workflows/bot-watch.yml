@@ -20,6 +20,8 @@ jobs:
     env:
       GH_TOKEN: ${{ github.token }}
       GH_REPO: ${{ github.repository }}
+      TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_ALERT_CHAT_ID || secrets.TELEGRAM_CHAT_ID }}
     steps:
       - run: |
           last() { date -d "$(gh run list -w "$1" -L 1 --json createdAt -q '.[0].createdAt // "1970-01-01T00:00:00Z"')" +%s; }
@@ -44,4 +46,18 @@ jobs:
 
           # 국고보조 — 남았으면 스스로 이어 부른다(national-grants.yml 끝). 그 고리가 끊기고 주간 예약도 빠졌을 때만
           if [ $((now - $(last national-grants.yml))) -gt 691200 ] && ! busy national-grants.yml; then kick national-grants.yml '8일 넘게 안 돌았다'; fi
+          # PC 날마다 수집(지방재정365, 2026-11-11 부터 PC — daily.yml lofin 설명) — PC 는 텔레그램 키가 없어 여기서 본다.
+          # 오후 2시가 지나도 오늘 기록(data/pc_daily.json)이 없거나 받기가 실패로 적혀 있으면 알린다(지킴이가 뜰 때마다 — 하루 몇 번)
+          if [ $now -gt $((kst5 + 32400)) ]; then
+            pc=$(gh api "repos/$GH_REPO/contents/data/pc_daily.json" -q .content 2>/dev/null | base64 -d 2>/dev/null || true)
+            날=$(echo "$pc" | jq -r '.["날"] // ""' 2>/dev/null || true)
+            틀=$(echo "$pc" | jq -r '[to_entries[] | select((.key | test("받기")) and .value != 0 and .value != true) | .key] | join(",")' 2>/dev/null || true)
+            글=''
+            [ "$날" = "$(TZ=KST-9 date +%F)" ] || 글="PC 날마다 수집(지방재정365) 오늘 기록 없음 — 마지막 ${날:-없음}. PC 가 꺼져 있었나?"
+            [ -z "$글" ] && [ -n "$틀" ] && 글="PC 날마다 수집(지방재정365) 실패: $틀 — PC %TEMP%\local-finance-daily.log"
+            if [ -n "$글" ]; then
+              echo "▶ $글"
+              [ -n "$TELEGRAM_TOKEN" ] && curl -s -o /dev/null "https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage" --data-urlencode "chat_id=$TELEGRAM_CHAT_ID" --data-urlencode "text=⚠️ local-finance — $글" || true
+            fi
+          fi
           echo 끝

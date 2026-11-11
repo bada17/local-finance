@@ -53,9 +53,12 @@ jobs:
           echo "go=$go" >> "$GITHUB_OUTPUT"
 
   # 지방재정365 — 계약·세출. 제일 중요한 갈래다(계약은 그날 안 받으면 소급이 안 된다).
+  # ⛔ 2026-11-11 부터 끔 — 지방재정365 가 11-10 부터 깃허브(해외) 서버 접속을 막는다(이 PC 에선 0.2초에 답함).
+  #    이 갈래와 아래 review 는 PC 작업 스케줄러 local-finance-daily(scripts/pc_daily_lofin.ps1)가 매일 9시에 돌린다.
+  #    지방재정365 가 다시 열리면 `if: false` 를 지우면 된다.
   lofin:
     needs: gate
-    if: ${{ !cancelled() && needs.gate.outputs.go != 'false' }}
+    if: false
     runs-on: ubuntu-latest
     outputs:
       steps: ${{ toJSON(steps) }}   # 맨 끝 「알림」이 단계마다의 실패를 본다
@@ -205,7 +208,7 @@ jobs:
   # 중앙투자심사 결과 — 한 해 4~8회 올라오는 한글 파일. 키가 없고 1분이면 끝나서 날마다 통째로 다시 읽는다.
   review:
     needs: gate
-    if: ${{ !cancelled() && needs.gate.outputs.go != 'false' }}
+    if: false     # 2026-11-11 PC 로 옮김 — 위 lofin 설명
     runs-on: ubuntu-latest
     outputs:
       steps: ${{ toJSON(steps) }}   # 맨 끝 「알림」이 단계마다의 실패를 본다

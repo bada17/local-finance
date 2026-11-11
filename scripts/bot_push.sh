@@ -13,7 +13,7 @@ git add -- "$@"
 if git diff --cached --quiet; then echo '새로 받은 것이 없다'; exit 0; fi
 git commit -q -m "$msg"
 for n in 1 2 3 4 5; do
-  git pull -q --rebase && git push -q && exit 0
+  git pull -q --rebase --autostash && git push -q && exit 0   # autostash — PC 에서 돌 때 사람이 고치던 파일이 있어도(2026-11-11)
   git rebase --abort 2>/dev/null || true   # 같은 파일을 사람이 고쳤으면 여기서 계속 막힌다 — 빨갛게 남는다
   echo "밀렸다 — 다시 받아 얹는다 ($n)"; sleep $((n * 5))
 done
