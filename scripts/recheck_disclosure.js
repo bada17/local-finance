@@ -370,5 +370,5 @@ async function main() {
 }
 
 // count_clicks.js 가 크롬 띄우기·탭 잡기를, check_budget_docs.js 가 긁개까지 빌려 쓴다
-module.exports = { 크롬자리, 크롬띄우기, 붙을때까지, 탭열기, PORT, UA, 긁개, 뜻있나, 기다림 };
+module.exports = { 크롬자리, 크롬띄우기, 붙을때까지, 탭열기, 한곳, PORT, UA, 긁개, 뜻있나, 기다림 };
 if (require.main === module) main().catch(e => { console.error('FAIL', e); process.exit(1); });

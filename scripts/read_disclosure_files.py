@@ -179,13 +179,18 @@ def main():
     앞까닭 = {}
     if 읽기만 and os.path.exists(OUT):
         앞까닭 = {x['자리']: x for x in json.load(open(OUT, encoding='utf-8'))['파일']}
+    화면들 = [(r['laf_cd'], r.get('들어간주소') or r.get('끝주소') or '', r.get('파일', [])) for r in dom['곳']]
+    # find_settle_page.js 가 찾은 결산(예산)기준 공시 화면 — 같은 곳의 파일로 더한다(2026-11-12)
+    sp = os.path.join(ROOT, 'data', 'disclosure_settle.json')
+    if os.path.exists(sp):
+        for k, v in json.load(open(sp, encoding='utf-8'))['곳'].items():
+            if v.get('화면'):
+                화면들.append((k.split('|')[0], v['화면'].get('들어간주소') or v['화면'].get('끝주소') or v['고른주소'], v['화면'].get('파일', [])))
     일들, 본 = [], set()
-    for r in dom['곳']:
-        cd = r['laf_cd']
+    for cd, 바탕, 파일 in 화면들:
         if 고른곳 and cd not in 고른곳:
             continue
-        바탕 = r.get('들어간주소') or r.get('끝주소') or ''
-        for f in r.get('파일', []):
+        for f in 파일:
             일 = {'곳': cd, '이름': f.get('이름', ''), '주소': f.get('주소', ''), '바탕': 바탕}
             if not B.요즘것(일['이름'], 기준해):
                 continue   # 옛 해 — 항목 판정에 안 쓰므로 안 받는다(build_transparency 와 같은 잣대)

@@ -13,7 +13,7 @@
 # 읽는 것: disclosure.json(원문) · disclosure_dom.json(크롬) · disclosure_hand.json(손) · disclosure_found.json(손으로 찾은 주소)
 #          · disclosure_files.json + 캐시의 뽑은 글자(read_disclosure_files.py)
 # 결과: data/disclosure_tags_곳.csv · data/disclosure_tags_항목.csv (엑셀에서 바로 열린다, utf-8-sig)
-import collections, csv, json, os, re, sys
+import collections, csv, json, os, re, sys, urllib.parse
 
 sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -332,6 +332,21 @@ def main():
         일감 = [{'곳': cd, '이름': dis[cd]['이름'], '주소': (찾은.get(cd) or {}).get('주소') or dis[cd]['주소'], '낱말': ws} for cd, ws in 모.items()]
         json.dump(일감, open(sys.argv[sys.argv.index('--검색일감') + 1], 'w', encoding='utf-8'), ensure_ascii=False)
         print('검색 일감', len(일감), '곳', sum(len(x['낱말']) for x in 일감), '번')
+    if '--묶음일감' in sys.argv:   # Z(공시 묶음 못 받음) 곳 → find_settle_page.js 일감. 출발 = 받은 주소 → 들어간 주소 → 누리집 첫 화면
+        기준 = {}
+        for x in 항목줄:
+            m = re.search(r'Z (\S+?)기준 공시 묶음을 못 받음', x['꼬리표'])
+            if m:
+                기준.setdefault(x['코드'], set()).update(m.group(1).split('·'))
+        일감 = []
+        for cd, 들 in 기준.items():
+            받은 = (찾은.get(cd) or {}).get('주소') or dis[cd]['주소']
+            d = dom.get(cd, {})
+            출발 = list(dict.fromkeys(u for u in (받은, d.get('들어간주소'), d.get('끝주소'),
+                                                  urllib.parse.urljoin(받은, '/')) if u))
+            일감 += [{'곳': cd, '이름': dis[cd]['이름'], '기준': g, '출발': 출발} for g in sorted(들)]
+        json.dump(일감, open(sys.argv[sys.argv.index('--묶음일감') + 1], 'w', encoding='utf-8'), ensure_ascii=False)
+        print('묶음 일감', len(일감), '건')
     for 이름, 줄들 in (('disclosure_tags_곳.csv', 곳줄), ('disclosure_tags_항목.csv', 항목줄)):
         with open(D(이름), 'w', encoding='utf-8-sig', newline='') as fp:
             w = csv.DictWriter(fp, fieldnames=list(줄들[0]))
