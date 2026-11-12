@@ -558,6 +558,7 @@
 "57372",
 "57373",
 "57375",
+"57382",
 "57383",
 "57385",
 "57386",
@@ -566,6 +567,8 @@
 "57391",
 "57392",
 "57398",
+"57410",
+"57412",
 "57419",
 "57426",
 "57431",
@@ -637,14 +640,17 @@
 "57650",
 "57651",
 "57670",
+"57672",
 "57673",
 "57676",
 "57678",
+"57679",
 "57680",
 "57681",
 "57690",
 "57691",
 "57693",
+"57694",
 "57697",
 "57698",
 "57699"
@@ -1509,6 +1515,60 @@
 "낱말": "미래대응기금",
 "횟수": 2,
 "보냄": true
+},
+{
+"갈래": "위원회",
+"날짜": "2026-11-05",
+"제목": "제22대 제439회 제8차 문화체육관광위원회 (2026년 11월 05일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57694",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57694&type=summary",
+"번호": "57694",
+"낱말": "미래대응기금",
+"횟수": 21,
+"보냄": true
+},
+{
+"갈래": "위원회",
+"날짜": "2026-11-02",
+"제목": "제22대 제439회 제2차 재정경제기획위원회 조세소위원회 (2026년 11월 02일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57672",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57672&type=summary",
+"번호": "57672",
+"낱말": "미래대응기금",
+"횟수": 1,
+"보냄": true
+},
+{
+"갈래": "국정감사",
+"날짜": "2026-10-23",
+"제목": "제22대 제439회 개회식 교육위원회 (국정감사 회의록)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57382",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57382&type=summary",
+"번호": "57382",
+"낱말": "미래대응기금",
+"횟수": 3,
+"보냄": true
+},
+{
+"갈래": "국정감사",
+"날짜": "2026-10-08",
+"제목": "제22대 제439회 개회식 보건복지위원회 (국정감사 회의록)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57412",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57412&type=summary",
+"번호": "57412",
+"낱말": "미래대응기금",
+"횟수": 16,
+"보냄": true
+},
+{
+"갈래": "보도자료",
+"날짜": "2026-11-10",
+"번호": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200154&searchNoSeq=20261110200154",
+"제목": "아동수당 등 법정 양육지원 예산미래대응기금 편성 바로잡아야… 일반회계 환원 촉구!",
+"보기": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200154&searchNoSeq=20261110200154",
+"낱말": "미래대응기금",
+"횟수": 1,
+"보냄": true
 }
 ],
 "의안": {
@@ -1545,8 +1605,9 @@
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199609&searchNoSeq=20261102199609",
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199679&searchNoSeq=20261103199679",
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199859&searchNoSeq=20261105199859",
-"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199875&searchNoSeq=20261106199875"
+"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199875&searchNoSeq=20261106199875",
+"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200154&searchNoSeq=20261110200154"
 ],
 "본문": "html",
-"마지막성공": "2026-11-11"
+"마지막성공": "2026-11-12"
 }
