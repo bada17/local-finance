@@ -5,6 +5,10 @@ on:
   schedule:
     - cron: '0 3 28 * *'         # 매달 28일 한국 시간 12시 — 1일 달마다 굽기(데이터 지도)가 새 것을 읽게 그 앞에
   workflow_dispatch:
+    inputs:
+      codes:
+        description: '이것만 받기(예: OPFI939) — 비우면 전부'
+        default: ''
 permissions:
   contents: write
 concurrency:
@@ -23,7 +27,8 @@ jobs:
         env:
           OPENFISCAL_KEY: ${{ secrets.OPENFISCAL_KEY }}
           PYTHONUNBUFFERED: '1'
-        run: python scripts/fetch_openfiscal.py
+          CODES: ${{ inputs.codes }}
+        run: python scripts/fetch_openfiscal.py $CODES
       - name: 올리기
         if: ${{ !cancelled() }}
         run: sh scripts/bot_push.sh "열린재정 받기 $(date -u +%Y-%m-%d)" data/openfiscal

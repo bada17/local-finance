@@ -70,23 +70,33 @@ def 다받기(코드, 키, 인자):
 def main():
     키 = keys.키읽기('OPENFISCAL_KEY')
     목록 = json.load(open(os.path.join(ROOT, 'data', 'openfiscal_198.json'), encoding='utf-8'))
-    목록 = [x for x in 목록 if x.get('stat') in ('바로조회', '인자필요') and (not sys.argv[1:] or x['code'] in sys.argv[1:])]
+    # 「없음」도 이름을 콕 집으면 부른다 — 서비스 이름이 code 가 아니라 목록 url 끝(OPFI939 = ExpenditureBudgetInit6, 2026-11-12)
+    목록 = [x for x in 목록 if (x.get('stat') in ('바로조회', '인자필요') and not sys.argv[1:]) or x['code'] in sys.argv[1:]]
     os.makedirs(OUT, exist_ok=True)
     틀림 = []
     for x in 목록:
         필수 = [r['id'] for r in x.get('req', []) if '필수' in (r.get('type') or '')]
-        if 필수 not in ([], ['ACNT_YR']):
+        없음 = x.get('stat') == '없음'
+        if 없음 and (not x.get('url') or 필수 != ['FSCL_YY']):
+            print(f'{x["code"]} 건너뜀 — url {x.get("url")} 필수 {필수}', flush=True)
+            continue
+        if not 없음 and 필수 not in ([], ['ACNT_YR']):
             print(f'{x["code"]} 건너뜀 — 필수 인자 {필수}', flush=True)
             continue
         # 서비스 이름은 대개 code(OPFI167)로 되지만 dsId(VW_OPFI169)로만 답하는 것이 있다 — 지방정부부채추이·중앙정부결산·국유재산 등 22종(2026-11-02).
-        #   code 로 「서비스 없음(ERROR-310)」이면 dsId 로 부른다. 「없음」 107종은 dsId 로도 310 이다
+        #   code 로 「서비스 없음(ERROR-310)」이면 dsId 로 부른다. 「없음」은 code·dsId 둘 다 310 — 목록 url 끝 이름으로 부른다
         이름 = x['code']
         try:
-            if x.get('dsId') and x['dsId'] != 이름 and 부르기(이름, 키, {}, 1)[2] == 'ERROR-310':
-                이름 = x['dsId']
-            줄 = [] if 필수 else 다받기(이름, 키, {})
-            if not 줄:   # 목록엔 필수 인자가 없어도 회계연도를 줘야 답하는 것이 있다(OPFI165 16대분야별 재원배분, 2026-11-02)
-                줄 = [r for 해 in range(2007, date.today().year + 1) for r in 다받기(이름, 키, {'ACNT_YR': 해})]
+            if 없음:
+                # ponytail: 2024 부터만(국고보조 돈길 맞추기용) — 옛 해가 필요하면 시작 해를 당길 것. 한 해 4만 줄 ≈ 42번
+                이름 = x['url'].rsplit('/', 1)[1]
+                줄 = [r for 해 in range(2024, date.today().year + 1) for r in 다받기(이름, 키, {'FSCL_YY': 해})]
+            else:
+                if x.get('dsId') and x['dsId'] != 이름 and 부르기(이름, 키, {}, 1)[2] == 'ERROR-310':
+                    이름 = x['dsId']
+                줄 = [] if 필수 else 다받기(이름, 키, {})
+                if not 줄:   # 목록엔 필수 인자가 없어도 회계연도를 줘야 답하는 것이 있다(OPFI165 16대분야별 재원배분, 2026-11-02)
+                    줄 = [r for 해 in range(2007, date.today().year + 1) for r in 다받기(이름, 키, {'ACNT_YR': 해})]
         except RuntimeError as e:
             틀림.append(str(e))
             print(f'⚠️ {e}', flush=True)
