@@ -48,7 +48,10 @@ const 줄뽑기 = 낱말 => `(() => {
   const w = 열쇠(${JSON.stringify(낱말)});
   const 줄 = (document.body ? document.body.innerText : '').split('\\n').map(s => s.replace(/\\s+/g, ' ').trim())
     .filter(s => s.length >= 4 && s.length <= 200 && 열쇠(s).includes(w));
-  return JSON.stringify({ 주소: location.href.slice(0, 300), 줄: [...new Set(줄)].slice(0, 15), 수: 줄.length });
+  // 낱말이 든 글 링크(글로 들어가 첨부를 열어 보려고 — open_search_posts.js, 11-12)
+  const 링크 = [...document.querySelectorAll('a')].map(a => ({ 글: (a.innerText || a.textContent || '').replace(/\\s+/g, ' ').trim().slice(0, 120), 주소: a.href }))
+    .filter(x => /^https?:/.test(x.주소) && x.글.length >= 4 && 열쇠(x.글).includes(w)).slice(0, 8);
+  return JSON.stringify({ 주소: location.href.slice(0, 300), 줄: [...new Set(줄)].slice(0, 15), 수: 줄.length, 링크 });
 })()`;
 
 async function 한곳(탭, 일) {
@@ -67,7 +70,7 @@ async function 한곳(탭, 일) {
       const 진짜 = v.줄.filter(s => !/검색어|검색결과\\s*\\d|search/i.test(s) || s.length > 40);
       // 검색 화면으로 안 넘어가면 줄은 **받은 화면(메뉴·목록)의 글자**다 — 그렇다고 적는다
       const 넘어감 = v.주소.split('#')[0] !== 일.주소.split('#')[0];
-      결과[낱말] = { 검색주소: v.주소, 넘어감, 결과줄: 진짜, 까닭: 진짜.length ? '' : (넘어감 ? '검색 결과 없음' : '검색 화면으로 안 넘어감') };
+      결과[낱말] = { 검색주소: v.주소, 넘어감, 결과줄: 진짜, 링크: v.링크 || [], 까닭: 진짜.length ? '' : (넘어감 ? '검색 결과 없음' : '검색 화면으로 안 넘어감') };
     } catch (e) {
       결과[낱말] = { 까닭: '틀림 ' + String(e).slice(0, 60) };
     }
@@ -80,20 +83,24 @@ async function 한곳(탭, 일) {
   const 프로필 = fs.mkdtempSync(path.join(os.tmpdir(), 'lf-search-'));
   const 크롬 = R.크롬띄우기(프로필);
   await R.붙을때까지();
-  const 탭 = await R.탭열기();
-  탭.듣기('Page.javascriptDialogOpening', () => 탭.보내기('Page.handleJavaScriptDialog', { accept: true }));
   const 나온 = {};
-  let k = 0;
-  for (const 일 of 일감) {
-    나온[일.곳] = { 이름: 일.이름, 바탕: 일.주소, 낱말: await 한곳(탭, 일) };
-    if (++k % 10 === 0) console.log(`   ${k}/${일감.length}`);
-  }
+  let k = 0, 다음 = 0;
+  // 탭 넷이 곳을 하나씩 가져간다 — 한 곳의 낱말들은 한 탭에서 차례로(같은 누리집을 동시에 두드리지 않게)
+  await Promise.all([0, 1, 2, 3].map(async () => {
+    const 탭 = await R.탭열기();
+    탭.듣기('Page.javascriptDialogOpening', () => 탭.보내기('Page.handleJavaScriptDialog', { accept: true }));
+    while (다음 < 일감.length) {
+      const 일 = 일감[다음++];
+      나온[일.곳] = { 이름: 일.이름, 바탕: 일.주소, 낱말: await 한곳(탭, 일) };
+      if (++k % 20 === 0) console.log(`   ${k}/${일감.length}`);
+    }
+  }));
   const 쓸곳 = process.argv[3] || OUT;
   // 앞 결과와 합친다 — 일감은 아직 안 찾아본 말뿐이라 덮어쓰면 앞 회차가 날아간다(11-12)
   const 앞 = fs.existsSync(쓸곳) ? JSON.parse(fs.readFileSync(쓸곳, 'utf-8')).곳 : {};
   for (const [cd, v] of Object.entries(나온)) 앞[cd] = { ...(앞[cd] || v), 낱말: { ...((앞[cd] || {}).낱말 || {}), ...v.낱말 } };
   fs.writeFileSync(쓸곳, JSON.stringify({ 만든날: new Date().toISOString().slice(0, 10), 곳: 앞 }, null, 0));
   console.log('적음', 쓸곳);
-  탭.ws.close(); 크롬.kill();
+  크롬.kill();
   process.exit(0);
 })().catch(e => { console.error(e); process.exit(1); });

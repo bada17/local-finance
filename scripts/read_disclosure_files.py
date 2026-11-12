@@ -186,6 +186,14 @@ def main():
         for k, v in json.load(open(sp, encoding='utf-8'))['곳'].items():
             if v.get('화면'):
                 화면들.append((k.split('|')[0], v['화면'].get('들어간주소') or v['화면'].get('끝주소') or v['고른주소'], v['화면'].get('파일', [])))
+    # open_search_posts.js 가 연 검색 글(D)의 첨부 — 같은 곳의 파일로 더한다(2026-11-12)
+    pp = os.path.join(ROOT, 'data', 'disclosure_posts.json')
+    if os.path.exists(pp):
+        for cd, 낱말들 in json.load(open(pp, encoding='utf-8'))['곳'].items():
+            for 글들 in 낱말들.values():
+                for g in 글들:
+                    if g.get('화면'):
+                        화면들.append((cd, g['화면'].get('끝주소') or g['주소'], g['화면'].get('파일', [])))
     일들, 본 = [], set()
     for cd, 바탕, 파일 in 화면들:
         if 고른곳 and cd not in 고른곳:

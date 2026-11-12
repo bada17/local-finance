@@ -3,8 +3,9 @@
 #
 #   ① tag_disclosure.py --묶음일감 --검색일감  → 아직 못 찾은 곳·말만 일감으로
 #   ② find_settle_page.js   결산(예산)기준 공시 화면 링크 찾기 → data/disclosure_settle.json (앞 결과와 합침)
-#   ③ read_disclosure_files.py <그 곳들>  파일 받아 열기 → data/disclosure_files.json (그 곳만 갈아 끼움, 받은 것은 캐시)
-#   ④ search_disclosure_items.js   누리집 통합검색 → data/disclosure_search.json (앞 결과와 합침)
+#   ③ search_disclosure_items.js   누리집 통합검색(글 링크도 적음) → data/disclosure_search.json (앞 결과와 합침)
+#   ④ open_search_posts.js   검색에 걸린 글로 들어가 첨부 목록 → data/disclosure_posts.json
+#   ④′ read_disclosure_files.py <②④ 곳들>  파일 받아 열기 → data/disclosure_files.json (그 곳만 갈아 끼움, 받은 것은 캐시)
 #   ⑤ tag_disclosure.py → disclosure_tags_곳·항목·파일.csv  ⑥ make_review_xlsx.py → 검토 엑셀
 # 화면에는 단계마다 한두 줄만 남긴다(긴 기록은 %TEMP%/lf-disclosure-tags-*.log) — 대화창·봇 기록을 작게.
 # ⚠️ 국내 누리집이 해외 서버를 막는다(pc_disclosure.ps1 머리말) — 봇으로 돌리면 이 PC 작업 스케줄러에서.
@@ -30,10 +31,14 @@ py = [sys.executable, '-X', 'utf8']
 돌려('일감', *py, 'scripts/tag_disclosure.py', '--묶음일감', 묶음, '--검색일감', 검색)
 if json.load(open(묶음, encoding='utf-8')):
     돌려('링크', 'node', 'scripts/find_settle_page.js', 묶음)
-    s = json.load(open(os.path.join(ROOT, 'data', 'disclosure_settle.json'), encoding='utf-8'))['곳']
-    곳들 = sorted({k.split('|')[0] for k, v in s.items() if v.get('화면')})
-    돌려('열기', *py, 'scripts/read_disclosure_files.py', *곳들)
 if json.load(open(검색, encoding='utf-8')):
     돌려('검색', 'node', 'scripts/search_disclosure_items.js', 검색)
+돌려('글열기', 'node', 'scripts/open_search_posts.js')
+곳들 = set()
+for 이름 in ('disclosure_settle.json', 'disclosure_posts.json'):
+    p = os.path.join(ROOT, 'data', 이름)
+    if os.path.exists(p):
+        곳들 |= {k.split('|')[0] for k in json.load(open(p, encoding='utf-8'))['곳']}
+돌려('열기', *py, 'scripts/read_disclosure_files.py', *sorted(곳들))
 돌려('꼬리표', *py, 'scripts/tag_disclosure.py')
 돌려('엑셀', *py, 'scripts/make_review_xlsx.py', '.', 'data/disclosure_tags_검토.xlsx')

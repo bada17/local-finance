@@ -119,6 +119,8 @@ def main():
     기준해 = 파일f['기준해']
     p = D('disclosure_search.json')
     검색 = json.load(open(p, encoding='utf-8')) if os.path.exists(p) else {'곳': {}, '만든날': ''}
+    p = D('disclosure_posts.json')
+    글들 = json.load(open(p, encoding='utf-8'))['곳'] if os.path.exists(p) else {}
     곳파일 = collections.defaultdict(list)
     for f in 파일f['파일']:
         곳파일[f['곳']].append(f)
@@ -317,6 +319,17 @@ def main():
                     줄['누리집 검색'] = f"「{w}」 {어디} — 직원 업무·서식 같은 글자만 나옴(메뉴·날짜 붙은 글 없음)"
                 else:
                     줄['누리집 검색'] = f"「{w}」 {x.get('까닭', '')}"
+            # ④ 검색에 걸린 글로 들어가 첨부를 열어 봄(open_search_posts.js → read_disclosure_files.py, 11-12)
+            if 줄['꼬리표'][:1] == 'D' and w and w in 글들.get(cd, {}):
+                바탕들 = {g['화면'].get('끝주소') or g['주소'] for g in 글들[cd][w] if g.get('화면')}
+                연것 = [f for f in fs_ if f.get('바탕') in 바탕들]
+                읽은것 = [f for f in 연것 if f.get('글자수') and not f.get('까닭')]
+                든것 = [f for f in 읽은것 if re.search(느슨(w), f.get('_글') or open(os.path.join(캐시, f['자리'] + '.txt'), encoding='utf-8').read())]
+                if 든것:
+                    줄['꼬리표'] = f'E 목록 밖 글의 첨부를 열어 보니 「{w}」가 있음 — 공시 항목인지는 사람이 확인 / 앞: ' + 줄['꼬리표'][:60]
+                    줄['어디'] = ' ; '.join(f"「{f['이름'][:40]}」 ({f['바탕'][:100]})" for f in 든것[:2])
+                else:
+                    줄['누리집 검색'] += f" / 글 {len(바탕들)}개 열어 봄: 첨부 {len(연것)}개 중 읽음 {len(읽은것)}개, 「{w}」 든 것 없음"
             항목줄.append(줄)
 
     # 2026 구역 개편으로 생긴 곳 — 지방재정365 FINLK 가 주소를 안 줘서 점검 대상(243곳)에 없다. 빠졌다는 사실을 줄로 남긴다
@@ -327,8 +340,10 @@ def main():
         모 = collections.defaultdict(list)
         for x in 항목줄:
             w = 검색말.get(x['호'])
-            if x['꼬리표'][:1] in 'XYPUOZRTN' and w and w not in 검색['곳'].get(x['코드'], {}).get('낱말', {}):
-                모[x['코드']].append(w)   # 이미 찾아본 말은 다시 안 찾는다
+            e = 검색['곳'].get(x['코드'], {}).get('낱말', {}).get(w)
+            # 이미 찾아본 말은 다시 안 찾는다 — 단 D(검색에 걸림)인데 글 링크를 안 적어 둔 것은 링크를 받으러 다시(11-12)
+            if w and ((x['꼬리표'][:1] in 'XYPUOZRTN' and e is None) or (x['꼬리표'][:1] == 'D' and e is not None and '링크' not in e)):
+                모[x['코드']].append(w)
         일감 = [{'곳': cd, '이름': dis[cd]['이름'], '주소': (찾은.get(cd) or {}).get('주소') or dis[cd]['주소'], '낱말': ws} for cd, ws in 모.items()]
         json.dump(일감, open(sys.argv[sys.argv.index('--검색일감') + 1], 'w', encoding='utf-8'), ensure_ascii=False)
         print('검색 일감', len(일감), '곳', sum(len(x['낱말']) for x in 일감), '번')
@@ -339,6 +354,7 @@ def main():
         for v in json.load(open(sp, encoding='utf-8'))['곳'].values():
             if v.get('화면'):
                 찾은화면.add(v['화면'].get('들어간주소') or v['화면'].get('끝주소') or v['고른주소'])
+    글화면 = {g['화면'].get('끝주소') or g['주소'] for v in 글들.values() for gs in v.values() for g in gs if g.get('화면')}
     파일줄 = []
     for f in 파일f['파일']:
         if f['곳'] not in dis:
@@ -358,7 +374,8 @@ def main():
             '기준': 기준, '회계연도': 해 or '', '요즘(기준해 뒤)': ('요즘' if 해 and 해 >= 기준해 else '옛') if 해 else '',
             '종류': next((w for w in ('추가', '수시', '특수', '정정', '수정') if re.search(w + r'\s*공시', 이름앞)), ''),
             '든 항목(양식 칸)': ' '.join(든칸), '「해당 없음」 있음': 'O' if 글 and 해당없음.search(글) else '',
-            '어디서': '결산·예산 공시 화면 찾기(find_settle_page)' if f.get('바탕') in 찾은화면 else '받은 공시 화면',
+            '어디서': '결산·예산 공시 화면 찾기(find_settle_page)' if f.get('바탕') in 찾은화면
+                      else '누리집 검색 글(open_search_posts)' if f.get('바탕') in 글화면 else '받은 공시 화면',
             '공시 화면 주소': f.get('바탕', ''), '파일 주소': f.get('주소', '')[:300],
         })
     if 파일줄:

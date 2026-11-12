@@ -26,8 +26,13 @@ const 링크모으기 = 기준 => `(() => {
   const 맞 = 결 ? (s => /결산/.test(s)) : (s => /예산/.test(s) && !/결산/.test(s));
   const 탭 = 결 ? /^\\(?\\s*(20\\d\\d\\s*(년|회계연도)?\\s*)?결산\\s*(기준|공시|기준\\s*공시)?\\s*\\)?$/ : /^\\(?\\s*(20\\d\\d\\s*(년|회계연도)?\\s*)?예산\\s*(기준|공시|기준\\s*공시)?\\s*\\)?$/;
   return JSON.stringify([...document.querySelectorAll('a,button,[role=tab],li[onclick]')].map((a, i) => {
-    const 글 = (a.innerText || a.title || '').replace(/\\s+/g, ' ').trim();
-    if (!글 || 글.length > 60 || !맞(글)) return null;
+    const 글 = (a.innerText || a.textContent || a.title || '').replace(/\\s+/g, ' ').trim();
+    if (!글 || 글.length > 60) return null;
+    // 연도 탭(수원 「2026년」「2025년」 — 탭마다 그해 공시 파일) — 결산·예산 말이 든 후보가 없을 때만 쓰이게 점 1~2
+    const 해 = 글.match(/^(20(2[4-6]))\\s*(년|년도|회계연도)?$/);
+    if (해) return { 글, 주소: a.href || '', 번째: i, 점: 결 ? (해[1] === '2025' ? 2 : 1) : (해[1] === '2026' ? 2 : 1),
+                     누름: !/^https?:/.test(a.href || '') || (a.href || '').split('#')[0] === location.href.split('#')[0] };
+    if (!맞(글)) return null;
     const 짧은탭 = 탭.test(글);
     if (!짧은탭 && !/공시|재정|운용|운영/.test(글)) return null;
     if (/결산서|예산서|첨부|다운|바로보기|미리보기|바로듣기/.test(글) && !/공시/.test(글)) return null;
@@ -67,6 +72,20 @@ async function 한곳(탭, 일) {
         if (!후보.some(x => x.글 === c.글 && x.주소 === c.주소)) 후보.push({ ...c, 본곳: 출발 });
     } catch (e) { /* 출발 화면이 안 열리면 다음 출발로 */ }
     if (후보.some(c => c.점 >= 6)) break;   // 「20xx … 결산기준 공시」까지 맞으면 더 안 돌아다닌다
+  }
+  // 그래도 없으면 사이트맵·전체메뉴 화면에서 한 번 더(11-12 수원 — 공시 화면·첫 화면 어디에도 결산 링크가 안 보였다)
+  if (!후보.some(c => c.점 > 0)) {
+    try {
+      await 열기(탭, 일.출발[일.출발.length - 1]);
+      const q = await 탭.보내기('Runtime.evaluate', { returnByValue: true, expression:
+        `([...document.querySelectorAll('a')].find(a => /사이트\\s*맵|sitemap|전체\\s*메뉴/i.test((a.innerText || a.textContent || a.title || '') + ' ' + a.href) && /^https?:/.test(a.href)) || {}).href || ''` });
+      const 맵 = q.result && q.result.value;
+      if (맵) {
+        await 열기(탭, 맵);
+        const r = await 탭.보내기('Runtime.evaluate', { expression: 링크모으기(일.기준), returnByValue: true });
+        for (const c of JSON.parse((r.result && r.result.value) || '[]')) 후보.push({ ...c, 본곳: 맵 });
+      }
+    } catch (e) { /* 사이트맵이 없으면 그만 */ }
   }
   후보.sort((a, b) => b.점 - a.점);
   const 기준말 = new RegExp(일.기준);
