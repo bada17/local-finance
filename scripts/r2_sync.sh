@@ -10,7 +10,7 @@
 #      PC 에서는 저장소 맨 위 .env 의 R2_ 네 줄을 읽는다(2026-11-09 사용자 「r2 에서 자유롭게 가져올 수 있는 형태」).
 #      PC 키는 읽기 전용 — 올리기는 봇이 한다. PC 에는 `pip install awscli` 로 aws 를 깐다. 액션 우분투에는 깔려 있다.
 #      자주 받는 것: sh scripts/r2_sync.sh down data/contracts 최근계약 · data/bizno 사업자번호 · data/vendors 조달업체
-#                    data/contracts_old 계약(2020~2023) · data/national_grants 국고보조 · data/수의계약 수의계약 · data/clik/상세 clik/상세
+#                    data/contracts_old 계약(2020~2023) · data/national_grants 국고보조 · data/bojo_contests 공모 · data/수의계약 수의계약 · data/clik/상세 clik/상세
 # ⚠️ 키가 하나라도 없으면 **실패로 끝낸다.** 조용히 넘어가면 수집기가 「받은 것이 없다」고 보고
 #    처음부터 다시 받아 하루 한도를 날린다. 그래서 워크플로는 down 이 성공했을 때만 수집기를 돌린다.
 set -e
