@@ -51,7 +51,8 @@ SITE = os.path.join(ROOT, 'site')
     # 「용인사용설명서」 같은 누리집 안내, 「기금운용계획 변경내용 설명서」는 뺀다
     ('설명서', '예결산안 공개', '예산설명서', '예산', r'사업\s*별?\s*설명서|예산\s*(사업)?\s*설명서'),
     ('결산서', '예결산안 공개', '결산서', '결산', r'결산서|세입\s*[·ㆍ.]?\s*세출\s*결산'),
-    ('성인지', '예결산안 공개', '성인지 예결산서', '둘+공시', r'성인지'),
+    # 「성인지 통계」「성인지 정책」은 예결산서가 아니다(11-12 끝까지 찾기에서 걸림)
+    ('성인지', '예결산안 공개', '성인지 예결산서', '둘+공시', r'성인지\s*(예\s*[·ㆍ.]?\s*)?(예산|결산)'),
     ('중기', '예결산안 공개', '중기지방재정계획', '둘+공시', r'중기\s*(지방)?\s*재정\s*계획|중기재정'),
     ('일일', '예산안 공개방식', '일일 예산집행 공개', None, None),
     ('별도', '예산안 공개방식', '자체 예산 사이트 운영', '주소', None),
@@ -139,6 +140,9 @@ def main():
     import csv
     p = os.path.join(ROOT, 'data', 'disclosure_tags_항목.csv')
     꼬리 = {(x['코드'], x['호']): x for x in csv.DictReader(open(p, encoding='utf-8-sig'))} if os.path.exists(p) else {}
+    p = os.path.join(ROOT, 'data', 'score_docs.json')
+    문서f = json.load(open(p, encoding='utf-8')) if os.path.exists(p) else {'곳': {}, '만든날': ''}
+    문서찾기, 문서날 = 문서f['곳'], 문서f['만든날']
     손path = os.path.join(ROOT, 'data', 'score_hand.json')
     손 = json.load(open(손path, encoding='utf-8')) if os.path.exists(손path) else {}
     손 = {k: v for k, v in 손.items() if not k.startswith('_')}
@@ -187,12 +191,20 @@ def main():
                 판[키] = {'값': '?', '근거': f'{본곳}에서 이 이름을 못 찾았다' + (f' (게시판이 안 열림: {막힘})' if 막힘 else '')
                         + ' — 없다는 뜻은 아니다'}
         # ⑤ 파일 안을 열어 본 꼬리표(tag_disclosure.py) — 이름으로 못 찾았어도 공시 파일 안에 그 항목 내용이 있으면 ○
+        # ⑤′ 별도 문서로 올렸나만 본다(사용자 11-12) — 파일 안 글자(A·E)는 근거로 안 쓰고, 따로 올린 파일 이름(B)만
         for 키, 호 in (('중기', '8'), ('성인지', '9')):
             t = 꼬리.get((cd, 호))
-            if 판[키]['값'] == '?' and t and t['꼬리표'][:1] in 'ABE':
-                뜻 = {'A': '공시 묶음 파일 안 그 칸에 값이 있다', 'B': '따로 올린 파일 이름에 있다',
-                      'E': '누리집 글의 첨부를 열어 보니 그 말이 있다'}[t['꼬리표'][:1]]
-                판[키] = {'값': 'O', '근거': f"재정공시 꼬리표 — {뜻}: {t['어디'][:90]}"}
+            if 판[키]['값'] == '?' and t and t['꼬리표'][:1] == 'B':
+                판[키] = {'값': 'O', '근거': f"재정공시 화면에 따로 올린 파일 — {t['어디'][:90]}"}
+        # ⑥ 끝까지 찾기 봇(find_score_docs.js) — 게시판 여러 쪽·글 안·누리집 검색·사이트맵에서 글 제목·파일 이름
+        for 키, v in 문서찾기.get(cd, {}).items():
+            if 키 in 판 and 판[키]['값'] == '?':
+                if v.get('찾음'):
+                    판[키] = {'값': 'O', '근거': f"{v['어디']} — 「{v['글'][:70]}」", '주소': v.get('주소', ''),
+                             # 보기 쉬움 꼬리표 — 찾은 길·홈에서 누른 수·게시판 쪽·파일 형식·해(나중에 「찾기 쉬운가」 잴 때)
+                             '꼬리표': {k: v.get(k) for k in ('방법', '클릭', '쪽', '형식', '해')}}
+                elif v.get('본곳'):
+                    판[키]['근거'] += f" · 끝까지 찾아봄({문서날}): " + ', '.join(v['본곳'][:8])
         # 지방재정365 참고(판정에는 안 씀)
         for 키, api이름 in (('중기', '중기계획'), ('성인지', '성인지예산')):
             a = api.get(api이름)
@@ -213,6 +225,22 @@ def main():
            '정성': [{'키': k, '갈래': g, '이름': n} for k, g, n in 정성],
            '공청회까닭': 공청회까닭, '곳': 곳들}
     json.dump(out, open(os.path.join(ROOT, 'data', 'score.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=0)
+    if '--문서일감' in sys.argv:   # 아직 ? 인 문서 항목만 → find_score_docs.js 일감(잣대·검색말은 이 항목표에서)
+        잣대 = {k: (n, z) for k, _, n, _, z in 항목 if z}
+        검색말 = {'명세서': '사업명세서', '설명서': '예산설명서', '결산서': '결산서', '성인지': '성인지', '중기': '중기지방재정계획',
+                 '의견서': '주민의견서', '기후': '기후예산'}
+        일감 = []
+        for c in 곳들:
+            hs = [{'키': k, '이름': 잣대[k][0], '잣대': 잣대[k][1], '검색말': 검색말[k]} for k in 검색말
+                  if c['판'][k]['값'] == '?' and (not 문서찾기.get(c['cd'], {}).get(k)
+                                                  or ('--다시' in sys.argv and not 문서찾기[c['cd']][k].get('찾음')))]   # --다시: 못 찾은 칸도 한 번 더
+            if hs:
+                u = c['예산주소'] or c['결산주소']
+                홈 = (urlparse(u).scheme + '://' + urlparse(u).hostname + '/') if u else ''
+                일감.append({'cd': c['cd'], '이름': c['이름'], '예산주소': c['예산주소'], '결산주소': c['결산주소'], '홈': 홈, '항목': hs})
+        p = sys.argv[sys.argv.index('--문서일감') + 1]
+        json.dump(일감, open(p, 'w', encoding='utf-8'), ensure_ascii=False)
+        print('문서 일감', len(일감), '곳', sum(len(x['항목']) for x in 일감), '칸')
 
     tpl = open(os.path.join(SITE, 'score.template.html'), encoding='utf-8').read()
     # 남의 누리집에서 긁은 글자가 들어간다 — 「</script>」가 섞여도 스크립트 밖으로 새지 않게

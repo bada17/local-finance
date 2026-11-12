@@ -78,7 +78,8 @@ async function 한곳(탭, 일) {
   return 결과;
 }
 
-(async () => {
+module.exports = { 다될때, 검색하기, 줄뽑기 };
+if (require.main === module) (async () => {
   const 일감 = JSON.parse(fs.readFileSync(process.argv[2], 'utf-8'));
   const 프로필 = fs.mkdtempSync(path.join(os.tmpdir(), 'lf-search-'));
   const 크롬 = R.크롬띄우기(프로필);
