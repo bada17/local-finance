@@ -50,14 +50,15 @@ jobs:
           # 오후 2시가 지나도 오늘 기록(data/pc_daily.json)이 없거나 받기가 실패로 적혀 있으면 알린다(지킴이가 뜰 때마다 — 하루 몇 번)
           if [ $now -gt $((kst5 + 32400)) ]; then
             pc=$(gh api "repos/$GH_REPO/contents/data/pc_daily.json" -q .content 2>/dev/null | base64 -d 2>/dev/null || true)
-            날=$(echo "$pc" | jq -r '.["날"] // ""' 2>/dev/null || true)
-            틀=$(echo "$pc" | jq -r '[to_entries[] | select((.key | test("받기")) and .value != 0 and .value != true) | .key] | join(",")' 2>/dev/null || true)
-            글=''
-            [ "$날" = "$(TZ=KST-9 date +%F)" ] || 글="PC 날마다 수집(지방재정365) 오늘 기록 없음 — 마지막 ${날:-없음}. PC 가 꺼져 있었나?"
-            [ -z "$글" ] && [ -n "$틀" ] && 글="PC 날마다 수집(지방재정365) 실패: $틀 — PC %TEMP%\local-finance-daily.log"
-            if [ -n "$글" ]; then
-              echo "▶ $글"
-              [ -n "$TELEGRAM_TOKEN" ] && curl -s -o /dev/null "https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage" --data-urlencode "chat_id=$TELEGRAM_CHAT_ID" --data-urlencode "text=⚠️ local-finance — $글" || true
+            # bash 변수 이름은 영어만 된다(한글이면 command not found — 11-11 빨간불)
+            pc_day=$(echo "$pc" | jq -r '.["날"] // ""' 2>/dev/null || true)
+            pc_bad=$(echo "$pc" | jq -r '[to_entries[] | select((.key | test("받기")) and .value != 0 and .value != true) | .key] | join(",")' 2>/dev/null || true)
+            msg=''
+            [ "$pc_day" = "$(TZ=KST-9 date +%F)" ] || msg="PC 날마다 수집(지방재정365) 오늘 기록 없음 — 마지막 ${pc_day:-없음}. PC 가 꺼져 있었나?"
+            [ -z "$msg" ] && [ -n "$pc_bad" ] && msg="PC 날마다 수집(지방재정365) 실패: $pc_bad — PC %TEMP%\local-finance-daily.log"
+            if [ -n "$msg" ]; then
+              echo "▶ $msg"
+              [ -n "$TELEGRAM_TOKEN" ] && curl -s -o /dev/null "https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage" --data-urlencode "chat_id=$TELEGRAM_CHAT_ID" --data-urlencode "text=⚠️ local-finance — $msg" || true
             fi
           fi
           echo 끝
