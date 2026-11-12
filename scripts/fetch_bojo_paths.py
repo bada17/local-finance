@@ -102,15 +102,38 @@ def main():
     print(f'보조사업 {len(보조):,}개', flush=True)
 
     def 보조상세(y):
-        r = 부르기('/ca/retrieveDdtlbzDetailAjax.do', bsnsyear=해, viewDdtlbzId=y['ddtlbzId'])
-        y['상세'] = 깨끗(r.get('ddtlbzVO') or {})
-        if r.get('pssrpDetlList'):   # 공모 상세 — 공모사업별 정리에 쓴다(사용자 11-12)
-            y['공모'] = [깨끗(p) for p in r['pssrpDetlList']]
-        y['보조금정보'] = [깨끗(r) for r in 부르기('/fa/retrieveAbzmDetailCstsList7.do', fsyr=해, ddtlbzId=y['ddtlbzId'], dlvplId=y['상세'].get('dlvplId', '')).get('DATA') or []]
+        try:
+            r = 부르기('/ca/retrieveDdtlbzDetailAjax.do', bsnsyear=해, viewDdtlbzId=y['ddtlbzId'])
+            y['상세'] = 깨끗(r.get('ddtlbzVO') or {})
+            if r.get('pssrpDetlList'):   # 공모 상세 — 공모사업별 정리에 쓴다(사용자 11-12)
+                y['공모'] = [깨끗(p) for p in r['pssrpDetlList']]
+            y['보조금정보'] = [깨끗(r) for r in 부르기('/fa/retrieveAbzmDetailCstsList7.do', fsyr=해, ddtlbzId=y['ddtlbzId'], dlvplId=y['상세'].get('dlvplId', '')).get('DATA') or []]
+        except RuntimeError as e:   # 서버가 한 줄만 늘 500 을 내는 일이 있다(20240528000003057090, 11-12 — 전 부처 수집이 통째로 죽음) → 적고 넘어간다
+            y.setdefault('상세', {})
+            y['상세오류'] = str(e)
         return y
 
-    with ThreadPoolExecutor(6) as ex:
-        보조 = list(ex.map(보조상세, 보조))
+    # 받은 줄은 바로 .part.jsonl 에 쌓는다 — 3시간 넘는 수집이 중간에 죽어도 다시 돌리면 이어 받는다(오류 난 줄은 다시 부른다)
+    부분 = os.path.join(ROOT, 'data', 'raw', f'bojo_paths_{해}' + (f'_{부처}' if 부처 else '') + '.part.jsonl')
+    받음 = {}
+    if os.path.exists(부분):
+        for 줄 in open(부분, encoding='utf-8'):
+            try:
+                z = json.loads(줄)
+            except ValueError:   # 끊길 때 반쯤 쓴 마지막 줄
+                continue
+            if not z.get('상세오류'):
+                받음[z['ddtlbzId']] = z
+    남은 = [y for y in 보조 if y['ddtlbzId'] not in 받음]
+    print(f'이미 받음 {len(보조) - len(남은):,} · 남은 {len(남은):,}', flush=True)
+    with ThreadPoolExecutor(6) as ex, open(부분, 'a', encoding='utf-8') as f:
+        for i, y in enumerate(ex.map(보조상세, 남은), 1):
+            f.write(json.dumps(y, ensure_ascii=False) + '\n')
+            받음[y['ddtlbzId']] = y
+            if i % 5000 == 0:
+                f.flush()
+                print(f'  {i:,}/{len(남은):,} {time.strftime("%H:%M")}', flush=True)
+    보조 = [받음[y['ddtlbzId']] for y in 보조]
     p = os.path.join(ROOT, 'data', 'national_grants', f'{해}.json.gz')
     공시 = {x.get('ddtlbzId') for x in json.load(gzip.open(p))['줄']} if os.path.exists(p) else set()
     # 공시 상세의 주소(시·군·구까지) — 정부가 단체에 바로 준 줄은 경로에 지자체가 없어 이것으로 지역을 붙인다
@@ -125,7 +148,8 @@ def main():
     out = os.path.join(ROOT, 'data', 'raw', f'bojo_paths_{해}' + (f'_{부처}' if 부처 else '') + '.json.gz')
     with gzip.open(out, 'wt', encoding='utf-8') as f:
         json.dump({'만든날': date.today().isoformat(), '해': 해, '부처': 부처, '내역사업': 내역, '보조사업': 보조}, f, ensure_ascii=False)
-    print(f'끝 — {out} · 경로 있음 {sum(1 for y in 보조 if y["상세"].get("dlvplNmPath")):,} · 보조금정보 있음 {sum(1 for y in 보조 if y.get("보조금정보")):,} · 공시 있음 {sum(1 for y in 보조 if y.get("공시있음")):,}', flush=True)
+    os.remove(부분)
+    print(f'끝 — {out} · 상세 오류 {sum(1 for y in 보조 if y.get("상세오류")):,} · 경로 있음 {sum(1 for y in 보조 if y["상세"].get("dlvplNmPath")):,} · 보조금정보 있음 {sum(1 for y in 보조 if y.get("보조금정보")):,} · 공시 있음 {sum(1 for y in 보조 if y.get("공시있음")):,}', flush=True)
 
 
 if __name__ == '__main__':
