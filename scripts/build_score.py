@@ -132,6 +132,13 @@ def api표():
 def main():
     bd = json.load(open(os.path.join(ROOT, 'data', 'budget_docs.json'), encoding='utf-8'))
     dom = {r['laf_cd']: r for r in json.load(open(os.path.join(ROOT, 'data', 'disclosure_dom.json'), encoding='utf-8'))['곳']}
+    받은파일 = {}
+    p = os.path.join(ROOT, 'data', 'disclosure_files.json')
+    for f in (json.load(open(p, encoding='utf-8'))['파일'] if os.path.exists(p) else []):
+        받은파일.setdefault(f['곳'], []).append(f)
+    import csv
+    p = os.path.join(ROOT, 'data', 'disclosure_tags_항목.csv')
+    꼬리 = {(x['코드'], x['호']): x for x in csv.DictReader(open(p, encoding='utf-8-sig'))} if os.path.exists(p) else {}
     손path = os.path.join(ROOT, 'data', 'score_hand.json')
     손 = json.load(open(손path, encoding='utf-8')) if os.path.exists(손path) else {}
     손 = {k: v for k, v in 손.items() if not k.startswith('_')}
@@ -143,6 +150,8 @@ def main():
         cd = r['laf_cd']
         예, 결 = r.get('예산') or {}, r.get('결산') or {}
         공시 = [(f['이름'], '재정공시 파일', dom.get(cd, {}).get('끝주소', '')) for f in dom.get(cd, {}).get('파일', [])]
+        # ⑤ 재정공시 꼬리표 수집(2026-11-12) — 결산 공시 화면·검색 글에서 받은 파일 이름도 본다
+        공시 += [(f['이름'], '재정공시·결산공시·누리집 글 파일', f.get('바탕', '')) for f in 받은파일.get(cd, [])]
         글 = {'예산': 글자들(예), '결산': 글자들(결), '공시': 공시}
         판 = {}
         for 키, _, _, 어디, 잣대 in 항목:
@@ -177,6 +186,13 @@ def main():
                 막힘 = (예 if '예산' in 어디 or 어디.startswith('둘') else 결).get('실패')
                 판[키] = {'값': '?', '근거': f'{본곳}에서 이 이름을 못 찾았다' + (f' (게시판이 안 열림: {막힘})' if 막힘 else '')
                         + ' — 없다는 뜻은 아니다'}
+        # ⑤ 파일 안을 열어 본 꼬리표(tag_disclosure.py) — 이름으로 못 찾았어도 공시 파일 안에 그 항목 내용이 있으면 ○
+        for 키, 호 in (('중기', '8'), ('성인지', '9')):
+            t = 꼬리.get((cd, 호))
+            if 판[키]['값'] == '?' and t and t['꼬리표'][:1] in 'ABE':
+                뜻 = {'A': '공시 묶음 파일 안 그 칸에 값이 있다', 'B': '따로 올린 파일 이름에 있다',
+                      'E': '누리집 글의 첨부를 열어 보니 그 말이 있다'}[t['꼬리표'][:1]]
+                판[키] = {'값': 'O', '근거': f"재정공시 꼬리표 — {뜻}: {t['어디'][:90]}"}
         # 지방재정365 참고(판정에는 안 씀)
         for 키, api이름 in (('중기', '중기계획'), ('성인지', '성인지예산')):
             a = api.get(api이름)
