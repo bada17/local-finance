@@ -332,6 +332,41 @@ def main():
         일감 = [{'곳': cd, '이름': dis[cd]['이름'], '주소': (찾은.get(cd) or {}).get('주소') or dis[cd]['주소'], '낱말': ws} for cd, ws in 모.items()]
         json.dump(일감, open(sys.argv[sys.argv.index('--검색일감') + 1], 'w', encoding='utf-8'), ensure_ascii=False)
         print('검색 일감', len(일감), '곳', sum(len(x['낱말']) for x in 일감), '번')
+    # ── 파일 하나하나에 꼬리표(2026-11-12 사용자 「모든 자료에 꼬리표를 붙여놔, 나중에 투명성 지표 할 때 쓰게」)
+    sp = D('disclosure_settle.json')
+    찾은화면 = set()
+    if os.path.exists(sp):
+        for v in json.load(open(sp, encoding='utf-8'))['곳'].values():
+            if v.get('화면'):
+                찾은화면.add(v['화면'].get('들어간주소') or v['화면'].get('끝주소') or v['고른주소'])
+    파일줄 = []
+    for f in 파일f['파일']:
+        if f['곳'] not in dis:
+            continue
+        글 = f.get('_글')
+        if 글 is None and f.get('글자수') and not f.get('까닭'):
+            p = os.path.join(캐시, f['자리'] + '.txt')
+            글 = open(p, encoding='utf-8').read() if os.path.exists(p) else None
+        든칸 = [호 for 호 in 칸찾기 if 글 and 칸찾기[호].search(글)]
+        기준, 해 = 기준과해(글) if 글 else ('', None)
+        이름앞 = f['이름'] + ' ' + (글 or '')[:300]
+        파일줄.append({
+            '코드': f['곳'], '곳': dis[f['곳']]['이름'], '파일 이름': 한줄(f['이름'], 120),
+            '읽음': '읽음' if 글 else (f.get('까닭') or '못 읽음').split(' (')[0][:40],
+            '꼴': f.get('꼴', ''), '쪽수': f.get('쪽수', ''), '글자수': f.get('글자수', ''),
+            '공시 묶음(양식 칸 3개+)': '묶음' if len(든칸) >= 3 else '',
+            '기준': 기준, '회계연도': 해 or '', '요즘(기준해 뒤)': ('요즘' if 해 and 해 >= 기준해 else '옛') if 해 else '',
+            '종류': next((w for w in ('추가', '수시', '특수', '정정', '수정') if re.search(w + r'\s*공시', 이름앞)), ''),
+            '든 항목(양식 칸)': ' '.join(든칸), '「해당 없음」 있음': 'O' if 글 and 해당없음.search(글) else '',
+            '어디서': '결산·예산 공시 화면 찾기(find_settle_page)' if f.get('바탕') in 찾은화면 else '받은 공시 화면',
+            '공시 화면 주소': f.get('바탕', ''), '파일 주소': f.get('주소', '')[:300],
+        })
+    if 파일줄:
+        with open(D('disclosure_tags_파일.csv'), 'w', encoding='utf-8-sig', newline='') as fp:
+            w = csv.DictWriter(fp, fieldnames=list(파일줄[0]))
+            w.writeheader()
+            w.writerows(파일줄)
+        print('파일 꼬리표', len(파일줄), '개 →', D('disclosure_tags_파일.csv'))
     if '--묶음일감' in sys.argv:   # Z(공시 묶음 못 받음) 곳 → find_settle_page.js 일감. 출발 = 받은 주소 → 들어간 주소 → 누리집 첫 화면
         기준 = {}
         for x in 항목줄:

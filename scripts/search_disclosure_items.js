@@ -89,7 +89,10 @@ async function 한곳(탭, 일) {
     if (++k % 10 === 0) console.log(`   ${k}/${일감.length}`);
   }
   const 쓸곳 = process.argv[3] || OUT;
-  fs.writeFileSync(쓸곳, JSON.stringify({ 만든날: new Date().toISOString().slice(0, 10), 곳: 나온 }, null, 0));
+  // 앞 결과와 합친다 — 일감은 아직 안 찾아본 말뿐이라 덮어쓰면 앞 회차가 날아간다(11-12)
+  const 앞 = fs.existsSync(쓸곳) ? JSON.parse(fs.readFileSync(쓸곳, 'utf-8')).곳 : {};
+  for (const [cd, v] of Object.entries(나온)) 앞[cd] = { ...(앞[cd] || v), 낱말: { ...((앞[cd] || {}).낱말 || {}), ...v.낱말 } };
+  fs.writeFileSync(쓸곳, JSON.stringify({ 만든날: new Date().toISOString().slice(0, 10), 곳: 앞 }, null, 0));
   console.log('적음', 쓸곳);
   탭.ws.close(); 크롬.kill();
   process.exit(0);
