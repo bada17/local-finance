@@ -61,4 +61,17 @@ jobs:
               [ -n "$TELEGRAM_TOKEN" ] && curl -s -o /dev/null "https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage" --data-urlencode "chat_id=$TELEGRAM_CHAT_ID" --data-urlencode "text=⚠️ local-finance — $msg" || true
             fi
           fi
+          # PC 달마다 받기(2026-11-13 부터 PC — monthly.yml 머리 설명) — 1일 오후 2시가 지나도 이번 달 기록(data/pc_monthly.json)이 없거나 받기 실패면
+          if [ "$(TZ=KST-9 date +%d)" != 01 ] || [ "$(TZ=KST-9 date +%H)" -ge 14 ]; then
+            pm=$(gh api "repos/$GH_REPO/contents/data/pc_monthly.json" -q .content 2>/dev/null | base64 -d 2>/dev/null || true)
+            pm_day=$(echo "$pm" | jq -r '.["날"] // ""' 2>/dev/null || true)
+            pm_bad=$(echo "$pm" | jq -r '[to_entries[] | select((.key | test("받기|올리기")) and .value != 0) | .key] | join(",")' 2>/dev/null || true)
+            msg=''
+            [ "${pm_day:0:7}" = "$(TZ=KST-9 date +%Y-%m)" ] || msg="PC 달마다 받기(지방재정365) 이번 달 기록 없음 — 마지막 ${pm_day:-없음}. 달마다 굽기도 안 돌았다"
+            [ -z "$msg" ] && [ -n "$pm_bad" ] && msg="PC 달마다 받기(지방재정365) 실패: $pm_bad — PC %TEMP%\local-finance-monthly.log"
+            if [ -n "$msg" ]; then
+              echo "▶ $msg"
+              [ -n "$TELEGRAM_TOKEN" ] && curl -s -o /dev/null "https://api.telegram.org/bot$TELEGRAM_TOKEN/sendMessage" --data-urlencode "chat_id=$TELEGRAM_CHAT_ID" --data-urlencode "text=⚠️ local-finance — $msg" || true
+            fi
+          fi
           echo 끝

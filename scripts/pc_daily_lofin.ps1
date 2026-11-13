@@ -20,7 +20,8 @@ Start-Transcript -Path (Join-Path $env:TEMP 'local-finance-daily.log') -Append |
 $env:PYTHONIOENCODING = 'utf-8'
 $sh = Join-Path $env:ProgramFiles 'Git\bin\bash.exe'
 $결과 = [ordered]@{ '날' = (Get-Date -Format 'yyyy-MM-dd'); '시작' = (Get-Date -Format 'HH:mm') }
-function 돌려($이름, [scriptblock]$일) { & $일; $결과[$이름] = $LASTEXITCODE; Write-Output "▶ $이름 → $LASTEXITCODE" }
+# 파이썬 출력을 PowerShell 로 한 번 거쳐야 기록(Transcript)에 남는다(11-11 흠: 기록에 파이썬 출력이 없었다)
+function 돌려($이름, [scriptblock]$일) { & $일 2>&1 | ForEach-Object { "$_" } | Out-Host; $결과[$이름] = $LASTEXITCODE; Write-Output "▶ $이름 → $LASTEXITCODE" }
 
 git -c rebase.autoStash=true pull --rebase -q
 # ⚠️ 내려받기가 안 되면 받지 않는다 — 「받은 것이 없다」로 보고 처음부터 다시 받아 하루 한도를 날린다
