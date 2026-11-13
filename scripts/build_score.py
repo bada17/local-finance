@@ -146,6 +146,12 @@ def main():
     p = os.path.join(ROOT, 'data', 'score_pages.json')
     쪽f = json.load(open(p, encoding='utf-8')) if os.path.exists(p) else {'곳': {}, '만든날': ''}
     쪽찾기, 쪽날 = 쪽f['곳'], 쪽f['만든날']
+    의안찾기 = {}   # fetch_score_clik.py — CLIK 의안 상세의 본예산안(붙은 파일 이름·제출일)
+    p = os.path.join(ROOT, 'data', 'score_clik.json')
+    if os.path.exists(p):
+        for v in json.load(open(p, encoding='utf-8'))['의안'].values():
+            if v['cd'] and v['받음']:
+                의안찾기.setdefault(v['cd'], []).append(v)
     손path = os.path.join(ROOT, 'data', 'score_hand.json')
     손 = json.load(open(손path, encoding='utf-8')) if os.path.exists(손path) else {}
     손 = {k: v for k, v in 손.items() if not k.startswith('_')}
@@ -239,6 +245,14 @@ def main():
                 판['전체명세'] = {'값': '?', '근거': f"예산서 게시판에 「{g['글'][:50]}」({g.get('날') or '날 모름'})은 있으나 붙은 파일 이름에 「명세서」가 없다"}
             else:
                 판['전체명세'] = {'값': '?', '근거': f"예산서 게시판 1~2쪽에 「예산안」(의회에 낸 안) 글이 없다({쪽날}) — 의회 누리집에만 올렸을 수 있다"}
+        # 의회 의안(CLIK) 참고 — 판정은 안 바꾼다: 원안 파일이 붙어도 명세서가 다 들었는지는 열어 봐야 안다
+        if 의안찾기.get(cd):
+            원 = lambda v: [f for f in v['파일'] if not re.search(r'검토|심사|보고|결과|수정안|의결', f)]
+            v = max(의안찾기[cd], key=lambda v: (bool(원(v)), bool(v['파일']), v['제출']))
+            날 = f"{v['제출'][:4]}-{v['제출'][4:6]}-{v['제출'][6:8]} 제출"
+            판['전체명세']['참고'] = f"의회 의안(CLIK) 「{v['의안'][:40]}」({날}) — " + (
+                f"원안 파일 「{원(v)[0][:50]}」이 붙어 있다(명세서 전체가 들었는지는 열어 봐야 안다)" if 원(v)
+                else '심사·검토 보고서만 붙어 있다' if v['파일'] else '붙은 파일이 없다')
         # 지방재정365 참고(판정에는 안 씀)
         for 키, api이름 in (('중기', '중기계획'), ('성인지', '성인지예산')):
             a = api.get(api이름)
@@ -277,12 +291,18 @@ def main():
         print('문서 일감', len(일감), '곳', sum(len(x['항목']) for x in 일감), '칸')
 
     if '--쪽일감' in sys.argv:   # find_score_pages.js 일감 — 243곳 모두(첫 화면은 boards.json 의 누리집, 없으면 예산서 게시판 호스트)
-        홈들 = {cd: x.get('첫화면', '') for cd, x in json.load(open(os.path.join(ROOT, 'data', 'boards.json'), encoding='utf-8'))['곳'].items()}
+        bj = json.load(open(os.path.join(ROOT, 'data', 'boards.json'), encoding='utf-8'))['곳']
+        홈들 = {cd: x.get('첫화면', '') for cd, x in bj.items()}
+        호 = lambda u: (urlparse(u).hostname or '').replace('www.', '')
+        의회들 = {}   # boards.json 「의회」 링크 중 누리집과 다른 주소의 첫 것 → 그 뿌리(--의회 일감)
+        for cd, x in bj.items():
+            u = next((l['주소'] for l in x.get('의회', []) if l['주소'].startswith('http') and 호(l['주소']) and 호(l['주소']) != 호(x.get('첫화면', ''))), '')
+            if u: 의회들[cd] = urlparse(u).scheme + '://' + urlparse(u).hostname + '/'
         일감 = []
         for c in 곳들:
             u = c['예산주소'] or c['결산주소']
             홈 = 홈들.get(c['cd']) or ((urlparse(u).scheme + '://' + urlparse(u).hostname + '/') if u else '')
-            일감.append({'cd': c['cd'], '이름': c['이름'], '홈': 홈, '예산주소': c['예산주소']})
+            일감.append({'cd': c['cd'], '이름': c['이름'], '홈': 홈, '예산주소': c['예산주소'], '의회': 의회들.get(c['cd'], '')})
         p = sys.argv[sys.argv.index('--쪽일감') + 1]
         json.dump(일감, open(p, 'w', encoding='utf-8'), ensure_ascii=False)
         print('쪽 일감', len(일감), '곳')

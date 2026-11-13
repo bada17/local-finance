@@ -9,6 +9,8 @@
 //      (메뉴 꼴만 — 30자 넘는 글은 공지 제목이라 안 친다)
 //   ② 누리집 통합검색 「공청회」 — 메뉴가 없어도 공고 글이 걸리는지(몇 건·보기 둘)
 //   ③ 예산서 게시판 1~2쪽에서 「예산안」 글(의회에 낸 안) → 둘까지 들어가 붙은 파일 이름, 목록 줄의 날짜
+//   --의회: ③ 을 의회 누리집에서 — 첫 화면·사이트맵의 예산·결산·의안 메뉴(셋까지) → 예산안 글, 없으면 통합검색 「예산안」
+//           결과는 곳마다 「의회」 칸에 덧붙인다(11-13 사용자 「그렇게 하자」)
 // ⚠️ 못 찾으면 「못 찾음」이다. 「없음」으로 읽지 말 것.
 const fs = require('fs');
 const path = require('path');
@@ -53,6 +55,24 @@ async function 보기(탭) {
   const r = await 탭.보내기('Runtime.evaluate', { expression: 링크들, returnByValue: true, timeout: 8000 });
   return r.result && r.result.value ? JSON.parse(r.result.value) : { a: [], 쪽: [], 사이트맵: '' };
 }
+const 메뉴꼴 = l => l.글.length <= 30 && /^https?:|^javascript/.test(l.주소) && !/search|query=|srch|keyword=/i.test(l.주소) && !/검색어/.test(l.글);
+// 짧은 메뉴 이름만 — 예결특위 회의 일정·「예산안 심의 절차」·「예결산 분석 지원」은 문서 자리가 아니다. 의안 목록에 예산안이 올라오는 곳이 많다
+const 예결메뉴 = l => l.글.length <= 12 && /예산|결산|의안/.test(l.글) && !/위원회|위원|분석|절차|지원|제\s*\d+\s*회|특위|교육|과정|처리\s*결과/.test(l.글);
+const 예산안글 = l => /예산안|예산\s?\(안\)/.test(l.글.replace(/\s+/g, ' ')) && !/승인|변경|정정|설명회|공청회|안내|일정|토론회|절차|분석|간담회|세미나|교육|심의\s*및/.test(l.글) && l.글.length <= 90;
+const 새것 = l => (/202[56]/.test(l.글 + l.날) ? 2 : 0) + (/추가경정|추경/.test(l.글) ? 0 : 1);   // 올해·내년 본예산부터 본다
+// 예산안 글 둘까지 들어가 붙은 파일 이름 — javascript: 글은 못 들어간다(파일 빈 채로 남김)
+async function 안글보기(탭, 후보) {
+  const 글 = [];
+  for (const l of [...new Map(후보.map(l => [l.주소 || l.글, l])).values()].sort((a, b) => 새것(b) - 새것(a)).slice(0, 2)) {
+    let 파일 = [];
+    if (/^https?:/.test(l.주소)) {
+      const 화면 = await R.한곳(탭, { laf_cd: '', 이름: '', 주소: l.주소 }).catch(() => ({ 파일: [] }));
+      파일 = (화면.파일 || []).filter(f => R.뜻있나(f.이름)).map(f => f.이름.slice(0, 120)).slice(0, 15);
+    }
+    글.push({ 글: l.글, 날: l.날, 주소: (l.주소 || '').slice(0, 300), 파일, 명세서: 파일.some(f => /명세서/.test(f)) || /명세서/.test(l.글) });
+  }
+  return 글;
+}
 const 호스트 = u => { try { return new URL(u).hostname.replace(/^www\./, ''); } catch (e) { return ''; } };
 
 async function 한곳(탭, 일) {
@@ -72,7 +92,6 @@ async function 한곳(탭, 일) {
       결과.본곳.push('사이트맵');
     } else 결과.본곳.push('사이트맵 없음');
   } catch (e) { 결과.본곳.push('첫 화면 못 엶 ' + String(e).slice(0, 40)); }
-  const 메뉴꼴 = l => l.글.length <= 30 && /^https?:|^javascript/.test(l.주소) && !/search|query=|srch|keyword=/i.test(l.주소) && !/검색어/.test(l.글);
   for (const [k, re] of Object.entries(과녁)) {
     let 걸 = 링크.filter(l => 메뉴꼴(l) && re.test(l.글));
     if (k === '별도') 걸 = 걸.filter(l => /^https?:/.test(l.주소) && 호스트(l.주소) && 호스트(l.주소) !== 홈호 && !/lofin365|lofin\.mois/.test(l.주소));
@@ -114,31 +133,55 @@ async function 한곳(탭, 일) {
       for (let 쪽 = 1; 쪽 <= 2; 쪽++) {
         const v = await 보기(탭);
         결과.본곳.push(`예산서 게시판 ${쪽}쪽`);
-        후보 = 후보.concat(v.a.filter(l => /예산\s*\(?안\)?/.test(l.글) && /예산안|예산\(안\)|예산 \(안\)/.test(l.글.replace(/\s+/g, ' '))
-          && !/승인|변경|정정|설명회|공청회|안내/.test(l.글) && l.글.length <= 90));
+        후보 = 후보.concat(v.a.filter(예산안글));
         const 다음 = v.쪽[0];
         if (!다음 || !/^https?:/.test(다음.주소)) break;
         await 열기(탭, 다음.주소);
       }
-      후보 = [...new Map(후보.map(l => [l.주소 || l.글, l])).values()];
-      for (const l of 후보.slice(0, 2)) {
-        let 파일 = [];
-        if (/^https?:/.test(l.주소)) {
-          const 화면 = await R.한곳(탭, { laf_cd: '', 이름: '', 주소: l.주소 }).catch(() => ({ 파일: [] }));
-          파일 = (화면.파일 || []).filter(f => R.뜻있나(f.이름)).map(f => f.이름.slice(0, 120)).slice(0, 15);
-        }
-        결과.예산안.글.push({ 글: l.글, 날: l.날, 주소: (l.주소 || '').slice(0, 300), 파일, 명세서: 파일.some(f => /명세서/.test(f)) || /명세서/.test(l.글) });
-      }
+      결과.예산안.글 = await 안글보기(탭, 후보);
       결과.예산안.찾음 = 결과.예산안.글.length > 0;
     } catch (e) { 결과.본곳.push('예산서 게시판 못 엶 ' + String(e).slice(0, 40)); }
   }
   return 결과;
 }
 
+async function 의회곳(탭, 일) {
+  const 결과 = { 홈: 일.의회, 본곳: [], 메뉴: [], 글: [], 찾음: false };
+  const 링크 = [];
+  try {
+    await 열기(탭, 일.의회);
+    const v = await 보기(탭);
+    링크.push(...v.a); 결과.본곳.push('첫 화면');
+    if (v.사이트맵) { await 열기(탭, v.사이트맵); 링크.push(...(await 보기(탭)).a); 결과.본곳.push('사이트맵'); }
+    else 결과.본곳.push('사이트맵 없음');
+  } catch (e) { 결과.본곳.push('첫 화면 못 엶 ' + String(e).slice(0, 40)); return 결과; }
+  const 메뉴 = [...new Map(링크.filter(l => 메뉴꼴(l) && /^https?:/.test(l.주소) && 예결메뉴(l)).map(l => [l.주소, l])).values()]
+    .sort((a, b) => /의안/.test(a.글) - /의안/.test(b.글)).slice(0, 3);
+  결과.메뉴 = 메뉴.map(l => ({ 글: l.글, 주소: l.주소.slice(0, 300) }));
+  let 후보 = [];
+  for (const m of 메뉴) {
+    try { await 열기(탭, m.주소); 후보 = 후보.concat((await 보기(탭)).a.filter(예산안글)); 결과.본곳.push('메뉴 「' + m.글 + '」'); }
+    catch (e) { 결과.본곳.push('메뉴 못 엶'); }
+  }
+  if (!후보.length) {
+    try {
+      await 열기(탭, 일.의회);
+      const r = await 탭.보내기('Runtime.evaluate', { expression: S.검색하기('예산안'), returnByValue: true });
+      const 방법 = (r.result && r.result.value) || '못 보냄';
+      if (방법 === '검색칸 못 찾음' || 방법 === '못 보냄') 결과.본곳.push('검색 ' + 방법);
+      else { await S.다될때(탭, 3500); 후보 = (await 보기(탭)).a.filter(예산안글); 결과.본곳.push('검색 「예산안」'); }
+    } catch (e) { 결과.본곳.push('검색 틀림'); }
+  }
+  결과.글 = await 안글보기(탭, 후보);
+  결과.찾음 = 결과.글.length > 0;
+  return 결과;
+}
+
 (async () => {
   const 일감 = JSON.parse(fs.readFileSync(process.argv[2], 'utf-8'));
   const 나온 = fs.existsSync(OUT) && !process.argv.includes('--다시') ? JSON.parse(fs.readFileSync(OUT, 'utf-8')).곳 : {};
-  const 할 = 일감.filter(x => !나온[x.cd]);   // 끊겨도 된다 — 다시 부르면 남은 곳만
+  const 의회모드 = process.argv.includes('--의회');
+  const 할 = 일감.filter(x => 의회모드 ? x.의회 && !(나온[x.cd] || {}).의회 : !나온[x.cd]);   // 끊겨도 된다 — 다시 부르면 남은 곳만
   const 크롬 = R.크롬띄우기(fs.mkdtempSync(path.join(os.tmpdir(), 'lf-scorepages-')));
   await R.붙을때까지();
   let 다음 = 0, 끝난 = 0;
@@ -148,13 +191,15 @@ async function 한곳(탭, 일) {
     탭.듣기('Page.javascriptDialogOpening', () => 탭.보내기('Page.handleJavaScriptDialog', { accept: true }));
     while (다음 < 할.length) {
       const 일 = 할[다음++];
-      try { 나온[일.cd] = await 한곳(탭, 일); } catch (e) { 나온[일.cd] = { 본곳: ['틀림 ' + String(e).slice(0, 60)] }; }
+      if (의회모드) { try { 나온[일.cd] = { ...나온[일.cd], 의회: await 의회곳(탭, 일) }; } catch (e) { 나온[일.cd] = { ...나온[일.cd], 의회: { 본곳: ['틀림 ' + String(e).slice(0, 60)] } }; } }
+      else try { 나온[일.cd] = await 한곳(탭, 일); } catch (e) { 나온[일.cd] = { 본곳: ['틀림 ' + String(e).slice(0, 60)] }; }
       if (++끝난 % 20 === 0) { console.log(`   ${끝난}/${할.length}`); 적기(); }
     }
   }));
   적기();
   const 셈 = k => Object.values(나온).filter(x => x[k] && x[k].찾음).length;
-  console.log(`끝 — ${Object.keys(나온).length}곳 · 일일 ${셈('일일')} · 공청회 메뉴 ${셈('공청회')} · 공론장 ${셈('공론장')} · 별도 ${셈('별도')} · 예산안 글 ${셈('예산안')}`);
+  if (의회모드) { const 의 = Object.values(나온).filter(x => x.의회); console.log(`끝 — 의회 ${의.length}곳 · 예산안 글 ${의.filter(x => x.의회.찾음).length} · 명세서 ${의.filter(x => (x.의회.글 || []).some(g => g.명세서)).length}`); }
+  else console.log(`끝 — ${Object.keys(나온).length}곳 · 일일 ${셈('일일')} · 공청회 메뉴 ${셈('공청회')} · 공론장 ${셈('공론장')} · 별도 ${셈('별도')} · 예산안 글 ${셈('예산안')}`);
   크롬.kill();
   process.exit(0);
 })().catch(e => { console.error(e); process.exit(1); });
