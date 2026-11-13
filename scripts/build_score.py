@@ -143,6 +143,9 @@ def main():
     p = os.path.join(ROOT, 'data', 'score_docs.json')
     문서f = json.load(open(p, encoding='utf-8')) if os.path.exists(p) else {'곳': {}, '만든날': ''}
     문서찾기, 문서날 = 문서f['곳'], 문서f['만든날']
+    p = os.path.join(ROOT, 'data', 'score_pages.json')
+    쪽f = json.load(open(p, encoding='utf-8')) if os.path.exists(p) else {'곳': {}, '만든날': ''}
+    쪽찾기, 쪽날 = 쪽f['곳'], 쪽f['만든날']
     손path = os.path.join(ROOT, 'data', 'score_hand.json')
     손 = json.load(open(손path, encoding='utf-8')) if os.path.exists(손path) else {}
     손 = {k: v for k, v in 손.items() if not k.startswith('_')}
@@ -205,6 +208,37 @@ def main():
                              '꼬리표': {k: v.get(k) for k in ('방법', '클릭', '쪽', '형식', '해')}}
                 elif v.get('본곳'):
                     판[키]['근거'] += f" · 끝까지 찾아봄({문서날}): " + ', '.join(v['본곳'][:8])
+        # ⑦ 메뉴·예산안 찾기 봇(find_score_pages.js, 11-13) — 「사람이 볼 칸」을 봇이 볼 수 있는 만큼
+        쪽 = 쪽찾기.get(cd)
+        if 쪽:
+            def 메뉴근거(v):
+                m = v['메뉴'][0]
+                return f"{m['어디']} 메뉴 「{m['글'][:40]}」" + (' (지방재정365 로 연결)' if m.get('지방재정365') else '')
+            for 키 in ('일일', '공청회', '공론장'):
+                v = dict(쪽.get(키) or {})
+                # 공지 글 제목(「… 공청회 개최」「… 공고」, 날짜 붙은 글)은 페이지가 아니다 — 검색에 걸린 글처럼 근거에만
+                v['메뉴'] = [m for m in v.get('메뉴', []) if not re.search(r'개최|공고|바로가기|20\d\d|\d{1,2}\.\d{1,2}', m['글'])]
+                v['찾음'] = bool(v['메뉴'])
+                if v.get('찾음'):
+                    판[키] = {'값': 'O', '근거': 메뉴근거(v), '주소': v['메뉴'][0]['주소'], '꼬리표': {'클릭': v['메뉴'][0]['클릭']}}
+                else:
+                    판[키] = {'값': '?', '근거': f"첫 화면·사이트맵에서 메뉴를 못 찾았다({쪽날}) — 없다는 뜻은 아니다 · 본 곳: {', '.join(쪽.get('본곳', [])[:6])}"}
+            검 = (쪽.get('공청회') or {}).get('검색') or {}
+            if 검.get('건'):
+                판['공청회']['근거'] += f" · 누리집 검색 「공청회」에 글 {검['건']}건(예: 「{검['보기'][0]['글'][:40]}」)"
+            v = 쪽.get('별도') or {}
+            if 판['별도']['값'] == '?' and v.get('찾음'):
+                판['별도'] = {'값': 'O', '근거': f"{메뉴근거(v)} — 다른 주소의 재정 누리집", '주소': v['메뉴'][0]['주소']}
+            안 = dict(쪽.get('예산안') or {})
+            안['글'] = [g for g in 안.get('글', []) if '안내' not in g['글']]   # 「예산안내」는 예산안이 아니다
+            명 = next((g for g in 안.get('글', []) if g.get('명세서')), None)
+            if 명:
+                판['전체명세'] = {'값': 'O', '근거': f"예산서 게시판 「{명['글'][:50]}」({명.get('날') or '날 모름'})에 명세서 파일이 붙어 있다 — 의회 제출안 전체와 같은지는 사람이 맞대 볼 것", '주소': 명['주소']}
+            elif 안.get('글'):
+                g = 안['글'][0]
+                판['전체명세'] = {'값': '?', '근거': f"예산서 게시판에 「{g['글'][:50]}」({g.get('날') or '날 모름'})은 있으나 붙은 파일 이름에 「명세서」가 없다"}
+            else:
+                판['전체명세'] = {'값': '?', '근거': f"예산서 게시판 1~2쪽에 「예산안」(의회에 낸 안) 글이 없다({쪽날}) — 의회 누리집에만 올렸을 수 있다"}
         # 지방재정365 참고(판정에는 안 씀)
         for 키, api이름 in (('중기', '중기계획'), ('성인지', '성인지예산')):
             a = api.get(api이름)
@@ -221,7 +255,7 @@ def main():
                     '판': 판, '정성': 정성점, 'O': sum(1 for v in 판.values() if v['값'] == 'O')})
 
     out = {'만든날': date.today().isoformat(), '긁은날': bd['만든날'],
-           '항목': [{'키': k, '갈래': g, '이름': n, '자동': k not in 못함} for k, g, n, *_ in 항목],
+           '항목': [{'키': k, '갈래': g, '이름': n, '자동': k not in 못함 or bool(쪽찾기)} for k, g, n, *_ in 항목],
            '정성': [{'키': k, '갈래': g, '이름': n} for k, g, n in 정성],
            '공청회까닭': 공청회까닭, '곳': 곳들}
     json.dump(out, open(os.path.join(ROOT, 'data', 'score.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=0)
@@ -241,6 +275,17 @@ def main():
         p = sys.argv[sys.argv.index('--문서일감') + 1]
         json.dump(일감, open(p, 'w', encoding='utf-8'), ensure_ascii=False)
         print('문서 일감', len(일감), '곳', sum(len(x['항목']) for x in 일감), '칸')
+
+    if '--쪽일감' in sys.argv:   # find_score_pages.js 일감 — 243곳 모두(첫 화면은 boards.json 의 누리집, 없으면 예산서 게시판 호스트)
+        홈들 = {cd: x.get('첫화면', '') for cd, x in json.load(open(os.path.join(ROOT, 'data', 'boards.json'), encoding='utf-8'))['곳'].items()}
+        일감 = []
+        for c in 곳들:
+            u = c['예산주소'] or c['결산주소']
+            홈 = 홈들.get(c['cd']) or ((urlparse(u).scheme + '://' + urlparse(u).hostname + '/') if u else '')
+            일감.append({'cd': c['cd'], '이름': c['이름'], '홈': 홈, '예산주소': c['예산주소']})
+        p = sys.argv[sys.argv.index('--쪽일감') + 1]
+        json.dump(일감, open(p, 'w', encoding='utf-8'), ensure_ascii=False)
+        print('쪽 일감', len(일감), '곳')
 
     tpl = open(os.path.join(SITE, 'score.template.html'), encoding='utf-8').read()
     # 남의 누리집에서 긁은 글자가 들어간다 — 「</script>」가 섞여도 스크립트 밖으로 새지 않게
