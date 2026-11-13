@@ -575,9 +575,11 @@
 "57433",
 "57434",
 "57435",
+"57437",
 "57438",
 "57444",
 "57445",
+"57446",
 "57450",
 "57451",
 "57452",
@@ -653,7 +655,8 @@
 "57694",
 "57697",
 "57698",
-"57699"
+"57699",
+"57711"
 ],
 "찾은것": [
 {
@@ -1569,6 +1572,48 @@
 "낱말": "미래대응기금",
 "횟수": 1,
 "보냄": true
+},
+{
+"갈래": "위원회",
+"날짜": "2026-11-09",
+"제목": "제22대 제439회 제9차 정무위원회 (2026년 11월 09일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57711",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57711&type=summary",
+"번호": "57711",
+"낱말": "미래대응기금",
+"횟수": 14,
+"보냄": true
+},
+{
+"갈래": "국정감사",
+"날짜": "2026-10-22",
+"제목": "제22대 제439회 개회식 산업통상자원중소벤처기업위원회 (국정감사 회의록)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57437",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57437&type=summary",
+"번호": "57437",
+"낱말": "미래대응기금",
+"횟수": 8,
+"보냄": true
+},
+{
+"갈래": "의안",
+"날짜": "2026-11-13",
+"번호": "2222750",
+"제목": "[의안] 미래대응기금 설치 및 운용에 관한 법률안 (김선민의원 등 12인, ) — 발의 2026-11-12 (계류의안)",
+"보기": "https://likms.assembly.go.kr/bill/billDetail.do?billId=PRC_5AA86C11CE5C4FE1B0CF6B63EEB1C1",
+"낱말": "미래대응기금",
+"횟수": 1,
+"보냄": true
+},
+{
+"갈래": "보도자료",
+"날짜": "2026-11-12",
+"번호": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200226&searchNoSeq=20261112200226",
+"제목": "더 좋은 미래대응기금법’ 조국혁신당 당론 발의",
+"보기": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200226&searchNoSeq=20261112200226",
+"낱말": "미래대응기금",
+"횟수": 1,
+"보냄": true
 }
 ],
 "의안": {
@@ -1579,6 +1624,10 @@
 "PRC_6DB777722E8E46E5A90A6CCE481B53": {
 "이름": "미래대응기금 설치 및 운용에 관한 법률안",
 "단계": "발의 2026-10-29 (계류의안)"
+},
+"PRC_5AA86C11CE5C4FE1B0CF6B63EEB1C1": {
+"이름": "미래대응기금 설치 및 운용에 관한 법률안",
+"단계": "발의 2026-11-12 (계류의안)"
 }
 },
 "자료본것": [
@@ -1606,8 +1655,9 @@
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199679&searchNoSeq=20261103199679",
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199859&searchNoSeq=20261105199859",
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199875&searchNoSeq=20261106199875",
-"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200154&searchNoSeq=20261110200154"
+"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200154&searchNoSeq=20261110200154",
+"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200226&searchNoSeq=20261112200226"
 ],
 "본문": "html",
-"마지막성공": "2026-11-12"
+"마지막성공": "2026-11-13"
 }
