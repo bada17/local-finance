@@ -57,19 +57,22 @@ def laf(nm):
 def 만들기(해):
     d = json.load(gzip.open(os.path.join(RAW, f'bojo_paths_{해}.json.gz')))
     내 = {x['dtlbzId']: x for x in d['내역사업']}
-    노드 = defaultdict(lambda: {'교': 0.0, 'gv': 0.0, '집': 0.0})   # (내역사업, 경로) 로 묶음
+    노드 = defaultdict(lambda: {'교': 0.0, 'gv': 0.0})   # (내역사업, 경로) 로 묶음
+    국비0집행 = defaultdict(float)                         # 참고 칸(머리말) — 줄 단위로 센다(묶으면 국비 있는 다른 줄에 섞여 빠짐)
     for y in d['보조사업']:
         if y.get('목록에만'):
             continue
         s = y['상세']
         p = tuple(q.strip() for q in (s.get('dlvplNmPath') or '').split('>') if q.strip())
         n = 노드[(s.get('dtlbzId'), p)]
-        n['교'] += sum(수(r.get('gsDtamt')) for r in y.get('보조금정보') or [])
-        n['gv'] += 수(s.get('govsuby'))
-        n['집'] += sum(수(r.get('gsEamt')) for r in y.get('보조금정보') or [])
+        교, gv = sum(수(r.get('gsDtamt')) for r in y.get('보조금정보') or []), 수(s.get('govsuby'))
+        n['교'] += 교
+        n['gv'] += gv
+        c = laf(p[-1]) if len(p) >= 2 else None
+        if c and not 교 and not gv and 정보[c]['갈래'] == '기초' and laf(p[-2]):
+            국비0집행[c] += sum(수(r.get('gsEamt')) for r in y.get('보조금정보') or [])
 
     받음 = defaultdict(lambda: defaultdict(float))                 # 곳 → 내역사업 → 원문 몫
-    국비0집행 = defaultdict(float)                                 # 참고 칸(아래 머리말)
     광 = defaultdict(lambda: {'교': 0.0, 'gv': 0.0, '아래': 0.0, '있음': set()})   # (내역사업, 시도)
     for (dz, p), n in 노드.items():
         c = laf(p[-1]) if p else None
@@ -87,8 +90,6 @@ def 만들기(해):
             else:                                # 시도 거침, 또는 일반구(위 = 같은 시)
                 몫 = n['gv'] or n['교']          # 여러 해 사업은 govsuby 0·교부만 있는 줄이 있다(여수 어촌뉴딜300 78억·울릉 통구미항 39억)
                 받음[c][dz] += 몫
-                if not 몫:
-                    국비0집행[c] += n['집']
                 if 정보[위]['갈래'] == '광역':
                     광[(dz, 위)]['아래'] += 몫
                     광[(dz, 위)]['있음'].add(c)
