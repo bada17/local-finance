@@ -123,6 +123,12 @@ def 만들기(해):
 
     세 = json.load(gzip.open(os.path.join(ROOT, 'data', 'revenue', 'FIACRV.json.gz'), 'rt', encoding='utf-8'))
     결 = {x['laf_cd']: (x['tott_sum_amt'] / 1e3, x['prsm_amt'] / 1e3) for x in 세 if str(x['_해']) == str(해) and x['armk_cd'] == '51000'}
+    p = os.path.join(RAW, f'FIACRV__fyr-{해}.json')   # data/revenue 에 아직 없는 해(2025 — 11-13 PC 에서 fetch_lofin.py FIACRV fyr=2025)
+    if not 결 and os.path.exists(p):
+        r = json.load(open(p, encoding='utf-8'))
+        결 = {x['laf_cd']: (x['tott_sum_amt'] / 1e3, x['prsm_amt'] / 1e3) for x in (r if isinstance(r, list) else r['rows']) if x['armk_cd'] == '51000'}
+    # ⚠️ 2025 세입과목이 바뀜(「지난연도 수입」 신설·「지방교부세 등」) — 51000 이 2024 보다 30~45% 큼(순창 1,159 → 1,487억, 세입 총계는 그대로).
+    #    보전수입등이 그만큼 줄어 이월 국비가 국고보조금등으로 옮겨 온 것으로 보이나 원문(행안부 세입과목) 확인 전 — 2025 는 2024 와 바로 견주지 말 것.
     결과 = []
     for x in 곳:
         c = x['cd']
