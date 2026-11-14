@@ -562,10 +562,12 @@
 "57383",
 "57385",
 "57386",
+"57387",
 "57389",
 "57390",
 "57391",
 "57392",
+"57395",
 "57398",
 "57410",
 "57412",
@@ -594,6 +596,7 @@
 "57486",
 "57487",
 "57488",
+"57489",
 "57510",
 "57511",
 "57512",
@@ -651,12 +654,17 @@
 "57681",
 "57690",
 "57691",
+"57692",
 "57693",
 "57694",
+"57696",
 "57697",
 "57698",
 "57699",
-"57711"
+"57700",
+"57702",
+"57711",
+"57756"
 ],
 "찾은것": [
 {
@@ -1614,6 +1622,101 @@
 "낱말": "미래대응기금",
 "횟수": 1,
 "보냄": true
+},
+{
+"갈래": "위원회",
+"날짜": "2026-11-09",
+"제목": "제22대 제439회 제7차 기후에너지환경노동위원회 (2026년 11월 09일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57696",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57696&type=summary",
+"번호": "57696",
+"낱말": "미래대응기금",
+"횟수": 53,
+"보냄": false
+},
+{
+"갈래": "위원회",
+"날짜": "2026-11-09",
+"제목": "제22대 제439회 제6차 교육위원회 (2026년 11월 09일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57692",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57692&type=summary",
+"번호": "57692",
+"낱말": "미래대응기금",
+"횟수": 14,
+"보냄": false
+},
+{
+"갈래": "위원회",
+"날짜": "2026-11-06",
+"제목": "제22대 제439회 제10차 과학기술정보방송통신위원회 (2026년 11월 06일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57702",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57702&type=summary",
+"번호": "57702",
+"낱말": "미래대응기금",
+"횟수": 13,
+"보냄": false
+},
+{
+"갈래": "위원회",
+"날짜": "2026-11-06",
+"제목": "제22대 제439회 제1차 재정경제기획위원회 예산결산기금심사소위원회 (2026년 11월 06일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57700",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57700&type=summary",
+"번호": "57700",
+"낱말": "미래대응기금",
+"횟수": 9,
+"보냄": false
+},
+{
+"갈래": "국정감사",
+"날짜": "2026-10-08",
+"제목": "제22대 제439회 개회식 재정경제기획위원회 (국정감사 회의록)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57387",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57387&type=summary",
+"번호": "57387",
+"낱말": "미래대응기금",
+"횟수": 199,
+"보냄": false
+},
+{
+"갈래": "보도자료",
+"날짜": "2026-11-12",
+"번호": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200270&searchNoSeq=20261112200270",
+"제목": "‘미래’ 없는 미래대응기금, 이재명 정권은 곳간 마스터키만 쥐었습니다 [국민의힘 최보윤 수석대변인 논평]",
+"보기": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200270&searchNoSeq=20261112200270",
+"낱말": "미래대응기금",
+"횟수": 1,
+"보냄": false
+},
+{
+"갈래": "보도자료",
+"날짜": "2026-11-11",
+"번호": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200204&searchNoSeq=20261111200204",
+"제목": "이재명 정부는 162조 깜깜이 미래대응기금 전면 재검토하고, 소방 예산 정규 편성하라 [국민의힘 박충권 수석대변인 논평]",
+"보기": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200204&searchNoSeq=20261111200204",
+"낱말": "미래대응기금",
+"횟수": 1,
+"보냄": false
+},
+{
+"갈래": "보도자료",
+"날짜": "2026-11-10",
+"번호": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200104&searchNoSeq=20261110200104",
+"제목": "관사·기본소득 끼워 넣더니 소방 예산까지 돌려막기, ‘162조 미래대응기금’은 정권의 ‘만능 금고’인가 [국민의힘 최수진 원내수석대변인 논평]",
+"보기": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200104&searchNoSeq=20261110200104",
+"낱말": "미래대응기금",
+"횟수": 1,
+"보냄": false
+},
+{
+"갈래": "보도자료",
+"날짜": "2026-11-10",
+"번호": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200114&searchNoSeq=20261110200114",
+"제목": "[안태훈 상근부대변인] 미래대응기금은 국회가 심의하는 미래 투자입니다",
+"보기": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200114&searchNoSeq=20261110200114",
+"낱말": "미래대응기금",
+"횟수": 1,
+"보냄": false
 }
 ],
 "의안": {
@@ -1655,9 +1758,13 @@
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199679&searchNoSeq=20261103199679",
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199859&searchNoSeq=20261105199859",
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=199875&searchNoSeq=20261106199875",
+"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200104&searchNoSeq=20261110200104",
+"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200114&searchNoSeq=20261110200114",
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200154&searchNoSeq=20261110200154",
-"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200226&searchNoSeq=20261112200226"
+"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200204&searchNoSeq=20261111200204",
+"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200226&searchNoSeq=20261112200226",
+"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200270&searchNoSeq=20261112200270"
 ],
 "본문": "html",
-"마지막성공": "2026-11-13"
+"마지막성공": "2026-11-14"
 }
