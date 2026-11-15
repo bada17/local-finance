@@ -645,6 +645,7 @@
 "57650",
 "57651",
 "57670",
+"57671",
 "57672",
 "57673",
 "57676",
@@ -657,13 +658,19 @@
 "57692",
 "57693",
 "57694",
+"57695",
 "57696",
 "57697",
 "57698",
 "57699",
 "57700",
+"57701",
 "57702",
+"57703",
 "57711",
+"57712",
+"57716",
+"57719",
 "57756"
 ],
 "찾은것": [
@@ -1717,6 +1724,50 @@
 "낱말": "미래대응기금",
 "횟수": 1,
 "보냄": false
+},
+{
+"갈래": "위원회",
+"날짜": "2026-11-11",
+"제목": "제22대 제439회 제9차 재정경제기획위원회 (2026년 11월 11일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57716",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57716&type=summary",
+"번호": "57716",
+"낱말": "미래대응기금",
+"횟수": 31,
+"보냄": false
+},
+{
+"갈래": "위원회",
+"날짜": "2026-11-09",
+"제목": "제22대 제439회 제6차 산업통상자원중소벤처기업위원회 (2026년 11월 09일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57701",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57701&type=summary",
+"번호": "57701",
+"낱말": "미래대응기금",
+"횟수": 48,
+"보냄": false
+},
+{
+"갈래": "위원회",
+"날짜": "2026-11-05",
+"제목": "제22대 제439회 제6차 농림축산식품해양수산위원회 (2026년 11월 05일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57671",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57671&type=summary",
+"번호": "57671",
+"낱말": "미래대응기금",
+"횟수": 10,
+"보냄": false
+},
+{
+"갈래": "위원회",
+"날짜": "2026-11-04",
+"제목": "제22대 제439회 제2차 재정경제기획위원회 경제재정소위원회 (2026년 11월 04일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57695",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57695&type=summary",
+"번호": "57695",
+"낱말": "미래대응기금",
+"횟수": 146,
+"보냄": false
 }
 ],
 "의안": {
@@ -1766,5 +1817,5 @@
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200270&searchNoSeq=20261112200270"
 ],
 "본문": "html",
-"마지막성공": "2026-11-14"
+"마지막성공": "2026-11-15"
 }
