@@ -126,7 +126,7 @@ def main():
                 받음[z['ddtlbzId']] = z
     남은 = [y for y in 보조 if y['ddtlbzId'] not in 받음]
     print(f'이미 받음 {len(보조) - len(남은):,} · 남은 {len(남은):,}', flush=True)
-    with ThreadPoolExecutor(6) as ex, open(부분, 'a', encoding='utf-8') as f:
+    with ThreadPoolExecutor(6) as ex, open(부분, 'a', encoding='utf-8', buffering=1) as f:   # 줄마다 디스크로 — 언제 꺼도 받은 줄은 남는다
         for i, y in enumerate(ex.map(보조상세, 남은), 1):
             f.write(json.dumps(y, ensure_ascii=False) + '\n')
             받음[y['ddtlbzId']] = y
@@ -146,8 +146,10 @@ def main():
     보조 += 개인보충(해, sorted({x['jrsdNm'] for x in 내역}), 보조)
     os.makedirs(os.path.join(ROOT, 'data', 'raw'), exist_ok=True)
     out = os.path.join(ROOT, 'data', 'raw', f'bojo_paths_{해}' + (f'_{부처}' if 부처 else '') + '.json.gz')
-    with gzip.open(out, 'wt', encoding='utf-8') as f:
+    # 묶는 중에 꺼지면 반쪽 gz 가 「끝난 해」로 보여 건너뛰던 것(11-16) → .tmp 에 다 쓴 뒤에 이름을 바꾼다
+    with gzip.open(out + '.tmp', 'wt', encoding='utf-8') as f:
         json.dump({'만든날': date.today().isoformat(), '해': 해, '부처': 부처, '내역사업': 내역, '보조사업': 보조}, f, ensure_ascii=False)
+    os.replace(out + '.tmp', out)
     os.remove(부분)
     print(f'끝 — {out} · 상세 오류 {sum(1 for y in 보조 if y.get("상세오류")):,} · 경로 있음 {sum(1 for y in 보조 if y["상세"].get("dlvplNmPath")):,} · 보조금정보 있음 {sum(1 for y in 보조 if y.get("보조금정보")):,} · 공시 있음 {sum(1 for y in 보조 if y.get("공시있음")):,}', flush=True)
 

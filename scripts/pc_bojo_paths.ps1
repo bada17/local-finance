@@ -21,5 +21,6 @@ $running = Get-CimInstance Win32_Process -Filter "name='python.exe'" | Where-Obj
 if ($running) { Wait-Process -Id $running.ProcessId -ErrorAction SilentlyContinue }
 foreach ($y in 2024, 2025, 2023, 2022, 2021, 2026) {
   if (Test-Path "data\raw\bojo_paths_$y.json.gz") { continue }
-  python -X utf8 scripts/fetch_bojo_paths.py $y > "data\raw\bojo_paths_$y.log" 2> "data\raw\bojo_paths_$y.err"
+  # cmd 로 이어 붙인다 — PowerShell > 는 한글을 깨고 다시 켤 때마다 로그를 지웠다
+  cmd /c "python -X utf8 scripts/fetch_bojo_paths.py $y >> data\raw\bojo_paths_$y.log 2>> data\raw\bojo_paths_$y.err"
 }
