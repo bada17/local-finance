@@ -667,8 +667,13 @@
 "57701",
 "57702",
 "57703",
+"57705",
+"57706",
+"57707",
 "57711",
 "57712",
+"57713",
+"57715",
 "57716",
 "57719",
 "57756"
@@ -1639,7 +1644,7 @@
 "번호": "57696",
 "낱말": "미래대응기금",
 "횟수": 53,
-"보냄": false
+"보냄": true
 },
 {
 "갈래": "위원회",
@@ -1650,7 +1655,7 @@
 "번호": "57692",
 "낱말": "미래대응기금",
 "횟수": 14,
-"보냄": false
+"보냄": true
 },
 {
 "갈래": "위원회",
@@ -1661,7 +1666,7 @@
 "번호": "57702",
 "낱말": "미래대응기금",
 "횟수": 13,
-"보냄": false
+"보냄": true
 },
 {
 "갈래": "위원회",
@@ -1672,7 +1677,7 @@
 "번호": "57700",
 "낱말": "미래대응기금",
 "횟수": 9,
-"보냄": false
+"보냄": true
 },
 {
 "갈래": "국정감사",
@@ -1683,7 +1688,7 @@
 "번호": "57387",
 "낱말": "미래대응기금",
 "횟수": 199,
-"보냄": false
+"보냄": true
 },
 {
 "갈래": "보도자료",
@@ -1693,7 +1698,7 @@
 "보기": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200270&searchNoSeq=20261112200270",
 "낱말": "미래대응기금",
 "횟수": 1,
-"보냄": false
+"보냄": true
 },
 {
 "갈래": "보도자료",
@@ -1703,7 +1708,7 @@
 "보기": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200204&searchNoSeq=20261111200204",
 "낱말": "미래대응기금",
 "횟수": 1,
-"보냄": false
+"보냄": true
 },
 {
 "갈래": "보도자료",
@@ -1713,7 +1718,7 @@
 "보기": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200104&searchNoSeq=20261110200104",
 "낱말": "미래대응기금",
 "횟수": 1,
-"보냄": false
+"보냄": true
 },
 {
 "갈래": "보도자료",
@@ -1723,7 +1728,7 @@
 "보기": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200114&searchNoSeq=20261110200114",
 "낱말": "미래대응기금",
 "횟수": 1,
-"보냄": false
+"보냄": true
 },
 {
 "갈래": "위원회",
@@ -1734,7 +1739,7 @@
 "번호": "57716",
 "낱말": "미래대응기금",
 "횟수": 31,
-"보냄": false
+"보냄": true
 },
 {
 "갈래": "위원회",
@@ -1745,7 +1750,7 @@
 "번호": "57701",
 "낱말": "미래대응기금",
 "횟수": 48,
-"보냄": false
+"보냄": true
 },
 {
 "갈래": "위원회",
@@ -1756,7 +1761,7 @@
 "번호": "57671",
 "낱말": "미래대응기금",
 "횟수": 10,
-"보냄": false
+"보냄": true
 },
 {
 "갈래": "위원회",
@@ -1767,7 +1772,62 @@
 "번호": "57695",
 "낱말": "미래대응기금",
 "횟수": 146,
-"보냄": false
+"보냄": true
+},
+{
+"갈래": "위원회",
+"날짜": "2026-11-11",
+"제목": "제22대 제439회 제7차 농림축산식품해양수산위원회 (2026년 11월 11일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57706",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57706&type=summary",
+"번호": "57706",
+"낱말": "미래대응기금",
+"횟수": 6,
+"보냄": true
+},
+{
+"갈래": "위원회",
+"날짜": "2026-11-10",
+"제목": "제22대 제439회 제7차 보건복지위원회 (2026년 11월 10일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57715",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57715&type=summary",
+"번호": "57715",
+"낱말": "미래대응기금",
+"횟수": 39,
+"보냄": true
+},
+{
+"갈래": "위원회",
+"날짜": "2026-11-10",
+"제목": "제22대 제439회 제1차 정무위원회 예산결산심사소위원회 (2026년 11월 10일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57713",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57713&type=summary",
+"번호": "57713",
+"낱말": "미래대응기금",
+"횟수": 1,
+"보냄": true
+},
+{
+"갈래": "위원회",
+"날짜": "2026-11-10",
+"제목": "제22대 제439회 제2차 과학기술정보방송통신위원회 예산결산심사소위원회 (2026년 11월 10일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57707",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57707&type=summary",
+"번호": "57707",
+"낱말": "미래대응기금",
+"횟수": 44,
+"보냄": true
+},
+{
+"갈래": "위원회",
+"날짜": "2026-11-10",
+"제목": "제22대 제439회 제2차 농림축산식품해양수산위원회 예산결산심사소위원회 (2026년 11월 10일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57705",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57705&type=summary",
+"번호": "57705",
+"낱말": "미래대응기금",
+"횟수": 28,
+"보냄": true
 }
 ],
 "의안": {
@@ -1817,5 +1877,5 @@
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200270&searchNoSeq=20261112200270"
 ],
 "본문": "html",
-"마지막성공": "2026-11-15"
+"마지막성공": "2026-11-16"
 }
