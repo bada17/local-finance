@@ -123,8 +123,7 @@ def main():
                 z = json.loads(줄)
             except ValueError:   # 끊길 때 반쯤 쓴 마지막 줄
                 continue
-            if not z.get('상세오류'):
-                받음[z['ddtlbzId']] = z
+            받음[z['ddtlbzId']] = z   # 오류 줄도 — 늘 500 인 줄이 맨 앞에 모여 「30줄 연달아」로 계속 멈췄다(2020, 11-17). 오류 줄은 아래 「한 번 더」에서만 다시 부른다
     남은 = [y for y in 보조 if y['ddtlbzId'] not in 받음]
     print(f'이미 받음 {len(보조) - len(남은):,} · 남은 {len(남은):,}', flush=True)
     연속 = 0
