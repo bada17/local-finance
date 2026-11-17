@@ -174,8 +174,29 @@ def 요약(결과, 남은합):
         # 「10%」 기준은 근거 없음(사용자 11-13) — 설명 안 된 차이 금액 큰 곳을 보인다
         큰 = sorted(r, key=lambda x: -abs(다(x) - x['결산총계']))[:5]
         print('  차이 큰 곳: ' + ', '.join(f"{x['이름']} {(다(x) - x['결산총계']) / 1e5:+,.0f}억({다(x) / x['결산총계']:.0%})" for x in 큰))
-    print(f'\n(시도에 남은 돈 {조(남은합)} 중 가계부로 시군구에 채움 {조(sum(x["채움"] for x in 결과))}. '
-          f'참고: 국비 0 줄의 집행 {조(sum(x.get("참고_국비0집행", 0) for x in 결과))}(더하지 않음). 금액은 data/bojo_local_<해>.json.gz)')
+    if 남은합 is not None:
+        print(f'\n(시도에 남은 돈 {조(남은합)} 중 가계부로 시군구에 채움 {조(sum(x["채움"] for x in 결과))}. '
+              f'참고: 국비 0 줄의 집행 {조(sum(x.get("참고_국비0집행", 0) for x in 결과))}(더하지 않음). 금액은 data/bojo_local_<해>.json.gz)')
+
+
+def 묶기(첫, 끝):
+    """여러 해 묶어 맞추기(사용자 「5년치」) — 해 넘긴 돈(부여·청양 2022 + / 2023 −)은 지워지고 남는 차이가 진짜 구멍.
+    해마다 먼저 돌려 둔 data/bojo_local_<해>.json.gz 를 곳마다 더한다. 해마다 차이 절댓값 합도 같이 내어 얼마나 지워졌나 본다."""
+    합 = {}
+    for 해 in range(int(첫), int(끝) + 1):
+        for x in json.load(gzip.open(os.path.join(ROOT, 'data', f'bojo_local_{해}.json.gz'), 'rt', encoding='utf-8'))['곳']:
+            s = 합.setdefault(x['cd'], {'cd': x['cd'], '이름': x['이름'], '갈래': x['갈래'], '결산총계': 0, '원문': 0, '채움': 0, '빈칸채움': 0, '해마다차이': 0})
+            for k in ('결산총계', '원문', '채움', '빈칸채움'):
+                s[k] += x[k]
+            s['해마다차이'] += abs(x['원문'] + x['채움'] + x['빈칸채움'] - x['결산총계'])
+    결과 = list(합.values())
+    print(f'# {첫}~{끝} 묶음')
+    요약(결과, None)
+    for 갈 in ('광역', '기초'):
+        r = [x for x in 결과 if x['갈래'] == 갈]
+        print(f"  {'시도' if 갈 == '광역' else '시군구'} 차이 절댓값 합: 해마다 {sum(x['해마다차이'] for x in r) / 1e5:,.0f}억 → 묶으면 "
+              f"{sum(abs(x['원문'] + x['채움'] + x['빈칸채움'] - x['결산총계']) for x in r) / 1e5:,.0f}억")
+    return 결과
 
 
 if __name__ == '__main__':
@@ -184,4 +205,7 @@ if __name__ == '__main__':
     assert laf('인천광역시 서해구') == 코드['인천서구'] and laf('경기도 수원시 장안구') == 코드['경기수원시']
     assert laf('당찬태권도') is None and laf('강원도 수산업협동조합') is None
     assert laf('경상북도 군위군') == laf('대구광역시 군위군') == 코드['대구군위군']
-    요약(*만들기(sys.argv[1]))
+    if '-' in sys.argv[1]:   # python scripts/bojo_local_table.py 2021-2025 (해마다 먼저 돌려 둘 것)
+        묶기(*sys.argv[1].split('-'))
+    else:
+        요약(*만들기(sys.argv[1]))
