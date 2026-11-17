@@ -98,6 +98,14 @@ def 만들기(해):
                     광[(dz, 위)]['아래'] += 몫
                     광[(dz, 위)]['있음'].add(c)
 
+    # 빈칸 채움(11-17 사용자 「a로」) — 시도 줄 교부가 원문에 비어 있으면(2025: 기초연금·생계급여·소비쿠폰 등 44.6조, 다시 불러도 0)
+    #   그 시도 govsuby + 아래 시군구 몫으로 채운다. 2024 에 교부 대신 이 값만 써도 98%(교부 98%)라 대신 쓸 만함.
+    #   2025 시도 55% → 97%. 2024 는 98 → 101% — 원래 교부 없는 사업(다가구매입임대·환경기초시설 등 약 2조)까지 더해져 조금 넘침.
+    빈칸 = defaultdict(lambda: defaultdict(float))
+    for (dz, c), g in 광.items():
+        if g['교'] <= 0 and g['gv'] + g['아래'] > 0:
+            빈칸[c][dz] += g['gv'] + g['아래']
+
     # 채움 — 가계부
     p = os.path.join(RAW, f'QWGJK__exe_ymd-{해}1231_fyr-{해}.json')
     rows = json.load(open(p, encoding='utf-8'))
@@ -138,16 +146,18 @@ def 만들기(해):
     for x in 곳:
         c = x['cd']
         사업 = [{'내역사업ID': dz, '내역사업': 내.get(dz, {}).get('dtlbzNm', '').strip(), '부처': 내.get(dz, {}).get('jrsdNm'),
-               '원문': round(받음[c].get(dz, 0)), '채움': round(채움[c].get(dz, 0)),
+               '원문': round(받음[c].get(dz, 0)), '채움': round(채움[c].get(dz, 0)), '빈칸채움': round(빈칸[c].get(dz, 0)),
                **({'시군구로': round(광[(dz, c)]['아래'])} if x['갈래'] == '광역' else {})}
-              for dz in set(받음[c]) | set(채움[c])]
+              for dz in set(받음[c]) | set(채움[c]) | set(빈칸[c])]
         결과.append({'cd': c, '이름': x['이름'], '갈래': x['갈래'], '결산총계': round(결.get(c, (0, 0))[0]), '결산순계': round(결.get(c, (0, 0))[1]),
-                   '원문': round(sum(받음[c].values())), '채움': round(sum(채움[c].values())), '참고_국비0집행': round(국비0집행[c]),
+                   '원문': round(sum(받음[c].values())), '채움': round(sum(채움[c].values())), '빈칸채움': round(sum(빈칸[c].values())),
+                   '참고_국비0집행': round(국비0집행[c]),
                    '사업': sorted(사업, key=lambda r: -(r['원문'] + r['채움']))})
     out = os.path.join(ROOT, 'data', f'bojo_local_{해}.json.gz')
     with gzip.open(out, 'wt', encoding='utf-8') as f:
         json.dump({'해': int(해), '단위': '천원', '설명': '사업경로(e나라도움 bojo) × 세입결산 51000. 원문 = 시도는 받은 교부, 시군구는 govsuby. '
-                   '채움 = 시도에 남은 돈을 경로에 없는 시군구 가계부 같은 이름 사업으로 나눈 추정(약).', '곳': 결과}, f, ensure_ascii=False)
+                   '채움 = 시도에 남은 돈을 경로에 없는 시군구 가계부 같은 이름 사업으로 나눈 추정(약). '
+                   '빈칸채움 = 시도 교부가 원문에 비어 있는 사업을 그 시도 govsuby + 아래 시군구 몫으로 채운 추정(약).', '곳': 결과}, f, ensure_ascii=False)
     return 결과, 남은합
 
 
@@ -155,14 +165,15 @@ def 요약(결과, 남은합):
     조 = lambda v: f'{v / 1e9:,.2f}조'
     for 갈 in ('광역', '기초'):
         r = [x for x in 결과 if x['갈래'] == 갈]
-        총, 원, 채 = (sum(x[k] for x in r) for k in ('결산총계', '원문', '채움'))
-        print(f"\n## {'시도' if 갈 == '광역' else '시군구'} {len(r)}곳 — 결산 {조(총)} · 원문 {조(원)}({원 / 총:.0%}) · +채움 {조(채)} = {(원 + 채) / 총:.0%}")
-        for k, f in (('원문', lambda x: x['원문']), ('원문+채움', lambda x: x['원문'] + x['채움'])):
+        총, 원, 채, 빈 = (sum(x[k] for x in r) for k in ('결산총계', '원문', '채움', '빈칸채움'))
+        print(f"\n## {'시도' if 갈 == '광역' else '시군구'} {len(r)}곳 — 결산 {조(총)} · 원문 {조(원)}({원 / 총:.0%}) · +채움 {조(채)} · +빈칸채움 {조(빈)} = {(원 + 채 + 빈) / 총:.0%}")
+        다 = lambda x: x['원문'] + x['채움'] + x['빈칸채움']
+        for k, f in (('원문', lambda x: x['원문']), ('원문+채움+빈칸', 다)):
             v = sorted(f(x) / x['결산총계'] for x in r)
             print(f"  {k}: 가운데 {v[len(v) // 2]:.0%} · ±5% 안 {sum(.95 <= a <= 1.05 for a in v)}곳 · ±10% 안 {sum(.9 <= a <= 1.1 for a in v)}곳 · {v[0]:.0%}~{v[-1]:.0%}")
-        밖 = sorted((x for x in r if not .9 <= (x['원문'] + x['채움']) / x['결산총계'] <= 1.1), key=lambda x: (x['원문'] + x['채움']) / x['결산총계'])
-        if 밖:
-            print('  ±10% 밖: ' + ', '.join(f"{x['이름']} {(x['원문'] + x['채움']) / x['결산총계']:.0%}" for x in 밖))
+        # 「10%」 기준은 근거 없음(사용자 11-13) — 설명 안 된 차이 금액 큰 곳을 보인다
+        큰 = sorted(r, key=lambda x: -abs(다(x) - x['결산총계']))[:5]
+        print('  차이 큰 곳: ' + ', '.join(f"{x['이름']} {(다(x) - x['결산총계']) / 1e5:+,.0f}억({다(x) / x['결산총계']:.0%})" for x in 큰))
     print(f'\n(시도에 남은 돈 {조(남은합)} 중 가계부로 시군구에 채움 {조(sum(x["채움"] for x in 결과))}. '
           f'참고: 국비 0 줄의 집행 {조(sum(x.get("참고_국비0집행", 0) for x in 결과))}(더하지 않음). 금액은 data/bojo_local_<해>.json.gz)')
 
