@@ -23,4 +23,5 @@ foreach ($y in 2024, 2025, 2023, 2022, 2021, 2026) {
   if (Test-Path "data\raw\bojo_paths_$y.json.gz") { continue }
   # cmd 로 이어 붙인다 — PowerShell > 는 한글을 깨고 다시 켤 때마다 로그를 지웠다
   cmd /c "python -X utf8 scripts/fetch_bojo_paths.py $y >> data\raw\bojo_paths_$y.log 2>> data\raw\bojo_paths_$y.err"
+  if ($LASTEXITCODE -ne 0) { break }   # 멈췄으면(서버가 막음 등) 다음 해로 넘어가지 말고 다음 시간에 같은 해를 이어 받는다
 }

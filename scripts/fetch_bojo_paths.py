@@ -24,6 +24,7 @@ UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like 
 뺄칸 = {'telno', 'userNm', 'chargerNm', 'email', 'rprsntvNm', 'userCstmzdSearchVO', 'searchVO', 'faxNo', 'chrgDeptNm'}
 op = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(http.cookiejar.CookieJar()))
 op.addheaders = [('User-Agent', UA), ('X-Requested-With', 'XMLHttpRequest')]
+동시 = 12   # 11-17 사용자 「능률 올려봐」 6→12. 서버가 막으면 아래에서 멈췄다 다음 시간에 이어 받는다
 
 
 def 부르기(길, **인자):
@@ -97,7 +98,7 @@ def main():
             if not L or 쪽 * 100 >= int(L[0]['ddtlbzTotCnt']):
                 return 줄
 
-    with ThreadPoolExecutor(6) as ex:
+    with ThreadPoolExecutor(동시) as ex:
         보조 = [y for 줄 in ex.map(내역상세, 내역) for y in 줄]
     print(f'보조사업 {len(보조):,}개', flush=True)
 
@@ -126,13 +127,27 @@ def main():
                 받음[z['ddtlbzId']] = z
     남은 = [y for y in 보조 if y['ddtlbzId'] not in 받음]
     print(f'이미 받음 {len(보조) - len(남은):,} · 남은 {len(남은):,}', flush=True)
-    with ThreadPoolExecutor(6) as ex, open(부분, 'a', encoding='utf-8', buffering=1) as f:   # 줄마다 디스크로 — 언제 꺼도 받은 줄은 남는다
+    연속 = 0
+    with ThreadPoolExecutor(동시) as ex, open(부분, 'a', encoding='utf-8', buffering=1) as f:   # 줄마다 디스크로 — 언제 꺼도 받은 줄은 남는다
         for i, y in enumerate(ex.map(보조상세, 남은), 1):
             f.write(json.dumps(y, ensure_ascii=False) + '\n')
             받음[y['ddtlbzId']] = y
+            연속 = 연속 + 1 if y.get('상세오류') else 0
+            if 연속 >= 30:   # 서버가 막았다 — 그 해를 오류로 채우지 말고 멈춘다. 다음 시간 bojo-paths 가 받은 곳부터(오류 줄은 다시) 이어 받는다
+                ex.shutdown(wait=False, cancel_futures=True)
+                print(f'⚠️ 오류 {연속}줄 연달아 — 멈춤 {time.strftime("%H:%M")}, 다음 시간에 이어 받음', flush=True)
+                sys.exit(1)
             if i % 5000 == 0:
                 f.flush()
                 print(f'  {i:,}/{len(남은):,} {time.strftime("%H:%M")}', flush=True)
+    # 드문드문 난 오류(한꺼번에 세게 불러서 난 것 포함)는 묶기 전에 천천히 한 번 더
+    다시 = [y for y in 받음.values() if y.get('상세오류')]
+    if 다시:
+        for y in 다시:
+            del y['상세오류']
+        with ThreadPoolExecutor(2) as ex:
+            list(ex.map(보조상세, 다시))
+        print(f'오류 줄 {len(다시):,} 한 번 더 → 남은 오류 {sum(1 for y in 다시 if y.get("상세오류")):,}', flush=True)
     보조 = [받음[y['ddtlbzId']] for y in 보조]
     p = os.path.join(ROOT, 'data', 'national_grants', f'{해}.json.gz')
     공시 = {x.get('ddtlbzId') for x in json.load(gzip.open(p))['줄']} if os.path.exists(p) else set()
