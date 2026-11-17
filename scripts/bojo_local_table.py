@@ -34,6 +34,10 @@ from bojo_ministry_table import ROOT, RAW, 수, 지자체, 시도정식
 새이름 = {('인천', '서해구'): '서구', ('인천', '검단구'): '서구', ('인천', '영종구'): '중구'}
 곳 = json.load(open(os.path.join(ROOT, 'site', 'data', 'loc', 'index.json'), encoding='utf-8'))['곳']
 코드 = {x['이름']: x['cd'] for x in 곳}
+# 군위군은 2023-07 경북 → 대구 편입 — 2021~2023 경로·결산·가계부는 옛 「경북 군위군」(4771000)으로 적혀 있다
+# ponytail: 그 해 경북에 남은 돈 채움 후보엔 군위가 안 들어감(기초들 은 지금 시도 기준), 차이 나면 그때 넣기
+코드['경북군위군'] = 코드['대구군위군']
+옛cd = {'4771000': 코드['대구군위군']}
 정보 = {x['cd']: x for x in 곳}
 이름꼴 = lambda t: re.sub(r'\(.*?\)|\d{4}년?|[^가-힣A-Za-z0-9]', '', t or '')
 
@@ -100,7 +104,7 @@ def 만들기(해):
     가 = defaultdict(lambda: defaultdict(float))
     for y in rows if isinstance(rows, list) else rows['rows']:
         if (y.get('bdg_ntep') or 0) > 0:
-            가[y['laf_cd']][이름꼴(y['dbiz_nm'])] += y['bdg_ntep'] / 1e3
+            가[옛cd.get(y['laf_cd'], y['laf_cd'])][이름꼴(y['dbiz_nm'])] += y['bdg_ntep'] / 1e3
     기초들 = defaultdict(list)
     for x in 곳:
         if x['갈래'] == '기초':
@@ -122,11 +126,11 @@ def 만들기(해):
             채움[b][dz] += min(남, 장) * v / 장
 
     세 = json.load(gzip.open(os.path.join(ROOT, 'data', 'revenue', 'FIACRV.json.gz'), 'rt', encoding='utf-8'))
-    결 = {x['laf_cd']: (x['tott_sum_amt'] / 1e3, x['prsm_amt'] / 1e3) for x in 세 if str(x['_해']) == str(해) and x['armk_cd'] == '51000'}
+    결 = {옛cd.get(x['laf_cd'], x['laf_cd']): (x['tott_sum_amt'] / 1e3, x['prsm_amt'] / 1e3) for x in 세 if str(x['_해']) == str(해) and x['armk_cd'] == '51000'}
     p = os.path.join(RAW, f'FIACRV__fyr-{해}.json')   # data/revenue 에 아직 없는 해(2025 — 11-13 PC 에서 fetch_lofin.py FIACRV fyr=2025)
     if not 결 and os.path.exists(p):
         r = json.load(open(p, encoding='utf-8'))
-        결 = {x['laf_cd']: (x['tott_sum_amt'] / 1e3, x['prsm_amt'] / 1e3) for x in (r if isinstance(r, list) else r['rows']) if x['armk_cd'] == '51000'}
+        결 = {옛cd.get(x['laf_cd'], x['laf_cd']): (x['tott_sum_amt'] / 1e3, x['prsm_amt'] / 1e3) for x in (r if isinstance(r, list) else r['rows']) if x['armk_cd'] == '51000'}
     # 2025 51000 이 2024 보다 39.5조 큼(153.8 → 193.3조, 세입 총계도 523 → 573조) — 과목이 바뀐 탓이 아니라 실제 돈:
     #    가계부(QWGJK) 국비도 164.9 → 202.0조(+37.1조), 그중 「민생회복 소비쿠폰」 약 23조(광역·기초 겹쳐 셈)·기초연금·생계급여.
     #    2025 과목 변화(「지난연도 수입」 1.2조 신설·「지방교부세 등」)는 51000 밖. 기초 순계(국가에서 바로)도 3.7 → 15.9조.
@@ -168,4 +172,5 @@ if __name__ == '__main__':
     assert laf('전남광주통합특별시 광산구') == 코드['광주광산구'] and laf('전남광주통합특별시 순천시') == 코드['전남순천시']
     assert laf('인천광역시 서해구') == 코드['인천서구'] and laf('경기도 수원시 장안구') == 코드['경기수원시']
     assert laf('당찬태권도') is None and laf('강원도 수산업협동조합') is None
+    assert laf('경상북도 군위군') == laf('대구광역시 군위군') == 코드['대구군위군']
     요약(*만들기(sys.argv[1]))
