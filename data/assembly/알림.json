@@ -558,6 +558,7 @@
 "57372",
 "57373",
 "57375",
+"57378",
 "57382",
 "57383",
 "57385",
@@ -572,6 +573,7 @@
 "57410",
 "57412",
 "57419",
+"57425",
 "57426",
 "57431",
 "57433",
@@ -588,6 +590,7 @@
 "57453",
 "57454",
 "57462",
+"57469",
 "57470",
 "57471",
 "57472",
@@ -1828,6 +1831,28 @@
 "낱말": "미래대응기금",
 "횟수": 28,
 "보냄": true
+},
+{
+"갈래": "국정감사",
+"날짜": "2026-10-26",
+"제목": "제22대 제439회 개회식 행정안전위원회 (국정감사 회의록)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57469",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57469&type=summary",
+"번호": "57469",
+"낱말": "미래대응기금",
+"횟수": 5,
+"보냄": true
+},
+{
+"갈래": "국정감사",
+"날짜": "2026-10-26",
+"제목": "제22대 제439회 개회식 기후에너지환경노동위원회 (국정감사 회의록)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57378",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57378&type=summary",
+"번호": "57378",
+"낱말": "미래대응기금",
+"횟수": 10,
+"보냄": true
 }
 ],
 "의안": {
@@ -1877,5 +1902,5 @@
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200270&searchNoSeq=20261112200270"
 ],
 "본문": "html",
-"마지막성공": "2026-11-16"
+"마지막성공": "2026-11-17"
 }
