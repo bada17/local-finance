@@ -21,7 +21,8 @@ if ($Register) {
 Set-Location $repo
 $running = Get-CimInstance Win32_Process -Filter "name='python.exe'" | Where-Object { $_.CommandLine -like '*fetch_bojo_paths.py*' }
 if ($running) { Wait-Process -Id $running.ProcessId -ErrorAction SilentlyContinue }
-foreach ($y in 2024, 2025, 2023, 2022, 2021, 2026) {
+# 2020·2019 는 11-17 더함(사용자 「그렇게 해보자」) — 앞선 해 사업 국비가 2021 결산에 들어온 몫·화천처럼 해마다 모자란 곳을 보려고
+foreach ($y in 2024, 2025, 2023, 2022, 2021, 2026, 2020, 2019) {
   if (Test-Path "data\raw\bojo_paths_$y.json.gz") { continue }
   # cmd 로 이어 붙인다 — PowerShell > 는 한글을 깨고 다시 켤 때마다 로그를 지웠다
   cmd /c "python -X utf8 scripts/fetch_bojo_paths.py $y >> data\raw\bojo_paths_$y.log 2>> data\raw\bojo_paths_$y.err"
