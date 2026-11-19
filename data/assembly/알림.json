@@ -557,6 +557,7 @@
 "57371",
 "57372",
 "57373",
+"57374",
 "57375",
 "57378",
 "57382",
@@ -591,6 +592,7 @@
 "57452",
 "57453",
 "57454",
+"57455",
 "57462",
 "57469",
 "57470",
@@ -674,16 +676,31 @@
 "57701",
 "57702",
 "57703",
+"57704",
 "57705",
 "57706",
 "57707",
+"57709",
 "57711",
 "57712",
 "57713",
+"57714",
 "57715",
 "57716",
+"57717",
 "57719",
-"57756"
+"57720",
+"57730",
+"57732",
+"57734",
+"57735",
+"57736",
+"57737",
+"57739",
+"57754",
+"57756",
+"57773",
+"57795"
 ],
 "찾은것": [
 {
@@ -1868,6 +1885,126 @@
 "낱말": "미래대응기금",
 "횟수": 3,
 "보냄": true
+},
+{
+"갈래": "위원회",
+"날짜": "2026-11-16",
+"제목": "제22대 제439회 제1차 예산결산특별위원회 예산안등조정소위원회 (2026년 11월 16일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57773",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57773&type=summary",
+"번호": "57773",
+"낱말": "미래대응기금",
+"횟수": 52,
+"보냄": true
+},
+{
+"갈래": "위원회",
+"날짜": "2026-11-16",
+"제목": "제22대 제439회 제6차 국회운영위원회 (2026년 11월 16일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57737",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57737&type=summary",
+"번호": "57737",
+"낱말": "미래대응기금",
+"횟수": 3,
+"보냄": true
+},
+{
+"갈래": "위원회",
+"날짜": "2026-11-11",
+"제목": "제22대 제439회 제2차 문화체육관광위원회 예산결산심사소위원회 (2026년 11월 11일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57739",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57739&type=summary",
+"번호": "57739",
+"낱말": "미래대응기금",
+"횟수": 9,
+"보냄": true
+},
+{
+"갈래": "위원회",
+"날짜": "2026-11-11",
+"제목": "제22대 제439회 제10차 행정안전위원회 (2026년 11월 11일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57735",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57735&type=summary",
+"번호": "57735",
+"낱말": "미래대응기금",
+"횟수": 45,
+"보냄": true
+},
+{
+"갈래": "위원회",
+"날짜": "2026-11-11",
+"제목": "제22대 제439회 제9차 문화체육관광위원회 (2026년 11월 11일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57734",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57734&type=summary",
+"번호": "57734",
+"낱말": "미래대응기금",
+"횟수": 31,
+"보냄": true
+},
+{
+"갈래": "위원회",
+"날짜": "2026-11-11",
+"제목": "제22대 제439회 제3차 농림축산식품해양수산위원회 예산결산심사소위원회 (2026년 11월 11일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57732",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57732&type=summary",
+"번호": "57732",
+"낱말": "미래대응기금",
+"횟수": 5,
+"보냄": true
+},
+{
+"갈래": "위원회",
+"날짜": "2026-11-11",
+"제목": "제22대 제439회 제1차 산업통상자원중소벤처기업위원회 예산결산심사소위원회 (2026년 11월 11일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57720",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57720&type=summary",
+"번호": "57720",
+"낱말": "미래대응기금",
+"횟수": 33,
+"보냄": true
+},
+{
+"갈래": "위원회",
+"날짜": "2026-11-11",
+"제목": "제22대 제439회 제3차 재정경제기획위원회 조세소위원회 (2026년 11월 11일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57717",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57717&type=summary",
+"번호": "57717",
+"낱말": "미래대응기금",
+"횟수": 4,
+"보냄": true
+},
+{
+"갈래": "위원회",
+"날짜": "2026-11-11",
+"제목": "제22대 제439회 제2차 정무위원회 예산결산심사소위원회 (2026년 11월 11일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57714",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57714&type=summary",
+"번호": "57714",
+"낱말": "미래대응기금",
+"횟수": 15,
+"보냄": true
+},
+{
+"갈래": "위원회",
+"날짜": "2026-11-09",
+"제목": "제22대 제439회 제1차 문화체육관광위원회 예산결산심사소위원회 (2026년 11월 09일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57704",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57704&type=summary",
+"번호": "57704",
+"낱말": "미래대응기금",
+"횟수": 10,
+"보냄": true
+},
+{
+"갈래": "보도자료",
+"날짜": "2026-11-13",
+"번호": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200620&searchNoSeq=20261113200620",
+"제목": "용인 반도체산단 전력용수도로 적기 공급이 승부처…필요시 미래대응기금 동원해야",
+"보기": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200620&searchNoSeq=20261113200620",
+"낱말": "미래대응기금",
+"횟수": 1,
+"보냄": true
 }
 ],
 "의안": {
@@ -1914,8 +2051,9 @@
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200154&searchNoSeq=20261110200154",
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200204&searchNoSeq=20261111200204",
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200226&searchNoSeq=20261112200226",
-"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200270&searchNoSeq=20261112200270"
+"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200270&searchNoSeq=20261112200270",
+"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200620&searchNoSeq=20261113200620"
 ],
 "본문": "html",
-"마지막성공": "2026-11-18"
+"마지막성공": "2026-11-19"
 }
