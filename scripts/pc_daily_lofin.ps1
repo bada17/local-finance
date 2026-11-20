@@ -25,7 +25,8 @@ function 돌려($이름, [scriptblock]$일) { & $일 2>&1 | ForEach-Object { "$_
 
 git -c rebase.autoStash=true pull --rebase -q
 # ⚠️ 내려받기가 안 되면 받지 않는다 — 「받은 것이 없다」로 보고 처음부터 다시 받아 하루 한도를 날린다
-& $sh scripts/r2_sync.sh down data/contracts 최근계약
+# 출력은 PowerShell 을 거쳐야 기록에 남는다(11-20: 창 없이 띄우면 실패 까닭이 기록에 안 남았다)
+& $sh scripts/r2_sync.sh down data/contracts 최근계약 2>&1 | ForEach-Object { "$_" } | Out-Host
 $결과['R2 내려받기'] = ($LASTEXITCODE -eq 0) -and (@(Get-ChildItem data/contracts -File).Count -gt 1000)
 $표 = Get-Date
 if ($결과['R2 내려받기']) {
