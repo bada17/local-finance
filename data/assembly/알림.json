@@ -587,6 +587,7 @@
 "57444",
 "57445",
 "57446",
+"57447",
 "57450",
 "57451",
 "57452",
@@ -691,6 +692,8 @@
 "57718",
 "57719",
 "57720",
+"57722",
+"57723",
 "57730",
 "57732",
 "57734",
@@ -699,11 +702,17 @@
 "57737",
 "57738",
 "57739",
+"57741",
+"57742",
+"57743",
 "57754",
+"57755",
 "57756",
 "57763",
 "57773",
+"57774",
 "57776",
+"57779",
 "57795"
 ],
 "찾은것": [
@@ -2020,6 +2029,72 @@
 "낱말": "미래대응기금",
 "횟수": 15,
 "보냄": true
+},
+{
+"갈래": "위원회",
+"날짜": "2026-11-18",
+"제목": "제22대 제439회 제3차 예산결산특별위원회 예산안등조정소위원회 (2026년 11월 18일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57779",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57779&type=summary",
+"번호": "57779",
+"낱말": "미래대응기금",
+"횟수": 23,
+"보냄": false
+},
+{
+"갈래": "위원회",
+"날짜": "2026-11-16",
+"제목": "제22대 제439회 제7차 교육위원회 (2026년 11월 16일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57774",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57774&type=summary",
+"번호": "57774",
+"낱말": "미래대응기금",
+"횟수": 2,
+"보냄": false
+},
+{
+"갈래": "위원회",
+"날짜": "2026-11-13",
+"제목": "제22대 제439회 제8차 보건복지위원회 (2026년 11월 13일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57741",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57741&type=summary",
+"번호": "57741",
+"낱말": "미래대응기금",
+"횟수": 9,
+"보냄": false
+},
+{
+"갈래": "위원회",
+"날짜": "2026-11-12",
+"제목": "제22대 제439회 제2차 재정경제기획위원회 예산결산기금심사소위원회 (2026년 11월 12일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57742",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57742&type=summary",
+"번호": "57742",
+"낱말": "미래대응기금",
+"횟수": 18,
+"보냄": false
+},
+{
+"갈래": "위원회",
+"날짜": "2026-11-12",
+"제목": "제22대 제439회 제2차 산업통상자원중소벤처기업위원회 예산결산심사소위원회 (2026년 11월 12일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57723",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57723&type=summary",
+"번호": "57723",
+"낱말": "미래대응기금",
+"횟수": 55,
+"보냄": false
+},
+{
+"갈래": "위원회",
+"날짜": "2026-11-12",
+"제목": "제22대 제439회 제7차 국토교통위원회 (2026년 11월 12일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57722",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57722&type=summary",
+"번호": "57722",
+"낱말": "미래대응기금",
+"횟수": 20,
+"보냄": false
 }
 ],
 "의안": {
@@ -2070,5 +2145,5 @@
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200620&searchNoSeq=20261113200620"
 ],
 "본문": "html",
-"마지막성공": "2026-11-20"
+"마지막성공": "2026-11-21"
 }
