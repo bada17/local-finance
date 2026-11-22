@@ -709,11 +709,15 @@
 "57755",
 "57756",
 "57763",
+"57764",
 "57773",
 "57774",
 "57776",
+"57777",
 "57779",
-"57795"
+"57780",
+"57795",
+"57802"
 ],
 "찾은것": [
 {
@@ -2095,6 +2099,28 @@
 "낱말": "미래대응기금",
 "횟수": 20,
 "보냄": false
+},
+{
+"갈래": "본회의",
+"날짜": "2026-11-19",
+"제목": "제22대 제439회 제13차 국회본회의 (2026년 11월 19일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57802",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57802&type=summary",
+"번호": "57802",
+"낱말": "미래대응기금",
+"횟수": 3,
+"보냄": false
+},
+{
+"갈래": "위원회",
+"날짜": "2026-11-16",
+"제목": "제22대 제439회 제1차 국토교통위원회 예산결산기금심사소위원회 (2026년 11월 16일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57777",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57777&type=summary",
+"번호": "57777",
+"낱말": "미래대응기금",
+"횟수": 14,
+"보냄": false
 }
 ],
 "의안": {
@@ -2145,5 +2171,5 @@
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200620&searchNoSeq=20261113200620"
 ],
 "본문": "html",
-"마지막성공": "2026-11-21"
+"마지막성공": "2026-11-22"
 }
