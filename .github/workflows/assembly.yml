@@ -26,6 +26,10 @@ jobs:
     timeout-minutes: 330
     steps:
       - uses: actions/checkout@v5
+        with:
+          # 줄 서서 기다리는 동안 앞 실행이 올린 「보냄」 기록까지 받는다 — 기본값은 예약이 뜬 순간의 커밋이라
+          # 11-23 에 같은 15건을 두 번 보냈다(지킴이 실행과 늦은 예약이 겹침).
+          ref: ${{ github.ref_name }}
       - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
