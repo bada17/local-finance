@@ -694,6 +694,7 @@
 "57720",
 "57722",
 "57723",
+"57724",
 "57730",
 "57732",
 "57734",
@@ -702,12 +703,17 @@
 "57737",
 "57738",
 "57739",
+"57740",
 "57741",
 "57742",
 "57743",
+"57747",
+"57749",
 "57754",
 "57755",
 "57756",
+"57757",
+"57759",
 "57763",
 "57764",
 "57773",
@@ -716,6 +722,8 @@
 "57777",
 "57779",
 "57780",
+"57781",
+"57794",
 "57795",
 "57802"
 ],
@@ -2043,7 +2051,7 @@
 "번호": "57779",
 "낱말": "미래대응기금",
 "횟수": 23,
-"보냄": false
+"보냄": true
 },
 {
 "갈래": "위원회",
@@ -2054,7 +2062,7 @@
 "번호": "57774",
 "낱말": "미래대응기금",
 "횟수": 2,
-"보냄": false
+"보냄": true
 },
 {
 "갈래": "위원회",
@@ -2065,7 +2073,7 @@
 "번호": "57741",
 "낱말": "미래대응기금",
 "횟수": 9,
-"보냄": false
+"보냄": true
 },
 {
 "갈래": "위원회",
@@ -2076,7 +2084,7 @@
 "번호": "57742",
 "낱말": "미래대응기금",
 "횟수": 18,
-"보냄": false
+"보냄": true
 },
 {
 "갈래": "위원회",
@@ -2087,7 +2095,7 @@
 "번호": "57723",
 "낱말": "미래대응기금",
 "횟수": 55,
-"보냄": false
+"보냄": true
 },
 {
 "갈래": "위원회",
@@ -2098,7 +2106,7 @@
 "번호": "57722",
 "낱말": "미래대응기금",
 "횟수": 20,
-"보냄": false
+"보냄": true
 },
 {
 "갈래": "본회의",
@@ -2109,7 +2117,7 @@
 "번호": "57802",
 "낱말": "미래대응기금",
 "횟수": 3,
-"보냄": false
+"보냄": true
 },
 {
 "갈래": "위원회",
@@ -2120,7 +2128,84 @@
 "번호": "57777",
 "낱말": "미래대응기금",
 "횟수": 14,
-"보냄": false
+"보냄": true
+},
+{
+"갈래": "위원회",
+"날짜": "2026-11-18",
+"제목": "제22대 제439회 제8차 국토교통위원회 (2026년 11월 18일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57794",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57794&type=summary",
+"번호": "57794",
+"낱말": "미래대응기금",
+"횟수": 7,
+"보냄": true
+},
+{
+"갈래": "위원회",
+"날짜": "2026-11-17",
+"제목": "제22대 제439회 제5차 성평등가족위원회 (2026년 11월 17일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57749",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57749&type=summary",
+"번호": "57749",
+"낱말": "미래대응기금",
+"횟수": 8,
+"보냄": true
+},
+{
+"갈래": "위원회",
+"날짜": "2026-11-16",
+"제목": "제22대 제439회 제1차 기후에너지환경노동위원회 예산결산기금심사소위원회 (2026년 11월 16일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57759",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57759&type=summary",
+"번호": "57759",
+"낱말": "미래대응기금",
+"횟수": 62,
+"보냄": true
+},
+{
+"갈래": "위원회",
+"날짜": "2026-11-16",
+"제목": "제22대 제439회 제3차 재정경제기획위원회 경제재정소위원회 (2026년 11월 16일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57724",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57724&type=summary",
+"번호": "57724",
+"낱말": "미래대응기금",
+"횟수": 35,
+"보냄": true
+},
+{
+"갈래": "위원회",
+"날짜": "2026-11-13",
+"제목": "제22대 제439회 제2차 보건복지위원회 예산결산심사소위원회 (2026년 11월 13일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57757",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57757&type=summary",
+"번호": "57757",
+"낱말": "미래대응기금",
+"횟수": 34,
+"보냄": true
+},
+{
+"갈래": "위원회",
+"날짜": "2026-11-12",
+"제목": "제22대 제439회 제4차 성평등가족위원회 (2026년 11월 12일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57747",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57747&type=summary",
+"번호": "57747",
+"낱말": "미래대응기금",
+"횟수": 20,
+"보냄": true
+},
+{
+"갈래": "위원회",
+"날짜": "2026-11-12",
+"제목": "제22대 제439회 제1차 보건복지위원회 예산결산심사소위원회 (2026년 11월 12일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57740",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57740&type=summary",
+"번호": "57740",
+"낱말": "미래대응기금",
+"횟수": 42,
+"보냄": true
 }
 ],
 "의안": {
@@ -2171,5 +2256,5 @@
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200620&searchNoSeq=20261113200620"
 ],
 "본문": "html",
-"마지막성공": "2026-11-22"
+"마지막성공": "2026-11-23"
 }
