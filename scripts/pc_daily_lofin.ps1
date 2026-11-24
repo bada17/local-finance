@@ -28,7 +28,6 @@ git -c rebase.autoStash=true pull --rebase -q
 # 출력은 PowerShell 을 거쳐야 기록에 남는다(11-20: 창 없이 띄우면 실패 까닭이 기록에 안 남았다)
 & $sh scripts/r2_sync.sh down data/contracts 최근계약 2>&1 | ForEach-Object { "$_" } | Out-Host
 $결과['R2 내려받기'] = ($LASTEXITCODE -eq 0) -and (@(Get-ChildItem data/contracts -File).Count -gt 1000)
-$표 = Get-Date
 if ($결과['R2 내려받기']) {
   돌려 '받기' { python scripts/collect_daily.py }
   돌려 '이어 받기' { python scripts/backfill_contracts.py --limit 30 }
@@ -36,11 +35,19 @@ if ($결과['R2 내려받기']) {
 }
 돌려 '투자심사' { python scripts/fetch_review.py }
 
-$바뀐 = @(Get-ChildItem data/contracts -File | Where-Object { $_.LastWriteTime -gt $표 })
+# 올릴 것은 이번에 바뀐 시각이 아니라 R2 와 견줘 고른다(2026-11-24) — 중간에 죽은 실행이 받아 둔 날은
+#   다음 실행이 「이미 있다」고 건너뛰어 11-16·18·23 이 R2 에서 빠져 있었다. 이름에 「받기」가 있어야 지킴이가 실패를 본다.
+$바뀐 = @()
+if ($결과['R2 내려받기']) {
+  $차이 = @(& $sh scripts/r2_sync.sh diff data/contracts 최근계약 2>&1 | ForEach-Object { "$_" })
+  $결과['R2 목록 받기'] = $LASTEXITCODE
+  $차이 | Out-Host
+  $바뀐 = @($차이 | ForEach-Object { if ($_ -match 'upload: .*?(\d{8}\.json\.gz) to ') { $Matches[1] } } | Sort-Object -Unique)
+}
 $결과['바뀐 계약 원본'] = $바뀐.Count
 if ($바뀐.Count) {
   $tar = Join-Path $env:TEMP "$(Get-Date -Format yyyyMMdd).tar.gz"
-  tar -czf $tar -C data/contracts @($바뀐.Name)
+  tar -czf $tar -C data/contracts $바뀐
   gh release view contracts-pc 2>$null | Out-Null
   if ($LASTEXITCODE -eq 0) { gh release upload contracts-pc $tar --clobber }   # 전날 것이 아직 안 옮겨졌으면 같이 간다
   else { gh release create contracts-pc $tar --draft --title 'R2 로 옮길 것(잠깐)' --notes '봇(r2-move)이 옮기고 지운다' }

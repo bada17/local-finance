@@ -1,8 +1,9 @@
 #!/bin/sh
-# Cloudflare R2 와 폴더를 맞춘다 — scripts/r2_sync.sh down|up <로컬폴더> <R2접두어>
+# Cloudflare R2 와 폴더를 맞춘다 — scripts/r2_sync.sh down|up|diff <로컬폴더> <R2접두어>
 #
 #   sh scripts/r2_sync.sh down data/clik/상세 clik/상세    R2 → 로컬 (받기 전에, 받은 것을 알려고)
 #   sh scripts/r2_sync.sh up   data/clik/상세 clik/상세    로컬 → R2 (받은 뒤에, 새 파일만 올라간다)
+#   sh scripts/r2_sync.sh diff data/contracts 최근계약     올리지 않고 올려야 할 것만 적는다(읽기 전용 키로 된다, 2026-11-24)
 #
 # 왜 — 저장소가 붓지 않게 큰 원자료는 R2 에 둔다(2026-10-01 사용자 — 시민행동 계정 action@ 의 R2,
 #      버킷 local-finance-raw). 저장소에는 .gitignore 로 안 올린다.
@@ -28,7 +29,8 @@ mkdir -p "$src"
 case $dir in
   down) from="s3://$R2_BUCKET/$dst"; to=$src ;;
   up)   from=$src; to="s3://$R2_BUCKET/$dst" ;;
-  *) echo "down 또는 up"; exit 1 ;;
+  diff) aws s3 sync "$src" "s3://$R2_BUCKET/$dst" --endpoint-url "$ep" --dryrun; exit ;;
+  *) echo "down 또는 up 또는 diff"; exit 1 ;;
 esac
 # 가끔 시간 초과로 한 파일이 실패한다(2026-11-05 국고보조 상세_2025). sync 는 안 맞는 파일만 다시 하므로 세 번까지 해 본다.
 for n in 1 2 3; do
