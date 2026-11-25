@@ -18,6 +18,9 @@ on:
       day:
         description: '받을 날 (YYYYMMDD, 비우면 어제)'
         required: false
+      again:
+        description: '다시 부른 실행이면 n (맨 끝 again 이 채운다 — 또 다시 부르지 않게)'
+        required: false
 
 permissions:
   contents: write
@@ -292,6 +295,22 @@ jobs:
         run: sh scripts/r2_sync.sh up data/bizno 사업자번호
 
   # 실패 알림 — continue-on-error 로 「초록」인 단계 실패까지 텔레그램 한 통(scripts/notify_fail.py)
+  # CLIK 이 느려 시간 제한에 잘린 날은 두 시간 뒤 한 번만 다시 부른다(2026-11-24: 부름 하나에 15초 — 940회 중 331회만).
+  # 하루 호출 장부(data/clik/상태.json)가 있어 남은 몫만 받는다. 다시 부른 것도 잘리면 위 알림이 또 간다.
+  # 지킴이에 안 둔 까닭 — 한 시간마다 짰어도 하루 서너 번만 뜬다(11-24 는 15:20 다음이 이튿날 03:13).
+  again:
+    needs: [gate, clik]
+    if: ${{ !cancelled() && needs.gate.outputs.go != 'false' && inputs.again != 'n' && (fromJSON(needs.clik.outputs.steps || '{}').clik.outcome == 'failure' || fromJSON(needs.clik.outputs.steps || '{}').detail.outcome == 'failure') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 130
+    permissions:
+      actions: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - run: sleep 7200; gh workflow run daily.yml --ref main -f again=n
+
   alert:
     needs: [gate, lofin, clik, review, bizno]
     if: ${{ always() && needs.gate.outputs.go != 'false' }}
