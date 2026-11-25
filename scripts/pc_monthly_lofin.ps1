@@ -11,6 +11,7 @@ if ($Register) {
   schtasks /Create /F /TN 'local-finance-monthly' /SC MONTHLY /D 1 /ST 09:30 /TR "powershell.exe -NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File `"$PSCommandPath`"" | Out-Null
   $s = New-ScheduledTaskSettingsSet -StartWhenAvailable -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -ExecutionTimeLimit (New-TimeSpan -Hours 4)
   Set-ScheduledTask -TaskName 'local-finance-monthly' -Settings $s | Out-Null
+  . "$PSScriptRoot\pc_task.ps1"; 창없이 'local-finance-monthly' $PSCommandPath   # 창이 뜨면 닫힐 때 죽는다(pc_task.ps1)
   Write-Output 'registered: local-finance-monthly, day 1 09:30'
   return
 }

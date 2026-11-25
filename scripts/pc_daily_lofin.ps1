@@ -5,21 +5,32 @@
 #   결과는 data/pc_daily.json 에 남기고 올린다 — 봇 지킴이가 오후 2시에 보고 없거나 실패면 텔레그램(이 PC 엔 텔레그램 키가 없다).
 #   등록: powershell -ExecutionPolicy Bypass -File scripts\pc_daily_lofin.ps1 -Register(또는 -등록)     손으로: powershell -File scripts\pc_daily_lofin.ps1
 # 기록: %TEMP%\local-finance-daily.log
-param([Alias('Register')][switch]$등록)   # 콘솔에 한글이 깨질 때는 -Register (2026-11-11)
+param([Alias('Register')][switch]$등록, [Alias('Auto')][switch]$예약)   # 콘솔에 한글이 깨질 때는 -Register (2026-11-11)
 $repo = Split-Path -Parent $PSScriptRoot
+. "$PSScriptRoot\pc_task.ps1"
 if ($등록) {
-  schtasks /Create /F /TN 'local-finance-daily' /SC DAILY /ST 09:00 /TR "powershell.exe -NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File `"$PSCommandPath`"" | Out-Null
+  # 9시부터 23시까지 30분마다 — 중간에 죽거나 PC 가 늦게 켜진 날도 다 받을 때까지 다시 한다(2026-11-25). 다 받았으면 바로 끝난다(아래 -예약)
+  schtasks /Create /F /TN 'local-finance-daily' /SC DAILY /ST 09:00 /RI 30 /DU 0014:00 /TR "powershell.exe -NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File `"$PSCommandPath`"" | Out-Null
   # 전원과 상관없이 돈다(2026-11-04 사용자 — 게시판 작업과 같게)
   $s = New-ScheduledTaskSettingsSet -StartWhenAvailable -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -ExecutionTimeLimit (New-TimeSpan -Hours 4)
   Set-ScheduledTask -TaskName 'local-finance-daily' -Settings $s | Out-Null
-  Write-Output '등록함 — 작업 스케줄러 local-finance-daily, 매일 9시'
+  창없이 'local-finance-daily' $PSCommandPath '-Auto'
+  Write-Output '등록함 — 작업 스케줄러 local-finance-daily, 매일 9시부터 다 받을 때까지 30분마다'
   return
 }
 Set-Location $repo
+$앞 = Get-Content data\pc_daily.json -Raw -Encoding UTF8 -ErrorAction SilentlyContinue | ConvertFrom-Json
+$오늘 = Get-Date -Format 'yyyy-MM-dd'
+$시도 = if ($앞.'날' -eq $오늘) { 1 + $앞.'시도' } else { 1 }   # 끝까지 갔는데 실패가 남은 것만 센다(중간에 죽은 것은 기록이 안 남는다)
+if ($예약) {
+  git diff --quiet origin/main -- data/pc_daily.json   # 다 받았어도 못 올렸으면 다시 한다
+  if ((다받았나 $앞 $오늘) -and $LASTEXITCODE -eq 0) { Write-Output '오늘 몫은 끝났다'; exit 0 }
+  if ($시도 -gt 6) { Write-Output '오늘 여섯 번 했는데 실패가 남았다 — 그만'; exit 1 }
+}
 Start-Transcript -Path (Join-Path $env:TEMP 'local-finance-daily.log') -Append | Out-Null
 $env:PYTHONIOENCODING = 'utf-8'
 $sh = Join-Path $env:ProgramFiles 'Git\bin\bash.exe'
-$결과 = [ordered]@{ '날' = (Get-Date -Format 'yyyy-MM-dd'); '시작' = (Get-Date -Format 'HH:mm') }
+$결과 = [ordered]@{ '날' = (Get-Date -Format 'yyyy-MM-dd'); '시작' = (Get-Date -Format 'HH:mm'); '시도' = $시도 }
 # 파이썬 출력을 PowerShell 로 한 번 거쳐야 기록(Transcript)에 남는다(11-11 흠: 기록에 파이썬 출력이 없었다)
 function 돌려($이름, [scriptblock]$일) { & $일 2>&1 | ForEach-Object { "$_" } | Out-Host; $결과[$이름] = $LASTEXITCODE; Write-Output "▶ $이름 → $LASTEXITCODE" }
 

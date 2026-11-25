@@ -9,6 +9,7 @@ if ($등록) {
   schtasks /Create /F /TN 'local-finance-disclosure' /SC MONTHLY /M MAR,OCT /D 10 /ST 10:00 /TR "powershell.exe -NoProfile -WindowStyle Hidden -ExecutionPolicy Bypass -File `"$PSCommandPath`"" | Out-Null
   $s = New-ScheduledTaskSettingsSet -StartWhenAvailable -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries -ExecutionTimeLimit (New-TimeSpan -Hours 5)   # 전원과 상관없이(pc_fill_boards.ps1)
   Set-ScheduledTask -TaskName 'local-finance-disclosure' -Settings $s | Out-Null
+  . "$PSScriptRoot\pc_task.ps1"; 창없이 'local-finance-disclosure' $PSCommandPath   # 창이 뜨면 닫힐 때 죽는다(pc_task.ps1)
   Write-Output '등록함 — 작업 스케줄러 local-finance-disclosure, 3월·10월 10일 10시'
   return
 }
