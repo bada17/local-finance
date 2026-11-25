@@ -587,6 +587,7 @@
 "57435",
 "57437",
 "57438",
+"57439",
 "57444",
 "57445",
 "57446",
@@ -731,6 +732,7 @@
 "57795",
 "57802",
 "57808",
+"57809",
 "57836"
 ],
 "찾은것": [
@@ -2234,6 +2236,16 @@
 "낱말": "미래대응기금",
 "횟수": 3,
 "보냄": true
+},
+{
+"갈래": "보도자료",
+"날짜": "2026-11-05",
+"번호": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=201057&searchNoSeq=20261105201057",
+"제목": "미래대응기금 지역의 새로운 성장동력으로 이어져야",
+"보기": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=201057&searchNoSeq=20261105201057",
+"낱말": "미래대응기금",
+"횟수": 1,
+"보냄": true
 }
 ],
 "의안": {
@@ -2281,8 +2293,9 @@
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200204&searchNoSeq=20261111200204",
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200226&searchNoSeq=20261112200226",
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200270&searchNoSeq=20261112200270",
-"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200620&searchNoSeq=20261113200620"
+"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200620&searchNoSeq=20261113200620",
+"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=201057&searchNoSeq=20261105201057"
 ],
 "본문": "html",
-"마지막성공": "2026-11-24"
+"마지막성공": "2026-11-25"
 }
