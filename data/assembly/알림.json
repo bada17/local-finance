@@ -617,6 +617,7 @@
 "57510",
 "57511",
 "57512",
+"57514",
 "57520",
 "57521",
 "57530",
@@ -668,6 +669,7 @@
 "57671",
 "57672",
 "57673",
+"57674",
 "57676",
 "57678",
 "57679",
@@ -748,11 +750,14 @@
 "57779",
 "57780",
 "57781",
+"57783",
 "57784",
 "57786",
 "57787",
 "57788",
+"57790",
 "57791",
+"57793",
 "57794",
 "57795",
 "57798",
@@ -2473,6 +2478,27 @@
 "낱말": "미래대응기금",
 "횟수": 126,
 "보냄": true
+},
+{
+"갈래": "위원회",
+"날짜": "2026-11-13",
+"제목": "제22대 제439회 제1차 교육위원회 예산결산기금심사소위원회 (2026년 11월 13일)",
+"pdf": "https://record.assembly.go.kr/assembly/viewer/minutes/download/pdf.do?id=57674",
+"보기": "https://record.assembly.go.kr/assembly/viewer/minutes/xml.do?id=57674&type=summary",
+"번호": "57674",
+"낱말": "미래대응기금",
+"횟수": 15,
+"보냄": false
+},
+{
+"갈래": "보도자료",
+"날짜": "2026-11-25",
+"번호": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=201165&searchNoSeq=20261125201165",
+"제목": "진보당, 청년유니온 등 “미래대응기금 청년계정에 청년직접고용은 0건, 청년일자리 국가책임 실현해야”",
+"보기": "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=201165&searchNoSeq=20261125201165",
+"낱말": "미래대응기금",
+"횟수": 1,
+"보냄": false
 }
 ],
 "의안": {
@@ -2521,8 +2547,9 @@
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200226&searchNoSeq=20261112200226",
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200270&searchNoSeq=20261112200270",
 "https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=200620&searchNoSeq=20261113200620",
-"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=201057&searchNoSeq=20261105201057"
+"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=201057&searchNoSeq=20261105201057",
+"https://www.nanet.go.kr/lowcontent/assamblybodo/selectAssamblyBodoDetail.do?searchSeq=201165&searchNoSeq=20261125201165"
 ],
 "본문": "html",
-"마지막성공": "2026-11-27"
+"마지막성공": "2026-11-28"
 }
